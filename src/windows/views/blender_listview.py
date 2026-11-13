@@ -55,7 +55,6 @@ from classes import info
 from classes.logger import log
 from classes.query import File
 from classes.app import get_app
-from classes.feedback import record_feedback_action
 
 from windows.models.blender_model import BlenderModel
 from windows.color_picker import ColorPicker
@@ -347,8 +346,6 @@ class BlenderListView(QListView):
 
         # Add to project files
         get_app().window.files_model.add_files(seq_params.get("path"), seq_params, prevent_recent_folder=True)
-        if not self.worker.canceled and self.worker.process.returncode == 0:
-            record_feedback_action("titles")
 
         # We're done here
         self.win.close()

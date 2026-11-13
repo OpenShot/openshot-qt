@@ -26,6 +26,7 @@
 import copy
 import json
 import math
+import os
 from pathlib import Path
 import re
 from defusedxml import ElementTree as ET
@@ -92,7 +93,7 @@ def catalogue(method, p):
     if method == 'export.preset.list':
         return presets(p.get('search'))
     return {'config_fields': SCHEMA, 'presets': [{'id': r['id'], 'title': r['title'], 'available': r['codecs_available']} for r in presets()],
-            'availability': 'Codec availability means compiled encoder support. Device availability, container compatibility and native options are checked when the isolated worker opens the writer. No automatic hardware fallback.',
+            'availability': 'Auto prefers runtime-checked GPU encoders unless the CPU backend is explicitly selected and opens each candidate with the actual export settings in an isolated process. Rejected candidates and software fallback are reported in encoder_selection. Explicit codecs never silently fall back.',
             'precedence': 'Defaults, preset, JSON config, explicit flags. Output frame numbers use export FPS. Custom export profiles never edit the project.'}
 
 
@@ -187,6 +188,8 @@ def resolve(service, params):
         change_profile(data['clips']+data['effects']+data.get('markers', []), native)
     for key in ('width', 'height', 'fps', 'pixel_ratio', 'display_ratio'):
         data[key] = copy.deepcopy(profile[key])
+    from classes.direct_text import sync_text_fps
+    sync_text_fps(data)
     data.update(profile=profile['description'], profile_settings=profile,
                 sample_rate=config['sample_rate'], channels=config['channels'], channel_layout=config['channel_layout'])
     length = max([0]+[c['position']+c['end']-c['start'] for c in data['clips']])
@@ -197,7 +200,11 @@ def resolve(service, params):
              'pixel_ratio': profile['pixel_ratio'], 'interlace': not profile['progressive'], 'topfirst': config['top_field_first'],
              'spherical': profile['spherical'], 'video_bitrate': config['video_bitrate']}
     audio = {'acodec': config['audio_codec'], **{key: config[key] for key in ('sample_rate', 'channels', 'channel_layout', 'audio_bitrate')}}
-    return {'project': data, 'output': str(output), 'start': start, 'end': end, 'config': config,
+    explicit_codec = bool(selected_preset or 'video_codec' in supplied)
+    policy = params.get('encoder', 'auto')
+    selection = {'policy': policy, 'automatic': not explicit_codec, 'attempts': [],
+                 'selected': config['video_codec'], 'reason': 'Explicit preset/JSON codec.' if explicit_codec else 'Software default.'}
+    return {'encoder_selection': selection, 'project': data, 'output': str(output), 'start': start, 'end': end, 'config': config,
             'profile': profile, 'video': video, 'audio': audio,
             'validation': {'schema': True, 'encoder_names': True, 'runtime_checked': False,
                            'note': 'Native options, container compatibility, and hardware devices are checked in the isolated export worker.'}}
@@ -205,3 +212,44 @@ def resolve(service, params):
 
 def public(spec):
     return {key: value for key, value in spec.items() if key != 'project'}
+
+
+GPU_H264_ENCODERS = ('h264_vulkan', 'h264_nvenc', 'h264_videotoolbox', 'h264_qsv', 'h264_vaapi', 'h264_amf')
+
+
+def select_encoder(spec, check):
+    """Probe actual settings, not just compiled codec names; preserve explicit choices."""
+    selection = spec['encoder_selection']
+    config = spec['config']
+    if not selection['automatic']:
+        return
+    policy = selection['policy']
+    if config['mode'] not in ('video', 'video_audio'):
+        selection['reason'] = 'This export does not use a video encoder.'
+        return
+    if policy == 'software' or (policy == 'auto' and os.environ.get('OPENSHOT_RENDER_BACKEND') == 'cpu'):
+        selection['reason'] = 'Software requested.' if policy == 'software' else 'CPU session; use --encoder gpu to probe hardware.'
+        return
+    if config['format'] not in ('mp4', 'mov', 'mkv'):
+        selection['reason'] = 'Automatic H.264 GPU selection supports MP4, MOV and MKV.'
+        if policy == 'gpu':
+            raise CommandError('unsupported', selection['reason'], selection)
+        return
+    for codec in GPU_H264_ENCODERS:
+        if not openshot.FFmpegWriter.IsValidCodec(codec):
+            continue
+        candidate = copy.deepcopy(spec)
+        candidate['config']['video_codec'] = candidate['video']['vcodec'] = codec
+        try:
+            result = check(candidate)
+        except CommandError as error:
+            selection['attempts'].append({'encoder': codec, 'ok': False, 'code': error.code, 'reason': str(error)})
+            continue
+        selection['attempts'].append({'encoder': codec, 'ok': True})
+        config['video_codec'] = spec['video']['vcodec'] = codec
+        spec['validation'] = result['validation']
+        selection.update(selected=codec, reason='GPU encoder opened successfully with the requested export settings.')
+        return
+    selection.update(selected='libx264', reason='No GPU encoder passed runtime validation; using software H.264.')
+    if policy == 'gpu':
+        raise CommandError('gpu_unavailable', 'No GPU encoder passed runtime validation. Use --encoder software or inspect the attempts.', selection)

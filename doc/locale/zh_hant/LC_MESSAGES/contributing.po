@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-22 12:37-0600\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:22
+#: ../doc/contributing.rst:22
 msgid "Contributing"
 msgstr "貢獻"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:24
+#: ../doc/contributing.rst:24
 msgid ""
 "Want to help improve OpenShot (*and make some friends in the process*)? "
 "Please consider joining our open-source team by filling out this quick "
@@ -32,33 +32,33 @@ msgid ""
 "**Let's build something amazing!**"
 msgstr ""
 "想幫助改進 OpenShot（*並在過程中結交一些朋友* ）嗎？請考慮加入我們的開源團隊，填寫這份快速的 `貢獻者表單 "
-"<https://forms.gle/CRqkS5tLMJE1V36V8>`_ "
-"並自我介紹！歡迎所有志願者，無論技能或經驗如何。**讓我們一起創造驚人的作品！**"
+"<https://forms.gle/CRqkS5tLMJE1V36V8>`_ 並自我介紹！歡迎所有志願者，無論技能或經驗如何。\\ "
+"**讓我們一起創造驚人的作品！**"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:30
+#: ../doc/contributing.rst:30
 msgid "How to Contribute"
 msgstr "如何貢獻"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:32
+#: ../doc/contributing.rst:32
 msgid "There are many different ways to help and support OpenShot, including:"
 msgstr "有許多不同方式可以幫助和支持 OpenShot，包括："
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:34
+#: ../doc/contributing.rst:34
 msgid "Testing"
 msgstr "測試"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:35
+#: ../doc/contributing.rst:35
 msgid "`Translations <https://translations.launchpad.net/openshot/2.0>`_"
 msgstr ""
 "`翻譯 <https://translations.launchpad.net/openshot/2.0>`_ `Translations "
 "<https://translations.launchpad.net/openshot/2.0>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:36
+#: ../doc/contributing.rst:36
 msgid ""
 "`Documentation <https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_"
 msgstr ""
@@ -66,59 +66,59 @@ msgstr ""
 "`Documentation <https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:37
+#: ../doc/contributing.rst:37
 msgid "Customer Service"
 msgstr "客戶服務"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:38
+#: ../doc/contributing.rst:38
 msgid "Social Media / Marketing"
 msgstr "社群媒體 / 行銷"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:39
+#: ../doc/contributing.rst:39
 msgid "`Software Development <https://github.com/OpenShot>`_"
 msgstr ""
 "`軟體開發 <https://github.com/OpenShot>`_ `Software Development "
 "<https://github.com/OpenShot>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:40
+#: ../doc/contributing.rst:40
 msgid "Art / Design / UI"
 msgstr "美術 / 設計 / 使用者介面"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:41
+#: ../doc/contributing.rst:41
 msgid "`User Community <https://openshot.org/forum>`_"
 msgstr ""
 "`使用者社群 <https://openshot.org/forum>`_ `User Community "
 "<https://openshot.org/forum>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:42
+#: ../doc/contributing.rst:42
 msgid "`Donations <https://openshot.org/donate>`_"
 msgstr ""
 "`捐款 <https://openshot.org/donate>`_ `Donations "
 "<https://openshot.org/donate>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:44
+#: ../doc/contributing.rst:44
 msgid ""
 "All of these areas are **equally important**, so we would love to know which"
 " ones appeal to you the most. Please take a moment and fill-out our quick "
 "`contributor form <https://forms.gle/CRqkS5tLMJE1V36V8>`_."
 msgstr ""
-"這些領域皆**同等重要** ，我們很想知道您最感興趣的是哪些。請花點時間填寫我們的快速 `貢獻者表單 "
+"這些領域皆\\ **同等重要** ，我們很想知道您最感興趣的是哪些。請花點時間填寫我們的快速 `貢獻者表單 "
 "<https://forms.gle/CRqkS5tLMJE1V36V8>`_ 。 `contributor form "
 "<https://forms.gle/CRqkS5tLMJE1V36V8>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:48
+#: ../doc/contributing.rst:48
 msgid "Did you find a bug?"
 msgstr "您發現錯誤了嗎？"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:50
+#: ../doc/contributing.rst:50
 msgid ""
 "Please use our step-by-step bug reporting page: "
 "https://openshot.org/issues/new/ to troubleshoot a potential new bug. This "
@@ -132,12 +132,12 @@ msgstr ""
 "來排查可能的新錯誤。此指南將指導您如何刪除日誌檔案、使用最新的每日版本進行測試，並搜尋重複的錯誤回報（以防其他人已回報相同問題）。指南結尾會協助您撰寫詳細且有用的錯誤報告，供我們的開發團隊和志願者使用。"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:57
+#: ../doc/contributing.rst:57
 msgid "Software Developers"
 msgstr "軟體開發者"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:58
+#: ../doc/contributing.rst:58
 msgid ""
 "OpenShot uses GitHub to manage issues and source code: "
 "https://github.com/OpenShot. Please read our guide on `Becoming a Developer "
@@ -151,27 +151,27 @@ msgstr ""
 "<https://github.com/OpenShot/openshot-qt/wiki/Become-a-Developer>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:63
+#: ../doc/contributing.rst:63
 msgid "Made with Love"
 msgstr "用愛製作"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:65
+#: ../doc/contributing.rst:65
 msgid ""
 "OpenShot Video Editor is a volunteer effort and a **labor of love**. Please "
 "be patient with any issues you find, and feel free to `get involved "
 "<https://forms.gle/CRqkS5tLMJE1V36V8>`_ and help us fix them!"
 msgstr ""
-"OpenShot Video Editor 是一項志願者努力的成果，也是**愛的結晶** 。請對您發現的任何問題保持耐心，並隨時 `參與 "
+"OpenShot Video Editor 是一項志願者努力的成果，也是\\ **愛的結晶** 。請對您發現的任何問題保持耐心，並隨時 `參與 "
 "<https://forms.gle/CRqkS5tLMJE1V36V8>`_ 幫助我們修正！ `get involved "
 "<https://forms.gle/CRqkS5tLMJE1V36V8>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:69
+#: ../doc/contributing.rst:69
 msgid "Thank you for your support!"
 msgstr "感謝您的支持！"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:70
+#: ../doc/contributing.rst:70
 msgid "*-- OpenShot Team*"
 msgstr "*-- OpenShot 團隊*"

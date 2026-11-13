@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:23
+#: ../doc/titles.rst:23
 msgid "Text & Titles"
 msgstr "Tekst i tytuły"
 
-#: ../titles.rst:25
+#: ../doc/titles.rst:25
 msgid ""
 "Adding text overlays, lower thirds, and titles is an important aspect of "
 "video editing, and OpenShot comes with an easy-to-use Title Editor. Use the "
@@ -37,7 +37,7 @@ msgstr ""
 "Edytor Tytułów. Możesz także użyć skrótu klawiaturowego :kbd:`Ctrl+T`."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:29
+#: ../doc/titles.rst:29
 msgid ""
 "Titles are simply vector image files with transparent backgrounds "
 "(``*.svg``). OpenShot comes with many easy-to-use templates, but you can "
@@ -57,68 +57,396 @@ msgstr ""
 "tytuł na ścieżkę nad klipem wideo. Przezroczyste tło pozwoli na wyświetlenie"
 " wideo pod tekstem."
 
+#: ../doc/titles.rst:38
+msgid "Edit text directly in the preview"
+msgstr "Edytuj tekst bezpośrednio w podglądzie"
+
+#: ../doc/titles.rst:40
+msgid ""
+"The quickest way to add text is to type it straight onto the video preview."
+msgstr ""
+"Najszybszym sposobem dodania tekstu jest wpisanie go bezpośrednio na "
+"podglądzie wideo."
+
+#: ../doc/titles.rst:42
+msgid ""
+"Click **Tt** in the **Timeline** toolbar, choose **Title → Text**, or press "
+":kbd:`Shift+T`. A text clip is added at the playhead, above the clips "
+"already there, and its placeholder text is selected, ready to replace by "
+"typing."
+msgstr ""
+"Kliknij **Tt** na pasku narzędzi **Oś czasu**, wybierz **Tytuł → Tekst** lub"
+" naciśnij :kbd:`Shift+T`. Klip tekstowy zostanie dodany na wskaźniku "
+"odtwarzania, nad istniejącymi klipami, a jego tekst zastępczy zostanie "
+"zaznaczony, gotowy do zastąpienia przez wpisanie."
+
+#: ../doc/titles.rst:45
+msgid "Type your text. Press :kbd:`Shift+Enter` for a new line."
+msgstr ""
+"Wpisz swój tekst. Naciśnij :kbd:`Shift+Enter`, aby wstawić nową linię."
+
+#: ../doc/titles.rst:46
+msgid ""
+"Press :kbd:`Enter`, or click outside the text, to finish. Clicking anywhere "
+"else (the preview, the timeline, another dock), moving the playhead, or "
+"pressing Play also finishes and keeps your changes; the style bar and the "
+"**Properties** dock change the text without finishing. The clip then shows "
+"the normal transform handles to move, scale and rotate it. Press "
+":kbd:`Escape` instead to remove a text you just added (or, when editing an "
+"existing text, to throw away this editing session)."
+msgstr ""
+"Naciśnij :kbd:`Enter` lub kliknij poza tekstem, aby zakończyć. Kliknięcie "
+"gdziekolwiek indziej (w podglądzie, na osi czasu, w innym panelu), "
+"przesunięcie wskaźnika odtwarzania lub naciśnięcie Odtwórz również kończy "
+"edycję i zachowuje zmiany; pasek stylu i panel **Właściwości** zmieniają "
+"tekst bez kończenia edycji. Klip pokazuje wtedy normalne uchwyty "
+"transformacji do przesuwania, skalowania i obracania. Naciśnij "
+":kbd:`Escape`, aby usunąć właśnie dodany tekst (lub podczas edycji "
+"istniejącego tekstu, aby porzucić tę sesję edycji)."
+
+#: ../doc/titles.rst:53
+msgid ""
+"To edit an existing text, double-click it in the preview, select its clip "
+"and press :kbd:`Enter`, or right-click the clip and choose **Text → Edit "
+"Text**. All of its text is selected, so typing replaces it. Starting "
+"playback or seeking ends editing without keeping unfinished changes, so "
+"press :kbd:`Enter` first to keep them."
+msgstr ""
+"Aby edytować istniejący tekst, kliknij go dwukrotnie w podglądzie, wybierz "
+"jego klip i naciśnij :kbd:`Enter`, lub kliknij klip prawym przyciskiem myszy"
+" i wybierz **Tekst → Edytuj tekst**. Cały tekst zostanie zaznaczony, więc "
+"wpisanie nowego zastąpi go. Rozpoczęcie odtwarzania lub przewijanie kończy "
+"edycję bez zachowywania niezakończonych zmian, więc najpierw naciśnij "
+":kbd:`Enter`, aby je zachować."
+
+#: ../doc/titles.rst:61
+msgid "Text style bar"
+msgstr "Pasek stylu tekstu"
+
+#: ../doc/titles.rst:63
+msgid "While you type, a small style bar floats over the video preview:"
+msgstr "Podczas pisania nad podglądem wideo unosi się mały pasek stylu:"
+
+#: ../doc/titles.rst:69
+msgid "Control"
+msgstr "Kontrola"
+
 # Translated with gpt-4.1-mini
-#: ../titles.rst:36
+#: ../doc/titles.rst:69 ../doc/titles.rst:165 ../doc/titles.rst:184
+#: ../doc/titles.rst:306 ../doc/titles.rst:325
+msgid "Description"
+msgstr "Opis"
+
+#: ../doc/titles.rst:71
+msgid "Font"
+msgstr "Czcionka"
+
+#: ../doc/titles.rst:71
+msgid "The font family, from the fonts installed on your computer"
+msgstr ""
+"Rodzina czcionek, spośród czcionek zainstalowanych na twoim komputerze"
+
+#: ../doc/titles.rst:72
+msgid "Size"
+msgstr "Rozmiar"
+
+#: ../doc/titles.rst:72
+msgid "The font size, in project pixels"
+msgstr "Rozmiar czcionki, w pikselach projektu"
+
+#: ../doc/titles.rst:73
+msgid "Bold / Italic"
+msgstr "Pogrubienie / Kursywa"
+
+#: ../doc/titles.rst:73
+msgid "Toggle bold and italic for the whole text"
+msgstr "Przełącz pogrubienie i kursywę dla całego tekstu"
+
+#: ../doc/titles.rst:74
+msgid "Color"
+msgstr "Kolor"
+
+#: ../doc/titles.rst:74
+msgid "The text color (choose a transparent color to show only the outline)"
+msgstr "Kolor tekstu (wybierz kolor przezroczysty, aby pokazać tylko obrys)"
+
+#: ../doc/titles.rst:75
+msgid "Alignment"
+msgstr "Wyrównanie"
+
+#: ../doc/titles.rst:75
+msgid "Align lines left, center or right inside the text box"
+msgstr "Wyrównaj linie do lewej, środka lub prawej wewnątrz pola tekstowego"
+
+#: ../doc/titles.rst:76
+msgid "More (…)"
+msgstr "Więcej (…)"
+
+#: ../doc/titles.rst:76
+msgid ""
+"Open **Edit Style** for background, padding, rounded corners, outline, "
+"border, box width, and letter and line spacing"
+msgstr ""
+"Otwórz **Edytuj styl** dla tła, wypełnienia, zaokrąglonych narożników, "
+"obrysu, obramowania, szerokości pola oraz odstępów między literami i liniami"
+
+#: ../doc/titles.rst:80
+msgid ""
+"The style bar sits at the **top** of the video preview. If that would cover "
+"the text you are editing, it jumps to the **bottom** of the preview instead,"
+" and it returns to the top once the text is clear of it again (for example, "
+"after you move the text or make it smaller). The style bar floats over the "
+"video, so it never resizes the preview. Changes from the style bar show on "
+"the video right away."
+msgstr ""
+"Pasek stylu znajduje się na **górze** podglądu wideo. Jeśli zasłania "
+"edytowany tekst, przeskakuje na **dół** podglądu, a gdy tekst znów jest "
+"wolny od niego (np. po przesunięciu lub zmniejszeniu tekstu), wraca na górę."
+" Pasek stylu unosi się nad wideo, więc nigdy nie zmienia rozmiaru podglądu. "
+"Zmiany z paska stylu są od razu widoczne na wideo."
+
+#: ../doc/titles.rst:89
+msgid "Edit Style"
+msgstr "Edytuj styl"
+
+#: ../doc/titles.rst:91
+msgid ""
+"**Edit Style** has every text setting in one place. **Text** holds the "
+"words. **Font** has the style bar controls, the text outline (color and "
+"width), and letter and line spacing. **Background** has the box behind the "
+"text: its color, padding, rounded corners, border (color and width), and box"
+" width (where lines wrap). Open it from **More (…)** on the style bar, from "
+"**Text → Edit Style…** on a clip's context menu, or with **Edit Text…** in "
+"Project Files. The preview at the top shows changes as you make them. Press "
+":kbd:`Ctrl+Enter` or click **Apply** to keep them; :kbd:`Enter` adds a new "
+"line, and **Cancel** discards the changes. **Restore Defaults** returns "
+"everything except the text to the default style."
+msgstr ""
+"**Edytuj styl** zawiera wszystkie ustawienia tekstu w jednym miejscu. "
+"**Tekst** zawiera słowa. **Czcionka** ma kontrolki paska stylu, obrys tekstu"
+" (kolor i szerokość) oraz odstępy między literami i liniami. **Tło** zawiera"
+" pole za tekstem: jego kolor, wypełnienie, zaokrąglone narożniki, "
+"obramowanie (kolor i szerokość) oraz szerokość pola (gdzie zawijają się "
+"linie). Otwórz je z **Więcej (…)** na pasku stylu, z menu kontekstowego "
+"klipu **Tekst → Edytuj styl…** lub przez **Edytuj tekst…** w Plikach "
+"projektu. Podgląd u góry pokazuje zmiany na bieżąco. Naciśnij "
+":kbd:`Ctrl+Enter` lub kliknij **Zastosuj**, aby je zachować; :kbd:`Enter` "
+"dodaje nową linię, a **Anuluj** odrzuca zmiany. **Przywróć domyślne** "
+"przywraca wszystko oprócz tekstu do domyślnego stylu."
+
+#: ../doc/titles.rst:100
+msgid ""
+"**Line spacing** sets the distance between lines as a multiple of the normal"
+" distance: 1.0 is normal, 1.5 adds half a line of space, and values below "
+"1.0 pull lines closer together. **Corner radius** rounds the corners of the "
+"background and the border, in pixels; 0 keeps them square. The text outline "
+"is drawn behind the letters, so a wide outline grows outward instead of "
+"covering them. For hollow letters, give the text an outline and set the text"
+" color's opacity to 0 in the color picker: only the outline is drawn, and "
+"the video shows through the letters."
+msgstr ""
+"**Odstęp między liniami** ustawia odległość między liniami jako "
+"wielokrotność normalnej odległości: 1.0 to normalny odstęp, 1.5 dodaje pół "
+"linii przestrzeni, a wartości poniżej 1.0 zbliżają linie do siebie. "
+"**Promień narożników** zaokrągla narożniki tła i obramowania w pikselach; 0 "
+"pozostawia je kwadratowe. Obrys tekstu jest rysowany za literami, więc "
+"szeroki obrys rośnie na zewnątrz, zamiast je zasłaniać. Dla pustych liter "
+"nadaj tekstowi obrys i ustaw przezroczystość koloru tekstu na 0 w wyborze "
+"koloru: rysowany jest tylko obrys, a wideo prześwituje przez litery."
+
+#: ../doc/titles.rst:107
+msgid ""
+"Select several text clips (or several texts in Project Files) and choose "
+"**Edit Style…** to change their style together. The text box is grayed out, "
+"because each text keeps its own words, and only the settings you change are "
+"applied to all of them."
+msgstr ""
+"Wybierz kilka klipów tekstowych (lub kilka tekstów w Plikach projektu) i "
+"wybierz **Edytuj styl…**, aby zmienić ich styl razem. Pole tekstowe jest "
+"wyszarzone, ponieważ każdy tekst zachowuje swoje słowa, a tylko zmienione "
+"ustawienia są stosowane do wszystkich."
+
+#: ../doc/titles.rst:111
+msgid ""
+"To reset text clips without opening the dialog, right-click them and choose "
+"**Text → Reset Style**. Their font, size, colors and outlines return to the "
+"defaults, any color or outline keyframes on those clips are removed, and "
+"their words are kept."
+msgstr ""
+"Aby zresetować klipy tekstowe bez otwierania okna dialogowego, kliknij je "
+"prawym przyciskiem myszy i wybierz **Tekst → Resetuj styl**. Ich czcionka, "
+"rozmiar, kolory i obrysy wracają do domyślnych, usuwane są wszelkie klatki "
+"kluczowe koloru lub obrysu na tych klipach, a słowa pozostają bez zmian."
+
+#: ../doc/titles.rst:115
+msgid ""
+"To give other text clips the same look, right-click a text clip and choose "
+"**Copy → Text Style**, then select the other text clips, right-click and "
+"choose **Paste**. They take the font, size, colors, outline, border, corners"
+" and spacing, plus the copied clip's color, outline, border and corner "
+"keyframes, and keep their own words and box width. Pasting a text style onto"
+" other kinds of clips changes nothing. **Copy → Keyframes → All** also "
+"includes a text clip's own text keyframes."
+msgstr ""
+"Aby nadać innym klipom tekstowym ten sam wygląd, kliknij prawym przyciskiem "
+"myszy klip tekstowy i wybierz **Kopiuj → Styl tekstu**, następnie wybierz "
+"inne klipy tekstowe, kliknij prawym przyciskiem i wybierz **Wklej**. "
+"Przejmują czcionkę, rozmiar, kolory, obrys, obramowanie, narożniki i "
+"odstępy, a także klatki kluczowe koloru, obrysu, obramowania i narożników "
+"skopiowanego klipu, zachowując własne słowa i szerokość pola. Wklejanie "
+"stylu tekstu na inne rodzaje klipów nic nie zmienia. **Kopiuj → Klatki "
+"kluczowe → Wszystkie** obejmuje również własne klatki kluczowe tekstu klipu."
+
+#: ../doc/titles.rst:122
+msgid ""
+"A new text starts with the style you used last (font, size, colors, outline,"
+" border and spacing), so a series of titles stays consistent. Without a "
+"previous text, it uses a standard font installed on your computer."
+msgstr ""
+"Nowy tekst zaczyna się od ostatnio używanego stylu (czcionka, rozmiar, "
+"kolory, obrys, obramowanie i odstępy), dzięki czemu seria tytułów pozostaje "
+"spójna. Jeśli nie ma poprzedniego tekstu, używana jest standardowa czcionka "
+"zainstalowana na twoim komputerze."
+
+#: ../doc/titles.rst:127
+msgid "Project Files and Properties"
+msgstr "Pliki projektu i właściwości"
+
+#: ../doc/titles.rst:129
+msgid ""
+"Each text also appears in **Project Files**, with a thumbnail on black. Drag"
+" it onto the timeline like an image to use it again. Right-click it and "
+"choose **Edit Text…** (or double-click it) to edit it without placing it on "
+"the timeline. **Duplicate** opens a copy, ready to type, and **Apply** adds "
+"it as a new, independent text."
+msgstr ""
+"Każdy tekst pojawia się również w **Plikach projektu**, z miniaturką na "
+"czarnym tle. Przeciągnij go na oś czasu jak obraz, aby użyć go ponownie. "
+"Kliknij go prawym przyciskiem myszy i wybierz **Edytuj tekst…** (lub kliknij"
+" dwukrotnie), aby edytować go bez umieszczania na osi czasu. **Duplikuj** "
+"otwiera kopię, gotową do wpisania, a **Zastosuj** dodaje go jako nowy, "
+"niezależny tekst."
+
+#: ../doc/titles.rst:134
+msgid ""
+"The words, font, size, spacing, alignment, box width, padding and default "
+"colors belong to the text in Project Files, so editing them updates every "
+"clip that uses that text. When a text clip is selected, these settings also "
+"appear at the top of **Properties** (for example **Text Box Width** and "
+"**Text Background Padding**), and changes there show on the video right away"
+" (including while you are typing)."
+msgstr ""
+"Słowa, czcionka, rozmiar, odstępy, wyrównanie, szerokość pola, wypełnienie i"
+" domyślne kolory należą do tekstu w Plikach projektu, więc ich edycja "
+"aktualizuje każdy klip, który używa tego tekstu. Gdy klip tekstowy jest "
+"zaznaczony, te ustawienia pojawiają się również na górze **Właściwości** (na"
+" przykład **Szerokość pola tekstowego** i **Wypełnienie tła tekstu**), a "
+"zmiany tam są od razu widoczne na wideo (w tym podczas pisania)."
+
+#: ../doc/titles.rst:140
+msgid ""
+"Text color, background, outline and border colors, outline and border "
+"widths, and corner radius can be animated on each clip with keyframes in "
+"**Properties**, like any other clip property. These follow **Auto "
+"Keyframes** at the playhead. Font size, padding, box width, and letter and "
+"line spacing set the size of the text box, so they have one value per text; "
+"to animate the size of text, animate the clip's scale. Undo and Redo work "
+"for all text changes."
+msgstr ""
+"Kolor tekstu, tło, kolory konturu i obramowania, szerokości konturu i "
+"obramowania oraz promień narożników można animować na każdym klipie za "
+"pomocą klatek kluczowych w **Właściwościach**, jak każdą inną właściwość "
+"klipu. Podążają one za **Automatycznymi klatkami kluczowymi** przy głowicy "
+"odtwarzania. Rozmiar czcionki, wypełnienie, szerokość pola oraz odstępy "
+"między literami i liniami określają rozmiar pola tekstowego, więc mają jedną"
+" wartość na tekst; aby animować rozmiar tekstu, animuj skalę klipu. Cofnij i"
+" Ponów działają dla wszystkich zmian tekstu."
+
+#: ../doc/titles.rst:146
+msgid ""
+"Text is saved in the project file and drawn by OpenShot's video library, so "
+"it needs no image files. Fonts come from your computer: to see the same text"
+" on another computer, install the same fonts there. One style applies to all"
+" of a text's lines."
+msgstr ""
+"Tekst jest zapisywany w pliku projektu i rysowany przez bibliotekę wideo "
+"OpenShot, więc nie wymaga plików graficznych. Czcionki pochodzą z twojego "
+"komputera: aby zobaczyć ten sam tekst na innym komputerze, zainstaluj tam te"
+" same czcionki. Jeden styl dotyczy wszystkich linii tekstu."
+
+#: ../doc/titles.rst:150
+msgid ""
+"Text can also be added and styled from the command line; see "
+":ref:`cli_text_ref`."
+msgstr ""
+"Tekst można również dodawać i stylizować z linii poleceń; zobacz "
+":ref:`cli_text_ref`."
+
+#: ../doc/titles.rst:152
+msgid ""
+"The **Title** editor (SVG templates and animated titles) and **Captions** "
+"(timed subtitles) remain available for more elaborate designs."
+msgstr ""
+"Edytor **Tytułów** (szablony SVG i animowane tytuły) oraz **Napisy** (napisy"
+" czasowe) pozostają dostępne dla bardziej rozbudowanych projektów."
+
+# Translated with gpt-4.1-mini
+#: ../doc/titles.rst:157
 msgid "Overview"
 msgstr "Przegląd"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:44 ../titles.rst:185
+#: ../doc/titles.rst:165 ../doc/titles.rst:306
 msgid "#"
 msgstr "#"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:44 ../titles.rst:185
+#: ../doc/titles.rst:165 ../doc/titles.rst:306
 msgid "Name"
 msgstr "Nazwa"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:44 ../titles.rst:63 ../titles.rst:185 ../titles.rst:204
-msgid "Description"
-msgstr "Opis"
-
-# Translated with gpt-4.1-mini
-#: ../titles.rst:46 ../titles.rst:187
+#: ../doc/titles.rst:167 ../doc/titles.rst:308
 msgid "1"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:46 ../titles.rst:187
+#: ../doc/titles.rst:167 ../doc/titles.rst:308
 msgid "Choose a Template"
 msgstr "Wybierz szablon"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:46
+#: ../doc/titles.rst:167
 msgid "Choose from any available vector title template"
 msgstr "Wybierz spośród dostępnych szablonów tytułów wektorowych"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:47 ../titles.rst:188
+#: ../doc/titles.rst:168 ../doc/titles.rst:309
 msgid "2"
 msgstr "2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:47 ../titles.rst:188
+#: ../doc/titles.rst:168 ../doc/titles.rst:309
 msgid "Preview Title"
 msgstr "Podgląd tytułu"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:47 ../titles.rst:188
+#: ../doc/titles.rst:168 ../doc/titles.rst:309
 msgid "Preview your title as you make changes"
 msgstr "Podglądaj tytuł podczas wprowadzania zmian"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:48 ../titles.rst:189
+#: ../doc/titles.rst:169 ../doc/titles.rst:310
 msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:48 ../titles.rst:189
+#: ../doc/titles.rst:169 ../doc/titles.rst:310
 msgid "Title Properties"
 msgstr "Właściwości tytułu"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:48
+#: ../doc/titles.rst:169
 msgid ""
 "Change the text, font, size, colors, or edit in an advanced, external SVG "
 "image editor (such as Inkscape)"
@@ -127,27 +455,27 @@ msgstr ""
 "zewnętrznym edytorze SVG (np. Inkscape)"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:49 ../titles.rst:190
+#: ../doc/titles.rst:170 ../doc/titles.rst:311
 msgid "4"
 msgstr "4"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:49
+#: ../doc/titles.rst:170
 msgid "Save"
 msgstr "Zapisz"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:49
+#: ../doc/titles.rst:170
 msgid "Save and add the title to your project"
 msgstr "Zapisz i dodaj tytuł do projektu"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:53
+#: ../doc/titles.rst:174
 msgid "Title Templates"
 msgstr "Szablony tytułów"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:55
+#: ../doc/titles.rst:176
 msgid ""
 "OpenShot includes a variety of vector title templates that can be used to "
 "enhance your video projects. Below is a table listing the available titles "
@@ -158,262 +486,262 @@ msgstr ""
 "dostępnymi tytułami i ich opisami:"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:62
+#: ../doc/titles.rst:183
 msgid "Title Name"
 msgstr "Nazwa tytułu"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:64
+#: ../doc/titles.rst:185
 msgid "Bar 1"
 msgstr "Pasek 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:65
+#: ../doc/titles.rst:186
 msgid "A simple bar with text centered."
 msgstr "Prosty pasek z wyśrodkowanym tekstem."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:66
+#: ../doc/titles.rst:187
 msgid "Bar 2"
 msgstr "Pasek 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:67
+#: ../doc/titles.rst:188
 msgid "A simple bar, centered, with 2 lines of text."
 msgstr "Prosty pasek, wyśrodkowany, z dwoma liniami tekstu."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:68
+#: ../doc/titles.rst:189
 msgid "Bar 3"
 msgstr "Pasek 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:69
+#: ../doc/titles.rst:190
 msgid "Another variation of a simple bar with text, for lower 3rds."
 msgstr "Inna wersja prostego paska z tekstem, do dolnych trzecich."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:70
+#: ../doc/titles.rst:191
 msgid "Box"
 msgstr "Pudełko"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:71
+#: ../doc/titles.rst:192
 #, fuzzy
 msgid "A simple boxed title layout for centered text."
 msgstr "Prosty pasek z wyśrodkowanym tekstem."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:72
+#: ../doc/titles.rst:193
 msgid "Bubbles 1"
 msgstr "Bąbelki 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:73
+#: ../doc/titles.rst:194
 msgid "A title with bubble graphics for a playful look."
 msgstr "Tytuł z grafiką bąbelków dla zabawnego wyglądu."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:74
+#: ../doc/titles.rst:195
 msgid "Bubbles 2"
 msgstr "Bąbelki 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:75
+#: ../doc/titles.rst:196
 msgid "A different bubble design for a fun and creative title."
 msgstr "Inny wzór bąbelków dla zabawnego i kreatywnego tytułu."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:76
+#: ../doc/titles.rst:197
 msgid "Camera Border"
 msgstr "Ramka kamery"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:77
+#: ../doc/titles.rst:198
 msgid "A border that mimics a camera viewfinder with centered text."
 msgstr "Ramka imitująca wizjer kamery z wyśrodkowanym tekstem."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:78
+#: ../doc/titles.rst:199
 msgid "Cloud 1"
 msgstr "Chmura 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:79
+#: ../doc/titles.rst:200
 msgid "A title with a playful cloud graphic and text."
 msgstr "Tytuł z zabawną grafiką chmurki i tekstem."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:80
+#: ../doc/titles.rst:201
 msgid "Cloud 2"
 msgstr "Chmura 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:81
+#: ../doc/titles.rst:202
 msgid "Another playful cloud design with 3 clouds and text."
 msgstr "Inny zabawny wzór chmur z trzema chmurami i tekstem."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:82
+#: ../doc/titles.rst:203
 msgid "Creative Commons 1"
 msgstr "Creative Commons 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:83
+#: ../doc/titles.rst:204
 msgid "Contains text and icons for Creative Commons attribution."
 msgstr "Zawiera tekst i ikony do oznaczenia Creative Commons."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:84
+#: ../doc/titles.rst:205
 msgid "Creative Commons 2"
 msgstr "Creative Commons 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:85
+#: ../doc/titles.rst:206
 msgid ""
 "Another Creative Commons design with different styling plus website text."
 msgstr ""
 "Inny wzór Creative Commons z innym stylem oraz tekstem strony internetowej."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:86
+#: ../doc/titles.rst:207
 msgid "Film Rating 1"
 msgstr "Ocena filmu 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:87
+#: ../doc/titles.rst:208
 msgid "Displays a film rating for all audiences."
 msgstr "Wyświetla ocenę filmu dla wszystkich widzów."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:88
+#: ../doc/titles.rst:209
 msgid "Film Rating 2"
 msgstr "Ocena filmu 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:89
+#: ../doc/titles.rst:210
 msgid "Displays a film rating of \"R\" restricted."
 msgstr "Wyświetla ocenę filmu \"R\" - ograniczony."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:90
+#: ../doc/titles.rst:211
 msgid "Film Rating 3"
 msgstr "Ocena filmu 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:91
+#: ../doc/titles.rst:212
 msgid "Displays a film rating of \"G\" for general audiences."
 msgstr "Wyświetla ocenę filmu \"G\" dla widzów ogólnych."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:92
+#: ../doc/titles.rst:213
 msgid "Film Rating 4"
 msgstr "Ocena filmu 4"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:93
+#: ../doc/titles.rst:214
 msgid "Displays a film rating of \"PG-13\", parents strongly cautioned."
 msgstr "Wyświetla ocenę filmu \"PG-13\", zalecana ostrożność rodziców."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:94
+#: ../doc/titles.rst:215
 #, fuzzy
 msgid "Flare"
 msgstr "Oślepienie"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:95
+#: ../doc/titles.rst:216
 #, fuzzy
 msgid "A title with a bright flare effect for a cinematic look."
 msgstr "Tytuł z efektami dymu dla dramatycznego wyglądu."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:96
+#: ../doc/titles.rst:217
 msgid "Flames"
 msgstr "Płomienie"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:97
+#: ../doc/titles.rst:218
 msgid "A title with flame graphics for a fiery effect."
 msgstr "Tytuł z grafiką płomieni dla ognistego efektu."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:98
+#: ../doc/titles.rst:219
 msgid "Footer 1"
 msgstr "Stopka 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:99
+#: ../doc/titles.rst:220
 msgid "A footer bar for lower thirds (left aligned)."
 msgstr "Pasek stopki do dolnych trzecich (wyrównany do lewej)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:100
+#: ../doc/titles.rst:221
 msgid "Footer 2"
 msgstr "Stopka 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:101
+#: ../doc/titles.rst:222
 msgid "A footer bar for lower thirds (center aligned)."
 msgstr "Pasek stopki do dolnych trzecich (wyśrodkowany)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:102
+#: ../doc/titles.rst:223
 msgid "Footer 3"
 msgstr "Stopka 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:103
+#: ../doc/titles.rst:224
 msgid "A footer bar for lower thirds (right aligned)."
 msgstr "Pasek stopki do dolnych trzecich (wyrównany do prawej)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:104
+#: ../doc/titles.rst:225
 msgid "Gold 1"
 msgstr "Złoto 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:105
+#: ../doc/titles.rst:226
 msgid "A title with a gold color scheme, centered with one line of text."
 msgstr "Tytuł w złotej kolorystyce, wyśrodkowany z jedną linią tekstu."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:106
+#: ../doc/titles.rst:227
 msgid "Gold 2"
 msgstr "Złoto 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:107
+#: ../doc/titles.rst:228
 msgid "Another gold-themed title, centered with two lines of text."
 msgstr "Inny tytuł w złotej kolorystyce, wyśrodkowany z dwoma liniami tekstu."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:108
+#: ../doc/titles.rst:229
 msgid "Gold Bottom"
 msgstr "Złoto na dole"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:109
+#: ../doc/titles.rst:230
 msgid "Gold title positioned at the bottom of the screen."
 msgstr "Złoty tytuł umieszczony na dole ekranu."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:110
+#: ../doc/titles.rst:231
 msgid "Gold Top"
 msgstr "Złoto na górze"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:111
+#: ../doc/titles.rst:232
 msgid "Gold title positioned at the top of the screen."
 msgstr "Złoty tytuł umieszczony na górze ekranu."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:112
+#: ../doc/titles.rst:233
 msgid "Gray Box 1"
 msgstr "Szare pole 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:113
+#: ../doc/titles.rst:234
 msgid ""
 "A simple gray box for highlighting text (one line of text, top-left "
 "aligned)."
@@ -422,12 +750,12 @@ msgstr ""
 "lewej u góry)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:114
+#: ../doc/titles.rst:235
 msgid "Gray Box 2"
 msgstr "Szare pole 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:115
+#: ../doc/titles.rst:236
 msgid ""
 "A simple gray box for highlighting text (two lins of text, top-left "
 "aligned)."
@@ -436,12 +764,12 @@ msgstr ""
 "lewej u góry)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:116
+#: ../doc/titles.rst:237
 msgid "Gray Box 3"
 msgstr "Szare pole 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:117
+#: ../doc/titles.rst:238
 msgid ""
 "A simple gray box for highlighting text (one line of text, bottom-right "
 "aligned)."
@@ -450,12 +778,12 @@ msgstr ""
 "prawego dolnego rogu)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:118
+#: ../doc/titles.rst:239
 msgid "Gray Box 4"
 msgstr "Szare Pole 4"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:119
+#: ../doc/titles.rst:240
 msgid ""
 "A simple gray box for highlighting text (two lines of text, bottom-right "
 "aligned)."
@@ -464,191 +792,191 @@ msgstr ""
 "prawego dolnego rogu)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:120
+#: ../doc/titles.rst:241
 msgid "Header 1"
 msgstr "Nagłówek 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:121
+#: ../doc/titles.rst:242
 msgid "A header bar for titles or section headers (top-left aligned)."
 msgstr ""
 "Pasek nagłówka dla tytułów lub nagłówków sekcji (wyrównany do lewego górnego"
 " rogu)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:122
+#: ../doc/titles.rst:243
 msgid "Header 2"
 msgstr "Nagłówek 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:123
+#: ../doc/titles.rst:244
 msgid "A header bar for titles or section headers (center aligned)."
 msgstr ""
 "Pasek nagłówka dla tytułów lub nagłówków sekcji (wyrównany do środka)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:124
+#: ../doc/titles.rst:245
 msgid "Header 3"
 msgstr "Nagłówek 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:125
+#: ../doc/titles.rst:246
 msgid "A header bar for titles or section headers (top-right aligned)."
 msgstr ""
 "Pasek nagłówka dla tytułów lub nagłówków sekcji (wyrównany do prawego "
 "górnego rogu)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:126
+#: ../doc/titles.rst:247
 msgid "OpenShot"
 msgstr "OpenShot"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:127
+#: ../doc/titles.rst:248
 msgid "A title featuring OpenShot branding."
 msgstr "Tytuł z logo OpenShot."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:128
+#: ../doc/titles.rst:249
 msgid "Oval 1"
 msgstr "Owal 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:129
+#: ../doc/titles.rst:250
 msgid "An oval shape for highlighting or decorative purposes, text centered."
 msgstr ""
 "Owalny kształt do wyróżniania lub celów dekoracyjnych, tekst wyśrodkowany."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:130
+#: ../doc/titles.rst:251
 msgid "Oval 2"
 msgstr "Owal 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:131
+#: ../doc/titles.rst:252
 msgid "Another oval design with a different style, text centered."
 msgstr "Inny owalny wzór o innym stylu, tekst wyśrodkowany."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:132
+#: ../doc/titles.rst:253
 msgid "Oval 3"
 msgstr "Owal 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:133
+#: ../doc/titles.rst:254
 msgid ""
 "Another oval design with two-lines of text, one at the top, one at the "
 "bottom."
 msgstr "Inny owalny wzór z dwoma liniami tekstu, jedna u góry, druga u dołu."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:134
+#: ../doc/titles.rst:255
 msgid "Oval 4"
 msgstr "Owal 4"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:135
+#: ../doc/titles.rst:256
 msgid "Yet another oval design, with text centered plus refection."
 msgstr "Jeszcze jeden owalny wzór, z tekstem wyśrodkowanym oraz odbiciem."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:136
+#: ../doc/titles.rst:257
 msgid "Post it"
 msgstr "Notatka samoprzylepna"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:137
+#: ../doc/titles.rst:258
 msgid "Mimics a sticky note for annotations or reminders."
 msgstr "Naśladuje notatkę samoprzylepną do adnotacji lub przypomnień."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:138
+#: ../doc/titles.rst:259
 msgid "Ribbon 1"
 msgstr "Wstążka 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:139
+#: ../doc/titles.rst:260
 msgid "A ribbon graphic with text."
 msgstr "Grafika wstążki z tekstem."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:140
+#: ../doc/titles.rst:261
 msgid "Ribbon 2"
 msgstr "Wstążka 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:141
+#: ../doc/titles.rst:262
 msgid "Another ribbon design with text."
 msgstr "Inny wzór wstążki z tekstem."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:142
+#: ../doc/titles.rst:263
 msgid "Ribbon 3"
 msgstr "Wstążka 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:143
+#: ../doc/titles.rst:264
 msgid "A third variation of a ribbon design with text."
 msgstr "Trzecia wariacja wzoru wstążki z tekstem."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:144
+#: ../doc/titles.rst:265
 msgid "Smoke 1"
 msgstr "Dym 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:145
+#: ../doc/titles.rst:266
 msgid "A title with smoke effects for a dramatic look."
 msgstr "Tytuł z efektami dymu dla dramatycznego wyglądu."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:146
+#: ../doc/titles.rst:267
 msgid "Smoke 2"
 msgstr "Dym 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:147
+#: ../doc/titles.rst:268
 msgid "Another smoke design with a different style."
 msgstr "Inny wzór dymu o innym stylu."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:148
+#: ../doc/titles.rst:269
 msgid "Smoke 3"
 msgstr "Dym 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:149
+#: ../doc/titles.rst:270
 msgid "A third variation of smoke effects."
 msgstr "Trzecia wariacja efektów dymu."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:150
+#: ../doc/titles.rst:271
 msgid "Solid Color"
 msgstr "Pełny kolor"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:151
+#: ../doc/titles.rst:272
 msgid "A full-screen color background for various uses."
 msgstr "Pełnoekranowe tło w kolorze do różnych zastosowań."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:152
+#: ../doc/titles.rst:273
 msgid "Standard 1"
 msgstr "Standard 1"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:153
+#: ../doc/titles.rst:274
 msgid "A standard title design for general purposes (two lines centered)."
 msgstr ""
 "Standardowy wzór tytułu do ogólnych zastosowań (dwa wyśrodkowane wiersze)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:154
+#: ../doc/titles.rst:275
 msgid "Standard 2"
 msgstr "Standard 2"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:155
+#: ../doc/titles.rst:276
 msgid ""
 "Another standard title with a different style (one line of text plus "
 "reflection)."
@@ -656,55 +984,55 @@ msgstr ""
 "Inny standardowy tytuł o innym stylu (jeden wiersz tekstu plus odbicie)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:156
+#: ../doc/titles.rst:277
 msgid "Standard 3"
 msgstr "Standard 3"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:157
+#: ../doc/titles.rst:278
 msgid "A third variation of a standard title (three lines of text)."
 msgstr "Trzecia wariacja standardowego tytułu (trzy wiersze tekstu)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:158
+#: ../doc/titles.rst:279
 msgid "Standard 4"
 msgstr "Standard 4"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:159
+#: ../doc/titles.rst:280
 msgid "Yet another standard title design (four lines of text)."
 msgstr "Jeszcze jeden standardowy wzór tytułu (cztery wiersze tekstu)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:160
+#: ../doc/titles.rst:281
 msgid "Sunset"
 msgstr "Zachód słońca"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:161
+#: ../doc/titles.rst:282
 msgid "A title with sunset gradient for a warm, end-of-day theme."
 msgstr ""
 "Tytuł z gradientem zachodu słońca dla ciepłego, końcowego motywu dnia."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:162
+#: ../doc/titles.rst:283
 msgid "TV Rating"
 msgstr "Ocena TV"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:163
+#: ../doc/titles.rst:284
 msgid ""
 "Displays TV ratings badge such as \"G\" and \"PG\" (for the corner of the "
 "screen)."
 msgstr "Wyświetla odznakę oceny TV, taką jak „G” i „PG” (w rogu ekranu)."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:167
+#: ../doc/titles.rst:288
 msgid "Custom Title Templates"
 msgstr "Własne szablony tytułów"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:168
+#: ../doc/titles.rst:289
 msgid ""
 "OpenShot can use any vector SVG image file as a custom title template in the"
 " :guilabel:`Title Editor` dialog. Just add an SVG image file to your "
@@ -721,7 +1049,7 @@ msgstr ""
 " **Edytuj tytuł** lub **Duplikuj tytuł**."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:172
+#: ../doc/titles.rst:293
 msgid ""
 "Note: These SVG templates are only used by the :guilabel:`Title Editor` "
 "dialog, and not :guilabel:`Animated Title` dialog."
@@ -730,12 +1058,12 @@ msgstr ""
 "a nie w oknie :guilabel:`Animowany tytuł`."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:177
+#: ../doc/titles.rst:298
 msgid "3D Animated Titles"
 msgstr "Animowane tytuły 3D"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:178
+#: ../doc/titles.rst:299
 msgid ""
 "Adding a 3D animated title is just as easy, using our **Animated Title** "
 "dialog. Use the Title menu (located in the main menu of OpenShot) to launch "
@@ -750,32 +1078,32 @@ msgstr ""
 "funkcja działała w OpenShot. Zobacz :ref:`blender_install_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:187
+#: ../doc/titles.rst:308
 msgid "Choose from any available 3D title templates"
 msgstr "Wybierz spośród dostępnych szablonów tytułów 3D"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:189
+#: ../doc/titles.rst:310
 msgid "Change the text, colors, and advanced properties"
 msgstr "Zmień tekst, kolory i zaawansowane właściwości"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:190
+#: ../doc/titles.rst:311
 msgid "Render"
 msgstr "Renderuj"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:190
+#: ../doc/titles.rst:311
 msgid "Render the 3D animation, and add it to your project"
 msgstr "Wyrenderuj animację 3D i dodaj ją do projektu"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:194
+#: ../doc/titles.rst:315
 msgid "3D Animated Templates"
 msgstr "Animowane szablony 3D"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:196
+#: ../doc/titles.rst:317
 msgid ""
 "OpenShot includes a variety of 3D animated templates that can be used to add"
 " dynamic and engaging elements to your video projects. Below is a table "
@@ -786,27 +1114,27 @@ msgstr ""
 " znajduje się tabela z dostępnymi szablonami i ich opisami:"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:203
+#: ../doc/titles.rst:324
 msgid "Template Name"
 msgstr "Nazwa szablonu"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:205
+#: ../doc/titles.rst:326
 msgid "Blinds (Two Titles)"
 msgstr "Żaluzje (dwa tytuły)"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:206
+#: ../doc/titles.rst:327
 msgid "An animation featuring a blinds effect."
 msgstr "Animacja z efektem żaluzji."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:207
+#: ../doc/titles.rst:328
 msgid "Blur"
 msgstr "Rozmycie"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:208
+#: ../doc/titles.rst:329
 msgid ""
 "A template that blurs text in and out, providing a smooth transition effect."
 msgstr ""
@@ -814,12 +1142,12 @@ msgstr ""
 " efekt przejścia."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:209
+#: ../doc/titles.rst:330
 msgid "Color Tiles"
 msgstr "Kolorowe kafelki"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:210
+#: ../doc/titles.rst:331
 msgid ""
 "An animation with changing colors, suitable for vibrant and dynamic titles."
 msgstr ""
@@ -827,12 +1155,12 @@ msgstr ""
 " tytułów."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:211
+#: ../doc/titles.rst:332
 msgid "Dissolving Text"
 msgstr "Rozpuszczający się tekst"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:212
+#: ../doc/titles.rst:333
 msgid ""
 "A dissolve effect that turns any text into particles which get blown away by"
 " the wind."
@@ -841,22 +1169,22 @@ msgstr ""
 "wiatr."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:213
+#: ../doc/titles.rst:334
 msgid "World Map"
 msgstr "Mapa świata"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:214
+#: ../doc/titles.rst:335
 msgid "A template featuring a rotating Earth between 2 locations."
 msgstr "Szablon z obracającą się Ziemią między dwoma lokalizacjami."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:215
+#: ../doc/titles.rst:336
 msgid "Exploding Text"
 msgstr "Eksplodujący tekst"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:216
+#: ../doc/titles.rst:337
 msgid ""
 "An animation where the title explode into pieces, adding dramatic impact."
 msgstr ""
@@ -864,86 +1192,86 @@ msgstr ""
 "efektu."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:217
+#: ../doc/titles.rst:338
 msgid "Fly Towards Camera"
 msgstr "Lot w stronę kamery"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:218
+#: ../doc/titles.rst:339
 msgid "A fly-by animation with a single title zooming past the screen."
 msgstr "Animacja przelotu z pojedynczym tytułem przybliżającym się na ekran."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:219
+#: ../doc/titles.rst:340
 msgid "Fly Towards Camera (Two Titles)"
 msgstr "Lot w stronę kamery (dwa tytuły)"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:220
+#: ../doc/titles.rst:341
 msgid "Similar to Fly By 1, but with two titles flying by."
 msgstr "Podobne do Lotu 1, ale z dwoma tytułami przelatującymi obok."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:221
+#: ../doc/titles.rst:342
 msgid "Glare"
 msgstr "Oślepienie"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:222
+#: ../doc/titles.rst:343
 msgid "An animation with a glare effect, adding a bright, reflective look."
 msgstr "Animacja z efektem oślepienia, dodająca jasny, refleksyjny wygląd."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:223
+#: ../doc/titles.rst:344
 msgid "Glass Slider"
 msgstr "Szklany suwak"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:224
+#: ../doc/titles.rst:345
 msgid "A sliding glass effect, providing a modern and sleek transition."
 msgstr ""
 "Efekt przesuwającego się szkła, zapewniający nowoczesne i eleganckie "
 "przejście."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:225
+#: ../doc/titles.rst:346
 msgid "Lens Flare"
 msgstr "Poświata soczewki"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:226
+#: ../doc/titles.rst:347
 msgid "An animation featuring a lens flare, adding a cinematic touch."
 msgstr "Animacja z efektem poświaty soczewki, dodająca kinowy charakter."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:227
+#: ../doc/titles.rst:348
 msgid "Magic Wand"
 msgstr "Różdżka magiczna"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:228
+#: ../doc/titles.rst:349
 msgid "A whimsical magic wand effect, ideal for magical or fantasy themes."
 msgstr ""
 "Fantazyjny efekt różdżki magicznej, idealny do motywów magicznych lub "
 "fantasy."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:229
+#: ../doc/titles.rst:350
 msgid "Neon Curves"
 msgstr "Neonowe krzywe"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:230
+#: ../doc/titles.rst:351
 msgid "An animation with neon curves, creating a futuristic and vibrant look."
 msgstr "Animacja z neonowymi krzywymi, tworząca futurystyczny i żywy wygląd."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:231
+#: ../doc/titles.rst:352
 msgid "Picture Frames (4 pictures)"
 msgstr "Ramki na zdjęcia (4 zdjęcia)"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:232
+#: ../doc/titles.rst:353
 msgid ""
 "A template featuring four picture frames, suitable for showcasing images or "
 "video clips."
@@ -952,32 +1280,32 @@ msgstr ""
 " klipów wideo."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:233
+#: ../doc/titles.rst:354
 msgid "Rotate 360"
 msgstr "Obrót 360"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:234
+#: ../doc/titles.rst:355
 msgid "A 360-degree rotation effect, providing a dynamic title animation."
 msgstr "Efekt obrotu o 360 stopni, zapewniający dynamiczną animację tytułu."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:235
+#: ../doc/titles.rst:356
 msgid "Slide Left to Right"
 msgstr "Przesuń z lewej do prawej"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:236
+#: ../doc/titles.rst:357
 msgid "A sliding effect where titles move from left to right."
 msgstr "Efekt przesuwania, w którym tytuły przesuwają się z lewej do prawej."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:237
+#: ../doc/titles.rst:358
 msgid "Snow"
 msgstr "Śnieg"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:238
+#: ../doc/titles.rst:359
 msgid ""
 "An animation with falling snow particles, perfect for winter or holiday "
 "themes."
@@ -986,35 +1314,35 @@ msgstr ""
 "motywy."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:239
+#: ../doc/titles.rst:360
 msgid "Space Movie Intro"
 msgstr "Intro filmu kosmicznego"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:240
+#: ../doc/titles.rst:361
 msgid "A cinematic space-themed intro, ideal for epic or sci-fi projects."
 msgstr ""
 "Kinowe intro o tematyce kosmicznej, idealne do epickich lub science fiction "
 "projektów."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:241
+#: ../doc/titles.rst:362
 msgid "Wireframe Text"
 msgstr "Tekst w szkielecie"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:242
+#: ../doc/titles.rst:363
 msgid "An animation with wireframe text, adding a technical or digital look."
 msgstr ""
 "Animacja z tekstem w szkielecie, dodająca techniczny lub cyfrowy wygląd."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:243
+#: ../doc/titles.rst:364
 msgid "Zoom to Clapboard"
 msgstr "Przybliżenie do klapsa"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:244
+#: ../doc/titles.rst:365
 msgid ""
 "A zoom title with a clapboard, perfect for film or video production themes."
 msgstr ""
@@ -1022,12 +1350,12 @@ msgstr ""
 "wideo."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:247
+#: ../doc/titles.rst:368
 msgid "Importing Text"
 msgstr "Importowanie tekstu"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:249
+#: ../doc/titles.rst:370
 msgid ""
 "You can generate text & titles in many different programs, such as Blender, "
 "Inkscape, Krita, Gimp, etc... Before you can import text into OpenShot, you "
@@ -1040,7 +1368,7 @@ msgstr ""
 "formatu obrazu zawierającego **przezroczyste tło** i kanał **alfa**."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:253
+#: ../doc/titles.rst:374
 msgid ""
 "The ``SVG`` format is a great choice for vector graphics (curves, shapes, "
 "text effects and paths), however it is **not** always 100% compatible with "
@@ -1059,7 +1387,7 @@ msgstr ""
 "poniżej."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:258
+#: ../doc/titles.rst:379
 msgid ""
 "For information on importing animated sequences into OpenShot, please see "
 ":ref:`animation_image_seq_ref`."
@@ -1068,12 +1396,12 @@ msgstr ""
 ":ref:`animation_image_seq_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:261
+#: ../doc/titles.rst:382
 msgid "Installing Inkscape"
 msgstr "Instalacja Inkscape"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:263
+#: ../doc/titles.rst:384
 msgid ""
 "The :guilabel:`Advanced Editor` feature in the :guilabel:`Title Editor` "
 "dialog requires the latest version of Inkscape "
@@ -1088,12 +1416,12 @@ msgstr ""
 ":ref:`preferences_general_ref` w Preferencjach."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:270
+#: ../doc/titles.rst:391
 msgid "Installing Blender"
 msgstr "Instalacja Blender"
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:272
+#: ../doc/titles.rst:393
 msgid ""
 "The :guilabel:`Animated Title` feature in OpenShot requires the latest "
 "version of Blender (https://www.blender.org/download/) be installed and the "
@@ -1110,7 +1438,7 @@ msgstr ""
 "nie są kompatybilne z OpenShot Video Editor."
 
 # Translated with gpt-4.1-mini
-#: ../titles.rst:278
+#: ../doc/titles.rst:399
 msgid ""
 "For a detailed guide on how to install these dependencies, see `Blender & "
 "Inkscape Guide <https://github.com/OpenShot/openshot-qt/wiki/Blender-and-"

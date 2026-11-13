@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:21
+#: ../doc/export.rst:21
 msgid "Export"
 msgstr "Exportieren"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:23
+#: ../doc/export.rst:23
 msgid ""
 "Exporting converts your OpenShot project (clips, effects, animations, "
 "titles) into a single video output file (using a process called ``video "
@@ -40,7 +40,7 @@ msgstr ""
 "AAC)``. Siehe :ref:`profiles_mp4_h264_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:28
+#: ../doc/export.rst:28
 msgid ""
 "Click on the :guilabel:`Export Video` icon at the top of the screen (or use "
 "the :guilabel:`File→Export Video` menu). The default values will work fine, "
@@ -56,12 +56,12 @@ msgstr ""
 ":ref:`profiles_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:33
+#: ../doc/export.rst:33
 msgid "Simple Mode"
 msgstr "Einfacher Modus"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:35
+#: ../doc/export.rst:35
 msgid ""
 "While video encoding is very complicated, with dozens of interrelated "
 "settings and options, OpenShot makes it easy, with sensible defaults, and "
@@ -75,23 +75,23 @@ msgstr ""
 "ist."
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:45
+#: ../doc/export.rst:45
 msgid "Simple Setting"
 msgstr "Einfache Einstellung"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:45 ../export.rst:69 ../export.rst:96 ../export.rst:117
-#: ../export.rst:131 ../export.rst:147
+#: ../doc/export.rst:45 ../doc/export.rst:69 ../doc/export.rst:96
+#: ../doc/export.rst:117 ../doc/export.rst:131 ../doc/export.rst:147
 msgid "Description"
 msgstr "Beschreibung"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:47 ../export.rst:79 ../export.rst:98
+#: ../doc/export.rst:47 ../doc/export.rst:79 ../doc/export.rst:98
 msgid "Profile"
 msgstr "Profil"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:47
+#: ../doc/export.rst:47
 msgid ""
 "Common presets (combinations of presets and video profiles grouped by "
 "category, for example: **Web**)"
@@ -100,12 +100,12 @@ msgstr ""
 "Videoprofilen, gruppiert nach Kategorie, z. B.: **Web**)"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:48 ../export.rst:168
+#: ../doc/export.rst:48 ../doc/export.rst:192
 msgid "Target"
 msgstr "Ziel"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:48
+#: ../doc/export.rst:48
 msgid ""
 "Target presets related to the current profile (collections of common "
 "formats, codecs, and quality settings, see :ref:`preset_list_ref`)"
@@ -115,12 +115,12 @@ msgstr ""
 ":ref:`preset_list_ref`)"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:49 ../export.rst:169
+#: ../doc/export.rst:49 ../doc/export.rst:193
 msgid "Video Profile"
 msgstr "Videoprofil"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:49
+#: ../doc/export.rst:49
 msgid ""
 "Video profiles related to the current target (collections of common size, "
 "frame rate, and aspect ratios, see :ref:`profile_list_ref` or create your "
@@ -131,12 +131,12 @@ msgstr ""
 "oder erstellen Sie eigene :ref:`profiles_ref`)"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:50
+#: ../doc/export.rst:50
 msgid "Quality"
 msgstr "Qualität"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:50
+#: ../doc/export.rst:50
 msgid ""
 "Quality settings (low, med, high), which relate to various video and audio "
 "bitrates."
@@ -145,12 +145,12 @@ msgstr ""
 "Video- und Audiobitraten beziehen."
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:54
+#: ../doc/export.rst:54
 msgid "Advanced Mode"
 msgstr "Erweiterter Modus"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:56
+#: ../doc/export.rst:56
 msgid ""
 "Most users will never need to switch to the `Advanced` tab, but if you need "
 "to customize any of the video encoding settings, for example, custom "
@@ -163,22 +163,22 @@ msgstr ""
 "ist dies der richtige Tab für Sie."
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:61
+#: ../doc/export.rst:61
 msgid "Advanced Options"
 msgstr "Erweiterte Optionen"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:69
+#: ../doc/export.rst:69
 msgid "Advanced Setting"
 msgstr "Erweiterte Einstellung"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:71
+#: ../doc/export.rst:71
 msgid "Export To"
 msgstr "Exportieren nach"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:71
+#: ../doc/export.rst:71
 msgid ""
 "Export both `video & audio`, `only audio`, `only video`, or an `image "
 "sequence`"
@@ -187,22 +187,22 @@ msgstr ""
 "`Bildsequenz`"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:72
+#: ../doc/export.rst:72
 msgid "Start Frame"
 msgstr "Startbild"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:72
+#: ../doc/export.rst:72
 msgid "The first frame to export (default is 1)"
 msgstr "Das erste zu exportierende Bild (Standard ist 1)"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:73
+#: ../doc/export.rst:73
 msgid "End Frame"
 msgstr "Endbild"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:73
+#: ../doc/export.rst:73
 msgid ""
 "The final frame to export (default is the last frame in your project to "
 "contain a clip)"
@@ -211,12 +211,12 @@ msgstr ""
 "das einen Clip enthält)"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:74
+#: ../doc/export.rst:74
 msgid "Start at First Clip"
 msgstr "Start beim ersten Clip"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:74
+#: ../doc/export.rst:74
 msgid ""
 "This checkbox will toggle the **Start Frame** between `0.0` and the `start` "
 "of the first clip/transition position."
@@ -225,12 +225,12 @@ msgstr ""
 "`Start` der ersten Clip-/Übergangsposition um."
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:75
+#: ../doc/export.rst:75
 msgid "End at Last Clip"
 msgstr "Ende beim letzten Clip"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:75
+#: ../doc/export.rst:75
 msgid ""
 "This checkbox will toggle the **End Frame** between the `end` of the "
 "furthest clip/transition and the full `project duration`. The project "
@@ -246,7 +246,7 @@ msgstr ""
 "können."
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:81
+#: ../doc/export.rst:81
 msgid ""
 "A video profile is a collection of common video settings (*size, frame rate,"
 " aspect ratio*). Profiles are used during editing, previewing, and exporting"
@@ -261,7 +261,7 @@ msgstr ""
 "standardmäßig dasselbe Profil wie das Projekt."
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:85
+#: ../doc/export.rst:85
 msgid ""
 "*NOTE: It is important to choose a **Profile** with the same **aspect "
 "ratio** used when editing your project. If you are exporting at a "
@@ -278,12 +278,12 @@ msgstr ""
 ":guilabel:`Vorschau` in OpenShot.*"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:96
+#: ../doc/export.rst:96
 msgid "Profile Setting"
 msgstr "Profileinstellung"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:98
+#: ../doc/export.rst:98
 msgid ""
 "The video profile to use during export (collection of size, frame rate, and "
 "aspect ratios, see :ref:`profile_list_ref`)"
@@ -292,32 +292,32 @@ msgstr ""
 "Bildrate und Seitenverhältnissen, siehe :ref:`profile_list_ref`)"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:99
+#: ../doc/export.rst:99
 msgid "Width"
 msgstr "Breite"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:99
+#: ../doc/export.rst:99
 msgid "The width of the video export (in pixels)"
 msgstr "Die Breite des Videoexports (in Pixel)"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:100
+#: ../doc/export.rst:100
 msgid "Height"
 msgstr "Höhe"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:100
+#: ../doc/export.rst:100
 msgid "The height of the video export (in pixels)"
 msgstr "Die Höhe des Videoexports (in Pixel)"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:101
+#: ../doc/export.rst:101
 msgid "Aspect Ratio"
 msgstr "Seitenverhältnis"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:101
+#: ../doc/export.rst:101
 msgid ""
 "The aspect ratio of the final exported video. 1920×1080 reduces to 16:9. "
 "This also takes into account the pixel ratio, for example 2:1 rectangular "
@@ -328,12 +328,12 @@ msgstr ""
 " 2:1 rechteckige Pixel das Seitenverhältnis."
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:102
+#: ../doc/export.rst:102
 msgid "Pixel Ratio"
 msgstr "Pixelverhältnis"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:102
+#: ../doc/export.rst:102
 msgid ""
 "The ratio representing pixel shape. Most video profiles use a 1:1 square "
 "pixel shape, but others will use rectangular pixels."
@@ -342,22 +342,22 @@ msgstr ""
 "verwenden quadratische Pixel mit 1:1, andere verwenden rechteckige Pixel."
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:103
+#: ../doc/export.rst:103
 msgid "Frame Rate"
 msgstr "Bildrate"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:103
+#: ../doc/export.rst:103
 msgid "The frequency that the frames will be displayed at."
 msgstr "Die Frequenz, mit der die Bilder angezeigt werden."
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:104
+#: ../doc/export.rst:104
 msgid "Interlaced"
 msgstr "Interlaced"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:104
+#: ../doc/export.rst:104
 msgid ""
 "Is this format used on alternating scan lines (i.e. broadcast and analog "
 "formats)"
@@ -366,12 +366,12 @@ msgstr ""
 "Analogformate)?"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:105
+#: ../doc/export.rst:105
 msgid "Spherical"
 msgstr "Sphärisch"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:105
+#: ../doc/export.rst:105
 msgid ""
 "When enabled, injects spherical 360° metadata (SV3D atom) into the exported "
 "file so compatible players immediately recognize it as a 360° video."
@@ -381,22 +381,22 @@ msgstr ""
 "360°-Video erkennen."
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:109
+#: ../doc/export.rst:109
 msgid "Image Sequence Settings"
 msgstr "Einstellungen für Bildsequenzen"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:117
+#: ../doc/export.rst:117
 msgid "Image Setting Name"
 msgstr "Name der Bildeinstellung"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:119
+#: ../doc/export.rst:119
 msgid "Image Format"
 msgstr "Bildformat"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:119
+#: ../doc/export.rst:119
 msgid ""
 "The string format that represents the output file name in a sequence of "
 "images. For example, %05d.png would pad a number with 5 digits: 00001.png, "
@@ -407,22 +407,22 @@ msgstr ""
 "00001.png, 00002.png."
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:123
+#: ../doc/export.rst:123
 msgid "Video Settings"
 msgstr "Videoeinstellungen"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:131
+#: ../doc/export.rst:131
 msgid "Video Setting Name"
 msgstr "Name der Videoeinstellung"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:133
+#: ../doc/export.rst:133
 msgid "Video Format"
 msgstr "Videoformat"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:133
+#: ../doc/export.rst:133
 msgid ""
 "The name of the container format (``mp4``, ``mov``, ``avi``, ``webm``, "
 "etc...)"
@@ -430,12 +430,12 @@ msgstr ""
 "Der Name des Containerformats (``mp4``, ``mov``, ``avi``, ``webm``, usw.)"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:134
+#: ../doc/export.rst:134
 msgid "Video Codec"
 msgstr "Videocodec"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:134
+#: ../doc/export.rst:134
 msgid ""
 "The name of the video codec used during video encoding (``libx264``, "
 "``mpeg4``, ``libaom-av1``, etc...)"
@@ -444,12 +444,12 @@ msgstr ""
 "(``libx264``, ``mpeg4``, ``libaom-av1``, usw.)"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:135 ../export.rst:152
+#: ../doc/export.rst:135 ../doc/export.rst:152
 msgid "Bit Rate / Quality"
 msgstr "Bitrate / Qualität"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:135
+#: ../doc/export.rst:135
 msgid ""
 "The bitrate to use for video encoding. Accepts the following formats: ``5 "
 "Mb/s``, ``96 kb/s``, ``23 crf``, etc..."
@@ -458,22 +458,22 @@ msgstr ""
 "Formate: ``5 Mb/s``, ``96 kb/s``, ``23 crf``, usw."
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:139
+#: ../doc/export.rst:139
 msgid "Audio Settings"
 msgstr "Audioeinstellungen"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:147
+#: ../doc/export.rst:147
 msgid "Audio Setting Name"
 msgstr "Name der Audioeinstellung"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:149
+#: ../doc/export.rst:149
 msgid "Audio Codec"
 msgstr "Audiocodec"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:149
+#: ../doc/export.rst:149
 msgid ""
 "The name of the audio codec used during audio encoding (``aac``, ``mp2``, "
 "``libmp3lame``, etc...)"
@@ -482,12 +482,12 @@ msgstr ""
 "(``aac``, ``mp2``, ``libmp3lame``, usw.)"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:150
+#: ../doc/export.rst:150
 msgid "Sample Rate"
 msgstr "Abtastrate"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:150
+#: ../doc/export.rst:150
 msgid ""
 "The number of audio samples per second. Common values are ``44100`` and "
 "``48000``."
@@ -496,12 +496,12 @@ msgstr ""
 "``48000``."
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:151
+#: ../doc/export.rst:151
 msgid "Channel Layout"
 msgstr "Kanalaufteilung"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:151
+#: ../doc/export.rst:151
 msgid ""
 "The number and layout of audio channels (``Stereo``, ``Mono``, ``Surround``,"
 " etc...)"
@@ -510,7 +510,7 @@ msgstr ""
 "``Surround``, usw.)"
 
 # Translated with gpt-4.1-mini
-#: ../export.rst:152
+#: ../doc/export.rst:152
 msgid ""
 "The bitrate to use for audio encoding. Accepts the following formats: ``96 "
 "kb/s``, ``128 kb/s``, ``192 kb/s``, etc..."
@@ -518,11 +518,80 @@ msgstr ""
 "Die für die Audio-Codierung zu verwendende Bitrate. Akzeptiert folgende "
 "Formate: ``96 kb/s``, ``128 kb/s``, ``192 kb/s``, usw."
 
-#: ../export.rst:158
+#: ../doc/export.rst:158
+msgid "Export Complete"
+msgstr "Export abgeschlossen"
+
+#: ../doc/export.rst:160
+msgid ""
+"When an export finishes, a :guilabel:`Complete` tab opens in the Export "
+"window (unless :guilabel:`Show Export Dialog when Finished` is turned off in"
+" :ref:`preferences_ref`). It shows where the file was saved, with a button "
+"to copy its path, along with a summary of the export: format, resolution, "
+"quality, file size, duration, and how long the export took."
+msgstr ""
+"Wenn ein Export abgeschlossen ist, öffnet sich im Exportfenster ein "
+":guilabel:`Abgeschlossen`-Tab (sofern :guilabel:`Exportdialog nach Abschluss"
+" anzeigen` in den :ref:`preferences_ref` nicht deaktiviert ist). Dort wird "
+"angezeigt, wo die Datei gespeichert wurde, mit einem Button zum Kopieren des"
+" Pfads, sowie eine Zusammenfassung des Exports: Format, Auflösung, Qualität,"
+" Dateigröße, Dauer und wie lange der Export gedauert hat."
+
+#: ../doc/export.rst:165
+msgid ""
+":guilabel:`Watch Video` opens the exported file in your default video player"
+" (:guilabel:`Play Audio` for audio-only exports)."
+msgstr ""
+":guilabel:`Video ansehen` öffnet die exportierte Datei im Standard-"
+"Videoplayer (:guilabel:`Audio abspielen` bei reinen Audio-Exporten)."
+
+#: ../doc/export.rst:167
+msgid ""
+":guilabel:`Open Containing Folder` opens your file manager with the exported"
+" file selected."
+msgstr ""
+":guilabel:`Enthaltenden Ordner öffnen` öffnet Ihren Dateimanager mit der "
+"ausgewählten exportierten Datei."
+
+#: ../doc/export.rst:169
+msgid ""
+"The `Simple` and `Advanced` tabs are still available, but read-only, so you "
+"can review exactly which settings were used. Click :guilabel:`Done` to close"
+" the window."
+msgstr ""
+"Die Tabs `Einfach` und `Erweitert` sind weiterhin verfügbar, jedoch "
+"schreibgeschützt, sodass Sie genau überprüfen können, welche Einstellungen "
+"verwendet wurden. Klicken Sie auf :guilabel:`Fertig`, um das Fenster zu "
+"schließen."
+
+#: ../doc/export.rst:172
+msgid ""
+"If an export fails, an :guilabel:`Export Failed` tab explains what went "
+"wrong. :guilabel:`Copy Error Details` copies the error and export settings "
+"(helpful when reporting a problem), and :guilabel:`Try Again` reopens the "
+"Export window with the same settings."
+msgstr ""
+"Wenn ein Export fehlschlägt, erklärt ein :guilabel:`Export "
+"fehlgeschlagen`-Tab, was schiefgelaufen ist. :guilabel:`Fehlerdetails "
+"kopieren` kopiert den Fehler und die Exporteinstellungen (hilfreich bei der "
+"Problemmeldung), und :guilabel:`Erneut versuchen` öffnet das Exportfenster "
+"mit denselben Einstellungen erneut."
+
+#: ../doc/export.rst:176
+msgid ""
+"A successful export also fires a burst of confetti. Use the "
+":guilabel:`Celebrate Exports` preference to show it on the first export only"
+" (the default), on every export, or never."
+msgstr ""
+"Ein erfolgreicher Export löst außerdem einen Konfettiregen aus. Verwenden "
+"Sie die Einstellung :guilabel:`Exporte feiern`, um diesen nur beim ersten "
+"Export (Standard), bei jedem Export oder nie anzuzeigen."
+
+#: ../doc/export.rst:182
 msgid "Social Media Quick Reference"
 msgstr "Schnellreferenz für soziale Medien"
 
-#: ../export.rst:160
+#: ../doc/export.rst:184
 msgid ""
 "The table below shows the recommended :guilabel:`Target` and "
 ":guilabel:`Video Profile` settings for common social media platforms. Select"
@@ -533,136 +602,138 @@ msgstr ""
 "Medienplattformen. Wählen Sie diese im **Einfach**-Tab des Exportdialogs "
 "aus."
 
-#: ../export.rst:167
+#: ../doc/export.rst:191
 msgid "Platform"
 msgstr "Plattform"
 
-#: ../export.rst:170
+#: ../doc/export.rst:194
 msgid "Notes"
 msgstr "Hinweise"
 
-#: ../export.rst:171
+#: ../doc/export.rst:195
 msgid "YouTube (landscape)"
 msgstr "YouTube (Querformat)"
 
-#: ../export.rst:172
+#: ../doc/export.rst:196
 msgid "``YouTube``"
 msgstr "``YouTube``"
 
-#: ../export.rst:173 ../export.rst:189 ../export.rst:197 ../export.rst:201
-#: ../export.rst:205 ../export.rst:209
+#: ../doc/export.rst:197 ../doc/export.rst:213 ../doc/export.rst:221
+#: ../doc/export.rst:225 ../doc/export.rst:229 ../doc/export.rst:233
 msgid "``FHD 1080p 30 fps``"
 msgstr "``FHD 1080p 30 fps``"
 
-#: ../export.rst:174
+#: ../doc/export.rst:198
 msgid "Use ``YouTube (4K)`` for 4K"
 msgstr "Verwenden Sie ``YouTube (4K)`` für 4K"
 
-#: ../export.rst:175
+#: ../doc/export.rst:199
 msgid "YouTube Shorts (vertical)"
 msgstr "YouTube Shorts (Hochformat)"
 
-#: ../export.rst:176
+#: ../doc/export.rst:200
 msgid "``YouTube Shorts``"
 msgstr "``YouTube Shorts``"
 
-#: ../export.rst:177 ../export.rst:181 ../export.rst:185 ../export.rst:193
+#: ../doc/export.rst:201 ../doc/export.rst:205 ../doc/export.rst:209
+#: ../doc/export.rst:217
 msgid "``FHD Vertical 1080p 30 fps``"
 msgstr "``FHD Vertikal 1080p 30 fps``"
 
-#: ../export.rst:178 ../export.rst:182 ../export.rst:186 ../export.rst:194
+#: ../doc/export.rst:202 ../doc/export.rst:206 ../doc/export.rst:210
+#: ../doc/export.rst:218
 msgid "Up to 60 fps"
 msgstr "Bis zu 60 fps"
 
-#: ../export.rst:179
+#: ../doc/export.rst:203
 msgid "TikTok (vertical)"
 msgstr "TikTok (Hochformat)"
 
-#: ../export.rst:180
+#: ../doc/export.rst:204
 msgid "``TikTok``"
 msgstr "``TikTok``"
 
-#: ../export.rst:183
+#: ../doc/export.rst:207
 msgid "Instagram Reels (vertical)"
 msgstr "Instagram Reels (Hochformat)"
 
-#: ../export.rst:184
+#: ../doc/export.rst:208
 msgid "``Instagram Reels``"
 msgstr "``Instagram Reels``"
 
-#: ../export.rst:187
+#: ../doc/export.rst:211
 msgid "Instagram (landscape/square)"
 msgstr "Instagram (Querformat/Quadrat)"
 
-#: ../export.rst:188
+#: ../doc/export.rst:212
 msgid "``Instagram``"
 msgstr "``Instagram``"
 
-#: ../export.rst:190
+#: ../doc/export.rst:214
 msgid "Square (1:1) also available"
 msgstr "Quadrat (1:1) ebenfalls verfügbar"
 
-#: ../export.rst:191
+#: ../doc/export.rst:215
 msgid "Snapchat (vertical)"
 msgstr "Snapchat (Hochformat)"
 
-#: ../export.rst:192
+#: ../doc/export.rst:216
 msgid "``Snapchat``"
 msgstr "``Snapchat``"
 
-#: ../export.rst:195
+#: ../doc/export.rst:219
 msgid "Facebook"
 msgstr "Facebook"
 
-#: ../export.rst:196
+#: ../doc/export.rst:220
 msgid "``Facebook``"
 msgstr "``Facebook``"
 
-#: ../export.rst:198
+#: ../doc/export.rst:222
 msgid "Square and vertical also available"
 msgstr "Quadrat und Hochformat ebenfalls verfügbar"
 
-#: ../export.rst:199
+#: ../doc/export.rst:223
 msgid "LinkedIn (landscape)"
 msgstr "LinkedIn (Querformat)"
 
-#: ../export.rst:200
+#: ../doc/export.rst:224
 msgid "``LinkedIn``"
 msgstr "``LinkedIn``"
 
-#: ../export.rst:202
+#: ../doc/export.rst:226
 msgid "Square and 4:5 portrait also available"
 msgstr "Quadrat und 4:5 Hochformat ebenfalls verfügbar"
 
-#: ../export.rst:203
+#: ../doc/export.rst:227
 msgid "Twitter / X"
 msgstr "Twitter / X"
 
-#: ../export.rst:204
+#: ../doc/export.rst:228
 msgid "``Twitter / X``"
 msgstr "``Twitter / X``"
 
-#: ../export.rst:206
+#: ../doc/export.rst:230
 msgid "Vertical also available"
 msgstr "Hochformat ebenfalls verfügbar"
 
-#: ../export.rst:207
+#: ../doc/export.rst:231
 msgid "Vimeo"
 msgstr "Vimeo"
 
-#: ../export.rst:208
+#: ../doc/export.rst:232
 msgid "``Vimeo``"
 msgstr "``Vimeo``"
 
-#: ../export.rst:210
+#: ../doc/export.rst:234
 msgid "Use High quality setting"
 msgstr "Verwenden Sie die Einstellung für hohe Qualität"
 
-#: ../export.rst:215
+#: ../doc/export.rst:239
 msgid "Hardware-Accelerated Export"
 msgstr "Hardwarebeschleunigter Export"
 
-#: ../export.rst:217
+#: ../doc/export.rst:241
 msgid ""
 "OpenShot supports GPU-accelerated video encoding on supported hardware, "
 "dramatically reducing export times. Hardware-accelerated targets are shown "
@@ -674,87 +745,87 @@ msgstr ""
 "Ziele werden im :guilabel:`Ziel`-Dropdown mit einem Abzeichen angezeigt. "
 "Wählen Sie das passende Ziel für Ihre Hardware aus:"
 
-#: ../export.rst:225
+#: ../doc/export.rst:249
 msgid "Target (Export Dialog)"
 msgstr "Ziel (Exportdialog)"
 
-#: ../export.rst:225
+#: ../doc/export.rst:249
 msgid "Badge"
 msgstr "Abzeichen"
 
-#: ../export.rst:225
+#: ../doc/export.rst:249
 msgid "Requires"
 msgstr "Erfordert"
 
-#: ../export.rst:227
+#: ../doc/export.rst:251
 msgid "``MP4 (h.264 nv)``"
 msgstr "``MP4 (h.264 nv)``"
 
-#: ../export.rst:227
+#: ../doc/export.rst:251
 msgid "NVENC"
 msgstr "NVENC"
 
-#: ../export.rst:227
+#: ../doc/export.rst:251
 msgid "NVIDIA GPU (Kepler or newer)"
 msgstr "NVIDIA GPU (Kepler oder neuer)"
 
-#: ../export.rst:228
+#: ../doc/export.rst:252
 msgid "``MP4 (h.264 va)``"
 msgstr "``MP4 (h.264 va)``"
 
-#: ../export.rst:228 ../export.rst:232
+#: ../doc/export.rst:252 ../doc/export.rst:256
 msgid "VA-API"
 msgstr "VA-API"
 
-#: ../export.rst:228
+#: ../doc/export.rst:252
 msgid "Linux with AMD or Intel GPU (VAAPI driver)"
 msgstr "Linux mit AMD- oder Intel-GPU (VAAPI-Treiber)"
 
-#: ../export.rst:229
+#: ../doc/export.rst:253
 msgid "``MP4 (h.264 qsv)``"
 msgstr "``MP4 (h.264 qsv)``"
 
-#: ../export.rst:229
+#: ../doc/export.rst:253
 msgid "QSV"
 msgstr "QSV"
 
-#: ../export.rst:229
+#: ../doc/export.rst:253
 msgid "Intel GPU with Quick Sync Video"
 msgstr "Intel GPU mit Quick Sync Video"
 
-#: ../export.rst:230
+#: ../doc/export.rst:254
 msgid "``MP4 (h.264 videotoolbox)``"
 msgstr "``MP4 (h.264 videotoolbox)``"
 
-#: ../export.rst:230
+#: ../doc/export.rst:254
 msgid "VideoToolbox"
 msgstr "VideoToolbox"
 
-#: ../export.rst:230
+#: ../doc/export.rst:254
 msgid "macOS with Apple or Intel GPU"
 msgstr "macOS mit Apple- oder Intel-GPU"
 
-#: ../export.rst:231
+#: ../doc/export.rst:255
 msgid "``MP4 (h.264 dx)``"
 msgstr "``MP4 (h.264 dx)``"
 
-#: ../export.rst:231
+#: ../doc/export.rst:255
 msgid "DirectX"
 msgstr "DirectX"
 
-#: ../export.rst:231
+#: ../doc/export.rst:255
 msgid "Windows with DirectX-compatible GPU"
 msgstr "Windows mit DirectX-kompatibler GPU"
 
-#: ../export.rst:232
+#: ../doc/export.rst:256
 msgid "``MP4 (HEVC va)``"
 msgstr "``MP4 (HEVC va)``"
 
-#: ../export.rst:232
+#: ../doc/export.rst:256
 msgid "Linux VA-API — produces smaller HEVC files"
 msgstr "Linux VA-API — erzeugt kleinere HEVC-Dateien"
 
-#: ../export.rst:235
+#: ../doc/export.rst:259
 msgid ""
 "MKV variants (``MKV (h.264 nv)``, ``MKV (h.264 va)``, etc.) are also "
 "available for each accelerator. If none of these targets appear or export "

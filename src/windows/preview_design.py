@@ -1,9 +1,110 @@
 """Shared presentation for source preview, clip preview, and split-file editing."""
 from qt_api import (Qt, QFrame, QVBoxLayout, QHBoxLayout, QToolButton,
                     QSize, QSizePolicy, QDialogButtonBox, QIcon,
-                    QGridLayout, QWidget, QObject, QEvent, QTimer, QSlider, QApplication)
+                    QGridLayout, QWidget, QObject, QEvent, QTimer, QSlider, QApplication, QStyle, QtWidgets)
 from classes.app import get_app
 from windows.preview_icons import preview_icon, preview_colors, preview_toggle_icon
+
+
+class PreviewVolumeSlider(QSlider):
+    """Jump to a clicked volume while retaining normal handle dragging."""
+    def mousePressEvent(self, event):
+        option = QtWidgets.QStyleOptionSlider()
+        self.initStyleOption(option)
+        controls = getattr(QStyle, 'ComplexControl', QStyle)
+        subcontrols = getattr(QStyle, 'SubControl', QStyle)
+        handle = self.style().subControlRect(
+            controls.CC_Slider, option, subcontrols.SC_SliderHandle, self)
+        if event.button() == Qt.LeftButton and not handle.contains(event.pos()):
+            groove = self.style().subControlRect(
+                controls.CC_Slider, option, subcontrols.SC_SliderGroove, self)
+            span = max(1, groove.width() - handle.width())
+            position = event.pos().x() - groove.x() - handle.width() // 2
+            self.setValue(QStyle.sliderValueFromPosition(
+                self.minimum(), self.maximum(), position, span, option.upsideDown))
+        super().mousePressEvent(event)
+
+
+def _saved_preview_volume():
+    settings = get_app().project.get('settings') or {}
+    try:
+        return max(0, min(100, int(settings.get('preview_volume', 100))))
+    except (TypeError, ValueError, OverflowError):
+        return 100
+
+
+def _save_preview_volume(dialog, value):
+    app = get_app()
+    settings = app.project.get('settings') or {}
+    if settings.get('preview_volume', 100) != value:
+        settings['preview_volume'] = value
+        app.updates.update_untracked(['settings'], settings)
+    dialog._volume_timer.start()
+
+
+def source_preview_title(mode, name, _):
+    """Keep the mode visible and long source names recognizable."""
+    title = {
+        'preview': _('Preview File'),
+        'create': _('Split File'),
+        'file': _('Preview Split File'),
+        'clip': _('Preview Clip'),
+    }[mode]
+    name = ' '.join(str(name or '').split())
+    if len(name) > 56:
+        name = name[:35] + '…' + name[-20:]
+    return '{}: {}'.format(title, name) if name else title
+
+
+class PreviewWindowState(QObject):
+    """Remember source-dialog size and maximization in the current project."""
+    def __init__(self, dialog):
+        super().__init__(dialog)
+        self.dialog = dialog
+        self.timer = QTimer(self)
+        self.timer.setSingleShot(True)
+        self.timer.setInterval(250)
+        self.timer.timeout.connect(self.save)
+        settings = get_app().project.get('settings') or {}
+        state = settings.get('preview_window') or {}
+        if isinstance(state, dict):
+            try:
+                width, height = int(state['width']), int(state['height'])
+                if width > 0 and height > 0:
+                    handle = dialog.windowHandle()
+                    screen = handle.screen() if handle else QApplication.primaryScreen()
+                    if screen:
+                        available = screen.availableGeometry()
+                        width = min(width, available.width())
+                        height = min(height, available.height())
+                    dialog.resize(width, height)
+                    if state.get('maximized') is True:
+                        dialog.setWindowState(dialog.windowState() | Qt.WindowMaximized)
+            except (KeyError, TypeError, ValueError, OverflowError):
+                pass
+        dialog.installEventFilter(self)
+
+    def save(self):
+        self.timer.stop()
+        dialog = self.dialog
+        if dialog.isMinimized():
+            return
+        size = dialog.normalGeometry().size() if dialog.isMaximized() else dialog.size()
+        if size.width() <= 0 or size.height() <= 0:
+            return
+        state = dict(width=size.width(), height=size.height(), maximized=dialog.isMaximized())
+        app = get_app()
+        settings = dict(app.project.get('settings') or {})
+        if settings.get('preview_window') != state:
+            settings['preview_window'] = state
+            app.updates.update_untracked(['settings'], settings)
+
+    def eventFilter(self, watched, event):
+        if event.type() in (QEvent.Resize, QEvent.WindowStateChange) and watched.isVisible():
+            self.timer.start()
+        elif event.type() == QEvent.Hide:
+            self.save()
+        return False
 
 
 def panel(parent, name):
@@ -23,7 +124,7 @@ def build_preview_design(dialog):
     d = dialog
     _ = get_app()._tr
     d.setObjectName('sourcePreviewDialog')
-    d.setWindowTitle(_('Preview'))
+    d.setWindowTitle(source_preview_title(d.range_mode, '', _))
     colors = preview_colors()
     d.setStyleSheet("""
         QDialog#sourcePreviewDialog {
@@ -84,10 +185,10 @@ def build_preview_design(dialog):
     d.volume_button.setToolTip(_('Mute preview audio'))
     d.loopLayout.setSpacing(10)
     d.loopLayout.addWidget(d.volume_button)
-    d.volume_slider = QSlider(Qt.Horizontal, d)
+    d.volume_slider = PreviewVolumeSlider(Qt.Horizontal, d)
     d.volume_slider.setObjectName('previewVolume')
     d.volume_slider.setRange(0, 100)
-    d.volume_slider.setValue(100)
+    d.volume_slider.setValue(_saved_preview_volume())
     d.volume_slider.setTracking(False)
     d.volume_slider.setFixedSize(80, 24)
     d.volume_slider.setAccessibleName(_('Preview volume'))
@@ -97,7 +198,7 @@ def build_preview_design(dialog):
     d._volume_timer.setSingleShot(True)
     d._volume_timer.setInterval(200)
     d._volume_timer.timeout.connect(lambda: _set_muted(d, d.volume_button.isChecked()))
-    d.volume_slider.valueChanged.connect(lambda _value: d._volume_timer.start())
+    d.volume_slider.valueChanged.connect(lambda value: _save_preview_volume(d, value))
     d.volume_button.toggled.connect(lambda muted: _set_muted(d, muted))
     d.fit_button = QToolButton(d)
     d.fit_button.setIcon(preview_icon('ai-action-upscale'))
@@ -219,7 +320,8 @@ def build_preview_design(dialog):
     d.footerLayout.setSpacing(12)
     d.buttonBox.hide()
     d.verticalLayout.removeItem(d.footerLayout)
-    d.resize(940, 640)
+    d.resize(650, 400)
+    d._preview_window_state = PreviewWindowState(d)
 
 
 def _set_muted(dialog, muted):

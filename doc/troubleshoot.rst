@@ -25,6 +25,41 @@ Troubleshooting
 If you are experiencing an issue with OpenShot, such as a freeze, crash, or error message, there are many different
 techniques which can be useful for troubleshooting the issue.
 
+.. _large_waveform_projects_ref:
+
+Large or Slow Project Files with Audio Waveforms
+------------------------------------------------
+
+Older projects with many audio waveforms can have unusually large ``.osp`` files
+and take longer to open or save. Older builds stored the waveform measurements
+inside the project file, sometimes repeating them for clips and undo history.
+
+The latest build stores these measurements in **separate compressed waveform
+files** instead. The project keeps small references to those files, reducing the
+data copied during editing and written into the ``.osp`` file. These files describe
+audio levels for display, not copies of the audio itself; your media and exported
+sound are unchanged.
+
+To update an older project:
+
+1. Open it in the latest build. OpenShot automatically moves embedded waveform
+   data into its waveform cache, preserving the existing waveform appearance.
+2. Choose :guilabel:`File → Save Project As` to keep the original project as a
+   backup, or save normally to update the existing file.
+3. Keep the saved project's ``_assets`` folder alongside its ``.osp`` file when
+   copying or backing up the project.
+
+For example, ``MyProject.osp`` stores its compressed ``.wfc`` waveform files in
+``MyProject_assets/waveforms/``. Each file contains compact numeric measurements
+compressed for storage. Identical waveform data can share the same cache file.
+OpenShot also uses a local cache while you work, including before the first save.
+
+The first opening still needs to read the old embedded data, so it can take time.
+The smaller project file is written when you save. Generating a waveform for a
+new, long audio file still requires analyzing that audio. If waveform cache files
+are missing, OpenShot can rebuild visible waveforms from the original media.
+See :ref:`timeline_waveform_display_ref` for waveform display and regeneration options.
+
 .. _logging_ref:
 
 Using Logs to Troubleshoot a Problem

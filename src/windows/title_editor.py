@@ -55,7 +55,6 @@ from classes.app import get_app
 from classes.distribution import is_snap
 from classes.svg_watcher import SvgWatcher
 from classes.portal_file_dialog import open_file_with_application
-from classes.feedback import record_feedback_action
 from classes.metrics import track_metric_screen
 from windows.color_picker import ColorPicker, draw_checkerboard
 from classes.style_tools import style_to_dict, dict_to_style, set_if_existing
@@ -888,12 +887,10 @@ class TitleEditor(QDialog):
                 self.filename = file_path
 
                 # Save title
-                title_saved = self.writeToFile(self.xmldoc)
+                self.writeToFile(self.xmldoc)
 
                 # Add file to project
                 app.window.files_model.add_files(self.filename, prevent_image_seq=True, prevent_recent_folder=True)
-                if title_saved:
-                    record_feedback_action("titles")
 
         # Close window
         super().accept()

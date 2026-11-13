@@ -25,6 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+from classes.waveform_cache import sample_count
 from qt_api import QRectF, Qt, QFont, QFontMetrics, QColor, QPainter, QPainterPath, QPen
 from classes.qt_types import font_metrics_horizontal_advance
 
@@ -77,7 +78,7 @@ class ItemHeaderMixin:
         text = self._draw_item_text(
             painter, item, header, header.left(), header.right(),
             visible_width=header.width(), icon_entries=icons,
-            transparent_container=isinstance(audio, list) and len(audio) > 1,
+            transparent_container=sample_count(audio) > 1,
         )
         painter.restore()
         if not register_hits or getattr(item, "is_recording_preview", False):

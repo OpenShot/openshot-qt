@@ -229,6 +229,21 @@ def camera_capture_backend_is_mac(backend=None):
     return selected_backend == getattr(openshot, "CAMERA_CAPTURE_MAC_AVFOUNDATION", object())
 
 
+def stop_windows_camera_worker(thread, reader_getter, timeout):
+    """Interrupt capture without closing DirectShow/COM on the UI thread."""
+    deadline = time.monotonic() + timeout
+    while thread and thread.is_alive():
+        reader = reader_getter()
+        if reader:
+            reader.RequestClose()
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            break
+        # Open() resets the native cancellation flag. Repeat the request if
+        # stop races with initialization or publication of the preview reader.
+        thread.join(timeout=min(0.05, remaining))
+
+
 class LiveRecordingThumbnailCache:
     """Save coarse thumbnail-grid frames while a live video recording is written."""
 
@@ -455,7 +470,10 @@ class LiveVideoRecordingJob(QObject):
                 )
                 self._stop.set()
                 try:
-                    self.reader.Close()
+                    if self.source_type == "webcam" and camera_capture_backend_is_windows():
+                        self.reader.RequestClose()
+                    else:
+                        self.reader.Close()
                 except Exception:
                     log.debug("Unable to close timed out live capture reader", exc_info=True)
                 break
@@ -564,11 +582,16 @@ class LiveVideoRecordingJob(QObject):
         if self._thread:
             self._thread.join(timeout=2.0)
         if self._thread and self._thread.is_alive():
+            windows_camera = self.source_type == "webcam" and camera_capture_backend_is_windows()
             try:
-                self.reader.Close()
+                if windows_camera:
+                    stop_windows_camera_worker(self._thread, lambda: self.reader, 5.0)
+                else:
+                    self.reader.Close()
             except Exception:
                 log.debug("Unable to close live video capture reader", exc_info=True)
-            self._thread.join(timeout=5.0)
+            if not windows_camera:
+                self._thread.join(timeout=5.0)
         if self._thread and self._thread.is_alive():
             log.warning("Live video capture thread did not stop cleanly for %s", self.path)
             if not self.error:
@@ -647,6 +670,14 @@ class WebcamPreviewJob(QObject):
 
     def stop(self):
         self._stop.set()
+        if camera_capture_backend_is_windows(self.backend):
+            try:
+                stop_windows_camera_worker(self._thread, lambda: self._reader, 2.0)
+            except Exception:
+                log.debug("Unable to interrupt webcam preview reader", exc_info=True)
+            if self._thread and self._thread.is_alive():
+                log.debug("Webcam preview thread did not stop cleanly")
+            return
         # Camera GetFrame() can block in a native capture read. Close first to
         # interrupt that read, then wait for the worker to finish.
         if self._reader:
@@ -758,8 +789,15 @@ class AudioRecordingDockContent(QWidget):
 
         self.scroll_content = QWidget()
         self.scroll_area.setWidget(self.scroll_content)
-        layout = QVBoxLayout(self.scroll_content)
-        layout.setContentsMargins(10, 8, 10, 10)
+        scroll_layout = QVBoxLayout(self.scroll_content)
+        scroll_layout.setContentsMargins(10, 8, 10, 10)
+        scroll_layout.setSpacing(8)
+        # Keep settings under one parent so locking preserves each control's
+        # device/platform availability, while leaving Stop Recording usable.
+        self.settings_widget = QWidget(self.scroll_content)
+        scroll_layout.addWidget(self.settings_widget)
+        layout = QVBoxLayout(self.settings_widget)
+        layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(8)
 
         source_grid = QGridLayout()
@@ -1005,9 +1043,9 @@ class AudioRecordingDockContent(QWidget):
         self.record_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         self.record_button.setStyleSheet("font-weight: 600;")
         control_row.addWidget(self.record_button)
-        layout.addLayout(control_row)
+        scroll_layout.addLayout(control_row)
 
-        layout.addStretch()
+        scroll_layout.addStretch()
 
         self.timer = QTimer(self)
         self.timer.setInterval(100)
@@ -2741,6 +2779,7 @@ class AudioRecordingDockContent(QWidget):
         )
 
     def _set_record_button_idle(self):
+        self.settings_widget.setEnabled(True)
         source_selected = self._has_selected_recording_source()
         self.record_button.setEnabled(source_selected)
         self.record_button.setText(get_app()._tr("Start Recording"))
@@ -2762,18 +2801,21 @@ class AudioRecordingDockContent(QWidget):
         ))
 
     def _set_record_button_unavailable(self):
+        self.settings_widget.setEnabled(True)
         self.record_button.setEnabled(False)
         self.record_button.setText(get_app()._tr("Unavailable"))
         self.record_button.setStyleSheet("QPushButton { color: #8b96a8; font-weight: 600; }")
         self.record_button.setToolTip("")
 
     def _set_record_button_starting(self):
+        self.settings_widget.setEnabled(False)
         self.record_button.setEnabled(False)
         self.record_button.setText(get_app()._tr("Starting..."))
         self.record_button.setStyleSheet("QPushButton { color: #d8e3f2; font-weight: 600; }")
         self.record_button.setToolTip("")
 
     def _set_record_button_stopping(self):
+        self.settings_widget.setEnabled(False)
         self.record_button.setEnabled(False)
         self.record_button.setText(get_app()._tr("Stopping..."))
         self.record_button.setStyleSheet(
@@ -2782,12 +2824,14 @@ class AudioRecordingDockContent(QWidget):
         self.record_button.setToolTip("")
 
     def _set_record_button_saving(self):
+        self.settings_widget.setEnabled(False)
         self.record_button.setEnabled(False)
         self.record_button.setText(get_app()._tr("Saving..."))
         self.record_button.setStyleSheet("QPushButton { color: #d8e3f2; font-weight: 600; }")
         self.record_button.setToolTip("")
 
     def _set_record_button_recording(self, elapsed=None):
+        self.settings_widget.setEnabled(False)
         self.record_button.setEnabled(True)
         if elapsed is None:
             elapsed = 0.0
@@ -2972,7 +3016,9 @@ class AudioRecordingDockContent(QWidget):
 
     def _activate_after_show(self):
         self._activation_pending = False
-        if not self._dock_visible():
+        # Restoring the window after capture must not refresh devices or reset
+        # the controls to idle while the recording is still being finalized.
+        if not self._dock_visible() or not self.settings_widget.isEnabled():
             return
         started = time.monotonic()
         try:

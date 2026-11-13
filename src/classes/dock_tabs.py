@@ -2,7 +2,7 @@
 
 from qt_api import (
     Qt, QObject, QEvent, QTimer, QAbstractButton, QPainter,
-    QStyle, QStyleOptionTab, QDockWidget, QWidget, isdeleted,
+    QStyle, QStyleOptionTab, QDockWidget, QWidget, isdeleted, QtGui,
 )
 
 
@@ -47,10 +47,41 @@ class DockTabButton(QAbstractButton):
                 option.state |= QStyle.State_Selected
             else:
                 option.state &= ~QStyle.State_Selected
-            # Ask the tab's own style to paint focus, including its margins
-            # and border thickness, instead of drawing a separate focus box.
+            # Preserve the label already painted by QTabBar. Native themes
+            # paint an opaque shape; transparent themes must not have their
+            # antialiased text painted twice either.
+            elements = getattr(QStyle, "SubElement", QStyle)
+            text_rect = bar.style().subElementRect(
+                elements.SE_TabBarTabText, option, bar)
+            text_rect = bar.style().itemTextRect(
+                bar.fontMetrics(), text_rect, Qt.AlignCenter,
+                bar.isTabEnabled(self.index), option.text)
+            # Native styles may replace the painter's clip while drawing.
+            # Render separately, then clip the final overlay ourselves.
+            overlay = QtGui.QPixmap(self.size() * self.devicePixelRatioF())
+            overlay.setDevicePixelRatio(self.devicePixelRatioF())
+            overlay.fill(Qt.transparent)
+            overlay_painter = QPainter(overlay)
             controls = getattr(QStyle, 'ControlElement', QStyle)
-            bar.style().drawControl(controls.CE_TabBarTabShape, option, painter, bar)
+            bar.style().drawControl(controls.CE_TabBarTabShape, option, overlay_painter, bar)
+            overlay_painter.end()
+            # Native tab shapes often ignore HasFocus entirely (Qt normally
+            # draws that indicator with the label). Supply a visible focus
+            # frame only when the style has no focused shape of its own.
+            normal = QtGui.QPixmap(overlay.size())
+            normal.setDevicePixelRatio(overlay.devicePixelRatio())
+            normal.fill(Qt.transparent)
+            normal_painter = QPainter(normal)
+            option.state &= ~QStyle.State_HasFocus
+            bar.style().drawControl(controls.CE_TabBarTabShape, option, normal_painter, bar)
+            normal_painter.end()
+            if normal.toImage() == overlay.toImage():
+                painter.setPen(QtGui.QPen(bar.palette().highlight().color(), 1, Qt.DotLine))
+                painter.drawRect(self.rect().adjusted(3, 3, -4, -4))
+                return
+            painter.setClipRegion(
+                QtGui.QRegion(option.rect).subtracted(QtGui.QRegion(text_rect)))
+            painter.drawPixmap(0, 0, overlay)
 
 
 class DockTabStops(QObject):

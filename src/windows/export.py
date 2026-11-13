@@ -26,6 +26,7 @@
  """
 import copy
 import functools
+import math
 import locale
 import os
 import time
@@ -42,21 +43,25 @@ except ImportError:
 
 from xml.parsers.expat import ExpatError
 
-from qt_api import Qt, QCoreApplication, QTimer, QSize, QPoint, pyqtSignal, pyqtSlot
+from qt_api import Qt, QCoreApplication, QTimer, QSize, QPoint, QSignalBlocker, pyqtSignal, pyqtSlot
 from qt_api import (
-    QMessageBox, QDialog, QDialogButtonBox, QPushButton, QWidget, QLineEdit, QComboBox, QSpinBox, QCheckBox,
+    QMessageBox, QDialog, QDialogButtonBox, QPushButton, QWidget, QLineEdit, QComboBox, QSpinBox, QDoubleSpinBox, QCheckBox,
     get_existing_directory,
 )
-from qt_api import QIcon
+from qt_api import QColor, QIcon, QPalette
 from functools import partial
 from classes import info, tabstops
 from classes import ui_util
-from classes import openshot_rc  # noqa
+from classes.export_settings import encoder_support, preferred_export_codec, cached_encoder_capabilities
+from classes import hardware_rc, openshot_rc  # pylint: disable=unused-import  # Registers Qt resources.
 from classes.logger import log
 from classes.app import get_app
-from classes.feedback import record_feedback_action
 from classes.metrics import track_metric_screen, track_metric_error
 from classes.query import File
+from windows.confetti import celebrate_export
+from windows.export_result import ExportResultTab, export_details
+from windows.export_validation_ui import ExportValidationUI
+from windows.views.hardware_combo import set_hardware_item, export_choice_label, backend_badge, backend_technology
 
 import json
 
@@ -72,6 +77,28 @@ def format_export_filename(filename, format_ext, default_filename="Untitled Proj
         if not file_name.lower().endswith(dot_ext.lower()):
             file_name = f"{file_name}{dot_ext}"
     return file_name
+
+
+def add_target_item(combo, data, label, codec, backend, reason):
+    """Append a target with its CPU/GPU badge. data is the preset title, or None
+    for advanced settings that match no preset."""
+    _ = get_app()._tr
+    mode = "cpu" if backend == "cpu" else "gpu"
+    combo.setIconSize(QSize(64, 22))
+    combo.addItem(QIcon(":/hardware/%s.svg" % mode), label, data)
+    index = combo.count() - 1
+    route = backend_badge(backend, _)
+    technology = backend_technology(backend)
+    tooltip = "%s: %s" % (codec or "Video disabled", reason)
+    if route:
+        tooltip = "%s · %s\n%s" % (route, technology, tooltip)
+    combo.setItemData(index, tooltip, Qt.ToolTipRole)
+    combo.setItemData(index, tooltip, Qt.AccessibleDescriptionRole)
+    description = _("Software encoding") if mode == "cpu" else _("Hardware encoding")
+    secondary = " · ".join(part for part in (
+        description, route if route != 'Cross-platform' else '', technology) if part)
+    set_hardware_item(combo, index, mode, label, route, secondary)
+    return index
 
 
 class Export(QDialog):
@@ -107,15 +134,18 @@ class Export(QDialog):
         self.cancel_button.setObjectName("cancelButton")
         self.export_button = QPushButton(_('Export Video'))
         self.export_button.setObjectName("acceptButton")
-        self.close_button = QPushButton(_('Done'))
         self.restoring_defaults = False
         self.restore_defaults_button.clicked.connect(self.restore_defaults)
 
-        self.buttonBox.addButton(self.close_button, QDialogButtonBox.RejectRole)
         self.buttonBox.addButton(self.export_button, QDialogButtonBox.AcceptRole)
         self.buttonBox.addButton(self.cancel_button, QDialogButtonBox.RejectRole)
-        self.close_button.setVisible(False)
         self.exporting = False
+        # Created when an export ends, as a third tab (success summary or error)
+        self.result_tab = None
+        self.export_elapsed = None
+        self.export_gpu_snapshot = {}
+        self.export_encoder = None
+        self.feedback_pending = False
         self.vbr = {}
         self.abr = {}
 
@@ -126,60 +156,13 @@ class Export(QDialog):
         self.lblChannels.setVisible(False)
         self.txtChannels.setVisible(False)
 
-        # Set OMP thread disabled flag (for stability)
-        openshot.Settings.Instance().HIGH_QUALITY_SCALING = True
-
-        # Copy project (so we don't change data in our current project)
-        self.project = copy.deepcopy(get_app().project)
-
-        # Clear timeline preview cache (to get more available memory)
+        # Opening the dialog only needs metadata. Readers, cache eviction and
+        # high-quality rendering are reserved for an actual export.
         self.old_cache_object = None
-        project_timeline = get_app().window.timeline_sync.timeline
-        if get_app().window.cache_object:
-            self.old_cache_object = get_app().window.cache_object
-            get_app().window.cache_object = openshot.CacheMemory(1 * 1024 * 1024) # 1 MB (limit cache for main project during export)
-            project_timeline.SetCache(get_app().window.cache_object)
-            self.old_cache_object.Clear()
-
-        # Create cache thread
-        self.cache_thread = openshot.VideoCacheThread()
-
-        # Get the original timeline settings
-        width = int(project_timeline.info.width)
-        height = int(project_timeline.info.height)
-        fps = project_timeline.info.fps
-        sample_rate = int(project_timeline.info.sample_rate)
-        channels = int(project_timeline.info.channels)
-        channel_layout = int(project_timeline.info.channel_layout)
-
-        # Create new "export" openshot.Timeline object
-        self.timeline = openshot.Timeline(
-            width, height, openshot.Fraction(fps.num, fps.den),
-            sample_rate, channels, channel_layout)
-        # Init various properties
-        self.timeline.info.sample_rate = sample_rate
-        self.timeline.info.channels = channels
-        self.timeline.info.channel_layout = channel_layout
-        self.timeline.info.has_audio = project_timeline.info.has_audio
-        self.timeline.info.has_video = project_timeline.info.has_video
-        self.timeline.info.video_length = project_timeline.info.video_length
-        self.timeline.info.duration = project_timeline.info.duration
-
-        # Load the "export" Timeline reader with the JSON from the real timeline
-        try:
-            json_timeline = json.dumps(self.project._data)
-            self.timeline.SetJson(json_timeline)
-        except Exception as ex:
-            msg = QMessageBox()
-            msg.setWindowTitle(_("Project Data Error"))
-            msg.setText(_("Sorry, an error was encountered while parsing your project data: \n'%(error)s'.\n\n"
-                          "Please save your project and inspect in a JSON editor to repair." %
-                          {"error": str(ex)}))
-            msg.exec_()
+        self.cache_thread = None
+        self._export_resources_claimed = False
+        if not self.load_export_timeline(load_project=False):
             return
-
-        # Open the "export" Timeline reader
-        self.timeline.Open()
 
         # Default export path
         recommended_path = self.s.getDefaultPath(self.s.actionType.EXPORT)
@@ -236,37 +219,7 @@ class Export(QDialog):
         self.checkStartFirstClip.toggled.connect(partial(self.updateFrameRate, True))
         self.checkEndLastClip.toggled.connect(partial(self.updateFrameRate, True))
 
-        # ********* Advanced Profile List **********
-        # Loop through profiles
-        self.profile_names = []
-        self.profile_paths = {}
-        self.current_project_profile = get_app().project.get(['profile'])
-        self.selected_profile = None
-        for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
-            for file in reversed(sorted(os.listdir(profile_folder))):
-                profile_path = os.path.join(profile_folder, file)
-                if os.path.isdir(profile_path):
-                    continue
-                try:
-                    # Load Profile
-                    profile = openshot.Profile(profile_path)
-
-                    # Add description of Profile to list
-                    profile_name = f"{profile.info.description} ({profile.info.width}x{profile.info.height})"
-                    self.profile_names.append(profile_name)
-                    self.profile_paths[profile_name] = profile_path
-
-                    # Add to dropdown
-                    self.cboProfile.addItem(
-                        self.getProfileName(self.getProfilePath(profile_name)), self.getProfilePath(profile_name))
-
-                    # Set default profile (if it matches the project)
-                    if self.current_project_profile == profile.info.description:
-                        self.selected_profile = profile_name
-
-                except RuntimeError as e:
-                    # This exception occurs when there's a problem parsing the Profile file - display a message and continue
-                    log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
+        self.load_profiles()
 
         # ********* Simple Project Type **********
         # load the simple project type dropdown
@@ -315,6 +268,16 @@ class Export(QDialog):
         # Load previous settings (if any)
         self.load_settings()
 
+        # Check settings as they change (outlines, section icons, and the Export button)
+        self.validation = ExportValidationUI(self)
+        self.encoder_probe_timer = QTimer(self)
+        self.encoder_probe_timer.setInterval(250)
+        self.encoder_probe_timer.timeout.connect(self._refresh_encoder_choices)
+        self._encoder_initial_settings = self.validation.current_settings()
+        self._encoder_saved_settings = bool(get_app().project.get("export_settings"))
+        if cached_encoder_capabilities(get_app())['state'] in ('not checked', 'checking'):
+            self.encoder_probe_timer.start()
+
         self.exportTabs.currentChanged.connect(self._apply_tab_order)
         self.toolBox.currentChanged.connect(self._apply_tab_order)
         self._apply_tab_order()
@@ -348,7 +311,6 @@ class Export(QDialog):
                 self.restore_defaults_button,
                 self.cancel_button,
                 self.export_button,
-                self.close_button,
             ]
         )
 
@@ -402,6 +364,8 @@ class Export(QDialog):
 
     def getProfilePath(self, profile_name):
         """Get the profile path that matches the name"""
+        if profile_name in self.profile_paths:
+            return self.profile_paths[profile_name]
         for profile, path in self.profile_paths.items():
             if profile_name in profile:
                 return path
@@ -476,14 +440,19 @@ class Export(QDialog):
         if set_limits:
             if self.checkEndLastClip.isChecked():
                 # Set end frame to last clip (right edge)
-                timeline_length_int = self.timeline.GetMaxFrame()
+                if self._export_timeline_loaded:
+                    timeline_length_int = self.timeline.GetMaxFrame()
+                else:
+                    frames = self._export_max_time * self.timeline.info.fps.ToDouble()
+                    timeline_length_int = 1 if 0 < frames < 1e-4 else math.ceil(frames - 1e-4)
             else:
                 # Set end frame to project length (full timeline)
                 timeline_length_int = self.timeline.info.video_length
 
             if self.checkStartFirstClip.isChecked():
                 # Set the start frame to the first clip position
-                timeline_start_int = self.timeline.GetMinFrame()
+                timeline_start_int = (self.timeline.GetMinFrame() if self._export_timeline_loaded else
+                                      math.floor(self._export_min_time * self.timeline.info.fps.ToDouble()) + 1)
             else:
                 # Set the start frame to the start of the project (0.0)
                 timeline_start_int = 1
@@ -509,15 +478,21 @@ class Export(QDialog):
         selected_project = widget.itemData(index)
 
         # set the target dropdown based on the selected project type
-        # first clear the combo
+        # Populate before applying a target: the first temporary entry must not
+        # rebuild profiles and settings before the actual default is selected.
+        was_blocked = self.cboSimpleTarget.signalsBlocked()
+        blocker = QSignalBlocker(self.cboSimpleTarget)
         self.cboSimpleTarget.clear()
 
         # get translations
         _ = get_app()._tr
 
+        capabilities = cached_encoder_capabilities(get_app())
         # parse the xml files and get targets that match the project type
         project_types = []
-        acceleration_types = {}
+        codec_support = {}
+        target_details = {}
+        self.video_targets = {}
         for preset_folder in [info.EXPORT_PRESETS_PATH, info.USER_PRESETS_PATH]:
             for file in os.listdir(preset_folder):
                 preset_path = os.path.join(preset_folder, file)
@@ -530,22 +505,26 @@ class Export(QDialog):
                         videocodecs = xmldoc.getElementsByTagName("videocodec")
                         for title in titles:
                             project_types.append(_(title.childNodes[0].data))
+                        container_nodes = xmldoc.getElementsByTagName("videoformat")
+                        container = (container_nodes[0].firstChild.data
+                                     if container_nodes and container_nodes[0].firstChild else "")
+                        codec_name = (videocodecs[0].firstChild.data
+                                      if videocodecs and videocodecs[0].firstChild else "")
+                        self.video_targets.update(
+                            (_(title.childNodes[0].data), (container, codec_name)) for title in titles)
                         for codec in videocodecs:
                             codec_text = ""
                             if codec.childNodes:
                                 codec_text = codec.childNodes[0].data
-                            if "vaapi" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vaapi.svg")
-                            elif "nvenc" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-nvenc.svg")
-                            elif "dxva2" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-dx.svg")
-                            elif "videotoolbox" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-vtb.svg")
-                            elif "qsv" in codec_text and openshot.FFmpegWriter.IsValidCodec(codec_text):
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-qsv.svg")
-                            elif openshot.FFmpegWriter.IsValidCodec(codec_text) or codec_text == "":
-                                acceleration_types[_(title.childNodes[0].data)] = QIcon(":/hw/hw-accel-none.svg")
+                            if codec_text not in codec_support:
+                                codec_support[codec_text] = encoder_support(codec_text, capabilities=capabilities)
+                            backend, supported, reason = codec_support[codec_text]
+                            if supported:
+                                for title in titles:
+                                    target = _(title.childNodes[0].data)
+                                    target_details[target] = (
+                                        export_choice_label(target, container, codec_text, backend),
+                                        codec_text, backend, reason)
 
                 except ExpatError as e:
                     # This indicates an invalid Preset file - display an error and continue
@@ -554,25 +533,57 @@ class Export(QDialog):
                 # Free up DOM memory
                 xmldoc.unlink()
 
+        # Saved project export settings are restored after the initial defaults.
+        default_codec = preferred_export_codec({
+            codec for container, codec in self.video_targets.values() if container == 'mp4'},
+            capabilities=capabilities)
         # Add all targets for selected project type
         preset_index = 0
         selected_preset = 0
+        log.info("GPU export presets: %s", {
+            codec: {"shown": supported, "reason": reason}
+            for codec, (backend, supported, reason) in codec_support.items() if backend != "cpu"})
         for item in sorted(project_types):
-            icon = acceleration_types.get(item)
-            if icon:
-                self.cboSimpleTarget.setIconSize(QSize(60, 18))
-                self.cboSimpleTarget.addItem(icon, item, item)
+            if item in target_details:
+                row = add_target_item(self.cboSimpleTarget, item, *target_details[item])
+                if capabilities['state'] in ('not checked', 'checking') and target_details[item][2] != 'cpu':
+                    self.cboSimpleTarget.model().item(row).setEnabled(False)
             else:
                 continue
 
-            # Find index of MP4/H.264
-            if item == _("MP4 (h.264)"):
+            # Prefer a runtime-probed H.264 GPU route for a fresh export.
+            if (item == _("MP4 (h.264)") if default_codec == 'libx264' else
+                    self.video_targets.get(item) == ('mp4', default_codec)):
                 selected_preset = preset_index
 
             preset_index += 1
 
-        # Select MP4/H.264 as default
+        # Select the preferred available MP4/H.264 target
         self.cboSimpleTarget.setCurrentIndex(selected_preset)
+        blocker.unblock()
+        if not was_blocked:
+            self.cboSimpleTarget.currentIndexChanged.emit(selected_preset)
+
+    def _refresh_encoder_choices(self):
+        if cached_encoder_capabilities(get_app())['state'] in ('not checked', 'checking'):
+            return
+        self.encoder_probe_timer.stop()
+        pristine = (not self._encoder_saved_settings and
+                    self.validation.current_settings() == self._encoder_initial_settings)
+        target = self.cboSimpleTarget.currentData()
+        was_blocked = self.cboSimpleTarget.blockSignals(True)
+        try:
+            self.cboSimpleProjectType_index_changed(self.cboSimpleProjectType, self.cboSimpleProjectType.currentIndex())
+            if not pristine:
+                index = self.cboSimpleTarget.findData(target)
+                self.cboSimpleTarget.setCurrentIndex(index)
+        finally:
+            self.cboSimpleTarget.blockSignals(was_blocked)
+        if pristine:
+            self.cboSimpleTarget_index_changed(self.cboSimpleTarget, self.cboSimpleTarget.currentIndex())
+        else:
+            # Keep saved/user-edited settings, even if their encoder is unavailable.
+            self.sync_video_target()
 
     def cboProfile_index_changed(self, widget, index):
         selected_profile_path = widget.itemData(index)
@@ -617,6 +628,33 @@ class Export(QDialog):
             self.cboSpherical.setCurrentIndex(0)
 
         self.update_all_formats_bitrates()
+
+    def sync_video_target(self):
+        """Keep the displayed target and its badge consistent with the advanced video
+        settings (i.e. after a fix replaces the encoder), without reapplying presets."""
+        targets = getattr(self, "video_targets", {})
+        combo = self.cboSimpleTarget
+        actual = (self.txtVideoFormat.text().strip(), self.txtVideoCodec.text().strip())
+        if targets.get(combo.currentData()) == actual:
+            return
+        blocked = combo.blockSignals(True)
+        try:
+            # Discard the previous custom display, if any.
+            for index in range(combo.count() - 1, -1, -1):
+                if combo.itemData(index) is None:
+                    combo.removeItem(index)
+            for index in range(combo.count()):
+                if targets.get(combo.itemData(index)) == actual:
+                    combo.setCurrentIndex(index)
+                    return
+            # Advanced settings need not match a named preset. Show the real encoder
+            # rather than leaving an unrelated preset's title and GPU badge selected.
+            backend, _supported, reason = encoder_support(actual[1], capabilities=cached_encoder_capabilities(get_app()))
+            combo.setCurrentIndex(add_target_item(combo, None, "%s (%s)" % actual, actual[1], backend, reason))
+        finally:
+            combo.blockSignals(blocked)
+            if hasattr(combo, "sync_details"):
+                combo.sync_details()
 
     def cboSimpleTarget_index_changed(self, widget, index):
         selected_target = widget.itemData(index)
@@ -779,6 +817,10 @@ class Export(QDialog):
             else:
                 self.cboSimpleQuality.setCurrentIndex(self.cboSimpleQuality.count() - 1)
 
+            # Quietly adjust preset audio details this FFmpeg build can't use (i.e. sample rate)
+            if getattr(self, "validation", None):
+                self.validation.request_auto_fix()
+
     def getVideoProfileIndex(self, profile_name=None, profile_key=None):
         """Get the index of a profile name or profile key (-1 if not found)"""
         if profile_name:
@@ -933,6 +975,8 @@ class Export(QDialog):
         self.exportTabs.setEnabled(True)
         self.export_button.setEnabled(True)
         self.btnBrowse.setEnabled(True)
+        if getattr(self, "validation", None):
+            self.validation.update_export_button()
 
     def _setup_toolbox_tab_order(self):
         toolbox = self.toolBox
@@ -1012,8 +1056,58 @@ class Export(QDialog):
 
         return sorted(widgets, key=_pos_key)
 
+    def load_profiles(self):
+        """Populate export profiles, including installations without a user folder."""
+        self.profile_names = []
+        self.profile_paths = {}
+        self.current_project_profile = get_app().project.get(['profile'])
+        self.selected_profile = None
+        for profile_folder in [info.USER_PROFILES_PATH, info.PROFILES_PATH]:
+            try:
+                filenames = os.listdir(profile_folder)
+            except FileNotFoundError:
+                log.warning("Skipping missing profile folder: %s", profile_folder)
+                continue
+            for file in reversed(sorted(filenames)):
+                profile_path = os.path.join(profile_folder, file)
+                if os.path.isdir(profile_path):
+                    continue
+                try:
+                    # Load Profile
+                    profile = openshot.Profile(profile_path)
+
+                    # Add description of Profile to list
+                    profile_name = f"{profile.info.description} ({profile.info.width}x{profile.info.height})"
+                    self.profile_names.append(profile_name)
+                    self.profile_paths[profile_name] = profile_path
+
+                    # Add to dropdown
+                    self.cboProfile.addItem(profile_name, profile_path)
+
+                    # Set default profile (if it matches the project)
+                    if self.current_project_profile == profile.info.description:
+                        self.selected_profile = profile_name
+
+                except RuntimeError as e:
+                    # This exception occurs when there's a problem parsing the Profile file - display a message and continue
+                    log.error("Failed to parse file '%s' as a profile: %s" % (profile_path, e))
+
     def accept(self):
         """ Start exporting video """
+        # Don't start an export that FFmpeg would reject
+        validation = getattr(self, "validation", None)
+        if validation:
+            validation.validate()
+            # Then ask the engine itself, with the exact export settings
+            if validation.has_errors() or not validation.confirm_with_engine():
+                validation.reveal_first_error()
+                return
+
+        # Start fresh after a previous export from this dialog
+        self.clear_export_result()
+        self.cancel_button.setText(get_app()._tr('Cancel'))
+        self.progressExportVideo.setPalette(QPalette())
+
         # Save export settings
         self.save_settings()
 
@@ -1119,38 +1213,15 @@ class Export(QDialog):
                 self.exporting = False
                 return
 
-        # Init export settings
-        interlacedIndex = self.cboInterlaced.currentIndex()
-        sphericalIndex = self.cboSpherical.currentIndex()
-        video_settings = {  "vformat": self.txtVideoFormat.text(),
-                            "vcodec": self.txtVideoCodec.text(),
-                            "fps": { "num" : self.txtFrameRateNum.value(), "den": self.txtFrameRateDen.value()},
-                            "width": self.txtWidth.value(),
-                            "height": self.txtHeight.value(),
-                            "pixel_ratio": {"num": self.txtPixelRatioNum.value(), "den": self.txtPixelRatioDen.value()},
-                            "video_bitrate": int(self.convert_to_bytes(self.txtVideoBitRate.text())),
-                            "start_frame": self.txtStartFrame.value(),
-                            "end_frame": self.txtEndFrame.value(),
-                            "interlace": interlacedIndex in [1, 2],
-                            "topfirst": interlacedIndex == 1,
-                            "spherical": sphericalIndex == 1
-                          }
+        self.claim_export_resources()
+        if not self.load_export_timeline():
+            self.release_export_resources()
+            self.enableControls()
+            self.exporting = False
+            return
+        self.updateFrameRate(set_limits=False)
 
-        audio_settings = {"acodec": self.txtAudioCodec.text(),
-                          "sample_rate": self.txtSampleRate.value(),
-                          "channels": self.txtChannels.value(),
-                          "channel_layout": self.cboChannelLayout.currentData(),
-                          "audio_bitrate": int(self.convert_to_bytes(self.txtAudioBitrate.text()))
-                          }
-
-        # Override vcodec and format for Image Sequences
-        if export_type == _("Image Sequence"):
-            image_ext = os.path.splitext(self.txtImageFormat.text().strip())[1].replace(".", "")
-            video_settings["vformat"] = image_ext
-            if image_ext in ["jpg", "jpeg"]:
-                video_settings["vcodec"] = "mjpeg"
-            else:
-                video_settings["vcodec"] = image_ext
+        video_settings, audio_settings, mode, quality_mode = self.writer_settings()
 
         # Store updated export folder path in project file
         settings = get_app().get_settings()
@@ -1189,24 +1260,30 @@ class Export(QDialog):
         # Precision of the progress bar
         format_of_progress_string = "%4.1f%% "
 
+        measurements = getattr(get_app(), 'gpu_measurements', None)
+        if measurements:
+            measurements.reset(exporting=True)
+        self.export_gpu_snapshot = {}
+        self.export_encoder = None
+
         # Start video cache thread (to start caching frames)
         self.cache_thread.Reader(self.timeline)
         self.cache_thread.setSpeed(1)
         self.cache_thread.StartThread()
 
         # Create FFmpegWriter
+        export_succeeded = False
+        export_error = None
         try:
             w = openshot.FFmpegWriter(export_file_path)
 
             from classes.export_settings import configure_writer
-            mode = {_("Video & Audio"): "video_audio", _("Video Only"): "video",
-                    _("Audio Only"): "audio", _("Image Sequence"): "image_sequence"}[export_type]
-            quality_mode = next((name for name in ("crf", "cqp", "qp")
-                                 if name in self.txtVideoBitRate.text()), None)
             configure_writer(w, video_settings, audio_settings, mode, quality_mode)
 
             # Open the writer
             w.Open()
+            self.export_encoder = w.info.vcodec
+            measured_write = getattr(w, 'WriteMeasuredFrame', None)
 
             # Notify window of export started
             title_message = ""
@@ -1264,7 +1341,10 @@ class Export(QDialog):
                 max_frame = frame
 
                 # Write the frame object to the video
-                w.WriteFrame(self.timeline.GetFrame(frame))
+                if callable(measured_write):
+                    measured_write(self.timeline, frame)
+                else:
+                    w.WriteFrame(self.timeline.GetFrame(frame))
                 if self.cache_thread:
                     self.cache_thread.Seek(frame)
 
@@ -1274,8 +1354,8 @@ class Export(QDialog):
 
             # Close writer
             w.Close()
-            if self.exporting and max_frame == end_frame_export:
-                record_feedback_action("export")
+            export_succeeded = self.exporting and max_frame == end_frame_export
+            self.export_elapsed = time.time() - start_time_export
 
             # Emit final exported frame (with elapsed time)
             seconds_run = round((end_time_export - start_time_export))
@@ -1317,12 +1397,14 @@ class Export(QDialog):
 
             # Show friendly error
             friendly_error = error_type_str.split("> ")[0].replace("<", "")
+            export_error = friendly_error
 
-            # Prompt error message
-            msg = QMessageBox()
-            msg.setWindowTitle(_("Export Error"))
-            msg.setText(_("Sorry, there was an error exporting your video: \n%s") % friendly_error)
-            msg.exec_()
+            # The finished dialog shows errors in its own tab; otherwise prompt
+            if not (self.s.get("show_finished_window") and self.exporting):
+                msg = QMessageBox()
+                msg.setWindowTitle(_("Export Error"))
+                msg.setText(_("Sorry, there was an error exporting your video: \n%s") % friendly_error)
+                msg.exec_()
 
         # Notify window of export started
         self.ExportEnded.emit(export_file_path)
@@ -1333,37 +1415,231 @@ class Export(QDialog):
         # Clear all cache
         self.timeline.ClearAllCache()
 
-        # Return scale mode to lower quality scaling (for faster previews)
-        openshot.Settings.Instance().HIGH_QUALITY_SCALING = False
+        self.release_export_resources()
 
-        # Stop cache thread and restore project cache
+        measurements = getattr(get_app(), 'gpu_measurements', None)
+        if measurements:
+            self.export_gpu_snapshot = measurements.snapshot(exporting=True)
+            if self.export_encoder:
+                self.export_gpu_snapshot['encoder'] = self.export_encoder
+
+        # Handle end of export (for non-canceled exports)
+        if self.s.get("show_finished_window") and self.exporting:
+            # Reuse the same footer button so closing stays available after export.
+            self.exporting = False
+            self.cancel_button.setText(get_app()._tr('Done'))
+
+            # Make progress bar green (or red after an error) to indicate we are done
+            p = QPalette()
+            p.setColor(QPalette.Highlight, QColor("#e5484d") if export_error else Qt.green)
+            self.progressExportVideo.setPalette(p)
+
+            if export_succeeded or export_error:
+                self.show_export_result(export_file_path, mode, export_error)
+            self.prepare_next_export()
+
+            # Raise the window
+            self.show()
+            if export_succeeded:
+                self.celebrate_export()
+        else:
+            if export_succeeded:
+                self.celebrate_export()
+            # Accept dialog
+            super(Export, self).accept()
+
+    def show_export_result(self, path, mode, error=None):
+        """Add and activate a third tab: the exported file's summary, or the error.
+
+        The settings tabs stay editable, so another export can start right away.
+        """
+        _ = get_app()._tr
+        kind = {"video_audio": "video", "video": "video"}.get(mode, mode)
+        self.clear_export_result()
+        try:
+            self.result_tab = panel = ExportResultTab(_, self.exportTabs)
+            if error:
+                panel.show_failure(error, export_details(self, "", kind, _))
+                title = _("Export Failed")
+            else:
+                panel.show_success(path, kind, export_details(self, path, kind, _))
+                title = _("Complete")
+            panel.set_gpu_metrics(getattr(self, 'export_gpu_snapshot', {}) if kind == 'video' else {})
+            self.exportTabs.setCurrentIndex(self.exportTabs.addTab(self.result_tab, title))
+        except Exception:
+            log.warning("Unable to show export result", exc_info=True)
+            return
+        panel.focus_primary()
+
+    def writer_settings(self):
+        """The writer settings an export uses: (video, audio, mode, quality_mode)."""
+        _ = get_app()._tr
+        export_type = self.cboExportTo.currentText()
+        mode = {_("Video & Audio"): "video_audio", _("Video Only"): "video",
+                _("Audio Only"): "audio", _("Image Sequence"): "image_sequence"}.get(export_type, "video_audio")
+        quality_mode = next((name for name in ("crf", "cqp", "qp")
+                             if name in self.txtVideoBitRate.text()), None)
+        interlacedIndex = self.cboInterlaced.currentIndex()
+        sphericalIndex = self.cboSpherical.currentIndex()
+        video_settings = {  "vformat": self.txtVideoFormat.text(),
+                            "vcodec": self.txtVideoCodec.text(),
+                            "fps": { "num" : self.txtFrameRateNum.value(), "den": self.txtFrameRateDen.value()},
+                            "width": self.txtWidth.value(),
+                            "height": self.txtHeight.value(),
+                            "pixel_ratio": {"num": self.txtPixelRatioNum.value(), "den": self.txtPixelRatioDen.value()},
+                            "video_bitrate": int(self.convert_to_bytes(self.txtVideoBitRate.text())),
+                            "start_frame": self.txtStartFrame.value(),
+                            "end_frame": self.txtEndFrame.value(),
+                            "interlace": interlacedIndex in [1, 2],
+                            "topfirst": interlacedIndex == 1,
+                            "spherical": sphericalIndex == 1
+                          }
+
+        audio_settings = {"acodec": self.txtAudioCodec.text(),
+                          "sample_rate": self.txtSampleRate.value(),
+                          "channels": self.txtChannels.value(),
+                          "channel_layout": self.cboChannelLayout.currentData(),
+                          "audio_bitrate": int(self.convert_to_bytes(self.txtAudioBitrate.text()))
+                          }
+
+        # Override vcodec and format for Image Sequences
+        if mode == "image_sequence":
+            image_ext = os.path.splitext(self.txtImageFormat.text().strip())[1].replace(".", "")
+            video_settings["vformat"] = image_ext
+            if image_ext in ["jpg", "jpeg"]:
+                video_settings["vcodec"] = "mjpeg"
+            else:
+                video_settings["vcodec"] = image_ext
+        return video_settings, audio_settings, mode, quality_mode
+
+    def claim_export_resources(self):
+        """Limit the preview cache (to free memory) and create the export cache thread."""
+        if self._export_resources_claimed:
+            return
+        self._export_resources_claimed = True
+        self._preview_high_quality = openshot.Settings.Instance().HIGH_QUALITY_SCALING
+        openshot.Settings.Instance().HIGH_QUALITY_SCALING = True
+
+        # Clear timeline preview cache (to get more available memory)
+        window = get_app().window
+        if window.cache_object:
+            self.old_cache_object = window.cache_object
+            window.cache_object = openshot.CacheMemory(1 * 1024 * 1024) # 1 MB (limit cache for main project during export)
+            window.timeline_sync.timeline.SetCache(window.cache_object)
+            self.old_cache_object.Clear()
+
+        # Create cache thread
+        self.cache_thread = openshot.VideoCacheThread()
+
+    def release_export_resources(self):
+        """Restore preview state only if this dialog actually started an export."""
+        if not self._export_resources_claimed:
+            return
         if self.cache_thread:
             self.cache_thread.StopThread(10000)
             self.cache_thread.Reader(None)
             self.cache_thread = None
-        get_app().window.timeline_sync.timeline.SetCache(self.old_cache_object)
-        get_app().window.cache_object = self.old_cache_object
+        window = get_app().window
+        if self.old_cache_object is not None:
+            window.timeline_sync.timeline.SetCache(self.old_cache_object)
+            window.cache_object = self.old_cache_object
+            self.old_cache_object = None
+        openshot.Settings.Instance().HIGH_QUALITY_SCALING = self._preview_high_quality
+        self._export_resources_claimed = False
 
-        # Handle end of export (for non-canceled exports)
-        if self.s.get("show_finished_window") and self.exporting:
-            # Hide cancel and export buttons
-            self.cancel_button.setVisible(False)
-            self.export_button.setVisible(False)
+    def load_export_timeline(self, load_project=True):
+        """Prepare metadata, loading the project/readers only when an export starts."""
+        _ = get_app()._tr
 
-            # Reveal done button
-            self.close_button.setVisible(True)
+        # Copy project (so we don't change data in our current project)
+        self.project = copy.deepcopy(get_app().project) if load_project else None
+        self._export_timeline_loaded = False
 
-            # Make progress bar green (to indicate we are done)
-            from qt_api import QPalette
-            p = QPalette()
-            p.setColor(QPalette.Highlight, Qt.green)
-            self.progressExportVideo.setPalette(p)
+        # Get the original timeline settings
+        project_timeline = get_app().window.timeline_sync.timeline
+        width = int(project_timeline.info.width)
+        height = int(project_timeline.info.height)
+        fps = project_timeline.info.fps
+        sample_rate = int(project_timeline.info.sample_rate)
+        channels = int(project_timeline.info.channels)
+        channel_layout = int(project_timeline.info.channel_layout)
 
-            # Raise the window
-            self.show()
+        self._export_min_time = project_timeline.GetMinTime()
+        self._export_max_time = project_timeline.GetMaxTime()
+
+        # Create new "export" openshot.Timeline object
+        self.timeline = openshot.Timeline(
+            width, height, openshot.Fraction(fps.num, fps.den),
+            sample_rate, channels, channel_layout)
+        if hasattr(self.timeline, 'gpu_metrics_export'):
+            self.timeline.gpu_metrics_export = True
+        # Init various properties
+        self.timeline.info.sample_rate = sample_rate
+        self.timeline.info.channels = channels
+        self.timeline.info.channel_layout = channel_layout
+        self.timeline.info.has_audio = project_timeline.info.has_audio
+        self.timeline.info.has_video = project_timeline.info.has_video
+        self.timeline.info.video_length = project_timeline.info.video_length
+        self.timeline.info.duration = project_timeline.info.duration
+
+        if not load_project:
+            return True
+
+        # Load the "export" Timeline reader with the JSON from the real timeline
+        try:
+            json_timeline = json.dumps(self.project._data)
+            self.timeline.SetJson(json_timeline)
+        except Exception as ex:
+            msg = QMessageBox()
+            msg.setWindowTitle(_("Project Data Error"))
+            msg.setText(_("Sorry, an error was encountered while parsing your project data: \n'%(error)s'.\n\n"
+                          "Please save your project and inspect in a JSON editor to repair." %
+                          {"error": str(ex)}))
+            msg.exec_()
+            return False
+
+        # Open the "export" Timeline reader
+        self.timeline.Open()
+        self._export_timeline_loaded = True
+        return True
+
+    def prepare_next_export(self):
+        """Make the finished dialog ready to export again, with the settings still editable."""
+        self.exporting = False
+        ready = self.load_export_timeline(load_project=False)
+        if ready:
+            # Apply the current settings to the new timeline (keeping the chosen frame range)
+            self.updateFrameRate(set_limits=False)
+        self.enableControls()
+        if not ready:
+            self.export_button.setEnabled(False)
+
+    def clear_export_result(self):
+        """Remove the previous export's result tab."""
+        if getattr(self, "result_tab", None) is not None:
+            self.exportTabs.removeTab(self.exportTabs.indexOf(self.result_tab))
+            self.result_tab.deleteLater()
+            self.result_tab = None
+
+    def celebrate_export(self):
+        """Confetti over the finished dialog; the feedback banner waits until it closes."""
+        window = get_app().window
+        parent = self if self.s.get("show_finished_window") else window
+        celebrate_export(self.s, parent)
+        if self.s.get("show_finished_window"):
+            # Let the result tab have the moment; invite feedback after Done.
+            self.feedback_pending = True
         else:
-            # Accept dialog
-            super(Export, self).accept()
+            self.invite_feedback()
+
+    def invite_feedback(self):
+        self.feedback_pending = False
+        controller = getattr(get_app().window, "feedback_controller", None)
+        if controller:
+            try:
+                controller.record_export()
+            except Exception:
+                log.warning("Unable to show feedback invitation", exc_info=True)
 
     def save_settings(self):
         if self.restoring_defaults:
@@ -1374,7 +1650,10 @@ class Export(QDialog):
 
         # Iterate over all children in the dialog in the order they are defined
         for child in self.findChildren(QWidget):
-            if child.objectName().startswith("qt_"):
+            if not child.objectName() or child.objectName().startswith("qt_"):
+                continue
+            # The result tab shows output, never export settings.
+            if self.result_tab is not None and self.result_tab.isAncestorOf(child):
                 continue
             setting = {}
             if isinstance(child, QLineEdit):
@@ -1413,8 +1692,15 @@ class Export(QDialog):
             return
 
         # Iterate over the list of settings and apply them in order
+        widget_types = {'QLineEdit': QLineEdit, 'QComboBox': QComboBox,
+                        'QSpinBox': QSpinBox, 'QDoubleSpinBox': QDoubleSpinBox,
+                        'QCheckBox': QCheckBox}
         for setting in settings:
-            widget = self.findChild(QWidget, setting['name'])
+            name = setting.get('name', '')
+            widget_type = widget_types.get(setting.get('type'))
+            if not name or name.startswith('qt_') or widget_type is None:
+                continue
+            widget = self.findChild(widget_type, name)
             if widget:
                 if setting['type'] == 'QLineEdit':
                     widget.setText(setting.get('value', ''))
@@ -1436,7 +1722,7 @@ class Export(QDialog):
     def reject(self):
         self.save_settings()
 
-        if self.exporting and not self.close_button.isVisible():
+        if self.exporting:
             # Show confirmation dialog
             _ = get_app()._tr
             result = QMessageBox.question(
@@ -1448,20 +1734,14 @@ class Export(QDialog):
                 # Resume export
                 return
 
-        # Return scale mode to lower quality scaling (for faster previews)
-        openshot.Settings.Instance().HIGH_QUALITY_SCALING = False
-
-        # Stop cache thread and restore project cache
-        if self.cache_thread:
-            self.cache_thread.StopThread(10000)
-            self.cache_thread.Reader(None)
-            self.cache_thread = None
-        get_app().window.timeline_sync.timeline.SetCache(self.old_cache_object)
-        get_app().window.cache_object = self.old_cache_object
+        self.encoder_probe_timer.stop()
+        self.release_export_resources()
 
         # Cancel dialog
         self.exporting = False
         super(Export, self).reject()
+        if getattr(self, "feedback_pending", False):
+            self.invite_feedback()
 
     def calculate_all_formats_bitrate(self, quality_key):
         """Calculate a bitrate using bits-per-pixel guidance for All Formats presets."""

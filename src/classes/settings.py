@@ -172,8 +172,7 @@ class SettingStore(JsonDataStore):
         log.info(f"Restoring defaults for category: {category_filter or 'all categories'}")
         preserve_keys = [
             'unique_install_id', 'tutorial_ids', 'tutorial_enabled', 'send_metrics',
-            'feedback-shown', 'feedback-use-seconds', 'feedback-release',
-            'feedback-action-count', 'feedback-action-categories',
+            'feedback-shown', 'feedback-release', 'export-celebrated',
             'dismissed-update-version',
             'recent_projects', 'custom_views', 'active_custom_view', 'active_builtin_view',
         ]

@@ -1,4 +1,5 @@
 """Keyboard navigation, editing boundaries, focus, and settings migration."""
+from functools import partial
 import json
 from pathlib import Path
 from types import SimpleNamespace
@@ -740,14 +741,24 @@ class HeldNudgeTests(unittest.TestCase):
         self.shortcuts = []
         for sequence, frames in ((',', -1), ('.', 1), ('Shift+,', -5), ('Shift+.', 5), ('Ctrl+Left', -1)):
             self.shortcuts.append(QShortcut(QKeySequence(sequence), self.canvas,
-                                            activated=lambda frames=frames: self.canvas.keyboard_nudge(frames),
+                                            activated=partial(self.canvas.keyboard_nudge, frames),
                                             context=Qt.WidgetShortcut))
         self.shortcuts.append(QShortcut(QKeySequence('Ctrl+Z'), self.window, activated=self.updates.undo))
-        self.addCleanup(self.window.close)
+        self.addCleanup(self.dispose_window)
         self.window.show()
         self.window.activateWindow()
         self.canvas.setFocus()
         self.QTest.qWait(10)
+
+    def dispose_window(self):
+        # Delete each window now so hidden windows don't pile up between tests (jammy SIGSEGV in show()).
+        from qt_api import QCoreApplication, QEvent
+        self.window.close()
+        self.window.deleteLater()
+        QCoreApplication.sendPostedEvents(None, QEvent.DeferredDelete)
+        self.app.processEvents()
+        self.shortcuts = []
+        self.canvas = self.window = None
 
     def repeat(self, key, modifiers, count):
         from qt_api import QApplication, QEvent, QKeyEvent

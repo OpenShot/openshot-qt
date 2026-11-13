@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:23
+#: ../doc/timeline.rst:23
 msgid "Timeline"
 msgstr "Tidslinje"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:25
+#: ../doc/timeline.rst:25
 msgid ""
 "The timeline is where your video comes together. You arrange clips, trim "
 "them, layer visuals, and make timing decisions here. If you are new to "
@@ -38,109 +38,115 @@ msgstr ""
 "som en enkel historie fra venstre til høyre: tidligere øyeblikk til venstre,"
 " senere øyeblikk til høyre."
 
-# Translated with gpt-4.1-mini
-#: ../timeline.rst:32
+#: ../doc/timeline.rst:32
 msgid ""
 "If you are just getting started, read :ref:`quick_tutorial_ref` first, then "
 "come back here for more detail. For a labeled breakdown of toolbar controls,"
-" see :ref:`timeline_toolbar_ref`."
+" see :ref:`timeline_toolbar_ref`. To select, move, and trim clips and "
+"transitions with the keyboard, see :ref:`timeline_keyboard_ref`. You can "
+"also focus Project Files with :kbd:`Shift+1` and press :kbd:`Ctrl+Enter` to "
+"place selected files at the playhead on the target track."
 msgstr ""
 "Hvis du nettopp har begynt, les :ref:`quick_tutorial_ref` først, og kom "
 "deretter tilbake hit for mer detaljer. For en merket oversikt over "
-"verktøylinje-kontroller, se :ref:`timeline_toolbar_ref`."
+"verktøylinje-kontroller, se :ref:`timeline_toolbar_ref`. For å velge, flytte"
+" og trimme klipp og overganger med tastaturet, se "
+":ref:`timeline_keyboard_ref`. Du kan også fokusere Prosjektfiler med "
+":kbd:`Shift+1` og trykke :kbd:`Ctrl+Enter` for å plassere valgte filer ved "
+"avspillingshodet på målsporet."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:37
+#: ../doc/timeline.rst:40
 msgid "Timeline Basics"
 msgstr "Grunnleggende om tidslinjen"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:39
+#: ../doc/timeline.rst:42
 msgid "These terms are used often in this guide:"
 msgstr "Disse begrepene brukes ofte i denne veiledningen:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:45
+#: ../doc/timeline.rst:48
 msgid "Term"
 msgstr "Begrep"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:45
+#: ../doc/timeline.rst:48
 msgid "Meaning"
 msgstr "Betydning"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:47
+#: ../doc/timeline.rst:50
 msgid "Playhead"
 msgstr "Avspillingshode"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:47
+#: ../doc/timeline.rst:50
 msgid "The red line that shows your current time position."
 msgstr "Den røde linjen som viser din nåværende tidsposisjon."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:48
+#: ../doc/timeline.rst:51
 msgid "Track"
 msgstr "Spor"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:48
+#: ../doc/timeline.rst:51
 msgid ""
 "A horizontal layer that holds clips (top tracks appear above lower tracks)."
 msgstr ""
 "Et horisontalt lag som holder klipp (øverste spor vises over lavere spor)."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:49
+#: ../doc/timeline.rst:52
 msgid "Clip"
 msgstr "Klipp"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:49
+#: ../doc/timeline.rst:52
 msgid "A video, audio, or image item placed on a track."
 msgstr "Et video-, lyd- eller bildeelement plassert på et spor."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:50
+#: ../doc/timeline.rst:53
 msgid "Transition"
 msgstr "Overgang"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:50
+#: ../doc/timeline.rst:53
 msgid "A blend between two overlapping clips."
 msgstr "En blanding mellom to overlappende klipp."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:51
+#: ../doc/timeline.rst:54
 msgid "Marker"
 msgstr "Markør"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:51
+#: ../doc/timeline.rst:54
 msgid "A saved point in time you can jump back to quickly."
 msgstr "Et lagret tidspunkt du raskt kan hoppe tilbake til."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:52
+#: ../doc/timeline.rst:55
 msgid "Keyframe"
 msgstr "Nøkkelbilde"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:52
+#: ../doc/timeline.rst:55
 msgid "A saved value at a point in time (used for animation)."
 msgstr "En lagret verdi på et tidspunkt (brukes for animasjon)."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:55
+#: ../doc/timeline.rst:58
 msgid "For a full glossary, see :ref:`glossary_ref`."
 msgstr "For en fullstendig ordliste, se :ref:`glossary_ref`."
 
-#: ../timeline.rst:58
+#: ../doc/timeline.rst:61
 msgid "Current Timecode"
 msgstr "Gjeldende tidskode"
 
-#: ../timeline.rst:60
+#: ../doc/timeline.rst:63
 msgid ""
 "The current timecode appears at the left side of the timeline ruler and "
 "shows the playhead's exact position. Click the timecode, enter a new value, "
@@ -150,7 +156,7 @@ msgstr ""
 " avspillingshodets nøyaktige posisjon. Klikk på tidskoden, skriv inn en ny "
 "verdi, og trykk :kbd:`Enter` for å flytte avspillingshodet til det bildet."
 
-#: ../timeline.rst:64
+#: ../doc/timeline.rst:67
 msgid ""
 "Clear the field or enter ``0`` to jump to the start of the timeline. Press "
 ":kbd:`Up` or :kbd:`Down` to step the selected timecode segment; hold "
@@ -163,37 +169,37 @@ msgstr ""
 "hold :kbd:`Ctrl` for å gå ett sekund. Trykk :kbd:`Esc` for å avbryte."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:70
+#: ../doc/timeline.rst:73
 msgid "Common Timeline Tasks"
 msgstr "Vanlige oppgaver i tidslinjen"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:72
+#: ../doc/timeline.rst:75
 msgid "Most editing sessions follow a similar flow:"
 msgstr "De fleste redigeringsøkter følger en lignende flyt:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:74
+#: ../doc/timeline.rst:77
 msgid "Add media to the project using :ref:`import_files_ref`."
 msgstr "Legg til medier i prosjektet ved å bruke :ref:`import_files_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:75
+#: ../doc/timeline.rst:78
 msgid "Drag files from the project panel onto timeline tracks."
 msgstr "Dra filer fra prosjektpanelet til tidslinjespor."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:76
+#: ../doc/timeline.rst:79
 msgid "Trim clip edges to remove extra content."
 msgstr "Beskjær klippekantene for å fjerne ekstra innhold."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:77
+#: ../doc/timeline.rst:80
 msgid "Move clips into order and stack tracks to build your scene."
 msgstr "Flytt klipp i rekkefølge og stable spor for å bygge scenen din."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:78
+#: ../doc/timeline.rst:81
 msgid ""
 "Add transitions and effects where needed (:ref:`transitions_ref`, "
 ":ref:`effects_ref`)."
@@ -202,12 +208,12 @@ msgstr ""
 ":ref:`effects_ref`)."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:79
+#: ../doc/timeline.rst:82
 msgid "Preview and adjust timing (:ref:`playback_ref`)."
 msgstr "Forhåndsvis og juster timing (:ref:`playback_ref`)."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:81
+#: ../doc/timeline.rst:84
 msgid ""
 "Clip trimming, slicing, and clip context menu actions are covered in detail "
 "in :ref:`clips_ref`."
@@ -216,27 +222,27 @@ msgstr ""
 ":ref:`clips_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:84
+#: ../doc/timeline.rst:87
 msgid "Selecting Clips and Transitions"
 msgstr "Velge klipp og overganger"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:86
+#: ../doc/timeline.rst:89
 msgid "Selection is one of the most important timeline skills:"
 msgstr "Utvalg er en av de viktigste ferdighetene i tidslinjen:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:88
+#: ../doc/timeline.rst:91
 msgid "Click an item to select it."
 msgstr "Klikk på et element for å velge det."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:89
+#: ../doc/timeline.rst:92
 msgid ":kbd:`Ctrl+Click` adds or removes items from selection."
 msgstr ":kbd:`Ctrl+Klikk` legger til eller fjerner elementer fra utvalget."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:90
+#: ../doc/timeline.rst:93
 msgid ""
 ":kbd:`Shift+Click` selects a range between your anchor item and the clicked "
 "item."
@@ -245,13 +251,13 @@ msgstr ""
 "klikkede elementet."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:91
+#: ../doc/timeline.rst:94
 msgid ":kbd:`Ctrl+Shift+Click` adds that range to your current selection."
 msgstr ""
 ":kbd:`Ctrl+Shift+Klikk` legger til det området i ditt nåværende utvalg."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:92
+#: ../doc/timeline.rst:95
 msgid ""
 ":kbd:`Alt+Click` ripple-selects from the clicked item to the end of the "
 "track."
@@ -260,31 +266,40 @@ msgstr ""
 "sporet."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:93
+#: ../doc/timeline.rst:96
 msgid "Drag an empty-area selection box to select multiple items."
 msgstr "Dra en tomt område for å velge flere elementer."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:95
+#: ../doc/timeline.rst:98
 msgid "See :ref:`clips_ref` for the full list and examples."
 msgstr "Se :ref:`clips_ref` for fullstendig liste og eksempler."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:98
+#: ../doc/timeline.rst:101
 msgid "Timeline Toolbar and Zoom"
 msgstr "Tidslinjeverktøylinje og zoom"
 
-# Translated with gpt-4.1-mini
-#: ../timeline.rst:100
+#: ../doc/timeline.rst:103
 msgid ""
 "The timeline toolbar helps with common navigation and editing actions "
-"(snapping, retime, razor, markers, centering, and zoom)."
+"(snapping, auto keyframes, retime, razor, markers, centering, and zoom)."
 msgstr ""
 "Tidslinjeverktøylinjen hjelper med vanlige navigasjons- og "
-"redigeringshandlinger (magnet, tidsjustering, barberblad, markører, "
-"sentrering og zoom)."
+"redigeringshandlinger (magnetisk justering, automatiske nøkkelbilder, "
+"tidsjustering, barberblad, markører, sentrering og zoom)."
 
-#: ../timeline.rst:103
+#: ../doc/timeline.rst:106
+msgid ""
+"Use the diamond button to turn :ref:`auto_keyframes_ref` on or off. Leave it"
+" on to build animations as you edit, or turn it off to adjust existing "
+"values without adding keyframes."
+msgstr ""
+"Bruk diamantknappen for å slå :ref:`auto_keyframes_ref` på eller av. La den "
+"være på for å bygge animasjoner mens du redigerer, eller slå den av for å "
+"justere eksisterende verdier uten å legge til nøkkelbilder."
+
+#: ../doc/timeline.rst:109
 msgid ""
 "The :ref:`razor_tool_ref` shows a cut guide and timecode over the target "
 "clip. While paused, hovering also previews the cut frame without moving the "
@@ -300,7 +315,7 @@ msgstr ""
 "toleransen som andre tidslinjeendringer."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:109
+#: ../doc/timeline.rst:115
 msgid ""
 "Tip: If timeline editing feels crowded, zoom in with the timeline slider to "
 "make small clip adjustments easier."
@@ -309,7 +324,7 @@ msgstr ""
 "tidslinjeskyveknappen for å gjøre små klippjusteringer enklere."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:112
+#: ../doc/timeline.rst:118
 msgid ""
 "You can also zoom the timeline with :kbd:`Ctrl+Scroll Wheel`. On the QWidget"
 " timeline, hold :kbd:`Ctrl` and drag with the middle mouse button for smooth"
@@ -319,32 +334,32 @@ msgstr ""
 "tidslinjen, hold :kbd:`Ctrl` og dra med midtre museknapp for jevn zooming."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:117
+#: ../doc/timeline.rst:123
 msgid "Tracks, Locking, and Inserting"
 msgstr "Spor, låsing og innsetting"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:119
+#: ../doc/timeline.rst:125
 msgid "Tracks help organize your edit. A common setup is:"
 msgstr "Spor hjelper med å organisere redigeringen din. En vanlig oppsett er:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:121
+#: ../doc/timeline.rst:127
 msgid "Top tracks: titles, overlays, logos, picture-in-picture"
 msgstr "Øverste spor: titler, overlegg, logoer, bilde-i-bilde"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:122
+#: ../doc/timeline.rst:128
 msgid "Middle tracks: main video content"
 msgstr "Midtre spor: hovedvideoinnhold"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:123
+#: ../doc/timeline.rst:129
 msgid "Lower tracks: music and sound effects"
 msgstr "Nedre spor: musikk og lydeffekter"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:125
+#: ../doc/timeline.rst:131
 msgid ""
 "You can lock tracks to protect them from accidental edits and use "
 "insert/ripple editing when you need later clips to move automatically."
@@ -354,7 +369,7 @@ msgstr ""
 "automatisk."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:128
+#: ../doc/timeline.rst:134
 msgid ""
 "For track layout basics, see :ref:`tracks_ref`. For detailed clip editing "
 "behavior, see :ref:`clips_cutting_slicing_ref`."
@@ -362,13 +377,27 @@ msgstr ""
 "For grunnleggende om sporlayout, se :ref:`tracks_ref`. For detaljert "
 "klippredigeringsatferd, se :ref:`clips_cutting_slicing_ref`."
 
+#: ../doc/timeline.rst:138
+msgid ""
+"For projects with many layers, choose **Minimal** or **Compact** under "
+"**Preferences → Timeline → Track Size** to see more tracks with less "
+"scrolling. Choose **Relaxed** for more vertical room, or **Default** to "
+"restore the theme's original height. Keyframe panel spacing adjusts too. See"
+" :ref:`preferences_track_size_ref` for details."
+msgstr ""
+"For prosjekter med mange lag, velg **Minimal** eller **Kompakt** under "
+"**Innstillinger → Tidslinje → Sporstørrelse** for å se flere spor med mindre"
+" rulling. Velg **Avslappet** for mer vertikal plass, eller **Standard** for "
+"å gjenopprette temaets opprinnelige høyde. Avstanden i nøkkelbildepanelet "
+"justeres også. Se :ref:`preferences_track_size_ref` for detaljer."
+
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:132
+#: ../doc/timeline.rst:145
 msgid "Keyframes in the Timeline"
 msgstr "Nøkkelbilder i tidslinjen"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:134
+#: ../doc/timeline.rst:147
 msgid ""
 "Keyframes let you change values over time, such as position, scale, "
 "rotation, opacity, and effect settings."
@@ -377,7 +406,7 @@ msgstr ""
 "opasitet og effektinnstillinger."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:137
+#: ../doc/timeline.rst:150
 msgid ""
 "In the timeline keyframe panel, each row represents one animated property. "
 "You can:"
@@ -386,27 +415,40 @@ msgstr ""
 "Du kan:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:139
+#: ../doc/timeline.rst:152
 msgid "Add a keyframe row for a property"
 msgstr "Legg til en nøkkelbilderad for en egenskap"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:140
+#: ../doc/timeline.rst:153
 msgid "Insert new keyframes along the row"
 msgstr "Sett inn nye nøkkelbilder langs raden"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:141
+#: ../doc/timeline.rst:154
 msgid "Move keyframes to change timing"
 msgstr "Flytt nøkkelbilder for å endre timing"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:142
+#: ../doc/timeline.rst:155
 msgid "Change interpolation to control motion style"
 msgstr "Endre interpolasjon for å kontrollere bevegelsesstil"
 
+#: ../doc/timeline.rst:157
+msgid ""
+"Single-click a keyframe on a clip or in the keyframe panel to select it and "
+"move the playhead to its frame. This leaves the Properties dock open or "
+"closed as you have arranged it. Double-click the keyframe, or right-click it"
+" and choose :guilabel:`Properties`, to open the dock."
+msgstr ""
+"Klikk én gang på et nøkkelbilde på et klipp eller i nøkkelbildepanelet for å"
+" velge det og flytte avspillingshodet til dets bilde. Dette lar "
+"Egenskapspanelet være åpent eller lukket slik du har ordnet det. "
+"Dobbeltklikk på nøkkelbildet, eller høyreklikk det og velg "
+":guilabel:`Egenskaper` for å åpne panelet."
+
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:144
+#: ../doc/timeline.rst:162
 msgid ""
 "For keyframe concepts and animation examples, see :ref:`animation_ref`."
 msgstr ""
@@ -414,12 +456,12 @@ msgstr ""
 ":ref:`animation_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:147
+#: ../doc/timeline.rst:165
 msgid "Next Steps"
 msgstr "Neste steg"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:149
+#: ../doc/timeline.rst:167
 msgid ""
 "After you are comfortable with timeline basics, these sections are the best "
 "next reads:"
@@ -428,21 +470,40 @@ msgstr ""
 "de beste neste lesningene:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:151
+#: ../doc/timeline.rst:169
 msgid ":ref:`clips_ref` for trimming, slicing, and clip properties"
 msgstr ":ref:`clips_ref` for beskjæring, slicing og klippegenskaper"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:152
+#: ../doc/timeline.rst:170
 msgid ":ref:`effects_ref` for video/audio effects"
 msgstr ":ref:`effects_ref` for video-/lydeffekter"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:153
+#: ../doc/timeline.rst:171
 msgid ":ref:`animation_ref` for keyframe animation workflows"
 msgstr ":ref:`animation_ref` for arbeidsflyter med nøkkelbildeanimasjon"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:154
+#: ../doc/timeline.rst:172
 msgid ":doc:`export` for creating your final video file"
 msgstr ":doc:`export` for å lage din endelige videofil"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "If you are just getting started, read :ref:`quick_tutorial_ref` first, then "
+#~ "come back here for more detail. For a labeled breakdown of toolbar controls,"
+#~ " see :ref:`timeline_toolbar_ref`."
+#~ msgstr ""
+#~ "Hvis du nettopp har begynt, les :ref:`quick_tutorial_ref` først, og kom "
+#~ "deretter tilbake hit for mer detaljer. For en merket oversikt over "
+#~ "verktøylinje-kontroller, se :ref:`timeline_toolbar_ref`."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "The timeline toolbar helps with common navigation and editing actions "
+#~ "(snapping, retime, razor, markers, centering, and zoom)."
+#~ msgstr ""
+#~ "Tidslinjeverktøylinjen hjelper med vanlige navigasjons- og "
+#~ "redigeringshandlinger (magnet, tidsjustering, barberblad, markører, "
+#~ "sentrering og zoom)."

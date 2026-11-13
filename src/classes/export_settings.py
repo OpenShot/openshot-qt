@@ -23,7 +23,88 @@
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
+import json
+import logging
+import os
+import time
+
 import openshot
+
+
+def encoder_backend(codec):
+    """The hardware backend an FFmpeg encoder name selects, or "cpu"."""
+    for suffix, name in (("_vulkan", "vulkan"), ("_nvenc", "nvenc"), ("_vaapi", "vaapi"),
+                         ("_dxva2", "dx"), ("_videotoolbox", "vtb"), ("_qsv", "qsv"),
+                         ("_amf", "amf")):
+        if (codec or "").endswith(suffix):
+            return name
+    return "cpu"
+
+
+def encoder_support(codec, native=openshot, environ=None, capabilities=None):
+    """Return backend, preset visibility, and the supporting evidence.
+
+    GUI callers supply session capabilities and never enter driver probes.
+    Other callers retain the legacy native-probe/compiled-support behavior.
+    """
+    environ = os.environ if environ is None else environ
+    backend = encoder_backend(codec)
+    if not codec:
+        return backend, True, "No video encoder required"
+    if not native.FFmpegWriter.IsValidCodec(codec):
+        return backend, False, "Encoder is not included in this FFmpeg build"
+    if backend != "cpu" and capabilities is not None:
+        state = capabilities['state']
+        if state in ('not checked', 'checking'):
+            return backend, True, "Checking hardware encoder availability"
+        if state == 'ready':
+            supported = codec in capabilities['encoders']
+            return backend, supported, ("Hardware encoder opened successfully" if supported else
+                                        "Encoder did not open; see GPU diagnostics")
+        if backend == 'vulkan':
+            return backend, False, "Hardware encoder availability could not be verified; see GPU diagnostics"
+        return backend, True, "Encoder included; GPU and driver support are checked when export starts"
+    probe = getattr(native, "GpuEncoders", None)
+    if backend == "vulkan" or (backend == "vtb" and probe and
+                               environ.get("OPENSHOT_RENDER_BACKEND", "vulkan") != "cpu"):
+        if not probe:
+            return backend, False, "This library has no GPU encoder capability API"
+        try:
+            if codec not in probe():
+                return backend, False, "Encoder did not open on the selected GPU; see GPU diagnostics"
+        except Exception as error:
+            return backend, False, "GPU encoder probe failed: %s" % error
+        return backend, True, "Hardware encoder opened on the selected GPU"
+    if backend != "cpu":
+        return backend, True, "Encoder included; GPU and driver support are checked when export starts"
+    return backend, True, "Software encoder (CPU)"
+
+
+def preferred_export_codec(candidates, native=openshot, environ=None, capabilities=None):
+    """Choose a working H.264 GPU encoder for new exports, with software fallback."""
+    environ = os.environ if environ is None else environ
+    if environ.get('OPENSHOT_RENDER_BACKEND') != 'cpu':
+        if capabilities is not None:
+            available = set(capabilities['encoders']) if capabilities['state'] == 'ready' else set()
+        else:
+            probe = getattr(native, 'GpuEncoders', None)
+            try:
+                available = set(probe()) if probe else set()
+            except Exception:
+                available = set()
+        # Prefer routes that keep rendered frames on the GPU before upload routes.
+        for codec in ('h264_vulkan', 'h264_videotoolbox', 'h264_nvenc',
+                      'h264_qsv', 'h264_amf', 'h264_vaapi'):
+            if codec in candidates and codec in available:
+                return codec
+    return 'libx264' if 'libx264' in candidates else None
+
+
+def cached_encoder_capabilities(app):
+    diagnostics = getattr(app, 'gpu_diagnostics', None)
+    if diagnostics is None:
+        return dict(state='unavailable', encoders=())
+    return diagnostics.encoder_capabilities()
 
 
 def configure_writer(writer, video, audio, mode='video_audio', quality_mode=None,
@@ -51,3 +132,70 @@ def configure_writer(writer, video, audio, mode='video_audio', quality_mode=None
     for stream, values in [(openshot.VIDEO_STREAM, video_options), (openshot.AUDIO_STREAM, audio_options)]:
         for key, value in (values or {}).items():
             writer.SetOption(stream, key, str(value))
+
+
+# Setup errors (raised before Test() runs) and the stream they belong to
+SETUP_ERRORS = [
+    ("valid video codec", "video"),
+    ("valid audio codec", "audio"),
+    ("sample rate", "audio"),
+    ("channel layout", "audio"),
+    ("output format", "format"),
+    ("AVFormatContext", "format"),
+]
+
+
+def describe_settings(video, audio, mode='video_audio', fmt=''):
+    """A short summary for the log, i.e. 'mp4 · libx264 1920x1080 · aac 48000 Hz'."""
+    parts = [fmt] if fmt else []
+    if mode in ('video_audio', 'video', 'image_sequence'):
+        parts.append('%s %sx%s' % (video.get('vcodec') or 'default', video.get('width'), video.get('height')))
+    if mode in ('video_audio', 'audio'):
+        parts.append('%s %s Hz' % (audio.get('acodec') or 'default', audio.get('sample_rate')))
+    return ' · '.join(parts)
+
+
+def _run_test(path, video, audio, mode, quality_mode, video_options, audio_options):
+    started = time.time()
+    result = {'ok': True, 'stage': '', 'message': '', 'log': [], 'elapsed_ms': 0}
+    try:
+        writer = openshot.FFmpegWriter(path)
+        configure_writer(writer, video, audio, mode, quality_mode, video_options, audio_options)
+        result.update(json.loads(writer.Test()))
+    except Exception as ex:  # libopenshot raises RuntimeError for its own exceptions
+        message = str(ex).split(' for file ')[0].strip()
+        stage = next((stage for text, stage in SETUP_ERRORS if text in message), 'header')
+        result.update(ok=False, stage=stage, message=message)
+    result['elapsed_ms'] = int((time.time() - started) * 1000)
+    return result
+
+
+def test_writer(path, video, audio, mode='video_audio', quality_mode=None,
+                video_options=None, audio_options=None):
+    """Try export settings without writing a file.
+
+    The encoders (including hardware encoders) are opened, and the header is written to memory,
+    so the result matches what a real export would do. Returns a dict with ok, stage ("format",
+    "video", "audio", or "header" when the format rejects the pair), message, log, and elapsed_ms.
+    """
+    result = _run_test(path, video, audio, mode, quality_mode, video_options, audio_options)
+    if result['stage'] == 'header' and mode == 'video_audio':
+        # The format rejected the pair; find out which codec it can't hold
+        for single, stage in (('audio', 'audio'), ('video', 'video')):
+            alone = _run_test(path, video, audio, single, quality_mode, video_options, audio_options)
+            result['elapsed_ms'] += alone['elapsed_ms']
+            if not alone['ok']:
+                result['stage'] = stage
+                break
+    elif result['stage'] == 'header':
+        # With a single stream, the format can only be rejecting that stream's codec
+        result['stage'] = 'audio' if mode == 'audio' else 'video'
+
+    log = logging.getLogger('OpenShot')
+    summary = describe_settings(video, audio, mode, os.path.splitext(path)[1].lstrip('.'))
+    if result['ok']:
+        log.info('Checking export settings: %s … OK (%d ms)', summary, result['elapsed_ms'])
+    else:
+        log.info('Checking export settings: %s … not supported: %s (%d ms)',
+                 summary, result['message'], result['elapsed_ms'])
+    return result

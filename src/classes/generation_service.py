@@ -1485,6 +1485,7 @@ class GenerationService(QObject):
 
             split_data = json.loads(json.dumps(source_data))
             split_data.pop("id", None)
+            split_data["thumbnail_cache_id"] = source_data.get("thumbnail_cache_id") or source_file.id
             split_data["start"] = start_seconds
             split_data["end"] = end_seconds
             split_data["name"] = "{} ({} to {})".format(

@@ -29,13 +29,14 @@ import copy
 import math
 
 from qt_api import Qt, QPointF, QRectF, QSize, pyqtSignal, QShortcut, QKeySequence
-from qt_api import QColor, QPainter, QPen, QBrush, QPainterPath, QPixmap, QIcon
+from qt_api import QColor, QPainter, QPen, QBrush, QPainterPath, QIcon
 from qt_api import QWidget, QDialog, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QAction
 from qt_api import QDialogButtonBox
 from qt_api import QFontMetrics, QSizePolicy
 from qt_api import QLineEdit, QEvent, QLinearGradient
 
 from classes.app import get_app
+from classes.ui_util import painted_icon
 from windows.views.menu import StyledContextMenu, populate_keyframe_context_menu
 from windows.color_picker import ColorPicker
 import openshot
@@ -518,20 +519,16 @@ def _draw_keyframe_marker(painter, center, interpolation, size, fill_color, bord
 
 
 def _keyframe_marker_icon(interpolation, size=12, fill_color="#4d7bff", border_color="#ffffff"):
-    pixmap = QPixmap(size + 4, size + 4)
-    pixmap.fill(Qt.transparent)
-    painter = QPainter(pixmap)
-    painter.setRenderHint(QPainter.Antialiasing)
-    _draw_keyframe_marker(
-        painter,
-        QPointF(pixmap.width() / 2.0, pixmap.height() / 2.0),
-        interpolation,
-        float(size),
-        QColor(fill_color),
-        QColor(border_color),
-    )
-    painter.end()
-    return QIcon(pixmap)
+    def paint(painter):
+        _draw_keyframe_marker(
+            painter,
+            QPointF((size + 4) / 2.0, (size + 4) / 2.0),
+            interpolation,
+            float(size),
+            QColor(fill_color),
+            QColor(border_color),
+        )
+    return painted_icon(size + 4, size + 4, paint)
 
 
 class ColorWheelControl(QWidget):

@@ -45,6 +45,7 @@ from github3 import login, GitHubError
 from requests.auth import HTTPBasicAuth
 from requests import post
 from version_parser import parse_version_info, parse_build_name
+from linux_qt import check_display_runtime
 
 PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # Primary openshot folder
 PY_ABI = sysconfig.get_config_var('py_version_short')
@@ -64,10 +65,6 @@ github_release = None
 windows_32bit = False
 version_info = {}
 windows_mode = "full"
-LINUX_PORTAL_THEME_PLUGIN = (
-    "/usr/lib/x86_64-linux-gnu/qt5/plugins/platformthemes/"
-    "libqxdgdesktopportal.so"
-)
 WINDOWS_STORE_MSIX_NAME = "OpenShotStudios.OpenShotforWindows"
 WINDOWS_STORE_MSIX_PUBLISHER = "CN=5FE34B8B-A62B-4594-911F-0D6CFC87D00F"
 WINDOWS_STORE_MSIX_PUBLISHER_DISPLAY_NAME = "OpenShot Studios"
@@ -117,25 +114,6 @@ def output(line):
         # Append missing line return (if needed)
         line += "\n"
     log.write(line)
-
-
-def install_linux_portal_theme(app_dir_path):
-    """Bundle Qt's XDG desktop portal platform theme in the AppImage."""
-    if not os.path.isfile(LINUX_PORTAL_THEME_PLUGIN):
-        raise FileNotFoundError(
-            "Missing Qt XDG desktop portal plugin: %s\n"
-            "Install it on the build server with:\n"
-            "  sudo apt-get install qt5-xdgdesktopportal-platformtheme"
-            % LINUX_PORTAL_THEME_PLUGIN
-        )
-
-    plugin_dir = os.path.join(
-        app_dir_path, "usr", "bin", "platformthemes")
-    os.makedirs(plugin_dir, exist_ok=True)
-    plugin_path = os.path.join(
-        plugin_dir, os.path.basename(LINUX_PORTAL_THEME_PLUGIN))
-    shutil.copy2(LINUX_PORTAL_THEME_PLUGIN, plugin_path)
-    output("Bundled Qt XDG desktop portal plugin: %s" % plugin_path)
 
 
 def run_command(command, working_dir=None):
@@ -917,9 +895,26 @@ def main():
             for qt_library in ("libQt5Core.so.5", "libQt5Network.so.5"):
                 if not os.path.isfile(os.path.join(app_dir_path, "usr", "bin", qt_library)):
                     raise RuntimeError("AppImage is missing required Qt library: %s" % qt_library)
+            check_display_runtime(os.path.join(app_dir_path, 'usr', 'bin'))
 
-            # Prefer the desktop's native file picker through XDG portals.
-            install_linux_portal_theme(app_dir_path)
+            # GPU drivers come from the host, and one process cannot load two FFmpegs.
+            bundled_libs = os.listdir(os.path.join(app_dir_path, "usr", "bin"))
+            for lib_name in bundled_libs:
+                if lib_name.startswith(("libvulkan.so", "libcuda.so", "libnvidia-")):
+                    raise RuntimeError("AppImage must not bundle host GPU library: %s" % lib_name)
+            avcodec_libs = [lib_name for lib_name in bundled_libs
+                            if re.match(r"libavcodec\.so\.\d+$", lib_name)]
+            if len(avcodec_libs) > 1:
+                raise RuntimeError("AppImage bundles more than one FFmpeg: %s" % avcodec_libs)
+
+            # The dispatcher is redistributable; GPU drivers remain host dependencies.
+            ffmpeg_root = os.environ.get("FFMPEG_ROOT") or os.environ.get("FFMPEGDIR")
+            if not ffmpeg_root:
+                raise RuntimeError("FFMPEG_ROOT is required to package oneVPL notices")
+            shutil.copytree(os.path.join(ffmpeg_root, "share", "vpl", "licensing"),
+                            os.path.join(app_dir_path, "usr", "share", "licenses", "oneVPL"))
+            subprocess.run([sys.executable, os.path.join(PATH, "installer", "check-linux-hardware.py"),  # nosec B603 - Fixed interpreter and local package checker; no shell.
+                            os.path.join(app_dir_path, "usr", "bin")], check=True)
 
             # Copy .desktop file, replacing Exec= commandline
             desk_in = os.path.join(PATH, "xdg", "org.openshot.OpenShot.desktop")

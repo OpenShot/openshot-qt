@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:22
+#: ../doc/installation.rst:22
 msgid "Installation"
 msgstr "インストール"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:24
+#: ../doc/installation.rst:24
 msgid ""
 "The latest official **stable** version of OpenShot Video Editor for Linux, "
 "Mac, Chrome OS, and Windows can be downloaded from the official download "
@@ -33,18 +33,18 @@ msgid ""
 "frequently, and often contain many improvements not yet released in our "
 "stable build)."
 msgstr ""
-"Linux、Mac、Chrome OS、Windows向けのOpenShot Video Editorの最新の公式**安定版** "
-"は、公式ダウンロードページ https://www.openshot.org/download/ からダウンロードできます。最新の**不安定版** "
-"（デイリービルド）は https://www.openshot.org/download#daily "
+"Linux、Mac、Chrome OS、Windows向けのOpenShot Video Editorの最新の公式\\ **安定版** "
+"は、公式ダウンロードページ https://www.openshot.org/download/ からダウンロードできます。最新の\\ **不安定版**"
+" （デイリービルド）は https://www.openshot.org/download#daily "
 "で入手可能です（これらのバージョンは非常に頻繁に更新され、安定版にはまだ含まれていない多くの改善が含まれています）。"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:32
+#: ../doc/installation.rst:32
 msgid "Clean Install"
 msgstr "クリーンインストール"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:34
+#: ../doc/installation.rst:34
 msgid ""
 "If you are upgrading from a previous version of OpenShot or are experiencing"
 " a crash or error message after launching OpenShot, please see "
@@ -54,15 +54,15 @@ msgid ""
 msgstr ""
 "以前のバージョンからアップグレードする場合や、OpenShot起動後にクラッシュやエラーメッセージが表示される場合は、以前の "
 "``openshot.settings`` ファイルをクリアする手順について :ref:`preferences_reset_ref` "
-"を参照してください（**デフォルト設定** でのクリーンインストール用）。"
+"を参照してください（\\ **デフォルト設定** でのクリーンインストール用）。"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:39
+#: ../doc/installation.rst:39
 msgid "Windows (Installer)"
 msgstr "Windows（インストーラー）"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:41
+#: ../doc/installation.rst:41
 msgid ""
 "Download the Windows installer from the `official download page "
 "<https://www.openshot.org/download/>`_ (the download page contains both "
@@ -75,12 +75,12 @@ msgstr ""
 " `official download page <https://www.openshot.org/download/>`_"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:50
+#: ../doc/installation.rst:50
 msgid "Windows (Portable)"
 msgstr "Windows（ポータブル）"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:52
+#: ../doc/installation.rst:52
 msgid ""
 "If you need to install OpenShot on Windows without Administrator "
 "permissions, we also support a portable installation process. Download the "
@@ -94,12 +94,12 @@ msgstr ""
 "page <https://www.openshot.org/download/>`_"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:67 ../installation.rst:185
+#: ../doc/installation.rst:67 ../doc/installation.rst:189
 msgid "Mac"
 msgstr "Mac"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:69
+#: ../doc/installation.rst:69
 msgid ""
 "Download the DMG file from the `official download page "
 "<https://www.openshot.org/download/>`_, double click it, and then drag the "
@@ -108,12 +108,12 @@ msgid ""
 " `Launchpad` or `Applications` in Finder."
 msgstr ""
 "`公式ダウンロードページ <https://www.openshot.org/download/>`_ "
-"からDMGファイルをダウンロードし、ダブルクリックしてOpenShotのアプリケーションアイコンを**アプリケーション** "
+"からDMGファイルをダウンロードし、ダブルクリックしてOpenShotのアプリケーションアイコンを\\ **アプリケーション** "
 "フォルダにドラッグしてください。これはほとんどのMacアプリのインストール方法と同様です。Finderの`Launchpad` "
 "または`Applications` からOpenShotを起動してください。 `official download page "
 "<https://www.openshot.org/download/>`_"
 
-#: ../installation.rst:74
+#: ../doc/installation.rst:74
 msgid ""
 "The current Mac download is built for Intel Macs. On an Apple Silicon Mac, "
 "you can run this Intel version using Rosetta. A native Apple Silicon version"
@@ -123,12 +123,12 @@ msgstr ""
 "Macでは、Rosettaを使ってこのIntel版を実行できます。ネイティブのApple Silicon版は現在利用できません。"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:81
+#: ../doc/installation.rst:81
 msgid "Linux (AppImage)"
 msgstr "Linux（AppImage）"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:83
+#: ../doc/installation.rst:83
 msgid ""
 "Most Linux distributions have a version of OpenShot in their software "
 "repositories, which can be installed using your package manager / software "
@@ -143,7 +143,7 @@ msgstr ""
 "`official download page <https://www.openshot.org/download/>`_"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:89
+#: ../doc/installation.rst:89
 msgid ""
 "Once downloaded, right click on the AppImage, choose Properties, and mark "
 "the file as **Executable**. Finally, double click the AppImage to launch "
@@ -153,7 +153,7 @@ msgid ""
 " Installation Guide <https://github.com/OpenShot/openshot-qt/wiki/AppImage-"
 "Installation>`_."
 msgstr ""
-"ダウンロード後、AppImageを右クリックして「プロパティ」を選び、ファイルを**実行可能** "
+"ダウンロード後、AppImageを右クリックして「プロパティ」を選び、ファイルを\\ **実行可能** "
 "に設定してください。最後にAppImageをダブルクリックしてOpenShotを起動します。ダブルクリックで起動しない場合は、AppImageを右クリックして`実行`"
 " または`Run` を選択してください。AppImageのインストールとランチャー作成の詳細なガイドは、`AppImageインストールガイド "
 "<https://github.com/OpenShot/openshot-qt/wiki/AppImage-Installation>`_ "
@@ -161,12 +161,12 @@ msgstr ""
 "<https://github.com/OpenShot/openshot-qt/wiki/AppImage-Installation>`_"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:98
+#: ../doc/installation.rst:98
 msgid "Unable to Launch AppImage?"
 msgstr "AppImageが起動しない場合"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:99
+#: ../doc/installation.rst:99
 msgid ""
 "Please verify that the ``libfuse2`` library is installed, which is required "
 "to mount and read an AppImage. On newer versions of Ubuntu (i.e. 22.04+), "
@@ -174,16 +174,16 @@ msgid ""
 "following command:"
 msgstr ""
 "AppImageをマウントして読み込むために必要な ``libfuse2`` "
-"ライブラリがインストールされているか確認してください。Ubuntuの新しいバージョン（例：22.04以降）では、``libfuse2`` "
+"ライブラリがインストールされているか確認してください。Ubuntuの新しいバージョン（例：22.04以降）では、\\ ``libfuse2`` "
 "はデフォルトでインストールされていません。以下のコマンドでインストールできます："
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:108
+#: ../doc/installation.rst:108
 msgid "Install AppImage Launcher"
 msgstr "AppImageランチャーのインストール"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:109
+#: ../doc/installation.rst:109
 msgid ""
 "If you plan on using OpenShot often, you will probably want an integrated "
 "launcher for our AppImage. We recommend using AppImageLauncher, which is the"
@@ -194,13 +194,22 @@ msgstr ""
 "OpenShotを頻繁に使用する場合は、AppImage用の統合ランチャーがあると便利です。LinuxデスクトップでAppImageファイルを起動（および管理）する公式サポートされた方法としてAppImageLauncherの使用を推奨します。Debian系ディストリビューション（Ubuntu、Mintなど）を使用している場合、公式のAppImageLauncher"
 " PPAがあります："
 
+#: ../doc/installation.rst:120
+msgid ""
+"For command-line editing and automation, see :ref:`cli_ref`. If "
+"AppImageLauncher shows integration dialogs when using ``--cli``, follow the "
+"environment-variable instructions in :ref:`cli_appimage_ref`."
+msgstr ""
+"コマンドライン編集と自動化については、\\ :ref:`cli_ref` を参照してください。AppImageLauncher が ``--cli`` "
+"使用時に統合ダイアログを表示する場合は、\\ :ref:`cli_appimage_ref` の環境変数の指示に従ってください。"
+
 # Translated with gpt-4.1-mini
-#: ../installation.rst:121
+#: ../doc/installation.rst:125
 msgid "Linux (PPA)"
 msgstr "Linux（PPA）"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:123
+#: ../doc/installation.rst:127
 msgid ""
 "For Debian-based Linux distributions (Ubuntu, Mint, etc...), we also have a "
 "PPA (Personal Package Archive), which adds our official OpenShot software "
@@ -211,22 +220,22 @@ msgstr ""
 " Package Archive）も用意しており、AppImageに依存せず最新バージョンをインストールできます。"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:128
+#: ../doc/installation.rst:132
 msgid "Stable PPA (Contains only official releases)"
 msgstr "安定版PPA（公式リリースのみ含む）"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:137
+#: ../doc/installation.rst:141
 msgid "Daily PPA (Highly experimental and unstable, for testers)"
 msgstr "デイリーPPA（非常に実験的で不安定、テスター向け）"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:146
+#: ../doc/installation.rst:150
 msgid "Chrome OS (Chromebook)"
 msgstr "Chrome OS（Chromebook）"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:148
+#: ../doc/installation.rst:152
 msgid ""
 "Chrome OS supports Linux apps, but this feature is off by default. You can "
 "turn it on in *Settings*. Once Linux is enabled, you can install and run "
@@ -239,36 +248,36 @@ msgstr ""
 "AppImageをインストールして実行できます。以下のコマンドはAppImageをダウンロードし、OpenShotを正常に実行するためのシステム設定を行います。"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:153
+#: ../doc/installation.rst:157
 msgid "Navigate to *chrome://os-settings/crostini* (Copy/Paste)"
 msgstr "*chrome://os-settings/crostini* に移動（コピー＆ペースト）"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:154
+#: ../doc/installation.rst:158
 msgid "Under \"Linux (Beta)\" select \"Turn On\". Default values are fine."
 msgstr "「Linux (Beta)」の下で「オンにする」を選択してください。デフォルト値で問題ありません。"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:156
+#: ../doc/installation.rst:160
 msgid ""
 "When the Terminal appears (i.e. black window), Copy/Paste the following "
 "command:"
 msgstr "ターミナル（黒いウィンドウ）が表示されたら、以下のコマンドをコピー＆ペーストしてください："
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:156
+#: ../doc/installation.rst:160
 msgid ""
 "``bash <(wget -O - http://openshot.org/files/chromeos/install-stable.sh)``"
 msgstr ""
 "``bash <(wget -O - http://openshot.org/files/chromeos/install-stable.sh)``"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:159
+#: ../doc/installation.rst:163
 msgid "Previous Versions"
 msgstr "過去のバージョン"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:161
+#: ../doc/installation.rst:165
 msgid ""
 "To download old versions of OpenShot Video Editor, you can visit "
 "https://github.com/OpenShot/openshot-qt/tags. Click on the version number "
@@ -281,7 +290,7 @@ msgstr ""
 "を訪れてください。必要なバージョン番号をクリックし、リリースノートの下までスクロールすると、各OS向けのダウンロードリンクがあります。お使いのコンピューターに適したバージョンをダウンロードし、上記のインストール手順に従ってください。"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:166
+#: ../doc/installation.rst:170
 msgid ""
 "NOTE: Projects (\\*.osp) made with newer versions of OpenShot Video Editor "
 "might not support older versions."
@@ -290,12 +299,12 @@ msgstr ""
 "Editorで作成されたプロジェクト（\\*.osp）は、古いバージョンではサポートされない場合があります。"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:169
+#: ../doc/installation.rst:173
 msgid "Uninstall"
 msgstr "アンインストール"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:171
+#: ../doc/installation.rst:175
 msgid ""
 "To fully uninstall OpenShot from your system, you must **manually delete** "
 "the ``.openshot_qt`` folder: ``~/.openshot_qt/`` or "
@@ -307,66 +316,66 @@ msgid ""
 "preferences**)."
 msgstr ""
 "OpenShotをシステムから完全にアンインストールするには、OpenShotの設定やファイルが含まれる ``.openshot_qt`` "
-"フォルダ（``~/.openshot_qt/`` または ``C:\\Users\\USERNAME\\.openshot_qt\\`` "
-"）を**手動で削除** する必要があります。既存のプロジェクトの回復ファイル（\\*.ospファイル）を必ず**バックアップ** してください。以前の "
-"``openshot.settings`` ファイルをクリアする方法については、:ref:`preferences_reset_ref` "
-"を参照してください（**デフォルト設定** でのクリーンインストール用）。"
+"フォルダ（\\ ``~/.openshot_qt/`` または ``C:\\Users\\USERNAME\\.openshot_qt\\`` ）を\\"
+" **手動で削除** する必要があります。既存のプロジェクトの回復ファイル（\\*.ospファイル）を必ず\\ **バックアップ** "
+"してください。以前の ``openshot.settings`` ファイルをクリアする方法については、\\ "
+":ref:`preferences_reset_ref` を参照してください（\\ **デフォルト設定** でのクリーンインストール用）。"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:178
+#: ../doc/installation.rst:182
 msgid "Windows"
 msgstr "Windows"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:180
+#: ../doc/installation.rst:184
 msgid "Open **Control Panel** from the Start menu"
-msgstr "スタートメニューから**コントロールパネル** を開く"
+msgstr "スタートメニューから\\ **コントロールパネル** を開く"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:181
+#: ../doc/installation.rst:185
 msgid "Click on **Programs and Features**"
 msgstr "**プログラムと機能** をクリックする"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:182
+#: ../doc/installation.rst:186
 msgid "Select OpenShot Video Editor, then click **Uninstall**"
-msgstr "OpenShot Video Editorを選択し、**アンインストール** をクリックする"
+msgstr "OpenShot Video Editorを選択し、\\ **アンインストール** をクリックする"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:187
+#: ../doc/installation.rst:191
 msgid "Open **Finder** and go to **Applications**"
-msgstr "**Finder** を開き、**アプリケーション** に移動する"
+msgstr "**Finder** を開き、\\ **アプリケーション** に移動する"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:188
+#: ../doc/installation.rst:192
 msgid "Drag the OpenShot Video Editor icon to the **Trash** in the Dock"
-msgstr "Dockの**ゴミ箱** にOpenShot Video Editorのアイコンをドラッグする"
+msgstr "Dockの\\ **ゴミ箱** にOpenShot Video Editorのアイコンをドラッグする"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:189
+#: ../doc/installation.rst:193
 msgid "Right-click **Trash** and choose **Empty Trash**"
-msgstr "**ゴミ箱** を右クリックし、**ゴミ箱を空にする** を選択する"
+msgstr "**ゴミ箱** を右クリックし、\\ **ゴミ箱を空にする** を選択する"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:192
+#: ../doc/installation.rst:196
 msgid "Ubuntu (Linux)"
 msgstr "Ubuntu（Linux）"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:194
+#: ../doc/installation.rst:198
 msgid "Open up **Files**"
 msgstr "**ファイル** を開く"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:195
+#: ../doc/installation.rst:199
 msgid "Locate the ``*.AppImage`` and delete the file"
 msgstr "``*.AppImage`` ファイルを見つけて削除する"
 
 # Translated with gpt-4.1-mini
-#: ../installation.rst:196
+#: ../doc/installation.rst:200
 msgid ""
 "OR click Activities, Right-click on OpenShot Video Editor icon, and choose "
 "**Remove AppImage from System**"
 msgstr ""
-"または、Activitiesをクリックし、OpenShot Video "
-"Editorのアイコンを右クリックして、**システムからAppImageを削除** を選択する"
+"または、Activitiesをクリックし、OpenShot Video Editorのアイコンを右クリックして、\\ "
+"**システムからAppImageを削除** を選択する"

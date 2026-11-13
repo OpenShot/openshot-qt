@@ -238,7 +238,7 @@ the user has the following menu options:
    ==================  ============
    Preset Name         Description
    ==================  ============
-   Copy / Cut / Paste  Copy selected clip data, cut selected clips, or paste copied clip data. Copy supports full clips, effects, and keyframe groups.
+   Copy / Cut / Paste  Copy selected clip data, cut selected clips, or paste copied clip data. Copy supports full clips, effects, keyframe groups, and text styles.
    Align               Align the left or right edge of multiple selected clips and transitions (only shown when multiple clips are selected).
    Fade                Fade the clip in or out — automatically fades video (alpha) and/or audio (volume) based on what the clip contains.
    Motion              Add animated motion to a clip: slide in/out, bounce, blur, wipe/focus-wipe, zoom, emphasis effects at the playhead, camera movements, and scrolling credits. Only shown for visual clips.
@@ -299,6 +299,7 @@ several submenus. See :ref:`clip_location_x_ref` and :ref:`clip_scale_x_ref` key
 
 - **Tip:** Emphasis presets are placed at the current playhead position, so position the playhead over the moment you want to highlight before applying one.
 - **Tip:** Camera presets use *Auto Direction* by default, which picks the optimal pan direction for wide or tall media to avoid black bars.
+- **Tip:** In, Out and Emphasis presets build on the clip's current position, scale and opacity, so a clip you scaled and moved into a corner stays there, and presets can be combined (for example, **Blur In** and then **Bounce**). Camera and Credits presets, and :guilabel:`No Motion`, reframe the clip from the center.
 
 .. _clip_presets_rotate_ref:
 
@@ -559,6 +560,8 @@ interactive crop handles in the video preview. The submenu offers:
 Drag the blue handles to adjust the crop boundaries, move the cropped area around, or move the center handle to
 reposition the image inside the cropped area.
 
+.. _timeline_waveform_display_ref:
+
 Waveform
 """"""""
 The :guilabel:`Audio → Show Waveform` / :guilabel:`Hide Waveform` action toggles whether an audio-only clip
@@ -601,7 +604,7 @@ them look louder than they are.
 
 New waveforms use 200 samples per second by default, providing several measurements within a typical video frame.
 Change this density with :guilabel:`Edit → Preferences → Timeline → Waveform Samples (per second)`. Higher values show
-more detail when zoomed in but increase project data size and analysis time. The painter reduces dense data to the
+more detail when zoomed in but increase waveform cache size and analysis time. The painter reduces dense data to the
 visible timeline pixels, and its rendered-waveform cache keeps normal scrolling and repainting inexpensive. Live
 microphone previews use the selected density and the same peak/RMS display as completed recordings.
 
@@ -610,6 +613,19 @@ have no format marker, so OpenShot deliberately displays them with the original 
 instead of becoming unexpectedly thin. Older waveform data without a stored density defaults to its original 20
 samples per second, and data without an RMS envelope remains a single solid waveform. A project may safely contain
 legacy and new waveforms together.
+
+**Where waveform data is stored**
+
+Timeline waveforms are saved as compressed ``.wfc`` files in the ``waveforms``
+subfolder of your project's ``_assets`` folder. The ``.osp`` file holds small
+references instead of the waveform measurements themselves. Keep the assets
+folder with your project when moving or backing it up.
+
+Older projects with embedded waveform data are converted automatically when
+opened. Saving writes the smaller project file and its waveform assets; the
+conversion does not change the original audio or the waveform's display scale.
+See :ref:`large_waveform_projects_ref` if an older project is unusually large or
+slow to open.
 
 To regenerate cached waveform data using the current method, choose :guilabel:`Edit → Clear → Waveform Display Data`,
 then show the waveform again. This affects only cached display data and does not modify the media file or its audio.
@@ -638,6 +654,7 @@ mouse. If you select 1 or more clips before pasting, you can paste "over" those 
 - **Tip:** Use this preset to replicate animations or effects across multiple clips.
 - **Tip:** Selecting multiple clips before pasting, sets keyframes and/or effects for all clips.
 - **Tip:** You can copy a single effect, and paste it to multiple selected clips.
+- **Tip:** For text clips, :guilabel:`Copy → Text Style` copies a text's look (font, colors, outline, border, corners and spacing) to paste onto other text clips. :guilabel:`Copy → Keyframes → All` also includes a text clip's color, outline, border and corner keyframes. See :ref:`text_edit_style_ref`.
 
 Remove Gaps
 """""""""""

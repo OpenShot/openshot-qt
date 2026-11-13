@@ -35,6 +35,7 @@ import tempfile
 import types
 import unittest
 from contextlib import ExitStack
+from fractions import Fraction
 from unittest.mock import MagicMock, patch
 
 import openshot
@@ -44,7 +45,7 @@ PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 if PATH not in sys.path:
     sys.path.append(PATH)
 
-from qt_api import QCoreApplication, QPointF, QRectF, Qt
+from qt_api import QCoreApplication, QPointF, QRect, QRectF, Qt
 from qt_api import QColor, QCursor, QImage, QPainter
 from qt_api import QAction, QApplication, QWidget
 from classes import info
@@ -130,7 +131,7 @@ class TimelineHelperTests(unittest.TestCase):
         helper.win = types.SimpleNamespace(timeline=types.SimpleNamespace(resizeTimeline=resize))
         mixin._startProjectResize(helper)
         self.assertTrue(helper._thumbnail_zoom_with_clip)
-        for x, expected in ((890, 99.0), (880, 98.0), (880, 98.0), (900, 100.0), (0, 20.0)):
+        for x, expected in ((890, 99.0), (880, 98.0), (880, 98.0), (900, 100.0), (-100, 20.0)):
             helper._last_event = types.SimpleNamespace(position=lambda x=x: QPointF(x, 0))
             helper.h_scroll_offset = 500.0 + x
             mixin._projectResizeMove(helper)
@@ -138,6 +139,10 @@ class TimelineHelperTests(unittest.TestCase):
         mixin._finishProjectResize(helper)
         resize.assert_called_once_with(20.0)
         self.assertIsNone(helper._project_duration_override)
+        # ResizeState.onExit and its exited signal both call the finalizer.
+        # Releasing outside the viewport must not restore the initial duration.
+        mixin._finishProjectResize(helper)
+        resize.assert_called_once_with(20.0)
 
     def test_project_resize_keeps_fitted_view_and_overview_synchronized(self):
         from windows.views.timeline_backend.geometry import Geometry
@@ -2410,7 +2415,8 @@ class TimelineHelperTests(unittest.TestCase):
         blur_fx, mask_fx = clip.data["effects"]
         self.assertEqual(blur_fx["class_name"], "Blur")
         self.assertEqual(mask_fx["class_name"], "Mask")
-        self.assertEqual(mask_fx["ui-menu"], self.timeline_module.MOTION_EFFECT_UI_MENU)
+        from windows.views.motion import MOTION_EFFECT_UI_MENU
+        self.assertEqual(mask_fx["ui-menu"], MOTION_EFFECT_UI_MENU)
         self.assertEqual(
             os.path.basename(mask_fx["mask_reader"]["path"]),
             "wipe_top_to_bottom.svg",
@@ -2770,7 +2776,17 @@ class TimelineHelperTests(unittest.TestCase):
 
         token = helper.clip_waveform_cache_token(clip)
 
-        self.assertEqual(token, (3, 0, "wf-2", "absolute_peak_v2", None))
+        self.assertEqual(token, (3, 0, None, "wf-2", "absolute_peak_v2", None))
+
+    def test_clip_waveform_cache_token_changes_when_only_rms_changes(self):
+        helper = self.make_qwidget_clip_helper()
+        clip = types.SimpleNamespace(data={"ui": {
+            "audio_data": {"waveform_cache": "a" * 64, "count": 3},
+            "audio_data_rms": {"waveform_cache": "b" * 64, "count": 3},
+        }})
+        before = helper.clip_waveform_cache_token(clip)
+        clip.data["ui"]["audio_data_rms"]["waveform_cache"] = "c" * 64
+        self.assertNotEqual(before, helper.clip_waveform_cache_token(clip))
 
     def test_find_missing_transition_details_ignores_tiny_overlap(self):
         clip_data = {"id": "B", "layer": 1, "position": 4.7, "start": 0.0, "end": 6.0}
@@ -2943,29 +2959,6 @@ class TimelineHelperTests(unittest.TestCase):
             {"waveform_refresh": [clip.id], "transaction_id": "tx-vol-1"},
             helper.updated,
         )
-
-    def test_feedback_volume_command_counts_once_for_multiselection_and_skips_noop(self):
-        helper = self.make_time_helper()
-        clips = {key: types.SimpleNamespace(id=key, data={
-            "id": key, "start": 0.0, "end": 4.0, "duration": 4.0,
-            "volume": {"Points": [{"co": {"X": 1, "Y": 1.0}, "interpolation": openshot.LINEAR}]},
-        }) for key in ("C1", "C2")}
-        controller = types.SimpleNamespace(preview=False,
-            policy=types.SimpleNamespace(experienced=False), record_action=MagicMock())
-        app = types.SimpleNamespace(project={"fps": {"num": 24, "den": 1}},
-            updates=types.SimpleNamespace(transaction_id=None),
-            window=types.SimpleNamespace(feedback_controller=controller))
-        with patch.object(self.timeline_module.Clip, "get", side_effect=lambda id: clips.get(id)), \
-                patch.object(self.timeline_module, "get_app", return_value=app), \
-                patch("classes.app.get_app", return_value=app):
-            for _ in range(2):
-                self.timeline_module.TimelineView.Volume_Triggered(
-                    helper, self.timeline_module.MenuVolume.LEVEL, list(clips), level=0.5)
-            controller.record_action.assert_called_once_with("adjustments")
-            controller.record_action.reset_mock()
-            helper.Volume_Triggered = types.MethodType(self.timeline_module.TimelineView.Volume_Triggered, helper)
-            helper.Volume_Triggered(self.timeline_module.MenuVolume.FADE_IN_OUT_FAST, list(clips))
-            controller.record_action.assert_called_once_with("adjustments")
 
     def test_fast_fade_in_out_keeps_four_keyframes_on_four_second_clip(self):
         helper = self.make_time_helper()
@@ -3703,7 +3696,7 @@ class TimelineHelperTests(unittest.TestCase):
                 feedback.commit()
                 target = feedback.target
                 helper.mapFromGlobal = lambda pos: rect.center().toPoint()
-                helper.rect = lambda: QRectF(0, 0, 900, 250)
+                helper.rect = lambda: QRect(0, 0, 900, 250)
                 if kind != "track":
                     setattr(helper, "_%s_text_rects" % kind, [{"rect": rect, "open_menu": True}])
                     setattr(helper, "_pending_%s_menu_target" % kind, {"rect": rect})
@@ -3752,7 +3745,7 @@ class TimelineHelperTests(unittest.TestCase):
         helper.hover_feedback.set_target("menu", QRectF(120, 30, 80, 20))
         helper.hover_feedback.commit()
         helper.mapFromGlobal = lambda pos: QPointF(-10, -10).toPoint()
-        helper.rect = lambda: QRectF(0, 0, 900, 250)
+        helper.rect = lambda: QRect(0, 0, 900, 250)
         with self.assertRaises(RuntimeError):
             show_menu_with_hover(helper, MagicMock(side_effect=RuntimeError("test")))
         self.assertFalse(helper.hover_feedback.menu_open)
@@ -5655,9 +5648,11 @@ class TimelineHelperTests(unittest.TestCase):
         )
         clip_instance = types.SimpleNamespace(
             info=types.SimpleNamespace(duration=0.2, video_length=4, fps=types.SimpleNamespace(num=24, den=1)),
-            time=types.SimpleNamespace(GetCount=lambda: 2, GetValue=lambda frame: frame),
-            volume=types.SimpleNamespace(GetValue=lambda frame: 0.5),
+            time=openshot.Keyframe(),
+            volume=openshot.Keyframe(0.5),
         )
+        clip_instance.time.AddPoint(1, 1, openshot.LINEAR)
+        clip_instance.time.AddPoint(5, 5, openshot.LINEAR)
         app = types.SimpleNamespace(
             window=types.SimpleNamespace(
                 timeline_sync=types.SimpleNamespace(
@@ -5678,15 +5673,17 @@ class TimelineHelperTests(unittest.TestCase):
             stack.enter_context(patch.object(self.waveform_module.File, "get", return_value=file_obj))
             stack.enter_context(patch.object(self.waveform_module.Clip, "get", return_value=clip))
             stack.enter_context(patch.object(self.waveform_module, "get_app", return_value=app))
-            stack.enter_context(patch.object(self.waveform_module, "project_fps_fraction", return_value=(24, 1)))
-            stack.enter_context(patch.object(self.waveform_module, "video_length_to_project_frames", return_value=4))
+            stack.enter_context(patch.object(self.waveform_module, "project_fps_fraction", return_value=Fraction(24, 1)))
             self.waveform_module.get_waveform_thread("F1", ["C1"], "wf-time-1")
 
         self.assertTrue(captured)
         self.assertEqual(captured[-1][0], "C1")
         self.assertEqual(captured[-1][2], "wf-time-1")
-        self.assertEqual(captured[-1][1]["ui"]["audio_data"], [0.5, 0.5, 0.5, 0.5])
-        self.assertEqual(captured[-1][1]["ui"]["audio_data_rms"], [0.2, 0.2, 0.2, 0.2])
+        from classes.waveform_cache import samples
+        # Identity time curve over 5 frames at 24 fps spans ceil(5 / 24 * 20) samples
+        self.assertEqual(list(samples(captured[-1][1]["ui"]["audio_data"])), [0.5] * 5)
+        for value in samples(captured[-1][1]["ui"]["audio_data_rms"]):
+            self.assertAlmostEqual(value, 0.2)
         self.assertEqual(captured[-1][1]["ui"]["audio_data_rate"], 20)
         self.assertEqual(
             captured[-1][1]["ui"]["audio_data_format"],
@@ -6090,8 +6087,12 @@ class TimelineHelperTests(unittest.TestCase):
             -1, self.waveform_module.SAMPLES_PER_SECOND, False
         )
         completed = [payload for _, payload, _ in emitted if payload["ui"].get("audio_data")]
-        self.assertEqual(completed[0]["ui"]["audio_data"], [0.05, 0.1])
-        self.assertEqual(completed[0]["ui"]["audio_data_rms"], [0.02, 0.04])
+        from classes.waveform_cache import samples
+        for key, expected in (("audio_data", [0.05, 0.1]), ("audio_data_rms", [0.02, 0.04])):
+            actual = samples(completed[0]["ui"][key])
+            self.assertEqual(len(actual), len(expected))
+            for value, reference in zip(actual, expected):
+                self.assertAlmostEqual(value, reference)
         self.assertEqual(completed[0]["ui"]["audio_data_rate"], 200)
         self.assertEqual(
             completed[0]["ui"]["audio_data_format"],
@@ -6664,6 +6665,156 @@ class TimelineHelperTests(unittest.TestCase):
                                 (frame - 1) / (fps_num / fps_den), expected_time, delta=0.26
                             )
 
+    def test_direct_text_thumbnails_paint_clip_owned_png_and_follow_history(self):
+        from classes.direct_text import default_text, render_text
+
+        with tempfile.TemporaryDirectory() as folder:
+            painter = self.make_clip_painter()
+            self.addCleanup(painter.w.deleteLater)
+            requests = []
+            painter.w.thumbnail_manager = types.SimpleNamespace(
+                request_thumbnail=lambda *args: requests.append(args)
+            )
+            style = default_text(320, 180)
+            style.update(text="Hello", font_size=32, width=160, height=64)
+            white_path = render_text(style, folder)
+            style["color"] = "#ff0000"
+            red_path = render_text(style, folder)
+            clip = types.SimpleNamespace(id="TEXT", data={
+                "direct_text": style, "position": 0.0, "start": 0.0,
+                "end": 5.0, "duration": 5.0,
+                "reader": {"path": white_path, "width": 160, "height": 64},
+            })
+            inner = QRectF(0, 0, 120, 48)
+
+            def render(path):
+                clip.data["reader"]["path"] = path
+                image = QImage(120, 48, QImage.Format_ARGB32)
+                image.fill(QColor("black"))
+                canvas = QPainter(image)
+                try:
+                    self.assertFalse(painter._draw_thumbnails(canvas, clip, inner, None))
+                finally:
+                    canvas.end()
+                return image
+
+            first = render(white_path)
+            self.assertGreater(sum(first.pixelColor(x, y).green() > 20
+                                   for x in range(120) for y in range(48)), 100)
+            edited = render(red_path)
+            self.assertGreater(sum(edited.pixelColor(x, y).red() > 20
+                                   for x in range(120) for y in range(48)), 100)
+            self.assertEqual(sum(edited.pixelColor(x, y).green()
+                                 for x in range(120) for y in range(48)), 0)
+            self.assertEqual(render(white_path), first)  # undo
+            self.assertEqual(render(red_path), edited)  # redo
+
+            # A saved project resolves clip-owned assets without a File object.
+            from classes.assets import get_assets_path
+            from qt_api import QApplication
+            project_file = os.path.join(folder, "saved.osp")
+            title_folder = os.path.join(get_assets_path(project_file), "title")
+            saved_path = render_text(style, title_folder)
+            token = "@assets/title/" + os.path.basename(saved_path)
+            with patch.object(QApplication.instance(), "project",
+                              types.SimpleNamespace(current_filepath=project_file), create=True):
+                self.assertEqual(render(token), edited)
+            self.assertEqual(requests, [])
+            painter.invalidate_clip_thumbnails(clip.id)
+            self.assertEqual(painter.thumb_cache, {})
+
+    def test_text_source_thumbnails_render_off_the_gui_thread(self):
+        from classes.direct_text import default_text
+        from qt_api import QApplication
+
+        with tempfile.TemporaryDirectory() as folder:
+            painter = self.make_clip_painter()
+            self.addCleanup(painter.w.deleteLater)
+            painter.w.thumbnail_manager = types.SimpleNamespace(request_thumbnail=lambda *args: None)
+            style = default_text(320, 180)
+            style.update(text="Async", font_size=32, width=160, height=64)
+            clip = types.SimpleNamespace(id="ASYNC", data={
+                "direct_text": style, "position": 0.0, "start": 0.0, "end": 5.0, "duration": 5.0,
+                "file_id": "F1", "reader": {"type": "QtTextReader", "width": 160, "height": 64},
+            })
+            inner = QRectF(0, 0, 120, 48)
+
+            def paint():
+                image = QImage(120, 48, QImage.Format_ARGB32)
+                image.fill(QColor("black"))
+                canvas = QPainter(image)
+                try:
+                    pending = painter._draw_thumbnails(canvas, clip, inner, None)
+                finally:
+                    canvas.end()
+                lit = sum(image.pixelColor(x, y).lightness() > 128 for x in range(120) for y in range(48))
+                return pending, lit
+
+            def finish_workers():
+                painter._text_thumb_pool.waitForDone()
+                QApplication.processEvents()  # deliver the queued finished signal
+
+            with patch.object(info, "THUMBNAIL_PATH", folder):
+                # First paint never renders on the GUI thread: pending, nothing drawn.
+                self.assertEqual(paint(), (True, 0))
+                self.assertEqual(len(painter._text_thumb_jobs), 1)
+                self.assertEqual(paint()[0], True)  # no duplicate job while rendering
+                finish_workers()
+                self.assertEqual(painter._text_thumb_jobs, set())
+                pending, lit = paint()
+                self.assertFalse(pending)
+                self.assertGreater(lit, 20)
+
+                # Cleared thumbnails are rendered again rather than staying blank.
+                path = next(iter(painter._text_thumb_ready))
+                os.remove(path)
+                painter.thumb_cache.clear()
+                self.assertEqual(paint(), (True, 0))
+                self.assertEqual(paint(), (True, 0))
+                finish_workers()
+                self.assertTrue(os.path.exists(path))
+                self.assertFalse(paint()[0])
+                painter.shutdown_text_thumbnails()
+
+    def test_text_clip_thumbnails_tile_like_media_thumbnails(self):
+        from classes.direct_text import default_text
+        from classes import info
+
+        with tempfile.TemporaryDirectory() as folder:
+            painter = self.make_clip_painter(pixels_per_second=24.0)
+            self.addCleanup(painter.w.deleteLater)
+            # Use the source aspect ratio, as clips without a theme width do.
+            painter.w.theme.clip.thumb_width = 0
+            style = default_text(1280, 720)
+            # A wide text box must not widen the slots: the thumbnail image
+            # has the media thumbnail shape, so tiles would leave gaps.
+            style.update(text="Text", width=1280, height=180)
+            clip = types.SimpleNamespace(id="TILES", data={
+                "direct_text": style, "position": 0.0, "start": 0.0, "end": 20.0, "duration": 20.0,
+                "file_id": "F1", "reader": {"type": "QtTextReader", "width": 1280, "height": 180},
+            })
+            inner = QRectF(0, 0, 400, 48)
+
+            def paint():
+                image = QImage(400, 48, QImage.Format_ARGB32)
+                image.fill(QColor("magenta"))
+                canvas = QPainter(image)
+                try:
+                    pending = painter._draw_thumbnails(canvas, clip, inner, None)
+                finally:
+                    canvas.end()
+                return pending, image
+
+            with patch.object(info, "THUMBNAIL_PATH", folder):
+                paint()
+                painter._text_thumb_pool.waitForDone()
+                QApplication.processEvents()
+                pending, image = paint()
+                painter.shutdown_text_thumbnails()
+            self.assertFalse(pending)
+            gaps = [x for x in range(400) if image.pixelColor(x, 24) == QColor("magenta")]
+            self.assertEqual(gaps, [], "Text thumbnails tile across the clip like media thumbnails")
+
     def test_thumbnail_strip_renders_correct_cached_frames_during_repeated_zoom(self):
         # Encode source frame numbers in solid-color PNGs so we can verify the
         # actual painted pixels through the normal request, load, and cache path.
@@ -7066,6 +7217,8 @@ class TimelineHelperTests(unittest.TestCase):
 
         with ExitStack() as stack:
             stack.enter_context(patch.object(info, "THUMBNAIL_PATH", thumbnail_root))
+            # Keep the cache id independent of whichever project an earlier test loaded.
+            stack.enter_context(patch.object(self.clip_paint_module, "ThumbnailCacheId", side_effect=str))
             stack.enter_context(
                 patch.object(
                     self.clip_paint_module.os.path,
@@ -7917,17 +8070,17 @@ class TimelineHelperTests(unittest.TestCase):
             def _clip_has_visual(self, candidate):
                 return timeline_module.TimelineView._clip_has_visual(self, candidate)
 
-            def _create_film_grain_effect_json(self):
+            def _apply_effect_preset(self, *args):
+                return timeline_module.TimelineView._apply_effect_preset(self, *args)
+
+            def _create_effect_json(self, _class_name):
                 return {"class_name": "FilmGrain", "id": "FG-1", "seed": 77}
 
             def update_clip_data(self, clip_data, **kwargs):
                 self.updates.append((copy.deepcopy(clip_data), dict(kwargs)))
 
         history = []
-        controller = types.SimpleNamespace(preview=False,
-            policy=types.SimpleNamespace(experienced=False), record_action=MagicMock())
         fake_app = types.SimpleNamespace(
-            window=types.SimpleNamespace(feedback_controller=controller),
             updates=types.SimpleNamespace(
                 apply_last_action_to_history=lambda original: history.append(copy.deepcopy(original))
             )
@@ -7941,11 +8094,9 @@ class TimelineHelperTests(unittest.TestCase):
         action.triggered.connect(partial(handler, timeline_module.FILM_GRAIN_PRESET_SUPER_8, ["C1"]))
         with patch.object(timeline_module.Clip, "get", return_value=clip), \
              patch.object(timeline_module, "get_app", return_value=fake_app), \
-             patch("classes.app.get_app", return_value=fake_app), \
              patch.object(sys, "excepthook") as errors:
             action.trigger()
         errors.assert_not_called()
-        controller.record_action.assert_called_once_with("adjustments")
 
         self.assertEqual(len(clip.data["effects"]), 1)
         effect = clip.data["effects"][0]
@@ -7978,6 +8129,9 @@ class TimelineHelperTests(unittest.TestCase):
 
             def _clip_has_visual(self, candidate):
                 return timeline_module.TimelineView._clip_has_visual(self, candidate)
+
+            def _apply_effect_preset(self, *args):
+                return timeline_module.TimelineView._apply_effect_preset(self, *args)
 
             def update_clip_data(self, clip_data, **kwargs):
                 self.updates.append(copy.deepcopy(clip_data))
@@ -8023,6 +8177,9 @@ class TimelineHelperTests(unittest.TestCase):
 
             def _clip_has_visual(self, candidate):
                 return timeline_module.TimelineView._clip_has_visual(self, candidate)
+
+            def _apply_effect_preset(self, *args):
+                return timeline_module.TimelineView._apply_effect_preset(self, *args)
 
             def update_clip_data(self, clip_data, **kwargs):
                 self.updates.append((copy.deepcopy(clip_data), dict(kwargs)))

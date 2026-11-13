@@ -30,6 +30,12 @@ import os
 
 def configure_qt():
     """Apply the editor's UI scale and high-DPI attributes before creating Qt widgets."""
+    # Vulkan/GL sharing needs the vendor's desktop OpenGL driver. Qt5's ANGLE
+    # backend uses Direct3D and cannot import Vulkan Win32 memory/semaphores.
+    # Keep explicit driver overrides available for troubleshooting.
+    if os.name == "nt":
+        os.environ.setdefault("QT_OPENGL", "desktop")
+
     # Load user-configured UI scale before importing the Qt binding
     scale = 1.0
     logger = logging.getLogger(__name__)
@@ -77,3 +83,9 @@ def configure_qt():
         QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
     except AttributeError:
         pass  # Quietly fail for older Qt5 versions
+
+    # Qt5 on Windows adds a "?" (What's This) button to every dialog's title
+    # bar. OpenShot has no What's This help, so the button does nothing.
+    help_button = getattr(Qt, "AA_DisableWindowContextHelpButton", None)
+    if help_button is not None:
+        QApplication.setAttribute(help_button)

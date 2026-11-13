@@ -55,7 +55,6 @@ class ColorGradeHistoryTests(unittest.TestCase):
         for patcher in (
             patch.object(properties_model, "get_app", return_value=app),
             patch.object(properties_tableview.Effect, "get", side_effect=lambda **kw: self.effect),
-            patch.object(properties_tableview, "record_feedback_changes"),
             patch.object(properties_tableview.QTimer, "singleShot", side_effect=lambda ms, fn: self.pending_timers.append(fn)),
         ):
             patcher.start()

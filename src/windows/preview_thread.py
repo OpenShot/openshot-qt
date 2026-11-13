@@ -49,7 +49,7 @@ class PreviewParent(QObject, UpdateInterface):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
 
         # Ignore changes that don't affect libopenshot
-        if action and len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "markers", "layers", "scale", "profile", "sample_rate", "export_settings"]:
+        if action and len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "markers", "layers", "scale", "profile", "sample_rate", "export_settings", "settings"]:
             return
 
         if not getattr(self, "_use_timeline_sync_max", True):
@@ -108,7 +108,11 @@ class PreviewParent(QObject, UpdateInterface):
         playing = (self.worker.player.Mode() == openshot.PLAYBACK_PLAY
                    and self.worker.player.Speed() != 0)
         if self.worker._preview_image_request == request and not playing:
-            self.worker.videoPreview.present(image)
+            presenter = getattr(self.worker.videoPreview, "gpu_presenter", None)
+            if presenter and isinstance(image, openshot.Frame):
+                presenter.Present(image)
+            else:
+                self.worker.videoPreview.present(image)
 
     # Signal when the playback mode changes in the preview player (i.e PLAY, PAUSE, STOP)
     def onModeChanged(self, current_mode):
@@ -387,6 +391,8 @@ class PlayerWorker(QObject):
 
     def refreshFrame(self):
         """ Refresh a certain frame """
+        if getattr(self.parent, "_project_loading", False):
+            return
         # Selection/UI refresh signals can arrive during active playback.
         # Avoid seeking while playing, which can perturb frame progression.
         if self.player.Mode() == openshot.PLAYBACK_PLAY and self.player.Speed() != 0.0:
@@ -842,6 +848,10 @@ class PlayerWorker(QObject):
                 self._source_preview_reader_key = key
             reader = self._source_preview_reader
         decoded = reader.GetFrame(frame)
+        if getattr(getattr(self, "videoPreview", None), "gpu_presenter", None):
+            # The queued Python signal owns the shared native frame until the
+            # GUI validates the request generation and presents its surface.
+            return decoded
         # Copy the pixels: the native frame/cache can be released before the
         # GUI receives this image, and no native reader crosses that boundary.
         return QImage(decoded.GetPixelsBytes(), decoded.GetWidth(), decoded.GetHeight(),

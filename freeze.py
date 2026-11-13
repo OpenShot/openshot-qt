@@ -55,6 +55,7 @@ import inspect
 import glob
 import os
 import sys
+import platform
 import fnmatch
 import json
 import subprocess
@@ -63,6 +64,7 @@ from cx_Freeze import setup, Executable
 import cx_Freeze
 import shutil
 from installer.version_parser import parse_version_info, parse_build_name, write_build_metadata
+from installer.linux_qt import display_plugins, HOST_DISPLAY_LIBRARIES
 
 PATH = os.path.dirname(os.path.realpath(__file__))  # Primary openshot folder
 sys.path.insert(0, os.path.join(PATH, "src"))
@@ -104,6 +106,15 @@ python_packages = ["os",
                    "webbrowser",
                    "json",
                    ]
+
+# PyOpenGL loads its platform backend dynamically. Include the full package
+# when installed so frozen startup can import that backend as well.
+try:
+    import OpenGL
+except ImportError:
+    pass
+else:
+    python_packages.append(OpenGL.__name__)
 
 # Modules to include
 python_modules = ["{}.QtNetwork".format(QT_BINDING_PACKAGE),"idna.idnadata",
@@ -164,6 +175,14 @@ except BaseException:
     raise
 log.info("Execution path: %s" % os.path.abspath(__file__))
 log.info("Artifact path detected and added to sys.path: %s" % artifact_path)
+if git_branch_name == "vulkan-mvp":
+    import openshot
+    missing = [name for name in ("VulkanOpenGLPresenter", "ListGpuDevices", "GpuEncoders")
+               if not hasattr(openshot, name)]
+    if missing:
+        raise RuntimeError("vulkan-mvp requires GPU-enabled libopenshot bindings; missing: %s; loaded: %s"
+                           % (", ".join(missing), getattr(openshot, "__file__", "unknown")))
+    log.info("Verified Vulkan API in packaged bindings: %s", openshot.__file__)
 
 # Find files matching patterns
 def find_files(directory, patterns):
@@ -385,6 +404,10 @@ if sys.platform == "win32":
     # Add the Qt image codec runtime DLLs to the app root, since Windows does not search
     # the packaged binding subdir when loading dependencies for imageformat plugins.
     mingw_bin_path = "c:/msys64/%s/bin" % MSYSTEM
+    # Use the same FFmpeg DLLs as the native build, including Intel's dispatcher.
+    # NVIDIA/AMD runtime DLLs come from the user's graphics driver.
+    ffmpeg_bin_path = os.path.join(os.getenv("FFMPEGDIR", "c:/msys64/%s" % MSYSTEM), "bin")
+    build_exe_options.setdefault("bin_path_includes", []).insert(0, ffmpeg_bin_path)
     imageformat_runtime_dlls = [
         "libjpeg-8.dll",
         "libjasper-4.dll",
@@ -467,10 +490,10 @@ elif sys.platform == "linux":
     if os.path.exists(resvg_path):
         external_so_files.append((resvg_path, os.path.basename(resvg_path)))
 
-    # Add Qt xcbglintegrations plugin
-    xcbgl_path = ARCHLIB + "qt5/"
-    for filename in find_files(os.path.join(xcbgl_path, "plugins", "xcbglintegrations"), ["*"]):
-        external_so_files.append((filename, os.path.relpath(filename, start=xcbgl_path)))
+    # Plugins are loaded dynamically: copy and scan their dependencies explicitly,
+    # from the same Qt installation as the Python binding.
+    qt_display_plugins = display_plugins(QLibraryInfo.location(QLibraryInfo.PluginsPath))
+    external_so_files.extend(qt_display_plugins)
 
     # Add libsoftokn3
     nss_path = ARCHLIB + "nss/"
@@ -518,6 +541,7 @@ elif sys.platform == "linux":
         mod = import_module(mod_name)
         qt_mod_files.append(inspect.getfile(mod))
     lib_list = qt_mod_files
+    lib_list.extend(source for source, destination in qt_display_plugins)
     try:
         import _ssl
         lib_list.append(inspect.getfile(_ssl))
@@ -527,7 +551,6 @@ elif sys.platform == "linux":
             os.path.join(libopenshot_path, "libopenshot.so"),
             os.path.join(libopenshot_path, "libopenshot-wayland-capture.so"),
             "/usr/local/lib/libresvg.so",
-            ARCHLIB + "qt5/plugins/platforms/libqxcb.so"
             ]:
         if os.path.exists(lib_name):
             lib_list.append(lib_name)
@@ -574,8 +597,11 @@ elif sys.platform == "linux":
         "libXdmcp.so.6",
         "libpipewire-0.3.so.0",
         "libspa-0.2.so",
+        # The Vulkan loader must match the host's GPU drivers (NVIDIA, Mesa).
+        "libvulkan.so.1",
     }
     system_libs_to_skip.update(appimage_driver_libs)
+    system_libs_to_skip.update(HOST_DISPLAY_LIBRARIES)
 
     include_override_libs = {
         "libgcrypt.so.11",
@@ -637,11 +663,25 @@ elif sys.platform == "linux":
             src_files.append((filename, os.path.join(os.path.relpath(filename, start=openshot_copy_path))))
 
 elif sys.platform == "darwin":
+    # Homebrew installs to /opt/homebrew on Apple Silicon (arm64), and /usr/local on Intel
+    brew_prefix = "/opt/homebrew" if platform.machine() == "arm64" else "/usr/local"
+    log.info("Homebrew prefix for %s: %s" % (platform.machine(), brew_prefix))
+
     # Copy Mac specific files that cx_Freeze misses
-   # Add libresvg (if found)
-    resvg_path = "/usr/local/lib/librsvg-2.dylib"
+    # Add libresvg (if found)
+    resvg_path = os.path.join(brew_prefix, "lib", "librsvg-2.dylib")
     if os.path.exists(resvg_path):
-        external_so_files.append((resvg_path, resvg_path.replace("/usr/local/lib/", "")))
+        external_so_files.append((resvg_path, os.path.basename(resvg_path)))
+
+    # Include the Vulkan implementation explicitly: FFmpeg loads it dynamically,
+    # so dependency scanning alone cannot find it on a machine without a SDK.
+    ffmpeg_root = os.getenv("FFMPEGDIR")
+    if ffmpeg_root:
+        ffmpeg_lib_path = os.path.join(ffmpeg_root, "lib")
+        build_exe_options.setdefault("bin_path_includes", []).append(ffmpeg_lib_path)
+        moltenvk_path = os.path.join(ffmpeg_lib_path, "libMoltenVK.dylib")
+        if os.path.isfile(moltenvk_path):
+            external_so_files.append((moltenvk_path, "libMoltenVK.dylib"))
 
     opencv_root = os.getenv("OPENCV_ROOT")
     if opencv_root:
@@ -666,7 +706,7 @@ elif sys.platform == "darwin":
 
     # Manually add BABL extensions (used in ChromaKey effect) - these are loaded at runtime,
     # and thus cx_freeze is not able to detect them
-    babl_ext_path = "/usr/local/lib/babl-0.1"
+    babl_ext_path = os.path.join(brew_prefix, "lib", "babl-0.1")
     for filename in find_files(babl_ext_path, ["*.dylib"]):
         src_files.append((filename, os.path.join("lib", "babl-ext", os.path.relpath(filename, start=babl_ext_path))))
 
@@ -688,9 +728,21 @@ elif sys.platform == "darwin":
 
     # Exclude gif library which crashes on Mac
     build_exe_options["bin_excludes"] = ["/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libGIF.dylib",
-                                         "/usr/local/opt/giflib/lib/libgif.dylib",
-                                         "/usr/local/opt/tesseract/lib/libtesseract.4.dylib",
-                                         "/usr/local/opt/leptonica/lib/liblept.5.dylib"]
+                                         os.path.join(brew_prefix, "opt/giflib/lib/libgif.dylib"),
+                                         os.path.join(brew_prefix, "opt/tesseract/lib/libtesseract.4.dylib"),
+                                         os.path.join(brew_prefix, "opt/leptonica/lib/liblept.5.dylib")]
+
+# The SVG image loader alone rasterizes QIcons at their intrinsic size. Keep
+# the SVG icon engine too, so badges render at the display's device pixel ratio.
+svg_icon_plugins = list(find_files(
+    os.path.join(QLibraryInfo.location(QLibraryInfo.PluginsPath), "iconengines"),
+    ["*svgicon*.dll", "*svgicon*.so", "*svgicon*.dylib"]))
+if not svg_icon_plugins:
+    raise RuntimeError("Qt's SVG icon engine is required for high-DPI icons")
+# System Qt plugin paths can be excluded by the freezer unless explicitly included.
+build_exe_options.setdefault("bin_includes", []).extend(svg_icon_plugins)
+for plugin_path in svg_icon_plugins:
+    external_so_files.append((plugin_path, os.path.join("iconengines", os.path.basename(plugin_path))))
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options["packages"] = python_packages
@@ -716,6 +768,8 @@ elif sys.platform == "linux":
     # The portal client uses asyncio; its optional GLib adapter must not pull
     # PyGObject and GTK into the AppImage.
     build_exe_options["excludes"].append("gi")
+    # cx_Freeze also discovers native dependencies independently of lib_list.
+    build_exe_options["bin_excludes"] = sorted(HOST_DISPLAY_LIBRARIES)
 
 # Set options
 build_options["build_exe"] = build_exe_options
@@ -784,6 +838,14 @@ if sys.platform == "darwin":
             elif frozen_path.endswith(".app"):
                 fix_rpath(os.path.join(build_path, frozen_path, "Contents", "MacOS"))
                 print_min_versions(os.path.join(build_path, frozen_path, "Contents", "MacOS"))
+
+elif sys.platform == "win32":
+    # The freezer can prefer DLLs beside its own Python executable over the
+    # configured build prefix. Replace those copies after dependency scanning.
+    from installer.windows_ffmpeg import stage_ffmpeg_runtime
+    for frozen_path in os.listdir(build_path):
+        if frozen_path.startswith("exe") and ".previous-" not in frozen_path:
+            stage_ffmpeg_runtime(os.path.dirname(ffmpeg_bin_path), os.path.join(build_path, frozen_path))
 
 elif sys.platform == "linux":
     # Linux issues with frozen folder

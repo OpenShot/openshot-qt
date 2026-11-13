@@ -31,6 +31,7 @@ import sys
 import tempfile
 import types
 import unittest
+import openshot
 from unittest.mock import Mock, patch
 
 
@@ -136,6 +137,14 @@ class ProxyServiceTests(unittest.TestCase):
              self.service._on_proxy_generated("F1", {"path": "/old/optimized.mp4"}, "")
          save.assert_not_called()
          finalize.assert_called_once_with("F1", "canceled")
+
+     def test_proxy_availability_resolves_project_asset_path(self):
+         file_obj = types.SimpleNamespace(data={"proxy_reader": {"path": "@assets/optimized/source.mp4"}})
+         with tempfile.NamedTemporaryFile() as proxy, \
+                 patch("classes.proxy_service.absolute_media_path", return_value=proxy.name):
+             self.assertFalse(self.service.has_missing_proxy(file_obj))
+         file_obj.data["proxy_reader"]["missing"] = True
+         self.assertTrue(self.service.has_missing_proxy(file_obj))
 
      def test_dialog_preview_reader_data_prefers_valid_proxy_reader(self):
          file_obj = types.SimpleNamespace(
@@ -393,7 +402,9 @@ class ProxyServiceTests(unittest.TestCase):
              opened=False,
              closed=False,
              frames=[],
+             options=[],
              SetVideoOptions=lambda *args: None,
+             SetOption=lambda *args: writer_obj.options.append(args),
              PrepareStreams=lambda: None,
              SetAudioOptions=lambda *args: None,
              Open=lambda: setattr(writer_obj, "opened", True),
@@ -422,6 +433,9 @@ class ProxyServiceTests(unittest.TestCase):
          self.assertTrue(clip_obj.opened)
          self.assertTrue(clip_obj.closed)
          self.assertTrue(writer_obj.opened)
+         self.assertEqual(writer_obj.options, [
+             (openshot.VIDEO_STREAM, "crf", "23"),
+         ])
          self.assertTrue(writer_obj.closed)
          self.assertEqual(len(created_timelines), 1)
          self.assertEqual(created_timelines[0].preview_width, 1280)

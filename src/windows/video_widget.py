@@ -27,6 +27,7 @@
 
 import json
 import math
+import os
 import time
 import uuid
 
@@ -38,7 +39,8 @@ from qt_api import modifiers_has
 from qt_api import (
     QTransform, QPainter, QIcon, QColor, QPen, QBrush, QCursor, QImage, QRegion
 )
-from qt_api import QSizePolicy, QWidget, QPushButton
+from qt_api import QSizePolicy, QWidget, QPushButton, QToolTip, QEvent
+from qt_api import QtGui, QtWidgets, QT_API, unwrapinstance
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 
@@ -55,7 +57,51 @@ OBJECT_MASK_PREVIEW_STROKE_COLOR = QColor(255, 255, 255, 255)
 OBJECT_MASK_PREVIEW_STROKE_WIDTH = 3
 
 
-class VideoWidget(QWidget, updates.UpdateInterface):
+def opengl_available():
+    """True when Qt can create the OpenGL 2+ context its painter requires."""
+    if QtWidgets.QApplication.instance() is None:
+        return False
+    # These platforms can create a GL context without supporting QOpenGLWidget
+    # painting. Keep QWidget presentation so seeks also repaint the overlays.
+    if QtWidgets.QApplication.platformName() in ("offscreen", "minimal"):
+        return False
+    context = QtGui.QOpenGLContext()
+    if not context.create():
+        return False
+    # Windows' GDI Generic implementation can successfully create an OpenGL
+    # 1.1 context. QOpenGLWidget's QPainter then calls missing shader functions
+    # before our presenter can reject that context and fall back.
+    return context.format().version() >= (2, 0)
+
+
+def gpu_preview_status(openshot_module=openshot, qt_api=QT_API, widgets=QtWidgets, environ=os.environ,
+                       opengl_check=opengl_available):
+    """Return the preview choice and the reason, without initializing Vulkan."""
+    if not hasattr(openshot_module, "VulkanOpenGLPresenter"):
+        return False, "libopenshot has no Vulkan presenter binding"
+    if qt_api != "pyqt5":
+        return False, "native Vulkan preview requires PyQt5 (using %s)" % qt_api
+    if not hasattr(widgets, "QOpenGLWidget"):
+        return False, "Qt has no QOpenGLWidget"
+    if environ.get("OPENSHOT_RENDER_BACKEND", "vulkan") == "cpu":
+        return False, "OPENSHOT_RENDER_BACKEND=cpu"
+    if environ.get("OPENSHOT_PRESENTATION_BACKEND") == "cpu":
+        return False, "OPENSHOT_PRESENTATION_BACKEND=cpu (Vulkan processing remains enabled)"
+    if not opengl_check():
+        return False, "Qt could not create a usable OpenGL context"
+    return True, "native GPU presenter available; frame interop is checked during drawing"
+
+
+def gpu_preview_enabled(*args, **kwargs):
+    """True when this process can select native GPU preview."""
+    return gpu_preview_status(*args, **kwargs)[0]
+
+
+_GPU_PREVIEW, _GPU_PREVIEW_REASON = gpu_preview_status()
+_VideoWidgetBase = QtWidgets.QOpenGLWidget if _GPU_PREVIEW else QWidget
+
+
+class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
     """ A QWidget used on the video display widget """
     regionAnnotationChanged = pyqtSignal()
     regionAnnotationLimitReached = pyqtSignal()
@@ -340,6 +386,11 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     def clearTransformState(self):
         """Clear all transform-related state to avoid using invalid clip/effect objects"""
         self._restore_transform_playback_cache()
+        self.mouse_pressed = False
+        self.mouse_dragging = False
+        self.middle_pan_active = False
+        if QWidget.mouseGrabber() is self:
+            self.releaseMouse()
         self.transforming_clip = None
         self.transforming_clips.clear()
         self.transforming_clip_objects.clear()
@@ -495,6 +546,9 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def update_title(self):
         """Update the widget title"""
+        # Source dialogs own their mode and file titles.
+        if getattr(self.win, 'range_mode', None) is not None:
+            return
         # Translate object
         _ = get_app()._tr
         rect = self.centeredViewport(self.width(), self.height())
@@ -552,8 +606,17 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         return pix_size
 
     def paintEvent(self, event, *args):
+        if _GPU_PREVIEW:
+            return super().paintEvent(event)
+        self._paint_preview(event)
+
+    def paintGL(self):
+        self._paint_preview()
+
+    def _paint_preview(self, event=None):
         """ Custom paint event """
-        event.accept()
+        if event is not None:
+            event.accept()
         self.mutex.lock()
 
         # Ensure screen-space handle attribute exists and reset each paint
@@ -583,11 +646,42 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
             # Background
             bg_color = self.palette().color(self.backgroundRole())
-            painter.fillRect(event.rect(), bg_color)
+            painter.fillRect(event.rect() if event is not None else self.rect(), bg_color)
 
             # Viewport and frame
             viewport = self.centeredViewport(self.width(), self.height())
-            if self.current_image:
+            gpu_drawn = False
+            if self.gpu_presenter and self.gpu_presenter.Width() > 0:
+                self.curr_frame_size = self._scaled_frame_size(
+                    QSize(self.gpu_presenter.Width(), self.gpu_presenter.Height()), self.size())
+                scale = self.devicePixelRatioF()
+                # Destroying another GL window (e.g. a closed preview dialog
+                # collected by Python mid-paint) leaves no context current.
+                if QtGui.QOpenGLContext.currentContext() is not self.context():
+                    self.makeCurrent()
+                painter.beginNativePainting()
+                try:
+                    gpu_drawn = self.gpu_presenter.Draw(
+                        round(viewport.x() * scale),
+                        round((self.height() - viewport.y() - viewport.height()) * scale),
+                        round(viewport.width() * scale), round(viewport.height() * scale))
+                finally:
+                    painter.endNativePainting()
+                diagnostics = getattr(get_app(), "gpu_diagnostics", None)
+                if diagnostics and self._gpu_diagnostic_id is not None:
+                    reason = ""
+                    if not gpu_drawn:
+                        explain = getattr(self.gpu_presenter, "FallbackReason", None)
+                        reason = explain() if explain else "Native interop unavailable; library reports no reason"
+                    diagnostics.observe_preview(self._gpu_diagnostic_id, gpu_drawn, reason)
+                device_lost = getattr(openshot, "VulkanDeviceLost", None)
+                window = getattr(get_app(), "window", None)
+                if (not gpu_drawn and callable(device_lost) and device_lost()
+                        and hasattr(window, "gpu_device_lost")
+                        and not getattr(window, "_gpu_device_lost_handled", False)):
+                    # Not from inside paintEvent: the handler clears caches and repaints.
+                    QTimer.singleShot(0, window.gpu_device_lost)
+            if not gpu_drawn and self.current_image:
                 pix_size = self._scaled_frame_size(self.current_image.size(), self.size())
                 self.curr_frame_size = pix_size
 
@@ -598,6 +692,20 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     Qt.SmoothTransformation
                 )
                 painter.drawImage(viewport, scaled_img)
+
+            if getattr(self, "source_frame_number_overlay", False):
+                source_frame = getattr(self, "source_frame_number", 1)
+                image_width = self.gpu_presenter.Width() if self.gpu_presenter else 0
+                image_height = self.gpu_presenter.Height() if self.gpu_presenter else 0
+                if not image_width and self.current_image:
+                    image_width, image_height = self.current_image.width(), self.current_image.height()
+                if image_width and image_height:
+                    painter.save()
+                    painter.translate(viewport.x(), viewport.y())
+                    painter.scale(viewport.width() / image_width, viewport.height() / image_height)
+                    painter.setPen(QColor("#ffffff"))
+                    painter.drawText(20, 20, str(source_frame))
+                    painter.restore()
 
             # Prep for transform UI
             fps = get_app().project.get("fps")
@@ -722,8 +830,10 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     union_rect = clip_rect
                     first_props = clip_props
 
-            # Draw handler(s)
-            if union_rect and first_props and not self.region_enabled:
+            # Draw handler(s); text edit mode shows its own text box instead.
+            text = getattr(getattr(self, "win", None), "direct_text", None)
+            text_editing = bool(text and text.draft is not None)
+            if union_rect and first_props and not self.region_enabled and not text_editing:
                 x = union_rect.x()
                 y = union_rect.y()
                 sw = union_rect.width()
@@ -925,6 +1035,24 @@ class VideoWidget(QWidget, updates.UpdateInterface):
     @pyqtSlot(QImage)
     def present(self, image, *args):
         """ Present the current frame """
+        # CPU seek/hover requests must supersede the last retained GPU frame.
+        if self.gpu_presenter:
+            self.gpu_presenter.Clear()
+
+        self._record_present()
+
+        # Get frame's QImage from libopenshot
+        self.current_image = image
+
+        # Request an async paint to avoid recursive QWidget repaint on Windows.
+        self.update()
+
+    @pyqtSlot(int)
+    def gpu_presented(self, frame_number):
+        self.source_frame_number = frame_number
+        self._record_present()
+
+    def _record_present(self):
 
         # Calculate "render" / "present" FPS
         current_sec = time.localtime(time.time()).tm_sec
@@ -935,19 +1063,32 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         else:
             self.present_fps_counter += 1
 
-        # Get frame's QImage from libopenshot
-        self.current_image = image
-
-        # Request an async paint to avoid recursive QWidget repaint on Windows.
-        self.update()
-
     def connectSignals(self, renderer):
         """ Connect signals to renderer """
         renderer.present.connect(self.present)
 
+    def mouseDoubleClickEvent(self, event):
+        text = getattr(getattr(self, "win", None), "direct_text", None)
+        if text and text.draft is not None:
+            event.accept()
+            return
+        if text and event.button() == Qt.LeftButton:
+            clip_id = text.hit(event.pos())
+            if clip_id:
+                text.begin(clip_id)
+                event.accept()
+                return
+        super().mouseDoubleClickEvent(event)
+
     def mousePressEvent(self, event):
         """Capture mouse press event on video preview window"""
         event.accept()
+        text = getattr(getattr(self, "win", None), "direct_text", None)
+        if text and text.draft is not None:
+            return
+        if text and text.armed and event.button() == Qt.LeftButton:
+            text.create(event.pos())
+            return
         if event.button() == Qt.MiddleButton or (
                 event.button() == Qt.LeftButton and getattr(self, "preview_pan_enabled", False)):
             self.mouse_pressed = True
@@ -1341,10 +1482,35 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         if not self.transform_mode or self.transform_mode == self.hover_transform_mode:
             self.setCursor(cursor)
 
+    def event(self, event):
+        # The zoom/pan hint is for an idle preview. Never cover handles, a
+        # region or the text editor (whose tooltip events bubble up here).
+        if event.type() == QEvent.ToolTip:
+            text = getattr(getattr(self, "win", None), "direct_text", None)
+            if (self.transforming_clip or self.region_enabled or self.mouse_dragging
+                    or (text and text.draft is not None)):
+                QToolTip.hideText()
+                event.ignore()
+                return True
+        return super().event(event)
+
     def mouseMoveEvent(self, event):
         """Capture mouse events on video preview window """
+        text = getattr(getattr(self, "win", None), "direct_text", None)
+        if text and text.draft is not None:
+            event.accept()
+            return
         self.mutex.lock()
         event.accept()
+
+        # A double-click can move focus to an editor before the matching release.
+        # Mouse tracking alone must never continue a transform gesture.
+        if not event.buttons() & (Qt.LeftButton | Qt.MiddleButton):
+            self.mouse_pressed = False
+            self.mouse_dragging = False
+            self.middle_pan_active = False
+            self.transform_mode = None
+            self.rotation_drag_value = None
 
         if self.mouse_pressed:
             self.mouse_dragging = True
@@ -1497,6 +1663,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         y_motion_unrotated = -math.sin(rad) * x_motion + math.cos(rad) * y_motion
                         x_motion, y_motion = x_motion_unrotated, y_motion_unrotated
 
+                values = {}
                 if self.transform_mode == 'origin':
                     # Get current keyframe value
                     origin_x = raw_properties.get('origin_x').get('value')
@@ -1518,19 +1685,8 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     if origin_y > 1.0:
                         origin_y = 1.0
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'origin_x', origin_x,
-                        refresh=False)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'origin_y', origin_y)
-                    self._apply_delta_to_clips(
-                        'origin_x', origin_x - raw_properties.get('origin_x').get('value'),
-                        fps_float, frame_number=clip_frame_number)
-                    self._apply_delta_to_clips(
-                        'origin_y', origin_y - raw_properties.get('origin_y').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values['origin_x'] = origin_x
+                    values['origin_y'] = origin_y
 
                 elif self.transform_mode == 'location':
                     # Get current keyframe value
@@ -1568,19 +1724,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         location_y += y_motion / viewport_rect.height()
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'location_x', location_x,
-                        refresh=False)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'location_y', location_y)
-                    self._apply_delta_to_clips(
-                        'location_x', location_x - raw_properties.get('location_x').get('value'),
-                        fps_float, frame_number=clip_frame_number)
-                    self._apply_delta_to_clips(
-                        'location_y', location_y - raw_properties.get('location_y').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values.update({'location_x': location_x, 'location_y': location_y})
 
                 elif self.transform_mode == 'shear_top':
                     # Get current keyframe shear value
@@ -1592,12 +1736,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     shear_x -= x_motion / ((self.clipBounds.width() * scale_x) / aspect_ratio)
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'shear_x', shear_x)
-                    self._apply_delta_to_clips(
-                        'shear_x', shear_x - raw_properties.get('shear_x').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values['shear_x'] = shear_x
 
                 elif self.transform_mode == 'shear_bottom':
                     # Get current keyframe shear value
@@ -1609,12 +1748,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     shear_x += x_motion / ((self.clipBounds.width() * scale_x) / aspect_ratio)
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'shear_x', shear_x)
-                    self._apply_delta_to_clips(
-                        'shear_x', shear_x - raw_properties.get('shear_x').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values['shear_x'] = shear_x
 
                 elif self.transform_mode == 'shear_left':
                     # Get current keyframe shear value
@@ -1626,12 +1760,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     shear_y -= y_motion / (self.clipBounds.height() * scale_y / aspect_ratio)
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'shear_y', shear_y)
-                    self._apply_delta_to_clips(
-                        'shear_y', shear_y - raw_properties.get('shear_y').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values['shear_y'] = shear_y
 
                 elif self.transform_mode == 'shear_right':
                     # Get current keyframe shear value
@@ -1643,12 +1772,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                     shear_y += y_motion / (self.clipBounds.height() * scale_y / aspect_ratio)
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id, clip_frame_number,
-                        'shear_y', shear_y)
-                    self._apply_delta_to_clips(
-                        'shear_y', shear_y - raw_properties.get('shear_y').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values['shear_y'] = shear_y
 
                 elif self.transform_mode == 'rotation':
                     # Get current rotation keyframe value
@@ -1674,13 +1798,7 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                         rotation = self._snap_angle(rotation, 15.0)
 
                     # Update keyframe value (or create new one)
-                    self.updateClipProperty(
-                        self.transforming_clips[0].id,
-                        clip_frame_number,
-                        'rotation', rotation)
-                    self._apply_delta_to_clips(
-                        'rotation', rotation - raw_properties.get('rotation').get('value'),
-                        fps_float, frame_number=clip_frame_number)
+                    values['rotation'] = rotation
 
                 elif self.transform_mode.startswith('scale_'):
                     # Get current scale keyframe value
@@ -1719,22 +1837,13 @@ class VideoWidget(QWidget, updates.UpdateInterface):
                             scale_x = scale_y
 
                     # Update keyframe value (or create new one)
-                    both_scaled = scale_x != 0.001 and scale_y != 0.001
                     if scale_x != 0.001:
-                        self.updateClipProperty(
-                            self.transforming_clips[0].id, clip_frame_number,
-                            'scale_x', scale_x,
-                            refresh=(not both_scaled))
-                        self._apply_delta_to_clips(
-                            'scale_x', scale_x - raw_properties.get('scale_x').get('value'),
-                            fps_float, frame_number=clip_frame_number)
+                        values['scale_x'] = scale_x
                     if scale_y != 0.001:
-                        self.updateClipProperty(
-                            self.transforming_clips[0].id, clip_frame_number,
-                            'scale_y', scale_y)
-                        self._apply_delta_to_clips(
-                            'scale_y', scale_y - raw_properties.get('scale_y').get('value'),
-                            fps_float, frame_number=clip_frame_number)
+                        values['scale_y'] = scale_y
+
+                if values:
+                    self._apply_clip_transform(values, raw_properties, clip_frame_number)
 
             # Force re-paint
             self.update()
@@ -2135,48 +2244,43 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         self.mutex.unlock()
 
     def updateClipProperty(self, clip_id, frame_number, property_key, new_value, refresh=True):
-        """Update a keyframe property to a new value, adding or updating keyframes as needed"""
-        found_point = False
-        clip_updated = False
+        """Update one keyframe property."""
+        self.updateClipProperties(clip_id, frame_number, {property_key: new_value}, refresh)
 
+    def updateClipProperties(self, clip_id, frame_number, values, refresh=True):
+        """Apply one transform sample together, refreshing dependent UI only once."""
         c = Clip.get(id=clip_id)
         if not c:
-            # No clip found
             return
-
-        # Property missing? Create it!
-        if property_key not in c.data:
-            c.data[property_key] = {"Points": []}
-            log.warning("%s: Added missing '%s' to property data", clip_id, property_key)
-
-        points = c.data.get(property_key, {}).get("Points", [])
+        changed = {}
         auto_keyframes = auto_keyframes_enabled(get_app().window)
-        frame_number = edit_frame(points, frame_number, auto_keyframes)
-        for point in points:
-            co = point.get("co", {})
+        for property_key, new_value in values.items():
+            if property_key not in c.data:
+                c.data[property_key] = {"Points": []}
+                log.warning("%s: Added missing '%s' to property data", clip_id, property_key)
+            points = c.data.get(property_key, {}).get("Points", [])
+            target_frame = edit_frame(points, frame_number, auto_keyframes)
+            found_point = False
+            for point in points:
+                if point.get("co", {}).get("X") == target_frame:
+                    found_point = True
+                    point["co"]["Y"] = float(new_value)
+                    if auto_keyframes:
+                        point["interpolation"] = openshot.BEZIER
+                    changed[property_key] = c.data[property_key]
+            if not found_point and new_value is not None:
+                log.debug("Creating new point at X=%s", target_frame)
+                c.data[property_key]["Points"].append({
+                    'co': {'X': target_frame, 'Y': float(new_value)},
+                    'interpolation': openshot.BEZIER
+                })
+                changed[property_key] = c.data[property_key]
 
-            if co.get("X") == frame_number:
-                found_point = True
-                clip_updated = True
-                point["co"]["Y"] = float(new_value)
-                if auto_keyframes:
-                    point["interpolation"] = openshot.BEZIER
-
-        if not found_point and new_value is not None:
-            clip_updated = True
-            log.debug("Creating new point at X=%s", frame_number)
-            c.data[property_key]["Points"].append({
-                'co': {'X': frame_number, 'Y': float(new_value)},
-                'interpolation': openshot.BEZIER
-            })
-
-        if clip_updated:
-            # Reduce # of clip properties we are saving (performance boost)
-            c.data = {property_key: c.data.get(property_key)}
+        if changed:
+            c.data = changed
             if self.transaction_id:
                 get_app().updates.transaction_id = self.transaction_id
             c.save()
-            # Update the preview
             if refresh:
                 get_app().window.refreshFrameSignal.emit()
 
@@ -2351,17 +2455,18 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
         return frame
 
-    def _apply_delta_to_clips(self, property_key, delta, fps_float, frame_number=None):
+    def _apply_clip_transform(self, values, primary_properties, frame_number):
+        """Save each selected clip once per mouse sample, then refresh once."""
+        pending = [(self.transforming_clips[0].id, frame_number, values)]
+        frame = max(1, int(round(frame_number)))
+        deltas = {key: value - primary_properties[key]['value'] for key, value in values.items()}
         for clip, obj in zip(self.transforming_clips[1:], self.transforming_clip_objects[1:]):
-            if frame_number is None:
-                frame = self._get_clip_frame_number(clip, fps_float)
-            else:
-                frame = max(1, int(round(frame_number)))
-            props = json.loads(obj.PropertiesJSON(frame))
-            value = props.get(property_key).get('value')
-            if self.transaction_id:
-                get_app().updates.transaction_id = self.transaction_id
-            self.updateClipProperty(clip.id, frame, property_key, value + delta, refresh=False)
+            properties = json.loads(obj.PropertiesJSON(frame))
+            pending.append((clip.id, frame, {
+                key: properties[key]['value'] + delta for key, delta in deltas.items()}))
+        for clip_id, frame, changed in pending:
+            self.updateClipProperties(clip_id, frame, changed, refresh=False)
+        get_app().window.refreshFrameSignal.emit()
 
     def _crop_resize_rect(self, width, height, left, top, right, bottom, x_off, y_off):
         width = float(max(width, 0.0))
@@ -2949,6 +3054,10 @@ class VideoWidget(QWidget, updates.UpdateInterface):
 
     def resizeEvent(self, event):
         """Widget resize event"""
+        if _GPU_PREVIEW:
+            # QOpenGLWidget must recreate its framebuffer at the new physical
+            # pixel size before our viewport or native presenter can draw.
+            super().resizeEvent(event)
         event.accept()
         if hasattr(self, "pan_x") and hasattr(self, "pan_y"):
             self.pan_x, self.pan_y = VideoWidget._clamp_pan(
@@ -3033,6 +3142,14 @@ class VideoWidget(QWidget, updates.UpdateInterface):
         continue to match the current project's aspect ratio."""
         # Invoke parent init
         super().__init__(*args)
+        self.gpu_presenter = (
+            openshot.VulkanOpenGLPresenter(int(unwrapinstance(self))) if _GPU_PREVIEW else None
+        )
+        log.info("Vulkan preview selected=%s: %s", _GPU_PREVIEW, _GPU_PREVIEW_REASON)
+        diagnostics = getattr(get_app(), "gpu_diagnostics", None)
+        self._gpu_diagnostic_id = (diagnostics.register_preview(
+            "timeline" if watch_project else "source", _GPU_PREVIEW, _GPU_PREVIEW_REASON)
+            if diagnostics else None)
         self.watch_project = bool(watch_project)
 
         # Translate object

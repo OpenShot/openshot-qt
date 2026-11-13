@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:23
+#: ../doc/timeline.rst:23
 msgid "Timeline"
 msgstr "時間軸"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:25
+#: ../doc/timeline.rst:25
 msgid ""
 "The timeline is where your video comes together. You arrange clips, trim "
 "them, layer visuals, and make timing decisions here. If you are new to "
@@ -34,114 +34,118 @@ msgid ""
 msgstr ""
 "時間軸是您的影片組合之處。您可以在此排列剪輯、修剪它們、分層視覺效果，並做出時間安排決策。如果您是編輯新手，請將時間軸想像成一個簡單的從左到右的故事：較早的時刻在左邊，較晚的時刻在右邊。"
 
-# Translated with gpt-4.1-mini
-#: ../timeline.rst:32
+#: ../doc/timeline.rst:32
 msgid ""
 "If you are just getting started, read :ref:`quick_tutorial_ref` first, then "
 "come back here for more detail. For a labeled breakdown of toolbar controls,"
-" see :ref:`timeline_toolbar_ref`."
+" see :ref:`timeline_toolbar_ref`. To select, move, and trim clips and "
+"transitions with the keyboard, see :ref:`timeline_keyboard_ref`. You can "
+"also focus Project Files with :kbd:`Shift+1` and press :kbd:`Ctrl+Enter` to "
+"place selected files at the playhead on the target track."
 msgstr ""
-"如果您剛開始使用，請先閱讀 :ref:`quick_tutorial_ref`，然後再回來這裡了解更多細節。欲了解工具列控制項的標示說明，請參閱 "
-":ref:`timeline_toolbar_ref`。"
+"如果您剛開始使用，請先閱讀 :ref:`quick_tutorial_ref`\\ ，然後再回來這裡獲取更多細節。欲了解工具列控制項的標籤說明，請參閱 "
+":ref:`timeline_toolbar_ref`\\ 。要使用鍵盤選取、移動和修剪剪輯及轉場，請參閱 "
+":ref:`timeline_keyboard_ref`\\ 。您也可以使用 :kbd:`Shift+1` 聚焦專案檔案，並按 "
+":kbd:`Ctrl+Enter` 將選取的檔案放置於目標軌道的播放頭位置。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:37
+#: ../doc/timeline.rst:40
 msgid "Timeline Basics"
 msgstr "時間軸基礎"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:39
+#: ../doc/timeline.rst:42
 msgid "These terms are used often in this guide:"
 msgstr "本指南中經常使用的術語："
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:45
+#: ../doc/timeline.rst:48
 msgid "Term"
 msgstr "術語"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:45
+#: ../doc/timeline.rst:48
 msgid "Meaning"
 msgstr "含義"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:47
+#: ../doc/timeline.rst:50
 msgid "Playhead"
 msgstr "播放頭"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:47
+#: ../doc/timeline.rst:50
 msgid "The red line that shows your current time position."
 msgstr "顯示您當前時間位置的紅線。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:48
+#: ../doc/timeline.rst:51
 msgid "Track"
 msgstr "軌道"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:48
+#: ../doc/timeline.rst:51
 msgid ""
 "A horizontal layer that holds clips (top tracks appear above lower tracks)."
 msgstr "承載剪輯的水平層（上方軌道顯示於下方軌道之上）。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:49
+#: ../doc/timeline.rst:52
 msgid "Clip"
 msgstr "剪輯"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:49
+#: ../doc/timeline.rst:52
 msgid "A video, audio, or image item placed on a track."
 msgstr "放置在軌道上的影片、音訊或影像項目。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:50
+#: ../doc/timeline.rst:53
 msgid "Transition"
 msgstr "轉場"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:50
+#: ../doc/timeline.rst:53
 msgid "A blend between two overlapping clips."
 msgstr "兩個重疊剪輯之間的混合效果。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:51
+#: ../doc/timeline.rst:54
 msgid "Marker"
 msgstr "標記"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:51
+#: ../doc/timeline.rst:54
 msgid "A saved point in time you can jump back to quickly."
 msgstr "您可以快速跳回的已保存時間點。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:52
+#: ../doc/timeline.rst:55
 msgid "Keyframe"
 msgstr "關鍵影格"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:52
+#: ../doc/timeline.rst:55
 msgid "A saved value at a point in time (used for animation)."
 msgstr "在某一時間點保存的數值（用於動畫）。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:55
+#: ../doc/timeline.rst:58
 msgid "For a full glossary, see :ref:`glossary_ref`."
-msgstr "完整詞彙表請參閱 :ref:`glossary_ref`。"
+msgstr "完整詞彙表請參閱 :ref:`glossary_ref`\\ 。"
 
-#: ../timeline.rst:58
+#: ../doc/timeline.rst:61
 msgid "Current Timecode"
 msgstr "目前時間碼"
 
-#: ../timeline.rst:60
+#: ../doc/timeline.rst:63
 msgid ""
 "The current timecode appears at the left side of the timeline ruler and "
 "shows the playhead's exact position. Click the timecode, enter a new value, "
 "and press :kbd:`Enter` to move the playhead to that frame."
 msgstr "目前時間碼顯示在時間軸尺的左側，並顯示播放頭的精確位置。點擊時間碼，輸入新數值，然後按 :kbd:`Enter` 將播放頭移動到該幀。"
 
-#: ../timeline.rst:64
+#: ../doc/timeline.rst:67
 msgid ""
 "Clear the field or enter ``0`` to jump to the start of the timeline. Press "
 ":kbd:`Up` or :kbd:`Down` to step the selected timecode segment; hold "
@@ -152,116 +156,123 @@ msgstr ""
 ":kbd:`Shift` 可一次調整 10。當選取幀段時，按住 :kbd:`Ctrl` 可一次調整一秒。按 :kbd:`Esc` 取消。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:70
+#: ../doc/timeline.rst:73
 msgid "Common Timeline Tasks"
 msgstr "常見時間軸任務"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:72
+#: ../doc/timeline.rst:75
 msgid "Most editing sessions follow a similar flow:"
 msgstr "大多數編輯流程遵循類似步驟："
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:74
+#: ../doc/timeline.rst:77
 msgid "Add media to the project using :ref:`import_files_ref`."
 msgstr "使用 :ref:`import_files_ref` 將媒體加入專案。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:75
+#: ../doc/timeline.rst:78
 msgid "Drag files from the project panel onto timeline tracks."
 msgstr "從專案面板拖曳檔案到時間軸軌道。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:76
+#: ../doc/timeline.rst:79
 msgid "Trim clip edges to remove extra content."
 msgstr "修剪剪輯邊緣以移除多餘內容。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:77
+#: ../doc/timeline.rst:80
 msgid "Move clips into order and stack tracks to build your scene."
 msgstr "將剪輯排序並堆疊軌道以建立場景。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:78
+#: ../doc/timeline.rst:81
 msgid ""
 "Add transitions and effects where needed (:ref:`transitions_ref`, "
 ":ref:`effects_ref`)."
-msgstr "在需要處添加轉場和效果（:ref:`transitions_ref`，:ref:`effects_ref`）。"
+msgstr "在需要處添加轉場和效果（\\ :ref:`transitions_ref`\\ ，\\ :ref:`effects_ref`\\ ）。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:79
+#: ../doc/timeline.rst:82
 msgid "Preview and adjust timing (:ref:`playback_ref`)."
-msgstr "預覽並調整時間安排（:ref:`playback_ref`）。"
+msgstr "預覽並調整時間安排（\\ :ref:`playback_ref`\\ ）。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:81
+#: ../doc/timeline.rst:84
 msgid ""
 "Clip trimming, slicing, and clip context menu actions are covered in detail "
 "in :ref:`clips_ref`."
-msgstr "剪輯修剪、切割及剪輯右鍵選單操作詳見 :ref:`clips_ref`。"
+msgstr "剪輯修剪、切割及剪輯右鍵選單操作詳見 :ref:`clips_ref`\\ 。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:84
+#: ../doc/timeline.rst:87
 msgid "Selecting Clips and Transitions"
 msgstr "選取剪輯與轉場"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:86
+#: ../doc/timeline.rst:89
 msgid "Selection is one of the most important timeline skills:"
 msgstr "選取是時間軸中最重要的技能之一："
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:88
+#: ../doc/timeline.rst:91
 msgid "Click an item to select it."
 msgstr "點擊項目以選取。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:89
+#: ../doc/timeline.rst:92
 msgid ":kbd:`Ctrl+Click` adds or removes items from selection."
 msgstr ":kbd:`Ctrl+Click` 可新增或移除選取項目。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:90
+#: ../doc/timeline.rst:93
 msgid ""
 ":kbd:`Shift+Click` selects a range between your anchor item and the clicked "
 "item."
 msgstr ":kbd:`Shift+Click` 選取錨點項目與點擊項目之間的範圍。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:91
+#: ../doc/timeline.rst:94
 msgid ":kbd:`Ctrl+Shift+Click` adds that range to your current selection."
 msgstr ":kbd:`Ctrl+Shift+Click` 將該範圍加入目前選取。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:92
+#: ../doc/timeline.rst:95
 msgid ""
 ":kbd:`Alt+Click` ripple-selects from the clicked item to the end of the "
 "track."
 msgstr ":kbd:`Alt+Click` 從點擊項目開始波紋選取至軌道末端。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:93
+#: ../doc/timeline.rst:96
 msgid "Drag an empty-area selection box to select multiple items."
 msgstr "拖曳空白區域選取框以選取多個項目。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:95
+#: ../doc/timeline.rst:98
 msgid "See :ref:`clips_ref` for the full list and examples."
-msgstr "完整列表與範例請參閱 :ref:`clips_ref`。"
+msgstr "完整列表與範例請參閱 :ref:`clips_ref`\\ 。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:98
+#: ../doc/timeline.rst:101
 msgid "Timeline Toolbar and Zoom"
 msgstr "時間軸工具列與縮放"
 
-# Translated with gpt-4.1-mini
-#: ../timeline.rst:100
+#: ../doc/timeline.rst:103
 msgid ""
 "The timeline toolbar helps with common navigation and editing actions "
-"(snapping, retime, razor, markers, centering, and zoom)."
-msgstr "時間軸工具列協助常用的導航與編輯操作（吸附、重新定時、剃刀、標記、置中與縮放）。"
+"(snapping, auto keyframes, retime, razor, markers, centering, and zoom)."
+msgstr "時間軸工具列協助執行常見的導覽與編輯操作（吸附、自動關鍵影格、重新定時、剃刀、標記、置中與縮放）。"
 
-#: ../timeline.rst:103
+#: ../doc/timeline.rst:106
+msgid ""
+"Use the diamond button to turn :ref:`auto_keyframes_ref` on or off. Leave it"
+" on to build animations as you edit, or turn it off to adjust existing "
+"values without adding keyframes."
+msgstr ""
+"使用鑽石按鈕來開啟或關閉 :ref:`auto_keyframes_ref`\\ 。保持開啟可在編輯時建立動畫，關閉則可調整現有數值而不新增關鍵影格。"
+
+#: ../doc/timeline.rst:109
 msgid ""
 "The :ref:`razor_tool_ref` shows a cut guide and timecode over the target "
 "clip. While paused, hovering also previews the cut frame without moving the "
@@ -273,14 +284,14 @@ msgstr ""
 ":kbd:`Esc` 離開 Razor 模式。Razor 導引會遵循現有的 **Snapping** 切換，並使用與其他時間軸編輯相同的吸附目標和容差。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:109
+#: ../doc/timeline.rst:115
 msgid ""
 "Tip: If timeline editing feels crowded, zoom in with the timeline slider to "
 "make small clip adjustments easier."
 msgstr "提示：如果時間軸編輯感覺擁擠，請使用時間軸滑桿放大，讓小幅剪輯調整更容易。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:112
+#: ../doc/timeline.rst:118
 msgid ""
 "You can also zoom the timeline with :kbd:`Ctrl+Scroll Wheel`. On the QWidget"
 " timeline, hold :kbd:`Ctrl` and drag with the middle mouse button for smooth"
@@ -289,118 +300,156 @@ msgstr ""
 "您也可以使用 :kbd:`Ctrl+滾輪` 來縮放時間軸。在 QWidget 時間軸上，按住 :kbd:`Ctrl` 並用中鍵拖曳以進行平滑縮放。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:117
+#: ../doc/timeline.rst:123
 msgid "Tracks, Locking, and Inserting"
 msgstr "軌道、鎖定與插入"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:119
+#: ../doc/timeline.rst:125
 msgid "Tracks help organize your edit. A common setup is:"
 msgstr "軌道有助於組織您的編輯。常見配置如下："
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:121
+#: ../doc/timeline.rst:127
 msgid "Top tracks: titles, overlays, logos, picture-in-picture"
 msgstr "上方軌道：標題、覆蓋、標誌、畫中畫"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:122
+#: ../doc/timeline.rst:128
 msgid "Middle tracks: main video content"
 msgstr "中間軌道：主要影片內容"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:123
+#: ../doc/timeline.rst:129
 msgid "Lower tracks: music and sound effects"
 msgstr "下方軌道：音樂與音效"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:125
+#: ../doc/timeline.rst:131
 msgid ""
 "You can lock tracks to protect them from accidental edits and use "
 "insert/ripple editing when you need later clips to move automatically."
 msgstr "您可以鎖定軌道以防止意外編輯，並在需要後方剪輯自動移動時使用插入/波紋編輯。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:128
+#: ../doc/timeline.rst:134
 msgid ""
 "For track layout basics, see :ref:`tracks_ref`. For detailed clip editing "
 "behavior, see :ref:`clips_cutting_slicing_ref`."
 msgstr ""
-"軌道佈局基礎請參閱 :ref:`tracks_ref`。詳細剪輯編輯行為請參閱 :ref:`clips_cutting_slicing_ref`。"
+"軌道佈局基礎請參閱 :ref:`tracks_ref`\\ 。詳細剪輯編輯行為請參閱 "
+":ref:`clips_cutting_slicing_ref`\\ 。"
+
+#: ../doc/timeline.rst:138
+msgid ""
+"For projects with many layers, choose **Minimal** or **Compact** under "
+"**Preferences → Timeline → Track Size** to see more tracks with less "
+"scrolling. Choose **Relaxed** for more vertical room, or **Default** to "
+"restore the theme's original height. Keyframe panel spacing adjusts too. See"
+" :ref:`preferences_track_size_ref` for details."
+msgstr ""
+"對於多層專案，請在 **偏好設定 → 時間軸 → 軌道大小** 中選擇 **Minimal** 或 **Compact**\\ "
+"，以減少捲動並顯示更多軌道。選擇 **Relaxed** 可獲得更多垂直空間，或選擇 **Default** "
+"回復主題的原始高度。關鍵影格面板的間距也會調整。詳情請參閱 :ref:`preferences_track_size_ref`\\ 。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:132
+#: ../doc/timeline.rst:145
 msgid "Keyframes in the Timeline"
 msgstr "時間軸中的關鍵影格"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:134
+#: ../doc/timeline.rst:147
 msgid ""
 "Keyframes let you change values over time, such as position, scale, "
 "rotation, opacity, and effect settings."
 msgstr "關鍵影格讓您隨時間改變數值，如位置、縮放、旋轉、不透明度及效果設定。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:137
+#: ../doc/timeline.rst:150
 msgid ""
 "In the timeline keyframe panel, each row represents one animated property. "
 "You can:"
 msgstr "在時間軸關鍵影格面板中，每列代表一個動畫屬性。您可以："
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:139
+#: ../doc/timeline.rst:152
 msgid "Add a keyframe row for a property"
 msgstr "為屬性新增關鍵影格列"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:140
+#: ../doc/timeline.rst:153
 msgid "Insert new keyframes along the row"
 msgstr "在該列插入新的關鍵影格"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:141
+#: ../doc/timeline.rst:154
 msgid "Move keyframes to change timing"
 msgstr "移動關鍵影格以改變時間安排"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:142
+#: ../doc/timeline.rst:155
 msgid "Change interpolation to control motion style"
 msgstr "更改插值以控制運動風格"
 
-# Translated with gpt-4.1-mini
-#: ../timeline.rst:144
+#: ../doc/timeline.rst:157
 msgid ""
-"For keyframe concepts and animation examples, see :ref:`animation_ref`."
-msgstr "關於關鍵影格概念與動畫範例，請參閱 :ref:`animation_ref`。"
+"Single-click a keyframe on a clip or in the keyframe panel to select it and "
+"move the playhead to its frame. This leaves the Properties dock open or "
+"closed as you have arranged it. Double-click the keyframe, or right-click it"
+" and choose :guilabel:`Properties`, to open the dock."
+msgstr ""
+"單擊剪輯上的關鍵影格或關鍵影格面板中的關鍵影格，即可選取並將播放頭移至該影格。此操作會保持屬性面板的開啟或關閉狀態，依您先前的設定。雙擊關鍵影格，或右鍵點擊並選擇"
+" :guilabel:`Properties`\\ ，即可開啟該面板。"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:147
+#: ../doc/timeline.rst:162
+msgid ""
+"For keyframe concepts and animation examples, see :ref:`animation_ref`."
+msgstr "關於關鍵影格概念與動畫範例，請參閱 :ref:`animation_ref`\\ 。"
+
+# Translated with gpt-4.1-mini
+#: ../doc/timeline.rst:165
 msgid "Next Steps"
 msgstr "下一步"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:149
+#: ../doc/timeline.rst:167
 msgid ""
 "After you are comfortable with timeline basics, these sections are the best "
 "next reads:"
 msgstr "熟悉時間軸基礎後，以下章節是最佳後續閱讀："
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:151
+#: ../doc/timeline.rst:169
 msgid ":ref:`clips_ref` for trimming, slicing, and clip properties"
 msgstr ":ref:`clips_ref` 介紹修剪、切割及剪輯屬性"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:152
+#: ../doc/timeline.rst:170
 msgid ":ref:`effects_ref` for video/audio effects"
 msgstr ":ref:`effects_ref` 介紹影片/音訊效果"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:153
+#: ../doc/timeline.rst:171
 msgid ":ref:`animation_ref` for keyframe animation workflows"
 msgstr ":ref:`animation_ref` 介紹關鍵影格動畫工作流程"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:154
+#: ../doc/timeline.rst:172
 msgid ":doc:`export` for creating your final video file"
 msgstr ":doc:`export` 用於建立您的最終影片檔案"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "If you are just getting started, read :ref:`quick_tutorial_ref` first, then "
+#~ "come back here for more detail. For a labeled breakdown of toolbar controls,"
+#~ " see :ref:`timeline_toolbar_ref`."
+#~ msgstr ""
+#~ "如果您剛開始使用，請先閱讀 :ref:`quick_tutorial_ref`\\ ，然後再回來這裡了解更多細節。欲了解工具列控制項的標示說明，請參閱 "
+#~ ":ref:`timeline_toolbar_ref`\\ 。"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "The timeline toolbar helps with common navigation and editing actions "
+#~ "(snapping, retime, razor, markers, centering, and zoom)."
+#~ msgstr "時間軸工具列協助常用的導航與編輯操作（吸附、重新定時、剃刀、標記、置中與縮放）。"

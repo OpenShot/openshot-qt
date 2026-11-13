@@ -34,6 +34,7 @@ os.environ['QT_QPA_PLATFORM'] = 'offscreen'
 import openshot
 from qt_api import QApplication
 from classes.agent.render import make_timeline
+from classes.agent.export_check import STAGE_SETTINGS, apply_engine_settings, check
 
 
 def main(directory):
@@ -55,12 +56,7 @@ def main(directory):
 
     try:
         data = spec['project']
-        settings = openshot.Settings.Instance()
-        for name, attribute in [('encoder_device', 'HW_EN_DEVICE_SET'), ('decoder_device', 'HW_DE_DEVICE_SET'), ('hardware_decoder', 'HARDWARE_DECODER')]:
-            if name in config['hardware']:
-                setattr(settings, attribute, config['hardware'][name])
-        if 'threads' in config:
-            settings.FF_THREADS = config['threads']
+        apply_engine_settings(config)
         timeline = make_timeline(data)
         timeline.SetMaxSize(data['width'], data['height'])
         timeline.ApplyMapperToClips()
@@ -68,6 +64,12 @@ def main(directory):
         if sequence:
             partial.mkdir(mode=0o700)
         else:
+            # Fail with FFmpeg's own explanation before rendering anything
+            result = check(spec, str(partial))
+            if not result['ok']:
+                report('failed', error='Export settings are not supported: ' + result['message'],
+                       setting=STAGE_SETTINGS.get(result['stage']), engine_log=result['log'])
+                return 1
             from classes.export_settings import configure_writer
             writer = openshot.FFmpegWriter(str(partial))
             configure_writer(writer, spec['video'], spec['audio'], config['mode'], config['quality_mode'],

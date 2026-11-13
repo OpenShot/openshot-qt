@@ -31,6 +31,7 @@ import os
 import json
 import openshot
 import tempfile
+import time
 import traceback
 import unittest
 
@@ -66,6 +67,19 @@ def verify():
         window.dockProperties.setMinimumWidth(300)
         QTest.qWait(500)
         timeline = window.timeline
+
+        def wait_for_layout():
+            # Deferred resize passes restart the anchor timer. Wait for the
+            # layout to finish before the next scenario changes its playhead
+            # or scroll offset, including on slower build workers.
+            deadline = time.monotonic() + 30.0
+            while True:
+                QTest.qWait(20)
+                if (timeline._properties_layout_anchor is None
+                        and not timeline.delayed_resize_timer.isActive()):
+                    return
+                checks.assertLess(time.monotonic(), deadline, "Properties dock layout did not settle")
+
         clip = Clip()
         # Exercise ordinary media: dock anchoring must work without text support.
         image = QImage(640, 360, QImage.Format_RGBA8888)
@@ -109,7 +123,7 @@ def verify():
 
         QTimer.singleShot(100, choose_properties)
         timeline.ShowClipMenu(clip.id)
-        QTest.qWait(600)
+        wait_for_layout()
         checks.assertTrue(triggered and window.dockProperties.isVisible(), 'triggered and window.dockProperties.isVisible()')
         checks.assertTrue(timeline.mapToGlobal(QPoint(0, 0)).x() > initial_origin + 100, "Fixture did not shift timeline")
         checks.assertTrue(abs(edge().x() - before.x()) <= 1, (before.x(), edge().x()))
@@ -125,7 +139,7 @@ def verify():
         window.resize(1480, 900)
         QTest.qWait(20)
         window.resize(1440, 900)
-        QTest.qWait(600)
+        wait_for_layout()
         checks.assertTrue(abs(edge().x() - playhead_x) <= 1, (playhead_x, edge().x()))
         checks.assertTrue(timeline.pixels_per_second == initial_zoom, 'timeline.pixels_per_second == initial_zoom')
 
@@ -133,7 +147,7 @@ def verify():
         timeline.current_frame = 1
         timeline.set_scroll_left(0.0)
         window.actionProperties.trigger()
-        QTest.qWait(600)
+        wait_for_layout()
         checks.assertTrue(timeline.h_scroll_offset == 0.0, timeline.h_scroll_offset)
         checks.assertTrue(timeline.scrollbar_position[0] == 0.0, 'timeline.scrollbar_position[0] == 0.0')
         checks.assertTrue(Clip.get(id=clip.id).data == original, 'Clip.get(id=clip.id).data == original')
@@ -153,7 +167,7 @@ def verify():
         # Opening Properties from inside a clip at zero cannot preserve the
         # cursor's screen position when the dock covers it. Keep the start visible.
         window.dockProperties.hide()
-        QTest.qWait(600)
+        wait_for_layout()
         timeline.end_properties_layout_change()
         clip = Clip.get(id=clip.id)
         clip.data["position"] = 0.0
@@ -167,7 +181,7 @@ def verify():
         triggered.clear()
         QTimer.singleShot(100, choose_properties)
         timeline.ShowClipMenu(clip.id)
-        QTest.qWait(600)
+        wait_for_layout()
         checks.assertTrue(triggered and window.dockProperties.isVisible())
         viewport_left = timeline.mapToGlobal(QPoint(timeline.track_name_width, 0)).x()
         checks.assertLess(click_pos.x(), viewport_left, "Fixture must cover the old cursor position")
@@ -179,6 +193,8 @@ def verify():
     except Exception:
         traceback.print_exc()
     finally:
+        # Qt6 quit() closes windows first; skip the unsaved-changes prompt.
+        app.project.has_unsaved_changes = False
         app.quit()
 
 

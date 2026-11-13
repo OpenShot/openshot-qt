@@ -1,0 +1,1695 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../doc/agent_cli.rst:6
+msgid "Command Line Interface"
+msgstr "واجهة سطر الأوامر"
+
+#: ../doc/agent_cli.rst:8
+msgid ""
+"Bring OpenShot into your command-line workflow. Import footage, trim and "
+"arrange clips, apply effects, animate properties with keyframes, and export "
+"videos from your terminal. Use a few commands to automate repetitive edits, "
+"write a script for a recurring project, or let an AI agent help assemble and"
+" refine a video."
+msgstr ""
+"أدخل OpenShot في سير عمل سطر الأوامر الخاص بك. استورد اللقطات، وقص ورتب "
+"المقاطع، وطبق التأثيرات، وحرك الخصائص باستخدام الإطارات الرئيسية، وصدر "
+"الفيديوهات من خلال الطرفية. استخدم بعض الأوامر لأتمتة التعديلات المتكررة، "
+"اكتب سكريبت لمشروع متكرر، أو دع وكيل ذكاء اصطناعي يساعد في تجميع وتحسين "
+"الفيديو."
+
+#: ../doc/agent_cli.rst:13
+msgid ""
+"The command line works with the same projects as the editor. You can control"
+" an open editor and review changes as you go, or work in a **headless "
+"session** without opening a window. A session keeps your project open "
+"between commands, including its edits, undo history, and export jobs. Save "
+"it as an ``.osp`` project whenever you want to continue editing later."
+msgstr ""
+"يعمل سطر الأوامر مع نفس المشاريع التي يستخدمها المحرر. يمكنك التحكم في محرر "
+"مفتوح ومراجعة التغييرات أثناء العمل، أو العمل في **جلسة بدون واجهة** دون فتح"
+" نافذة. تحافظ الجلسة على مشروعك مفتوحًا بين الأوامر، بما في ذلك التعديلات، "
+"وسجل التراجع، ووظائف التصدير. احفظه كمشروع ``.osp`` متى أردت الاستمرار في "
+"التحرير لاحقًا."
+
+#: ../doc/agent_cli.rst:20
+msgid "Getting started"
+msgstr "البدء"
+
+#: ../doc/agent_cli.rst:22
+msgid ""
+"Use your installed OpenShot executable followed by ``--cli``. Start with "
+"``intro`` for a short guide to sessions, editing, animation, and saving, or "
+"``help`` for the command overview. These commands do not need an active "
+"session. The examples below require an OpenShot build that includes command-"
+"line editing."
+msgstr ""
+"استخدم ملف OpenShot التنفيذي المثبت لديك متبوعًا بـ ``--cli``. ابدأ بـ "
+"``intro`` للحصول على دليل مختصر للجلسات، والتحرير، والتحريك، والحفظ، أو "
+"``help`` لمراجعة الأوامر. هذه الأوامر لا تحتاج إلى جلسة نشطة. الأمثلة أدناه "
+"تتطلب نسخة OpenShot تدعم التحرير عبر سطر الأوامر."
+
+#: ../doc/agent_cli.rst:30
+msgid "Linux AppImage"
+msgstr "لينكس AppImage"
+
+#: ../doc/agent_cli.rst:32
+msgid "From the directory containing your downloaded AppImage::"
+msgstr "من الدليل الذي يحتوي على ملف AppImage الذي قمت بتحميله::"
+
+#: ../doc/agent_cli.rst:37
+msgid ""
+"Replace ``OpenShot.AppImage`` with your downloaded filename. If "
+"**AppImageLauncher** shows desktop integration dialogs, set "
+"``APPIMAGELAUNCHER_DISABLE=1`` before launching the command::"
+msgstr ""
+"استبدل ``OpenShot.AppImage`` باسم الملف الذي قمت بتحميله. إذا عرض "
+"**AppImageLauncher** نوافذ دمج سطح المكتب، قم بتعيين "
+"``APPIMAGELAUNCHER_DISABLE=1`` قبل تشغيل الأمر::"
+
+#: ../doc/agent_cli.rst:43
+msgid "For scripts or repeated commands, set it once in your current shell::"
+msgstr ""
+"للسكريبتات أو الأوامر المتكررة، قم بتعيينها مرة واحدة في الصدفة الحالية::"
+
+#: ../doc/agent_cli.rst:48
+msgid ""
+"The variable must be set before launching the AppImage: AppImageLauncher can"
+" intercept it before OpenShot receives ``--cli``. Relative media paths and "
+"``@batch.json`` files are resolved from your working directory. Keep the "
+"AppImage file available while its sessions or exports are running."
+msgstr ""
+"يجب تعيين المتغير قبل تشغيل AppImage: يمكن لـ AppImageLauncher اعتراضه قبل "
+"أن يستلم OpenShot ``--cli``. يتم حل مسارات الوسائط النسبية وملفات "
+"``@batch.json`` من دليل العمل الخاص بك. احتفظ بملف AppImage متاحًا أثناء "
+"تشغيل جلساته أو عمليات التصدير."
+
+#: ../doc/agent_cli.rst:54
+msgid "Linux Snap"
+msgstr "لينكس Snap"
+
+#: ../doc/agent_cli.rst:56
+msgid "For the `OpenShot Snap <https://snapcraft.io/openshot-qt>`_, use::"
+msgstr "لـ `OpenShot Snap <https://snapcraft.io/openshot-qt>`_، استخدم::"
+
+#: ../doc/agent_cli.rst:62
+msgid ""
+"Snap's file permissions apply to command-line editing too. Keep media, "
+"projects, and exports in locations the Snap can access, such as your home "
+"folder. To allow access to external drives, connect the removable-media "
+"permission::"
+msgstr ""
+"تطبق أذونات الملفات في Snap على التحرير عبر سطر الأوامر أيضًا. احتفظ "
+"بالوسائط والمشاريع وعمليات التصدير في مواقع يمكن لـ Snap الوصول إليها، مثل "
+"مجلد المنزل الخاص بك. للسماح بالوصول إلى الأقراص الخارجية، قم بتوصيل إذن "
+"removable-media::"
+
+#: ../doc/agent_cli.rst:69
+msgid "Windows"
+msgstr "ويندوز"
+
+#: ../doc/agent_cli.rst:73
+msgid ""
+"**Use openshot-qt-cmd.exe for command-line editing on Windows.** This "
+"console executable displays command results, help, and errors in your "
+"terminal. The desktop executable, ``openshot-qt.exe``, does not display "
+"standard output in an interactive terminal, leaving commands without visible"
+" feedback and making the CLI difficult to use."
+msgstr ""
+"**استخدم openshot-qt-cmd.exe للتحرير عبر سطر الأوامر على ويندوز.** يعرض هذا "
+"الملف التنفيذي في وحدة التحكم نتائج الأوامر، والمساعدة، والأخطاء في الطرفية "
+"الخاصة بك. الملف التنفيذي لسطح المكتب، ``openshot-qt.exe``\\ ، لا يعرض "
+"المخرجات القياسية في طرفية تفاعلية، مما يترك الأوامر بدون ردود مرئية ويجعل "
+"واجهة سطر الأوامر صعبة الاستخدام."
+
+#: ../doc/agent_cli.rst:79
+msgid "In PowerShell, from the OpenShot installation directory::"
+msgstr "في PowerShell، من دليل تثبيت OpenShot::"
+
+#: ../doc/agent_cli.rst:85
+msgid ""
+"If you are in a different directory, use the full path to ``openshot-qt-"
+"cmd.exe``. Keep ``--cli`` after the executable name."
+msgstr ""
+"إذا كنت في دليل مختلف، استخدم المسار الكامل إلى ``openshot-qt-cmd.exe``. "
+"احتفظ بـ ``--cli`` بعد اسم الملف التنفيذي."
+
+#: ../doc/agent_cli.rst:89
+msgid "macOS"
+msgstr "ماك أو إس"
+
+#: ../doc/agent_cli.rst:91
+msgid "For an installation in Applications::"
+msgstr "للتثبيت في Applications::"
+
+#: ../doc/agent_cli.rst:97
+msgid "Finding commands"
+msgstr "البحث عن الأوامر"
+
+#: ../doc/agent_cli.rst:99
+msgid ""
+"Throughout this guide, ``openshot-cli`` is shorthand for your installation's"
+" command above, such as ``snap run openshot-qt --cli`` or "
+"``./OpenShot.AppImage --cli``. Some installations also provide an "
+"``openshot-cli`` command directly. When running from source, use ``python3 "
+"src/launch.py --cli`` in OpenShot's Python environment."
+msgstr ""
+"في هذا الدليل، ``openshot-cli`` هو اختصار لأمر التثبيت الخاص بك أعلاه، مثل "
+"``snap run openshot-qt --cli`` أو ``./OpenShot.AppImage --cli``. بعض "
+"التثبيتات توفر أيضًا أمر ``openshot-cli`` مباشرة. عند التشغيل من المصدر، "
+"استخدم ``python3 src/launch.py --cli`` في بيئة Python الخاصة بـ OpenShot."
+
+#: ../doc/agent_cli.rst:105
+msgid ""
+"Bare ``--cli``, ``--cli help``, and ``--cli --help`` show the same overview."
+" Help becomes more specific as you navigate commands::"
+msgstr ""
+"تُظهر الأوامر ``--cli`` فقط، و\\ ``--cli help``\\ ، و\\ ``--cli --help`` نفس"
+" النظرة العامة. تصبح المساعدة أكثر تحديدًا أثناء تنقلك بين الأوامر::"
+
+#: ../doc/agent_cli.rst:117
+msgid ""
+"Group help explains workflows with examples; operation help describes "
+"arguments and behavior. ``--help`` is equivalent to trailing ``help``. All "
+"help commands work without an editing session."
+msgstr ""
+"تشرح مساعدة المجموعة سير العمل مع أمثلة؛ تصف مساعدة العملية الوسائط والسلوك."
+" ``--help`` تعادل الأمر ``help`` في النهاية. جميع أوامر المساعدة تعمل بدون "
+"جلسة تحرير."
+
+#: ../doc/agent_cli.rst:121
+msgid ""
+"``effects list`` shows the available effects with short descriptions. Effect"
+" help explains their properties, defaults, choices, and ranges. ``effects "
+"instances`` lists effects already attached to clips, with parent clip IDs. "
+"Class names, display names, and underscore aliases identify the same effect."
+msgstr ""
+"يعرض ``effects list`` التأثيرات المتاحة مع أوصاف قصيرة. تشرح مساعدة التأثير "
+"خصائصها، والقيم الافتراضية، والخيارات، والنطاقات. يعرض ``effects instances``"
+" التأثيرات المرتبطة بالفعل بالمقاطع، مع معرفات المقاطع الأصلية. تحدد أسماء "
+"الفئات، وأسماء العرض، والأسماء المستعارة بالشرطة السفلية نفس التأثير."
+
+#: ../doc/agent_cli.rst:127
+msgid "Working with scripts and AI agents"
+msgstr "العمل مع السكريبتات ووكلاء الذكاء الاصطناعي"
+
+#: ../doc/agent_cli.rst:129
+msgid ""
+"AI coding agents such as **Codex** and **Claude Code** can use the CLI to "
+"inspect and edit OpenShot projects through terminal commands. Give your "
+"agent the path to your OpenShot executable, the media or project to work "
+"with, and the desired result: duration, dimensions, animation style, and "
+"output location. Ask it to read ``--cli intro`` before starting. The same "
+"commands work when you type them yourself or run them from a script."
+msgstr ""
+"يمكن لوكلاء الترميز بالذكاء الاصطناعي مثل **Codex** و **Claude Code** "
+"استخدام واجهة سطر الأوامر لفحص وتحرير مشاريع OpenShot عبر أوامر الطرفية. "
+"أعطِ وكيلك مسار ملف OpenShot التنفيذي، والوسائط أو المشروع للعمل عليه، "
+"والنتيجة المطلوبة: المدة، الأبعاد، نمط التحريك، وموقع الإخراج. اطلب منه "
+"قراءة ``--cli intro`` قبل البدء. تعمل نفس الأوامر سواء كتبتها بنفسك أو "
+"شغلتها من سكريبت."
+
+#: ../doc/agent_cli.rst:136
+msgid ""
+"Start with ``intro``, then use command-specific help as needed. A useful "
+"workflow is to select a session, inspect the project, make a small set of "
+"changes, review the result, and save. Commands return structured JSON so "
+"scripts and agents can use object IDs and results directly instead of "
+"interpreting screen output."
+msgstr ""
+"ابدأ بـ ``intro``\\ ، ثم استخدم المساعدة الخاصة بالأمر حسب الحاجة. سير عمل "
+"مفيد هو اختيار جلسة، فحص المشروع، إجراء مجموعة صغيرة من التغييرات، مراجعة "
+"النتيجة، والحفظ. تعيد الأوامر بيانات JSON منظمة بحيث يمكن للسكريبتات "
+"والوكلاء استخدام معرفات الكائنات والنتائج مباشرة بدلاً من تفسير مخرجات "
+"الشاشة."
+
+#: ../doc/agent_cli.rst:141
+msgid ""
+"**Inspect before editing.** Use returned IDs and property information "
+"instead of guessing names, track numbers, or timing. Select a session "
+"explicitly when more than one project is open."
+msgstr ""
+"**افحص قبل التحرير.** استخدم المعرفات والمعلومات الخاصة بالخصائص المعادة "
+"بدلاً من التخمين بالأسماء، أرقام المسارات، أو التوقيت. اختر جلسة صراحةً "
+"عندما يكون أكثر من مشروع مفتوح."
+
+#: ../doc/agent_cli.rst:144
+msgid ""
+"**Group repeated edits.** Use ``edit apply`` for a sequence of changes or "
+"``edit bulk`` to apply a template to selected clips. Validate with ``--dry-"
+"run`` before applying a batch."
+msgstr ""
+"**جمّع التعديلات المتكررة.** استخدم ``edit apply`` لتسلسل من التغييرات أو "
+"``edit bulk`` لتطبيق قالب على المقاطع المحددة. تحقق باستخدام ``--dry-run`` "
+"قبل تطبيق دفعة."
+
+#: ../doc/agent_cli.rst:147
+msgid ""
+"**Check animation.** Choose a coordinate space, start with a few keyframes, "
+"and use easing presets for familiar motion. ``keyframe preview`` samples the"
+" curve so you can spot pauses or jumps before exporting. Review rendered "
+"motion as well; a contact sheet alone cannot show how an animation feels."
+msgstr ""
+"**تحقق من الحركة.** اختر فضاء الإحداثيات، ابدأ ببضع إطارات رئيسية، واستخدم "
+"إعدادات التسهيل للحركة المألوفة. يقوم ``معاينة الإطار الرئيسي`` بأخذ عينات "
+"من المنحنى حتى تتمكن من اكتشاف التوقفات أو القفزات قبل التصدير. راجع الحركة "
+"المعروضة أيضًا؛ لا يمكن لورقة الاتصال وحدها أن تظهر كيف تبدو الحركة."
+
+#: ../doc/agent_cli.rst:151
+msgid ""
+"**Save and follow exports.** Save the project explicitly and check the "
+"export job's status before treating an output as complete. If a request "
+"times out, inspect its status before repeating an edit."
+msgstr ""
+"**احفظ وتابع التصدير.** احفظ المشروع صراحة وتحقق من حالة مهمة التصدير قبل "
+"اعتبار المخرجات مكتملة. إذا انتهى وقت الطلب، افحص حالته قبل تكرار التعديل."
+
+#: ../doc/agent_cli.rst:155
+msgid ""
+"The sections below explain these workflows and their timing conventions."
+msgstr "تشرح الأقسام أدناه هذه سير العمل واتفاقيات التوقيت الخاصة بها."
+
+#: ../doc/agent_cli.rst:158
+msgid "Sessions and outputs"
+msgstr "الجلسات والمخرجات"
+
+#: ../doc/agent_cli.rst:161
+msgid "Starting or finding a session"
+msgstr "بدء جلسة أو العثور عليها"
+
+#: ../doc/agent_cli.rst:163
+msgid "Start one headless session (without an editor window)::"
+msgstr "ابدأ جلسة واحدة بدون واجهة (بدون نافذة محرر)::"
+
+#: ../doc/agent_cli.rst:167
+msgid ""
+"To open an existing project at startup, add ``--project "
+"\"/path/project.osp\"``. The successful JSON response contains "
+"``result.session_id``. Copy that value. If OpenShot is already running, or "
+"you have forgotten the ID, find available sessions with::"
+msgstr ""
+"لفتح مشروع موجود عند بدء التشغيل، أضف ``--project \"/path/project.osp\"``. "
+"يحتوي رد JSON الناجح على ``result.session_id``. انسخ تلك القيمة. إذا كان "
+"OpenShot يعمل بالفعل، أو نسيت المعرف، ابحث عن الجلسات المتاحة باستخدام::"
+
+#: ../doc/agent_cli.rst:174
+msgid ""
+"Choose the session for the project you intend to edit. You do not need to "
+"start a new session for each command."
+msgstr ""
+"اختر الجلسة للمشروع الذي تنوي تحريره. لا تحتاج إلى بدء جلسة جديدة لكل أمر."
+
+#: ../doc/agent_cli.rst:180
+msgid "Selecting a session"
+msgstr "اختيار جلسة"
+
+#: ../doc/agent_cli.rst:184
+msgid ""
+"**Set OPENSHOT_SESSION once, then run commands normally.** Your terminal "
+"remembers the selected session, so you do not need to pass ``--session`` "
+"with every command. Use the PowerShell or Bash example below."
+msgstr ""
+"**قم بتعيين OPENSHOT_SESSION مرة واحدة، ثم نفذ الأوامر بشكل طبيعي.** يتذكر "
+"الطرف الخاص بك الجلسة المختارة، لذا لا تحتاج إلى تمرير ``--session`` مع كل "
+"أمر. استخدم مثال PowerShell أو Bash أدناه."
+
+#: ../doc/agent_cli.rst:188
+msgid ""
+"Replace ``SESSION_ID`` below with the ``session_id`` returned by ``session "
+"start`` or ``session list``."
+msgstr ""
+"استبدل ``SESSION_ID`` أدناه بـ ``session_id`` الذي تم إرجاعه بواسطة "
+"``session start`` أو ``session list``."
+
+#: ../doc/agent_cli.rst:191 ../doc/agent_cli.rst:422
+msgid "Windows PowerShell::"
+msgstr "Windows PowerShell::"
+
+#: ../doc/agent_cli.rst:197
+msgid "Linux Bash::"
+msgstr "Linux Bash::"
+
+#: ../doc/agent_cli.rst:203
+msgid ""
+"On macOS, use the same ``export`` syntax. For macOS or Snap commands, "
+"substitute your installation's executable from Getting started. The "
+"selection lasts for this terminal and commands launched from it. Set it "
+"again in a new terminal, or update it when switching to a different session."
+msgstr ""
+"على macOS، استخدم نفس صيغة ``export``. لأوامر macOS أو Snap، استبدل الملف "
+"التنفيذي الخاص بتثبيتك من قسم البدء. يستمر الاختيار لهذا الطرف والأوامر التي"
+" تُشغل منه. قم بتعيينه مرة أخرى في طرف جديد، أو حدّثه عند التبديل إلى جلسة "
+"مختلفة."
+
+#: ../doc/agent_cli.rst:208
+msgid ""
+"**The remaining editing and export examples assume OPENSHOT_SESSION is "
+"set.** The next subsection shows how to capture the ID automatically for "
+"scripts."
+msgstr ""
+"**تفترض أمثلة التحرير والتصدير المتبقية تعيين OPENSHOT_SESSION.** يوضح القسم"
+" الفرعي التالي كيفية التقاط المعرف تلقائيًا للبرمجيات النصية."
+
+#: ../doc/agent_cli.rst:211
+msgid ""
+"To target a different session for just one command, use ``--session``. It "
+"overrides ``OPENSHOT_SESSION`` without changing your terminal's selection::"
+msgstr ""
+"لاستهداف جلسة مختلفة لأمر واحد فقط، استخدم ``--session``. يتجاوز "
+"``OPENSHOT_SESSION`` دون تغيير اختيار الطرف الخاص بك::"
+
+#: ../doc/agent_cli.rst:216
+msgid ""
+"With a packaged executable, put this override after ``--cli`` and before the"
+" command group: ``--cli --session OTHER_SESSION_ID project get``."
+msgstr ""
+"مع ملف تنفيذي معبأ، ضع هذا التجاوز بعد ``--cli`` وقبل مجموعة الأوامر: "
+"``--cli --session OTHER_SESSION_ID project get``."
+
+#: ../doc/agent_cli.rst:219
+msgid ""
+"Automatic selection only works when exactly one reachable session exists. If"
+" you see ``session_required``, run ``session list`` and explicitly select "
+"the intended session. If it is no longer listed, start it again and use the "
+"new ID. Help, ``intro``, and session discovery do not require a selected "
+"session."
+msgstr ""
+"يعمل الاختيار التلقائي فقط عندما توجد جلسة واحدة قابلة للوصول بالضبط. إذا "
+"رأيت ``session_required``\\ ، نفذ ``session list`` واختر الجلسة المقصودة "
+"صراحة. إذا لم تعد مدرجة، أعد تشغيلها واستخدم المعرف الجديد. لا تتطلب "
+"المساعدة، ``intro``\\ ، واكتشاف الجلسة جلسة مختارة."
+
+#: ../doc/agent_cli.rst:225
+msgid "Capturing the session ID automatically"
+msgstr "التقاط معرف الجلسة تلقائيًا"
+
+#: ../doc/agent_cli.rst:227
+msgid ""
+"Scripts can read ``result.session_id`` directly from the JSON returned by "
+"``session start`` and set ``OPENSHOT_SESSION`` for subsequent commands. "
+"There is no need to copy the ID manually or read a log file. Check that "
+"startup succeeded before using the returned ID."
+msgstr ""
+"يمكن للبرمجيات النصية قراءة ``result.session_id`` مباشرة من JSON الذي تم "
+"إرجاعه بواسطة ``session start`` وتعيين ``OPENSHOT_SESSION`` للأوامر التالية."
+" لا حاجة لنسخ المعرف يدويًا أو قراءة ملف سجل. تحقق من نجاح بدء التشغيل قبل "
+"استخدام المعرف المُعاد."
+
+#: ../doc/agent_cli.rst:232
+msgid "Windows PowerShell (set the executable path for your installation)::"
+msgstr "Windows PowerShell (قم بتعيين مسار الملف التنفيذي لتثبيتك)::"
+
+#: ../doc/agent_cli.rst:244
+msgid "Linux Bash (requires ``jq`` to read JSON)::"
+msgstr "Linux Bash (يتطلب ``jq`` لقراءة JSON)::"
+
+#: ../doc/agent_cli.rst:256
+msgid ""
+"The environment variable selects a session for commands launched from this "
+"terminal; it does not change a system-wide setting. Starting a session does "
+"not set the variable automatically. After stopping the session, clear the "
+"selection with ``Remove-Item Env:OPENSHOT_SESSION`` in PowerShell or ``unset"
+" OPENSHOT_SESSION`` in Bash."
+msgstr ""
+"تحدد متغير البيئة جلسة للأوامر التي تُشغل من هذا الطرف؛ لا يغير إعدادًا على "
+"مستوى النظام. بدء جلسة لا يعيّن المتغير تلقائيًا. بعد إيقاف الجلسة، امسح "
+"الاختيار باستخدام ``Remove-Item Env:OPENSHOT_SESSION`` في PowerShell أو "
+"``unset OPENSHOT_SESSION`` في Bash."
+
+#: ../doc/agent_cli.rst:263
+msgid "Showing and stopping a session"
+msgstr "عرض وإيقاف جلسة"
+
+#: ../doc/agent_cli.rst:265
+msgid "To show the selected session in the editor::"
+msgstr "لعرض الجلسة المختارة في المحرر::"
+
+#: ../doc/agent_cli.rst:269
+msgid ""
+"On a desktop, ``session show`` creates the editor in the same process and "
+"keeps the live project, IDs, history, export jobs, and connection. Repeated "
+"calls raise the existing window. ``session start --show`` opens it "
+"immediately. Sessions started without a display, or with "
+"``QT_QPA_PLATFORM=offscreen``/``minimal``, cannot later show a desktop "
+"window. For those sessions, save and open the project in a new desktop "
+"session. Once shown, close the session through the editor window."
+msgstr ""
+"على سطح المكتب، يقوم ``session show`` بإنشاء المحرر في نفس العملية ويحافظ "
+"على المشروع الحي، المعرفات، التاريخ، مهام التصدير، والاتصال. ترفع المكالمات "
+"المتكررة النافذة الموجودة. يفتح ``session start --show`` النافذة فورًا. لا "
+"يمكن للجلسات التي بدأت بدون عرض، أو مع "
+"``QT_QPA_PLATFORM=offscreen``/``minimal``\\ ، عرض نافذة سطح المكتب لاحقًا. "
+"لتلك الجلسات، احفظ وافتح المشروع في جلسة سطح مكتب جديدة. بمجرد العرض، أغلق "
+"الجلسة من خلال نافذة المحرر."
+
+#: ../doc/agent_cli.rst:277
+msgid ""
+"Global options (``--session``, ``--timeout``) go before the command. "
+"``session serve`` stays in the foreground for supervisors; ``session start``"
+" returns after a background host registers. ``session stop`` refuses unsaved"
+" changes and active exports. Use ``--discard`` only to intentionally discard"
+" unsaved edits."
+msgstr ""
+"تذهب الخيارات العامة (``--session``, ``--timeout``) قبل الأمر. يبقى "
+"``session serve`` في المقدمة للمشرفين؛ يرجع ``session start`` بعد تسجيل مضيف"
+" في الخلفية. يرفض ``session stop`` التغييرات غير المحفوظة والتصديرات النشطة."
+" استخدم ``--discard`` فقط للتخلص عمدًا من التعديلات غير المحفوظة."
+
+#: ../doc/agent_cli.rst:283
+msgid "Command output"
+msgstr "مخرجات الأمر"
+
+#: ../doc/agent_cli.rst:285
+msgid ""
+"Results are JSON on stdout, except the default text timeline view. Errors "
+"are JSON on stderr with exit status 1; argument-parser errors exit 2. "
+"Mutations return compact summaries with an ``inspect`` command. ``get`` "
+"returns native object JSON. Project replies include a revision; effect "
+"catalog replies do not require a session. Logs from headless sessions live "
+"beside their registry records. ``OPENSHOT_SESSION_DIR`` overrides the "
+"default ``~/.openshot_qt/sessions`` directory."
+msgstr ""
+"النتائج تكون بصيغة JSON على stdout، باستثناء عرض الجدول الزمني النصي "
+"الافتراضي. الأخطاء تكون بصيغة JSON على stderr مع حالة خروج 1؛ أخطاء محلل "
+"الوسائط تخرج 2. تعيد التعديلات ملخصات مضغوطة مع أمر ``inspect``. يعيد "
+"``get`` JSON للكائن الأصلي. تتضمن ردود المشروع مراجعة؛ ردود كتالوج التأثير "
+"لا تتطلب جلسة. سجلات الجلسات بدون واجهة تعيش بجانب سجلات التسجيل الخاصة بها."
+" يتجاوز ``OPENSHOT_SESSION_DIR`` الدليل الافتراضي "
+"``~/.openshot_qt/sessions``."
+
+#: ../doc/agent_cli.rst:292
+msgid ""
+"Sessions accept commands locally on your computer. Keep the session registry"
+" private, since it contains the credentials used to access your editing "
+"sessions. Exports work from a snapshot, so you can continue editing while a "
+"job runs."
+msgstr ""
+"تقبل الجلسات الأوامر محليًا على جهاز الكمبيوتر الخاص بك. احتفظ بسجل الجلسات "
+"خاصًا، لأنه يحتوي على بيانات الاعتماد المستخدمة للوصول إلى جلسات التحرير "
+"الخاصة بك. تعمل عمليات التصدير من لقطة، بحيث يمكنك الاستمرار في التحرير "
+"أثناء تشغيل مهمة."
+
+#: ../doc/agent_cli.rst:297
+msgid "Opening and saving projects"
+msgstr "فتح وحفظ المشاريع"
+
+#: ../doc/agent_cli.rst:299
+msgid ""
+"An OpenShot project (``.osp``) stores your editable timeline. Exporting "
+"creates a finished video; saving the project lets you return to its clips, "
+"effects, and keyframes later. Save your project separately even when you "
+"also export a video."
+msgstr ""
+"يخزن مشروع OpenShot (``.osp``) الجدول الزمني القابل للتحرير الخاص بك. "
+"التصدير ينشئ فيديو نهائيًا؛ حفظ المشروع يتيح لك العودة إلى المقاطع "
+"والتأثيرات والإطارات الرئيسية لاحقًا. احفظ مشروعك بشكل منفصل حتى عندما تقوم "
+"أيضًا بتصدير فيديو."
+
+#: ../doc/agent_cli.rst:304
+msgid "Opening a project"
+msgstr "فتح مشروع"
+
+#: ../doc/agent_cli.rst:306
+msgid "Start a session with an existing project::"
+msgstr "ابدأ جلسة مع مشروع موجود::"
+
+#: ../doc/agent_cli.rst:310
+msgid ""
+"Add ``--show`` to open its editor window too. To use an editor that is "
+"already running, find it with ``session list``. Set ``OPENSHOT_SESSION`` to "
+"its returned session ID, then open or inspect a project::"
+msgstr ""
+"أضف ``--show`` لفتح نافذة المحرر الخاصة به أيضًا. لاستخدام محرر يعمل بالفعل،"
+" ابحث عنه باستخدام ``session list``. عيّن ``OPENSHOT_SESSION`` إلى معرف "
+"الجلسة الذي تم إرجاعه، ثم افتح أو فحص مشروعًا::"
+
+#: ../doc/agent_cli.rst:317
+msgid ""
+"Replace the example path with your own, and quote paths containing spaces. "
+"``project open`` replaces the selected session's current project. It refuses"
+" to discard unsaved edits unless you explicitly add ``--discard``; save "
+"those edits first if you want to keep them. Opening through the CLI does not"
+" show interactive missing-media dialogs, so keep the project's source media "
+"available."
+msgstr ""
+"استبدل مسار المثال بمسارك الخاص، وضع علامات اقتباس حول المسارات التي تحتوي "
+"على فراغات. ``project open`` يستبدل المشروع الحالي للجلسة المحددة. يرفض "
+"تجاهل التعديلات غير المحفوظة إلا إذا أضفت ``--discard`` صراحةً؛ احفظ تلك "
+"التعديلات أولاً إذا أردت الاحتفاظ بها. الفتح عبر واجهة الأوامر لا يعرض نوافذ"
+" حوار تفاعلية للوسائط المفقودة، لذا احتفظ بوسائط المصدر الخاصة بالمشروع "
+"متاحة."
+
+#: ../doc/agent_cli.rst:323
+msgid ""
+"For a new, empty project, use ``session start`` without ``--project``, then "
+"import media and add clips as described under Editing."
+msgstr ""
+"لمشروع جديد وفارغ، استخدم ``session start`` بدون ``--project``\\ ، ثم استورد"
+" الوسائط وأضف المقاطع كما هو موضح تحت التحرير."
+
+#: ../doc/agent_cli.rst:327
+msgid "Saving a project or a copy"
+msgstr "حفظ مشروع أو نسخة"
+
+#: ../doc/agent_cli.rst:329
+msgid ""
+"Save to a new file, or create a separate version before making more "
+"changes::"
+msgstr ""
+"احفظ إلى ملف جديد، أو أنشئ نسخة منفصلة قبل إجراء المزيد من التغييرات::"
+
+#: ../doc/agent_cli.rst:333
+msgid "To update an existing file, explicitly allow replacement::"
+msgstr "لتحديث ملف موجود، اسمح بالاستبدال صراحةً::"
+
+#: ../doc/agent_cli.rst:337
+msgid ""
+"Always supply the destination path. Saving an ``.osp`` does not package all "
+"your source footage into that file; keep the referenced media available when"
+" moving or reopening the project."
+msgstr ""
+"قدم دائمًا مسار الوجهة. حفظ ملف ``.osp`` لا يجمع كل لقطات المصدر الخاصة بك "
+"في ذلك الملف؛ احتفظ بالوسائط المشار إليها متاحة عند نقل المشروع أو إعادة "
+"فتحه."
+
+#: ../doc/agent_cli.rst:342
+msgid "Exporting a video"
+msgstr "تصدير فيديو"
+
+#: ../doc/agent_cli.rst:344
+msgid ""
+"Automate rendering and exporting from scripts or AI agents, using the "
+"project's settings or choosing a different output profile for each render. "
+"Export jobs can run in the background or wait for completion before your "
+"script continues. To render an MP4 using the project's resolution and frame "
+"rate::"
+msgstr ""
+"أتمتة العرض والتصدير من السكريبتات أو وكلاء الذكاء الاصطناعي، باستخدام "
+"إعدادات المشروع أو اختيار ملف تعريف إخراج مختلف لكل تصدير. يمكن أن تعمل مهام"
+" التصدير في الخلفية أو تنتظر الانتهاء قبل متابعة السكريبت الخاص بك. لعرض ملف"
+" MP4 باستخدام دقة المشروع ومعدل الإطارات::"
+
+#: ../doc/agent_cli.rst:351
+msgid ""
+"By default, OpenShot uses H.264 video and AAC audio. Replace the example "
+"path with your destination, using an existing folder and a new filename. "
+"Existing outputs are never overwritten. Exporting does not save your "
+"editable ``.osp`` project; use ``project save`` separately to keep your "
+"editing work."
+msgstr ""
+"بشكل افتراضي، يستخدم OpenShot فيديو H.264 وصوت AAC. استبدل مسار المثال "
+"بمسارك، باستخدام مجلد موجود واسم ملف جديد. لا يتم أبدًا الكتابة فوق المخرجات"
+" الموجودة. التصدير لا يحفظ مشروع ``.osp`` القابل للتحرير؛ استخدم ``project "
+"save`` بشكل منفصل للحفاظ على عمل التحرير الخاص بك."
+
+#: ../doc/agent_cli.rst:356
+msgid ""
+"The ``--wait`` option keeps the command running until the export completes "
+"or reports a failure. Review the finished video before sharing it."
+msgstr ""
+"خيار ``--wait`` يبقي الأمر قيد التشغيل حتى يكتمل التصدير أو يبلغ عن فشل. "
+"راجع الفيديو النهائي قبل مشاركته."
+
+#: ../doc/agent_cli.rst:360
+msgid "Checking export progress"
+msgstr "التحقق من تقدم التصدير"
+
+#: ../doc/agent_cli.rst:362
+msgid ""
+"Leave off ``--wait`` to start an export in the background. The response "
+"includes a job ID you can use to check its progress::"
+msgstr ""
+"اترك ``--wait`` لبدء التصدير في الخلفية. تتضمن الاستجابة معرف مهمة يمكنك "
+"استخدامه للتحقق من تقدمها::"
+
+#: ../doc/agent_cli.rst:370
+msgid ""
+"Replace ``JOB_ID`` with the returned ID. If waiting times out, the export "
+"keeps running; check the same job instead of starting another export. To "
+"stop a job, use ``export cancel JOB_ID``. Each job captures the timeline "
+"when it starts, so later edits do not change an export already in progress."
+msgstr ""
+"استبدل ``JOB_ID`` بالمعرف المُعاد. إذا انتهى وقت الانتظار، يستمر التصدير في "
+"العمل؛ تحقق من نفس المهمة بدلاً من بدء تصدير آخر. لإيقاف مهمة، استخدم "
+"``export cancel JOB_ID``. كل مهمة تلتقط الجدول الزمني عند البدء، لذا لا تغير"
+" التعديلات اللاحقة تصديرًا جاريًا."
+
+#: ../doc/agent_cli.rst:375
+msgid ""
+"Waiting defaults to 600 seconds; adjust this with ``--wait-timeout``. This "
+"is separate from the global per-request ``--timeout``. Export failures, "
+"cancellation, and wait timeouts exit with status 1 and include job details."
+msgstr ""
+"الانتظار الافتراضي هو 600 ثانية؛ عدل هذا باستخدام ``--wait-timeout``. هذا "
+"منفصل عن ``--timeout`` العام لكل طلب. إخفاقات التصدير، الإلغاء، وانتهاء مهلة"
+" الانتظار تنهي الأمر بحالة 1 وتتضمن تفاصيل المهمة."
+
+#: ../doc/agent_cli.rst:380
+msgid "Exporting in multiple profiles"
+msgstr "التصدير باستخدام ملفات تعريف متعددة"
+
+#: ../doc/agent_cli.rst:382
+msgid ""
+"Export the same timeline at different resolutions or aspect ratios by "
+"choosing an export profile for each output. **An export profile applies only"
+" to that job**; it does not change the editing project's profile. A profile "
+"sets dimensions, frame rate, and aspect ratio; an export preset selects "
+"encoding settings such as MP4/H.264."
+msgstr ""
+"صدّر نفس الجدول الزمني بدقات أو نسب أبعاد مختلفة عن طريق اختيار ملف تعريف "
+"تصدير لكل إخراج. **ينطبق ملف تعريف التصدير فقط على تلك المهمة**\\ ؛ ولا يغير"
+" ملف تعريف مشروع التحرير. يحدد الملف التعريفي الأبعاد، معدل الإطارات، ونسبة "
+"العرض إلى الارتفاع؛ يختار الإعداد المسبق للتصدير إعدادات الترميز مثل "
+"MP4/H.264."
+
+#: ../doc/agent_cli.rst:388
+msgid "Find the available profiles and inspect their settings::"
+msgstr "ابحث عن الملفات التعريفية المتاحة وافحص إعداداتها::"
+
+#: ../doc/agent_cli.rst:394
+msgid ""
+"For example, export landscape versions at 720p and 1080p, then a square "
+"version at 1080 by 1080. These profiles all use 30 fps::"
+msgstr ""
+"على سبيل المثال، صدّر نسخًا أفقية بدقة 720p و1080p، ثم نسخة مربعة بدقة 1080 "
+"في 1080. تستخدم هذه الملفات التعريفية جميعها 30 إطارًا في الثانية::"
+
+#: ../doc/agent_cli.rst:401
+msgid ""
+"Use a different output filename for each version. Keep edits unchanged "
+"between jobs when you want matching versions. Changing aspect ratio can "
+"change framing: review each output, especially titles and animated subjects."
+" For a separately composed square or portrait version, save a project copy, "
+"change its project profile, and adjust the clips before exporting. See "
+"Profiles and the export settings below for custom profiles and encoding "
+"options."
+msgstr ""
+"استخدم اسم ملف إخراج مختلف لكل نسخة. احتفظ بالتعديلات دون تغيير بين المهام "
+"عندما تريد نسخًا متطابقة. تغيير نسبة العرض إلى الارتفاع يمكن أن يغير "
+"التأطير: راجع كل إخراج، خاصة العناوين والمواضيع المتحركة. لنسخة مربعة أو "
+"عمودية مركبة بشكل منفصل، احفظ نسخة من المشروع، غيّر ملف تعريف المشروع، واضبط"
+" المقاطع قبل التصدير. راجع الملفات التعريفية وإعدادات التصدير أدناه للملفات "
+"التعريفية المخصصة وخيارات الترميز."
+
+#: ../doc/agent_cli.rst:409
+msgid "Batch exporting multiple projects"
+msgstr "تصدير دفعي لعدة مشاريع"
+
+#: ../doc/agent_cli.rst:411
+msgid ""
+"Reuse one headless session to render several saved projects in sequence. "
+"Open a project, export it with ``--wait``, then open the next project. The "
+"examples below use each project's own resolution and frame rate and create "
+"MP4 files beside the ``.osp`` files. Add ``--profile PROFILE_ID`` to the "
+"export command to use one output profile for every project."
+msgstr ""
+"أعد استخدام جلسة بدون واجهة لعرض عدة مشاريع محفوظة بالتتابع. افتح مشروعًا، "
+"صدره باستخدام ``--wait``\\ ، ثم افتح المشروع التالي. تستخدم الأمثلة أدناه "
+"دقة ومعدل إطارات كل مشروع وتُنشئ ملفات MP4 بجانب ملفات ``.osp``. أضف "
+"``--profile PROFILE_ID`` لأمر التصدير لاستخدام ملف تعريف إخراج واحد لكل "
+"مشروع."
+
+#: ../doc/agent_cli.rst:417
+msgid ""
+"First run the matching automatic session-ID example above successfully, in "
+"the same terminal. It defines ``openshot`` and selects the new session. "
+"Replace the project paths below with your own. Use distinct output names "
+"that do not already exist; the examples check all destinations before "
+"starting the batch."
+msgstr ""
+"قم أولاً بتشغيل مثال معرف الجلسة التلقائي المطابق أعلاه بنجاح، في نفس "
+"الطرفية. يقوم بتعريف ``openshot`` ويختار الجلسة الجديدة. استبدل مسارات "
+"المشروع أدناه بمساراتك الخاصة. استخدم أسماء إخراج مميزة لا توجد بالفعل؛ "
+"تتحقق الأمثلة من جميع الوجهات قبل بدء الدُفعة."
+
+#: ../doc/agent_cli.rst:446
+msgid "Linux Bash (the parentheses keep error handling local to the batch)::"
+msgstr "لينكس باش (الأقواس تحافظ على معالجة الأخطاء محلية للدُفعة)::"
+
+#: ../doc/agent_cli.rst:467
+msgid ""
+"Both recipes stop the batch on a command failure and leave the session "
+"available for inspection. The wait limit here is 24 hours per export. A wait"
+" timeout leaves the render running: use ``export list`` and ``export status "
+"JOB_ID --wait`` before retrying. Completed videos remain on disk; remove "
+"completed projects from the batch before resuming. After resolving a "
+"failure, stop the session and clear its environment variable when you are "
+"finished."
+msgstr ""
+"كلا الطريقتين توقفان الدُفعة عند فشل أمر وتترك الجلسة متاحة للفحص. حد "
+"الانتظار هنا هو 24 ساعة لكل تصدير. انتهاء مهلة الانتظار يترك العرض قيد "
+"التشغيل: استخدم ``export list`` و ``export status JOB_ID --wait`` قبل إعادة "
+"المحاولة. تبقى الفيديوهات المكتملة على القرص؛ قم بإزالة المشاريع المكتملة من"
+" الدُفعة قبل الاستئناف. بعد حل الفشل، أوقف الجلسة وامسح متغير البيئة الخاص "
+"بها عند الانتهاء."
+
+#: ../doc/agent_cli.rst:475
+msgid "Choosing presets and encoding settings"
+msgstr "اختيار الإعدادات المسبقة وإعدادات الترميز"
+
+#: ../doc/agent_cli.rst:477
+msgid "Discover the installed export presets and supported settings::"
+msgstr "اكتشف الإعدادات المسبقة للتصدير المثبتة والإعدادات المدعومة::"
+
+#: ../doc/agent_cli.rst:484
+msgid ""
+"Export also accepts ``--from-file FILE_ID`` with optional ``--create-"
+"custom``. Settings resolve in this order: project defaults, preset, advanced"
+" JSON, explicit profile/quality/range flags. Advanced JSON exposes "
+"video/audio codecs and bitrate, audio layout/rate/channels, native codec "
+"options, hardware device settings, and thread counts."
+msgstr ""
+"يقبل التصدير أيضًا ``--from-file FILE_ID`` مع خيار ``--create-custom``. تُحل"
+" الإعدادات بهذا الترتيب: الإعدادات الافتراضية للمشروع، الإعداد المسبق، JSON "
+"المتقدم، علامات الملف الشخصي/الجودة/النطاق الصريحة. يكشف JSON المتقدم عن "
+"برامج ترميز الفيديو/الصوت ومعدل البت، تخطيط/معدل/قنوات الصوت، خيارات الترميز"
+" الأصلية، إعدادات جهاز العتاد، وعدد الخيوط."
+
+#: ../doc/agent_cli.rst:490
+msgid "For example, select an encoder option through advanced JSON::"
+msgstr "على سبيل المثال، اختر خيار الترميز عبر JSON المتقدم::"
+
+#: ../doc/agent_cli.rst:495
+msgid "Validating export settings"
+msgstr "التحقق من صحة إعدادات التصدير"
+
+#: ../doc/agent_cli.rst:497
+msgid "Check settings before starting a render::"
+msgstr "تحقق من الإعدادات قبل بدء العرض::"
+
+#: ../doc/agent_cli.rst:501
+msgid ""
+"Capabilities report compiled codec availability, not physical GPU "
+"availability. Validation goes further: it opens the encoders (including "
+"hardware encoders) and the container with the exact settings, in a separate "
+"process, without writing a file. A combination the container can't hold "
+"fails with ``incompatible_export``, FFmpeg's own explanation, and the "
+"setting to change (``details.cause.path``)::"
+msgstr ""
+"تقرير القدرات يعرض توفر برامج الترميز المجمعة، وليس توفر وحدة معالجة "
+"الرسومات الفعلية. التحقق يتجاوز ذلك: يفتح برامج الترميز (بما في ذلك برامج "
+"الترميز العتادية) والحاوية بالإعدادات الدقيقة، في عملية منفصلة، دون كتابة "
+"ملف. يفشل الجمع الذي لا يمكن للحاوية تحمله مع ``incompatible_export``\\ ، "
+"شرح FFmpeg الخاص، والإعداد الذي يجب تغييره (``details.cause.path``)::"
+
+#: ../doc/agent_cli.rst:509
+msgid "The export worker runs the same check before rendering."
+msgstr "يقوم عامل التصدير بنفس الفحص قبل العرض."
+
+#: ../doc/agent_cli.rst:512
+msgid "Rendering a frame range"
+msgstr "عرض نطاق إطارات"
+
+#: ../doc/agent_cli.rst:514
+msgid ""
+"Use ``--start-frame`` and ``--end-frame`` to render part of the timeline. "
+"Ranges are inclusive and one-based at the **export profile's FPS**. For "
+"example, render the first 90 frames at 30 fps (three seconds)::"
+msgstr ""
+"استخدم ``--start-frame`` و ``--end-frame`` لعرض جزء من الجدول الزمني. "
+"النطاقات شاملة وتبدأ من واحد عند **معدل الإطارات في الثانية لملف التصدير**. "
+"على سبيل المثال، اعرض أول 90 إطارًا بمعدل 30 إطارًا في الثانية (ثلاث "
+"ثوانٍ)::"
+
+#: ../doc/agent_cli.rst:521
+msgid "Audio-only exports and image sequences"
+msgstr "تصديرات الصوت فقط وتسلسلات الصور"
+
+#: ../doc/agent_cli.rst:523
+msgid "Choose an output mode with advanced JSON::"
+msgstr "اختر وضع الإخراج باستخدام JSON المتقدم::"
+
+#: ../doc/agent_cli.rst:528
+msgid ""
+"Image sequences require a new output directory. Existing outputs are never "
+"overwritten."
+msgstr ""
+"تتطلب تسلسلات الصور مجلد إخراج جديد. لا يتم أبدًا الكتابة فوق المخرجات "
+"الموجودة."
+
+#: ../doc/agent_cli.rst:532
+msgid "Editing"
+msgstr "التحرير"
+
+#: ../doc/agent_cli.rst:535
+msgid "Adding clips and effects"
+msgstr "إضافة المقاطع والمؤثرات"
+
+#: ../doc/agent_cli.rst:537
+msgid ""
+"Use the IDs returned by import/add/list, and discover layer numbers with "
+"``project get``::"
+msgstr ""
+"استخدم المعرفات التي تم إرجاعها بواسطة import/add/list، واكتشف أرقام الطبقات"
+" باستخدام ``project get``::"
+
+#: ../doc/agent_cli.rst:549
+msgid ""
+"Choose the project profile early when possible; populated projects also "
+"support profile changes through the existing FPS conversion and undo system."
+" ``--audio-only`` on clip creation suppresses video, including embedded "
+"cover art in music files. To use that clip for Audio Visualization instead, "
+"enable its video and audio, and follow the effect's help for transparent "
+"overlays and layer placement."
+msgstr ""
+"اختر ملف تعريف المشروع مبكرًا عندما يكون ذلك ممكنًا؛ تدعم المشاريع المعبأة "
+"أيضًا تغييرات الملف الشخصي من خلال تحويل معدل الإطارات الحالي ونظام التراجع."
+" ``--audio-only`` عند إنشاء المقطع يكتم الفيديو، بما في ذلك غلاف الألبوم "
+"المضمن في ملفات الموسيقى. لاستخدام ذلك المقطع في تصور الصوت بدلاً من ذلك، "
+"فعّل الفيديو والصوت الخاص به، واتبع مساعدة التأثير للطبقات الشفافة وتحديد "
+"مكان الطبقة."
+
+#: ../doc/agent_cli.rst:556
+msgid "Understanding clip timing"
+msgstr "فهم توقيت المقطع"
+
+#: ../doc/agent_cli.rst:558
+msgid ""
+"The example keyframes assume a 30fps project and a clip trimmed at source "
+"10s. Position is in timeline seconds; start/end are source seconds, with end"
+" exclusive. Frames start at 1. File thumbnail frames use source FPS. "
+"Timeline frames use project FPS. Clip keyframes use source coordinates at "
+"project FPS, so trimming the clip does not move its first visible keyframe "
+"to frame 1."
+msgstr ""
+"تفترض الإطارات الرئيسية في المثال مشروعًا بمعدل 30 إطارًا في الثانية ومقطعًا"
+" مقصوصًا عند المصدر 10 ثوانٍ. الموضع بالثواني في الجدول الزمني؛ "
+"البداية/النهاية هي ثواني المصدر، مع استثناء النهاية. تبدأ الإطارات من 1. "
+"تستخدم إطارات صورة الملف المصغرة معدل إطارات المصدر. تستخدم إطارات الجدول "
+"الزمني معدل إطارات المشروع. تستخدم الإطارات الرئيسية للمقطع إحداثيات المصدر "
+"عند معدل إطارات المشروع، لذا فإن تقليم المقطع لا يحرك أول إطار رئيسي مرئي "
+"إلى الإطار 1."
+
+#: ../doc/agent_cli.rst:565
+msgid "Changing properties"
+msgstr "تغيير الخصائص"
+
+#: ../doc/agent_cli.rst:567
+msgid ""
+"``set`` merges top-level properties. Scalars turn keyframed properties into "
+"constants. A supplied nested curve replaces that curve; use ``keyframe set``"
+" to change just one point. JSON arguments accept inline JSON, "
+"``@file.json``, or ``-`` for stdin. Property names, types, enums, keyframes,"
+" references, and timing are validated before editing the project. Errors "
+"identify the field, expected value, received value, and a correction where "
+"possible. GUI slider ranges are advisory where the engine supports values "
+"beyond them."
+msgstr ""
+"يقوم ``set`` بدمج الخصائص العليا. يحول القيم العددية الخصائص ذات الإطارات "
+"الرئيسية إلى ثوابت. تستبدل المنحنى المتداخل المقدم ذلك المنحنى؛ استخدم "
+"``keyframe set`` لتغيير نقطة واحدة فقط. تقبل وسائط JSON JSON مضمن، "
+"``@file.json``\\ ، أو ``-`` للإدخال القياسي. يتم التحقق من أسماء الخصائص، "
+"الأنواع، التعدادات، الإطارات الرئيسية، المراجع، والتوقيت قبل تحرير المشروع. "
+"تحدد الأخطاء الحقل، القيمة المتوقعة، القيمة المستلمة، وتصحيحًا حيثما أمكن. "
+"نطاقات منزلق واجهة المستخدم إرشادية حيث يدعم المحرك قيمًا تتجاوزها."
+
+#: ../doc/agent_cli.rst:576
+msgid "Adding fades"
+msgstr "إضافة التلاشي"
+
+#: ../doc/agent_cli.rst:578
+msgid ""
+"``clip fade ID --in 0.5 --out 0.5`` calculates source-trim keyframe "
+"coordinates automatically. It replaces the alpha curve; ``--property volume "
+"--value 0.25`` instead creates an audio fade with a 0.25 peak gain. "
+"Durations must fit between the first and last visible frames; fade-out "
+"reaches zero on the last frame."
+msgstr ""
+"يقوم ``clip fade ID --in 0.5 --out 0.5`` بحساب إحداثيات الإطارات الرئيسية "
+"لقص المصدر تلقائيًا. يستبدل منحنى الألفا؛ بدلاً من ذلك، ينشئ ``--property "
+"volume --value 0.25`` تلاشيًا صوتيًا مع زيادة ذروة 0.25. يجب أن تتناسب المدد"
+" بين الإطار الأول والأخير المرئي؛ يصل التلاشي للخارج إلى الصفر في الإطار "
+"الأخير."
+
+#: ../doc/agent_cli.rst:584
+msgid "Splitting clips"
+msgstr "تقسيم المقاطع"
+
+#: ../doc/agent_cli.rst:586
+msgid ""
+"``clip split ID --at 6.5`` uses timeline seconds, snaps to the nearest "
+"project frame, and keeps both halves. It retains source-coordinate curves "
+"and duplicates effects with fresh IDs on the right half, following the "
+"editor's slicing behavior. The left half retains its ID. The response "
+"reports requested/actual split times and both summaries; a named batch "
+"result supports ``{\"$ref\":\"cut.right.id\"}``. Splits reject endpoints and"
+" locked tracks. Undo restores the original clip in one transaction."
+msgstr ""
+"يستخدم ``clip split ID --at 6.5`` ثواني الجدول الزمني، ويلتقط أقرب إطار "
+"للمشروع، ويحتفظ بالنصفين. يحتفظ بمنحنيات إحداثيات المصدر ويكرر التأثيرات "
+"بمعرفات جديدة على النصف الأيمن، متبعًا سلوك التقطيع في المحرر. يحتفظ النصف "
+"الأيسر بمعرفه. يبلّغ الرد عن أوقات التقسيم المطلوبة/الفعلية وكلا الملخصين؛ "
+"يدعم نتيجة الدُفعة المسماة ``{\"$ref\":\"cut.right.id\"}``. ترفض التقسيمات "
+"نقاط النهاية والمسارات المقفلة. يعيد التراجع المقطع الأصلي في معاملة واحدة."
+
+#: ../doc/agent_cli.rst:595
+msgid "Clip menu presets"
+msgstr "الإعدادات المسبقة لقائمة المقطع"
+
+#: ../doc/agent_cli.rst:597
+msgid ""
+"The editor's clip menu presets use the same code from the command line. Each"
+" command lists its presets in its help, and each one is a single undo step:"
+msgstr ""
+"تستخدم إعدادات قائمة المقاطع في المحرر نفس الكود من سطر الأوامر. يسرد كل أمر"
+" إعداداته المسبقة في المساعدة الخاصة به، وكل منها يشكل خطوة تراجع واحدة:"
+
+#: ../doc/agent_cli.rst:611
+msgid ""
+"Motion presets are relative to the clip's current transform. Look presets "
+"add or replace one effect, and ``none`` removes it. Speed and repeat retime "
+"every keyframe and change the clip's length; ``clip speed --mode reset`` "
+"restores normal speed. Other menu actions are plain edits: rotate and layout"
+" with ``clip set``, crop with ``effects add Crop``. The commands also work "
+"in ``edit apply`` and ``edit bulk``."
+msgstr ""
+"الإعدادات المسبقة للحركة تعتمد على التحويل الحالي للمقطع. تضيف إعدادات "
+"المظهر تأثيرًا واحدًا أو تستبدله، و\\ ``none`` تزيله. يعيد ضبط السرعة "
+"والتكرار توقيت كل إطار رئيسي ويغير طول المقطع؛ ``clip speed --mode reset`` "
+"يعيد السرعة إلى الوضع الطبيعي. الإجراءات الأخرى في القائمة هي تعديلات عادية:"
+" التدوير والتخطيط باستخدام ``clip set``\\ ، والقص باستخدام ``effects add "
+"Crop``. تعمل الأوامر أيضًا في ``edit apply`` و ``edit bulk``."
+
+#: ../doc/agent_cli.rst:621
+msgid "Adding and styling text"
+msgstr "إضافة وتنسيق النص"
+
+#: ../doc/agent_cli.rst:623
+msgid ""
+"``text add`` creates a text and places it as a clip, using the same text as "
+"the editor's **Text** tool. Options you leave out use the editor's default "
+"style:"
+msgstr ""
+"يقوم ``text add`` بإنشاء نص ووضعه كمقطع، باستخدام نفس النص الموجود في أداة "
+"**النص** في المحرر. الخيارات التي لا تحددها تستخدم النمط الافتراضي للمحرر:"
+
+#: ../doc/agent_cli.rst:637
+msgid ""
+"The words, font, size, alignment, box width and default colors belong to the"
+" text in Project Files and are shared by every clip that uses it, just like "
+"in the editor. ``text set`` on one clip changes all of them and lists them "
+"in ``changed_clip_ids``; ``--this-clip-only`` gives that clip its own copy "
+"first. ``clip add FILE_ID`` places another clip of a text from ``text "
+"list``. Sizes are in pixels at the project resolution, and colors are "
+"``#RRGGBB``, ``#AARRGGBB`` (with alpha), a CSS name, or ``transparent``. "
+"``--place`` puts the box at the center, an edge or corner, or a lower third."
+" ``--line-spacing`` is a multiple of the normal distance between lines (1 is"
+" normal), and ``--background-corner`` rounds the background and border "
+"corners by that many pixels."
+msgstr ""
+"الكلمات، الخط، الحجم، المحاذاة، عرض الصندوق والألوان الافتراضية تنتمي إلى "
+"النص في ملفات المشروع وتُشارك بين كل مقطع يستخدمه، تمامًا كما في المحرر. "
+"يقوم ``text set`` على مقطع واحد بتغييرهم جميعًا ويسردهم في "
+"``changed_clip_ids``\\ ؛ الخيار ``--this-clip-only`` يمنح ذلك المقطع نسخة "
+"خاصة به أولاً. يقوم ``clip add FILE_ID`` بوضع مقطع آخر من نص من ``text "
+"list``. الأحجام بوحدة البكسل حسب دقة المشروع، والألوان تكون بصيغة "
+"``#RRGGBB``, ``#AARRGGBB`` (مع ألفا)، اسم CSS، أو ``transparent``. الخيار "
+"``--place`` يضع الصندوق في المركز، أو على حافة أو زاوية، أو في الثلث السفلي."
+" ``--line-spacing`` هو مضاعف للمسافة العادية بين الأسطر (1 هو الطبيعي)، و\\ "
+"``--background-corner`` يدور زوايا الخلفية والحدود بعدد البكسلات المحدد."
+
+#: ../doc/agent_cli.rst:647
+msgid ""
+"A text clip is an ordinary clip. Position, scale, rotation, opacity, timing,"
+" fades, motion presets and effects all use the normal ``clip`` commands. "
+"Font size, padding, box width, and letter and line spacing set the size of "
+"the text box, so they cannot be keyframed; to animate the size of text, "
+"keyframe the clip's scale. Each clip can animate its own text colors and "
+"outline and border widths with the same keyframe commands as any other "
+"property:"
+msgstr ""
+"مقطع النص هو مقطع عادي. الموقع، المقياس، الدوران، الشفافية، التوقيت، "
+"التلاشي، الإعدادات المسبقة للحركة والتأثيرات كلها تستخدم أوامر ``clip`` "
+"العادية. حجم الخط، الحشو، عرض الصندوق، وتباعد الحروف والأسطر تحدد حجم صندوق "
+"النص، لذلك لا يمكن تحريكها بإطارات رئيسية؛ لتحريك حجم النص، قم بتحريك مقياس "
+"المقطع. يمكن لكل مقطع تحريك ألوان نصه الخاصة، والحدود وعرض الخطوط باستخدام "
+"نفس أوامر الإطارات الرئيسية لأي خاصية أخرى:"
+
+#: ../doc/agent_cli.rst:659
+msgid ""
+"The animated properties are ``text_color``, ``text_background``, "
+"``text_stroke`` and ``text_border`` (colors, with ``.red``, ``.green``, "
+"``.blue`` and ``.alpha`` from 0 to 255), plus ``text_stroke_width``, "
+"``text_border_width`` and ``text_background_corner``. A clip's own animation"
+" wins over the shared style, and ``text get`` lists which styles a clip "
+"animates. ``text reset CLIP_ID`` returns a clip to the default style, like "
+"**Text → Reset Style**; ``--keyframes-only`` just removes the clip's own "
+"animation. To style many texts at once, select them with "
+"``{\"text\":true}``:"
+msgstr ""
+"الخصائص المتحركة هي ``text_color``, ``text_background``, ``text_stroke`` و "
+"``text_border`` (ألوان، مع ``.red``, ``.green``, ``.blue`` و ``.alpha`` من 0"
+" إلى 255)، بالإضافة إلى ``text_stroke_width``, ``text_border_width`` و "
+"``text_background_corner``. تفوز حركة المقطع الخاصة على النمط المشترك، ويعرض"
+" ``text get`` قائمة الأنماط التي يحركها المقطع. يعيد ``text reset CLIP_ID`` "
+"المقطع إلى النمط الافتراضي، مثل **النص → إعادة تعيين النمط**\\ ؛ الخيار "
+"``--keyframes-only`` يزيل فقط حركة المقطع الخاصة. لتنسيق عدة نصوص مرة واحدة،"
+" اخترها باستخدام ``{\"text\":true}``:"
+
+#: ../doc/agent_cli.rst:672
+msgid "Applying a batch of edits"
+msgstr "تطبيق دفعة من التعديلات"
+
+#: ../doc/agent_cli.rst:674
+msgid ""
+"``edit apply --json @edits.json --expect-revision 12`` accepts up to 256 "
+"ordered mutation commands, using dotted command names such as ``clip.set`` "
+"and ``effects.add`` (the older ``effect.add`` spelling also works)::"
+msgstr ""
+"يقبل الأمر ``edit apply --json @edits.json --expect-revision 12`` حتى 256 "
+"أمر تعديل مرتب، باستخدام أسماء أوامر منقطة مثل ``clip.set`` و "
+"``effects.add`` (يعمل أيضًا الإملاء القديم ``effect.add``)::"
+
+#: ../doc/agent_cli.rst:685
+msgid ""
+"The optional ``as`` binds a result for later commands in the same batch. A "
+"``{\"$ref\":\"shot.id\"}`` object substitutes that result's field. "
+"References only resolve earlier names; misspellings, forward references, and"
+" duplicate names fail before live updates. The response includes ordered "
+"compact results and a ``refs`` map of actual IDs. All changes in a "
+"successful batch form one undo/redo step. ``project.profile.set`` also "
+"supports populated timelines. Opening, saving, exporting, and inspection "
+"commands stay outside edit batches. Each command's help lists its JSON "
+"parameter names, including the underscore spelling of shell flags (for "
+"example, ``--fps-num`` becomes ``fps_num``)."
+msgstr ""
+"الخيار ``as`` يربط نتيجة لأوامر لاحقة في نفس الدفعة. يستبدل كائن "
+"``{\"$ref\":\"shot.id\"}`` حقل تلك النتيجة. تحل المراجع الأسماء السابقة فقط؛"
+" الأخطاء الإملائية، المراجع المستقبلية، والأسماء المكررة تفشل قبل التحديثات "
+"الحية. تتضمن الاستجابة نتائج مضغوطة مرتبة وخريطة ``refs`` للمعرفات الفعلية. "
+"تشكل كل التغييرات في دفعة ناجحة خطوة تراجع/إعادة واحدة. يدعم "
+"``project.profile.set`` أيضًا الجداول الزمنية المعبأة. تبقى أوامر الفتح، "
+"الحفظ، التصدير، والفحص خارج دفعات التحرير. تعرض مساعدة كل أمر أسماء معلمات "
+"JSON الخاصة به، بما في ذلك إملاء الشرطة السفلية لأعلام الصدفة (على سبيل "
+"المثال، ``--fps-num`` تصبح ``fps_num``)."
+
+#: ../doc/agent_cli.rst:696
+msgid "Validating batches and handling errors"
+msgstr "التحقق من صحة الدفعات ومعالجة الأخطاء"
+
+#: ../doc/agent_cli.rst:698
+msgid ""
+"All commands in edit batches preflight against a detached project before any"
+" live updates. Invalid input leaves the live project and revision unchanged."
+" Valid batches form one undo group. Unexpected runtime failures can still "
+"produce partial changes; errors report completed operations. A timeout does "
+"not imply cancellation, so inspect state before retrying mutations."
+msgstr ""
+"تتم معاينة جميع الأوامر في دفعات التحرير على مشروع منفصل قبل أي تحديثات حية."
+" الإدخال غير الصحيح يترك المشروع الحي والمراجعة دون تغيير. تشكل الدفعات "
+"الصالحة مجموعة تراجع واحدة. يمكن أن تنتج الأخطاء غير المتوقعة أثناء التشغيل "
+"تغييرات جزئية؛ تبلغ الأخطاء عن العمليات المكتملة. لا يعني انتهاء المهلة "
+"الإلغاء، لذا تحقق من الحالة قبل إعادة محاولة التعديلات."
+
+#: ../doc/agent_cli.rst:705
+msgid "Precise keyframe editing"
+msgstr "تحرير الإطارات الرئيسية بدقة"
+
+#: ../doc/agent_cli.rst:707
+msgid ""
+"``clip``, ``transition``, and ``effects`` support ``keyframe list``, "
+"``set``, ``remove``, ``clear``, ``transform``, ``copy``, and ``paste``. "
+"Property paths can address nested curves, such as ``color.red`` on a Chroma "
+"Key effect. Editing a nested curve preserves sibling channels. Run "
+"``keyframe list ID`` without a property to discover curve paths and point "
+"counts. Discovery and point listings include trim/position timing context; "
+"point listings also report native frame coordinates. ``get`` and "
+"``properties`` expose the complete native object and property metadata. "
+"Errors identify invalid fields, suggest close property names, and explain "
+"coordinate corrections."
+msgstr ""
+"تدعم ``clip`` و ``transition`` و ``effects`` أوامر ``keyframe list`` و "
+"``set`` و ``remove`` و ``clear`` و ``transform`` و ``copy`` و ``paste``. "
+"يمكن لمسارات الخصائص أن تتعامل مع منحنيات متداخلة، مثل ``color.red`` في "
+"تأثير Chroma Key. يحافظ تحرير منحنى متداخل على القنوات الشقيقة. شغّل "
+"``keyframe list ID`` بدون خاصية لاكتشاف مسارات المنحنيات وعدد النقاط. تشمل "
+"الاكتشاف وقوائم النقاط سياق توقيت القص/الموضع؛ كما تعرض قوائم النقاط "
+"إحداثيات الإطار الأصلية. تكشف أوامر ``get`` و ``properties`` عن الكائن "
+"الأصلي الكامل وبيانات تعريف الخصائص. تحدد الأخطاء الحقول غير الصالحة، وتقترح"
+" أسماء خصائص قريبة، وتشرح تصحيحات الإحداثيات."
+
+#: ../doc/agent_cli.rst:717
+msgid ""
+"Choose coordinates explicitly with ``--space native|clip|timeline`` and "
+"``--unit frames|seconds``. All frames use project FPS and are 1-based; "
+"seconds start at zero and snap to the nearest frame. Native is the existing "
+"engine keyframe coordinate (including source trim). Clip coordinates start "
+"at the visible clip in-point; timeline coordinates start at project time "
+"zero. Attached effects use their parent clip's timing. These coordinates "
+"address animation time, not the media frames selected by a time-remapping "
+"curve."
+msgstr ""
+"اختر الإحداثيات صراحة باستخدام ``--space native|clip|timeline`` و ``--unit "
+"frames|seconds``. تستخدم جميع الإطارات معدل الإطارات في المشروع وتبدأ العد "
+"من 1؛ تبدأ الثواني من الصفر وتلتقط أقرب إطار. Native هي إحداثيات الإطار "
+"الرئيسي لمحرك التشغيل الحالي (بما في ذلك قص المصدر). تبدأ إحداثيات المقطع من"
+" نقطة بداية المقطع المرئي؛ تبدأ إحداثيات الجدول الزمني من زمن المشروع صفر. "
+"تستخدم التأثيرات المرفقة توقيت المقطع الأصل. تعالج هذه الإحداثيات وقت "
+"التحريك، وليس إطارات الوسائط المختارة بواسطة منحنى إعادة التوقيت."
+
+#: ../doc/agent_cli.rst:725
+msgid ""
+"For a clip positioned at 5 seconds, trimmed at 2 seconds, in a 30 fps "
+"project, clip frame 1, timeline frame 151, and native frame 61 address the "
+"same point. Position and trim snap independently to the project frame grid. "
+"Listing an entire curve can include hidden points with nonpositive "
+"clip/timeline coordinates. Legacy ``--frame`` still means a native frame and"
+" cannot combine with ``--at``."
+msgstr ""
+"لمقطع موضوع عند 5 ثوانٍ، مقصوص عند ثانيتين، في مشروع بمعدل 30 إطارًا في "
+"الثانية، إطار المقطع 1، إطار الجدول الزمني 151، والإطار الأصلي 61 تشير إلى "
+"نفس النقطة. يتم تثبيت الموضع والقص بشكل مستقل على شبكة إطارات المشروع. يمكن "
+"أن يتضمن سرد منحنى كامل نقاطًا مخفية ذات إحداثيات مقطع/جدول زمني غير موجبة. "
+"لا يزال الخيار القديم ``--frame`` يعني إطارًا أصليًا ولا يمكن دمجه مع "
+"``--at``."
+
+#: ../doc/agent_cli.rst:731
+msgid "Examples::"
+msgstr "أمثلة::"
+
+#: ../doc/agent_cli.rst:743
+msgid "Interpolation, easing, and preview"
+msgstr "الاستيفاء، التسهيل، والمعاينة"
+
+#: ../doc/agent_cli.rst:745
+msgid ""
+"Interpolation describes the segment **into the destination point**. Linear "
+"gives a steady rate between points. Constant holds the preceding value until"
+" the destination, then jumps. Native default Bezier handles ease at both "
+"ends of each segment. Adding an intermediate point can therefore introduce "
+"an unintended slowdown; for one eased move, start with two endpoints. "
+"Normally leave handles alone and choose a named preset for a specific style."
+msgstr ""
+"يصف الاستيفاء الجزء **إلى نقطة الوجهة**. الخطّي يعطي معدلًا ثابتًا بين "
+"النقاط. الثابت يحتفظ بالقيمة السابقة حتى الوجهة، ثم يقفز. تتعامل منحنيات "
+"بيزيه الأصلية مع التسهيل عند كلا طرفي كل جزء. يمكن أن يؤدي إضافة نقطة وسطى "
+"إلى تباطؤ غير مقصود؛ لتحريك واحد ميسر، ابدأ بنقطتي نهاية. عادةً اترك المقابض"
+" كما هي واختر إعدادًا مسبقًا مسمى لنمط معين."
+
+#: ../doc/agent_cli.rst:752
+msgid ""
+"Discover the same easing presets used by the editor's menus, without a "
+"session::"
+msgstr ""
+"اكتشف نفس إعدادات التسهيل المسبقة المستخدمة في قوائم المحرر، بدون جلسة::"
+
+#: ../doc/agent_cli.rst:756
+msgid "Apply a preset to the incoming segment by setting its destination::"
+msgstr "طبق إعدادًا مسبقًا على الجزء الوارد بتعيين وجهته::"
+
+#: ../doc/agent_cli.rst:761
+msgid ""
+"The easing option implies Bezier. It sets the previous point's outgoing "
+"handle and the destination's incoming handle together, preserving other "
+"handles and point values. An earlier point must exist. Do not combine it "
+"with custom handles or a different interpolation. Presets work in batches "
+"and bulk templates. The GUI preset **ease** (\"Ease (Default)\") differs "
+"from the native handles used by plain Bezier interpolation. Back presets can"
+" overshoot endpoint values."
+msgstr ""
+"خيار التسهيل يعني بيزيه. يضبط مقبض الخروج للنقطة السابقة ومقبض الدخول للوجهة"
+" معًا، مع الحفاظ على المقابض والقيم الأخرى للنقاط. يجب أن توجد نقطة سابقة. "
+"لا تدمجه مع مقابض مخصصة أو استيفاء مختلف. تعمل الإعدادات المسبقة في دفعات "
+"وقوالب جماعية. الإعداد المسبق في واجهة المستخدم **ease** (\"Ease "
+"(Default)\") يختلف عن المقابض الأصلية المستخدمة في استيفاء بيزيه العادي. "
+"يمكن للإعدادات المسبقة الخلفية تجاوز قيم نقاط النهاية."
+
+#: ../doc/agent_cli.rst:768
+msgid ""
+"Inspect motion **before rendering**, using the native curve evaluator::"
+msgstr "افحص الحركة **قبل العرض النهائي**\\ ، باستخدام مقيم المنحنى الأصلي::"
+
+#: ../doc/agent_cli.rst:773
+msgid ""
+"Preview is read-only and works identically for effects and transitions. It "
+"returns values and signed incoming_rate / outgoing_rate in property units "
+"per second, calculated from immediately adjacent frames. These are finite "
+"differences, not analytic derivatives. At native frame 1 the incoming rate "
+"is null. Adjacent-frame rates can inspect outside the requested range. Near-"
+"zero rates around an interior point reveal a pause; differing rates reveal a"
+" speed change. Constant interpolation reveals a jump at the destination."
+msgstr ""
+"المعاينة للقراءة فقط وتعمل بنفس الطريقة للتأثيرات والانتقالات. تعيد القيم "
+"ومعدل الدخول/الخروج الموقع بوحدات الخاصية في الثانية، محسوبة من الإطارات "
+"المجاورة مباشرة. هذه فروق محدودة، وليست مشتقات تحليلية. عند الإطار الأصلي 1 "
+"يكون معدل الدخول صفراً. يمكن لمعدلات الإطارات المجاورة الفحص خارج النطاق "
+"المطلوب. المعدلات القريبة من الصفر حول نقطة داخلية تكشف توقفًا؛ المعدلات "
+"المختلفة تكشف تغيرًا في السرعة. الاستيفاء الثابت يكشف قفزة عند الوجهة."
+
+#: ../doc/agent_cli.rst:781
+msgid ""
+"Without a range, preview spans the curve's first and last points. Ranges are"
+" inclusive, with 17 evenly spaced samples by default (--count: 2–256). "
+"Keyframes and their immediate neighbors inside the range are also included, "
+"so a sparse sample count will not hide a keyframe stall. The maximum is 1024"
+" samples; larger requests require a narrower range. --at samples one frame. "
+"Preview reports requested-space coordinates and actual native frames; "
+"seconds snap to project frames as they do for editing."
+msgstr ""
+"بدون نطاق، تمتد المعاينة من أول نقطة إلى آخر نقطة في المنحنى. النطاقات "
+"شاملة، مع 17 عينة موزعة بالتساوي افتراضيًا (--count: 2–256). يتم تضمين "
+"الإطارات الرئيسية وجيرانها المباشرين داخل النطاق أيضًا، لذا فإن عدد العينات "
+"القليل لن يخفي توقف إطار رئيسي. الحد الأقصى هو 1024 عينة؛ الطلبات الأكبر "
+"تتطلب نطاقًا أضيق. --at يأخذ عينة من إطار واحد. تعرض المعاينة إحداثيات "
+"الفضاء المطلوب والإطارات الأصلية الفعلية؛ الثواني تثبت على إطارات المشروع "
+"كما هو الحال في التحرير."
+
+#: ../doc/agent_cli.rst:789
+msgid ""
+"For advanced custom handles, both X and Y are normalized to the segment: X "
+"is a fraction of its frame span; Y is a fraction of its value change. The "
+"first control comes from the previous point's handle_right, the second from "
+"the destination's handle_left. Native defaults are right=(0.5, 0), "
+"left=(0.5, 1), with flat endpoint tangents. Changing handle_type alone does "
+"not recalculate a continuous tangent through surrounding points. Existing "
+"handles are preserved when moving a point."
+msgstr ""
+"للمقابض المخصصة المتقدمة، يتم تطبيع كل من X و Y إلى الجزء: X هو جزء من مدى "
+"إطاره؛ Y هو جزء من تغير قيمته. التحكم الأول يأتي من المقبض الأيمن للنقطة "
+"السابقة، والثاني من المقبض الأيسر للوجهة. الإعدادات الأصلية هي right=(0.5, "
+"0)، left=(0.5, 1)، مع مماسات نهايات مسطحة. تغيير نوع المقبض فقط لا يعيد حساب"
+" مماس مستمر عبر النقاط المحيطة. يتم الحفاظ على المقابض الموجودة عند تحريك "
+"نقطة."
+
+#: ../doc/agent_cli.rst:797
+msgid ""
+"Keyframe ranges are **inclusive**, unlike clip-selection time ranges. List "
+"emits ``points`` whose ``co.X`` values use the requested coordinate "
+"space/unit. Pass that array to ``keyframe paste --json @points.json`` with "
+"the same space/unit, choosing ``--mode merge`` (replace matching frames, "
+"retain others) or ``--mode replace`` (replace the entire curve). ``copy`` "
+"accepts a source of the same object kind, an optional ``--source-property``,"
+" and anchors the first selected source point at ``--at`` on the target. "
+"Other curves and source objects remain unchanged."
+msgstr ""
+"نطاقات الإطارات الرئيسية **شاملة**\\ ، على عكس نطاقات وقت اختيار المقطع. "
+"القائمة تصدر ``points`` التي تستخدم قيم ``co.X`` مساحة/وحدة الإحداثيات "
+"المطلوبة. مرر تلك المصفوفة إلى ``keyframe paste --json @points.json`` بنفس "
+"المساحة/الوحدة، مع اختيار ``--mode merge`` (استبدال الإطارات المطابقة، "
+"الاحتفاظ بالبقية) أو ``--mode replace`` (استبدال المنحنى بأكمله). يأخذ "
+"``copy`` مصدرًا من نفس نوع الكائن، و\\ ``--source-property`` اختياري، ويرتكز"
+" أول نقطة مصدر مختارة عند ``--at`` على الهدف. تبقى المنحنيات والكائنات "
+"المصدر الأخرى دون تغيير."
+
+#: ../doc/agent_cli.rst:805
+msgid ""
+"``transform`` applies a positive time scale around the first selected point,"
+" or ``--pivot``, followed by a signed ``--offset`` in the chosen unit. Frame"
+" snapping that creates duplicate coordinates is rejected, including "
+"collisions with points outside the selected range. Native coordinates must "
+"remain at least 1. Native normalized Bézier handles and interpolation travel"
+" with each point; handles are not absolute frame coordinates. ``set "
+"--handles`` changes only supplied handles. Interpolation belongs to the "
+"destination point."
+msgstr ""
+"يطبق ``transform`` مقياس وقت إيجابي حول أول نقطة مختارة، أو ``--pivot``\\ ، "
+"يتبعه ``--offset`` موقع بالإشارة في الوحدة المختارة. يتم رفض تثبيت الإطار "
+"الذي يخلق إحداثيات مكررة، بما في ذلك التصادمات مع نقاط خارج النطاق المختار. "
+"يجب أن تظل الإحداثيات الأصلية على الأقل 1. مقابض بيزيه الأصلية المطبوعة "
+"والاستيفاء تتحرك مع كل نقطة؛ المقابض ليست إحداثيات إطار مطلقة. يغير ``set "
+"--handles`` المقابض المزودة فقط. الاستيفاء ينتمي إلى نقطة الوجهة."
+
+#: ../doc/agent_cli.rst:813
+msgid ""
+"``clear`` retains a constant base point at native frame 1: specify "
+"``--value`` or sample the existing curve with ``--at`` (default native frame"
+" 1). Removing the last point also retains a constant base, so subsequent "
+"keyframe additions remain valid."
+msgstr ""
+"يحافظ ``clear`` على نقطة أساس ثابتة عند الإطار الأصلي 1: حدد ``--value`` أو "
+"خذ عينة من المنحنى الحالي باستخدام ``--at`` (الإطار الأصلي 1 افتراضيًا). "
+"إزالة النقطة الأخيرة تحافظ أيضًا على قاعدة ثابتة، لذا تظل إضافات الإطارات "
+"الرئيسية اللاحقة صالحة."
+
+#: ../doc/agent_cli.rst:818
+msgid "Selecting and editing many clips"
+msgstr "تحديد وتحرير العديد من المقاطع"
+
+#: ../doc/agent_cli.rst:820
+msgid ""
+"Use ``edit apply --dry-run`` to validate a batch without changing the "
+"project. Use ``edit bulk`` to repeat a small command template for each "
+"selected clip, with all changes grouped into one undo step."
+msgstr ""
+"استخدم ``edit apply --dry-run`` للتحقق من صحة دفعة دون تغيير المشروع. استخدم"
+" ``edit bulk`` لتكرار قالب أمر صغير لكل مقطع محدد، مع تجميع جميع التغييرات "
+"في خطوة تراجع واحدة."
+
+#: ../doc/agent_cli.rst:824
+msgid "First preview a selection::"
+msgstr "عاين التحديد أولاً::"
+
+#: ../doc/agent_cli.rst:828
+msgid ""
+"Selectors support ``ids`` (unique clip ID array), ``layer``, "
+"``start``/``end`` (timeline seconds), ``file_id``, ``effect`` (class name or"
+" alias), and ``text`` (``true`` selects text clips). Filters combine with "
+"AND. Time ranges select clips overlapping ``[start, end)``; they do not trim"
+" those clips. Results are ordered by position, layer, then ID, and include "
+"IDs, summaries, lock state, and the current revision. Unknown IDs are "
+"errors. An empty selector is rejected; use ``{\"all\":true}`` explicitly for"
+" every clip. Selections are bounded to 256 clips and are never silently "
+"truncated."
+msgstr ""
+"تدعم المحددات ``ids`` (مصفوفة معرفات المقاطع الفريدة)، ``layer``\\ ، "
+"``start``/``end`` (ثواني الجدول الزمني)، ``file_id``\\ ، ``effect`` (اسم "
+"الصنف أو الاسم المستعار)، و\\ ``text`` (يختار ``true`` المقاطع النصية). يتم "
+"دمج الفلاتر باستخدام AND. تحدد نطاقات الوقت المقاطع التي تتداخل مع ``[start,"
+" end)``\\ ؛ ولا تقص تلك المقاطع. يتم ترتيب النتائج حسب الموضع، الطبقة، ثم "
+"المعرف، وتشمل المعرفات، الملخصات، حالة القفل، والمراجعة الحالية. المعرفات "
+"غير المعروفة تعتبر أخطاء. يتم رفض المحدد الفارغ؛ استخدم ``{\"all\":true}`` "
+"صراحة لكل مقطع. التحديدات محدودة بـ 256 مقطع ولا يتم اقتطاعها بصمت."
+
+#: ../doc/agent_cli.rst:837
+msgid "For example, save this array as ``templates.json``::"
+msgstr "على سبيل المثال، احفظ هذه المصفوفة كـ ``templates.json``::"
+
+#: ../doc/agent_cli.rst:846
+msgid "Validate it, then apply against the revision returned by selection::"
+msgstr ""
+"قم بالتحقق منها، ثم طبقها على المراجعة التي تم إرجاعها بواسطة التحديد::"
+
+#: ../doc/agent_cli.rst:851
+msgid ""
+"Existing-clip commands inherit ``id``; ``effects.add`` inherits ``clip_id``."
+" Omit these target parameters in templates. Effect edits must reference an "
+"earlier named result. Names are local to each selected clip, so ``look.id`` "
+"refers to a different effect for each clip. To change existing effect "
+"instances by explicit ID, continue using ``edit apply``. The selected ID set"
+" is fixed before expansion; changes to position or effects do not change the"
+" remaining targets."
+msgstr ""
+"ترث أوامر المقاطع الموجودة ``id``\\ ؛ يرث ``effects.add`` ``clip_id``. احذف "
+"هذه المعلمات الهدفية في القوالب. يجب أن تشير تعديلات التأثير إلى نتيجة مسماة"
+" سابقة. الأسماء محلية لكل مقطع محدد، لذا ``look.id`` يشير إلى تأثير مختلف "
+"لكل مقطع. لتغيير مثيلات التأثير الموجودة بواسطة معرف صريح، استمر في استخدام "
+"``edit apply``. مجموعة المعرفات المحددة ثابتة قبل التوسيع؛ التغييرات في "
+"الموضع أو التأثيرات لا تغير الأهداف المتبقية."
+
+#: ../doc/agent_cli.rst:858
+msgid ""
+"``clip set`` applies absolute properties; ``clip adjust`` applies "
+"``multiply`` then ``add`` to a numeric property or every value in a curve, "
+"preserving point timing, interpolation, and normalized handles. It validates"
+" resulting values, including nonnegative positions and volume. Structural "
+"fields remain protected."
+msgstr ""
+"يطبق ``clip set`` الخصائص المطلقة؛ يطبق ``clip adjust`` ``multiply`` ثم "
+"``add`` على خاصية رقمية أو كل قيمة في منحنى، مع الحفاظ على توقيت النقطة، "
+"الاستيفاء، والمقابض الموحدة. يتحقق من صحة القيم الناتجة، بما في ذلك المواقع "
+"غير السالبة والحجم. تبقى الحقول الهيكلية محمية."
+
+#: ../doc/agent_cli.rst:863
+msgid ""
+"Bulk operations reject empty selections, locked target tracks, and more than"
+" 256 expanded commands. Every expanded operation passes detached preflight "
+"before any live edit. Dry runs do not reserve generated IDs. Use ``--expect-"
+"revision`` to reject stale selections. Successful batches are one undo step,"
+" including after save/reopen. GUI refreshes are batched. Unexpected "
+"runtime/listener errors can still leave a partial transaction; the error "
+"reports completed operations and undo reverts that group, as with ``edit "
+"apply``."
+msgstr ""
+"ترفض العمليات الجماعية التحديدات الفارغة، المسارات الهدف المقفلة، وأكثر من "
+"256 أمرًا موسعًا. تمر كل عملية موسعة بفحص مسبق منفصل قبل أي تعديل مباشر. لا "
+"تحجز التجارب الجافة المعرفات المولدة. استخدم ``--expect-revision`` لرفض "
+"التحديدات القديمة. الدُفعات الناجحة تعتبر خطوة تراجع واحدة، بما في ذلك بعد "
+"الحفظ/إعادة الفتح. يتم تجميع تحديثات واجهة المستخدم. يمكن أن تترك أخطاء وقت "
+"التشغيل/المستمع غير المتوقعة معاملة جزئية؛ يبلغ الخطأ عن العمليات المكتملة "
+"ويعيد التراجع تلك المجموعة، كما هو الحال مع ``edit apply``."
+
+#: ../doc/agent_cli.rst:872
+msgid "Profiles"
+msgstr "الملفات الشخصية"
+
+#: ../doc/agent_cli.rst:874
+msgid "Discover profiles and match imported video without guessing IDs::"
+msgstr "اكتشف الملفات الشخصية ووافق الفيديو المستورد دون تخمين المعرفات::"
+
+#: ../doc/agent_cli.rst:884
+msgid ""
+"Catalog entries include stable IDs, descriptions, dimensions, rational FPS, "
+"aspect ratios, and scan settings. List/search is paginated. Source matching "
+"returns exact IDs and ranked alternatives with explicit differences. Setting"
+" from a file requires an exact match unless ``--create-custom`` is "
+"specified; it never silently chooses a nearby profile. Still images and "
+"audio-only sources cannot define a video profile. Matching uses declared "
+"source FPS."
+msgstr ""
+"تشمل إدخالات الكتالوج معرفات ثابتة، أوصاف، أبعاد، معدل إطارات نسبي، نسب "
+"العرض إلى الارتفاع، وإعدادات المسح. القائمة/البحث مقسم إلى صفحات. يعيد "
+"التوافق مع المصدر معرفات دقيقة وبدائل مرتبة مع اختلافات صريحة. يتطلب التعيين"
+" من ملف تطابقًا دقيقًا ما لم يتم تحديد ``--create-custom``\\ ؛ لا يختار "
+"ملفًا شخصيًا قريبًا بصمت أبدًا. لا يمكن للصور الثابتة والمصادر الصوتية فقط "
+"تعريف ملف فيديو. يستخدم التوافق معدل الإطارات المصدر المعلن."
+
+#: ../doc/agent_cli.rst:891
+msgid ""
+"Custom settings are embedded in the saved project, including rational rates,"
+" so reopening does not require installing a separate profile file. Project "
+"profile changes use existing frame-rate conversion and one undo transaction."
+" Undo/redo restores clip timing and keyframes, including rounding-sensitive "
+"positions. Export can independently select a profile without changing the "
+"project."
+msgstr ""
+"يتم تضمين الإعدادات المخصصة في المشروع المحفوظ، بما في ذلك المعدلات النسبية،"
+" لذا لا يتطلب إعادة الفتح تثبيت ملف ملف شخصي منفصل. تستخدم تغييرات ملف "
+"المشروع تحويل معدل الإطارات الموجود ومعاملة تراجع واحدة. يستعيد "
+"التراجع/الإعادة توقيت المقطع والإطارات الرئيسية، بما في ذلك المواقع الحساسة "
+"للتقريب. يمكن للتصدير اختيار ملف شخصي بشكل مستقل دون تغيير المشروع."
+
+#: ../doc/agent_cli.rst:897
+msgid ""
+"Saved undo history follows the editor's history-limit preference. The limit "
+"is a soft action budget: all records belonging to retained transactions are "
+"kept, so saving cannot truncate a large batch into a partial undo action. "
+"Zero disables saved history. The separate 256-command batch request bound "
+"still applies."
+msgstr ""
+"يتبع سجل التراجع المحفوظ تفضيل حد التاريخ للمحرر. الحد هو ميزانية إجراء "
+"مرنة: يتم الاحتفاظ بجميع السجلات التابعة للمعاملات المحتفظ بها، لذا لا يمكن "
+"للحفظ اقتطاع دفعة كبيرة إلى إجراء تراجع جزئي. الصفر يعطل السجل المحفوظ. لا "
+"يزال حد طلب الدُفعة المنفصلة المكونة من 256 أمرًا ساريًا."
+
+#: ../doc/agent_cli.rst:903
+msgid "Inspecting media and timelines"
+msgstr "فحص الوسائط والجداول الزمنية"
+
+#: ../doc/agent_cli.rst:905
+msgid ""
+"Inspect clip timing and track layout as text or JSON, or render images to "
+"review composition and framing before exporting."
+msgstr ""
+"افحص توقيت المقطع وتخطيط المسار كنص أو JSON، أو قم برسم الصور لمراجعة "
+"التكوين والإطار قبل التصدير."
+
+#: ../doc/agent_cli.rst:909
+msgid "Timeline summaries"
+msgstr "ملخصات الجدول الزمني"
+
+#: ../doc/agent_cli.rst:911
+msgid ""
+"Use a text view for a quick overview, or structured JSON for scripts and "
+"agents::"
+msgstr "استخدم عرض نصي لمحة سريعة، أو JSON منظم للبرامج النصية والوكلاء::"
+
+#: ../doc/agent_cli.rst:917
+msgid ""
+"``timeline view`` defaults to compact text with used tracks, object IDs, "
+"timeline/source intervals, stream state, gain, and gaps/overlaps. Use "
+"``--detail summary|clips|full`` to choose detail, ``--format json`` for "
+"structured context, and ``--start/--end``, ``--layer``, and pagination to "
+"focus the result."
+msgstr ""
+"يكون ``timeline view`` افتراضيًا نصًا مضغوطًا مع المسارات المستخدمة، معرفات "
+"الكائنات، فترات الجدول الزمني/المصدر، حالة التدفق، الكسب، "
+"والفجوات/التداخلات. استخدم ``--detail summary|clips|full`` لاختيار التفاصيل،"
+" ``--format json`` للسياق المنظم، و\\ ``--start/--end``\\ ، ``--layer``\\ ، "
+"والتقسيم للتركيز على النتيجة."
+
+#: ../doc/agent_cli.rst:922
+msgid ""
+"``timeline overview`` supplies compact structured context without image "
+"bytes: ordered IDs, sequence per track, timeline/source intervals, visible "
+"trim ranges, frame coordinates, audio/video state, effects, and neighboring "
+"gaps or overlaps. Intervals and frame spans are end-exclusive; frame numbers"
+" are one-based. Source frames use source FPS; timeline and keyframe "
+"coordinates use project FPS. Use ``--layer`` and ``--start/--end`` to focus,"
+" and ``--limit/--offset`` to paginate (default 100, maximum 500 items). "
+"Time-remapped clips explicitly withhold inferred source mappings. Use the "
+"returned revision with ``edit apply --expect-revision``."
+msgstr ""
+"يوفر ``timeline overview`` سياقًا منظمًا مضغوطًا بدون بايتات الصور: معرفات "
+"مرتبة، تسلسل لكل مسار، فترات الجدول الزمني/المصدر، نطاقات التشذيب المرئية، "
+"إحداثيات الإطار، حالة الصوت/الفيديو، التأثيرات، والفجوات أو التداخلات "
+"المجاورة. الفترات ونطاقات الإطارات تستثني النهاية؛ أرقام الإطارات تبدأ من "
+"واحد. تستخدم إطارات المصدر معدل الإطارات المصدر؛ تستخدم إحداثيات الجدول "
+"الزمني والإطارات الرئيسية معدل إطارات المشروع. استخدم ``--layer`` و\\ "
+"``--start/--end`` للتركيز، و\\ ``--limit/--offset`` للتقسيم (الافتراضي 100، "
+"الحد الأقصى 500 عنصر). تحتفظ المقاطع المعاد تعيين وقتها صراحةً بتعيينات "
+"المصدر المستنتجة. استخدم المراجعة المعادة مع ``edit apply --expect-"
+"revision``."
+
+#: ../doc/agent_cli.rst:932
+msgid "Frame previews and contact sheets"
+msgstr "معاينات الإطارات وأوراق الاتصال"
+
+#: ../doc/agent_cli.rst:934
+msgid ""
+"Render a single frame with ``thumbnail`` or sample a range with ``strip``. "
+"Use ``file`` to inspect source media and ``timeline`` to inspect the "
+"composed video, including effects and layered clips::"
+msgstr ""
+"قم برسم إطار واحد باستخدام ``thumbnail`` أو عين نطاقًا باستخدام ``strip``. "
+"استخدم ``file`` لفحص الوسائط المصدر و\\ ``timeline`` لفحص الفيديو المركب، "
+"بما في ذلك التأثيرات والمقاطع متعددة الطبقات::"
+
+#: ../doc/agent_cli.rst:943
+msgid ""
+"Frame images default to 320x180 pixels; contact sheets default to 160x90 per"
+" tile, plus timecode labels. Use ``--width`` and ``--height`` to choose "
+"output pixels. Responses include exact sample/frame metadata. Contact sheets"
+" help review composition across a sequence; use keyframe previews and "
+"rendered video to assess motion between those samples."
+msgstr ""
+"صور الإطارات افتراضيًا 320x180 بكسل؛ أوراق الاتصال افتراضيًا 160x90 لكل "
+"بلاطة، بالإضافة إلى تسميات رمز الوقت. استخدم ``--width`` و\\ ``--height`` "
+"لاختيار بكسلات الإخراج. تتضمن الردود بيانات وصفية دقيقة للعينة/الإطار. تساعد"
+" أوراق الاتصال في مراجعة التكوين عبر تسلسل؛ استخدم معاينات الإطارات الرئيسية"
+" والفيديو المرسوم لتقييم الحركة بين تلك العينات."
+
+#: ../doc/agent_cli.rst:950
+msgid "Timeline images"
+msgstr "صور الجدول الزمني"
+
+#: ../doc/agent_cli.rst:952
+msgid ""
+"Capture the editor's track layout, including its ruler, thumbnails, effects,"
+" transitions, and waveforms::"
+msgstr ""
+"التقاط تخطيط المسارات في المحرر، بما في ذلك المسطرة، الصور المصغرة، "
+"التأثيرات، الانتقالات، والأشكال الموجية::"
+
+#: ../doc/agent_cli.rst:957
+msgid ""
+"Specifying ``--output`` selects image format; ``--format image`` also "
+"selects it explicitly. The capture does not change the editor's viewport or "
+"project. Responses include clip IDs and timing alongside pixel bounds."
+msgstr ""
+"تحديد ``--output`` يختار تنسيق الصورة؛ كما يختار ``--format image`` ذلك "
+"صراحةً. الالتقاط لا يغير نافذة العرض أو المشروع في المحرر. تتضمن الردود "
+"معرفات المقاطع والتوقيت إلى جانب حدود البكسل."
+
+#: ../doc/agent_cli.rst:961
+msgid ""
+"Images default to 1280 pixels wide, with height fitted to used tracks. Use "
+"``--width``, ``--height``, or ``--all-tracks`` to adjust the layout, and "
+"``--track-size`` or ``--track-label-width`` to adjust tracks and labels. The"
+" start/end range determines zoom; ``--pixels-per-second`` instead derives "
+"the width from the time range."
+msgstr ""
+"العرض الافتراضي للصور 1280 بكسل، مع ضبط الارتفاع ليتناسب مع المسارات "
+"المستخدمة. استخدم ``--width``\\ ، ``--height``\\ ، أو ``--all-tracks`` لضبط "
+"التخطيط، و\\ ``--track-size`` أو ``--track-label-width`` لضبط المسارات "
+"والتسميات. نطاق البداية/النهاية يحدد التكبير؛ بينما ``--pixels-per-second`` "
+"يستمد العرض من نطاق الوقت."
+
+#: ../doc/agent_cli.rst:968
+msgid "Audio waveform views"
+msgstr "عرض الأشكال الموجية للصوت"
+
+#: ../doc/agent_cli.rst:970
+msgid ""
+"Choose ``--mode waveforms`` to inspect audio envelopes on the timeline::"
+msgstr "اختر ``--mode waveforms`` لفحص مظاهر الصوت على الجدول الزمني::"
+
+#: ../doc/agent_cli.rst:974
+msgid ""
+"``--mode auto`` uses the existing cached waveform display; ``--mode "
+"thumbnails`` shows thumbnails instead. Waveforms represent source peak/RMS "
+"levels with clip volume and timing adjustments, before audio effects or "
+"mixing."
+msgstr ""
+"يستخدم ``--mode auto`` عرض الأشكال الموجية المخزنة مؤقتًا؛ بينما يعرض "
+"``--mode thumbnails`` الصور المصغرة بدلاً من ذلك. تمثل الأشكال الموجية "
+"مستويات الذروة/متوسط الجذر التربيعي للمصدر مع تعديلات حجم المقطع والتوقيت، "
+"قبل تأثيرات الصوت أو المزج."
+
+#: ../doc/agent_cli.rst:978
+msgid ""
+"Uncached waveform extraction decodes whole sources, limited to 600 seconds "
+"per source and 1200 source-seconds per request. Narrowing the visible range "
+"does not reduce that decoding work. For longer sources, generate waveforms "
+"in the editor first or use thumbnail mode. Subsequent requests can reuse "
+"cached waveforms."
+msgstr ""
+"استخراج الأشكال الموجية غير المخزنة مؤقتًا يفك تشفير المصادر كاملة، محدود بـ"
+" 600 ثانية لكل مصدر و1200 ثانية مصدر لكل طلب. تضييق النطاق المرئي لا يقلل من"
+" عمل فك التشفير هذا. للمصادر الأطول، أنشئ الأشكال الموجية في المحرر أولاً أو"
+" استخدم وضع الصور المصغرة. يمكن للطلبات اللاحقة إعادة استخدام الأشكال "
+"الموجية المخزنة مؤقتًا."
+
+#: ../doc/agent_cli.rst:984
+msgid "Image output and limits"
+msgstr "إخراج الصورة والقيود"
+
+#: ../doc/agent_cli.rst:986
+msgid ""
+"Image paths must be new PNG files in existing directories. Images are "
+"limited to 4096 pixels per axis, 8,388,608 total pixels, and 64 contact-"
+"sheet samples. Requests beyond these limits fail before rendering."
+msgstr ""
+"يجب أن تكون مسارات الصور ملفات PNG جديدة في مجلدات موجودة. الصور محدودة بـ "
+"4096 بكسل لكل محور، و8,388,608 بكسل إجمالاً، و64 عينة من ورقة الاتصال. "
+"الطلبات التي تتجاوز هذه الحدود تفشل قبل العرض."
+
+#: ../doc/agent_cli.rst:990
+msgid ""
+"Images are written to files; JSON responses include their paths and "
+"``image_bytes`` sizes. Inspection waits for the image to finish, and large "
+"requests can briefly occupy the editor."
+msgstr ""
+"تُكتب الصور إلى ملفات؛ تتضمن ردود JSON مساراتها وأحجام ``image_bytes``. "
+"ينتظر الفحص انتهاء الصورة، ويمكن للطلبات الكبيرة أن تشغل المحرر لفترة وجيزة."
+
+#: ../doc/agent_cli.rst:995
+msgid "Handling command timeouts"
+msgstr "معالجة انتهاء مهلة الأوامر"
+
+#: ../doc/agent_cli.rst:997
+msgid ""
+"A request timeout does not mean a mutation failed. Use the operation ID in "
+"the error with ``operation get ID`` before retrying. ``operation list`` "
+"discovers recent mutations and their states, revisions, and outcomes. "
+"Completed operations retain their results when small enough, including "
+"returned object IDs. Storage is bounded to 100 operations and 4 MiB, with "
+"individual result bodies omitted above 256 KiB. These records last only for "
+"the running session. They do not restore projects after a crash or prevent a"
+" repeated command from applying the same edit again. Export jobs have their "
+"own status/list commands."
+msgstr ""
+"انتهاء مهلة الطلب لا يعني فشل التغيير. استخدم معرف العملية في الخطأ مع "
+"``operation get ID`` قبل إعادة المحاولة. يكشف ``operation list`` عن "
+"التغييرات الأخيرة وحالاتها، مراجعاتها، ونتائجها. تحتفظ العمليات المكتملة "
+"بنتائجها إذا كانت صغيرة بما يكفي، بما في ذلك معرفات الكائنات المعادة. "
+"التخزين محدود بـ 100 عملية و4 ميجابايت، مع حذف محتويات النتائج الفردية فوق "
+"256 كيلوبايت. تدوم هذه السجلات فقط لجلسة التشغيل الحالية. لا تستعيد المشاريع"
+" بعد تعطل أو تمنع تطبيق نفس التعديل مرة أخرى عند تكرار الأمر. لوظائف التصدير"
+" أوامر الحالة/القائمة الخاصة بها."

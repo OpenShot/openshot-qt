@@ -44,8 +44,12 @@ class CommonEntryTests(unittest.TestCase):
                 root = Path(directory)
                 package = root / 'openshot_qt'
                 (package / 'classes' / 'agent').mkdir(parents=True)
+                (package / 'windows' / 'views' / 'timeline_backend').mkdir(parents=True)
                 for name in ('__init__.py', 'launch.py', 'cli.py', 'classes/__init__.py',
-                             'classes/cli_console.py', 'classes/easing.py', 'classes/agent/__init__.py', 'classes/agent/protocol.py'):
+                             'classes/cli_console.py', 'classes/windows_dlls.py', 'classes/easing.py', 'classes/agent/__init__.py', 'classes/agent/protocol.py',
+                             'classes/look_presets.py', 'classes/color_presets.py', 'classes/film_grain_presets.py',
+                             'windows/__init__.py', 'windows/views/__init__.py', 'windows/views/timeline_backend/__init__.py',
+                             'windows/views/timeline_backend/enums.py'):
                     shutil.copy2(source / name, package / name)
                 # Missing native/Qt dependencies must not matter to --cli help.
                 for name in ('openshot.py', 'qt_api.py'):
@@ -86,6 +90,71 @@ class CommonEntryTests(unittest.TestCase):
         for output in outputs:
             self.assertEqual(outputs[0], output)
         self.assertIn('Workflow:', outputs[0])
+
+    def test_frozen_resource_paths_match_platform_packaging(self):
+        info = Path(__file__).resolve().parents[1] / 'classes/info.py'
+        script = """
+import os,sys
+import qt_api  # Load the host binding before simulating another platform.
+source = open(sys.argv[1], encoding='utf-8').read()
+sys.frozen = True
+sys.executable = sys.argv[2]
+sys.platform = sys.argv[3]
+root = os.path.dirname(sys.executable)
+namespace = {'__file__': os.path.join(root, 'lib', 'classes', 'info.pyc')}
+exec(compile(source, namespace['__file__'], 'exec'), namespace)
+expected = sys.argv[4]
+assert os.path.samefile(namespace['PATH'], expected), (namespace['PATH'], expected)
+for name, folder in (('EXPORT_PRESETS_PATH', 'presets'), ('PROFILES_PATH', 'profiles'),
+                     ('RESOURCES_PATH', 'resources'), ('IMAGES_PATH', 'images')):
+    assert os.path.samefile(namespace[name], os.path.join(expected, folder)), name
+assert os.path.isfile(os.path.join(namespace['EXPORT_PRESETS_PATH'], 'videotoolbox.xml'))
+"""
+        layouts = [('win32', False), ('linux', False), ('darwin', False)]
+        if os.name != 'nt':
+            layouts.append(('darwin', True))  # DMG layout uses POSIX symlinks.
+        for platform, relocated in layouts:
+            with self.subTest(platform=platform, relocated=relocated), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                if platform == 'darwin' and os.name != 'nt':
+                    # Reproduce macOS's /var -> /private/var temp-directory alias.
+                    (root / 'real').mkdir()
+                    (root / 'alias').symlink_to(root / 'real', target_is_directory=True)
+                    root = root / 'alias'
+                if platform == 'darwin':
+                    root = root / 'OpenShot.app/Contents/MacOS'
+                bytecode = root / 'lib/classes'
+                if relocated:
+                    expected = root.parent / 'Resources'
+                    (expected / 'classes').mkdir(parents=True)
+                    bytecode.parent.mkdir(parents=True)
+                    bytecode.symlink_to('../../Resources/classes', target_is_directory=True)
+                else:
+                    bytecode.mkdir(parents=True)
+                    expected = root / 'lib' if platform == 'darwin' else root
+                for folder in ('presets', 'profiles', 'resources', 'images'):
+                    (expected / folder).mkdir()
+                (expected / 'presets/videotoolbox.xml').write_text('<export-option/>')
+                env = dict(os.environ, PYTHONPATH=str(info.parent.parent))
+                result = subprocess.run([sys.executable, '-c', script, str(info),  # nosec B603 - Fixed interpreter and test source; no shell.
+                                         str(root / 'openshot-qt'), platform, str(expected)],
+                                        capture_output=True, text=True, timeout=20, env=env)
+                self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_frozen_console_help_does_not_require_file_global(self):
+        cli = Path(__file__).resolve().parents[1] / 'cli.py'
+        script = """
+import sys
+source = open(sys.argv[1], encoding='utf-8').read()
+sys.frozen = True
+sys.argv = ['openshot-cli.exe', '--help']
+exec(compile(source, 'frozen-cli', 'exec'), {'__name__': '__main__'})
+"""
+        env = dict(os.environ, PYTHONPATH=str(cli.parent))
+        result = subprocess.run([sys.executable, '-c', script, str(cli)],  # nosec B603 - Fixed interpreter and test source; no shell.
+                                capture_output=True, text=True, timeout=20, env=env)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('Workflow:', result.stdout)
 
     @unittest.skipUnless(os.name == 'nt', 'Requires Windows native standard handles')
     def test_windows_gui_style_missing_streams_preserve_redirected_io(self):
@@ -131,7 +200,8 @@ import json, os, sys
 print(json.dumps({'args': sys.argv[1:], 'cwd': os.getcwd(),
                   'appdir': os.environ['APPDIR'], 'appimage': os.environ.get('APPIMAGE'), 'libraries': os.environ['LD_LIBRARY_PATH'],
                   'plugins': os.environ['QT_PLUGIN_PATH'], 'data': os.environ['XDG_DATA_DIRS'],
-                  'theme': os.environ.get('QT_QPA_PLATFORMTHEME')}))
+                  'theme': os.environ.get('QT_QPA_PLATFORMTHEME'),
+                  'platform': os.environ.get('QT_QPA_PLATFORM')}))
 if '--stdin' in sys.argv:
     print(sys.stdin.read(), end='')
 if '--error' in sys.argv:
@@ -174,6 +244,20 @@ if '--error' in sys.argv:
         self.assertEqual(json.loads(self.run_bundle('--cli').stdout)['theme'], 'xdgdesktopportal')
         self.env['QT_QPA_PLATFORMTHEME'] = 'custom'
         self.assertEqual(json.loads(self.run_bundle('--cli').stdout)['theme'], 'custom')
+
+    def test_native_wayland_for_gui_preserves_platform_overrides_and_headless_cli(self):
+        self.env.pop('QT_QPA_PLATFORM', None)
+        self.env['WAYLAND_DISPLAY'] = 'wayland-test'
+        self.assertIsNone(json.loads(self.run_bundle().stdout)['platform'])
+        (self.bin / 'platforms').mkdir()
+        (self.bin / 'platforms' / 'libqwayland-generic.so').touch()
+        self.assertEqual(json.loads(self.run_bundle().stdout)['platform'], 'wayland')
+        self.assertIsNone(json.loads(self.run_bundle('--cli', 'session', 'start').stdout)['platform'])
+        self.env['QT_QPA_PLATFORM'] = 'xcb'
+        self.assertEqual(json.loads(self.run_bundle().stdout)['platform'], 'xcb')
+        self.env.pop('QT_QPA_PLATFORM')
+        self.env.pop('WAYLAND_DISPLAY')
+        self.assertIsNone(json.loads(self.run_bundle().stdout)['platform'])
 
     def test_frozen_workers_reopen_image_instead_of_using_client_mount(self):
         image = self.root / 'OpenShot with spaces.AppImage'

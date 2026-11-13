@@ -23,6 +23,7 @@
  You should have received a copy of the GNU General Public License
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
+import importlib.util
 import json
 import os
 import struct
@@ -135,3 +136,20 @@ def cli_command(*arguments):
             raise CommandError('missing_cli', 'Packaged openshot-cli executable is missing: ' + str(executable))
         return [str(executable), *arguments]
     return [sys.executable, str(Path(__file__).resolve().parents[2] / 'cli.py'), *arguments]
+
+
+def cli_environment():
+    """Environment for a cli_command() process, so it loads the same libopenshot as this one.
+
+    From source, Python only searches the script's folder and PYTHONPATH, which can miss (or
+    differ from) the openshot module this process uses. Packaged builds bundle their own.
+    """
+    env = dict(os.environ)
+    if getattr(sys, 'frozen', False):
+        return env
+    spec = importlib.util.find_spec('openshot')
+    if spec and spec.origin:
+        folder = str(Path(spec.origin).resolve().parent)
+        paths = [path for path in env.get('PYTHONPATH', '').split(os.pathsep) if path]
+        env['PYTHONPATH'] = os.pathsep.join([folder] + [path for path in paths if path != folder])
+    return env

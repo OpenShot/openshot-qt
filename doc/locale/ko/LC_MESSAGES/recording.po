@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: 2026-08-30 16:50-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 # Main-window terminology review, 2026-09-26.
-#: ../recording.rst:23
+#: ../doc/recording.rst:23
 msgid "Recording"
 msgstr "녹음/녹화"
 
-#: ../recording.rst:25
+#: ../doc/recording.rst:25
 msgid ""
 "OpenShot can record a microphone, the desktop, and a webcam directly into "
 "the current project. You can enable one source or combine several in a "
@@ -35,7 +35,7 @@ msgstr ""
 " 캡처 편집을 별도로 쉽게 할 수 있습니다."
 
 # Main-window terminology review, 2026-09-26.
-#: ../recording.rst:29
+#: ../doc/recording.rst:29
 msgid ""
 "Open the dedicated layout with :guilabel:`View → Recording View`, or show "
 "only the dock with :guilabel:`View → Docks → Recording`."
@@ -43,32 +43,32 @@ msgstr ""
 ":guilabel:`View → 녹음/녹화 보기` 로 전용 레이아웃을 열거나, :guilabel:`View → Docks → 녹음/녹화`"
 " 으로 도크만 표시하세요."
 
-#: ../recording.rst:-1
+#: ../doc/recording.rst:-1
 msgid "OpenShot Recording View with the microphone source selected by default"
 msgstr "기본적으로 마이크 소스가 선택된 OpenShot 녹화 뷰 열기"
 
-#: ../recording.rst:36
+#: ../doc/recording.rst:36
 msgid "Quick Start"
 msgstr "빠른 시작"
 
-#: ../recording.rst:38
+#: ../doc/recording.rst:38
 msgid ""
 "Move the timeline playhead to the point where the recording should begin."
 msgstr "녹화를 시작할 지점으로 타임라인 재생 헤드를 이동하세요."
 
 # Main-window terminology review, 2026-09-26.
-#: ../recording.rst:39
+#: ../doc/recording.rst:39
 msgid "Open :guilabel:`View → Recording View`."
 msgstr ":guilabel:`View → 녹음/녹화 보기` 를 여세요."
 
-#: ../recording.rst:40
+#: ../doc/recording.rst:40
 msgid ""
 "Enable :guilabel:`Mic`, :guilabel:`Screen`, :guilabel:`Webcam`, or any "
 "combination of them."
 msgstr ""
 ":guilabel:`Mic`, :guilabel:`Screen`, :guilabel:`Webcam` 또는 이들의 조합을 활성화하세요."
 
-#: ../recording.rst:41
+#: ../doc/recording.rst:41
 msgid ""
 "Select the destination :guilabel:`Track`. Multiple sources use adjacent "
 "tracks automatically. Select :guilabel:`No Track` to add completed "
@@ -80,25 +80,25 @@ msgstr ""
 "Track` 을 선택하면 완성된 녹화물이 타임라인에 라이브 미리보기나 클립을 생성하지 않고 :guilabel:`Project Files`"
 " 에 추가됩니다. 마이크 또는 웹캠 녹화 중에 타임라인 :guilabel:`Preview` 재생 여부를 선택하세요."
 
-#: ../recording.rst:44
+#: ../doc/recording.rst:44
 msgid ""
 "Open each source's :guilabel:`Advanced` section and verify its device and "
 "quality options."
 msgstr "각 소스의 :guilabel:`Advanced` 섹션을 열어 장치 및 품질 옵션을 확인하세요."
 
-#: ../recording.rst:45
+#: ../doc/recording.rst:45
 msgid ""
 "Click :guilabel:`Start Recording`. Perform the narration or action you want "
 "to capture."
 msgstr ":guilabel:`Start Recording` 을 클릭하세요. 녹음할 내레이션이나 동작을 수행하세요."
 
-#: ../recording.rst:46
+#: ../doc/recording.rst:46
 msgid ""
 "Click :guilabel:`Stop Recording`, either in the dock or from the recording "
 "status control."
 msgstr "도크나 녹화 상태 컨트롤에서 :guilabel:`Stop Recording` 을 클릭하세요."
 
-#: ../recording.rst:47
+#: ../doc/recording.rst:47
 msgid ""
 "Wait briefly while OpenShot finishes the files. They are imported into "
 ":guilabel:`Project Files` and, unless :guilabel:`No Track` is selected, "
@@ -107,12 +107,12 @@ msgstr ""
 "OpenShot이 파일을 마무리할 때 잠시 기다리세요. 파일은 :guilabel:`Project Files` 에 가져와지고, "
 ":guilabel:`No Track` 이 선택되지 않았다면 타임라인에 배치됩니다."
 
-#: ../recording.rst:51
+#: ../doc/recording.rst:51
 msgid "Quick Audio Commentary"
 msgstr "빠른 오디오 해설"
 
 # Main-window terminology review, 2026-09-26.
-#: ../recording.rst:53
+#: ../doc/recording.rst:53
 msgid ""
 "To begin commentary at an existing clip, right-click the clip and choose "
 ":guilabel:`Audio → Record`. OpenShot moves the playhead to the clip's first "
@@ -127,11 +127,11 @@ msgstr ""
 ":guilabel:`Mic` 이 활성화되었는지 확인한 후 :guilabel:`Start Recording` 을 클릭하세요. 전체 "
 ":guilabel:`View → 녹음/녹화 보기` 는 화면, 웹캠, 마이크, 결합 녹화 세션의 일반 진입점으로 유지됩니다."
 
-#: ../recording.rst:60
+#: ../doc/recording.rst:60
 msgid "Recording Sources"
 msgstr "녹화 소스"
 
-#: ../recording.rst:62
+#: ../doc/recording.rst:62
 msgid ""
 "The source cards at the top of the dock can be enabled independently. An "
 "unavailable card indicates that the required device, operating-system "
@@ -140,76 +140,76 @@ msgstr ""
 "도크 상단의 소스 카드들은 독립적으로 활성화할 수 있습니다. 사용할 수 없는 카드는 필요한 장치, 운영체제 캡처 서비스 또는 "
 "libopenshot 기능이 감지되지 않았음을 나타냅니다."
 
-#: ../recording.rst:65
+#: ../doc/recording.rst:65
 msgid "Recorded sources and outputs"
 msgstr "녹화된 소스 및 출력"
 
-#: ../recording.rst:69 ../recording.rst:107
+#: ../doc/recording.rst:69 ../doc/recording.rst:107
 msgid "Source"
 msgstr "소스"
 
-#: ../recording.rst:70
+#: ../doc/recording.rst:70
 msgid "Recorded File"
 msgstr "녹화 파일"
 
-#: ../recording.rst:71
+#: ../doc/recording.rst:71
 msgid "Audio"
 msgstr "오디오"
 
-#: ../recording.rst:72
+#: ../doc/recording.rst:72
 msgid "Typical Use"
 msgstr "일반적인 용도"
 
-#: ../recording.rst:73 ../recording.rst:111 ../recording.rst:272
+#: ../doc/recording.rst:73 ../doc/recording.rst:111 ../doc/recording.rst:272
 msgid "Mic"
 msgstr "마이크"
 
-#: ../recording.rst:74
+#: ../doc/recording.rst:74
 msgid "``Mic-<timestamp>``"
 msgstr "``Mic-<timestamp>``"
 
-#: ../recording.rst:75
+#: ../doc/recording.rst:75
 msgid "Microphone only"
 msgstr "마이크만"
 
-#: ../recording.rst:76
+#: ../doc/recording.rst:76
 msgid "Narration, voice-over, commentary, or interviews."
 msgstr "내레이션, 보이스오버, 해설 또는 인터뷰."
 
-#: ../recording.rst:77 ../recording.rst:110 ../recording.rst:194
-#: ../recording.rst:275
+#: ../doc/recording.rst:77 ../doc/recording.rst:110 ../doc/recording.rst:194
+#: ../doc/recording.rst:275
 msgid "Screen"
 msgstr "화면"
 
-#: ../recording.rst:78
+#: ../doc/recording.rst:78
 msgid "``Screen-<timestamp>.mp4``"
 msgstr "``Screen-<timestamp>.mp4``"
 
-#: ../recording.rst:79
+#: ../doc/recording.rst:79
 msgid "Optional system audio"
 msgstr "선택적 시스템 오디오"
 
-#: ../recording.rst:80
+#: ../doc/recording.rst:80
 msgid "Tutorials, demonstrations, presentations, or games."
 msgstr "튜토리얼, 시연, 프레젠테이션 또는 게임."
 
-#: ../recording.rst:81 ../recording.rst:109
+#: ../doc/recording.rst:81 ../doc/recording.rst:109
 msgid "Webcam"
 msgstr "웹캠"
 
-#: ../recording.rst:82
+#: ../doc/recording.rst:82
 msgid "``Webcam-<timestamp>.mp4``"
 msgstr "``Webcam-<timestamp>.mp4``"
 
-#: ../recording.rst:83
+#: ../doc/recording.rst:83
 msgid "No audio"
 msgstr "오디오 없음"
 
-#: ../recording.rst:84
+#: ../doc/recording.rst:84
 msgid "Presenter video or a picture-in-picture camera."
 msgstr "발표자 비디오 또는 PIP(화면 속 화면) 카메라."
 
-#: ../recording.rst:86
+#: ../doc/recording.rst:86
 msgid ""
 "When Mic and Screen are enabled together, microphone audio is kept in its "
 "own file while system audio is embedded in the screen video. This separation"
@@ -221,11 +221,11 @@ msgstr ""
 "것으로, 편집 중에 음성 및 컴퓨터 오디오를 독립적으로 조절, 음소거, 페이드 또는 처리할 수 있게 합니다. 웹캠 비디오는 오디오가 없어"
 " 중복 마이크 트랙과 에코를 방지합니다."
 
-#: ../recording.rst:91
+#: ../doc/recording.rst:91
 msgid "Live Feedback and Timeline Placement"
 msgstr "실시간 피드백 및 타임라인 배치"
 
-#: ../recording.rst:93
+#: ../doc/recording.rst:93
 msgid ""
 "The microphone meter responds before and during recording, which helps "
 "confirm that the selected input is working. During recording, OpenShot draws"
@@ -235,7 +235,7 @@ msgstr ""
 "마이크 미터는 녹화 전과 녹화 중에 반응하여 선택한 입력이 작동하는지 확인하는 데 도움이 됩니다. 녹화 중 OpenShot은 타임라인에 "
 "임시 클립과 실시간 마이크 파형을 그립니다. 녹화가 중지되면 완성된 파일이 이 미리보기를 대체합니다."
 
-#: ../recording.rst:97
+#: ../doc/recording.rst:97
 msgid ""
 "Select :guilabel:`No Track` in the Track list when you want to capture media"
 " without adding live objects or completed clips to the timeline. The "
@@ -247,33 +247,33 @@ msgstr ""
 "선택하세요. 완성된 녹화물은 여전히 :guilabel:`Project Files` 에 가져와져 나중에 미리보기, 정리 또는 타임라인에 "
 "추가할 수 있습니다. 여러 테이크를 녹화한 후 편집할 테이크를 선택할 때 유용합니다."
 
-#: ../recording.rst:101
+#: ../doc/recording.rst:101
 msgid ""
 "All enabled sources start at the same timeline position. OpenShot stacks "
 "them in a useful compositing order:"
 msgstr "모든 활성화된 소스는 동일한 타임라인 위치에서 시작합니다. OpenShot은 이를 유용한 합성 순서로 쌓습니다:"
 
-#: ../recording.rst:103
+#: ../doc/recording.rst:103
 msgid "Default source stack"
 msgstr "기본 소스 스택"
 
-#: ../recording.rst:107
+#: ../doc/recording.rst:107
 msgid "Placement"
 msgstr "배치"
 
-#: ../recording.rst:109
+#: ../doc/recording.rst:109
 msgid "Highest assigned track, so a corner camera appears on top."
 msgstr "가장 높은 할당 트랙으로, 코너 카메라가 위에 나타납니다."
 
-#: ../recording.rst:110
+#: ../doc/recording.rst:110
 msgid "Below the webcam and above microphone audio."
 msgstr "웹캠 아래, 마이크 오디오 위에 위치합니다."
 
-#: ../recording.rst:111
+#: ../doc/recording.rst:111
 msgid "Lowest assigned track because it contains audio only."
 msgstr "오디오만 포함하므로 가장 낮은 할당 트랙입니다."
 
-#: ../recording.rst:114
+#: ../doc/recording.rst:114
 msgid ""
 "If there are not enough tracks below the selected track, OpenShot creates or"
 " selects additional tracks as needed. Recordings are also added to "
@@ -281,13 +281,13 @@ msgid ""
 "first timeline clips."
 msgstr ""
 "선택한 트랙 아래에 충분한 트랙이 없으면 OpenShot이 필요에 따라 추가 트랙을 생성하거나 선택합니다. 녹음은 "
-":guilabel:`프로젝트 파일`에도 추가되어 첫 번째 타임라인 클립을 제거해도 재사용할 수 있습니다."
+":guilabel:`프로젝트 파일`\\ 에도 추가되어 첫 번째 타임라인 클립을 제거해도 재사용할 수 있습니다."
 
-#: ../recording.rst:119
+#: ../doc/recording.rst:119
 msgid "Timeline Preview During Recording"
 msgstr "녹화 중 타임라인 미리보기"
 
-#: ../recording.rst:121
+#: ../doc/recording.rst:121
 msgid ""
 "The :guilabel:`Preview` control beside :guilabel:`Track` can play the "
 "project from the current playhead while a Mic, Webcam, or combined Mic + "
@@ -299,54 +299,54 @@ msgstr ""
 "재생 헤드에서 프로젝트를 재생할 수 있습니다. 이는 보이스오버, 해설, 리액션 비디오에 유용합니다. 녹화를 중지하면 녹화기가 시작한 경우"
 " 타임라인 재생도 중지됩니다."
 
-#: ../recording.rst:125
+#: ../doc/recording.rst:125
 msgid "Preview options"
 msgstr "미리보기 옵션"
 
-#: ../recording.rst:129 ../recording.rst:152 ../recording.rst:192
-#: ../recording.rst:242
+#: ../doc/recording.rst:129 ../doc/recording.rst:152 ../doc/recording.rst:192
+#: ../doc/recording.rst:242
 msgid "Option"
 msgstr "옵션"
 
-#: ../recording.rst:129
+#: ../doc/recording.rst:129
 msgid "Behavior"
 msgstr "동작"
 
-#: ../recording.rst:131
+#: ../doc/recording.rst:131
 msgid "Off"
 msgstr "끔"
 
-#: ../recording.rst:131
+#: ../doc/recording.rst:131
 msgid "Records without starting timeline playback."
 msgstr "타임라인 재생을 시작하지 않고 녹화합니다."
 
-#: ../recording.rst:132
+#: ../doc/recording.rst:132
 msgid "Full"
 msgstr "전체"
 
-#: ../recording.rst:132
+#: ../doc/recording.rst:132
 msgid "Plays the timeline using the normal preview resolution."
 msgstr "일반 미리보기 해상도로 타임라인을 재생합니다."
 
-#: ../recording.rst:133
+#: ../doc/recording.rst:133
 msgid "Half"
 msgstr "절반"
 
-#: ../recording.rst:133
+#: ../doc/recording.rst:133
 msgid "Reduces preview rendering resolution to improve recording performance."
 msgstr "녹화 성능 향상을 위해 미리보기 렌더링 해상도를 줄입니다."
 
-#: ../recording.rst:134
+#: ../doc/recording.rst:134
 msgid "Quarter"
 msgstr "4분의 1"
 
-#: ../recording.rst:134
+#: ../doc/recording.rst:134
 msgid ""
 "Uses the lowest preview resolution for demanding projects or slower "
 "computers."
 msgstr "고사양 프로젝트나 느린 컴퓨터에 대해 가장 낮은 미리보기 해상도를 사용합니다."
 
-#: ../recording.rst:137
+#: ../doc/recording.rst:137
 msgid ""
 "Preview resolution changes only the temporary OpenShot preview. It does not "
 "reduce the resolution or quality of the recorded Mic or Webcam files. Use "
@@ -356,87 +356,87 @@ msgid ""
 "choice."
 msgstr ""
 "미리보기 해상도는 임시 OpenShot 미리보기만 변경합니다. 녹음된 마이크 또는 웹캠 파일의 해상도나 품질은 줄어들지 않습니다. "
-"타임라인에 오디오가 포함된 경우 마이크가 스피커를 녹음하지 않도록 헤드폰을 사용하세요. :guilabel:`화면`이 선택되면 미리보기는 "
-"강제로 :guilabel:`끔`으로 설정되고 비활성화됩니다; 화면 선택 해제 시 이전 선택이 복원됩니다."
+"타임라인에 오디오가 포함된 경우 마이크가 스피커를 녹음하지 않도록 헤드폰을 사용하세요. :guilabel:`화면`\\ 이 선택되면 "
+"미리보기는 강제로 :guilabel:`끔`\\ 으로 설정되고 비활성화됩니다; 화면 선택 해제 시 이전 선택이 복원됩니다."
 
-#: ../recording.rst:143
+#: ../doc/recording.rst:143
 msgid "Microphone Recording"
 msgstr "마이크 녹음"
 
-#: ../recording.rst:145
+#: ../doc/recording.rst:145
 msgid ""
 "Enable :guilabel:`Mic` to record narration as a separate audio file. Use the"
 " Mono/Stereo control beside the level meter for the common channel choice, "
 "and open :guilabel:`Advanced` for all settings."
 msgstr ""
-":guilabel:`마이크`를 활성화하여 내레이션을 별도의 오디오 파일로 녹음하세요. 일반 채널 선택을 위해 레벨 미터 옆의 "
-"모노/스테레오 컨트롤을 사용하고, 모든 설정은 :guilabel:`고급`에서 열 수 있습니다."
+":guilabel:`마이크`\\ 를 활성화하여 내레이션을 별도의 오디오 파일로 녹음하세요. 일반 채널 선택을 위해 레벨 미터 옆의 "
+"모노/스테레오 컨트롤을 사용하고, 모든 설정은 :guilabel:`고급`\\ 에서 열 수 있습니다."
 
-#: ../recording.rst:148
+#: ../doc/recording.rst:148
 msgid "Microphone options"
 msgstr "마이크 옵션"
 
-#: ../recording.rst:152
+#: ../doc/recording.rst:152
 msgid "Typical Default"
 msgstr "일반 기본값"
 
-#: ../recording.rst:152 ../recording.rst:175 ../recording.rst:192
-#: ../recording.rst:242
+#: ../doc/recording.rst:152 ../doc/recording.rst:175 ../doc/recording.rst:192
+#: ../doc/recording.rst:242
 msgid "Description"
 msgstr "설명"
 
-#: ../recording.rst:154 ../recording.rst:244
+#: ../doc/recording.rst:154 ../doc/recording.rst:244
 msgid "Input"
 msgstr "입력"
 
-#: ../recording.rst:154
+#: ../doc/recording.rst:154
 msgid "System input"
 msgstr "시스템 입력"
 
-#: ../recording.rst:154
+#: ../doc/recording.rst:154
 msgid "Selects the microphone or audio-input device."
 msgstr "마이크 또는 오디오 입력 장치를 선택합니다."
 
-#: ../recording.rst:155
+#: ../doc/recording.rst:155
 msgid "Format"
 msgstr "포맷"
 
-#: ../recording.rst:155
+#: ../doc/recording.rst:155
 msgid "FLAC"
 msgstr "FLAC"
 
-#: ../recording.rst:155
+#: ../doc/recording.rst:155
 msgid ""
 "Chooses WAV, FLAC, or MP3. FLAC is lossless with smaller files than WAV."
 msgstr "WAV, FLAC 또는 MP3를 선택합니다. FLAC는 무손실이며 WAV보다 파일 크기가 작습니다."
 
-#: ../recording.rst:156
+#: ../doc/recording.rst:156
 msgid "Sample Rate"
 msgstr "샘플 레이트"
 
-#: ../recording.rst:156
+#: ../doc/recording.rst:156
 msgid "48000 Hz"
 msgstr "48000 Hz"
 
-#: ../recording.rst:156
+#: ../doc/recording.rst:156
 msgid ""
 "Sets the recording sample rate. Match the device and project when possible."
 msgstr "녹음 샘플 레이트를 설정합니다. 가능하면 장치와 프로젝트에 맞추세요."
 
-#: ../recording.rst:157
+#: ../doc/recording.rst:157
 msgid "Channels"
 msgstr "채널"
 
-#: ../recording.rst:157
+#: ../doc/recording.rst:157
 msgid "Mono"
 msgstr "모노"
 
-#: ../recording.rst:157
+#: ../doc/recording.rst:157
 msgid ""
 "Records one or two input channels. Mono is usually best for one microphone."
 msgstr "하나 또는 두 개의 입력 채널을 녹음합니다. 모노는 보통 하나의 마이크에 가장 적합합니다."
 
-#: ../recording.rst:160
+#: ../doc/recording.rst:160
 msgid ""
 "Aim for a healthy meter response without clipping. A quiet waveform should "
 "remain visually quiet; OpenShot no longer normalizes every newly generated "
@@ -448,54 +448,54 @@ msgid ""
 msgstr ""
 "클리핑 없이 적절한 미터 반응을 목표로 하세요. 조용한 파형은 시각적으로도 조용해야 합니다; OpenShot은 더 이상 새로 생성된 모든"
 " 파형을 전체 높이로 정규화하지 않습니다. 연한 피크 엔벨로프는 순간음을 강조하고, 진한 RMS 엔벨로프는 지속 에너지를 요약합니다. "
-"세부 사항은 :guilabel:`편집 → 환경설정 → 타임라인 → 파형 샘플(초당)`에서 조절할 수 있습니다. 녹음 후 파형 표시 및 "
-"오디오 볼륨 제어는 :ref:`clip_presets_ref`를 참조하세요."
+"세부 사항은 :guilabel:`편집 → 환경설정 → 타임라인 → 파형 샘플(초당)`\\ 에서 조절할 수 있습니다. 녹음 후 파형 표시 "
+"및 오디오 볼륨 제어는 :ref:`clip_presets_ref`\\ 를 참조하세요."
 
-#: ../recording.rst:167
+#: ../doc/recording.rst:167
 msgid "Screen Recording"
 msgstr "화면 녹화"
 
-#: ../recording.rst:169
+#: ../doc/recording.rst:169
 msgid "Enable :guilabel:`Screen`, then choose a capture mode:"
-msgstr ":guilabel:`화면`을 활성화한 후 캡처 모드를 선택하세요:"
+msgstr ":guilabel:`화면`\\ 을 활성화한 후 캡처 모드를 선택하세요:"
 
-#: ../recording.rst:171
+#: ../doc/recording.rst:171
 msgid "Screen capture modes"
 msgstr "화면 캡처 모드"
 
-#: ../recording.rst:175
+#: ../doc/recording.rst:175
 msgid "Mode"
 msgstr "모드"
 
-#: ../recording.rst:177
+#: ../doc/recording.rst:177
 msgid "Full Screen"
 msgstr "전체 화면"
 
-#: ../recording.rst:177
+#: ../doc/recording.rst:177
 msgid "Captures the selected display or combined desktop area."
 msgstr "선택한 디스플레이 또는 결합된 데스크탑 영역을 캡처합니다."
 
-#: ../recording.rst:178
+#: ../doc/recording.rst:178
 msgid "Window"
 msgstr "창"
 
-#: ../recording.rst:178
+#: ../doc/recording.rst:178
 msgid ""
 "Click a window to capture its bounds. Availability and exact behavior depend"
 " on the platform."
 msgstr "창을 클릭하여 해당 영역을 캡처합니다. 사용 가능 여부와 정확한 동작은 플랫폼에 따라 다릅니다."
 
-#: ../recording.rst:179
+#: ../doc/recording.rst:179
 msgid "Region"
 msgstr "영역"
 
-#: ../recording.rst:179
+#: ../doc/recording.rst:179
 msgid ""
 "Drag or select a rectangular desktop area. Availability depends on the "
 "platform."
 msgstr "사각형 데스크탑 영역을 드래그하거나 선택합니다. 사용 가능 여부는 플랫폼에 따라 다릅니다."
 
-#: ../recording.rst:182
+#: ../doc/recording.rst:182
 msgid ""
 "On Wayland desktops, the operating system's sharing portal asks which screen"
 " or window to share when recording starts. The numeric window and region "
@@ -504,93 +504,93 @@ msgstr ""
 "Wayland 데스크탑에서는 녹화 시작 시 운영체제의 공유 포털이 공유할 화면 또는 창을 묻습니다. 선택이 해당 포털에 속하므로 숫자 창"
 " 및 영역 컨트롤은 숨겨집니다."
 
-#: ../recording.rst:186
+#: ../doc/recording.rst:186
 msgid "Screen Advanced Options"
 msgstr "화면 고급 옵션"
 
-#: ../recording.rst:188
+#: ../doc/recording.rst:188
 msgid "Screen options"
 msgstr "화면 옵션"
 
-#: ../recording.rst:192
+#: ../doc/recording.rst:192
 msgid "Default"
 msgstr "기본값"
 
-#: ../recording.rst:194
+#: ../doc/recording.rst:194
 msgid "Primary display"
 msgstr "기본 디스플레이"
 
-#: ../recording.rst:194
+#: ../doc/recording.rst:194
 msgid "Selects a display or the complete desktop when supported."
 msgstr "지원되는 경우 디스플레이 또는 전체 데스크탑을 선택합니다."
 
-#: ../recording.rst:195
+#: ../doc/recording.rst:195
 msgid "Offset"
 msgstr "오프셋"
 
-#: ../recording.rst:195 ../recording.rst:196
+#: ../doc/recording.rst:195 ../doc/recording.rst:196
 msgid "Selected bounds"
 msgstr "선택된 경계"
 
-#: ../recording.rst:195
+#: ../doc/recording.rst:195
 msgid "Sets the capture area's X and Y desktop coordinates."
 msgstr "캡처 영역의 X 및 Y 데스크탑 좌표를 설정합니다."
 
-#: ../recording.rst:196 ../recording.rst:248
+#: ../doc/recording.rst:196 ../doc/recording.rst:248
 msgid "Size"
 msgstr "크기"
 
-#: ../recording.rst:196
+#: ../doc/recording.rst:196
 msgid ""
 "Sets capture width and height. OpenShot uses encoder-safe even dimensions."
 msgstr "캡처 너비와 높이를 설정합니다. OpenShot은 인코더 안전 짝수 치수를 사용합니다."
 
-#: ../recording.rst:197
+#: ../doc/recording.rst:197
 msgid "FPS"
 msgstr "FPS"
 
-#: ../recording.rst:197
+#: ../doc/recording.rst:197
 msgid "30"
 msgstr "30"
 
-#: ../recording.rst:197
+#: ../doc/recording.rst:197
 msgid "Sets the screen recording frame rate: 15, 24, 30, or 60 FPS."
 msgstr "화면 녹화 프레임 속도를 설정합니다: 15, 24, 30 또는 60 FPS."
 
-#: ../recording.rst:198 ../recording.rst:211
+#: ../doc/recording.rst:198 ../doc/recording.rst:211
 msgid "System Audio"
 msgstr "시스템 오디오"
 
-#: ../recording.rst:198 ../recording.rst:199
+#: ../doc/recording.rst:198 ../doc/recording.rst:199
 msgid "On"
 msgstr "켜기"
 
-#: ../recording.rst:198
+#: ../doc/recording.rst:198
 msgid "Embeds computer playback audio in the screen MP4 when supported."
 msgstr "지원되는 경우 화면 MP4에 컴퓨터 재생 오디오를 포함합니다."
 
-#: ../recording.rst:199
+#: ../doc/recording.rst:199
 msgid "Cursor"
 msgstr "커서"
 
-#: ../recording.rst:199
+#: ../doc/recording.rst:199
 msgid "Includes the mouse pointer in the screen recording."
 msgstr "화면 녹화에 마우스 포인터를 포함합니다."
 
-#: ../recording.rst:200
+#: ../doc/recording.rst:200
 msgid "Hide OpenShot"
 msgstr "OpenShot 숨기기"
 
-#: ../recording.rst:200
+#: ../doc/recording.rst:200
 msgid "No"
 msgstr "아니요"
 
-#: ../recording.rst:200
+#: ../doc/recording.rst:200
 msgid ""
 "Temporarily hides OpenShot during selection and recording when enabled."
 msgstr "활성화 시 선택 및 녹화 중에 OpenShot을 일시적으로 숨깁니다."
 
-#: ../recording.rst:205
+#: ../doc/recording.rst:205
 msgid ""
 "On some Windows systems using high-DPI display scaling, the mouse pointer "
 "may be displaced or missing from screen recordings made on a scaled display."
@@ -605,7 +605,7 @@ msgstr ""
 " 디스플레이를 일시적으로 100%로 설정하거나, 별도의 화면 캡처 애플리케이션을 사용하세요. 화면 비디오는 정상적으로 녹화되며, "
 ":guilabel:`Cursor` 를 :guilabel:`Off` 로 설정하면 영향을 받는 포인터 오버레이를 피할 수 있습니다."
 
-#: ../recording.rst:213
+#: ../doc/recording.rst:213
 msgid ""
 ":guilabel:`System Audio` is enabled by default on supported capture "
 "backends. It records sound playing through the computer—such as a game, "
@@ -617,7 +617,7 @@ msgstr ""
 "플레이어, 프레젠테이션 등 컴퓨터에서 재생되는 소리를 화면 녹화에 기록합니다. 마이크 소스를 대체하지 않습니다. 시스템 오디오와 "
 "독립적으로 편집 가능한 클립에서 해설을 원할 때 두 소스를 모두 활성화하세요."
 
-#: ../recording.rst:217
+#: ../doc/recording.rst:217
 msgid ""
 "If the control is disabled, the active platform or libopenshot build does "
 "not provide system-audio capture. OpenShot forces the option Off rather than"
@@ -628,7 +628,7 @@ msgstr ""
 "OpenShot은 오해를 일으키는 무음 오디오 트랙을 생성하는 대신 옵션을 강제로 끕니다. 운영 체제의 개인정보 보호 설정과 오디오 "
 "라우팅 구성도 캡처에 영향을 줄 수 있습니다."
 
-#: ../recording.rst:223
+#: ../doc/recording.rst:223
 msgid ""
 "System Audio recording is not currently available on macOS. Screen video, "
 "microphone, and webcam recording remain available, but the :guilabel:`System"
@@ -637,7 +637,7 @@ msgstr ""
 "macOS에서는 현재 시스템 오디오 녹음이 지원되지 않습니다. 화면 비디오, 마이크, 웹캠 녹음은 계속 사용할 수 있지만, "
 ":guilabel:`System Audio` 옵션은 비활성화되고 강제로 :guilabel:`Off` 로 설정됩니다."
 
-#: ../recording.rst:228
+#: ../doc/recording.rst:228
 msgid ""
 "Avoid playing captured system audio through speakers while also recording a "
 "microphone unless that sound is intentional. Headphones reduce echo and "
@@ -646,11 +646,11 @@ msgstr ""
 "녹음된 시스템 오디오를 스피커로 재생하면서 마이크를 녹음하는 것은 그 소리가 의도된 경우가 아니면 피하세요. 헤드폰을 사용하면 에코를 "
 "줄이고 마이크가 스피커 소리를 다시 녹음하는 것을 방지할 수 있습니다."
 
-#: ../recording.rst:232
+#: ../doc/recording.rst:232
 msgid "Webcam Recording"
 msgstr "웹캠 녹화"
 
-#: ../recording.rst:234
+#: ../doc/recording.rst:234
 msgid ""
 "Enable :guilabel:`Webcam` to record a camera as a silent video clip. A live "
 "preview helps verify framing before you start. When Screen is also enabled, "
@@ -661,52 +661,52 @@ msgstr ""
 " 있습니다. 화면도 활성화된 경우 기본 레이아웃은 오른쪽 하단 모서리에 둥근 30% 크기의 카메라입니다. 웹캠만 녹화할 때는 기본 크기가"
 " 전체 크기입니다."
 
-#: ../recording.rst:238
+#: ../doc/recording.rst:238
 msgid "Webcam options"
 msgstr "웹캠 옵션"
 
-#: ../recording.rst:244
+#: ../doc/recording.rst:244
 msgid "Selects an available webcam or video-capture device."
 msgstr "사용 가능한 웹캠 또는 비디오 캡처 장치를 선택합니다."
 
-#: ../recording.rst:245
+#: ../doc/recording.rst:245
 msgid "Resolution"
 msgstr "해상도"
 
-#: ../recording.rst:245
+#: ../doc/recording.rst:245
 msgid "Selects a resolution reported by the camera."
 msgstr "카메라가 보고하는 해상도를 선택합니다."
 
-#: ../recording.rst:246
+#: ../doc/recording.rst:246
 msgid "Record FPS"
 msgstr "녹화 FPS"
 
-#: ../recording.rst:246
+#: ../doc/recording.rst:246
 msgid "Selects a frame rate supported at the chosen resolution."
 msgstr "선택한 해상도에서 지원되는 프레임 속도를 선택합니다."
 
-#: ../recording.rst:247
+#: ../doc/recording.rst:247
 msgid "Layout"
 msgstr "레이아웃"
 
-#: ../recording.rst:247
+#: ../doc/recording.rst:247
 msgid ""
 "Chooses Bottom/Top Left/Right, Left, Right, Center, or Full Size placement."
 msgstr "하단/상단 좌/우, 좌, 우, 중앙 또는 전체 크기 배치를 선택합니다."
 
-#: ../recording.rst:248
+#: ../doc/recording.rst:248
 msgid "Sets a corner camera to 20%, 30%, or 40% of the project frame."
 msgstr "모서리 카메라 크기를 프로젝트 프레임의 20%, 30%, 또는 40%로 설정합니다."
 
-#: ../recording.rst:249
+#: ../doc/recording.rst:249
 msgid "Corners"
 msgstr "모서리"
 
-#: ../recording.rst:249
+#: ../doc/recording.rst:249
 msgid "Uses Rectangle, Rounded, or Oval camera corners."
 msgstr "사각형, 둥근 모서리, 타원형 카메라 모서리를 사용합니다."
 
-#: ../recording.rst:252
+#: ../doc/recording.rst:252
 msgid ""
 "Layout choices are applied as ordinary clip properties. After recording, use"
 " :guilabel:`Gravity`, :guilabel:`Scale X`, :guilabel:`Scale Y`, "
@@ -717,94 +717,94 @@ msgstr ""
 ":guilabel:`Scale Y`, :guilabel:`Margin`, :guilabel:`Corner Radius` 를 사용하여 "
 "결과를 조정하세요. :ref:`clip_properties_ref` 를 참조하세요."
 
-#: ../recording.rst:257
+#: ../doc/recording.rst:257
 msgid "Combining Sources"
 msgstr "소스 결합"
 
-#: ../recording.rst:259
+#: ../doc/recording.rst:259
 msgid ""
 "The Recording View keeps all enabled source controls together while leaving "
 "the preview and timeline visible."
 msgstr "녹화 뷰는 모든 활성화된 소스 컨트롤을 함께 유지하면서 미리보기와 타임라인을 표시합니다."
 
-#: ../recording.rst:-1
+#: ../doc/recording.rst:-1
 msgid ""
 "OpenShot Recording View with microphone, screen, and webcam sources selected"
 msgstr "마이크, 화면, 웹캠 소스가 선택된 OpenShot 녹화 뷰"
 
-#: ../recording.rst:264
+#: ../doc/recording.rst:264
 msgid "Useful recording combinations"
 msgstr "유용한 녹화 조합"
 
-#: ../recording.rst:268
+#: ../doc/recording.rst:268
 msgid "Workflow"
 msgstr "워크플로우"
 
-#: ../recording.rst:269
+#: ../doc/recording.rst:269
 msgid "Enable"
 msgstr "활성화"
 
-#: ../recording.rst:270
+#: ../doc/recording.rst:270
 msgid "Result"
 msgstr "결과"
 
-#: ../recording.rst:271
+#: ../doc/recording.rst:271
 msgid "Voice-over"
 msgstr "보이스오버"
 
-#: ../recording.rst:273
+#: ../doc/recording.rst:273
 msgid "One editable narration file."
 msgstr "편집 가능한 내레이션 파일 하나."
 
-#: ../recording.rst:274
+#: ../doc/recording.rst:274
 msgid "Silent tutorial"
 msgstr "무음 튜토리얼"
 
-#: ../recording.rst:276
+#: ../doc/recording.rst:276
 msgid "Screen MP4; turn System Audio Off if silence is desired."
 msgstr "화면 MP4; 무음을 원하면 시스템 오디오를 끄세요."
 
-#: ../recording.rst:277
+#: ../doc/recording.rst:277
 msgid "Game commentary"
 msgstr "게임 해설"
 
-#: ../recording.rst:278
+#: ../doc/recording.rst:278
 msgid "Mic + Screen"
 msgstr "마이크 + 화면"
 
-#: ../recording.rst:279
+#: ../doc/recording.rst:279
 msgid "Separate mic clip plus screen video with game audio."
 msgstr "별도의 마이크 클립과 게임 오디오가 포함된 화면 비디오."
 
-#: ../recording.rst:280
+#: ../doc/recording.rst:280
 msgid "Presenter camera"
 msgstr "발표자 카메라"
 
-#: ../recording.rst:281
+#: ../doc/recording.rst:281
 msgid "Mic + Webcam"
 msgstr "마이크 + 웹캠"
 
-#: ../recording.rst:282
+#: ../doc/recording.rst:282
 msgid "Separate voice and silent camera video."
 msgstr "별도의 음성 및 무음 카메라 비디오."
 
-#: ../recording.rst:283
+#: ../doc/recording.rst:283
 msgid "Tutorial with camera"
 msgstr "카메라가 포함된 튜토리얼"
 
-#: ../recording.rst:284
+#: ../doc/recording.rst:284
 msgid "Mic + Screen + Webcam"
 msgstr "마이크 + 화면 + 웹캠"
 
-#: ../recording.rst:285
+#: ../doc/recording.rst:285
 msgid "Three synchronized clips with webcam above the screen."
 msgstr "웹캠이 화면 위에 있는 세 개의 동기화된 클립."
 
-#: ../recording.rst:288
+#: ../doc/recording.rst:288
 msgid "Where Recordings Are Saved"
 msgstr "녹화 파일 저장 위치"
 
-#: ../recording.rst:290
+#: ../doc/recording.rst:290
 msgid ""
 "Recordings are saved in the project's assets folder under ``recordings``. If"
 " the project has not been saved yet, OpenShot uses its user-data location. "
@@ -815,7 +815,7 @@ msgstr ""
 " 사용자 데이터 위치를 사용합니다. 파일 이름에는 소스 이름과 타임스탬프가 포함되며, 같은 초에 생성된 파일 덮어쓰기를 방지하기 위해 "
 "추가 숫자 접미사가 붙습니다."
 
-#: ../recording.rst:294
+#: ../doc/recording.rst:294
 msgid ""
 "Save the project before a long or important session so its recording "
 "destination is predictable. Do not move or rename recorded files outside "
@@ -824,11 +824,11 @@ msgstr ""
 "긴 녹화나 중요한 세션 전에 프로젝트를 저장하여 녹화 저장 위치가 예측 가능하도록 하세요. 프로젝트가 녹화 파일을 사용하는 동안에는 "
 "OpenShot 외부에서 녹화 파일을 이동하거나 이름을 변경하지 마세요."
 
-#: ../recording.rst:298
+#: ../doc/recording.rst:298
 msgid "Permissions and Platform Behavior"
 msgstr "권한 및 플랫폼 동작"
 
-#: ../recording.rst:300
+#: ../doc/recording.rst:300
 msgid ""
 "Screen and camera capture depend on operating-system services, hardware, and"
 " build support. The controls in the dock adapt to the available backend."
@@ -836,19 +836,19 @@ msgstr ""
 "화면 및 카메라 캡처는 운영 체제 서비스, 하드웨어 및 빌드 지원에 따라 달라집니다. 도크의 컨트롤은 사용 가능한 백엔드에 맞게 "
 "조정됩니다."
 
-#: ../recording.rst:303
+#: ../doc/recording.rst:303
 msgid ""
 "**Linux/X11:** Full-screen, window, and numeric region capture are available"
 " when the X11 capture backend is built."
 msgstr "**Linux/X11:** X11 캡처 백엔드가 빌드된 경우 전체 화면, 창 및 숫자 영역 캡처가 가능합니다."
 
-#: ../recording.rst:304
+#: ../doc/recording.rst:304
 msgid ""
 "**Linux/Wayland:** The desktop sharing portal chooses the capture source "
 "after recording starts."
 msgstr "**Linux/Wayland:** 데스크톱 공유 포털이 녹화 시작 후 캡처 소스를 선택합니다."
 
-#: ../recording.rst:305
+#: ../doc/recording.rst:305
 msgid ""
 "**Windows:** Desktop capture uses the available Windows screen backend; "
 "camera devices use Windows capture services."
@@ -856,7 +856,7 @@ msgstr ""
 "**Windows:** 데스크톱 캡처는 사용 가능한 Windows 화면 백엔드를 사용하며, 카메라 장치는 Windows 캡처 서비스를 "
 "사용합니다."
 
-#: ../recording.rst:306
+#: ../doc/recording.rst:306
 msgid ""
 "**macOS:** Screen capture uses the supported macOS backend, with window and "
 "region choices represented as cropped screen bounds when required. System "
@@ -866,7 +866,7 @@ msgstr ""
 "**macOS:** 화면 캡처는 지원되는 macOS 백엔드를 사용하며, 필요 시 창 및 영역 선택은 잘린 화면 경계로 표시됩니다. 시스템"
 " 오디오 녹음은 현재 지원되지 않으며, 마이크 녹음은 별도의 오디오 소스로 계속 사용할 수 있습니다."
 
-#: ../recording.rst:310
+#: ../doc/recording.rst:310
 msgid ""
 "The first recording may trigger Screen Recording, Microphone, Camera, or "
 "desktop-sharing permission prompts. Approve the requested source, then "
@@ -877,130 +877,130 @@ msgstr ""
 "첫 녹화 시 화면 녹화, 마이크, 카메라 또는 데스크톱 공유 권한 요청이 나타날 수 있습니다. 요청된 소스를 승인하고, 운영 체제가 "
 "요구하면 OpenShot을 재시작하세요. 지원되지 않는 소스를 조용히 생략하는 녹화보다 비활성화된 소스 카드나 옵션이 더 낫습니다."
 
-#: ../recording.rst:315
+#: ../doc/recording.rst:315
 msgid "Troubleshooting Recording"
 msgstr "녹화 문제 해결"
 
-#: ../recording.rst:317
+#: ../doc/recording.rst:317
 msgid "Common recording problems"
 msgstr "일반적인 녹화 문제"
 
-#: ../recording.rst:321
+#: ../doc/recording.rst:321
 msgid "Problem"
 msgstr "문제"
 
-#: ../recording.rst:321
+#: ../doc/recording.rst:321
 msgid "What to Check"
 msgstr "확인할 사항"
 
-#: ../recording.rst:323
+#: ../doc/recording.rst:323
 msgid "Mic meter does not move"
 msgstr "마이크 미터가 움직이지 않음"
 
-#: ../recording.rst:323
+#: ../doc/recording.rst:323
 msgid ""
 "Select the correct Input, verify OS microphone permission, and check "
 "mute/gain."
 msgstr "올바른 입력을 선택하고, 운영 체제의 마이크 권한을 확인하며, 음소거/게인을 점검하세요."
 
-#: ../recording.rst:324
+#: ../doc/recording.rst:324
 msgid "Mic clips or distorts"
 msgstr "마이크가 클리핑되거나 왜곡됨"
 
-#: ../recording.rst:324
+#: ../doc/recording.rst:324
 msgid "Lower hardware/input gain and keep peaks below full scale."
 msgstr "하드웨어/입력 게인을 낮추고 피크가 최대치를 넘지 않도록 유지하세요."
 
-#: ../recording.rst:325
+#: ../doc/recording.rst:325
 msgid "Mic is very quiet"
 msgstr "마이크가 매우 조용함"
 
-#: ../recording.rst:325
+#: ../doc/recording.rst:325
 msgid ""
 "Raise input gain near the device; timeline waveform height does not change "
 "audio."
 msgstr "장치 근처에서 입력 게인을 올리세요; 타임라인 파형 높이는 오디오에 영향을 주지 않습니다."
 
-#: ../recording.rst:326
+#: ../doc/recording.rst:326
 msgid "System Audio is disabled"
 msgstr "시스템 오디오가 비활성화됨"
 
-#: ../recording.rst:326
+#: ../doc/recording.rst:326
 msgid ""
 "The active screen backend/build does not support it; check platform audio "
 "routing."
 msgstr "활성 화면 백엔드/빌드가 이를 지원하지 않습니다; 플랫폼 오디오 라우팅을 확인하세요."
 
-#: ../recording.rst:327
+#: ../doc/recording.rst:327
 msgid "System Audio is silent"
 msgstr "시스템 오디오가 무음임"
 
-#: ../recording.rst:327
+#: ../doc/recording.rst:327
 msgid ""
 "Play audio before testing, verify the output device, and inspect OS "
 "privacy/routing."
 msgstr "테스트 전에 오디오를 재생하고, 출력 장치를 확인하며, 운영 체제의 개인정보 보호/라우팅을 점검하세요."
 
-#: ../recording.rst:328
+#: ../doc/recording.rst:328
 msgid "Voice contains game echo"
 msgstr "음성에 게임 에코가 포함됨"
 
-#: ../recording.rst:328
+#: ../doc/recording.rst:328
 msgid "Use headphones so the mic does not capture speaker playback."
 msgstr "마이크가 스피커 재생음을 캡처하지 않도록 헤드폰을 사용하세요."
 
-#: ../recording.rst:329
+#: ../doc/recording.rst:329
 msgid "Screen source is incorrect"
 msgstr "화면 소스가 올바르지 않음"
 
-#: ../recording.rst:329
+#: ../doc/recording.rst:329
 msgid ""
 "Re-select Full Screen/Window/Region; on Wayland, choose again in the portal."
 msgstr "전체 화면/창/영역을 다시 선택하세요; Wayland에서는 포털에서 다시 선택하세요."
 
-#: ../recording.rst:330
+#: ../doc/recording.rst:330
 msgid "Cursor missing on Windows"
 msgstr "Windows에서 커서가 보이지 않음"
 
-#: ../recording.rst:330
+#: ../doc/recording.rst:330
 msgid ""
 "High-DPI scaling can affect the pointer overlay; try the target display at "
 "100%."
 msgstr "고해상도 DPI 스케일링이 포인터 오버레이에 영향을 줄 수 있습니다; 대상 디스플레이를 100%로 설정해 보세요."
 
-#: ../recording.rst:331
+#: ../doc/recording.rst:331
 msgid "Webcam is unavailable"
 msgstr "웹캠을 사용할 수 없음"
 
-#: ../recording.rst:331
+#: ../doc/recording.rst:331
 msgid ""
 "Check camera permission, close other camera apps, and reconnect the device."
 msgstr "카메라 권한을 확인하고, 다른 카메라 앱을 닫은 후 장치를 다시 연결하세요."
 
-#: ../recording.rst:332
+#: ../doc/recording.rst:332
 msgid "Recording is choppy"
 msgstr "녹화가 끊김"
 
-#: ../recording.rst:332
+#: ../doc/recording.rst:332
 msgid ""
 "Lower screen/camera FPS or resolution and close CPU-intensive applications."
 msgstr "화면/카메라 FPS 또는 해상도를 낮추고 CPU 집약적인 애플리케이션을 종료하세요."
 
-#: ../recording.rst:333
+#: ../doc/recording.rst:333
 msgid "Clips appear on wrong track"
 msgstr "클립이 잘못된 트랙에 나타남"
 
-#: ../recording.rst:333
+#: ../doc/recording.rst:333
 msgid ""
 "Choose the top destination Track before recording, then move clips if "
 "needed."
 msgstr "녹화 전에 최상위 대상 트랙을 선택하고, 필요하면 클립을 이동하세요."
 
-#: ../recording.rst:337
+#: ../doc/recording.rst:337
 msgid "After Recording"
 msgstr "녹화 후"
 
-#: ../recording.rst:339
+#: ../doc/recording.rst:339
 msgid ""
 "Recorded clips behave like imported media. You can trim, slice, move, mute, "
 "fade, add effects, and adjust volume or layout with the standard editing "
@@ -1009,20 +1009,20 @@ msgstr ""
 "녹화된 클립은 가져온 미디어처럼 동작합니다. 표준 편집 도구로 자르기, 분할, 이동, 음소거, 페이드, 효과 추가, 볼륨 또는 레이아웃 "
 "조정이 가능합니다. 유용한 다음 주제는 다음과 같습니다:"
 
-#: ../recording.rst:342
+#: ../doc/recording.rst:342
 msgid ":ref:`clips_cutting_slicing_ref` for trimming and slicing."
 msgstr ":ref:`clips_cutting_slicing_ref` 는 자르기 및 분할에 관한 내용입니다."
 
-#: ../recording.rst:343
+#: ../doc/recording.rst:343
 msgid ""
 ":ref:`clip_presets_ref` for waveform, volume, fade, and other clip actions."
 msgstr ":ref:`clip_presets_ref` 는 파형, 볼륨, 페이드 및 기타 클립 작업에 관한 내용입니다."
 
-#: ../recording.rst:344
+#: ../doc/recording.rst:344
 msgid ""
 ":ref:`clip_properties_ref` for webcam placement and detailed adjustments."
 msgstr ":ref:`clip_properties_ref` 는 웹캠 배치 및 세부 조정에 관한 내용입니다."
 
-#: ../recording.rst:345
+#: ../doc/recording.rst:345
 msgid ":ref:`playback_ref` for playback and audio troubleshooting."
 msgstr ":ref:`playback_ref` 는 재생 및 오디오 문제 해결에 관한 내용입니다."

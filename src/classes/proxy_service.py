@@ -591,7 +591,7 @@ class ProxyService(QObject):
              return False
          if proxy_reader.get("missing"):
              return True
-         return not os.path.exists(str(proxy_reader.get("path")))
+         return not os.path.exists(absolute_media_path(proxy_reader.get("path")))
 
      def get_active_job_for_file(self, file_id):
          file_id = str(file_id or "")
@@ -750,7 +750,7 @@ class ProxyService(QObject):
                      openshot.Fraction(int(pixel_ratio.get("num", 1)), int(pixel_ratio.get("den", 1))),
                      False,
                      False,
-                     28,
+                     23,
                  )
                  writer.PrepareStreams()
 
@@ -766,6 +766,8 @@ class ProxyService(QObject):
                      )
                      writer.PrepareStreams()
 
+                 # Set CRF explicitly: SetVideoOptions alone leaves x264's default in use.
+                 writer.SetOption(openshot.VIDEO_STREAM, "crf", "23")
                  writer.Open()
                  try:
                      max_frame = int(source_reader.get("video_length", 0) or 0)

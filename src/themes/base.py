@@ -108,15 +108,15 @@ class MessageBoxStyleFilter(QObject):
             button.setSizePolicy(size_policy)
 
             standard_button = message_box.standardButton(button)
+            # buttonRole() returns QMessageBox.ButtonRole; Qt6 bindings never
+            # treat it as equal to QDialogButtonBox.ButtonRole members.
             role = message_box.buttonRole(button)
+            roles = QMessageBox.ButtonRole
             if standard_button == QMessageBox.Cancel:
                 style_role = "cancel"
-            elif role in (
-                    QDialogButtonBox.AcceptRole,
-                    QDialogButtonBox.YesRole,
-                    QDialogButtonBox.ApplyRole):
+            elif role in (roles.AcceptRole, roles.YesRole, roles.ApplyRole):
                 style_role = "primary"
-            elif role == QDialogButtonBox.DestructiveRole:
+            elif role == roles.DestructiveRole:
                 style_role = "destructive"
             else:
                 style_role = "secondary"
@@ -367,6 +367,12 @@ QMessageBox QDialogButtonBox#qt_msgbox_buttonbox QPushButton[dialogRole="cancel"
                         button_stylesheet + self._debug_focus_toolbutton_rule()
                     )
 
+        if toolbar.objectName() == 'videoToolbar':
+            measurements = getattr(self.app, 'gpu_measurements', None)
+            if measurements:
+                from windows.views.gpu_metrics import GpuPreviewSegments
+                toolbar.addWidget(GpuPreviewSegments(measurements, self.app._tr, self.app.window, toolbar))
+
     def apply_theme(self):
         # Apply the stylesheet to the entire application
         from classes import info
@@ -439,6 +445,7 @@ QMessageBox QDialogButtonBox#qt_msgbox_buttonbox QPushButton[dialogRole="cancel"
             {"action": self.app.window.actionAutoKeyframes, "style": Qt.ToolButtonIconOnly, "icon": "themes/humanity/images/tool-auto-keyframes.svg"},
             {"action": self.app.window.actionTimingTool, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/custom/timing.svg"},
             {"action": self.app.window.actionRazorTool, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/Humanity/actions/16/edit-cut.svg"},
+            {"action": self.app.window.actionDirectText, "icon": "images/tool-text.svg", "style": Qt.ToolButtonIconOnly},
             {"divide": True},
             {"action": self.app.window.actionAddMarker, "style": Qt.ToolButtonIconOnly, "icon": ":/icons/actions/add_marker.svg"},
             {"action": self.app.window.actionPreviousMarker, "style": Qt.ToolButtonIconOnly},

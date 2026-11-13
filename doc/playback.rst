@@ -26,6 +26,10 @@ utilizes real-time video rendering, caching, re-sampling, and image scaling. Thi
 back (and listening to) your edits, giving you the feedback needed to make adjustments. It is also one of the most
 costly operations to your CPU, and requires a modern computer and some reasonable assumptions and factors (listed below).
 
+To watch a file or choose a section before adding it to the timeline, right-click
+it in Project Files and choose :guilabel:`Preview File` or :guilabel:`Split File`.
+See :ref:`source_preview_ref`.
+
 Real-Time Preview
 -----------------
 Many factors affect how smoothly the **real-time video preview** can playback on your computer. This requires a fast, modern

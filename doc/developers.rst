@@ -245,6 +245,12 @@ see :ref:`cli_ref`. Start with ``openshot-qt --cli intro`` (or
 ``python3 src/launch.py --cli intro`` from source). Put ``--cli`` first, followed
 by the editing command and its options.
 
+The CLI supports shared GUI/headless sessions, graceful ``session close``,
+portable copies with ``project collect``, and runtime-checked export encoder
+selection. For review, choose timeline summaries, zoomed waveform views,
+contact sheets, exact frame previews, or rendered video as appropriate; the
+CLI guide covers timing conventions and examples.
+
 The launch options below work with the installed OpenShot application, including
 ``openshot-qt-cmd.exe`` on Windows for visible terminal output. For Windows CLI
 usage, follow the console-executable guidance in :ref:`cli_ref`. When running

@@ -5,8 +5,6 @@
 
 import copy
 
-import openshot
-
 
 COLOR_GRADE_CLASS_NAME = "ColorGrade"
 
@@ -62,6 +60,7 @@ def _set_scalar(effect_json, key, value):
 
 
 def _curve_node(node_id, x_value, y_value):
+    import openshot  # Keep preset names importable without libopenshot (CLI help).
     return {
         "id": int(node_id),
         "x": _constant_property(x_value),

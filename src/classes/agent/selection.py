@@ -32,7 +32,7 @@ from .validation import numeric, unknown
 
 
 def select(service, selector):
-    allowed = ('ids', 'layer', 'start', 'end', 'file_id', 'effect', 'all')
+    allowed = ('ids', 'layer', 'start', 'end', 'file_id', 'effect', 'text', 'all')
     if not selector:
         raise CommandError('invalid_selection', 'Provide selection filters, or explicitly use {"all":true}.')
     for key in selector:
@@ -56,6 +56,8 @@ def select(service, selector):
         if not isinstance(selector['file_id'], str):
             raise CommandError('invalid_selection', 'file_id must be an imported file ID.')
         service.obj('file', selector['file_id'])
+    if 'text' in selector and selector['text'] is not True:
+        raise CommandError('invalid_selection', 'text must be true (select text clips).')
     effect = None
     if 'effect' in selector:
         if not isinstance(selector['effect'], str):
@@ -79,6 +81,8 @@ def select(service, selector):
         if 'start' in selector and c['position'] + c['end'] - c['start'] <= selector['start']:
             continue
         if 'end' in selector and c['position'] >= selector['end']:
+            continue
+        if selector.get('text') and not c.get('direct_text'):
             continue
         if effect and not any((e.get('class_name') or e.get('type')) == effect for e in c.get('effects', [])):
             continue
@@ -121,14 +125,14 @@ def expand(service, selection, templates, mutations):
             entry = local_refs(copy.deepcopy(template))
             method = method_name(entry['method'])
             params = entry['params']
-            if method.startswith('clip.') and method != 'clip.add':
+            if (method.startswith('clip.') and method != 'clip.add') or method in ('text.set', 'text.reset'):
                 target = 'id'
             elif method == 'effect.add':
                 target = 'clip_id'
             elif method.startswith('effect.') and isinstance(params.get('id'), dict) and '$ref' in params['id']:
                 target = None
             else:
-                raise CommandError('invalid_template', 'Bulk templates support existing clip mutations, effect.add, and effect mutations referencing an earlier named result.')
+                raise CommandError('invalid_template', 'Bulk templates support existing clip mutations, text.set/text.reset, effect.add, and effect mutations referencing an earlier named result.')
             if target:
                 if target in params:
                     raise CommandError('invalid_template', 'Omit ' + target + '; bulk supplies the selected clip ID.')

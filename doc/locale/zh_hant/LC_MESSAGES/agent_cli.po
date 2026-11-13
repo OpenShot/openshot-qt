@@ -1,0 +1,1462 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh_hant\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../doc/agent_cli.rst:6
+msgid "Command Line Interface"
+msgstr "命令列介面"
+
+#: ../doc/agent_cli.rst:8
+msgid ""
+"Bring OpenShot into your command-line workflow. Import footage, trim and "
+"arrange clips, apply effects, animate properties with keyframes, and export "
+"videos from your terminal. Use a few commands to automate repetitive edits, "
+"write a script for a recurring project, or let an AI agent help assemble and"
+" refine a video."
+msgstr ""
+"將 OpenShot "
+"帶入您的命令列工作流程。匯入素材、剪輯並排列片段、套用效果、使用關鍵影格動畫屬性，並從終端機匯出影片。使用幾個指令自動化重複編輯，為重複專案撰寫腳本，或讓"
+" AI 代理協助組裝和精煉影片。"
+
+#: ../doc/agent_cli.rst:13
+msgid ""
+"The command line works with the same projects as the editor. You can control"
+" an open editor and review changes as you go, or work in a **headless "
+"session** without opening a window. A session keeps your project open "
+"between commands, including its edits, undo history, and export jobs. Save "
+"it as an ``.osp`` project whenever you want to continue editing later."
+msgstr ""
+"命令列與編輯器使用相同的專案。您可以控制已開啟的編輯器並隨時檢視變更，或在無頭模式（\\ **headless session**\\ "
+"）下工作而不開啟視窗。工作階段會在指令間保持專案開啟，包括編輯、復原歷史和匯出工作。隨時將其儲存為 ``.osp`` 專案，以便稍後繼續編輯。"
+
+#: ../doc/agent_cli.rst:20
+msgid "Getting started"
+msgstr "開始使用"
+
+#: ../doc/agent_cli.rst:22
+msgid ""
+"Use your installed OpenShot executable followed by ``--cli``. Start with "
+"``intro`` for a short guide to sessions, editing, animation, and saving, or "
+"``help`` for the command overview. These commands do not need an active "
+"session. The examples below require an OpenShot build that includes command-"
+"line editing."
+msgstr ""
+"使用您已安裝的 OpenShot 執行檔，後接 ``--cli``\\ 。以 ``intro`` "
+"開始，獲得關於工作階段、編輯、動畫和儲存的簡短指南，或使用 ``help`` 查看指令總覽。這些指令不需要啟動工作階段。以下範例需要包含命令列編輯功能的"
+" OpenShot 版本。"
+
+#: ../doc/agent_cli.rst:30
+msgid "Linux AppImage"
+msgstr "Linux AppImage"
+
+#: ../doc/agent_cli.rst:32
+msgid "From the directory containing your downloaded AppImage::"
+msgstr "從包含您下載的 AppImage 的目錄開始::"
+
+#: ../doc/agent_cli.rst:37
+msgid ""
+"Replace ``OpenShot.AppImage`` with your downloaded filename. If "
+"**AppImageLauncher** shows desktop integration dialogs, set "
+"``APPIMAGELAUNCHER_DISABLE=1`` before launching the command::"
+msgstr ""
+"將 ``OpenShot.AppImage`` 替換為您下載的檔名。如果 **AppImageLauncher** "
+"顯示桌面整合對話框，請在執行指令前設定 ``APPIMAGELAUNCHER_DISABLE=1``::"
+
+#: ../doc/agent_cli.rst:43
+msgid "For scripts or repeated commands, set it once in your current shell::"
+msgstr "對於腳本或重複指令，請在目前的 shell 中設定一次::"
+
+#: ../doc/agent_cli.rst:48
+msgid ""
+"The variable must be set before launching the AppImage: AppImageLauncher can"
+" intercept it before OpenShot receives ``--cli``. Relative media paths and "
+"``@batch.json`` files are resolved from your working directory. Keep the "
+"AppImage file available while its sessions or exports are running."
+msgstr ""
+"此變數必須在啟動 AppImage 前設定：AppImageLauncher 可能會在 OpenShot 接收 ``--cli`` "
+"前攔截它。相對媒體路徑和 ``@batch.json`` 檔案會從您的工作目錄解析。當工作階段或匯出執行時，請保持 AppImage 檔案可用。"
+
+#: ../doc/agent_cli.rst:54
+msgid "Linux Snap"
+msgstr "Linux Snap"
+
+#: ../doc/agent_cli.rst:56
+msgid "For the `OpenShot Snap <https://snapcraft.io/openshot-qt>`_, use::"
+msgstr "對於 `OpenShot Snap <https://snapcraft.io/openshot-qt>`_，請使用::"
+
+#: ../doc/agent_cli.rst:62
+msgid ""
+"Snap's file permissions apply to command-line editing too. Keep media, "
+"projects, and exports in locations the Snap can access, such as your home "
+"folder. To allow access to external drives, connect the removable-media "
+"permission::"
+msgstr ""
+"Snap 的檔案權限同樣適用於命令列編輯。請將媒體、專案和匯出放在 Snap 可存取的位置，例如您的家目錄。若要允許存取外接硬碟，請連接 "
+"removable-media 權限::"
+
+#: ../doc/agent_cli.rst:69
+msgid "Windows"
+msgstr "Windows"
+
+#: ../doc/agent_cli.rst:73
+msgid ""
+"**Use openshot-qt-cmd.exe for command-line editing on Windows.** This "
+"console executable displays command results, help, and errors in your "
+"terminal. The desktop executable, ``openshot-qt.exe``, does not display "
+"standard output in an interactive terminal, leaving commands without visible"
+" feedback and making the CLI difficult to use."
+msgstr ""
+"**在 Windows 上請使用 openshot-qt-cmd.exe 進行命令列編輯。** "
+"此控制台執行檔會在終端機顯示指令結果、說明和錯誤。桌面執行檔 ``openshot-qt.exe`` "
+"不會在互動式終端機顯示標準輸出，導致指令無法看到回饋，使 CLI 難以使用。"
+
+#: ../doc/agent_cli.rst:79
+msgid "In PowerShell, from the OpenShot installation directory::"
+msgstr "在 PowerShell 中，從 OpenShot 安裝目錄::"
+
+#: ../doc/agent_cli.rst:85
+msgid ""
+"If you are in a different directory, use the full path to ``openshot-qt-"
+"cmd.exe``. Keep ``--cli`` after the executable name."
+msgstr "如果您在不同目錄，請使用 ``openshot-qt-cmd.exe`` 的完整路徑。執行檔名稱後保留 ``--cli``\\ 。"
+
+#: ../doc/agent_cli.rst:89
+msgid "macOS"
+msgstr "macOS"
+
+#: ../doc/agent_cli.rst:91
+msgid "For an installation in Applications::"
+msgstr "若安裝於 Applications 目錄::"
+
+#: ../doc/agent_cli.rst:97
+msgid "Finding commands"
+msgstr "尋找指令"
+
+#: ../doc/agent_cli.rst:99
+msgid ""
+"Throughout this guide, ``openshot-cli`` is shorthand for your installation's"
+" command above, such as ``snap run openshot-qt --cli`` or "
+"``./OpenShot.AppImage --cli``. Some installations also provide an "
+"``openshot-cli`` command directly. When running from source, use ``python3 "
+"src/launch.py --cli`` in OpenShot's Python environment."
+msgstr ""
+"在本指南中，\\ ``openshot-cli`` 是您安裝指令的簡寫，例如 ``snap run openshot-qt --cli`` 或 "
+"``./OpenShot.AppImage --cli``\\ 。部分安裝也直接提供 ``openshot-cli`` 指令。從原始碼執行時，請在 "
+"OpenShot 的 Python 環境中使用 ``python3 src/launch.py --cli``\\ 。"
+
+#: ../doc/agent_cli.rst:105
+msgid ""
+"Bare ``--cli``, ``--cli help``, and ``--cli --help`` show the same overview."
+" Help becomes more specific as you navigate commands::"
+msgstr ""
+"單獨使用 ``--cli``\\ 、\\ ``--cli help`` 和 ``--cli --help`` "
+"顯示相同的總覽。隨著您瀏覽指令，說明會變得更具體::"
+
+#: ../doc/agent_cli.rst:117
+msgid ""
+"Group help explains workflows with examples; operation help describes "
+"arguments and behavior. ``--help`` is equivalent to trailing ``help``. All "
+"help commands work without an editing session."
+msgstr ""
+"群組說明以範例解釋工作流程；操作說明描述參數和行為。\\ ``--help`` 等同於尾隨的 ``help``\\ "
+"。所有說明指令均可在無編輯工作階段下使用。"
+
+#: ../doc/agent_cli.rst:121
+msgid ""
+"``effects list`` shows the available effects with short descriptions. Effect"
+" help explains their properties, defaults, choices, and ranges. ``effects "
+"instances`` lists effects already attached to clips, with parent clip IDs. "
+"Class names, display names, and underscore aliases identify the same effect."
+msgstr ""
+"``effects list`` 顯示可用效果及簡短描述。效果說明解釋其屬性、預設值、選項和範圍。\\ ``effects instances`` "
+"列出已附加於片段的效果及其父片段 ID。類別名稱、顯示名稱和底線別名皆識別相同效果。"
+
+#: ../doc/agent_cli.rst:127
+msgid "Working with scripts and AI agents"
+msgstr "與腳本及 AI 代理合作"
+
+#: ../doc/agent_cli.rst:129
+msgid ""
+"AI coding agents such as **Codex** and **Claude Code** can use the CLI to "
+"inspect and edit OpenShot projects through terminal commands. Give your "
+"agent the path to your OpenShot executable, the media or project to work "
+"with, and the desired result: duration, dimensions, animation style, and "
+"output location. Ask it to read ``--cli intro`` before starting. The same "
+"commands work when you type them yourself or run them from a script."
+msgstr ""
+"像 **Codex** 和 **Claude Code** 這類 AI 程式代理可以使用 CLI 透過終端機指令檢視和編輯 OpenShot "
+"專案。提供代理 OpenShot 執行檔路徑、要處理的媒體或專案，以及期望結果：長度、尺寸、動畫風格和輸出位置。請它在開始前閱讀 ``--cli "
+"intro``\\ 。相同指令無論您親自輸入或從腳本執行皆適用。"
+
+#: ../doc/agent_cli.rst:136
+msgid ""
+"Start with ``intro``, then use command-specific help as needed. A useful "
+"workflow is to select a session, inspect the project, make a small set of "
+"changes, review the result, and save. Commands return structured JSON so "
+"scripts and agents can use object IDs and results directly instead of "
+"interpreting screen output."
+msgstr ""
+"從 ``intro`` 開始，然後根據需要使用特定指令說明。一個實用的工作流程是選擇工作階段、檢視專案、進行少量修改、檢查結果並儲存。指令會回傳結構化 "
+"JSON，讓腳本和代理能直接使用物件 ID 和結果，而非解析螢幕輸出。"
+
+#: ../doc/agent_cli.rst:141
+msgid ""
+"**Inspect before editing.** Use returned IDs and property information "
+"instead of guessing names, track numbers, or timing. Select a session "
+"explicitly when more than one project is open."
+msgstr "**編輯前先檢視。** 使用回傳的 ID 和屬性資訊，而非猜測名稱、軌道編號或時間。當開啟多個專案時，請明確選擇工作階段。"
+
+#: ../doc/agent_cli.rst:144
+msgid ""
+"**Group repeated edits.** Use ``edit apply`` for a sequence of changes or "
+"``edit bulk`` to apply a template to selected clips. Validate with ``--dry-"
+"run`` before applying a batch."
+msgstr ""
+"**群組重複編輯。** 使用 ``edit apply`` 進行一連串變更，或使用 ``edit bulk`` 對選取片段套用範本。套用批次前，請用 "
+"``--dry-run`` 驗證。"
+
+#: ../doc/agent_cli.rst:147
+msgid ""
+"**Check animation.** Choose a coordinate space, start with a few keyframes, "
+"and use easing presets for familiar motion. ``keyframe preview`` samples the"
+" curve so you can spot pauses or jumps before exporting. Review rendered "
+"motion as well; a contact sheet alone cannot show how an animation feels."
+msgstr ""
+"**檢查動畫。** 選擇座標空間，從幾個關鍵影格開始，並使用緩動預設來達成熟悉的動作。\\ ``keyframe preview`` "
+"會取樣曲線，讓您在匯出前能發現暫停或跳躍。也請檢視渲染後的動作；僅靠聯絡表無法呈現動畫的感覺。"
+
+#: ../doc/agent_cli.rst:151
+msgid ""
+"**Save and follow exports.** Save the project explicitly and check the "
+"export job's status before treating an output as complete. If a request "
+"times out, inspect its status before repeating an edit."
+msgstr "**儲存並追蹤匯出。** 請明確儲存專案，並在視輸出為完成前檢查匯出工作的狀態。若請求逾時，請先檢查其狀態再重複編輯。"
+
+#: ../doc/agent_cli.rst:155
+msgid ""
+"The sections below explain these workflows and their timing conventions."
+msgstr "以下章節說明這些工作流程及其時間慣例。"
+
+#: ../doc/agent_cli.rst:158
+msgid "Sessions and outputs"
+msgstr "工作階段與輸出"
+
+#: ../doc/agent_cli.rst:161
+msgid "Starting or finding a session"
+msgstr "啟動或尋找工作階段"
+
+#: ../doc/agent_cli.rst:163
+msgid "Start one headless session (without an editor window)::"
+msgstr "啟動一個無頭工作階段（無編輯器視窗）::"
+
+#: ../doc/agent_cli.rst:167
+msgid ""
+"To open an existing project at startup, add ``--project "
+"\"/path/project.osp\"``. The successful JSON response contains "
+"``result.session_id``. Copy that value. If OpenShot is already running, or "
+"you have forgotten the ID, find available sessions with::"
+msgstr ""
+"要在啟動時開啟現有專案，請加入 ``--project \"/path/project.osp\"``\\ 。成功的 JSON 回應包含 "
+"``result.session_id``\\ 。請複製該值。若 OpenShot 已在執行，或您忘記 ID，請使用以下指令尋找可用工作階段::"
+
+#: ../doc/agent_cli.rst:174
+msgid ""
+"Choose the session for the project you intend to edit. You do not need to "
+"start a new session for each command."
+msgstr "選擇您打算編輯的專案所屬工作階段。每個指令不必都啟動新工作階段。"
+
+#: ../doc/agent_cli.rst:180
+msgid "Selecting a session"
+msgstr "選擇工作階段"
+
+#: ../doc/agent_cli.rst:184
+msgid ""
+"**Set OPENSHOT_SESSION once, then run commands normally.** Your terminal "
+"remembers the selected session, so you do not need to pass ``--session`` "
+"with every command. Use the PowerShell or Bash example below."
+msgstr ""
+"**設定 OPENSHOT_SESSION 一次，之後正常執行指令。** 您的終端機會記住所選工作階段，因此不必每次指令都帶 "
+"``--session``\\ 。請參考以下 PowerShell 或 Bash 範例。"
+
+#: ../doc/agent_cli.rst:188
+msgid ""
+"Replace ``SESSION_ID`` below with the ``session_id`` returned by ``session "
+"start`` or ``session list``."
+msgstr ""
+"將下方的 ``SESSION_ID`` 替換為 ``session start`` 或 ``session list`` 回傳的 "
+"``session_id``\\ 。"
+
+#: ../doc/agent_cli.rst:191 ../doc/agent_cli.rst:422
+msgid "Windows PowerShell::"
+msgstr "Windows PowerShell::"
+
+#: ../doc/agent_cli.rst:197
+msgid "Linux Bash::"
+msgstr "Linux Bash::"
+
+#: ../doc/agent_cli.rst:203
+msgid ""
+"On macOS, use the same ``export`` syntax. For macOS or Snap commands, "
+"substitute your installation's executable from Getting started. The "
+"selection lasts for this terminal and commands launched from it. Set it "
+"again in a new terminal, or update it when switching to a different session."
+msgstr ""
+"在 macOS 上，使用相同的 ``export`` 語法。對於 macOS 或 Snap "
+"指令，請替換為您安裝的執行檔（參考入門說明）。此選擇會持續於此終端機及其啟動的指令。於新終端機重新設定，或切換工作階段時更新。"
+
+#: ../doc/agent_cli.rst:208
+msgid ""
+"**The remaining editing and export examples assume OPENSHOT_SESSION is "
+"set.** The next subsection shows how to capture the ID automatically for "
+"scripts."
+msgstr "**以下編輯與匯出範例假設已設定 OPENSHOT_SESSION。** 下一小節示範如何自動擷取 ID 以供腳本使用。"
+
+#: ../doc/agent_cli.rst:211
+msgid ""
+"To target a different session for just one command, use ``--session``. It "
+"overrides ``OPENSHOT_SESSION`` without changing your terminal's selection::"
+msgstr ""
+"若只想針對單一指令指定不同工作階段，請使用 ``--session``\\ 。此參數會覆蓋 ``OPENSHOT_SESSION``\\ "
+"，但不會改變終端機的選擇::"
+
+#: ../doc/agent_cli.rst:216
+msgid ""
+"With a packaged executable, put this override after ``--cli`` and before the"
+" command group: ``--cli --session OTHER_SESSION_ID project get``."
+msgstr ""
+"使用封裝執行檔時，將此覆蓋參數置於 ``--cli`` 之後、指令群組之前：\\ ``--cli --session OTHER_SESSION_ID "
+"project get``\\ 。"
+
+#: ../doc/agent_cli.rst:219
+msgid ""
+"Automatic selection only works when exactly one reachable session exists. If"
+" you see ``session_required``, run ``session list`` and explicitly select "
+"the intended session. If it is no longer listed, start it again and use the "
+"new ID. Help, ``intro``, and session discovery do not require a selected "
+"session."
+msgstr ""
+"自動選擇僅在存在且可連線的工作階段唯一時有效。若看到 ``session_required``\\ ，請執行 ``session list`` "
+"並明確選擇目標工作階段。若不再列出，請重新啟動並使用新 ID。說明、\\ ``intro`` 與工作階段發現不需選擇工作階段。"
+
+#: ../doc/agent_cli.rst:225
+msgid "Capturing the session ID automatically"
+msgstr "自動擷取工作階段 ID"
+
+#: ../doc/agent_cli.rst:227
+msgid ""
+"Scripts can read ``result.session_id`` directly from the JSON returned by "
+"``session start`` and set ``OPENSHOT_SESSION`` for subsequent commands. "
+"There is no need to copy the ID manually or read a log file. Check that "
+"startup succeeded before using the returned ID."
+msgstr ""
+"腳本可直接從 ``session start`` 回傳的 JSON 中讀取 ``result.session_id``\\ ，並設定 "
+"``OPENSHOT_SESSION`` 以供後續指令使用。無需手動複製 ID 或讀取日誌檔。使用回傳 ID 前請確認啟動成功。"
+
+#: ../doc/agent_cli.rst:232
+msgid "Windows PowerShell (set the executable path for your installation)::"
+msgstr "Windows PowerShell（設定您安裝的執行檔路徑）::"
+
+#: ../doc/agent_cli.rst:244
+msgid "Linux Bash (requires ``jq`` to read JSON)::"
+msgstr "Linux Bash（需安裝 ``jq`` 以讀取 JSON）::"
+
+#: ../doc/agent_cli.rst:256
+msgid ""
+"The environment variable selects a session for commands launched from this "
+"terminal; it does not change a system-wide setting. Starting a session does "
+"not set the variable automatically. After stopping the session, clear the "
+"selection with ``Remove-Item Env:OPENSHOT_SESSION`` in PowerShell or ``unset"
+" OPENSHOT_SESSION`` in Bash."
+msgstr ""
+"此環境變數會為從此終端機啟動的指令選擇工作階段；不會更改系統範圍設定。啟動工作階段不會自動設定此變數。停止工作階段後，請在 PowerShell 使用 "
+"``Remove-Item Env:OPENSHOT_SESSION`` 或在 Bash 使用 ``unset OPENSHOT_SESSION`` "
+"清除選擇。"
+
+#: ../doc/agent_cli.rst:263
+msgid "Showing and stopping a session"
+msgstr "顯示與停止工作階段"
+
+#: ../doc/agent_cli.rst:265
+msgid "To show the selected session in the editor::"
+msgstr "在編輯器中顯示所選工作階段::"
+
+#: ../doc/agent_cli.rst:269
+msgid ""
+"On a desktop, ``session show`` creates the editor in the same process and "
+"keeps the live project, IDs, history, export jobs, and connection. Repeated "
+"calls raise the existing window. ``session start --show`` opens it "
+"immediately. Sessions started without a display, or with "
+"``QT_QPA_PLATFORM=offscreen``/``minimal``, cannot later show a desktop "
+"window. For those sessions, save and open the project in a new desktop "
+"session. Once shown, close the session through the editor window."
+msgstr ""
+"在桌面環境中，\\ ``session show`` "
+"會在同一程序中建立編輯器，並保留即時專案、ID、歷史紀錄、匯出工作與連線。重複呼叫會喚起現有視窗。\\ ``session start --show``"
+" 會立即開啟。未帶顯示或使用 ``QT_QPA_PLATFORM=offscreen``/``minimal`` "
+"啟動的工作階段，無法後續顯示桌面視窗。此類工作階段請儲存並在新的桌面工作階段中開啟專案。顯示後，請透過編輯器視窗關閉工作階段。"
+
+#: ../doc/agent_cli.rst:277
+msgid ""
+"Global options (``--session``, ``--timeout``) go before the command. "
+"``session serve`` stays in the foreground for supervisors; ``session start``"
+" returns after a background host registers. ``session stop`` refuses unsaved"
+" changes and active exports. Use ``--discard`` only to intentionally discard"
+" unsaved edits."
+msgstr ""
+"全域選項（\\ ``--session``\\ 、\\ ``--timeout``\\ ）置於指令之前。\\ ``session serve`` "
+"會在前景執行以供監控；\\ ``session start`` 在背景主機註冊後返回。\\ ``session stop`` "
+"拒絕有未儲存變更或進行中匯出的請求。僅在確定要捨棄未儲存編輯時使用 ``--discard``\\ 。"
+
+#: ../doc/agent_cli.rst:283
+msgid "Command output"
+msgstr "指令輸出"
+
+#: ../doc/agent_cli.rst:285
+msgid ""
+"Results are JSON on stdout, except the default text timeline view. Errors "
+"are JSON on stderr with exit status 1; argument-parser errors exit 2. "
+"Mutations return compact summaries with an ``inspect`` command. ``get`` "
+"returns native object JSON. Project replies include a revision; effect "
+"catalog replies do not require a session. Logs from headless sessions live "
+"beside their registry records. ``OPENSHOT_SESSION_DIR`` overrides the "
+"default ``~/.openshot_qt/sessions`` directory."
+msgstr ""
+"結果以 JSON 格式輸出至標準輸出，預設文字時間軸檢視除外。錯誤以 JSON 格式輸出至標準錯誤，退出狀態為 1；參數解析錯誤退出狀態為 "
+"2。變更操作會以 ``inspect`` 指令回傳簡潔摘要。\\ ``get`` 回傳原生物件 "
+"JSON。專案回應包含修訂版本；效果目錄回應不需工作階段。無頭工作階段的日誌存放於其註冊紀錄旁。\\ ``OPENSHOT_SESSION_DIR`` "
+"可覆蓋預設的 ``~/.openshot_qt/sessions`` 目錄。"
+
+#: ../doc/agent_cli.rst:292
+msgid ""
+"Sessions accept commands locally on your computer. Keep the session registry"
+" private, since it contains the credentials used to access your editing "
+"sessions. Exports work from a snapshot, so you can continue editing while a "
+"job runs."
+msgstr ""
+"工作階段在您的電腦本地接受指令。請保持工作階段登錄資訊的私密性，因為它包含用於存取您的編輯工作階段的憑證。匯出是基於快照進行，因此您可以在工作進行時繼續編輯。"
+
+#: ../doc/agent_cli.rst:297
+msgid "Opening and saving projects"
+msgstr "開啟與儲存專案"
+
+#: ../doc/agent_cli.rst:299
+msgid ""
+"An OpenShot project (``.osp``) stores your editable timeline. Exporting "
+"creates a finished video; saving the project lets you return to its clips, "
+"effects, and keyframes later. Save your project separately even when you "
+"also export a video."
+msgstr ""
+"OpenShot 專案（\\ ``.osp``\\ "
+"）儲存您的可編輯時間軸。匯出會產生完成的影片；儲存專案則讓您日後能回到剪輯、特效和關鍵影格。即使您同時匯出影片，也請分別儲存專案。"
+
+#: ../doc/agent_cli.rst:304
+msgid "Opening a project"
+msgstr "開啟專案"
+
+#: ../doc/agent_cli.rst:306
+msgid "Start a session with an existing project::"
+msgstr "使用現有專案啟動工作階段::"
+
+#: ../doc/agent_cli.rst:310
+msgid ""
+"Add ``--show`` to open its editor window too. To use an editor that is "
+"already running, find it with ``session list``. Set ``OPENSHOT_SESSION`` to "
+"its returned session ID, then open or inspect a project::"
+msgstr ""
+"加入 ``--show`` 以同時開啟其編輯器視窗。若要使用已在執行的編輯器，請用 ``session list`` 找出它。將 "
+"``OPENSHOT_SESSION`` 設為回傳的工作階段 ID，然後開啟或檢視專案::"
+
+#: ../doc/agent_cli.rst:317
+msgid ""
+"Replace the example path with your own, and quote paths containing spaces. "
+"``project open`` replaces the selected session's current project. It refuses"
+" to discard unsaved edits unless you explicitly add ``--discard``; save "
+"those edits first if you want to keep them. Opening through the CLI does not"
+" show interactive missing-media dialogs, so keep the project's source media "
+"available."
+msgstr ""
+"將範例路徑替換為您自己的路徑，並對包含空格的路徑加上引號。\\ ``project open`` 會取代所選工作階段的當前專案。除非您明確加入 "
+"``--discard``\\ ，否則不會捨棄未儲存的編輯；若想保留，請先儲存這些編輯。透過 CLI "
+"開啟不會顯示互動式缺少媒體對話框，因此請保持專案的原始媒體可用。"
+
+#: ../doc/agent_cli.rst:323
+msgid ""
+"For a new, empty project, use ``session start`` without ``--project``, then "
+"import media and add clips as described under Editing."
+msgstr ""
+"若要建立新的空白專案，請使用不帶 ``--project`` 的 ``session start``\\ ，然後依照「編輯」部分說明匯入媒體並新增剪輯。"
+
+#: ../doc/agent_cli.rst:327
+msgid "Saving a project or a copy"
+msgstr "儲存專案或其副本"
+
+#: ../doc/agent_cli.rst:329
+msgid ""
+"Save to a new file, or create a separate version before making more "
+"changes::"
+msgstr "儲存為新檔案，或在進行更多更改前建立獨立版本::"
+
+#: ../doc/agent_cli.rst:333
+msgid "To update an existing file, explicitly allow replacement::"
+msgstr "若要更新現有檔案，請明確允許覆寫::"
+
+#: ../doc/agent_cli.rst:337
+msgid ""
+"Always supply the destination path. Saving an ``.osp`` does not package all "
+"your source footage into that file; keep the referenced media available when"
+" moving or reopening the project."
+msgstr "請務必提供目標路徑。儲存 ``.osp`` 不會將所有原始素材封裝進該檔案；移動或重新開啟專案時，請保持參考的媒體可用。"
+
+#: ../doc/agent_cli.rst:342
+msgid "Exporting a video"
+msgstr "匯出影片"
+
+#: ../doc/agent_cli.rst:344
+msgid ""
+"Automate rendering and exporting from scripts or AI agents, using the "
+"project's settings or choosing a different output profile for each render. "
+"Export jobs can run in the background or wait for completion before your "
+"script continues. To render an MP4 using the project's resolution and frame "
+"rate::"
+msgstr ""
+"可從腳本或 AI "
+"代理自動化渲染與匯出，使用專案設定或為每次渲染選擇不同的輸出設定檔。匯出工作可在背景執行，或等待完成後再繼續腳本。以下示範使用專案解析度與幀率渲染 "
+"MP4::"
+
+#: ../doc/agent_cli.rst:351
+msgid ""
+"By default, OpenShot uses H.264 video and AAC audio. Replace the example "
+"path with your destination, using an existing folder and a new filename. "
+"Existing outputs are never overwritten. Exporting does not save your "
+"editable ``.osp`` project; use ``project save`` separately to keep your "
+"editing work."
+msgstr ""
+"預設情況下，OpenShot 使用 H.264 視訊與 AAC "
+"音訊。請將範例路徑替換為您的目的地，使用現有資料夾與新檔名。現有輸出檔案不會被覆寫。匯出不會儲存您的可編輯 ``.osp`` 專案；請另行使用 "
+"``project save`` 以保存您的編輯工作。"
+
+#: ../doc/agent_cli.rst:356
+msgid ""
+"The ``--wait`` option keeps the command running until the export completes "
+"or reports a failure. Review the finished video before sharing it."
+msgstr "``--wait`` 選項會讓指令持續執行直到匯出完成或失敗。請在分享前檢視完成的影片。"
+
+#: ../doc/agent_cli.rst:360
+msgid "Checking export progress"
+msgstr "檢查匯出進度"
+
+#: ../doc/agent_cli.rst:362
+msgid ""
+"Leave off ``--wait`` to start an export in the background. The response "
+"includes a job ID you can use to check its progress::"
+msgstr "不加 ``--wait`` 可在背景啟動匯出。回應會包含工作 ID，您可用來檢查進度::"
+
+#: ../doc/agent_cli.rst:370
+msgid ""
+"Replace ``JOB_ID`` with the returned ID. If waiting times out, the export "
+"keeps running; check the same job instead of starting another export. To "
+"stop a job, use ``export cancel JOB_ID``. Each job captures the timeline "
+"when it starts, so later edits do not change an export already in progress."
+msgstr ""
+"將 ``JOB_ID`` 替換為回傳的 ID。若等待逾時，匯出仍會繼續執行；請檢查相同工作，而非啟動另一個匯出。若要停止工作，請使用 ``export "
+"cancel JOB_ID``\\ 。每個工作啟動時會擷取時間軸，因此後續編輯不會影響已進行中的匯出。"
+
+#: ../doc/agent_cli.rst:375
+msgid ""
+"Waiting defaults to 600 seconds; adjust this with ``--wait-timeout``. This "
+"is separate from the global per-request ``--timeout``. Export failures, "
+"cancellation, and wait timeouts exit with status 1 and include job details."
+msgstr ""
+"等待預設為 600 秒；可用 ``--wait-timeout`` 調整。此設定與全域每次請求的 ``--timeout`` "
+"分開。匯出失敗、取消及等待逾時會以狀態碼 1 結束，並包含工作詳細資訊。"
+
+#: ../doc/agent_cli.rst:380
+msgid "Exporting in multiple profiles"
+msgstr "以多個設定檔匯出"
+
+#: ../doc/agent_cli.rst:382
+msgid ""
+"Export the same timeline at different resolutions or aspect ratios by "
+"choosing an export profile for each output. **An export profile applies only"
+" to that job**; it does not change the editing project's profile. A profile "
+"sets dimensions, frame rate, and aspect ratio; an export preset selects "
+"encoding settings such as MP4/H.264."
+msgstr ""
+"透過為每個輸出選擇匯出設定檔，可在不同解析度或長寬比下匯出相同時間軸。\\ **匯出設定檔僅適用於該工作**\\ "
+"；不會更改編輯專案的設定檔。設定檔定義尺寸、幀率與長寬比；匯出預設則選擇編碼設定，如 MP4/H.264。"
+
+#: ../doc/agent_cli.rst:388
+msgid "Find the available profiles and inspect their settings::"
+msgstr "尋找可用的設定檔並檢視其設定::"
+
+#: ../doc/agent_cli.rst:394
+msgid ""
+"For example, export landscape versions at 720p and 1080p, then a square "
+"version at 1080 by 1080. These profiles all use 30 fps::"
+msgstr "例如，匯出 720p 和 1080p 的橫向版本，然後匯出 1080x1080 的方形版本。這些設定檔皆使用 30 fps::"
+
+#: ../doc/agent_cli.rst:401
+msgid ""
+"Use a different output filename for each version. Keep edits unchanged "
+"between jobs when you want matching versions. Changing aspect ratio can "
+"change framing: review each output, especially titles and animated subjects."
+" For a separately composed square or portrait version, save a project copy, "
+"change its project profile, and adjust the clips before exporting. See "
+"Profiles and the export settings below for custom profiles and encoding "
+"options."
+msgstr ""
+"為每個版本使用不同的輸出檔名。若想要匹配的版本，請保持工作間的編輯不變。改變長寬比可能會影響構圖：請檢視每個輸出，特別是標題和動畫主體。若要另行製作方形或直向版本，請先儲存專案副本，變更其專案設定檔，並調整剪輯後再匯出。請參閱下方的設定檔與匯出設定，了解自訂設定檔與編碼選項。"
+
+#: ../doc/agent_cli.rst:409
+msgid "Batch exporting multiple projects"
+msgstr "批次匯出多個專案"
+
+#: ../doc/agent_cli.rst:411
+msgid ""
+"Reuse one headless session to render several saved projects in sequence. "
+"Open a project, export it with ``--wait``, then open the next project. The "
+"examples below use each project's own resolution and frame rate and create "
+"MP4 files beside the ``.osp`` files. Add ``--profile PROFILE_ID`` to the "
+"export command to use one output profile for every project."
+msgstr ""
+"重複使用一個無頭工作階段，依序渲染多個已儲存的專案。開啟專案，使用 ``--wait`` "
+"匯出，然後開啟下一個專案。以下範例使用各專案自己的解析度與幀率，並在 ``.osp`` 檔旁建立 MP4 檔案。於匯出指令中加入 ``--profile"
+" PROFILE_ID``\\ ，即可為每個專案使用相同的輸出設定檔。"
+
+#: ../doc/agent_cli.rst:417
+msgid ""
+"First run the matching automatic session-ID example above successfully, in "
+"the same terminal. It defines ``openshot`` and selects the new session. "
+"Replace the project paths below with your own. Use distinct output names "
+"that do not already exist; the examples check all destinations before "
+"starting the batch."
+msgstr ""
+"請先在相同終端機中成功執行上述匹配的自動 session-ID 範例。它會定義 ``openshot`` "
+"並選擇新的會話。請將下方的專案路徑替換為您自己的路徑。使用尚不存在的不同輸出名稱；範例會在開始批次前檢查所有目的地。"
+
+#: ../doc/agent_cli.rst:446
+msgid "Linux Bash (the parentheses keep error handling local to the batch)::"
+msgstr "Linux Bash（括號使錯誤處理限制在批次內）::"
+
+#: ../doc/agent_cli.rst:467
+msgid ""
+"Both recipes stop the batch on a command failure and leave the session "
+"available for inspection. The wait limit here is 24 hours per export. A wait"
+" timeout leaves the render running: use ``export list`` and ``export status "
+"JOB_ID --wait`` before retrying. Completed videos remain on disk; remove "
+"completed projects from the batch before resuming. After resolving a "
+"failure, stop the session and clear its environment variable when you are "
+"finished."
+msgstr ""
+"兩種方法在命令失敗時會停止批次並保留會話以供檢查。此處的等待限制為每次匯出 24 小時。等待逾時會讓渲染繼續執行：請在重試前使用 ``export "
+"list`` 和 ``export status JOB_ID --wait``\\ "
+"。完成的影片會保留在磁碟中；恢復前請從批次中移除已完成的專案。解決失敗後，請停止會話並在完成時清除其環境變數。"
+
+#: ../doc/agent_cli.rst:475
+msgid "Choosing presets and encoding settings"
+msgstr "選擇預設值與編碼設定"
+
+#: ../doc/agent_cli.rst:477
+msgid "Discover the installed export presets and supported settings::"
+msgstr "探索已安裝的匯出預設與支援的設定::"
+
+#: ../doc/agent_cli.rst:484
+msgid ""
+"Export also accepts ``--from-file FILE_ID`` with optional ``--create-"
+"custom``. Settings resolve in this order: project defaults, preset, advanced"
+" JSON, explicit profile/quality/range flags. Advanced JSON exposes "
+"video/audio codecs and bitrate, audio layout/rate/channels, native codec "
+"options, hardware device settings, and thread counts."
+msgstr ""
+"匯出也接受 ``--from-file FILE_ID`` 及可選的 ``--create-custom``\\ 。設定依序解析：專案預設、預設值、高級"
+" JSON、明確的配置檔/品質/範圍標誌。高級 JSON "
+"可設定視訊/音訊編碼器與位元率、音訊配置/取樣率/聲道、本地編碼器選項、硬體裝置設定及執行緒數量。"
+
+#: ../doc/agent_cli.rst:490
+msgid "For example, select an encoder option through advanced JSON::"
+msgstr "例如，透過高級 JSON 選擇編碼器選項::"
+
+#: ../doc/agent_cli.rst:495
+msgid "Validating export settings"
+msgstr "驗證匯出設定"
+
+#: ../doc/agent_cli.rst:497
+msgid "Check settings before starting a render::"
+msgstr "在開始渲染前檢查設定::"
+
+#: ../doc/agent_cli.rst:501
+msgid ""
+"Capabilities report compiled codec availability, not physical GPU "
+"availability. Validation goes further: it opens the encoders (including "
+"hardware encoders) and the container with the exact settings, in a separate "
+"process, without writing a file. A combination the container can't hold "
+"fails with ``incompatible_export``, FFmpeg's own explanation, and the "
+"setting to change (``details.cause.path``)::"
+msgstr ""
+"功能報告編譯後的編碼器可用性，而非實體 GPU "
+"可用性。驗證更進一步：它會在獨立程序中以精確設定開啟編碼器（包含硬體編碼器）與容器，且不寫入檔案。容器無法容納的組合會以 "
+"``incompatible_export`` 失敗，並附帶 FFmpeg 的說明及需更改的設定（\\ ``details.cause.path``\\"
+" ）::"
+
+#: ../doc/agent_cli.rst:509
+msgid "The export worker runs the same check before rendering."
+msgstr "匯出工作者在渲染前會執行相同的檢查。"
+
+#: ../doc/agent_cli.rst:512
+msgid "Rendering a frame range"
+msgstr "渲染影格範圍"
+
+#: ../doc/agent_cli.rst:514
+msgid ""
+"Use ``--start-frame`` and ``--end-frame`` to render part of the timeline. "
+"Ranges are inclusive and one-based at the **export profile's FPS**. For "
+"example, render the first 90 frames at 30 fps (three seconds)::"
+msgstr ""
+"使用 ``--start-frame`` 和 ``--end-frame`` 來渲染時間軸的一部分。範圍包含端點且以 **匯出配置檔的 FPS** "
+"為基準，從 1 開始。例如，以 30 fps 渲染前 90 幀（三秒）::"
+
+#: ../doc/agent_cli.rst:521
+msgid "Audio-only exports and image sequences"
+msgstr "僅音訊匯出與影像序列"
+
+#: ../doc/agent_cli.rst:523
+msgid "Choose an output mode with advanced JSON::"
+msgstr "使用高級 JSON 選擇輸出模式::"
+
+#: ../doc/agent_cli.rst:528
+msgid ""
+"Image sequences require a new output directory. Existing outputs are never "
+"overwritten."
+msgstr "影像序列需要新的輸出目錄。現有輸出絕不會被覆寫。"
+
+#: ../doc/agent_cli.rst:532
+msgid "Editing"
+msgstr "編輯"
+
+#: ../doc/agent_cli.rst:535
+msgid "Adding clips and effects"
+msgstr "新增剪輯與效果"
+
+#: ../doc/agent_cli.rst:537
+msgid ""
+"Use the IDs returned by import/add/list, and discover layer numbers with "
+"``project get``::"
+msgstr "使用 import/add/list 回傳的 ID，並透過 ``project get`` 查詢圖層編號::"
+
+#: ../doc/agent_cli.rst:549
+msgid ""
+"Choose the project profile early when possible; populated projects also "
+"support profile changes through the existing FPS conversion and undo system."
+" ``--audio-only`` on clip creation suppresses video, including embedded "
+"cover art in music files. To use that clip for Audio Visualization instead, "
+"enable its video and audio, and follow the effect's help for transparent "
+"overlays and layer placement."
+msgstr ""
+"盡早選擇專案配置檔；已填充的專案也支援透過現有的 FPS 轉換與復原系統變更配置檔。剪輯建立時使用 ``--audio-only`` "
+"會抑制影片，包括音樂檔案中嵌入的封面。若要將該剪輯用於音訊視覺化，請啟用其影片與音訊，並依效果說明設定透明疊加與圖層位置。"
+
+#: ../doc/agent_cli.rst:556
+msgid "Understanding clip timing"
+msgstr "理解剪輯時間"
+
+#: ../doc/agent_cli.rst:558
+msgid ""
+"The example keyframes assume a 30fps project and a clip trimmed at source "
+"10s. Position is in timeline seconds; start/end are source seconds, with end"
+" exclusive. Frames start at 1. File thumbnail frames use source FPS. "
+"Timeline frames use project FPS. Clip keyframes use source coordinates at "
+"project FPS, so trimming the clip does not move its first visible keyframe "
+"to frame 1."
+msgstr ""
+"範例關鍵影格假設 30fps 專案及在來源 10 秒處修剪的剪輯。位置以時間軸秒為單位；開始/結束為來源秒，結束為不包含。影格從 1 "
+"開始。檔案縮圖影格使用來源 FPS。時間軸影格使用專案 FPS。剪輯關鍵影格使用專案 FPS 的來源座標，因此修剪剪輯不會將其第一個可見關鍵影格移至影格"
+" 1。"
+
+#: ../doc/agent_cli.rst:565
+msgid "Changing properties"
+msgstr "變更屬性"
+
+#: ../doc/agent_cli.rst:567
+msgid ""
+"``set`` merges top-level properties. Scalars turn keyframed properties into "
+"constants. A supplied nested curve replaces that curve; use ``keyframe set``"
+" to change just one point. JSON arguments accept inline JSON, "
+"``@file.json``, or ``-`` for stdin. Property names, types, enums, keyframes,"
+" references, and timing are validated before editing the project. Errors "
+"identify the field, expected value, received value, and a correction where "
+"possible. GUI slider ranges are advisory where the engine supports values "
+"beyond them."
+msgstr ""
+"``set`` 會合併頂層屬性。純量會將有關鍵影格的屬性轉為常數。提供的巢狀曲線會取代該曲線；若只變更一點，請使用 ``keyframe set``\\"
+" 。JSON 參數接受內嵌 JSON、\\ ``@file.json`` 或標準輸入 ``-``\\ "
+"。在編輯專案前會驗證屬性名稱、類型、列舉、關鍵影格、參考與時間。錯誤會指出欄位、預期值、收到值及可能的修正。當引擎支援超出範圍值時，GUI "
+"滑桿範圍僅供參考。"
+
+#: ../doc/agent_cli.rst:576
+msgid "Adding fades"
+msgstr "新增淡入淡出"
+
+#: ../doc/agent_cli.rst:578
+msgid ""
+"``clip fade ID --in 0.5 --out 0.5`` calculates source-trim keyframe "
+"coordinates automatically. It replaces the alpha curve; ``--property volume "
+"--value 0.25`` instead creates an audio fade with a 0.25 peak gain. "
+"Durations must fit between the first and last visible frames; fade-out "
+"reaches zero on the last frame."
+msgstr ""
+"``clip fade ID --in 0.5 --out 0.5`` 會自動計算來源修剪的關鍵影格座標。它會取代 alpha 曲線；改用 "
+"``--property volume --value 0.25`` 則會建立峰值為 0.25 "
+"的音訊淡出。持續時間必須介於第一與最後可見影格間；淡出在最後一幀達到零。"
+
+#: ../doc/agent_cli.rst:584
+msgid "Splitting clips"
+msgstr "分割剪輯"
+
+#: ../doc/agent_cli.rst:586
+msgid ""
+"``clip split ID --at 6.5`` uses timeline seconds, snaps to the nearest "
+"project frame, and keeps both halves. It retains source-coordinate curves "
+"and duplicates effects with fresh IDs on the right half, following the "
+"editor's slicing behavior. The left half retains its ID. The response "
+"reports requested/actual split times and both summaries; a named batch "
+"result supports ``{\"$ref\":\"cut.right.id\"}``. Splits reject endpoints and"
+" locked tracks. Undo restores the original clip in one transaction."
+msgstr ""
+"``clip split ID --at 6.5`` 使用時間軸秒，會貼齊至最近的專案影格，並保留兩半。它保留來源座標曲線並在右半部複製效果並賦予新 "
+"ID，符合編輯器的切割行為。左半部保留其 ID。回應會報告請求/實際分割時間及兩者摘要；命名批次結果支援 "
+"``{\"$ref\":\"cut.right.id\"}``\\ 。分割會拒絕端點與鎖定軌道。復原會在一次交易中還原原始剪輯。"
+
+#: ../doc/agent_cli.rst:595
+msgid "Clip menu presets"
+msgstr "剪輯選單預設"
+
+#: ../doc/agent_cli.rst:597
+msgid ""
+"The editor's clip menu presets use the same code from the command line. Each"
+" command lists its presets in its help, and each one is a single undo step:"
+msgstr "編輯器的剪輯選單預設使用與命令列相同的程式碼。每個命令在其說明中列出其預設，且每個預設都是單一的復原步驟："
+
+#: ../doc/agent_cli.rst:611
+msgid ""
+"Motion presets are relative to the clip's current transform. Look presets "
+"add or replace one effect, and ``none`` removes it. Speed and repeat retime "
+"every keyframe and change the clip's length; ``clip speed --mode reset`` "
+"restores normal speed. Other menu actions are plain edits: rotate and layout"
+" with ``clip set``, crop with ``effects add Crop``. The commands also work "
+"in ``edit apply`` and ``edit bulk``."
+msgstr ""
+"動作預設是相對於剪輯當前的變換。外觀預設會新增或替換一個效果，而 ``none`` 則會移除它。速度和重複會重新定時每個關鍵影格並改變剪輯長度；\\ "
+"``clip speed --mode reset`` 可恢復正常速度。其他選單操作是純粹的編輯：使用 ``clip set`` 旋轉和佈局，使用 "
+"``effects add Crop`` 裁剪。這些命令也適用於 ``edit apply`` 和 ``edit bulk``\\ 。"
+
+#: ../doc/agent_cli.rst:621
+msgid "Adding and styling text"
+msgstr "新增與樣式設定文字"
+
+#: ../doc/agent_cli.rst:623
+msgid ""
+"``text add`` creates a text and places it as a clip, using the same text as "
+"the editor's **Text** tool. Options you leave out use the editor's default "
+"style:"
+msgstr "``text add`` 建立文字並將其放置為剪輯，使用與編輯器 **文字** 工具相同的文字。您未指定的選項將使用編輯器的預設樣式："
+
+#: ../doc/agent_cli.rst:637
+msgid ""
+"The words, font, size, alignment, box width and default colors belong to the"
+" text in Project Files and are shared by every clip that uses it, just like "
+"in the editor. ``text set`` on one clip changes all of them and lists them "
+"in ``changed_clip_ids``; ``--this-clip-only`` gives that clip its own copy "
+"first. ``clip add FILE_ID`` places another clip of a text from ``text "
+"list``. Sizes are in pixels at the project resolution, and colors are "
+"``#RRGGBB``, ``#AARRGGBB`` (with alpha), a CSS name, or ``transparent``. "
+"``--place`` puts the box at the center, an edge or corner, or a lower third."
+" ``--line-spacing`` is a multiple of the normal distance between lines (1 is"
+" normal), and ``--background-corner`` rounds the background and border "
+"corners by that many pixels."
+msgstr ""
+"文字內容、字型、大小、對齊方式、框寬和預設顏色屬於專案檔案中的文字，並由所有使用該文字的剪輯共用，就像在編輯器中一樣。對某個剪輯使用 ``text "
+"set`` 會更改所有剪輯並在 ``changed_clip_ids`` 中列出；\\ ``--this-clip-only`` "
+"則先給該剪輯自己的複本。\\ ``clip add FILE_ID`` 會從 ``text list`` "
+"放置另一個文字剪輯。大小以專案解析度的像素為單位，顏色可為 ``#RRGGBB``\\ 、\\ ``#AARRGGBB``\\ （含透明度）、CSS "
+"名稱或 ``transparent``\\ 。\\ ``--place`` 將框置於中央、邊緣或角落，或下三分之一。\\ ``--line-"
+"spacing`` 是行間距的倍數（1 為正常），\\ ``--background-corner`` 會將背景和邊框角落圓角化指定像素數。"
+
+#: ../doc/agent_cli.rst:647
+msgid ""
+"A text clip is an ordinary clip. Position, scale, rotation, opacity, timing,"
+" fades, motion presets and effects all use the normal ``clip`` commands. "
+"Font size, padding, box width, and letter and line spacing set the size of "
+"the text box, so they cannot be keyframed; to animate the size of text, "
+"keyframe the clip's scale. Each clip can animate its own text colors and "
+"outline and border widths with the same keyframe commands as any other "
+"property:"
+msgstr ""
+"文字剪輯是普通剪輯。位置、縮放、旋轉、不透明度、時間、淡入淡出、動作預設和效果皆使用一般的 ``clip`` "
+"命令。字型大小、內距、框寬以及字距和行距設定文字框大小，因此無法設定關鍵影格；若要動畫化文字大小，請設定剪輯的縮放關鍵影格。每個剪輯都可以使用與其他屬性相同的關鍵影格命令來動畫化其文字顏色、描邊和邊框寬度："
+
+#: ../doc/agent_cli.rst:659
+msgid ""
+"The animated properties are ``text_color``, ``text_background``, "
+"``text_stroke`` and ``text_border`` (colors, with ``.red``, ``.green``, "
+"``.blue`` and ``.alpha`` from 0 to 255), plus ``text_stroke_width``, "
+"``text_border_width`` and ``text_background_corner``. A clip's own animation"
+" wins over the shared style, and ``text get`` lists which styles a clip "
+"animates. ``text reset CLIP_ID`` returns a clip to the default style, like "
+"**Text → Reset Style**; ``--keyframes-only`` just removes the clip's own "
+"animation. To style many texts at once, select them with "
+"``{\"text\":true}``:"
+msgstr ""
+"可動畫化的屬性包括 ``text_color``\\ 、\\ ``text_background``\\ 、\\ ``text_stroke`` 和 "
+"``text_border``\\ （顏色，含 ``.red``\\ 、\\ ``.green``\\ 、\\ ``.blue`` 和從 0 到 255"
+" 的 ``.alpha``\\ ），以及 ``text_stroke_width``\\ 、\\ ``text_border_width`` 和 "
+"``text_background_corner``\\ 。剪輯自身的動畫會優先於共用樣式，\\ ``text get`` 會列出剪輯動畫化的樣式。\\"
+" ``text reset CLIP_ID`` 會將剪輯恢復為預設樣式，如同 **文字 → 重設樣式**\\ ；\\ ``--keyframes-"
+"only`` 僅移除剪輯自身的動畫。要一次設定多個文字的樣式，請使用 ``{\"text\":true}`` 選取它們："
+
+#: ../doc/agent_cli.rst:672
+msgid "Applying a batch of edits"
+msgstr "套用一批編輯"
+
+#: ../doc/agent_cli.rst:674
+msgid ""
+"``edit apply --json @edits.json --expect-revision 12`` accepts up to 256 "
+"ordered mutation commands, using dotted command names such as ``clip.set`` "
+"and ``effects.add`` (the older ``effect.add`` spelling also works)::"
+msgstr ""
+"``edit apply --json @edits.json --expect-revision 12`` 接受最多 256 "
+"個有序的變更命令，使用點分命令名稱，如 ``clip.set`` 和 ``effects.add``\\ （舊寫法 ``effect.add`` "
+"也可用）::"
+
+#: ../doc/agent_cli.rst:685
+msgid ""
+"The optional ``as`` binds a result for later commands in the same batch. A "
+"``{\"$ref\":\"shot.id\"}`` object substitutes that result's field. "
+"References only resolve earlier names; misspellings, forward references, and"
+" duplicate names fail before live updates. The response includes ordered "
+"compact results and a ``refs`` map of actual IDs. All changes in a "
+"successful batch form one undo/redo step. ``project.profile.set`` also "
+"supports populated timelines. Opening, saving, exporting, and inspection "
+"commands stay outside edit batches. Each command's help lists its JSON "
+"parameter names, including the underscore spelling of shell flags (for "
+"example, ``--fps-num`` becomes ``fps_num``)."
+msgstr ""
+"可選的 ``as`` 用於綁定結果，以供同一批次中的後續命令使用。\\ ``{\"$ref\":\"shot.id\"}`` "
+"物件會替換該結果的欄位。參照僅解析先前名稱；拼寫錯誤、前向參照和重複名稱會在即時更新前失敗。回應包含有序的簡潔結果和實際 ID 的 ``refs`` "
+"映射。成功批次中的所有變更形成一個復原/重做步驟。\\ ``project.profile.set`` "
+"也支援已填充的時間軸。開啟、儲存、匯出和檢查命令不包含在編輯批次中。每個命令的說明列出其 JSON 參數名稱，包括 shell "
+"標誌的底線拼寫（例如，\\ ``--fps-num`` 變成 ``fps_num``\\ ）。"
+
+#: ../doc/agent_cli.rst:696
+msgid "Validating batches and handling errors"
+msgstr "驗證批次與錯誤處理"
+
+#: ../doc/agent_cli.rst:698
+msgid ""
+"All commands in edit batches preflight against a detached project before any"
+" live updates. Invalid input leaves the live project and revision unchanged."
+" Valid batches form one undo group. Unexpected runtime failures can still "
+"produce partial changes; errors report completed operations. A timeout does "
+"not imply cancellation, so inspect state before retrying mutations."
+msgstr ""
+"編輯批次中的所有命令會在任何即時更新前，先對一個分離的專案進行預檢。無效輸入不會改變即時專案和版本。有效批次形成一個復原群組。意外的執行時失敗仍可能產生部分變更；錯誤會報告已完成的操作。逾時不代表取消，因此在重試變更前請檢查狀態。"
+
+#: ../doc/agent_cli.rst:705
+msgid "Precise keyframe editing"
+msgstr "精確的關鍵影格編輯"
+
+#: ../doc/agent_cli.rst:707
+msgid ""
+"``clip``, ``transition``, and ``effects`` support ``keyframe list``, "
+"``set``, ``remove``, ``clear``, ``transform``, ``copy``, and ``paste``. "
+"Property paths can address nested curves, such as ``color.red`` on a Chroma "
+"Key effect. Editing a nested curve preserves sibling channels. Run "
+"``keyframe list ID`` without a property to discover curve paths and point "
+"counts. Discovery and point listings include trim/position timing context; "
+"point listings also report native frame coordinates. ``get`` and "
+"``properties`` expose the complete native object and property metadata. "
+"Errors identify invalid fields, suggest close property names, and explain "
+"coordinate corrections."
+msgstr ""
+"``clip``\\ 、\\ ``transition`` 和 ``effects`` 支援 ``keyframe list``\\ 、\\ "
+"``set``\\ 、\\ ``remove``\\ 、\\ ``clear``\\ 、\\ ``transform``\\ 、\\ ``copy`` "
+"和 ``paste``\\ 。屬性路徑可指定巢狀曲線，例如色度鍵效果的 ``color.red``\\ 。編輯巢狀曲線會保留同層頻道。執行 "
+"``keyframe list ID`` 不帶屬性可發現曲線路徑和點數。發現和點列表包含裁剪/位置時間上下文；點列表還會報告原生影格座標。\\ "
+"``get`` 和 ``properties`` 顯示完整的原生物件和屬性元資料。錯誤會指出無效欄位、建議相近屬性名稱，並解釋座標修正。"
+
+#: ../doc/agent_cli.rst:717
+msgid ""
+"Choose coordinates explicitly with ``--space native|clip|timeline`` and "
+"``--unit frames|seconds``. All frames use project FPS and are 1-based; "
+"seconds start at zero and snap to the nearest frame. Native is the existing "
+"engine keyframe coordinate (including source trim). Clip coordinates start "
+"at the visible clip in-point; timeline coordinates start at project time "
+"zero. Attached effects use their parent clip's timing. These coordinates "
+"address animation time, not the media frames selected by a time-remapping "
+"curve."
+msgstr ""
+"請使用 ``--space native|clip|timeline`` 和 ``--unit frames|seconds`` "
+"明確選擇座標。所有影格使用專案 FPS 且從 1 開始；秒數從零開始並會對齊至最近的影格。Native "
+"是現有引擎的關鍵影格座標（包含來源裁剪）。剪輯座標從可見剪輯的入點開始；時間軸座標從專案時間零開始。附加效果使用其父剪輯的時間。這些座標指的是動畫時間，而非時間重映射曲線選擇的媒體影格。"
+
+#: ../doc/agent_cli.rst:725
+msgid ""
+"For a clip positioned at 5 seconds, trimmed at 2 seconds, in a 30 fps "
+"project, clip frame 1, timeline frame 151, and native frame 61 address the "
+"same point. Position and trim snap independently to the project frame grid. "
+"Listing an entire curve can include hidden points with nonpositive "
+"clip/timeline coordinates. Legacy ``--frame`` still means a native frame and"
+" cannot combine with ``--at``."
+msgstr ""
+"對於一個定位於 5 秒、修剪於 2 秒、在 30 fps 專案中的剪輯，剪輯幀 1、時間軸幀 151 和原生幀 61 "
+"指向相同的點。位置和修剪獨立地對齊專案幀網格。列出整條曲線可能包含具有非正剪輯/時間軸座標的隱藏點。舊版 ``--frame`` 仍表示原生幀，且不能與"
+" ``--at`` 結合使用。"
+
+#: ../doc/agent_cli.rst:731
+msgid "Examples::"
+msgstr "範例::"
+
+#: ../doc/agent_cli.rst:743
+msgid "Interpolation, easing, and preview"
+msgstr "插值、緩動與預覽"
+
+#: ../doc/agent_cli.rst:745
+msgid ""
+"Interpolation describes the segment **into the destination point**. Linear "
+"gives a steady rate between points. Constant holds the preceding value until"
+" the destination, then jumps. Native default Bezier handles ease at both "
+"ends of each segment. Adding an intermediate point can therefore introduce "
+"an unintended slowdown; for one eased move, start with two endpoints. "
+"Normally leave handles alone and choose a named preset for a specific style."
+msgstr ""
+"插值描述\\ **進入目標點**\\ "
+"的區段。線性插值在點之間提供穩定速率。常數插值保持前一值直到目標點，然後跳變。原生預設的貝茲爾曲線在每個區段的兩端處理緩動。因此，新增中間點可能會引入非預期的減速；若要實現單一緩動移動，請從兩個端點開始。通常保持控制柄不變，並選擇命名的預設以獲得特定風格。"
+
+#: ../doc/agent_cli.rst:752
+msgid ""
+"Discover the same easing presets used by the editor's menus, without a "
+"session::"
+msgstr "探索編輯器選單中使用的相同緩動預設，無需啟動工作階段::"
+
+#: ../doc/agent_cli.rst:756
+msgid "Apply a preset to the incoming segment by setting its destination::"
+msgstr "透過設定目標點，將預設套用到進入的區段::"
+
+#: ../doc/agent_cli.rst:761
+msgid ""
+"The easing option implies Bezier. It sets the previous point's outgoing "
+"handle and the destination's incoming handle together, preserving other "
+"handles and point values. An earlier point must exist. Do not combine it "
+"with custom handles or a different interpolation. Presets work in batches "
+"and bulk templates. The GUI preset **ease** (\"Ease (Default)\") differs "
+"from the native handles used by plain Bezier interpolation. Back presets can"
+" overshoot endpoint values."
+msgstr ""
+"緩動選項暗示使用貝茲爾曲線。它同時設定前一點的外出控制柄與目標點的進入控制柄，並保留其他控制柄與點值。必須存在較早的點。請勿與自訂控制柄或不同插值方式結合使用。預設可用於批次與大量範本。GUI"
+" 預設 **ease**\\ （\"Ease (Default)\"）與純貝茲爾插值使用的原生控制柄不同。反向預設可能會超出端點值。"
+
+#: ../doc/agent_cli.rst:768
+msgid ""
+"Inspect motion **before rendering**, using the native curve evaluator::"
+msgstr "使用原生曲線評估器\\ **在渲染前**\\ 檢視動作::"
+
+#: ../doc/agent_cli.rst:773
+msgid ""
+"Preview is read-only and works identically for effects and transitions. It "
+"returns values and signed incoming_rate / outgoing_rate in property units "
+"per second, calculated from immediately adjacent frames. These are finite "
+"differences, not analytic derivatives. At native frame 1 the incoming rate "
+"is null. Adjacent-frame rates can inspect outside the requested range. Near-"
+"zero rates around an interior point reveal a pause; differing rates reveal a"
+" speed change. Constant interpolation reveals a jump at the destination."
+msgstr ""
+"預覽為唯讀，且對效果與轉場的運作相同。它回傳值以及以屬性單位每秒計算的帶符號進入速率/離開速率，這些速率是從相鄰幀計算的有限差分，而非解析導數。在原生幀"
+" 1 處，進入速率為零。相鄰幀速率可檢查請求範圍外的區域。內部點附近接近零的速率表示暫停；不同速率表示速度變化。常數插值在目標點顯示跳變。"
+
+#: ../doc/agent_cli.rst:781
+msgid ""
+"Without a range, preview spans the curve's first and last points. Ranges are"
+" inclusive, with 17 evenly spaced samples by default (--count: 2–256). "
+"Keyframes and their immediate neighbors inside the range are also included, "
+"so a sparse sample count will not hide a keyframe stall. The maximum is 1024"
+" samples; larger requests require a narrower range. --at samples one frame. "
+"Preview reports requested-space coordinates and actual native frames; "
+"seconds snap to project frames as they do for editing."
+msgstr ""
+"若無指定範圍，預覽涵蓋曲線的第一與最後點。範圍為包含式，預設有 17 "
+"個均勻分布的取樣點（--count：2–256）。範圍內的關鍵幀及其鄰近點也會包含，因此稀疏的取樣數不會隱藏關鍵幀停頓。最大取樣數為 "
+"1024；較大請求需縮小範圍。--at 取樣一幀。預覽報告請求空間座標與實際原生幀；秒數會像編輯時一樣對齊專案幀。"
+
+#: ../doc/agent_cli.rst:789
+msgid ""
+"For advanced custom handles, both X and Y are normalized to the segment: X "
+"is a fraction of its frame span; Y is a fraction of its value change. The "
+"first control comes from the previous point's handle_right, the second from "
+"the destination's handle_left. Native defaults are right=(0.5, 0), "
+"left=(0.5, 1), with flat endpoint tangents. Changing handle_type alone does "
+"not recalculate a continuous tangent through surrounding points. Existing "
+"handles are preserved when moving a point."
+msgstr ""
+"對於進階自訂控制柄，X 與 Y 均正規化至區段：X 是其幀跨度的分數；Y 是其值變化的分數。第一個控制點來自前一點的 "
+"handle_right，第二個來自目標點的 handle_left。原生預設為 right=(0.5, 0)、left=(0.5, "
+"1)，端點切線為平坦。僅更改 handle_type 不會重新計算穿過周圍點的連續切線。移動點時會保留現有控制柄。"
+
+#: ../doc/agent_cli.rst:797
+msgid ""
+"Keyframe ranges are **inclusive**, unlike clip-selection time ranges. List "
+"emits ``points`` whose ``co.X`` values use the requested coordinate "
+"space/unit. Pass that array to ``keyframe paste --json @points.json`` with "
+"the same space/unit, choosing ``--mode merge`` (replace matching frames, "
+"retain others) or ``--mode replace`` (replace the entire curve). ``copy`` "
+"accepts a source of the same object kind, an optional ``--source-property``,"
+" and anchors the first selected source point at ``--at`` on the target. "
+"Other curves and source objects remain unchanged."
+msgstr ""
+"關鍵幀範圍為\\ **包含式**\\ ，不同於剪輯選取的時間範圍。列表輸出 ``points``\\ ，其 ``co.X`` "
+"值使用請求的座標空間/單位。將該陣列傳遞給 ``keyframe paste --json @points.json``\\ "
+"，使用相同空間/單位，並選擇 ``--mode merge``\\ （替換匹配幀，保留其他）或 ``--mode replace``\\ "
+"（替換整條曲線）。\\ ``copy`` 接受相同物件類型的來源，可選擇 ``--source-property``\\ "
+"，並將第一個選取的來源點錨定於目標的 ``--at``\\ 。其他曲線與來源物件保持不變。"
+
+#: ../doc/agent_cli.rst:805
+msgid ""
+"``transform`` applies a positive time scale around the first selected point,"
+" or ``--pivot``, followed by a signed ``--offset`` in the chosen unit. Frame"
+" snapping that creates duplicate coordinates is rejected, including "
+"collisions with points outside the selected range. Native coordinates must "
+"remain at least 1. Native normalized Bézier handles and interpolation travel"
+" with each point; handles are not absolute frame coordinates. ``set "
+"--handles`` changes only supplied handles. Interpolation belongs to the "
+"destination point."
+msgstr ""
+"``transform`` 會在第一個選取點或 ``--pivot`` 周圍套用正向時間縮放，接著是以選擇單位表示的帶符號 ``--offset``\\"
+" 。會拒絕產生重複座標的幀對齊，包括與選取範圍外點的碰撞。原生座標必須至少為 1。原生正規化貝茲爾控制柄與插值會隨每個點移動；控制柄非絕對幀座標。\\ "
+"``set --handles`` 僅更改提供的控制柄。插值屬於目標點。"
+
+#: ../doc/agent_cli.rst:813
+msgid ""
+"``clear`` retains a constant base point at native frame 1: specify "
+"``--value`` or sample the existing curve with ``--at`` (default native frame"
+" 1). Removing the last point also retains a constant base, so subsequent "
+"keyframe additions remain valid."
+msgstr ""
+"``clear`` 保留原生幀 1 的恆定基準點：指定 ``--value`` 或使用 ``--at`` 取樣現有曲線（預設為原生幀 "
+"1）。移除最後一點也會保留恆定基準，因此後續新增關鍵幀仍有效。"
+
+#: ../doc/agent_cli.rst:818
+msgid "Selecting and editing many clips"
+msgstr "選取與編輯多個剪輯"
+
+#: ../doc/agent_cli.rst:820
+msgid ""
+"Use ``edit apply --dry-run`` to validate a batch without changing the "
+"project. Use ``edit bulk`` to repeat a small command template for each "
+"selected clip, with all changes grouped into one undo step."
+msgstr ""
+"使用 ``edit apply --dry-run`` 驗證批次而不更改專案。使用 ``edit bulk`` "
+"對每個選取剪輯重複執行小型指令範本，所有變更會合併為一次復原步驟。"
+
+#: ../doc/agent_cli.rst:824
+msgid "First preview a selection::"
+msgstr "首先預覽選取項目::"
+
+#: ../doc/agent_cli.rst:828
+msgid ""
+"Selectors support ``ids`` (unique clip ID array), ``layer``, "
+"``start``/``end`` (timeline seconds), ``file_id``, ``effect`` (class name or"
+" alias), and ``text`` (``true`` selects text clips). Filters combine with "
+"AND. Time ranges select clips overlapping ``[start, end)``; they do not trim"
+" those clips. Results are ordered by position, layer, then ID, and include "
+"IDs, summaries, lock state, and the current revision. Unknown IDs are "
+"errors. An empty selector is rejected; use ``{\"all\":true}`` explicitly for"
+" every clip. Selections are bounded to 256 clips and are never silently "
+"truncated."
+msgstr ""
+"選擇器支援 ``ids``\\ （唯一剪輯 ID 陣列）、\\ ``layer``\\ 、\\ ``start``/``end``\\ "
+"（時間軸秒數）、\\ ``file_id``\\ 、\\ ``effect``\\ （類別名稱或別名）及 ``text``\\ （\\ ``true``"
+" 選擇文字剪輯）。篩選條件以 AND 結合。時間範圍選擇重疊 ``[start, end)`` 的剪輯；不會裁剪這些剪輯。結果依位置、圖層及 ID "
+"排序，並包含 ID、摘要、鎖定狀態及當前修訂版。未知 ID 為錯誤。空選擇器會被拒絕；請明確使用 ``{\"all\":true}`` "
+"選擇所有剪輯。選擇限制為 256 個剪輯，且不會被靜默截斷。"
+
+#: ../doc/agent_cli.rst:837
+msgid "For example, save this array as ``templates.json``::"
+msgstr "例如，將此陣列儲存為 ``templates.json``::"
+
+#: ../doc/agent_cli.rst:846
+msgid "Validate it, then apply against the revision returned by selection::"
+msgstr "驗證後，對選擇返回的修訂版套用::"
+
+#: ../doc/agent_cli.rst:851
+msgid ""
+"Existing-clip commands inherit ``id``; ``effects.add`` inherits ``clip_id``."
+" Omit these target parameters in templates. Effect edits must reference an "
+"earlier named result. Names are local to each selected clip, so ``look.id`` "
+"refers to a different effect for each clip. To change existing effect "
+"instances by explicit ID, continue using ``edit apply``. The selected ID set"
+" is fixed before expansion; changes to position or effects do not change the"
+" remaining targets."
+msgstr ""
+"現有剪輯指令繼承 ``id``\\ ；\\ ``effects.add`` 繼承 ``clip_id``\\ "
+"。在範本中省略這些目標參數。效果編輯必須參考先前命名的結果。名稱對每個選擇的剪輯都是本地的，因此 ``look.id`` "
+"對每個剪輯指向不同的效果。若要透過明確 ID 變更現有效果實例，請繼續使用 ``edit apply``\\ 。選擇的 ID "
+"集合在展開前固定；位置或效果的變更不會改變剩餘目標。"
+
+#: ../doc/agent_cli.rst:858
+msgid ""
+"``clip set`` applies absolute properties; ``clip adjust`` applies "
+"``multiply`` then ``add`` to a numeric property or every value in a curve, "
+"preserving point timing, interpolation, and normalized handles. It validates"
+" resulting values, including nonnegative positions and volume. Structural "
+"fields remain protected."
+msgstr ""
+"``clip set`` 套用絕對屬性；\\ ``clip adjust`` 對數值屬性或曲線中的每個值先套用 ``multiply`` 再套用 "
+"``add``\\ ，同時保留點的時間、插值及標準化控制柄。它會驗證結果值，包括非負位置和音量。結構欄位保持受保護狀態。"
+
+#: ../doc/agent_cli.rst:863
+msgid ""
+"Bulk operations reject empty selections, locked target tracks, and more than"
+" 256 expanded commands. Every expanded operation passes detached preflight "
+"before any live edit. Dry runs do not reserve generated IDs. Use ``--expect-"
+"revision`` to reject stale selections. Successful batches are one undo step,"
+" including after save/reopen. GUI refreshes are batched. Unexpected "
+"runtime/listener errors can still leave a partial transaction; the error "
+"reports completed operations and undo reverts that group, as with ``edit "
+"apply``."
+msgstr ""
+"批次操作會拒絕空選擇、鎖定的目標軌道，以及超過 256 個展開指令。每個展開操作在任何即時編輯前都會通過獨立的預檢。模擬執行不會保留產生的 ID。使用 "
+"``--expect-revision`` 拒絕過期選擇。成功的批次為一個復原步驟，包括儲存/重新開啟後。GUI "
+"更新會批次處理。意外的執行時/監聽器錯誤仍可能留下部分交易；錯誤會報告已完成的操作，復原會還原該組，如同 ``edit apply``\\ 。"
+
+#: ../doc/agent_cli.rst:872
+msgid "Profiles"
+msgstr "設定檔"
+
+#: ../doc/agent_cli.rst:874
+msgid "Discover profiles and match imported video without guessing IDs::"
+msgstr "發現設定檔並匹配匯入影片，無需猜測 ID::"
+
+#: ../doc/agent_cli.rst:884
+msgid ""
+"Catalog entries include stable IDs, descriptions, dimensions, rational FPS, "
+"aspect ratios, and scan settings. List/search is paginated. Source matching "
+"returns exact IDs and ranked alternatives with explicit differences. Setting"
+" from a file requires an exact match unless ``--create-custom`` is "
+"specified; it never silently chooses a nearby profile. Still images and "
+"audio-only sources cannot define a video profile. Matching uses declared "
+"source FPS."
+msgstr ""
+"目錄條目包含穩定的 ID、描述、尺寸、有理 FPS、寬高比及掃描設定。列表/搜尋分頁顯示。來源匹配返回精確 ID "
+"及帶有明確差異的排名替代方案。從檔案設定需精確匹配，除非指定 ``--create-custom``\\ "
+"；不會靜默選擇鄰近設定檔。靜態影像及純音訊來源無法定義影片設定檔。匹配使用宣告的來源 FPS。"
+
+#: ../doc/agent_cli.rst:891
+msgid ""
+"Custom settings are embedded in the saved project, including rational rates,"
+" so reopening does not require installing a separate profile file. Project "
+"profile changes use existing frame-rate conversion and one undo transaction."
+" Undo/redo restores clip timing and keyframes, including rounding-sensitive "
+"positions. Export can independently select a profile without changing the "
+"project."
+msgstr ""
+"自訂設定嵌入已儲存的專案中，包括有理速率，因此重新開啟不需安裝獨立設定檔。專案設定檔變更使用現有的幀率轉換及一次復原交易。復原/重做會還原剪輯時間及關鍵影格，包括對四捨五入敏感的位置。匯出可獨立選擇設定檔而不更改專案。"
+
+#: ../doc/agent_cli.rst:897
+msgid ""
+"Saved undo history follows the editor's history-limit preference. The limit "
+"is a soft action budget: all records belonging to retained transactions are "
+"kept, so saving cannot truncate a large batch into a partial undo action. "
+"Zero disables saved history. The separate 256-command batch request bound "
+"still applies."
+msgstr ""
+"已儲存的復原歷史遵循編輯器的歷史限制偏好。該限制為軟性操作預算：所有屬於保留交易的紀錄都會保留，因此儲存不會將大型批次截斷為部分復原動作。設為零則停用已儲存歷史。獨立的"
+" 256 指令批次請求限制仍然適用。"
+
+#: ../doc/agent_cli.rst:903
+msgid "Inspecting media and timelines"
+msgstr "檢視媒體與時間軸"
+
+#: ../doc/agent_cli.rst:905
+msgid ""
+"Inspect clip timing and track layout as text or JSON, or render images to "
+"review composition and framing before exporting."
+msgstr "以文字或 JSON 檢視剪輯時間與軌道佈局，或渲染影像以在匯出前檢查構圖與取景。"
+
+#: ../doc/agent_cli.rst:909
+msgid "Timeline summaries"
+msgstr "時間軸摘要"
+
+#: ../doc/agent_cli.rst:911
+msgid ""
+"Use a text view for a quick overview, or structured JSON for scripts and "
+"agents::"
+msgstr "使用文字檢視快速概覽，或結構化 JSON 用於腳本與代理::"
+
+#: ../doc/agent_cli.rst:917
+msgid ""
+"``timeline view`` defaults to compact text with used tracks, object IDs, "
+"timeline/source intervals, stream state, gain, and gaps/overlaps. Use "
+"``--detail summary|clips|full`` to choose detail, ``--format json`` for "
+"structured context, and ``--start/--end``, ``--layer``, and pagination to "
+"focus the result."
+msgstr ""
+"``timeline view`` 預設為簡潔文字，包含使用的軌道、物件 ID、時間軸/來源區間、串流狀態、增益及間隙/重疊。使用 ``--detail"
+" summary|clips|full`` 選擇細節，\\ ``--format json`` 取得結構化內容，並用 "
+"``--start/--end``\\ 、\\ ``--layer`` 及分頁聚焦結果。"
+
+#: ../doc/agent_cli.rst:922
+msgid ""
+"``timeline overview`` supplies compact structured context without image "
+"bytes: ordered IDs, sequence per track, timeline/source intervals, visible "
+"trim ranges, frame coordinates, audio/video state, effects, and neighboring "
+"gaps or overlaps. Intervals and frame spans are end-exclusive; frame numbers"
+" are one-based. Source frames use source FPS; timeline and keyframe "
+"coordinates use project FPS. Use ``--layer`` and ``--start/--end`` to focus,"
+" and ``--limit/--offset`` to paginate (default 100, maximum 500 items). "
+"Time-remapped clips explicitly withhold inferred source mappings. Use the "
+"returned revision with ``edit apply --expect-revision``."
+msgstr ""
+"``timeline overview`` 提供簡潔的結構化內容，不含影像位元組：排序的 "
+"ID、每軌序列、時間軸/來源區間、可見裁剪範圍、影格座標、音訊/視訊狀態、效果及鄰近間隙或重疊。區間與影格範圍為結尾排除；影格編號從 1 "
+"起算。來源影格使用來源 FPS；時間軸與關鍵影格座標使用專案 FPS。使用 ``--layer`` 與 ``--start/--end`` 聚焦，並用 "
+"``--limit/--offset`` 分頁（預設 100，最大 500 項）。時間重映射剪輯明確隱藏推斷的來源映射。使用返回的修訂版搭配 "
+"``edit apply --expect-revision``\\ 。"
+
+#: ../doc/agent_cli.rst:932
+msgid "Frame previews and contact sheets"
+msgstr "影格預覽與聯絡表"
+
+#: ../doc/agent_cli.rst:934
+msgid ""
+"Render a single frame with ``thumbnail`` or sample a range with ``strip``. "
+"Use ``file`` to inspect source media and ``timeline`` to inspect the "
+"composed video, including effects and layered clips::"
+msgstr ""
+"使用 ``thumbnail`` 渲染單一影格，或用 ``strip`` 取樣一段範圍。使用 ``file`` 檢視來源媒體，使用 "
+"``timeline`` 檢視合成影片，包括效果與分層剪輯::"
+
+#: ../doc/agent_cli.rst:943
+msgid ""
+"Frame images default to 320x180 pixels; contact sheets default to 160x90 per"
+" tile, plus timecode labels. Use ``--width`` and ``--height`` to choose "
+"output pixels. Responses include exact sample/frame metadata. Contact sheets"
+" help review composition across a sequence; use keyframe previews and "
+"rendered video to assess motion between those samples."
+msgstr ""
+"影格影像預設為 320x180 像素；聯絡表每格預設為 160x90 像素，並附時間碼標籤。使用 ``--width`` 和 ``--height`` "
+"選擇輸出像素。回應包含精確的取樣/影格元資料。聯絡表有助於檢視序列中的構圖；使用關鍵影格預覽與渲染影片評估取樣間的動態。 "
+
+#: ../doc/agent_cli.rst:950
+msgid "Timeline images"
+msgstr "時間軸影像"
+
+#: ../doc/agent_cli.rst:952
+msgid ""
+"Capture the editor's track layout, including its ruler, thumbnails, effects,"
+" transitions, and waveforms::"
+msgstr "擷取編輯器的軌道佈局，包括標尺、縮圖、效果、轉場和波形::"
+
+#: ../doc/agent_cli.rst:957
+msgid ""
+"Specifying ``--output`` selects image format; ``--format image`` also "
+"selects it explicitly. The capture does not change the editor's viewport or "
+"project. Responses include clip IDs and timing alongside pixel bounds."
+msgstr ""
+"指定 ``--output`` 可選擇影像格式；\\ ``--format image`` "
+"也會明確選擇格式。擷取不會改變編輯器的視窗或專案。回應包含剪輯 ID、時間以及像素範圍。"
+
+#: ../doc/agent_cli.rst:961
+msgid ""
+"Images default to 1280 pixels wide, with height fitted to used tracks. Use "
+"``--width``, ``--height``, or ``--all-tracks`` to adjust the layout, and "
+"``--track-size`` or ``--track-label-width`` to adjust tracks and labels. The"
+" start/end range determines zoom; ``--pixels-per-second`` instead derives "
+"the width from the time range."
+msgstr ""
+"影像預設寬度為 1280 像素，高度依使用的軌道調整。使用 ``--width``\\ 、\\ ``--height`` 或 ``--all-"
+"tracks`` 來調整佈局，使用 ``--track-size`` 或 ``--track-label-width`` "
+"來調整軌道和標籤。起始/結束範圍決定縮放；\\ ``--pixels-per-second`` 則根據時間範圍推算寬度。"
+
+#: ../doc/agent_cli.rst:968
+msgid "Audio waveform views"
+msgstr "音訊波形檢視"
+
+#: ../doc/agent_cli.rst:970
+msgid ""
+"Choose ``--mode waveforms`` to inspect audio envelopes on the timeline::"
+msgstr "選擇 ``--mode waveforms`` 以檢視時間軸上的音訊包絡線::"
+
+#: ../doc/agent_cli.rst:974
+msgid ""
+"``--mode auto`` uses the existing cached waveform display; ``--mode "
+"thumbnails`` shows thumbnails instead. Waveforms represent source peak/RMS "
+"levels with clip volume and timing adjustments, before audio effects or "
+"mixing."
+msgstr ""
+"``--mode auto`` 使用現有快取的波形顯示；\\ ``--mode thumbnails`` 則顯示縮圖。波形表示來源的峰值/RMS "
+"水準，並包含剪輯音量與時間調整，位於音效或混音之前。"
+
+#: ../doc/agent_cli.rst:978
+msgid ""
+"Uncached waveform extraction decodes whole sources, limited to 600 seconds "
+"per source and 1200 source-seconds per request. Narrowing the visible range "
+"does not reduce that decoding work. For longer sources, generate waveforms "
+"in the editor first or use thumbnail mode. Subsequent requests can reuse "
+"cached waveforms."
+msgstr ""
+"未快取的波形擷取會解碼整個來源，限制為每個來源最多 600 秒，每次請求最多 1200 "
+"秒來源時間。縮小可見範圍不會減少解碼工作。對於較長的來源，請先在編輯器中產生波形或使用縮圖模式。後續請求可重複使用快取的波形。"
+
+#: ../doc/agent_cli.rst:984
+msgid "Image output and limits"
+msgstr "影像輸出與限制"
+
+#: ../doc/agent_cli.rst:986
+msgid ""
+"Image paths must be new PNG files in existing directories. Images are "
+"limited to 4096 pixels per axis, 8,388,608 total pixels, and 64 contact-"
+"sheet samples. Requests beyond these limits fail before rendering."
+msgstr ""
+"影像路徑必須是存在目錄中的新 PNG 檔案。影像限制為每軸最多 4096 像素、總像素數不超過 8,388,608 以及最多 64 "
+"張聯絡表樣本。超出這些限制的請求會在渲染前失敗。"
+
+#: ../doc/agent_cli.rst:990
+msgid ""
+"Images are written to files; JSON responses include their paths and "
+"``image_bytes`` sizes. Inspection waits for the image to finish, and large "
+"requests can briefly occupy the editor."
+msgstr "影像會寫入檔案；JSON 回應包含其路徑與 ``image_bytes`` 大小。檢視會等待影像完成，大型請求可能會短暫佔用編輯器。"
+
+#: ../doc/agent_cli.rst:995
+msgid "Handling command timeouts"
+msgstr "處理指令逾時"
+
+#: ../doc/agent_cli.rst:997
+msgid ""
+"A request timeout does not mean a mutation failed. Use the operation ID in "
+"the error with ``operation get ID`` before retrying. ``operation list`` "
+"discovers recent mutations and their states, revisions, and outcomes. "
+"Completed operations retain their results when small enough, including "
+"returned object IDs. Storage is bounded to 100 operations and 4 MiB, with "
+"individual result bodies omitted above 256 KiB. These records last only for "
+"the running session. They do not restore projects after a crash or prevent a"
+" repeated command from applying the same edit again. Export jobs have their "
+"own status/list commands."
+msgstr ""
+"請求逾時不代表變更失敗。請先使用錯誤中的操作 ID 搭配 ``operation get ID`` 指令再重試。\\ ``operation "
+"list`` 可查詢近期變更及其狀態、版本與結果。完成的操作若結果較小，會保留結果，包括回傳的物件 ID。儲存限制為 100 筆操作與 4 "
+"MiB，單一結果體積超過 256 KiB "
+"則不保留。這些紀錄僅存在於當前執行階段，不會在崩潰後還原專案，也無法防止重複指令再次套用相同編輯。匯出工作有自己的狀態與列表指令。"

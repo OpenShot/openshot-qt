@@ -1,0 +1,1822 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../doc/keyboard.rst:4
+msgid "Keyboard Shortcuts"
+msgstr "キーボードショートカット"
+
+#: ../doc/keyboard.rst:5
+msgid ""
+"Find shortcuts by task below, or jump to the full reference. These are the "
+"default assignments; customize them in :guilabel:`Edit → Preferences → "
+"Keyboard` (:guilabel:`OpenShot Video Editor → Preferences` on macOS). See "
+":ref:`preferences_keyboard_ref` for details."
+msgstr ""
+"以下のタスク別にショートカットを探すか、完全なリファレンスにジャンプしてください。これらはデフォルトの割り当てです。\\ :guilabel:`編集 →"
+" 設定 → キーボード`\\ （macOSでは :guilabel:`OpenShot Video Editor → 設定`\\ "
+"）でカスタマイズできます。詳細は :ref:`preferences_keyboard_ref` を参照してください。"
+
+#: ../doc/keyboard.rst:10
+msgid "On macOS, use Command for shortcuts shown with Ctrl."
+msgstr "macOSでは、Ctrlと表示されているショートカットにCommandを使用してください。"
+
+#: ../doc/keyboard.rst:14
+msgid "On this page"
+msgstr "このページ内で"
+
+#: ../doc/keyboard.rst:19
+msgid "Using the timeline with a keyboard"
+msgstr "キーボードでタイムラインを操作する"
+
+#: ../doc/keyboard.rst:20
+msgid ""
+"Focus the timeline before selecting, moving, or trimming clips and "
+"transitions with these shortcuts."
+msgstr "これらのショートカットでクリップやトランジションを選択、移動、トリミングする前に、タイムラインにフォーカスを合わせてください。"
+
+#: ../doc/keyboard.rst:23
+msgid "Moving between panels"
+msgstr "パネル間の移動"
+
+#: ../doc/keyboard.rst:29 ../doc/keyboard.rst:153 ../doc/keyboard.rst:186
+#: ../doc/keyboard.rst:224 ../doc/keyboard.rst:250 ../doc/keyboard.rst:389
+#: ../doc/keyboard.rst:420
+msgid "Action"
+msgstr "操作"
+
+#: ../doc/keyboard.rst:30 ../doc/keyboard.rst:111 ../doc/keyboard.rst:154
+#: ../doc/keyboard.rst:187 ../doc/keyboard.rst:225 ../doc/keyboard.rst:251
+msgid "Shortcut"
+msgstr "ショートカット"
+
+#: ../doc/keyboard.rst:31 ../doc/keyboard.rst:522
+msgid "Focus Project Files"
+msgstr "プロジェクトファイルにフォーカス"
+
+#: ../doc/keyboard.rst:32 ../doc/keyboard.rst:523
+msgid ":kbd:`Shift+1`"
+msgstr ":kbd:`Shift+1`"
+
+#: ../doc/keyboard.rst:33
+msgid "Preview the selected file or timeline clip's source"
+msgstr "選択したファイルまたはタイムラインクリップのソースをプレビュー"
+
+#: ../doc/keyboard.rst:34 ../doc/keyboard.rst:394 ../doc/keyboard.rst:601
+msgid ":kbd:`Shift+2` or :kbd:`Alt+P`"
+msgstr ":kbd:`Shift+2` または :kbd:`Alt+P`"
+
+#: ../doc/keyboard.rst:35
+msgid "Focus the timeline"
+msgstr "タイムラインにフォーカス"
+
+#: ../doc/keyboard.rst:36 ../doc/keyboard.rst:526
+msgid ":kbd:`Shift+3`"
+msgstr ":kbd:`Shift+3`"
+
+#: ../doc/keyboard.rst:37 ../doc/keyboard.rst:528
+msgid "Focus Transitions"
+msgstr "トランジションにフォーカス"
+
+#: ../doc/keyboard.rst:38 ../doc/keyboard.rst:529
+msgid ":kbd:`Shift+7`"
+msgstr ":kbd:`Shift+7`"
+
+#: ../doc/keyboard.rst:39 ../doc/keyboard.rst:516
+msgid "Focus Effects"
+msgstr "エフェクトにフォーカス"
+
+#: ../doc/keyboard.rst:40 ../doc/keyboard.rst:517
+msgid ":kbd:`Shift+8`"
+msgstr ":kbd:`Shift+8`"
+
+#: ../doc/keyboard.rst:41 ../doc/keyboard.rst:519
+msgid "Focus Emojis"
+msgstr "絵文字にフォーカス"
+
+#: ../doc/keyboard.rst:42 ../doc/keyboard.rst:520
+msgid ":kbd:`Shift+9`"
+msgstr ":kbd:`Shift+9`"
+
+#: ../doc/keyboard.rst:43
+msgid "Move to the next / previous control"
+msgstr "次 / 前のコントロールに移動"
+
+#: ../doc/keyboard.rst:44 ../doc/keyboard.rst:46
+msgid ":kbd:`Tab` / :kbd:`Shift+Tab`"
+msgstr ":kbd:`Tab` / :kbd:`Shift+Tab`"
+
+#: ../doc/keyboard.rst:45
+msgid "Focus the next / previous dock tab title without selecting it"
+msgstr "選択せずに次 / 前のドックタブタイトルにフォーカス"
+
+#: ../doc/keyboard.rst:47
+msgid "Move focus between dock tab titles"
+msgstr "ドックタブタイトル間でフォーカスを移動"
+
+#: ../doc/keyboard.rst:48
+msgid ":kbd:`Left` / :kbd:`Right` while a title has focus"
+msgstr "タイトルにフォーカスがあるときの :kbd:`Left` / :kbd:`Right`"
+
+#: ../doc/keyboard.rst:49
+msgid "Activate the focused dock tab and enter its first control"
+msgstr "フォーカスされたドックタブをアクティブにして最初のコントロールに入る"
+
+#: ../doc/keyboard.rst:50
+msgid ":kbd:`Space` or :kbd:`Enter`"
+msgstr ":kbd:`Space` または :kbd:`Enter`"
+
+#: ../doc/keyboard.rst:51
+msgid "Browse Project Files, transitions, effects, or emojis"
+msgstr "プロジェクトファイル、トランジション、エフェクト、または絵文字を閲覧"
+
+#: ../doc/keyboard.rst:52
+msgid "Arrow keys while the list has focus"
+msgstr "リストにフォーカスがあるときの矢印キー"
+
+#: ../doc/keyboard.rst:54
+msgid ""
+"Each grouped dock title is a separate Tab stop. Its normal focus style marks"
+" the focused title (an underline in Cosmic Dusk); moving focus does not "
+"change the selected dock. Activate a title to switch docks and focus its "
+"first control. Clicking a dock tab also focuses its first control, even if "
+"that tab is already selected. Only the active dock's visible controls "
+"participate in the Tab sequence; hidden dock controls are skipped."
+msgstr ""
+"グループ化された各ドックタイトルは別々のTabストップです。通常のフォーカススタイルはフォーカスされたタイトルを示します（Cosmic "
+"Duskでは下線）。フォーカスを移動しても選択されたドックは変わりません。タイトルをアクティブにするとドックが切り替わり、最初のコントロールにフォーカスします。ドックタブをクリックしても、そのタブが既に選択されていても最初のコントロールにフォーカスします。アクティブなドックの表示されているコントロールのみがTabシーケンスに参加し、非表示のドックコントロールはスキップされます。"
+
+#: ../doc/keyboard.rst:61
+msgid ""
+"When focus is inside a dock, the underline stays beneath its active tab. "
+"When you Tab between titles, the underline follows the focused title. The "
+"timeline itself is one Tab stop; Tab does not visit each clip or transition."
+msgstr ""
+"ドック内にフォーカスがあるとき、下線はアクティブなタブの下に留まります。タイトル間をTabで移動すると、下線はフォーカスされたタイトルに追従します。タイムライン自体は1つのTabストップであり、Tabは各クリップやトランジションには移動しません。"
+
+#: ../doc/keyboard.rst:65
+msgid ""
+"The timeline's ruler and track headers, including their labels, dim when "
+"unfocused. The clip area stays the same. In Cosmic Dusk, a blue underline "
+"marks the focused dock's title text or active tab, and buttons show a blue "
+"focus border. The untitled timeline dock has no underline."
+msgstr ""
+"タイムラインのルーラーやトラックヘッダー（ラベルを含む）はフォーカスが外れると薄くなります。クリップエリアは変わりません。Cosmic "
+"Duskでは、青い下線がフォーカスされたドックのタイトルテキストまたはアクティブタブを示し、ボタンには青いフォーカス枠が表示されます。タイトルなしのタイムラインドックには下線がありません。"
+
+#: ../doc/keyboard.rst:71
+msgid "Previewing a source"
+msgstr "ソースのプレビュー"
+
+#: ../doc/keyboard.rst:72
+msgid ""
+"Press :kbd:`Shift+2` or :kbd:`Alt+P` with focus in Project Files to preview "
+"the selected file. With focus on the timeline, the same command previews the"
+" active selected clip from its Start point. With multiple items selected, "
+"the active selection anchor determines the source. Transitions and clips "
+"without an available project file do not open a source preview."
+msgstr ""
+"プロジェクトファイルにフォーカスがある状態で :kbd:`Shift+2` または :kbd:`Alt+P` "
+"を押すと、選択したファイルをプレビューします。タイムラインにフォーカスがある場合、同じコマンドでアクティブに選択されたクリップの開始点からプレビューします。複数のアイテムが選択されている場合、アクティブな選択アンカーがソースを決定します。利用可能なプロジェクトファイルがないトランジションやクリップはソースプレビューを開きません。"
+
+#: ../doc/keyboard.rst:78
+msgid ""
+"An existing preview for the same file or the same timeline clip is reused. "
+"Different timeline clips have separate range-editing targets, even if they "
+"use the same source. When neither the file list nor the timeline has focus, "
+"the command does nothing."
+msgstr ""
+"同じファイルまたは同じタイムラインクリップの既存のプレビューが再利用されます。異なるタイムラインクリップは同じソースを使用していても別々の範囲編集対象を持ちます。ファイルリストもタイムラインもフォーカスされていない場合、このコマンドは何もしません。"
+
+#: ../doc/keyboard.rst:83
+msgid ""
+"In Preview File, click or drag the source ruler to scrub. Preview Clip and "
+"Split File also provide range editing: drag the Start/End grips, move the "
+"selected filmstrip range, draw a new range outside it, or edit their "
+"timecodes, or press :kbd:`I` / :kbd:`O` to set a marker at the playhead. End"
+" is the last included frame. :guilabel:`Loop` repeats the marked range. The "
+"preview uses your configured timeline playback and range-editing shortcuts: "
+":kbd:`,` / :kbd:`.` move the range one frame (:kbd:`Shift` moves five). "
+":kbd:`[` selects Start for trimming, :kbd:`]` selects End; comma and period "
+"then trim that edge. :kbd:`Esc` leaves trim mode before closing the dialog. "
+":kbd:`Left` / :kbd:`Right` scrub frames without changing the range. "
+":kbd:`Space` toggles playback, :kbd:`J` / :kbd:`L` change playback speed and"
+" :kbd:`K` pauses. These shortcuts leave text entry alone in Name and "
+"timecodes."
+msgstr ""
+"プレビューファイルでは、ソースルーラーをクリックまたはドラッグしてスクラブします。プレビュークリップとスプリットファイルも範囲編集を提供します：開始/終了グリップをドラッグ、選択したフィルムストリップ範囲を移動、新しい範囲をその外側に描画、またはタイムコードを編集、あるいは"
+" :kbd:`I` / :kbd:`O` を押してプレイヘッドにマーカーを設定します。終了は含まれる最後のフレームです。\\ "
+":guilabel:`ループ` はマークされた範囲を繰り返します。プレビューは設定されたタイムライン再生および範囲編集ショートカットを使用します：\\ "
+":kbd:`,` / :kbd:`.` は範囲を1フレーム移動します（\\ :kbd:`Shift` で5フレーム移動）。\\ :kbd:`[` "
+"はトリミングの開始を選択、\\ :kbd:`]` は終了を選択し、カンマとピリオドでその端をトリミングします。\\ :kbd:`Esc` "
+"はダイアログを閉じる前にトリムモードを終了します。\\ :kbd:`Left` / :kbd:`Right` "
+"は範囲を変更せずにフレームをスクラブします。\\ :kbd:`Space` は再生を切り替え、\\ :kbd:`J` / :kbd:`L` "
+"は再生速度を変更し、\\ :kbd:`K` は一時停止します。これらのショートカットは名前とタイムコードのテキスト入力には影響しません。"
+
+#: ../doc/keyboard.rst:96
+msgid ""
+"Scrubbing and moving markers do not edit the project until you click the "
+"dialog's Create, Update, or Update Clip button. See :ref:`split_clip_ref`."
+msgstr ""
+"スクラブやマーカーの移動は、ダイアログの「作成」、「更新」、または「クリップを更新」ボタンをクリックするまでプロジェクトを編集しません。詳細は "
+":ref:`split_clip_ref` を参照してください。"
+
+#: ../doc/keyboard.rst:100
+msgid "Adding and applying assets"
+msgstr "アセットの追加と適用"
+
+#: ../doc/keyboard.rst:101
+msgid ""
+"The panel shortcuts above open the dock and focus its asset list directly. "
+"Use the arrow keys to choose an asset, then :kbd:`Ctrl+Enter` to add or "
+"apply it. Your existing browser selection is preserved; if nothing is "
+"selected, focusing the browser selects its current item or the first "
+"available item."
+msgstr ""
+"上記のパネルショートカットはドックを開き、そのアセットリストに直接フォーカスします。矢印キーでアセットを選択し、\\ :kbd:`Ctrl+Enter`"
+" "
+"で追加または適用します。既存のブラウザ選択は保持され、選択がない場合はブラウザにフォーカスすると現在のアイテムまたは最初の利用可能なアイテムが選択されます。"
+
+#: ../doc/keyboard.rst:110
+msgid "Panel / action"
+msgstr "パネル / アクション"
+
+#: ../doc/keyboard.rst:112
+msgid "Result"
+msgstr "結果"
+
+#: ../doc/keyboard.rst:113
+msgid "Project Files: add selected files"
+msgstr "プロジェクトファイル：選択したファイルを追加"
+
+#: ../doc/keyboard.rst:114 ../doc/keyboard.rst:117 ../doc/keyboard.rst:120
+#: ../doc/keyboard.rst:123 ../doc/keyboard.rst:430
+msgid ":kbd:`Ctrl+Enter`"
+msgstr ":kbd:`Ctrl+Enter`"
+
+#: ../doc/keyboard.rst:115
+msgid ""
+"Place files sequentially at the playhead, in browser order, on the target "
+"track."
+msgstr "ファイルをブラウザの順序でプレイヘッド位置に連続して、ターゲットトラックに配置します。"
+
+#: ../doc/keyboard.rst:116
+msgid "Effects: apply selected effects"
+msgstr "エフェクト：選択したエフェクトを適用"
+
+#: ../doc/keyboard.rst:118
+msgid ""
+"Apply to the selected timeline clips. Browsing effects keeps that clip "
+"selection."
+msgstr "選択したタイムラインクリップに適用します。エフェクトの閲覧中もクリップの選択は維持されます。"
+
+#: ../doc/keyboard.rst:119
+msgid "Transitions: add selected transitions"
+msgstr "トランジション：選択したトランジションを追加"
+
+#: ../doc/keyboard.rst:121
+msgid ""
+"Place at the playhead on the target track, using the default transition "
+"length."
+msgstr "デフォルトのトランジション長を使用して、ターゲットトラックのプレイヘッド位置に配置します。"
+
+#: ../doc/keyboard.rst:122
+msgid "Emojis: add selected emoji"
+msgstr "絵文字：選択した絵文字を追加"
+
+#: ../doc/keyboard.rst:124
+msgid ""
+"Place at the playhead on the target track, using the default image length."
+msgstr "デフォルトの画像長を使用して、ターゲットトラックのプレイヘッド位置に配置します。"
+
+#: ../doc/keyboard.rst:125
+msgid "Open the Add to Timeline dialog for selected files"
+msgstr "選択したファイルの「タイムラインに追加」ダイアログを開く"
+
+#: ../doc/keyboard.rst:126 ../doc/keyboard.rst:436
+msgid ":kbd:`Ctrl+Alt+A`"
+msgstr ":kbd:`Ctrl+Alt+A`"
+
+#: ../doc/keyboard.rst:127
+msgid "Choose placement and other options before adding the files."
+msgstr "ファイルを追加する前に配置やその他のオプションを選択します。"
+
+#: ../doc/keyboard.rst:129
+msgid ""
+"The target is the selected timeline item's track, or the remembered track if"
+" nothing is selected. With neither available, OpenShot uses the highest "
+"unlocked track. The target track label appears **bold** while browsing "
+"assets. To change it, select an item on the desired track or clear the "
+"timeline selection and click the desired track before returning to the "
+"browser. A locked target blocks the operation; effects also require selected"
+" clips on unlocked tracks."
+msgstr ""
+"ターゲットは選択されたタイムラインアイテムのトラック、または選択がない場合は記憶されたトラックです。どちらもない場合、OpenShotは最も高いロック解除されたトラックを使用します。アセットを閲覧中はターゲットトラックのラベルが\\"
+" **太字**\\ "
+"で表示されます。変更するには、目的のトラック上のアイテムを選択するか、タイムラインの選択を解除して目的のトラックをクリックし、ブラウザに戻ってください。ロックされたターゲットは操作をブロックし、エフェクトはロック解除されたトラック上の選択されたクリップも必要とします。"
+
+#: ../doc/keyboard.rst:136
+msgid ""
+"Adding at the playhead uses normal OpenShot placement: it does not make room"
+" by shifting later clips or overwrite their content. As with dragging a "
+"single clip, an overlap can create an automatic transition. The playhead "
+"stays in place and focus stays in the browser, so you can continue choosing "
+"assets. Press :kbd:`Shift+3` to edit the newly added timeline items."
+msgstr ""
+"プレイヘッド位置への追加は通常のOpenShot配置を使用します：後のクリップを移動してスペースを作ったり、内容を上書きしたりしません。単一クリップのドラッグと同様に、重なりは自動トランジションを作成することがあります。プレイヘッドはそのままで、フォーカスはブラウザに残るため、アセットの選択を続けられます。新しく追加されたタイムラインアイテムを編集するには"
+" :kbd:`Shift+3` を押してください。"
+
+#: ../doc/keyboard.rst:142
+msgid ""
+"For example: :kbd:`Shift+1` → arrow keys → :kbd:`Ctrl+Enter` → "
+":kbd:`Shift+3`. The add/apply shortcut works in the asset list, not while "
+"typing in a filter or renaming an item."
+msgstr ""
+"例：\\ :kbd:`Shift+1` → 矢印キー → :kbd:`Ctrl+Enter` → :kbd:`Shift+3`\\ "
+"。追加/適用ショートカットはフィルター入力やアイテム名変更中ではなく、アセットリストで機能します。"
+
+#: ../doc/keyboard.rst:147
+msgid "Moving the playhead"
+msgstr "プレイヘッドの移動"
+
+#: ../doc/keyboard.rst:155
+msgid "Step backward / forward one frame"
+msgstr "1フレームずつ後ろ／前へ移動"
+
+#: ../doc/keyboard.rst:156
+msgid ":kbd:`Left` / :kbd:`Right`"
+msgstr ":kbd:`Left` / :kbd:`Right`"
+
+#: ../doc/keyboard.rst:157
+msgid "Step backward / forward five frames"
+msgstr "5フレームずつ後ろ／前へ移動"
+
+#: ../doc/keyboard.rst:158
+msgid ":kbd:`Shift+Left` / :kbd:`Shift+Right`"
+msgstr ":kbd:`Shift+Left` / :kbd:`Shift+Right`"
+
+#: ../doc/keyboard.rst:159
+msgid "Go to the previous / next edit"
+msgstr "前／次の編集箇所へ移動"
+
+#: ../doc/keyboard.rst:160
+msgid ":kbd:`Up` / :kbd:`Down`"
+msgstr ":kbd:`Up` / :kbd:`Down`"
+
+#: ../doc/keyboard.rst:161
+msgid "Jump to the start / end"
+msgstr "開始／終了位置へジャンプ"
+
+#: ../doc/keyboard.rst:162
+msgid ":kbd:`Home` / :kbd:`End`"
+msgstr ":kbd:`Home` / :kbd:`End`"
+
+#: ../doc/keyboard.rst:163
+msgid "Center the timeline on the playhead"
+msgstr "タイムラインをプレイヘッド位置に中央表示"
+
+#: ../doc/keyboard.rst:164 ../doc/keyboard.rst:451
+msgid ":kbd:`Shift+C`"
+msgstr ":kbd:`Shift+C`"
+
+#: ../doc/keyboard.rst:165 ../doc/keyboard.rst:292
+msgid "Play / pause"
+msgstr "再生 / 一時停止"
+
+#: ../doc/keyboard.rst:166 ../doc/keyboard.rst:595
+msgid ":kbd:`Space`"
+msgstr ":kbd:`Space`"
+
+#: ../doc/keyboard.rst:167
+msgid "Play in reverse"
+msgstr "逆再生"
+
+#: ../doc/keyboard.rst:168 ../doc/keyboard.rst:634
+msgid ":kbd:`J`"
+msgstr ":kbd:`J`"
+
+#: ../doc/keyboard.rst:169
+msgid "Stop playback"
+msgstr "再生停止"
+
+#: ../doc/keyboard.rst:170 ../doc/keyboard.rst:712
+msgid ":kbd:`K`"
+msgstr ":kbd:`K`"
+
+#: ../doc/keyboard.rst:171
+msgid "Play forward"
+msgstr "再生（順方向）"
+
+#: ../doc/keyboard.rst:172 ../doc/keyboard.rst:511
+msgid ":kbd:`L`"
+msgstr ":kbd:`L`"
+
+#: ../doc/keyboard.rst:174
+msgid ""
+"Edit navigation uses the selected item's track, or the last clicked track if"
+" nothing is selected. With no active track, it starts on the highest track "
+"containing a clip or transition at the playhead, or the highest populated "
+"track in a gap."
+msgstr ""
+"編集ナビゲーションは選択されたアイテムのトラック、または選択がない場合は最後にクリックしたトラックを使用します。アクティブなトラックがない場合は、プレイヘッド位置にクリップまたはトランジションがある最も高いトラック、またはギャップ内で最も高いアイテムがあるトラックから開始します。"
+
+#: ../doc/keyboard.rst:179
+msgid "Selecting clips and transitions"
+msgstr "クリップとトランジションの選択"
+
+#: ../doc/keyboard.rst:180
+msgid ""
+"These shortcuts select both clips and transitions. Selection brings an item "
+"into view without changing the zoom or playhead."
+msgstr "これらのショートカットはクリップとトランジションの両方を選択します。選択はズームやプレイヘッドを変更せずにアイテムを表示範囲に入れます。"
+
+#: ../doc/keyboard.rst:188
+msgid "Select the previous / next item"
+msgstr "前／次のアイテムを選択"
+
+#: ../doc/keyboard.rst:189
+msgid ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+
+#: ../doc/keyboard.rst:190
+msgid "Select an item above / below"
+msgstr "上／下のアイテムを選択"
+
+#: ../doc/keyboard.rst:191
+msgid ":kbd:`Ctrl+Up` / :kbd:`Ctrl+Down`"
+msgstr ":kbd:`Ctrl+Up` / :kbd:`Ctrl+Down`"
+
+#: ../doc/keyboard.rst:192
+msgid "Extend selection to the previous / next item"
+msgstr "前／次のアイテムまで選択を拡張"
+
+#: ../doc/keyboard.rst:193
+msgid ":kbd:`Ctrl+Shift+Left` / :kbd:`Ctrl+Shift+Right`"
+msgstr ":kbd:`Ctrl+Shift+Left` / :kbd:`Ctrl+Shift+Right`"
+
+#: ../doc/keyboard.rst:194
+msgid "Cycle through items under the playhead"
+msgstr "プレイヘッド下のアイテムを順に切り替え"
+
+#: ../doc/keyboard.rst:195 ../doc/keyboard.rst:652
+msgid ":kbd:`D`"
+msgstr ":kbd:`D`"
+
+#: ../doc/keyboard.rst:196
+msgid "Extend selection through items under the playhead"
+msgstr "プレイヘッド下のアイテムまで選択を拡張"
+
+#: ../doc/keyboard.rst:197 ../doc/keyboard.rst:502
+msgid ":kbd:`Ctrl+Shift+D`"
+msgstr ":kbd:`Ctrl+Shift+D`"
+
+#: ../doc/keyboard.rst:198
+msgid "Select all / clear selection"
+msgstr "すべて選択 / 選択解除"
+
+#: ../doc/keyboard.rst:199
+msgid ":kbd:`Ctrl+A` / :kbd:`Ctrl+Shift+A`"
+msgstr ":kbd:`Ctrl+A` / :kbd:`Ctrl+Shift+A`"
+
+#: ../doc/keyboard.rst:201
+msgid ""
+"**Left/right** follows the current track first. When no item remains in that"
+" direction, it continues to the closest item start on another track."
+msgstr ""
+"**左右キー** はまず現在のトラックに従います。その方向にアイテムが残っていない場合、別のトラックの最も近いアイテムの開始位置に移動します。"
+
+#: ../doc/keyboard.rst:204
+msgid ""
+"**Up/down** looks above or below the selected item, preferring items that "
+"overlap it in time. The nearest overlapping track wins. If nothing overlaps,"
+" the smallest horizontal gap wins, then the nearest track. Ties on a track "
+"favor the closest item center. Empty tracks and unrelated items farther to "
+"the side do not block navigation. With no selection, the playhead supplies "
+"the starting position."
+msgstr ""
+"**上下キー** "
+"は選択されたアイテムの上下を見て、時間的に重なるアイテムを優先します。最も近い重なるトラックが選ばれます。重なるものがなければ、最小の水平ギャップが優先され、その後最も近いトラックが選ばれます。トラック内での同点は最も近いアイテムの中心を優先します。空のトラックや無関係なアイテムはナビゲーションを妨げません。選択がない場合は、プレイヘッドが開始位置を提供します。"
+
+#: ../doc/keyboard.rst:210
+msgid ""
+"**Selection at the playhead** cycles from the highest track to the lowest, "
+"then wraps to the top. Moving the playhead restarts the cycle. If no item is"
+" under it, the selection stays unchanged. Extending selection keeps items "
+"already selected."
+msgstr ""
+"**プレイヘッド上の選択** "
+"は最上位トラックから最下位トラックまで順に移動し、最後はトップに戻ります。プレイヘッドを動かすとサイクルが再開されます。アイテムがない場合は選択は変わりません。選択範囲の拡張は既に選択されているアイテムを保持します。"
+
+#: ../doc/keyboard.rst:217
+msgid "Moving clips and transitions"
+msgstr "クリップとトランジションの移動"
+
+#: ../doc/keyboard.rst:218
+msgid ""
+"These shortcuts move the selected clips and transitions when no trim edge is"
+" selected."
+msgstr "トリムエッジが選択されていないとき、これらのショートカットは選択されたクリップとトランジションを移動します。"
+
+#: ../doc/keyboard.rst:226
+msgid "Move left / right one frame"
+msgstr "左 / 右に1フレーム移動"
+
+#: ../doc/keyboard.rst:227 ../doc/keyboard.rst:257
+msgid ":kbd:`,` / :kbd:`.`"
+msgstr ":kbd:`,` / :kbd:`.`"
+
+#: ../doc/keyboard.rst:228
+msgid "Move left / right five frames"
+msgstr "左 / 右に5フレーム移動"
+
+#: ../doc/keyboard.rst:229 ../doc/keyboard.rst:259
+msgid ":kbd:`Shift+,` / :kbd:`Shift+.`"
+msgstr ":kbd:`Shift+,` / :kbd:`Shift+.`"
+
+#: ../doc/keyboard.rst:230
+msgid "Move up / down one track"
+msgstr "上 / 下に1トラック移動"
+
+#: ../doc/keyboard.rst:231
+msgid ":kbd:`Alt+Up` / :kbd:`Alt+Down`"
+msgstr ":kbd:`Alt+Up` / :kbd:`Alt+Down`"
+
+#: ../doc/keyboard.rst:233
+msgid ""
+"Track moves keep the selection's timing and can use empty tracks. A locked "
+"track or the edge of the track list blocks the whole track move."
+msgstr "トラック移動は選択のタイミングを維持し、空のトラックも使用できます。ロックされたトラックやトラックリストの端は移動をブロックします。"
+
+#: ../doc/keyboard.rst:236
+msgid ""
+"Hold a comma/period shortcut to move continuously. OpenShot previews the "
+"movement while the key repeats, then saves the final positions when you "
+"release it. One Undo reverses the entire hold, including all selected items."
+" Separate key taps remain separate undo steps. Leaving the timeline or "
+"starting another keyboard command also finishes the current movement."
+msgstr ""
+"コンマ/ピリオドのショートカットを押し続けると連続移動します。キーが繰り返されている間、OpenShotは移動をプレビューし、キーを離すと最終位置を保存します。1回のUndoで押し続けた全ての操作（選択されたアイテムすべてを含む）を元に戻せます。個別のキー押下は別々のUndoステップになります。タイムラインを離れるか別のキーボードコマンドを開始すると現在の移動が終了します。"
+
+#: ../doc/keyboard.rst:243
+msgid "Trimming clips and transitions"
+msgstr "クリップとトランジションのトリミング"
+
+#: ../doc/keyboard.rst:244
+msgid ""
+"Select a clip or transition, choose its left or right edge, then adjust that"
+" edge."
+msgstr "クリップまたはトランジションを選択し、左端または右端を選んで、その端を調整します。"
+
+#: ../doc/keyboard.rst:252
+msgid "Select the left trim edge"
+msgstr "左のトリムエッジを選択"
+
+#: ../doc/keyboard.rst:253 ../doc/keyboard.rst:661
+msgid ":kbd:`[`"
+msgstr ":kbd:`[`"
+
+#: ../doc/keyboard.rst:254
+msgid "Select the right trim edge"
+msgstr "右のトリムエッジを選択"
+
+#: ../doc/keyboard.rst:255 ../doc/keyboard.rst:673
+msgid ":kbd:`]`"
+msgstr ":kbd:`]`"
+
+#: ../doc/keyboard.rst:256
+msgid "Move the selected edge left / right one frame"
+msgstr "選択したエッジを左 / 右に1フレーム移動"
+
+#: ../doc/keyboard.rst:258
+msgid "Move the selected edge left / right five frames"
+msgstr "選択したエッジを左 / 右に5フレーム移動"
+
+#: ../doc/keyboard.rst:260
+msgid "Leave trim mode and restore the timeline preview"
+msgstr "トリムモードを終了してタイムラインプレビューを復元"
+
+#: ../doc/keyboard.rst:261
+msgid ":kbd:`Esc`"
+msgstr ":kbd:`Esc`"
+
+#: ../doc/keyboard.rst:263
+msgid ""
+"The selected edge has a fading highlight. Video Preview shows the first "
+"included frame for the left edge or the last included frame for the right "
+"edge, updating after each trim without moving the playhead. For transitions,"
+" the preview shows the transition mask. Trims respect the available source "
+"media and do not ripple other clips."
+msgstr ""
+"選択されたエッジはフェードするハイライトが付きます。ビデオプレビューは左エッジの場合は最初に含まれるフレームを、右エッジの場合は最後に含まれるフレームを表示し、トリムごとに更新されますがプレイヘッドは動きません。トランジションの場合はトランジションマスクを表示します。トリムは利用可能なソースメディアを尊重し、他のクリップにはリップルしません。"
+
+#: ../doc/keyboard.rst:269
+msgid ""
+"Holding a trim shortcut also groups its repeated adjustments into one undo "
+"step."
+msgstr "トリムショートカットを押し続けると、繰り返される調整が1つのUndoステップにまとめられます。"
+
+#: ../doc/keyboard.rst:271
+msgid ""
+"After leaving trim mode, comma/period move whole clips and transitions "
+"again."
+msgstr "トリムモードを終了すると、コンマ/ピリオドでクリップとトランジション全体を再び移動できます。"
+
+#: ../doc/keyboard.rst:274
+msgid "Coming from another editor?"
+msgstr "他のエディターから移行ですか？"
+
+#: ../doc/keyboard.rst:275
+msgid ""
+"Compare a few everyday editing tasks with shortcuts you may already know."
+msgstr "よく使う編集作業と、すでにご存知かもしれないショートカットを比較しましょう。"
+
+#: ../doc/keyboard.rst:277
+msgid ""
+"The table shows OpenShot's Windows/Linux defaults, Adobe Premiere Pro and "
+"DaVinci Resolve Windows defaults, and Final Cut Pro Mac defaults. On macOS, "
+"OpenShot uses Command for shortcuts shown with Ctrl. Shortcuts in other "
+"editors can vary with the version, keyboard layout, selected preset, and "
+"active panel. Similar shortcuts can also behave differently on stacked or "
+"connected clips."
+msgstr ""
+"この表はOpenShotのWindows/Linuxのデフォルト、Adobe Premiere ProとDaVinci "
+"ResolveのWindowsデフォルト、Final Cut "
+"ProのMacデフォルトを示しています。macOSでは、OpenShotはCtrlで示されたショートカットにCommandを使用します。他のエディターのショートカットはバージョン、キーボードレイアウト、選択されたプリセット、アクティブなパネルによって異なる場合があります。類似のショートカットでも、重ねられたクリップや接続されたクリップでは動作が異なることがあります。"
+
+#: ../doc/keyboard.rst:283
+msgid "Everyday editing shortcuts"
+msgstr "日常の編集ショートカット"
+
+#: ../doc/keyboard.rst:287
+msgid "Task"
+msgstr "作業"
+
+#: ../doc/keyboard.rst:288
+msgid "OpenShot"
+msgstr "OpenShot"
+
+#: ../doc/keyboard.rst:289
+msgid "Premiere Pro"
+msgstr "Premiere Pro"
+
+#: ../doc/keyboard.rst:290
+msgid "DaVinci Resolve"
+msgstr "DaVinci Resolve"
+
+#: ../doc/keyboard.rst:291
+msgid "Final Cut Pro"
+msgstr "Final Cut Pro"
+
+#: ../doc/keyboard.rst:293 ../doc/keyboard.rst:294 ../doc/keyboard.rst:295
+#: ../doc/keyboard.rst:296
+msgid "Space"
+msgstr "スペース"
+
+#: ../doc/keyboard.rst:297
+msgid "Reverse / stop / forward"
+msgstr "逆再生 / 停止 / 再生"
+
+#: ../doc/keyboard.rst:298 ../doc/keyboard.rst:299 ../doc/keyboard.rst:300
+#: ../doc/keyboard.rst:301
+msgid "J / K / L"
+msgstr "J / K / L"
+
+#: ../doc/keyboard.rst:302
+msgid "Previous / next frame"
+msgstr "前のフレーム / 次のフレーム"
+
+#: ../doc/keyboard.rst:303 ../doc/keyboard.rst:304 ../doc/keyboard.rst:305
+#: ../doc/keyboard.rst:306
+msgid "Left / Right"
+msgstr "左 / 右"
+
+#: ../doc/keyboard.rst:307
+msgid "Previous / next edit"
+msgstr "前の編集点 / 次の編集点"
+
+#: ../doc/keyboard.rst:308
+msgid "Up / Down (active track)"
+msgstr "上 / 下（アクティブトラック）"
+
+#: ../doc/keyboard.rst:309 ../doc/keyboard.rst:310 ../doc/keyboard.rst:311
+msgid "Up / Down"
+msgstr "上 / 下"
+
+#: ../doc/keyboard.rst:312
+msgid "Focus media browser / project assets"
+msgstr "メディアブラウザー / プロジェクトアセットにフォーカス"
+
+#: ../doc/keyboard.rst:313
+msgid "Shift+1"
+msgstr "Shift+1"
+
+#: ../doc/keyboard.rst:314
+msgid "Shift+1 (Project panel)"
+msgstr "Shift+1（プロジェクトパネル）"
+
+#: ../doc/keyboard.rst:315 ../doc/keyboard.rst:320
+msgid "Not listed here"
+msgstr "ここに記載なし"
+
+#: ../doc/keyboard.rst:316
+msgid "Cmd+1 (Browser)"
+msgstr "Cmd+1（ブラウザ）"
+
+#: ../doc/keyboard.rst:317
+msgid "Focus timeline"
+msgstr "タイムラインにフォーカス"
+
+#: ../doc/keyboard.rst:318 ../doc/keyboard.rst:319
+msgid "Shift+3"
+msgstr "Shift+3"
+
+#: ../doc/keyboard.rst:321
+msgid "Cmd+2"
+msgstr "Cmd+2"
+
+#: ../doc/keyboard.rst:322
+msgid "Add source media at the playhead"
+msgstr "プレイヘッド位置にソースメディアを追加"
+
+#: ../doc/keyboard.rst:323
+msgid "Ctrl+Enter (place on target track)"
+msgstr "Ctrl+Enter（ターゲットトラックに配置）"
+
+#: ../doc/keyboard.rst:324
+msgid "Comma (insert); period (overwrite)"
+msgstr "カンマ（挿入）；ピリオド（上書き）"
+
+#: ../doc/keyboard.rst:325
+msgid "F9 (insert); F10 (overwrite)"
+msgstr "F9（挿入）；F10（上書き）"
+
+#: ../doc/keyboard.rst:326
+msgid "W (insert); D (overwrite); Q (connect)"
+msgstr "W（挿入）；D（上書き）；Q（接続）"
+
+#: ../doc/keyboard.rst:327
+msgid "Select previous / next clip"
+msgstr "前後のクリップを選択"
+
+#: ../doc/keyboard.rst:328 ../doc/keyboard.rst:330
+msgid "Ctrl+Left / Right"
+msgstr "Ctrl+左 / 右"
+
+#: ../doc/keyboard.rst:329 ../doc/keyboard.rst:333 ../doc/keyboard.rst:335
+msgid "Ctrl+Up / Down"
+msgstr "Ctrl+上 / 下"
+
+#: ../doc/keyboard.rst:331
+msgid "Cmd+Left / Right (same role; also moves playhead)"
+msgstr "Cmd+左 / 右（同じ役割；プレイヘッドも移動）"
+
+#: ../doc/keyboard.rst:332
+msgid "Select clip above / below"
+msgstr "上下のクリップを選択"
+
+#: ../doc/keyboard.rst:334
+msgid "No default listed here"
+msgstr "ここにはデフォルトがありません"
+
+#: ../doc/keyboard.rst:336
+msgid "Cmd+Up / Down"
+msgstr "Cmd+上 / 下"
+
+#: ../doc/keyboard.rst:337
+msgid "Move selection up / down"
+msgstr "選択範囲を上下に移動"
+
+#: ../doc/keyboard.rst:338 ../doc/keyboard.rst:339 ../doc/keyboard.rst:340
+msgid "Alt+Up / Down"
+msgstr "Alt+上 / 下"
+
+#: ../doc/keyboard.rst:341
+msgid "Option+Up / Down (connected clips)"
+msgstr "Option+上 / 下（接続されたクリップ）"
+
+#: ../doc/keyboard.rst:342
+msgid "Nudge left / right one frame"
+msgstr "1フレームずつ左 / 右に微調整"
+
+#: ../doc/keyboard.rst:343 ../doc/keyboard.rst:345 ../doc/keyboard.rst:346
+msgid "Comma / period"
+msgstr "カンマ / ピリオド"
+
+#: ../doc/keyboard.rst:344
+msgid "Alt+Left / Right"
+msgstr "Alt+左 / 右"
+
+#: ../doc/keyboard.rst:347
+msgid "Nudge by several frames"
+msgstr "数フレームずつ微調整"
+
+#: ../doc/keyboard.rst:348
+msgid "Shift+comma / period (5)"
+msgstr "Shift+カンマ / ピリオド（5）"
+
+#: ../doc/keyboard.rst:349
+msgid "Alt+Shift+Left / Right (5)"
+msgstr "Alt+Shift+左 / 右（5）"
+
+#: ../doc/keyboard.rst:350
+msgid "Shift+comma / period (configurable; default 5)"
+msgstr "Shift+カンマ / ピリオド（設定可能；デフォルトは5）"
+
+#: ../doc/keyboard.rst:351
+msgid "Shift+comma / period (10)"
+msgstr "Shift+カンマ / ピリオド（10）"
+
+#: ../doc/keyboard.rst:352
+msgid "Select at playhead"
+msgstr "プレイヘッド位置を選択"
+
+#: ../doc/keyboard.rst:353
+msgid "D (cycles through stacked clips)"
+msgstr "D（重なったクリップを順に切り替え）"
+
+#: ../doc/keyboard.rst:354
+msgid "D"
+msgstr "D"
+
+#: ../doc/keyboard.rst:355
+msgid "Shift+V (nearest clip/gap)"
+msgstr "Shift+V（最寄りのクリップ/ギャップ）"
+
+#: ../doc/keyboard.rst:356
+msgid "X selects a range; C selects under the pointer"
+msgstr "Xは範囲選択；Cはポインター下を選択"
+
+#: ../doc/keyboard.rst:357
+msgid "Split at playhead"
+msgstr "プレイヘッドで分割"
+
+#: ../doc/keyboard.rst:358
+msgid "Ctrl+K (selected clips)"
+msgstr "Ctrl+K（選択したクリップ）"
+
+#: ../doc/keyboard.rst:359
+msgid "Ctrl+K (targeted tracks)"
+msgstr "Ctrl+K（ターゲットトラック）"
+
+#: ../doc/keyboard.rst:360
+msgid "Ctrl+B"
+msgstr "Ctrl+B"
+
+#: ../doc/keyboard.rst:361
+msgid "Cmd+B"
+msgstr "Cmd+B"
+
+#: ../doc/keyboard.rst:362 ../doc/keyboard.rst:726
+msgid "Undo"
+msgstr "元に戻す"
+
+#: ../doc/keyboard.rst:363 ../doc/keyboard.rst:364 ../doc/keyboard.rst:365
+msgid "Ctrl+Z"
+msgstr "Ctrl+Z"
+
+#: ../doc/keyboard.rst:366
+msgid "Cmd+Z"
+msgstr "Cmd+Z"
+
+#: ../doc/keyboard.rst:367
+msgid "Save project"
+msgstr "プロジェクトを保存"
+
+#: ../doc/keyboard.rst:368 ../doc/keyboard.rst:369 ../doc/keyboard.rst:370
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: ../doc/keyboard.rst:371
+msgid "Saves automatically"
+msgstr "自動保存"
+
+#: ../doc/keyboard.rst:373
+msgid ""
+"For complete shortcut lists and customization options, see the `Premiere Pro"
+" keyboard reference <https://helpx.adobe.com/premiere/desktop/get-"
+"started/keyboard-shortcuts/default-keyboard-shortcuts.html>`_, `DaVinci "
+"Resolve training guides "
+"<https://www.blackmagicdesign.com/products/davinciresolve/training>`_, and "
+"`Final Cut Pro keyboard reference <https://support.apple.com/guide/final-"
+"cut-pro/ver90ba5929/mac>`_."
+msgstr ""
+"完全なショートカット一覧とカスタマイズオプションについては、`Premiere Pro キーボードリファレンス "
+"<https://helpx.adobe.com/premiere/desktop/get-started/keyboard-"
+"shortcuts/default-keyboard-shortcuts.html>`_、`DaVinci Resolve トレーニングガイド "
+"<https://www.blackmagicdesign.com/products/davinciresolve/training>`_、および "
+"`Final Cut Pro キーボードリファレンス <https://support.apple.com/guide/final-cut-"
+"pro/ver90ba5929/mac>`_ をご覧ください。"
+
+#: ../doc/keyboard.rst:381
+msgid "Mouse shortcuts"
+msgstr "マウスショートカット"
+
+#: ../doc/keyboard.rst:382
+msgid ""
+"These gestures complement the keyboard shortcuts. In Project Files' Details "
+"view, double-click the thumbnail column for the file actions below."
+msgstr ""
+"これらのジェスチャーはキーボードショートカットを補完します。プロジェクトファイルの詳細ビューで、以下のファイル操作を行うにはサムネイル列をダブルクリックしてください。"
+
+#: ../doc/keyboard.rst:390
+msgid "Mouse gesture"
+msgstr "マウスジェスチャー"
+
+#: ../doc/keyboard.rst:391
+msgid "Keyboard alternative"
+msgstr "キーボード代替"
+
+#: ../doc/keyboard.rst:392
+msgid "Preview a file in Project Files"
+msgstr "プロジェクトファイルでファイルをプレビュー"
+
+#: ../doc/keyboard.rst:393
+msgid "Double-click the file"
+msgstr "ファイルをダブルクリック"
+
+#: ../doc/keyboard.rst:395
+msgid "Open file properties in Project Files"
+msgstr "プロジェクトファイルでファイルのプロパティを開く"
+
+#: ../doc/keyboard.rst:396
+msgid ":kbd:`Ctrl` + double-click the file"
+msgstr ":kbd:`Ctrl` + ファイルをダブルクリック"
+
+#: ../doc/keyboard.rst:397 ../doc/keyboard.rst:514
+msgid ":kbd:`Alt+I`"
+msgstr ":kbd:`Alt+I`"
+
+#: ../doc/keyboard.rst:398
+msgid "Split a file in Project Files"
+msgstr "プロジェクトファイルでファイルを分割"
+
+#: ../doc/keyboard.rst:399
+msgid ":kbd:`Shift` + double-click the file"
+msgstr ":kbd:`Shift` + ファイルをダブルクリック"
+
+#: ../doc/keyboard.rst:400 ../doc/keyboard.rst:709
+msgid ":kbd:`Alt+S`"
+msgstr ":kbd:`Alt+S`"
+
+#: ../doc/keyboard.rst:401
+msgid "Select an item and everything to its right on the same track"
+msgstr "アイテムと同じトラックの右側すべてを選択"
+
+#: ../doc/keyboard.rst:402
+msgid ":kbd:`Alt` + click the clip or transition"
+msgstr ":kbd:`Alt` + クリップまたはトランジションをクリック"
+
+#: ../doc/keyboard.rst:403
+msgid ":kbd:`Alt+A` with an item selected"
+msgstr "アイテム選択時に :kbd:`Alt+A`"
+
+#: ../doc/keyboard.rst:404
+msgid "Open properties for a timeline clip or transition"
+msgstr "タイムラインのクリップまたはトランジションのプロパティを開く"
+
+#: ../doc/keyboard.rst:405
+msgid "Double-click the item"
+msgstr "アイテムをダブルクリック"
+
+#: ../doc/keyboard.rst:406 ../doc/keyboard.rst:616
+msgid ":kbd:`U`"
+msgstr ":kbd:`U`"
+
+#: ../doc/keyboard.rst:407
+msgid "Fit the whole timeline in view"
+msgstr "タイムライン全体を表示に合わせる"
+
+#: ../doc/keyboard.rst:408
+msgid "Double-click the zoom slider"
+msgstr "ズームスライダーをダブルクリック"
+
+#: ../doc/keyboard.rst:409
+msgid ":kbd:`\\\\` or :kbd:`Shift+\\\\`"
+msgstr ":kbd:`\\\\` または :kbd:`Shift+\\\\`"
+
+#: ../doc/keyboard.rst:412
+msgid "Full shortcut reference"
+msgstr "完全なショートカットリファレンス"
+
+#: ../doc/keyboard.rst:413
+msgid ""
+"These are the default shortcuts, including view shortcuts supplied by the "
+"menus. Your assignments in Preferences may differ. On macOS, Command is used"
+" for shortcuts shown with Ctrl."
+msgstr ""
+"これらはメニューで提供されるビューショートカットを含むデフォルトのショートカットです。環境設定での割り当ては異なる場合があります。macOSでは、Ctrlで表示されるショートカットにCommandが使用されます。"
+
+#: ../doc/keyboard.rst:416
+msgid "Default keyboard shortcuts"
+msgstr "デフォルトのキーボードショートカット"
+
+#: ../doc/keyboard.rst:421
+msgid "Primary shortcut"
+msgstr "主要ショートカット"
+
+#: ../doc/keyboard.rst:422
+msgid "Alternatives"
+msgstr "代替ショートカット"
+
+#: ../doc/keyboard.rst:423
+msgid "About OpenShot"
+msgstr "OpenShotについて"
+
+#: ../doc/keyboard.rst:424
+msgid ":kbd:`Ctrl+H`"
+msgstr ":kbd:`Ctrl+H`"
+
+#: ../doc/keyboard.rst:426
+msgid "Add Marker"
+msgstr "マーカーを追加"
+
+#: ../doc/keyboard.rst:427
+msgid ":kbd:`M`"
+msgstr ":kbd:`M`"
+
+#: ../doc/keyboard.rst:429
+msgid "Add or Apply Selected Asset"
+msgstr "選択したアセットを追加または適用"
+
+#: ../doc/keyboard.rst:432
+msgid "Add Text"
+msgstr "テキストを追加"
+
+#: ../doc/keyboard.rst:433
+msgid ":kbd:`Shift+T`"
+msgstr ":kbd:`Shift+T`"
+
+#: ../doc/keyboard.rst:435
+msgid "Add to Timeline"
+msgstr "タイムラインに追加"
+
+#: ../doc/keyboard.rst:438
+msgid "Add Track"
+msgstr "トラックを追加"
+
+#: ../doc/keyboard.rst:439
+msgid ":kbd:`Ctrl+Y`"
+msgstr ":kbd:`Ctrl+Y`"
+
+#: ../doc/keyboard.rst:441
+msgid "Animated Title"
+msgstr "アニメーションタイトル"
+
+#: ../doc/keyboard.rst:442
+msgid ":kbd:`Ctrl+Shift+T`"
+msgstr ":kbd:`Ctrl+Shift+T`"
+
+#: ../doc/keyboard.rst:444
+msgid "Ask a Question..."
+msgstr "質問する..."
+
+#: ../doc/keyboard.rst:445
+msgid ":kbd:`F4`"
+msgstr ":kbd:`F4`"
+
+#: ../doc/keyboard.rst:447
+msgid "Auto-Optimize"
+msgstr "自動最適化"
+
+#: ../doc/keyboard.rst:448
+msgid ":kbd:`Ctrl+Alt+O`"
+msgstr ":kbd:`Ctrl+Alt+O`"
+
+#: ../doc/keyboard.rst:450
+msgid "Center on Playhead"
+msgstr "プレイヘッドにセンター"
+
+#: ../doc/keyboard.rst:453
+msgid "Choose Profile"
+msgstr "プロファイルを選択"
+
+#: ../doc/keyboard.rst:454
+msgid ":kbd:`Ctrl+Alt+P`"
+msgstr ":kbd:`Ctrl+Alt+P`"
+
+#: ../doc/keyboard.rst:456
+msgid "Clear All Cache"
+msgstr "すべてのキャッシュをクリア"
+
+#: ../doc/keyboard.rst:457
+msgid ":kbd:`Ctrl+Shift+ESC`"
+msgstr ":kbd:`Ctrl+Shift+ESC`"
+
+#: ../doc/keyboard.rst:459
+msgid "Clear History"
+msgstr "履歴をクリア"
+
+#: ../doc/keyboard.rst:460
+msgid ":kbd:`Ctrl+Shift+H`"
+msgstr ":kbd:`Ctrl+Shift+H`"
+
+#: ../doc/keyboard.rst:462
+msgid "Clear Waveform Display Data"
+msgstr "波形表示データをクリア"
+
+#: ../doc/keyboard.rst:463
+msgid ":kbd:`Ctrl+Shift+W`"
+msgstr ":kbd:`Ctrl+Shift+W`"
+
+#: ../doc/keyboard.rst:465
+msgid "Color View"
+msgstr "カラー表示"
+
+#: ../doc/keyboard.rst:466
+msgid ":kbd:`Alt+Shift+2`"
+msgstr ":kbd:`Alt+Shift+2`"
+
+#: ../doc/keyboard.rst:468
+msgid "Copy"
+msgstr "コピー"
+
+#: ../doc/keyboard.rst:469
+msgid ":kbd:`Ctrl+C`"
+msgstr ":kbd:`Ctrl+C`"
+
+#: ../doc/keyboard.rst:471
+msgid "Cut"
+msgstr "カット"
+
+#: ../doc/keyboard.rst:472
+msgid ":kbd:`Ctrl+X`"
+msgstr ":kbd:`Ctrl+X`"
+
+#: ../doc/keyboard.rst:474
+msgid "Delete Item"
+msgstr "アイテムを削除"
+
+#: ../doc/keyboard.rst:475
+msgid ":kbd:`Delete`"
+msgstr ":kbd:`Delete`"
+
+#: ../doc/keyboard.rst:476
+msgid ":kbd:`Backspace`"
+msgstr ":kbd:`Backspace`"
+
+#: ../doc/keyboard.rst:477
+msgid "Delete Item (Ripple)"
+msgstr "アイテムを削除（リップル）"
+
+#: ../doc/keyboard.rst:478
+msgid ":kbd:`Shift+Delete`"
+msgstr ":kbd:`Shift+Delete`"
+
+#: ../doc/keyboard.rst:480
+msgid "Delete Optimized Videos"
+msgstr "最適化された動画を削除"
+
+#: ../doc/keyboard.rst:481
+msgid ":kbd:`Ctrl+Shift+O`"
+msgstr ":kbd:`Ctrl+Shift+O`"
+
+#: ../doc/keyboard.rst:483
+msgid "Details View"
+msgstr "詳細表示"
+
+#: ../doc/keyboard.rst:484
+msgid ":kbd:`Ctrl+Page Up`"
+msgstr ":kbd:`Ctrl+Page Up`"
+
+#: ../doc/keyboard.rst:486
+msgid "Donate"
+msgstr "寄付"
+
+#: ../doc/keyboard.rst:487
+msgid ":kbd:`F7`"
+msgstr ":kbd:`F7`"
+
+#: ../doc/keyboard.rst:489
+msgid "Duplicate"
+msgstr "複製"
+
+#: ../doc/keyboard.rst:490
+msgid ":kbd:`Ctrl+Shift+/`"
+msgstr ":kbd:`Ctrl+Shift+/`"
+
+#: ../doc/keyboard.rst:492
+msgid "Edit Title"
+msgstr "タイトルを編集"
+
+#: ../doc/keyboard.rst:493
+msgid ":kbd:`Alt+T`"
+msgstr ":kbd:`Alt+T`"
+
+#: ../doc/keyboard.rst:495
+msgid "Export Files"
+msgstr "ファイルをエクスポート"
+
+#: ../doc/keyboard.rst:496
+msgid ":kbd:`Ctrl+Shift+E`"
+msgstr ":kbd:`Ctrl+Shift+E`"
+
+#: ../doc/keyboard.rst:498
+msgid "Export Video"
+msgstr "動画をエクスポート"
+
+#: ../doc/keyboard.rst:499
+msgid ":kbd:`Ctrl+E`"
+msgstr ":kbd:`Ctrl+E`"
+
+#: ../doc/keyboard.rst:500
+msgid ":kbd:`Ctrl+M`"
+msgstr ":kbd:`Ctrl+M`"
+
+#: ../doc/keyboard.rst:501
+msgid "Extend Selection at Playhead"
+msgstr "プレイヘッドで選択範囲を拡張"
+
+#: ../doc/keyboard.rst:504
+msgid "Extend Selection to Next Item"
+msgstr "次のアイテムまで選択範囲を拡張"
+
+#: ../doc/keyboard.rst:505
+msgid ":kbd:`Ctrl+Shift+Right`"
+msgstr ":kbd:`Ctrl+Shift+Right`"
+
+#: ../doc/keyboard.rst:507
+msgid "Extend Selection to Previous Item"
+msgstr "前のアイテムまで選択範囲を拡張"
+
+#: ../doc/keyboard.rst:508
+msgid ":kbd:`Ctrl+Shift+Left`"
+msgstr ":kbd:`Ctrl+Shift+Left`"
+
+#: ../doc/keyboard.rst:510
+msgid "Fast Forward"
+msgstr "早送り"
+
+#: ../doc/keyboard.rst:513
+msgid "File Properties"
+msgstr "ファイルのプロパティ"
+
+#: ../doc/keyboard.rst:525
+msgid "Focus Timeline"
+msgstr "タイムラインにフォーカス"
+
+#: ../doc/keyboard.rst:531
+msgid "Fullscreen"
+msgstr "全画面表示"
+
+#: ../doc/keyboard.rst:532
+msgid ":kbd:`F11`"
+msgstr ":kbd:`F11`"
+
+#: ../doc/keyboard.rst:534
+msgid "Import Files..."
+msgstr "ファイルをインポート..."
+
+#: ../doc/keyboard.rst:535
+msgid ":kbd:`Ctrl+I`"
+msgstr ":kbd:`Ctrl+I`"
+
+#: ../doc/keyboard.rst:537
+msgid "Insert Keyframe"
+msgstr "キーフレームを挿入"
+
+#: ../doc/keyboard.rst:538
+msgid ":kbd:`Alt+Shift+K`"
+msgstr ":kbd:`Alt+Shift+K`"
+
+#: ../doc/keyboard.rst:540
+msgid "Join our Community..."
+msgstr "コミュニティに参加..."
+
+#: ../doc/keyboard.rst:541
+msgid ":kbd:`F5`"
+msgstr ":kbd:`F5`"
+
+#: ../doc/keyboard.rst:543
+msgid "Jump To End"
+msgstr "最後にジャンプ"
+
+#: ../doc/keyboard.rst:544
+msgid ":kbd:`End`"
+msgstr ":kbd:`End`"
+
+#: ../doc/keyboard.rst:546
+msgid "Jump To Start"
+msgstr "最初にジャンプ"
+
+#: ../doc/keyboard.rst:547
+msgid ":kbd:`Home`"
+msgstr ":kbd:`Home`"
+
+#: ../doc/keyboard.rst:549
+msgid "Launch Tutorial"
+msgstr "チュートリアルを開始"
+
+#: ../doc/keyboard.rst:550
+msgid ":kbd:`F2`"
+msgstr ":kbd:`F2`"
+
+#: ../doc/keyboard.rst:552
+msgid "Move Selection Down One Track"
+msgstr "選択範囲を1トラック下に移動"
+
+#: ../doc/keyboard.rst:553
+msgid ":kbd:`Alt+Down`"
+msgstr ":kbd:`Alt+Down`"
+
+#: ../doc/keyboard.rst:555
+msgid "Move Selection Up One Track"
+msgstr "選択範囲を1トラック上に移動"
+
+#: ../doc/keyboard.rst:556
+msgid ":kbd:`Alt+Up`"
+msgstr ":kbd:`Alt+Up`"
+
+#: ../doc/keyboard.rst:558
+msgid "New Project"
+msgstr "新規プロジェクト"
+
+#: ../doc/keyboard.rst:559
+msgid ":kbd:`Ctrl+N`"
+msgstr ":kbd:`Ctrl+N`"
+
+#: ../doc/keyboard.rst:561
+msgid "Next Edit Point"
+msgstr "次の編集ポイントへ"
+
+#: ../doc/keyboard.rst:562
+msgid ":kbd:`Down`"
+msgstr ":kbd:`Down`"
+
+#: ../doc/keyboard.rst:564
+msgid "Next Five Frames"
+msgstr "次の5フレームへ"
+
+#: ../doc/keyboard.rst:565
+msgid ":kbd:`Shift+Right`"
+msgstr ":kbd:`Shift+Right`"
+
+#: ../doc/keyboard.rst:567
+msgid "Next Frame"
+msgstr "次のフレームへ"
+
+#: ../doc/keyboard.rst:568
+msgid ":kbd:`Right`"
+msgstr ":kbd:`Right`"
+
+#: ../doc/keyboard.rst:570
+msgid "Next Marker"
+msgstr "次のマーカーへ"
+
+#: ../doc/keyboard.rst:571
+msgid ":kbd:`Shift+M`"
+msgstr ":kbd:`Shift+M`"
+
+#: ../doc/keyboard.rst:572
+msgid ":kbd:`Alt+Right`"
+msgstr ":kbd:`Alt+Right`"
+
+#: ../doc/keyboard.rst:573
+msgid "Nudge left (1 Frame)"
+msgstr "左に微調整（1フレーム）"
+
+#: ../doc/keyboard.rst:574
+msgid ":kbd:`,`"
+msgstr ":kbd:`,`"
+
+#: ../doc/keyboard.rst:576
+msgid "Nudge left (5 Frames)"
+msgstr "左に微調整（5フレーム）"
+
+#: ../doc/keyboard.rst:577
+msgid ":kbd:`Shift+,`"
+msgstr ":kbd:`Shift+,`"
+
+#: ../doc/keyboard.rst:579
+msgid "Nudge right (1 Frame)"
+msgstr "右に微調整（1フレーム）"
+
+#: ../doc/keyboard.rst:580
+msgid ":kbd:`.`"
+msgstr ":kbd:`.`"
+
+#: ../doc/keyboard.rst:582
+msgid "Nudge right (5 Frames)"
+msgstr "右に微調整（5フレーム）"
+
+#: ../doc/keyboard.rst:583
+msgid ":kbd:`Shift+.`"
+msgstr ":kbd:`Shift+.`"
+
+#: ../doc/keyboard.rst:585
+msgid "Open Help Contents"
+msgstr "ヘルプコンテンツを開く"
+
+#: ../doc/keyboard.rst:586
+msgid ":kbd:`F1`"
+msgstr ":kbd:`F1`"
+
+#: ../doc/keyboard.rst:588
+msgid "Open Project..."
+msgstr "プロジェクトを開く..."
+
+#: ../doc/keyboard.rst:589
+msgid ":kbd:`Ctrl+O`"
+msgstr ":kbd:`Ctrl+O`"
+
+#: ../doc/keyboard.rst:591
+msgid "Paste"
+msgstr "貼り付け"
+
+#: ../doc/keyboard.rst:592
+msgid ":kbd:`Ctrl+V`"
+msgstr ":kbd:`Ctrl+V`"
+
+#: ../doc/keyboard.rst:594
+msgid "Play/Pause Toggle"
+msgstr "再生/一時停止切り替え"
+
+#: ../doc/keyboard.rst:597
+msgid "Preferences"
+msgstr "設定"
+
+#: ../doc/keyboard.rst:598
+msgid ":kbd:`Ctrl+P`"
+msgstr ":kbd:`Ctrl+P`"
+
+#: ../doc/keyboard.rst:600
+msgid "Preview File"
+msgstr "ファイルをプレビュー"
+
+#: ../doc/keyboard.rst:603
+msgid "Previous Edit Point"
+msgstr "前の編集ポイント"
+
+#: ../doc/keyboard.rst:604
+msgid ":kbd:`Up`"
+msgstr ":kbd:`上`"
+
+#: ../doc/keyboard.rst:606
+msgid "Previous Five Frames"
+msgstr "前の5フレーム"
+
+#: ../doc/keyboard.rst:607
+msgid ":kbd:`Shift+Left`"
+msgstr ":kbd:`Shift+左`"
+
+#: ../doc/keyboard.rst:609
+msgid "Previous Frame"
+msgstr "前のフレーム"
+
+#: ../doc/keyboard.rst:610
+msgid ":kbd:`Left`"
+msgstr ":kbd:`左`"
+
+#: ../doc/keyboard.rst:612
+msgid "Previous Marker"
+msgstr "前のマーカー"
+
+#: ../doc/keyboard.rst:613
+msgid ":kbd:`Ctrl+Shift+M`"
+msgstr ":kbd:`Ctrl+Shift+M`"
+
+#: ../doc/keyboard.rst:614
+msgid ":kbd:`Alt+Left`"
+msgstr ":kbd:`Alt+左`"
+
+#: ../doc/keyboard.rst:615
+msgid "Properties"
+msgstr "プロパティ"
+
+#: ../doc/keyboard.rst:618
+msgid "Quit"
+msgstr "終了"
+
+#: ../doc/keyboard.rst:619
+msgid ":kbd:`Ctrl+Q`"
+msgstr ":kbd:`Ctrl+Q`"
+
+#: ../doc/keyboard.rst:621
+msgid "Razor Toggle"
+msgstr "レイザー切り替え"
+
+#: ../doc/keyboard.rst:622
+msgid ":kbd:`C`"
+msgstr ":kbd:`C`"
+
+#: ../doc/keyboard.rst:623
+msgid ":kbd:`B` or :kbd:`R`"
+msgstr ":kbd:`B` または :kbd:`R`"
+
+#: ../doc/keyboard.rst:624
+msgid "Recording View"
+msgstr "録画ビュー"
+
+#: ../doc/keyboard.rst:625
+msgid ":kbd:`Alt+Shift+3`"
+msgstr ":kbd:`Alt+Shift+3`"
+
+#: ../doc/keyboard.rst:627
+msgid "Redo"
+msgstr "やり直す"
+
+#: ../doc/keyboard.rst:628
+msgid ":kbd:`Ctrl+Shift+Z`"
+msgstr ":kbd:`Ctrl+Shift+Z`"
+
+#: ../doc/keyboard.rst:630
+msgid "Report a Bug..."
+msgstr "バグを報告..."
+
+#: ../doc/keyboard.rst:631
+msgid ":kbd:`F3`"
+msgstr ":kbd:`F3`"
+
+#: ../doc/keyboard.rst:633
+msgid "Rewind"
+msgstr "巻き戻し"
+
+#: ../doc/keyboard.rst:636
+msgid "Save Current Frame"
+msgstr "現在のフレームを保存"
+
+#: ../doc/keyboard.rst:637
+msgid ":kbd:`Shift+E`"
+msgstr ":kbd:`Shift+E`"
+
+#: ../doc/keyboard.rst:639
+msgid "Save Project"
+msgstr "プロジェクトを保存"
+
+#: ../doc/keyboard.rst:640
+msgid ":kbd:`Ctrl+S`"
+msgstr ":kbd:`Ctrl+S`"
+
+#: ../doc/keyboard.rst:642
+msgid "Save Project As..."
+msgstr "名前を付けてプロジェクトを保存..."
+
+#: ../doc/keyboard.rst:643
+msgid ":kbd:`Ctrl+Shift+S`"
+msgstr ":kbd:`Ctrl+Shift+S`"
+
+#: ../doc/keyboard.rst:645
+msgid "Select All"
+msgstr "すべて選択"
+
+#: ../doc/keyboard.rst:646
+msgid ":kbd:`Ctrl+A`"
+msgstr ":kbd:`Ctrl+A`"
+
+#: ../doc/keyboard.rst:648
+msgid "Select Item Above"
+msgstr "上のアイテムを選択"
+
+#: ../doc/keyboard.rst:649
+msgid ":kbd:`Ctrl+Up`"
+msgstr ":kbd:`Ctrl+上`"
+
+#: ../doc/keyboard.rst:651
+msgid "Select Item at Playhead"
+msgstr "プレイヘッドのアイテムを選択"
+
+#: ../doc/keyboard.rst:654
+msgid "Select Item Below"
+msgstr "下のアイテムを選択"
+
+#: ../doc/keyboard.rst:655
+msgid ":kbd:`Ctrl+Down`"
+msgstr ":kbd:`Ctrl+下`"
+
+#: ../doc/keyboard.rst:657
+msgid "Select Item (Ripple)"
+msgstr "アイテムを選択（リップル）"
+
+#: ../doc/keyboard.rst:658
+msgid ":kbd:`Alt+A`"
+msgstr ":kbd:`Alt+A`"
+
+#: ../doc/keyboard.rst:660
+msgid "Select Left Item Edge"
+msgstr "左のアイテム端を選択"
+
+#: ../doc/keyboard.rst:663
+msgid "Select Next Item"
+msgstr "次のアイテムを選択"
+
+#: ../doc/keyboard.rst:664
+msgid ":kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+右`"
+
+#: ../doc/keyboard.rst:666
+msgid "Select None"
+msgstr "選択解除"
+
+#: ../doc/keyboard.rst:667
+msgid ":kbd:`Ctrl+Shift+A`"
+msgstr ":kbd:`Ctrl+Shift+A`"
+
+#: ../doc/keyboard.rst:669
+msgid "Select Previous Item"
+msgstr "前のアイテムを選択"
+
+#: ../doc/keyboard.rst:670
+msgid ":kbd:`Ctrl+Left`"
+msgstr ":kbd:`Ctrl+左`"
+
+#: ../doc/keyboard.rst:672
+msgid "Select Right Item Edge"
+msgstr "右のアイテム端を選択"
+
+#: ../doc/keyboard.rst:675
+msgid "Share Feedback..."
+msgstr "フィードバックを共有..."
+
+#: ../doc/keyboard.rst:676
+msgid ":kbd:`F8`"
+msgstr ":kbd:`F8`"
+
+#: ../doc/keyboard.rst:678
+msgid "Simple View"
+msgstr "シンプルビュー"
+
+#: ../doc/keyboard.rst:679
+msgid ":kbd:`Alt+Shift+0`"
+msgstr ":kbd:`Alt+Shift+0`"
+
+#: ../doc/keyboard.rst:681
+msgid "Slice All: Keep Both Sides"
+msgstr "すべてスライス：両側を保持"
+
+#: ../doc/keyboard.rst:682
+msgid ":kbd:`Ctrl+Shift+K`"
+msgstr ":kbd:`Ctrl+Shift+K`"
+
+#: ../doc/keyboard.rst:684
+msgid "Slice All: Keep Left Side"
+msgstr "すべてスライス：左側を保持"
+
+#: ../doc/keyboard.rst:685
+msgid ":kbd:`Ctrl+Shift+J`"
+msgstr ":kbd:`Ctrl+Shift+J`"
+
+#: ../doc/keyboard.rst:687
+msgid "Slice All: Keep Right Side"
+msgstr "すべてスライス：右側を保持"
+
+#: ../doc/keyboard.rst:688
+msgid ":kbd:`Ctrl+Shift+L`"
+msgstr ":kbd:`Ctrl+Shift+L`"
+
+#: ../doc/keyboard.rst:690
+msgid "Slice Selected: Keep Both Sides"
+msgstr "選択部分をスライス：両側を保持"
+
+#: ../doc/keyboard.rst:691
+msgid ":kbd:`Ctrl+K`"
+msgstr ":kbd:`Ctrl+K`"
+
+#: ../doc/keyboard.rst:693
+msgid "Slice Selected: Keep Left (Ripple)"
+msgstr "選択部分をスライス：左側を保持（リップル）"
+
+#: ../doc/keyboard.rst:694
+msgid ":kbd:`W`"
+msgstr ":kbd:`W`"
+
+#: ../doc/keyboard.rst:696
+msgid "Slice Selected: Keep Left Side"
+msgstr "選択部分をスライス：左側を保持"
+
+#: ../doc/keyboard.rst:697
+msgid ":kbd:`Ctrl+J`"
+msgstr ":kbd:`Ctrl+J`"
+
+#: ../doc/keyboard.rst:699
+msgid "Slice Selected: Keep Right (Ripple)"
+msgstr "選択部分をスライス：右側を保持（リップル）"
+
+#: ../doc/keyboard.rst:700
+msgid ":kbd:`Q`"
+msgstr ":kbd:`Q`"
+
+#: ../doc/keyboard.rst:702
+msgid "Slice Selected: Keep Right Side"
+msgstr "選択部分をスライス：右側を保持"
+
+#: ../doc/keyboard.rst:703
+msgid ":kbd:`Ctrl+L`"
+msgstr ":kbd:`Ctrl+L`"
+
+#: ../doc/keyboard.rst:705
+msgid "Snapping Toggle"
+msgstr "スナップ切り替え"
+
+#: ../doc/keyboard.rst:706
+msgid ":kbd:`S`"
+msgstr ":kbd:`S`"
+
+#: ../doc/keyboard.rst:708
+msgid "Split File"
+msgstr "ファイルを分割"
+
+#: ../doc/keyboard.rst:711
+msgid "Stop Playback"
+msgstr "再生停止"
+
+#: ../doc/keyboard.rst:714
+msgid "Thumbnail View"
+msgstr "サムネイルビュー"
+
+#: ../doc/keyboard.rst:715
+msgid ":kbd:`Ctrl+Page Down`"
+msgstr ":kbd:`Ctrl+Page Down`"
+
+#: ../doc/keyboard.rst:717
+msgid "Timing Toggle"
+msgstr "タイミング切り替え"
+
+#: ../doc/keyboard.rst:718
+msgid ":kbd:`T`"
+msgstr ":kbd:`T`"
+
+#: ../doc/keyboard.rst:720
+msgid "Title"
+msgstr "タイトル"
+
+#: ../doc/keyboard.rst:721
+msgid ":kbd:`Ctrl+T`"
+msgstr ":kbd:`Ctrl+T`"
+
+#: ../doc/keyboard.rst:723
+msgid "Translate this Application..."
+msgstr "このアプリケーションを翻訳..."
+
+#: ../doc/keyboard.rst:724
+msgid ":kbd:`F6`"
+msgstr ":kbd:`F6`"
+
+#: ../doc/keyboard.rst:727
+msgid ":kbd:`Ctrl+Z`"
+msgstr ":kbd:`Ctrl+Z`"
+
+#: ../doc/keyboard.rst:729
+msgid "Update Available"
+msgstr "アップデート利用可能"
+
+#: ../doc/keyboard.rst:730
+msgid ":kbd:`F9`"
+msgstr ":kbd:`F9`"
+
+#: ../doc/keyboard.rst:732
+msgid "View Toolbar"
+msgstr "ツールバーを表示"
+
+#: ../doc/keyboard.rst:733
+msgid ":kbd:`Ctrl+Shift+B`"
+msgstr ":kbd:`Ctrl+Shift+B`"
+
+#: ../doc/keyboard.rst:735
+msgid "Zoom In"
+msgstr "ズームイン"
+
+#: ../doc/keyboard.rst:736
+msgid ":kbd:`=`"
+msgstr ":kbd:`=`"
+
+#: ../doc/keyboard.rst:737
+msgid ":kbd:`Ctrl+=`"
+msgstr ":kbd:`Ctrl+=`"
+
+#: ../doc/keyboard.rst:738
+msgid "Zoom Out"
+msgstr "ズームアウト"
+
+#: ../doc/keyboard.rst:739
+msgid ":kbd:`-`"
+msgstr ":kbd:`-`"
+
+#: ../doc/keyboard.rst:740
+msgid ":kbd:`Ctrl+-`"
+msgstr ":kbd:`Ctrl+-`"
+
+#: ../doc/keyboard.rst:741
+msgid "Zoom to Timeline"
+msgstr "タイムラインにズーム"
+
+#: ../doc/keyboard.rst:742
+msgid ":kbd:`\\\\`"
+msgstr ":kbd:`\\\\`"
+
+#: ../doc/keyboard.rst:743
+msgid ":kbd:`Shift+\\\\`"
+msgstr ":kbd:`Shift+\\\\`"

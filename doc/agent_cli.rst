@@ -109,6 +109,7 @@ Help becomes more specific as you navigate commands::
    openshot-cli clip keyframe help
    openshot-cli clip keyframe set help
    openshot-cli edit help
+   openshot-cli text help
    openshot-cli effects list
    openshot-cli effects audiovisualization help
    openshot-cli effects audiovisualization help --property background
@@ -270,8 +271,17 @@ the live project, IDs, history, export jobs, and connection. Repeated calls rais
 the existing window. ``session start --show`` opens it immediately. Sessions
 started without a display, or with ``QT_QPA_PLATFORM=offscreen``/``minimal``,
 cannot later show a desktop window. For those sessions, save and open the project
-in a new desktop session. Once shown, close the session
-through the editor window.
+in a new desktop session. Close either kind of session gracefully with::
+
+   openshot-cli session close
+   openshot-cli session close --save "/path/edit.osp" --overwrite
+
+Closing refuses unsaved edits and active exports. Save first, supply ``--save``,
+or use ``--discard`` to intentionally discard edits. ``--save`` and ``--discard``
+cannot be combined. Closing follows the application's normal cleanup, including
+window settings, playback resources, lock files, and session discovery records.
+The response acknowledges the scheduled close; the session disappears when Qt
+finishes shutting down. ``session stop`` remains available for headless sessions.
 
 Global options (``--session``, ``--timeout``) go before the command.
 ``session serve`` stays in the foreground for supervisors; ``session start`` returns after a background
@@ -335,7 +345,16 @@ To update an existing file, explicitly allow replacement::
 
 Always supply the destination path. Saving an ``.osp`` does not package all your
 source footage into that file; keep the referenced media available when moving
-or reopening the project.
+or reopening the project. To collect a portable copy into a new directory::
+
+   openshot-cli project collect "/home/me/Videos/Portable Movie" --name movie.osp
+
+The copy includes imported media, image sequences, and referenced effect assets,
+with relative paths and separate names for files from different source folders.
+Missing media fails before publishing the copy. Existing destination directories
+are never replaced. The live project and its unsaved edits remain unchanged;
+open the returned project path separately to continue there. Undo history is
+omitted from the copy so it cannot restore references to uncollected media.
 
 Exporting a video
 -----------------
@@ -347,9 +366,23 @@ To render an MP4 using the project's resolution and frame rate::
 
    openshot-cli export start "/home/me/Videos/video.mp4" --wait
 
-By default, OpenShot uses H.264 video and AAC audio. Replace the example path
-with your destination, using an existing folder and a new filename. Existing
-outputs are never overwritten. Exporting does not save your editable ``.osp``
+By default, OpenShot uses H.264 video and AAC audio. ``--encoder auto`` prefers
+a GPU H.264 encoder that opens with the actual export settings. An explicitly
+selected CPU backend keeps the software default. Choose explicitly with::
+
+   openshot-cli export validate "/path/check.mp4" --encoder gpu
+   openshot-cli export start "/path/video.mp4" --encoder software --wait
+
+``auto`` reports rejected GPU candidates and any software fallback in
+``encoder_selection``. ``gpu`` fails if no candidate works; it never silently
+switches to software. Explicit preset or JSON codec choices take precedence
+and retain their existing failure behavior. Validation opens the encoder and
+container in an isolated process without rendering frames or creating the output.
+This proves that the settings open, not that every rendered frame stays on the
+GPU; effects and platform interop may require CPU processing.
+
+Replace the example path with your destination, using an existing folder and
+a new filename. Existing outputs are never overwritten. Exporting does not save your editable ``.osp``
 project; use ``project save`` separately to keep your editing work.
 
 The ``--wait`` option keeps the command running until the export completes or
@@ -498,9 +531,14 @@ Check settings before starting a render::
    openshot-cli export validate /tmp/reel.mp4 --preset builtin:format_mp4_x264
 
 Capabilities report compiled codec availability, not physical GPU availability.
-Validation checks data, profiles, paths, and compiled encoders; actual codec,
-container, native option, and hardware compatibility is checked when the worker
-opens the writer. ``runtime_checked`` makes this distinction explicit.
+Validation goes further: it opens the encoders (including hardware encoders) and
+the container with the exact settings, in a separate process, without writing a
+file. A combination the container can't hold fails with ``incompatible_export``,
+FFmpeg's own explanation, and the setting to change (``details.cause.path``)::
+
+   openshot-cli export validate /tmp/song.mp3 --json '{"mode":"audio","format":"mp3","audio_codec":"aac"}'
+
+The export worker runs the same check before rendering.
 
 Rendering a frame range
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -566,6 +604,18 @@ are validated before editing the project. Errors identify the field,
 expected value, received value, and a correction where possible. GUI slider
 ranges are advisory where the engine supports values beyond them.
 
+Clip labels and result IDs
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+New clips use their source filename as the timeline label. Rename a clip with::
+
+   openshot-cli clip set CLIP --json '{"title":"Tongue roll"}'
+
+This changes only the clip label, not the source filename or shared text content.
+``text.add`` returns its clip ID as ``id``, matching ``clip.add`` and making
+``{"$ref":"caption.id"}`` usable in batches. The existing ``clip.id`` field
+remains available for scripts using that form.
+
 Adding fades
 ~~~~~~~~~~~~
 
@@ -584,6 +634,83 @@ The left half retains its ID. The response reports requested/actual split times
 and both summaries; a named batch result supports ``{"$ref":"cut.right.id"}``.
 Splits reject endpoints and locked tracks. Undo restores the original clip in
 one transaction.
+
+Clip menu presets
+~~~~~~~~~~~~~~~~~
+
+The editor's clip menu presets use the same code from the command line. Each
+command lists its presets in its help, and each one is a single undo step:
+
+.. code-block:: bash
+
+   openshot-cli clip motion CLIP_ID --preset slide-in-left
+   openshot-cli clip motion CLIP_ID --preset pulse --at 4.5
+   openshot-cli clip look CLIP_ID --effect ColorGrade --preset warm_up
+   openshot-cli clip look CLIP_ID --effect all --preset none
+   openshot-cli clip speed CLIP_ID --mode forward --factor 2
+   openshot-cli clip speed CLIP_ID --mode freeze --at 3 --duration 2
+   openshot-cli clip repeat CLIP_ID --passes 3 --pattern pingpong
+   openshot-cli clip waveform CLIP_ID
+
+Motion presets are relative to the clip's current transform. Look presets add
+or replace one effect, and ``none`` removes it. Speed and repeat retime every
+keyframe and change the clip's length; ``clip speed --mode reset`` restores
+normal speed. Other menu actions are plain edits: rotate and layout with
+``clip set``, crop with ``effects add Crop``. The commands also work in
+``edit apply`` and ``edit bulk``.
+
+.. _cli_text_ref:
+
+Adding and styling text
+~~~~~~~~~~~~~~~~~~~~~~~
+
+``text add`` creates a text and places it as a clip, using the same text as the editor's
+**Text** tool. Options you leave out use the editor's default style:
+
+.. code-block:: bash
+
+   openshot-cli text add --text "Opening Night" --layer 5000000 --position 2 --duration 4 \
+       --place lower-third --font "Noto Sans" --size 72 --bold --color "#ffffff" \
+       --background "#80000000" --background-padding 16 --background-corner 12
+   openshot-cli text get CLIP_ID
+   openshot-cli text set CLIP_ID --stroke black --stroke-width 3
+   openshot-cli text set CLIP_ID --text $'Two\nlines' --line-spacing 1.4
+   openshot-cli text fonts --search noto
+   openshot-cli text list --search opening
+
+The words, font, size, alignment, box width and default colors belong to the text in
+Project Files and are shared by every clip that uses it, just like in the editor.
+``text set`` on one clip changes all of them and lists them in ``changed_clip_ids``;
+``--this-clip-only`` gives that clip its own copy first. ``clip add FILE_ID`` places another
+clip of a text from ``text list``. Sizes are in pixels at the project resolution, and colors
+are ``#RRGGBB``, ``#AARRGGBB`` (with alpha), a CSS name, or ``transparent``. ``--place``
+puts the box at the center, an edge or corner, or a lower third. ``--line-spacing`` is a
+multiple of the normal distance between lines (1 is normal), and ``--background-corner`` rounds
+the background and border corners by that many pixels.
+
+A text clip is an ordinary clip. Position, scale, rotation, opacity, timing, fades, motion
+presets and effects all use the normal ``clip`` commands. Font size, padding, box width, and
+letter and line spacing set the size of the text box, so they cannot be keyframed; to animate the size
+of text, keyframe the clip's scale. Each clip can animate its own text colors and outline and
+border widths with the same keyframe commands as any other property:
+
+.. code-block:: bash
+
+   openshot-cli clip keyframe list CLIP_ID
+   openshot-cli clip keyframe set CLIP_ID --property text_color.alpha --space clip --unit seconds --at 0 --value 0
+   openshot-cli clip keyframe set CLIP_ID --property text_color.alpha --space clip --unit seconds --at 1 --value 255
+
+The animated properties are ``text_color``, ``text_background``, ``text_stroke`` and
+``text_border`` (colors, with ``.red``, ``.green``, ``.blue`` and ``.alpha`` from 0 to 255),
+plus ``text_stroke_width``, ``text_border_width`` and ``text_background_corner``. A clip's own animation wins over the
+shared style, and ``text get`` lists which styles a clip animates. ``text reset CLIP_ID``
+returns a clip to the default style, like **Text → Reset Style**; ``--keyframes-only`` just
+removes the clip's own animation. To style many texts at once, select them with
+``{"text":true}``:
+
+.. code-block:: bash
+
+   openshot-cli edit bulk --select '{"text":true}' --json '[{"method":"text.set","params":{"font_family":"Noto Sans","stroke_width":2}}]'
 
 Applying a batch of edits
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -743,7 +870,8 @@ First preview a selection::
    openshot-cli edit select --json '{"layer":1000000,"start":5,"end":20,"effect":"Saturation"}'
 
 Selectors support ``ids`` (unique clip ID array), ``layer``, ``start``/``end``
-(timeline seconds), ``file_id``, and ``effect`` (class name or alias). Filters
+(timeline seconds), ``file_id``, ``effect`` (class name or alias), and ``text``
+(``true`` selects text clips). Filters
 combine with AND. Time ranges select clips overlapping ``[start, end)``; they do
 not trim those clips. Results are ordered by position, layer, then ID, and include
 IDs, summaries, lock state, and the current revision. Unknown IDs are errors.
@@ -818,8 +946,11 @@ saved history. The separate 256-command batch request bound still applies.
 Inspecting media and timelines
 ------------------------------
 
-Inspect clip timing and track layout as text or JSON, or render images to review
-composition and framing before exporting.
+Choose the review tool that fits the change. Text/JSON views report exact timing;
+contact sheets review composition and titles; zoomed timeline images expose
+clip boundaries and audio envelopes. Short or full exports are equally useful
+when you need to hear the mix, judge motion, or review the complete result.
+Images alone cannot establish whether a sound feels synchronized.
 
 Timeline summaries
 ~~~~~~~~~~~~~~~~~~
@@ -889,7 +1020,16 @@ Choose ``--mode waveforms`` to inspect audio envelopes on the timeline::
 
 ``--mode auto`` uses the existing cached waveform display; ``--mode thumbnails``
 shows thumbnails instead. Waveforms represent source peak/RMS levels with clip
-volume and timing adjustments, before audio effects or mixing.
+volume and timing adjustments, before audio effects or mixing. For close
+synchronization, narrow the range and increase the timeline scale::
+
+   openshot-cli timeline overview --start 6 --end 8
+   openshot-cli timeline view --start 6 --end 8 --pixels-per-second 600 --mode waveforms --output /tmp/sync.png
+
+The overview reports source and project frame boundaries; the image helps align
+waveform onsets with clip edges. Use ``timeline thumbnail --frame N`` for an exact
+composed frame. Check the rendered sound with a short or full export as needed;
+``--start-frame`` and ``--end-frame`` use the export FPS, with both ends inclusive.
 
 Uncached waveform extraction decodes whole sources, limited to 600 seconds per
 source and 1200 source-seconds per request. Narrowing the visible range does not

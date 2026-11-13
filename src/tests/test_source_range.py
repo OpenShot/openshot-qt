@@ -90,6 +90,17 @@ class SourceRangeTests(unittest.TestCase):
         self.addCleanup(dialog.close)
         return dialog
 
+    def test_preview_autoplay_survives_source_range_setup(self):
+        for trimmed in (False, True):
+            self.data['files'][0].update(
+                start=2.0 if trimmed else 0.0,
+                end=5.0 if trimmed else 10.0, is_split_file=trimmed)
+            for clip_id in (None, 'clip'):
+                for preview in (False, True):
+                    with self.subTest(trimmed=trimmed, clip_id=clip_id, preview=preview):
+                        dialog = self.dialog(clip_id=clip_id, preview=preview)
+                        self.assertTrue(dialog._preview_autoplay_active)
+
     def mock_reject(self, dialog):
         # Qt's native closeEvent calls this void method during dialog cleanup.
         patcher = patch.object(dialog, 'reject', return_value=None)
@@ -308,6 +319,41 @@ class SourceRangeTests(unittest.TestCase):
         self.assertEqual(r._hit_target(QPointF(center+2, y)), 'right')
         self.assertEqual(self.data, self.saved)
 
+    def test_new_split_inherits_proxy_added_after_dialog_opened(self):
+        self.data['files'][0].update(start=0, end=10, is_split_file=False)
+        d = self.dialog()
+        proxy = {'type': 'FFmpegReader', 'path': '/optimized/source.mp4'}
+        self.data['files'][0]['proxy_reader'] = proxy
+        self.data['files'][0]['thumbnail_cache_id'] = 'shared-source'
+        self.assertNotIn('proxy_reader', d.range_source_data)
+        self.assertTrue(d._save_source_range())
+        split = self.data['files'][-1]
+        self.assertEqual(split['proxy_reader'], proxy)
+        self.assertEqual(split['thumbnail_cache_id'], 'shared-source')
+
+    def test_split_creation_restores_busy_cursor_on_success_and_failure(self):
+        self.data['files'][0].update(start=0, end=10, is_split_file=False)
+        d = self.dialog()
+        original_save = File.save
+        previous_transaction = self.updates.transaction_id
+        QApplication.setOverrideCursor(Qt.CrossCursor)
+        self.addCleanup(QApplication.restoreOverrideCursor)
+        for fail in (False, True):
+            def save(target):
+                self.assertEqual(QApplication.overrideCursor().shape(), Qt.WaitCursor)
+                if fail:
+                    raise RuntimeError('split creation failed')
+                return original_save(target)
+            with patch.object(File, 'save', save):
+                if fail:
+                    with self.assertRaisesRegex(RuntimeError, 'split creation failed'):
+                        d._save_source_range()
+                else:
+                    self.assertTrue(d._save_source_range())
+            self.assertEqual(QApplication.overrideCursor().shape(), Qt.CrossCursor)
+            self.assertEqual(self.updates.transaction_id, previous_transaction)
+            self.assertFalse(d._range_applying)
+
     def test_create_stays_open_and_apply_closes_only_after_success(self):
         from windows.cutting import Cutting
         self.data['files'][0].update(start=0, end=10, is_split_file=False)
@@ -318,6 +364,7 @@ class SourceRangeTests(unittest.TestCase):
         Cutting.btnAddClip_clicked(d)
         d.reject.assert_not_called()
         self.assertEqual(self.data['files'][-1]['name'], 'Opening')
+        self.assertEqual(self.data['files'][-1]['thumbnail_cache_id'], 'source')
         self.assertEqual(d.txtName.text(), '')
         self.assertFalse(hasattr(d, 'range_table'))
         self.assertTrue(d.buttonBox.isHidden())
@@ -416,14 +463,63 @@ class SourceRangeTests(unittest.TestCase):
         d.preview_thread = Mock()
         d.sliderIgnoreSignal = False
         d.previewFrameSignal = Mock()
-        d.slider_timer = Mock()
         d.btnPlay.setChecked(True)
         Cutting.sliderVideo_valueChanged(d, 80)
-        Cutting.sliderVideo_released(d)
-        Cutting.sliderVideo_timeout(d)
         d.btnPlay_clicked.assert_not_called()
         self.assertTrue(d.btnPlay.isChecked())
-        d.previewFrameSignal.emit.assert_any_call(80)
+        d.previewFrameSignal.emit.assert_called_once_with(80)
+
+    def test_preview_ruler_ignores_long_playhead_shaft_for_layout(self):
+        from qt_api import QPixmap, QColor
+        r = self.dialog(preview=True).sliderVideo
+        theme = copy.copy(r.theme)
+        theme.playhead_icon = QPixmap(20, 600)
+        theme.playhead_icon.fill(QColor('yellow'))
+        theme.playhead_icon_width = 20
+        theme.playhead_icon_height = 600
+        self.window.timeline.theme = theme
+        r._refresh_theme()
+        self.assertEqual(r.ruler_height, max(40, r.fontMetrics().height() + 12))
+        self.assertEqual(r.filmstrip_top, r.ruler_height + r.cache_painter.cache_height)
+        self.assertEqual(r.height(), int(r.filmstrip_top + r.filmstrip_height + 4))
+
+    def test_preview_cache_updates_only_when_ranges_change(self):
+        from windows.cutting import Cutting
+        cache = Mock()
+        cache.Json.return_value = '{"ranges":[{"start":"1","end":"120"}]}'
+        ruler = types.SimpleNamespace(playback_cache_ranges=[], update=Mock())
+        d = types.SimpleNamespace(r=Mock(), sliderVideo=ruler, video_length=100)
+        d.r.GetCache.return_value = cache
+        Cutting._update_preview_cache(d)
+        self.assertEqual(ruler.playback_cache_ranges, [(1, 100)])
+        Cutting._update_preview_cache(d)
+        ruler.update.assert_called_once()
+        cache.Json.return_value = '{"ranges":[]}'
+        Cutting._update_preview_cache(d)
+        self.assertEqual(ruler.playback_cache_ranges, [])
+        d._shutdown_in_progress = True
+        d.r.GetCache.reset_mock()
+        Cutting._update_preview_cache(d)
+        d.r.GetCache.assert_not_called()
+
+    def test_preview_click_queues_one_seek_without_delayed_refresh(self):
+        import importlib
+        from qt_api import QT_API
+        from windows.cutting import Cutting
+        binding = {'pyqt5': 'PyQt5', 'pyqt6': 'PyQt6', 'pyside6': 'PySide6'}[QT_API]
+        QTest = importlib.import_module(binding + '.QtTest').QTest
+        d = self.dialog(preview=True)
+        d.preview_thread = Mock()
+        d.sliderIgnoreSignal = False
+        d.previewFrameSignal = Mock()
+        d.sliderVideo.valueChanged.connect(lambda frame: Cutting.sliderVideo_valueChanged(d, frame))
+        d.show()
+        self.qt_app.processEvents()
+        r = d.sliderVideo
+        QTest.mouseClick(r, Qt.LeftButton, pos=QPoint(round(r._x(80)), 10))
+        QTest.qWait(150)
+        d.previewFrameSignal.emit.assert_called_once_with(r.value())
+        d.close()
 
     def test_range_drag_pauses_before_seeking_but_click_does_not(self):
         import importlib
@@ -716,6 +812,46 @@ class SourceRangeTests(unittest.TestCase):
         clip = self.dialog('clip')
         self.assertTrue(clip.buttonBox.isHidden())
         self.assertFalse(clip.widgetControls.isHidden())
+
+    def test_preview_volume_click_jumps_to_position(self):
+        import importlib
+        from qt_api import QT_API
+        from windows.preview_design import PreviewVolumeSlider
+        binding = {'pyqt5': 'PyQt5', 'pyqt6': 'PyQt6', 'pyside6': 'PySide6'}[QT_API]
+        QTest = importlib.import_module(binding + '.QtTest').QTest
+        slider = PreviewVolumeSlider(Qt.Horizontal)
+        self.addCleanup(slider.close)
+        slider.setRange(0, 100)
+        slider.setTracking(False)
+        slider.resize(200, 24)
+        slider.show()
+        self.qt_app.processEvents()
+        for x, expected in ((50, 25), (150, 75), (0, 0), (199, 100)):
+            QTest.mouseClick(slider, Qt.LeftButton, pos=QPoint(x, 12))
+            self.assertAlmostEqual(slider.value(), expected, delta=5)
+        slider.setLayoutDirection(Qt.RightToLeft)
+        QTest.mouseClick(slider, Qt.LeftButton, pos=QPoint(50, 12))
+        self.assertAlmostEqual(slider.value(), 75, delta=5)
+
+    def test_preview_volume_is_saved_without_undo_history(self):
+        from classes.project_data import ProjectDataStore
+        from windows.preview_design import _save_preview_volume, _saved_preview_volume
+        project = ProjectDataStore()
+        project._data = {'settings': {'other_setting': True}}
+        updates = UpdateManager()
+        app = types.SimpleNamespace(project=project, updates=updates)
+        updates.add_listener(project)
+        dialog = types.SimpleNamespace(_volume_timer=Mock())
+        with patch('windows.preview_design.get_app', return_value=app), \
+                patch('classes.project_data.get_app', return_value=app):
+            self.assertEqual(_saved_preview_volume(), 100)
+            _save_preview_volume(dialog, 35)
+            self.assertEqual(_saved_preview_volume(), 35)
+            self.assertTrue(project.has_unsaved_changes)
+            self.assertTrue(project.get('settings')['other_setting'])
+            self.assertEqual(len(updates.actionHistory), 0)
+            _save_preview_volume(dialog, 0)
+            self.assertEqual(_saved_preview_volume(), 0)
 
     def test_preview_volume_uses_player_without_editing_source(self):
         from windows.preview_thread import PlayerWorker

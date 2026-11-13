@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: 2026-08-30 16:50-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../color.rst:23
+#: ../doc/color.rst:23
 msgid "Color"
 msgstr "Väri"
 
-#: ../color.rst:25
+#: ../doc/color.rst:25
 msgid ""
 "Have you ever noticed that thriller films look gritty and desaturated while "
 "romantic comedies feel vibrant and warm? That is not an accident — it is "
@@ -38,7 +38,7 @@ msgstr ""
 "korjaamassa ongelmallista otosta tai luomassa elokuvamaista ilmettä alusta "
 "alkaen."
 
-#: ../color.rst:32
+#: ../doc/color.rst:32
 msgid ""
 "*The OpenShot Color View: video preview in the center, Color Wheels dock on "
 "the right, and video scopes (Luma Waveform and Histogram) below.*"
@@ -46,7 +46,7 @@ msgstr ""
 "*OpenShotin värinäkymä: videon esikatselu keskellä, väripyörät oikealla ja "
 "videoskoopit (Luma-aaltomuoto ja histogrammi) alhaalla.*"
 
-#: ../color.rst:37
+#: ../doc/color.rst:37
 msgid ""
 ":ref:`effects_color_grade` in :doc:`effects` — full property reference and "
 "keyframe details for the Color Grade effect."
@@ -54,11 +54,11 @@ msgstr ""
 ":ref:`effects_color_grade` kohteessa :doc:`effects` — täydellinen "
 "ominaisuusviite ja avainkehyksen tiedot Color Grade -efektistä."
 
-#: ../color.rst:43
+#: ../doc/color.rst:43
 msgid "Understanding Color"
 msgstr "Värin ymmärtäminen"
 
-#: ../color.rst:45
+#: ../doc/color.rst:45
 msgid ""
 "Every pixel in a digital video frame is made of three numbers: **Red**, "
 "**Green**, and **Blue** (each 0–255). White is all three at maximum; black "
@@ -73,11 +73,11 @@ msgstr ""
 "(punainen + vihreä = keltainen, punainen + sininen = magenta, vihreä + "
 "sininen = syaani)."
 
-#: ../color.rst:49
+#: ../doc/color.rst:49
 msgid "Four properties you will adjust constantly:"
 msgstr "Neljä ominaisuutta, joita säädät jatkuvasti:"
 
-#: ../color.rst:51
+#: ../doc/color.rst:51
 msgid ""
 "**Exposure** — overall brightness. Overexposed footage has many pixels near "
 "255 (blown-out highlights); underexposed footage is crushed near 0."
@@ -86,7 +86,7 @@ msgstr ""
 "on paljon pikseleitä lähellä 255 (ylivalottuneet kohokohdat); "
 "alivalottuneessa materiaali on murskattu lähelle 0."
 
-#: ../color.rst:53
+#: ../doc/color.rst:53
 msgid ""
 "**Contrast** — the spread between brightest and darkest. High contrast is "
 "dramatic; low contrast looks flat or milky."
@@ -94,7 +94,7 @@ msgstr ""
 "**Kontrasti** — kirkkaimman ja tummimman välinen ero. Korkea kontrasti on "
 "dramaattinen; matala kontrasti näyttää tasaiselta tai maitomaiselta."
 
-#: ../color.rst:55
+#: ../doc/color.rst:55
 msgid ""
 "**Saturation** — how vivid the colors are. Zero saturation = grayscale. "
 "Cameras often record slightly less saturation than reality to give editors "
@@ -104,7 +104,7 @@ msgstr ""
 "Kamerat tallentavat usein hieman vähemmän kylläisyyttä kuin todellisuus "
 "antaakseen editoreille enemmän liikkumavaraa."
 
-#: ../color.rst:57
+#: ../doc/color.rst:57
 msgid ""
 "**Hue** — the actual color (red, yellow, green, blue…). Shifting hue rotates"
 " all colors around the color wheel and is mostly used for creative stylistic"
@@ -114,11 +114,11 @@ msgstr ""
 "siirtämällä kaikki värit kiertyvät väripyörällä, ja sitä käytetään "
 "pääasiassa luoviin tyylillisiin tehosteisiin."
 
-#: ../color.rst:61
+#: ../doc/color.rst:61
 msgid "Video Scopes — What They Are and Why They Matter"
 msgstr "Videoskoopit — mitä ne ovat ja miksi ne ovat tärkeitä"
 
-#: ../color.rst:63
+#: ../doc/color.rst:63
 msgid ""
 "Your monitor is not a reliable measuring tool — room lighting, screen "
 "brightness, and uncalibrated displays all affect what you see. **Video "
@@ -130,7 +130,7 @@ msgstr ""
 "**Videoskoopit** näyttävät kuvan todelliset pikseliarvot tarkkoina "
 "graafeina. Ne eivät koskaan valehtele, vaikka näyttösi tekisikin niin."
 
-#: ../color.rst:67
+#: ../doc/color.rst:67
 msgid ""
 "OpenShot includes three scopes, all accessible from :guilabel:`View → "
 "Scopes` or opened automatically by the clip menu options described in "
@@ -140,7 +140,7 @@ msgstr ""
 ":guilabel:`Näytä → Skoopit` kautta tai avautuvat automaattisesti leikkeen "
 "valikkovaihtoehdoista, jotka on kuvattu kohdassa :ref:`getting_started_ref`:"
 
-#: ../color.rst:70
+#: ../doc/color.rst:70
 msgid ""
 "**Luma Waveform** — shows brightness across the frame, column by column. "
 "Instantly reveals overexposure, underexposure, and contrast problems. See "
@@ -150,7 +150,7 @@ msgstr ""
 "sarakkeelta. Paljastaa välittömästi ylivalotuksen, alivalotuksen ja "
 "kontrastiongelmat. Katso :ref:`luma_waveform_ref`."
 
-#: ../color.rst:72
+#: ../doc/color.rst:72
 msgid ""
 "**Histogram** — shows how many pixels exist at each brightness level. Great "
 "for exposure and channel balance at a glance. See :ref:`histogram_ref`."
@@ -159,7 +159,7 @@ msgstr ""
 "kirkkaustasossa. Erinomainen valotuksen ja kanavatasapainon tarkasteluun "
 "yhdellä silmäyksellä. Katso :ref:`histogram_ref`."
 
-#: ../color.rst:74
+#: ../doc/color.rst:74
 msgid ""
 "**Vectorscope** — a circular chroma plot showing the hue and saturation of "
 "every pixel. Ideal for checking color casts, overall saturation, and — with "
@@ -170,7 +170,7 @@ msgstr ""
 "sisäänrakennetun ihonsävylinjan avulla — kasvojen arviointiin. Katso "
 ":ref:`vectorscope_ref`."
 
-#: ../color.rst:78
+#: ../doc/color.rst:78
 msgid ""
 "Every scope also has a **Region** button in its toolbar. Click it and drag a"
 " box over any part of the video preview to restrict scope analysis to just "
@@ -182,11 +182,11 @@ msgstr ""
 "rajoittaaksesi skooppianalyysin vain kyseiselle alueelle — hyödyllistä "
 "kasvojen, taivaan tai minkä tahansa kuvaruudun tietyn alueen eristämiseen."
 
-#: ../color.rst:83
+#: ../doc/color.rst:83
 msgid "Color Correction — Fixing What Is Wrong"
 msgstr "Värikorjaus — virheiden korjaaminen"
 
-#: ../color.rst:85
+#: ../doc/color.rst:85
 msgid ""
 "**Color correction** is the process of fixing technical problems in footage "
 "so it looks the way reality appeared: wrong white balance, bad exposure, "
@@ -199,11 +199,11 @@ msgstr ""
 " puhdas, neutraali kuva, joka näyttää luonnolliselta ja kestää minkä tahansa"
 " näytön. Katso :ref:`color_correction_ref`."
 
-#: ../color.rst:90
+#: ../doc/color.rst:90
 msgid "Color Grading — Building a Look"
 msgstr "Väriluokitus — ilmeen rakentaminen"
 
-#: ../color.rst:92
+#: ../doc/color.rst:92
 msgid ""
 "**Color grading** is the creative step: using the same tools to give "
 "corrected footage a deliberate visual mood or style. A warm golden "
@@ -218,22 +218,22 @@ msgstr ""
 "\"näyttää oikealta\" tilasta \"näyttää tarkoitukselliselta.\" Katso "
 ":ref:`color_grading_ref`."
 
-#: ../color.rst:99
+#: ../doc/color.rst:99
 msgid "Getting Started"
 msgstr "Aloittaminen"
 
-#: ../color.rst:101
+#: ../doc/color.rst:101
 msgid ""
 "OpenShot offers several ways to open its color tools, depending on what you "
 "need:"
 msgstr ""
 "OpenShot tarjoaa useita tapoja avata värityökalunsa tarpeidesi mukaan:"
 
-#: ../color.rst:106
+#: ../doc/color.rst:106
 msgid "**Right-click a clip → Look → Adjust Colors**"
 msgstr "**Napsauta leikkeen päällä hiiren oikealla → Ulkoasu → Säädä värejä**"
 
-#: ../color.rst:104
+#: ../doc/color.rst:104
 msgid ""
 "The quickest all-in-one setup. OpenShot adds the :guilabel:`Color Grade` "
 "effect to the clip, selects it, opens the :guilabel:`Properties` panel, and "
@@ -245,7 +245,7 @@ msgstr ""
 "näyttää :guilabel:`Väripyörät`-telakan sekä kaikki kolme videoskooppia — "
 "valmiina luokitukseen heti."
 
-#: ../color.rst:110
+#: ../doc/color.rst:110
 msgid ""
 "**Right-click a clip → Look → Color → [preset]** *(Auto Contrast, Lift "
 "Shadows, Warm Up, Boost Color…)*"
@@ -253,7 +253,7 @@ msgstr ""
 "**Napsauta leikkeen päällä hiiren oikealla → Ulkoasu → Väri → [esiasetus]** "
 "*(Automaattinen kontrasti, Varjojen kirkastus, Lämmitä, Värin tehostus…)*"
 
-#: ../color.rst:109
+#: ../doc/color.rst:109
 msgid ""
 "Adds the Color Grade effect with a useful preset already applied. The Color "
 "Wheels and scopes are not opened automatically — open them any time from "
@@ -263,12 +263,12 @@ msgstr ""
 "Väripyörät ja skoopit eivät avaudu automaattisesti — avaa ne milloin tahansa"
 " :guilabel:`Näytä → Skoopit` kautta."
 
-#: ../color.rst:115
+#: ../doc/color.rst:115
 msgid "**Right-click a clip → Look → Analyze Colors**"
 msgstr ""
 "**Napsauta leikkeen päällä hiiren oikealla → Ulkoasu → Analysoi värit**"
 
-#: ../color.rst:113
+#: ../doc/color.rst:113
 msgid ""
 "Opens all three scopes (Luma Waveform, Histogram, and Vectorscope, tabbed "
 "together on the right) without adding any Color Grade effect. Use this to "
@@ -280,11 +280,11 @@ msgstr ""
 "arvioidaksesi materiaalia ennen kuin päätät, tarvitseeko se luokitusta, tai "
 "yksinkertaisesti valvoaksesi tasoja toiston aikana."
 
-#: ../color.rst:120
+#: ../doc/color.rst:120
 msgid "**View → Color View** *(optional immersive mode)*"
 msgstr "**Näytä → Värinäkymä** *(valinnainen immersiivinen tila)*"
 
-#: ../color.rst:118
+#: ../doc/color.rst:118
 msgid ""
 "Switches the entire interface into a dedicated color grading layout: the "
 "video preview is maximized in the center, non-color docks are hidden, the "
@@ -296,22 +296,22 @@ msgstr ""
 "Väriympyrät-paneeli näkyy oikealla ja mittarit alhaalla. Palaa normaaliin "
 "näkymään samasta valikosta, kun olet valmis."
 
-#: ../color.rst:123
+#: ../doc/color.rst:123
 msgid "**Effects tab → drag Color Grade onto a clip**"
 msgstr "**Tehosteet-välilehti → vedä Väriluokitus leikkeelle**"
 
-#: ../color.rst:123
+#: ../doc/color.rst:123
 msgid ""
 "The fully manual approach. Add the effect without opening any docks "
 "automatically."
 msgstr ""
 "Täysin manuaalinen tapa. Lisää tehoste avaamatta paneeleja automaattisesti."
 
-#: ../color.rst:128
+#: ../doc/color.rst:128
 msgid "Video Scopes"
 msgstr "Videomittarit"
 
-#: ../color.rst:130
+#: ../doc/color.rst:130
 msgid ""
 "Each scope updates live as the playhead moves. Use the **Region** button in "
 "any scope's toolbar to analyze just a selected area of the preview rather "
@@ -321,11 +321,11 @@ msgstr ""
 "**Alue**-painiketta minkä tahansa mittarin työkalurivillä analysoidaksesi "
 "vain valitun alueen esikatselusta koko kehyksen sijaan."
 
-#: ../color.rst:136
+#: ../doc/color.rst:136
 msgid "The Luma Waveform"
 msgstr "Luma-aaltomuoto"
 
-#: ../color.rst:138
+#: ../doc/color.rst:138
 msgid ""
 "The Luma Waveform maps every pixel by horizontal position (X axis = left-to-"
 "right across the frame) and brightness (Y axis = 0% at bottom to 100% at "
@@ -337,7 +337,7 @@ msgstr ""
 "alhaalla, 100 % ylhäällä). Missä monet pikselit jakavat saman kirkkauden "
 "samalla vaakasijainnilla, jälki hehkuu kirkkaammin."
 
-#: ../color.rst:144
+#: ../doc/color.rst:144
 msgid ""
 "*The Luma Waveform in RGB Parade mode, showing red, green, and blue channels"
 " side by side.*"
@@ -345,16 +345,16 @@ msgstr ""
 "*Luma-aaltomuoto RGB-paraden tilassa, jossa punainen, vihreä ja sininen "
 "kanava näkyvät vierekkäin.*"
 
-#: ../color.rst:146 ../color.rst:188 ../color.rst:230
+#: ../doc/color.rst:146 ../doc/color.rst:188 ../doc/color.rst:230
 msgid "**How to read it:**"
 msgstr "**Kuinka lukea:**"
 
-#: ../color.rst:148
+#: ../doc/color.rst:148
 msgid "Waveform clustered near the **bottom** → underexposed. Raise Exposure."
 msgstr ""
 "Aaltomuoto keskittyy lähelle **pohjaa** → alivalottunut. Nosta valotusta."
 
-#: ../color.rst:149
+#: ../doc/color.rst:149
 msgid ""
 "Waveform packed against the **top** → overexposed. Lower Exposure or "
 "Highlights."
@@ -362,7 +362,7 @@ msgstr ""
 "Aaltomuoto painautuu **ylälaitaan** → ylivalottunut. Laske valotusta tai "
 "korostuksia."
 
-#: ../color.rst:150
+#: ../doc/color.rst:150
 msgid ""
 "A **narrow horizontal band** in the middle → low contrast, image looks "
 "milky. Increase Contrast."
@@ -370,7 +370,7 @@ msgstr ""
 "Kapea vaakasuora kaista keskellä → matala kontrasti, kuva näyttää samealta. "
 "Lisää kontrastia."
 
-#: ../color.rst:151
+#: ../doc/color.rst:151
 msgid ""
 "A **thick line at the very bottom** → blacks are crushed. Raise Shadows or "
 "lift the bottom-left point of Curve: All to restore shadow detail."
@@ -378,7 +378,7 @@ msgstr ""
 "Paksu viiva aivan alareunassa → mustat ovat tukossa. Nosta varjoja tai nosta"
 " vasemman alakulman pistettä Käyrä: Kaikki palauttaaksesi varjodetaljit."
 
-#: ../color.rst:154
+#: ../doc/color.rst:154
 msgid ""
 "IRE reference lines appear at 10%, 50%, and 90% as faint dashed lines. A "
 "well-exposed image keeps highlights below 90% and shadows above 5%."
@@ -386,23 +386,23 @@ msgstr ""
 "IRE-viivat näkyvät 10 %, 50 % ja 90 % kohdalla himmeinä katkoviivoina. Hyvin"
 " valotettu kuva pitää korostukset alle 90 % ja varjot yli 5 %."
 
-#: ../color.rst:158
+#: ../doc/color.rst:158
 msgid "Waveform Modes"
 msgstr "Aaltomuodon tilat"
 
-#: ../color.rst:164
+#: ../doc/color.rst:164
 msgid "Mode"
 msgstr "Tila"
 
-#: ../color.rst:164
+#: ../doc/color.rst:164
 msgid "What It Shows"
 msgstr "Mitä se näyttää"
 
-#: ../color.rst:166
+#: ../doc/color.rst:166
 msgid "Luma"
 msgstr "Luma"
 
-#: ../color.rst:166
+#: ../doc/color.rst:166
 msgid ""
 "Brightness only (ignores color). Best for exposure and contrast work. Trace "
 "color can be changed to Green, White, or Orange."
@@ -410,11 +410,11 @@ msgstr ""
 "Vain kirkkaus (väriä ei huomioida). Paras valotuksen ja kontrastin säätöön. "
 "Jäljen väriä voi vaihtaa vihreäksi, valkoiseksi tai oranssiksi."
 
-#: ../color.rst:168
+#: ../doc/color.rst:168
 msgid "RGB Overlay"
 msgstr "RGB-päällekkäin"
 
-#: ../color.rst:168
+#: ../doc/color.rst:168
 msgid ""
 "Red, green, and blue channels drawn on top of each other in their natural "
 "colors. Quick visual check for overall channel balance."
@@ -422,11 +422,11 @@ msgstr ""
 "Punainen, vihreä ja sininen kanava piirretään päällekkäin luonnollisissa "
 "väreissään. Nopea visuaalinen tarkistus kanavien tasapainosta."
 
-#: ../color.rst:170
+#: ../doc/color.rst:170
 msgid "RGB Parade"
 msgstr "RGB-parade"
 
-#: ../color.rst:170
+#: ../doc/color.rst:170
 msgid ""
 "Three side-by-side panels (R, G, B). If one panel sits noticeably higher "
 "than the others in areas that should be neutral, white balance is off. Blue "
@@ -436,19 +436,19 @@ msgstr ""
 "korkeammalla kuin muut neutraaleilla alueilla, valkotasapaino on pielessä. "
 "Sininen korkeammalla kuin punainen korostuksissa → kuva on liian kylmä."
 
-#: ../color.rst:173
+#: ../doc/color.rst:173
 msgid "Red / Green / Blue"
 msgstr "Punainen / Vihreä / Sininen"
 
-#: ../color.rst:173
+#: ../doc/color.rst:173
 msgid "Shows a single channel in isolation."
 msgstr "Näyttää yhden kanavan erillään."
 
-#: ../color.rst:179
+#: ../doc/color.rst:179
 msgid "The Histogram"
 msgstr "Histogrammi"
 
-#: ../color.rst:181
+#: ../doc/color.rst:181
 msgid ""
 "The Histogram sorts all pixels by brightness (0 = black on the left, 255 = "
 "white on the right) and shows how many pixels exist at each level as a bar "
@@ -459,15 +459,15 @@ msgstr ""
 "kussakin tasossa palkkikaaviona. Punainen, vihreä, sininen ja luma ovat "
 "päällekkäin."
 
-#: ../color.rst:186
+#: ../doc/color.rst:186
 msgid "*The Histogram in All Channels / Logarithmic mode.*"
 msgstr "*Histogrammi kaikissa kanavissa / logaritmisessa tilassa.*"
 
-#: ../color.rst:190
+#: ../doc/color.rst:190
 msgid "Bars **clustered left** → underexposed."
 msgstr "Palkit **ryhmittyneet vasemmalle** → alivalottunut."
 
-#: ../color.rst:191
+#: ../doc/color.rst:191
 msgid ""
 "Bars **pushed against the right edge** → overexposed, possibly clipping. A "
 "sharp wall on the right means highlight detail is gone."
@@ -476,7 +476,7 @@ msgstr ""
 "leikkaantunut. Terävä seinämä oikealla tarkoittaa, että korostusdetaljit "
 "ovat kadonneet."
 
-#: ../color.rst:193
+#: ../doc/color.rst:193
 msgid ""
 "A **narrow hill in the middle** → low contrast. Increasing Contrast will "
 "spread the bars out."
@@ -484,11 +484,11 @@ msgstr ""
 "Kapea mäki keskellä → matala kontrasti. Kontrastin lisääminen levittää "
 "palkkeja."
 
-#: ../color.rst:195
+#: ../doc/color.rst:195
 msgid "The Histogram dock has two dropdowns:"
 msgstr "Histogrammi-paneelissa on kaksi pudotusvalikkoa:"
 
-#: ../color.rst:197
+#: ../doc/color.rst:197
 msgid ""
 "**Channel** — *All Channels* shows R, G, B, and luma overlaid; individual "
 "options isolate one. If the Red histogram extends further right than Green "
@@ -498,7 +498,7 @@ msgstr ""
 "yksittäiset vaihtoehdot eristävät yhden. Jos punainen histogrammi ulottuu "
 "pidemmälle oikealle kuin vihreä ja sininen, kuva on lämmin."
 
-#: ../color.rst:199
+#: ../doc/color.rst:199
 msgid ""
 "**Scale** — *Logarithmic* (default) keeps rare tonal values visible. "
 "*Linear* shows raw counts, useful for comparing the relative weight of "
@@ -508,11 +508,11 @@ msgstr ""
 "*Lineaarinen* näyttää raakakertymät, hyödyllinen sävyjen suhteellisen painon"
 " vertailuun."
 
-#: ../color.rst:205
+#: ../doc/color.rst:205
 msgid "The Vectorscope"
 msgstr "Vektoriasteikko"
 
-#: ../color.rst:207
+#: ../doc/color.rst:207
 msgid ""
 "The Vectorscope is a 2D chroma plot. Each pixel is placed on a circular "
 "graph by its **hue** (direction from center) and **saturation** (distance "
@@ -520,18 +520,18 @@ msgid ""
 "the edge is fully saturated."
 msgstr ""
 "Vektoriasteikko on 2D-värikartta. Jokainen pikseli sijoitetaan "
-"ympyrädiagrammiin sen **sävy**n (suunta keskeltä) ja **kylläisyys**n "
+"ympyrädiagrammiin sen **sävy**\\ n (suunta keskeltä) ja **kylläisyys**\\ n "
 "(etäisyys keskeltä) mukaan. Keskellä oleva pikseli on väritön (harmaa tai "
 "musta); reunalla oleva täysin kyllästetty."
 
-#: ../color.rst:213
+#: ../doc/color.rst:213
 msgid ""
 "*The Vectorscope in Colorized mode, with the skin tone cluster visible near "
 "the center.*"
 msgstr ""
 "*Vektoriasteikko värillisenä tilassa, ihon sävyt näkyvät lähellä keskustaa.*"
 
-#: ../color.rst:215
+#: ../doc/color.rst:215
 msgid ""
 "The outer ring shows broadcast hue labels — **R** (red), **Mg** (magenta), "
 "**B** (blue), **Cy** (cyan), **G** (green), **Yi** (yellow) — at their "
@@ -546,11 +546,11 @@ msgstr ""
 " tummimpaan, sijoittuvat suunnilleen tälle viivalle keltainen-oranssilla "
 "alueella Yi:n ja R:n välillä."
 
-#: ../color.rst:220
+#: ../doc/color.rst:220
 msgid "**Display modes:**"
 msgstr "**Näyttötilat:**"
 
-#: ../color.rst:222
+#: ../doc/color.rst:222
 msgid ""
 "**Colorized** (default) — each plotted pixel adopts the hue color of its "
 "position on the wheel. Makes it easy to see which colors are present and how"
@@ -559,7 +559,7 @@ msgstr ""
 "**Värillinen** (oletus) — jokainen piste saa sävyn värin sijaintinsa mukaan "
 "pyörällä. Helpottaa värien ja niiden kylläisyyden näkemistä."
 
-#: ../color.rst:224
+#: ../doc/color.rst:224
 msgid ""
 "**Density** — monochrome brightness. Brighter = more pixels sharing that "
 "hue/saturation. Good for focusing on shape and balance rather than color "
@@ -569,7 +569,7 @@ msgstr ""
 " samaa sävyä/kylläisyyttä. Hyvä muodon ja tasapainon tarkasteluun värin "
 "tunnistamisen sijaan."
 
-#: ../color.rst:226
+#: ../doc/color.rst:226
 msgid ""
 "**Intensity** — heatmap from blue (sparse) to red (dense). Quickly shows "
 "which colors dominate."
@@ -577,7 +577,7 @@ msgstr ""
 "**Intensiteetti** — lämpökartta sinisestä (harva) punaiseen (tiheä). Näyttää"
 " nopeasti, mitkä värit hallitsevat."
 
-#: ../color.rst:228
+#: ../doc/color.rst:228
 msgid ""
 "**Zoom:** 100%, 200%, or 400%. Use 200% for skin tone work — it magnifies "
 "subtle shifts near center."
@@ -585,7 +585,7 @@ msgstr ""
 "**Zoom:** 100 %, 200 % tai 400 %. Käytä 200 % ihon sävyjen työstöön — se "
 "suurentaa hienovaraisia muutoksia lähellä keskustaa."
 
-#: ../color.rst:232
+#: ../doc/color.rst:232
 msgid ""
 "Plot concentrated near the **center** → image is desaturated. Increase "
 "Saturation or Vibrance."
@@ -593,7 +593,7 @@ msgstr ""
 "Kuvaaja keskittyy lähelle **keskikohtaa** → kuva on väritön. Lisää "
 "kylläisyyttä tai eloisuutta."
 
-#: ../color.rst:233
+#: ../doc/color.rst:233
 msgid ""
 "Plot tilted toward one side → color cast. Use Temperature, Tint, or the "
 "Global color wheel to push the cluster back toward center."
@@ -602,7 +602,7 @@ msgstr ""
 "Lämpötila-, Sävy- tai Yleistä väripyörää siirtääksesi ryhmän takaisin "
 "keskelle."
 
-#: ../color.rst:235
+#: ../doc/color.rst:235
 msgid ""
 "For **skin tone evaluation**: use the Region selector to draw a box over a "
 "face in the preview. The cluster should fall along the dashed skin tone line"
@@ -612,11 +612,11 @@ msgstr ""
 "päälle esikatselussa. Ryhmän tulisi sijoittua katkoviivalla merkitylle ihon "
 "sävyn linjalle (katso :ref:`skin_tones_ref`)."
 
-#: ../color.rst:241
+#: ../doc/color.rst:241
 msgid "Color Correction"
 msgstr "Värikorjaus"
 
-#: ../color.rst:243
+#: ../doc/color.rst:243
 msgid ""
 "Color correction fixes technical problems — wrong white balance, bad "
 "exposure, flat contrast — so footage looks clean and natural. It is always "
@@ -626,11 +626,11 @@ msgstr ""
 "tasainen kontrasti — jotta kuva näyttää puhtaalta ja luonnolliselta. Se on "
 "aina ensimmäinen vaihe ennen luovaa työtä."
 
-#: ../color.rst:249
+#: ../doc/color.rst:249
 msgid "White Balance — Making Whites Look White"
 msgstr "Valkotasapaino — valkoisten saaminen näyttämään valkoisilta"
 
-#: ../color.rst:251
+#: ../doc/color.rst:251
 msgid ""
 "Different light sources cast different colors: incandescent bulbs are "
 "orange-warm, fluorescent lights are greenish, open shade is cool blue. When "
@@ -642,7 +642,7 @@ msgstr ""
 "valkotasapaino arvaa väärin, kuva näyttää värivääristyneeltä. Tämän "
 "korjaaminen on lähes aina ensimmäinen toimenpiteesi."
 
-#: ../color.rst:255
+#: ../doc/color.rst:255
 msgid ""
 "Use **Temperature** and **Tint** in the :guilabel:`Color Grade` effect "
 "properties:"
@@ -650,7 +650,7 @@ msgstr ""
 "Käytä **Lämpötila**- ja **Sävy**-asetuksia :guilabel:`Väriluokka`-efektin "
 "ominaisuuksissa:"
 
-#: ../color.rst:257
+#: ../doc/color.rst:257
 msgid ""
 "**Temperature** — shifts the image warmer (positive) or cooler (negative). "
 "Footage that looks too orange? Slide it negative."
@@ -658,7 +658,7 @@ msgstr ""
 "**Lämpötila** — siirtää kuvaa lämpimämmäksi (positiivinen) tai viileämmäksi "
 "(negatiivinen). Näyttääkö kuva liian oranssilta? Säädä negatiiviseksi."
 
-#: ../color.rst:259
+#: ../doc/color.rst:259
 msgid ""
 "**Tint** — fine-tunes green/magenta balance. Use this after Temperature to "
 "remove a lingering fluorescent tinge. Positive = magenta, negative = green."
@@ -667,7 +667,7 @@ msgstr ""
 " jälkeen poistaaksesi jäljellä olevan loisteputkivärin. Positiivinen = "
 "magenta, negatiivinen = vihreä."
 
-#: ../color.rst:262
+#: ../doc/color.rst:262
 msgid ""
 "A quick check: find something in the shot that should be neutral — a white "
 "wall, a gray shirt, the whites of someone's eyes. The **RGB Parade** "
@@ -679,11 +679,11 @@ msgstr ""
 "tästä objektiivisen: kaikkien kolmen kanavan tulisi olla samalla korkeudella"
 " näissä neutraaleissa kohdissa."
 
-#: ../color.rst:269
+#: ../doc/color.rst:269
 msgid "Skin Tones"
 msgstr "Ihon sävyt"
 
-#: ../color.rst:271
+#: ../doc/color.rst:271
 msgid ""
 "Human faces are the most scrutinized subjects in video. Viewers sense when "
 "skin looks wrong instantly, even if they cannot say why. Good skin tones are"
@@ -693,7 +693,7 @@ msgstr ""
 "heti, kun iho näyttää väärältä, vaikka eivät osaisi sanoa miksi. Hyvät ihon "
 "sävyt ovat lämpimiä — ne kallistuvat oranssiin, eivät vihreään tai siniseen."
 
-#: ../color.rst:274
+#: ../doc/color.rst:274
 msgid ""
 "All human skin tones — regardless of race — fall roughly along the same "
 "diagonal line on a vectorscope: the **skin tone line**. They shift lighter "
@@ -706,7 +706,7 @@ msgstr ""
 "mutta sijoittuvat aina oranssin ja keltaisen alueelle. OpenShotin "
 "Vektoriaaltomittari antaa sinun tarkistaa tämän suoraan:"
 
-#: ../color.rst:278
+#: ../doc/color.rst:278
 msgid ""
 "Right-click the clip → :guilabel:`Color → Analyze Colors` to open the "
 "scopes."
@@ -714,7 +714,7 @@ msgstr ""
 "Napsauta klippiä hiiren oikealla → :guilabel:`Väri → Analysoi värit` "
 "avataksesi mittarit."
 
-#: ../color.rst:279
+#: ../doc/color.rst:279
 msgid ""
 "In the Vectorscope toolbar, click the **Region** button and drag a box over "
 "the skin in the preview."
@@ -722,7 +722,7 @@ msgstr ""
 "Vektoriaaltomittarin työkalurivillä napsauta **Alue**-painiketta ja vedä "
 "laatikko ihon päälle esikatselussa."
 
-#: ../color.rst:280
+#: ../doc/color.rst:280
 msgid ""
 "The cluster should sit along the dashed skin tone line. If it drifts toward "
 "green or blue, use **Temperature** (warmer) or the **Global** color wheel to"
@@ -733,7 +733,7 @@ msgstr ""
 "**Yleistä** väripyörää siirtääksesi sen takaisin oranssin-keltaisen "
 "alueelle."
 
-#: ../color.rst:285
+#: ../doc/color.rst:285
 msgid ""
 "*A face region selected in the video preview (left) with the vectorscope "
 "plotting only those pixels (right). The skin tone cluster aligns with the "
@@ -744,7 +744,7 @@ msgstr ""
 " linjassa katkoviivalla merkityn ihon sävyn linjan kanssa keltais-oranssilla"
 " alueella.*"
 
-#: ../color.rst:288
+#: ../doc/color.rst:288
 msgid ""
 "Avoid pushing Saturation too high — over-saturated skin looks unnatural even"
 " when the hue is correct."
@@ -752,11 +752,11 @@ msgstr ""
 "Vältä liiallista kylläisyyden nostamista — yli kyllästetty iho näyttää "
 "epäluonnolliselta, vaikka sävy olisi oikea."
 
-#: ../color.rst:291
+#: ../doc/color.rst:291
 msgid "Primary Correction Controls"
 msgstr "Pääasialliset korjausohjaimet"
 
-#: ../color.rst:293
+#: ../doc/color.rst:293
 msgid ""
 "These controls appear in the :guilabel:`Properties` panel when the Color "
 "Grade effect is selected:"
@@ -764,51 +764,51 @@ msgstr ""
 "Nämä ohjaimet näkyvät :guilabel:`Ominaisuudet`-paneelissa, kun Väriluokka-"
 "efekti on valittuna:"
 
-#: ../color.rst:299
+#: ../doc/color.rst:299
 msgid "Property"
 msgstr "Ominaisuus"
 
-#: ../color.rst:299
+#: ../doc/color.rst:299
 msgid "What It Does"
 msgstr "Toiminto"
 
-#: ../color.rst:301
+#: ../doc/color.rst:301
 msgid "Temperature"
 msgstr "Lämpötila"
 
-#: ../color.rst:301
+#: ../doc/color.rst:301
 msgid "Warms (positive) or cools (negative) the entire image."
 msgstr "Lämmittää (positiivinen) tai viilentää (negatiivinen) koko kuvaa."
 
-#: ../color.rst:302
+#: ../doc/color.rst:302
 msgid "Tint"
 msgstr "Sävy"
 
-#: ../color.rst:302
+#: ../doc/color.rst:302
 msgid "Fine-tunes green/magenta balance after Temperature."
 msgstr "Hienosäätää vihreän ja magentan tasapainoa Lämpötilan jälkeen."
 
-#: ../color.rst:303
+#: ../doc/color.rst:303
 msgid "Exposure"
 msgstr "Valotus"
 
-#: ../color.rst:303
+#: ../doc/color.rst:303
 msgid "Makes the whole image brighter or darker."
 msgstr "Tekee koko kuvasta kirkkaamman tai tummemman."
 
-#: ../color.rst:304
+#: ../doc/color.rst:304
 msgid "Contrast"
 msgstr "Kontrasti"
 
-#: ../color.rst:304
+#: ../doc/color.rst:304
 msgid "Expands (positive) or compresses (negative) the tonal range."
 msgstr "Laajentaa (positiivinen) tai supistaa (negatiivinen) sävyaluetta."
 
-#: ../color.rst:305 ../color.rst:364
+#: ../doc/color.rst:305 ../doc/color.rst:364
 msgid "Highlights"
 msgstr "Kohokohdat"
 
-#: ../color.rst:305
+#: ../doc/color.rst:305
 msgid ""
 "Brightens or darkens only the bright parts. Negative values recover "
 "overexposed highlights."
@@ -816,30 +816,30 @@ msgstr ""
 "Kirkastaa tai tummentaa vain kirkkaat kohdat. Negatiiviset arvot palauttavat"
 " ylivalottuneet kohokohdat."
 
-#: ../color.rst:307 ../color.rst:362
+#: ../doc/color.rst:307 ../doc/color.rst:362
 msgid "Shadows"
 msgstr "Varjot"
 
-#: ../color.rst:307
+#: ../doc/color.rst:307
 msgid ""
 "Lifts or lowers only the dark parts. Positive values open up shadow detail."
 msgstr ""
 "Nostaa tai laskee vain tummia kohtia. Positiiviset arvot avaavat "
 "varjodetaljeja."
 
-#: ../color.rst:309
+#: ../doc/color.rst:309
 msgid "Saturation"
 msgstr "Kylläisyys"
 
-#: ../color.rst:309
+#: ../doc/color.rst:309
 msgid "Overall color intensity. 1.0 = unchanged, 0.0 = grayscale."
 msgstr "Kokonaisvärin voimakkuus. 1.0 = muuttumaton, 0.0 = harmaasävy."
 
-#: ../color.rst:310
+#: ../doc/color.rst:310
 msgid "Vibrance"
 msgstr "Eloisuus"
 
-#: ../color.rst:310
+#: ../doc/color.rst:310
 msgid ""
 "Like Saturation, but preferentially boosts muted colors without "
 "oversaturating ones that are already vivid."
@@ -847,15 +847,15 @@ msgstr ""
 "Kuin Kylläisyys, mutta lisää ensisijaisesti hillittyjä värejä ilman, että jo"
 " eloisat värit ylikylläistyvät."
 
-#: ../color.rst:315
+#: ../doc/color.rst:315
 msgid "A Correction Workflow"
 msgstr "Korjaustyönkulku"
 
-#: ../color.rst:317
+#: ../doc/color.rst:317
 msgid "Work in this order for the best results:"
 msgstr "Toimi tässä järjestyksessä parhaan tuloksen saavuttamiseksi:"
 
-#: ../color.rst:319
+#: ../doc/color.rst:319
 msgid ""
 "**Fix white balance first** — Temperature and Tint until neutrals look "
 "neutral."
@@ -863,17 +863,17 @@ msgstr ""
 "**Korjaa ensin valkotasapaino** — Lämpötila ja Sävy, kunnes neutraalit "
 "näyttävät neutraaleilta."
 
-#: ../color.rst:320
+#: ../doc/color.rst:320
 msgid "**Set exposure** — Exposure until brightness feels correct."
 msgstr "**Aseta valotus** — Valotus, kunnes kirkkaus tuntuu oikealta."
 
-#: ../color.rst:321
+#: ../doc/color.rst:321
 msgid "**Adjust contrast** — expand or compress the tonal range to add depth."
 msgstr ""
 "**Säädä kontrastia** — laajenna tai supista sävyaluetta lisätäksesi "
 "syvyyttä."
 
-#: ../color.rst:322
+#: ../doc/color.rst:322
 msgid ""
 "**Recover clipping** — Highlights and Shadows if bright areas are blown or "
 "shadows are crushed."
@@ -881,11 +881,11 @@ msgstr ""
 "**Palauta leikkaantuneet kohdat** — Kohokohdat ja Varjot, jos kirkkaat "
 "alueet ovat ylivalottuneet tai varjot tukossa."
 
-#: ../color.rst:323
+#: ../doc/color.rst:323
 msgid "**Adjust saturation** — Saturation or Vibrance to taste."
 msgstr "**Säädä kylläisyyttä** — Kylläisyys tai Eloisuus maun mukaan."
 
-#: ../color.rst:324
+#: ../doc/color.rst:324
 msgid ""
 "**Check skin tones** — open the Vectorscope, use the Region selector on "
 "faces, and confirm the cluster aligns with the skin tone line."
@@ -893,7 +893,7 @@ msgstr ""
 "**Tarkista ihon sävyt** — avaa Vektoriaaltomittari, käytä Aluevalitsinta "
 "kasvoihin ja varmista, että ryhmä on linjassa ihon sävyn linjan kanssa."
 
-#: ../color.rst:327
+#: ../doc/color.rst:327
 msgid ""
 "Use the scopes at each step — they show you what is actually in the image, "
 "regardless of monitor calibration."
@@ -901,11 +901,11 @@ msgstr ""
 "Käytä mittareita jokaisessa vaiheessa — ne näyttävät, mitä kuvassa todella "
 "on, riippumatta näytön kalibroinnista."
 
-#: ../color.rst:333
+#: ../doc/color.rst:333
 msgid "Color Grading"
 msgstr "Väriluokitus"
 
-#: ../color.rst:335
+#: ../doc/color.rst:335
 msgid ""
 "Color grading is the creative step: using the same tools to build a "
 "deliberate visual mood on top of corrected footage. A few classic grades to "
@@ -915,7 +915,7 @@ msgstr ""
 "tarkoituksellinen visuaalinen tunnelma korjatun materiaalin päälle. Tässä "
 "muutama klassinen luokitus inspiraatioksi:"
 
-#: ../color.rst:338
+#: ../doc/color.rst:338
 msgid ""
 "**Warm, golden nostalgic** — push Highlights toward orange-yellow, nudge "
 "Midtones slightly warm."
@@ -923,7 +923,7 @@ msgstr ""
 "**Lämmin, kultainen nostalginen** — siirrä korostuksia oranssin ja keltaisen"
 " suuntaan, lämmitä keskitummia hieman."
 
-#: ../color.rst:339
+#: ../doc/color.rst:339
 msgid ""
 "**Cold, clinical** — cool the Shadows, desaturate slightly, keep Highlights "
 "neutral."
@@ -931,7 +931,7 @@ msgstr ""
 "**Kylmä, kliininen** — viilennä varjoja, vähennä hieman kylläisyyttä, pidä "
 "korostukset neutraaleina."
 
-#: ../color.rst:340
+#: ../doc/color.rst:340
 msgid ""
 "**Teal and orange** — the blockbuster look: Shadows toward teal, Highlights "
 "toward orange."
@@ -939,7 +939,7 @@ msgstr ""
 "**Sinivihreä ja oranssi** — elokuvamainen tyyli: varjot sinivihreään, "
 "korostukset oranssiin."
 
-#: ../color.rst:341
+#: ../doc/color.rst:341
 msgid ""
 "**Faded film** — lift the black point slightly (Curves) so shadows never "
 "reach full black."
@@ -947,11 +947,11 @@ msgstr ""
 "**Haalistunut filmi** — nosta mustan pistettä hieman (Käyrät), jotta varjot "
 "eivät koskaan ole täysin mustia."
 
-#: ../color.rst:346
+#: ../doc/color.rst:346
 msgid "Color Wheels"
 msgstr "Väripyörät"
 
-#: ../color.rst:348
+#: ../doc/color.rst:348
 msgid ""
 "Color wheels push color into specific **tonal ranges** without affecting the"
 " others. This is the tool professional colorists reach for most."
@@ -959,7 +959,7 @@ msgstr ""
 "Väripyörät siirtävät väriä tiettyihin **sävyalueisiin** vaikuttamatta "
 "muihin. Tämä on työkalu, johon ammattivärimäärittäjät useimmiten tarttuvat."
 
-#: ../color.rst:353
+#: ../doc/color.rst:353
 msgid ""
 "*The Color Wheels dock, showing Global, Shadows, Midtones, and Highlights "
 "wheels.*"
@@ -967,40 +967,40 @@ msgstr ""
 "*Väripyörien paneeli, jossa näkyvät Globaalit, Varjot, Keskitummat ja "
 "Korostukset -pyörät.*"
 
-#: ../color.rst:359
+#: ../doc/color.rst:359
 msgid "Wheel"
 msgstr "Pyörä"
 
-#: ../color.rst:359
+#: ../doc/color.rst:359
 msgid "What It Affects"
 msgstr "Mihin se vaikuttaa"
 
-#: ../color.rst:361
+#: ../doc/color.rst:361
 msgid "Global"
 msgstr "Globaali"
 
-#: ../color.rst:361
+#: ../doc/color.rst:361
 msgid "A color tint across the **entire image** at all brightness levels."
 msgstr "Värisävy koko **kuvassa** kaikilla kirkkaustasoilla."
 
-#: ../color.rst:362
+#: ../doc/color.rst:362
 msgid "Color only in the **darkest parts**. Great for a cool teal tint."
 msgstr ""
 "Väri vain **tummimmissa kohdissa**. Erinomainen viileälle sinivihreälle "
 "sävylle."
 
-#: ../color.rst:363
+#: ../doc/color.rst:363
 msgid "Midtones"
 msgstr "Keskitummat"
 
-#: ../color.rst:363
+#: ../doc/color.rst:363
 msgid ""
 "Color in the **middle tones** — where most skin tones live. Handle gently."
 msgstr ""
 "Väri **keskitummissa sävyissä** — siellä missä suurin osa ihonsävyistä on. "
 "Käsittele varovasti."
 
-#: ../color.rst:364
+#: ../doc/color.rst:364
 msgid ""
 "Color only in the **brightest parts**. Warming highlights while keeping "
 "shadows cool is the foundation of the teal-and-orange look."
@@ -1008,7 +1008,7 @@ msgstr ""
 "Väri vain **kirkkaimmissa kohdissa**. Korostusten lämmittäminen ja varjojen "
 "viilentäminen on sinivihreä-oranssin tyylin perusta."
 
-#: ../color.rst:368
+#: ../doc/color.rst:368
 msgid ""
 "Drag the **central dot** toward the desired color. Further from center = "
 "stronger effect."
@@ -1016,36 +1016,36 @@ msgstr ""
 "Vedä **keskipistettä** haluttuun väriin. Mitä kauempana keskeltä, sitä "
 "voimakkaampi vaikutus."
 
-#: ../color.rst:369
+#: ../doc/color.rst:369
 msgid ""
 "The **Amount** slider blends the tinted result back toward the original."
 msgstr ""
 "**Määrä**-liukusäädin sekoittaa sävytetyn tuloksen takaisin alkuperäiseen."
 
-#: ../color.rst:370
+#: ../doc/color.rst:370
 msgid "The **Luma** slider adjusts the brightness of that tonal zone."
 msgstr "**Luma**-liukusäädin säätää kyseisen sävyalueen kirkkautta."
 
-#: ../color.rst:371
+#: ../doc/color.rst:371
 msgid ""
 "Right-click any wheel in Properties → **Reset** to return it to neutral."
 msgstr ""
 "Napsauta hiiren oikealla mitä tahansa pyörää Ominaisuudet → **Palauta** "
 "palauttaaksesi sen neutraaliksi."
 
-#: ../color.rst:373
+#: ../doc/color.rst:373
 msgid "**To build the classic teal-and-orange look:**"
 msgstr "**Rakentaaksesi klassisen sinivihreä-oranssin tyylin:**"
 
-#: ../color.rst:375
+#: ../doc/color.rst:375
 msgid "Drag **Shadows** toward teal (blue-green)."
 msgstr "Vedä **Varjot** sinivihreään (sinivihreä)."
 
-#: ../color.rst:376
+#: ../doc/color.rst:376
 msgid "Drag **Highlights** toward orange."
 msgstr "Vedä **Korostukset** oranssiin."
 
-#: ../color.rst:377
+#: ../doc/color.rst:377
 msgid ""
 "Optionally nudge **Midtones** very slightly toward orange to warm skin "
 "tones."
@@ -1053,16 +1053,16 @@ msgstr ""
 "Halutessasi siirrä **Keskitummia** hyvin vähän oranssiin lämmittääksesi "
 "ihonsävyjä."
 
-#: ../color.rst:378
+#: ../doc/color.rst:378
 msgid ""
 "Lower the Amount sliders to 0.3–0.5 so the effect does not become overdone."
 msgstr "Laske Määrä-liukusäätimet arvoon 0,3–0,5, jotta vaikutus ei ylity."
 
-#: ../color.rst:383
+#: ../doc/color.rst:383
 msgid "Curves — Precise Tonal and Color Control"
 msgstr "Käyrät — Tarkka sävy- ja värinsäätö"
 
-#: ../color.rst:385
+#: ../doc/color.rst:385
 msgid ""
 "A curve is a graph where the horizontal axis is the input value and the "
 "vertical axis is the output value. A straight diagonal line means no change."
@@ -1073,7 +1073,7 @@ msgstr ""
 "on lähtöarvo. Suora vinoviiva tarkoittaa muutosta. Taivuta käyrää "
 "muuttaaksesi syötteen ja lähdön suhdetta kyseisellä sävyalueella."
 
-#: ../color.rst:391
+#: ../doc/color.rst:391
 msgid ""
 "*The OpenShot Curve Editor. Click to add points, drag to reshape, right-"
 "click to change interpolation.*"
@@ -1081,11 +1081,11 @@ msgstr ""
 "*OpenShotin käyräeditori. Klikkaa lisätäksesi pisteitä, vedä muokataksesi, "
 "napsauta hiiren oikealla muuttaaksesi interpolaatiota.*"
 
-#: ../color.rst:393
+#: ../doc/color.rst:393
 msgid "**Common curve shapes:**"
 msgstr "**Yleiset käyrämuodot:**"
 
-#: ../color.rst:395
+#: ../doc/color.rst:395
 msgid ""
 "**S-curve** — pull the upper-right quarter up, the lower-left quarter down. "
 "Adds contrast and pop without shifting mid-gray. The most common starting "
@@ -1095,7 +1095,7 @@ msgstr ""
 "neljännes alas. Lisää kontrastia ja eloisuutta siirtämättä keskiharmaata. "
 "Yleisin aloitusliike."
 
-#: ../color.rst:397
+#: ../doc/color.rst:397
 msgid ""
 "**Lifted blacks** — drag the bottom-left corner upward. Shadows never go "
 "fully to black — the faded-film look."
@@ -1103,7 +1103,7 @@ msgstr ""
 "**Nostetut mustat** — vedä vasen alakulma ylöspäin. Varjot eivät koskaan "
 "mene täysin mustiksi — haalistuneen filmin ilme."
 
-#: ../color.rst:399
+#: ../doc/color.rst:399
 msgid ""
 "**Lower highlights** — add a point in the upper-right and pull it down. "
 "Recovers bright areas without affecting the rest."
@@ -1111,18 +1111,18 @@ msgstr ""
 "**Laske korostuksia** — lisää piste oikeaan yläkulmaan ja vedä se alas. "
 "Palauttaa kirkkaat alueet vaikuttamatta muuhun."
 
-#: ../color.rst:402
+#: ../doc/color.rst:402
 msgid "**The four channels:**"
 msgstr "**Neljä kanavaa:**"
 
-#: ../color.rst:404
+#: ../doc/color.rst:404
 msgid ""
 "**Curve: All** — overall brightness across all channels. Used most often."
 msgstr ""
 "**Käyrä: Kaikki** — kokonaisvaltainen kirkkaus kaikissa kanavissa. "
 "Käytetyin."
 
-#: ../color.rst:405
+#: ../doc/color.rst:405
 msgid ""
 "**Curve: Red** — up adds red (warms), down adds cyan. Pull shadows down for "
 "a cool shadow tint."
@@ -1130,11 +1130,11 @@ msgstr ""
 "**Käyrä: Punainen** — ylös lisää punaista (lämmittää), alas lisää syaania. "
 "Vedä varjoja alas viileän varjosävyn saamiseksi."
 
-#: ../color.rst:406
+#: ../doc/color.rst:406
 msgid "**Curve: Green** — up adds green, down adds magenta."
 msgstr "**Käyrä: Vihreä** — ylös lisää vihreää, alas lisää magentaa."
 
-#: ../color.rst:407
+#: ../doc/color.rst:407
 msgid ""
 "**Curve: Blue** — up cools, down warms. Classic move: pull Blue Shadows up "
 "(cool teal shadows) and Blue Highlights down (warm orange highlights)."
@@ -1143,7 +1143,7 @@ msgstr ""
 "sinisiä varjoja ylös (viileät sinivihreät varjot) ja sinisiä korostuksia "
 "alas (lämpimät oranssit korostukset)."
 
-#: ../color.rst:410
+#: ../doc/color.rst:410
 msgid ""
 "Curves beat sliders because you can apply *different* adjustments to "
 "*different* tonal ranges in a single operation — for example, warming "
@@ -1153,11 +1153,11 @@ msgstr ""
 "sävyalueille yhdellä kertaa — esimerkiksi lämmittää korostuksia ja viilentää"
 " varjoja samanaikaisesti."
 
-#: ../color.rst:416
+#: ../doc/color.rst:416
 msgid "LUT Files — One-Click Color Looks"
 msgstr "LUT-tiedostot — Yhden klikkauksen värityylit"
 
-#: ../color.rst:418
+#: ../doc/color.rst:418
 msgid ""
 "A **LUT** (Lookup Table) is a pre-made color transformation: for every input"
 " color, output a specific different color. Professional colorists use LUTs "
@@ -1170,7 +1170,7 @@ msgstr ""
 "yhdellä klikkauksella. OpenShot tukee alan standardin mukaisia "
 "**.cube**-tiedostoja."
 
-#: ../color.rst:422
+#: ../doc/color.rst:422
 msgid ""
 "OpenShot ships with a built-in LUT collection — see the :ref:`effects_ref` "
 "page for a visual gallery. Free **.cube** packs are widely available from "
@@ -1180,19 +1180,19 @@ msgstr ""
 "visuaalinen galleria. Ilmaisia **.cube**-paketteja on laajalti saatavilla "
 "valokuvausyhteisöiltä verkossa."
 
-#: ../color.rst:425
+#: ../doc/color.rst:425
 msgid "**How to apply a LUT:**"
 msgstr "**Kuinka käyttää LUT:ia:**"
 
-#: ../color.rst:427
+#: ../doc/color.rst:427
 msgid "Select the :guilabel:`Color Grade` effect properties."
 msgstr "Valitse :guilabel:`Color Grade` -efektin ominaisuudet."
 
-#: ../color.rst:428
+#: ../doc/color.rst:428
 msgid "Click :guilabel:`LUT File` and browse to a **.cube** file."
 msgstr "Klikkaa :guilabel:`LUT File` ja selaa **.cube**-tiedostoon."
 
-#: ../color.rst:429
+#: ../doc/color.rst:429
 msgid ""
 "Use :guilabel:`LUT Intensity` (0.0–1.0) to blend the LUT with your corrected"
 " image. Most professionals land between 0.4–0.7 for a natural feel."
@@ -1201,11 +1201,11 @@ msgstr ""
 "kuvan kanssa. Useimmat ammattilaiset käyttävät arvoja 0,4–0,7 luonnollisen "
 "vaikutelman saavuttamiseksi."
 
-#: ../color.rst:432
+#: ../doc/color.rst:432
 msgid "**Tips:**"
 msgstr "**Vinkkejä:**"
 
-#: ../color.rst:434
+#: ../doc/color.rst:434
 msgid ""
 "Correct first, then grade. LUTs assume properly balanced footage — applied "
 "to a color-cast image, they will look wrong."
@@ -1213,7 +1213,7 @@ msgstr ""
 "Korjaa ensin, sitten tee väriluokitus. LUT:t olettavat oikein tasapainotetun"
 " materiaalin — värisävyvirheellisessä kuvassa ne näyttävät vääriltä."
 
-#: ../color.rst:436
+#: ../doc/color.rst:436
 msgid ""
 "Most included LUTs target Rec. 709 footage (HD cameras, smartphones). If "
 "your camera records in a LOG profile, apply the appropriate LOG conversion "
@@ -1223,7 +1223,7 @@ msgstr ""
 "(HD-kamerat, älypuhelimet). Jos kamerasi tallentaa LOG-profiilissa, käytä "
 "ensin sopivaa LOG-muunnos-LUT:ia."
 
-#: ../color.rst:438
+#: ../doc/color.rst:438
 msgid ""
 "Stack Color Grade with separate Color Map / Lookup effects to layer multiple"
 " LUTs."
@@ -1231,11 +1231,11 @@ msgstr ""
 "Pinota väriluokitus erillisten värikartta- / hakutehosteiden kanssa "
 "kerrostaaksesi useita LUT:eja."
 
-#: ../color.rst:443
+#: ../doc/color.rst:443
 msgid "The Mix Control"
 msgstr "Sekoittamisen ohjaus"
 
-#: ../color.rst:445
+#: ../doc/color.rst:445
 msgid ""
 "The **Mix** control (0.0–1.0) at the bottom of the Color Grade effect blends"
 " the graded result with the original image. At 1.0, the full grade applies. "
@@ -1245,7 +1245,7 @@ msgstr ""
 "luokitellun tuloksen alkuperäisen kuvan kanssa. Arvolla 1,0 käytetään koko "
 "luokitusta. Arvolla 0,0 näytetään alkuperäinen."
 
-#: ../color.rst:448
+#: ../doc/color.rst:448
 msgid ""
 "If your grade is correct but feels slightly heavy, dial Mix back to 0.7–0.9 "
 "to soften everything at once — no need to revisit every individual control."
@@ -1254,7 +1254,7 @@ msgstr ""
 "takaisin 0,7–0,9 pehmentääksesi kaikkea kerralla — ei tarvitse käydä läpi "
 "jokaista ohjainta erikseen."
 
-#: ../color.rst:451
+#: ../doc/color.rst:451
 msgid ""
 "Mix is keyframable: animate the grade fading in or out over time, for "
 "example opening a scene flat and letting it bloom into full color."
@@ -1263,11 +1263,11 @@ msgstr ""
 "häivyttämisen sisään tai ulos ajan kuluessa, esimerkiksi aloittaa kohtauksen"
 " tasaisena ja antaa sen kehittyä täyteen väriin."
 
-#: ../color.rst:457
+#: ../doc/color.rst:457
 msgid "Putting It All Together — A Complete Workflow"
 msgstr "Kaiken yhdistäminen — täydellinen työnkulku"
 
-#: ../color.rst:459
+#: ../doc/color.rst:459
 msgid ""
 "Select your clip. Right-click → :guilabel:`Color → Adjust Colors` to add the"
 " effect and open the Color Wheels and scopes in one step. Or use "
@@ -1279,7 +1279,7 @@ msgstr ""
 " käytä ensin :guilabel:`Color → Analyze Colors`, jos haluat arvioida "
 "materiaalin ennen luokituksen tekemistä."
 
-#: ../color.rst:462
+#: ../doc/color.rst:462
 msgid ""
 "**Check the scopes before touching anything** — is the waveform too high or "
 "too low? A cast on the RGB Parade? The histogram clipping against the right "
@@ -1289,12 +1289,12 @@ msgstr ""
 "tai matala? Onko RGB-paraatissa värisävyvirhe? Leikkaako histogrammi "
 "oikeasta reunasta?"
 
-#: ../color.rst:464
+#: ../doc/color.rst:464
 msgid "Fix **Temperature** and **Tint** to neutralize white balance."
 msgstr ""
 "Korjaa **Lämpötila** ja **Sävy** valkoisen tasapainon neutraloimiseksi."
 
-#: ../color.rst:465
+#: ../doc/color.rst:465
 msgid ""
 "Fix **Exposure**, then **Contrast**. Use **Highlights** and **Shadows** to "
 "recover clipping."
@@ -1302,11 +1302,11 @@ msgstr ""
 "Korjaa **Valotus**, sitten **Kontrasti**. Käytä **Kohokohtia** ja "
 "**Varjoja** palauttaaksesi leikkautuneet alueet."
 
-#: ../color.rst:466
+#: ../doc/color.rst:466
 msgid "Gently adjust **Saturation** or **Vibrance**."
 msgstr "Säädä varovasti **Kylläisyyttä** tai **Eloisuutta**."
 
-#: ../color.rst:467
+#: ../doc/color.rst:467
 msgid ""
 "Open the **Vectorscope**, click Region, and draw a box over any faces. "
 "Confirm the skin tone cluster aligns with the dashed line. If not, adjust "
@@ -1316,7 +1316,7 @@ msgstr ""
 "päälle. Varmista, että ihon sävyt ovat katkoviivan kohdalla. Jos eivät ole, "
 "säädä Lämpötilaa tai Yleistä väripyörää."
 
-#: ../color.rst:469
+#: ../doc/color.rst:469
 msgid ""
 "Open the **Color Wheels** dock and build your creative grade — push Shadows "
 "one direction, Highlights the opposite, handle Midtones carefully."
@@ -1325,7 +1325,7 @@ msgstr ""
 "yhteen suuntaan, Kohokohtia vastakkaiseen, käsittele Keskitoneja "
 "huolellisesti."
 
-#: ../color.rst:471
+#: ../doc/color.rst:471
 msgid ""
 "Fine-tune with **Curves**: a gentle S-curve on Curve: All; Curve: Blue for a"
 " cinematic push (cool shadows up, warm highlights down)."
@@ -1333,18 +1333,18 @@ msgstr ""
 "Hienosäädä **Käyrillä**: lempeä S-käyrä Käyrä: Kaikki; Käyrä: Sininen "
 "elokuvamaiseen vaikutukseen (viileät varjot ylös, lämpimät kohokohdat alas)."
 
-#: ../color.rst:473
+#: ../doc/color.rst:473
 msgid ""
 "Optionally browse to a **.cube** LUT and blend it in with **LUT Intensity**."
 msgstr ""
 "Voit halutessasi selata **.cube**-LUT-tiedoston ja sekoittaa sen **LUT "
 "Intensity** -arvolla."
 
-#: ../color.rst:474
+#: ../doc/color.rst:474
 msgid "If the overall grade feels heavy, lower **Mix** to 0.7–0.9."
 msgstr "Jos koko luokitus tuntuu raskaalta, laske **Mix** arvoon 0,7–0,9."
 
-#: ../color.rst:475
+#: ../doc/color.rst:475
 msgid ""
 "To compare before/after, drag **Mix** to 0.0 to see the original, then back "
 "to 1.0."
@@ -1352,7 +1352,7 @@ msgstr ""
 "Vertailun vuoksi vedä **Mix** arvoon 0,0 nähdäksesi alkuperäisen, ja sitten "
 "takaisin arvoon 1,0."
 
-#: ../color.rst:476
+#: ../doc/color.rst:476
 msgid ""
 "Happy with the result? Right-click the effect → **Copy**, select other "
 "clips, and **Paste Effects**. Or use the **Parent** property to link "
@@ -1363,7 +1363,7 @@ msgstr ""
 "**Parent**-ominaisuutta yhdistääksesi useita leikkeitä yhteen "
 "pääluokitukseen (katso :ref:`effect_parent_ref`)."
 
-#: ../color.rst:480
+#: ../doc/color.rst:480
 msgid ""
 "For animating color properties over time, see :ref:`animation_ref`. For a "
 "complete list of all Color Grade properties, see :ref:`effects_ref`."

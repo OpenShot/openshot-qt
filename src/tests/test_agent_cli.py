@@ -161,6 +161,7 @@ class EditingTests(unittest.TestCase):
 
     def test_query_edits_undo_redo_and_batch_failure(self):
         clip = self.add_clip()
+        self.assertEqual(clip['title'], Path(self.path).name)
         self.call('clip.set', id=clip['id'], values={'position': 3})
         self.assertEqual(self.call('clip.get', id=clip['id'])['position'], 3)
         self.call('history.undo')

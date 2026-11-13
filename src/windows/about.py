@@ -36,7 +36,8 @@ import random
 
 from qt_api import Qt, pyqtSignal
 from qt_api import QIcon, QSize, QTimer
-from qt_api import QDialog, QLabel
+from qt_api import QDialog, QLabel, QHBoxLayout, QSizePolicy
+from windows.views.gpu_performance import GpuStatusBadge
 from qt_api import QColor, QLinearGradient, QPainter, QPointF, QRadialGradient, QRectF, QSvgRenderer
 from qt_api import QElapsedTimer, QEvent, QPixmap, QRegion
 
@@ -152,7 +153,7 @@ class About(QDialog):
             }
             QLabel#txtversion, QLabel#lblAboutCompany {
                 background: transparent;
-                margin-bottom: 10px;
+                margin-bottom: 0px;
             }
             QToolButton#btnCopyVersionInfo {
                 background: rgba(255, 255, 255, 8);
@@ -161,7 +162,7 @@ class About(QDialog):
                 color: #DCEEFF;
                 font-size: 11px;
                 font-weight: 600;
-                margin-bottom: 8px;
+                margin-bottom: 0px;
                 padding: 2px 8px;
             }
             QToolButton#btnCopyVersionInfo:hover {
@@ -208,8 +209,28 @@ class About(QDialog):
         self.lblAboutDescription.setWordWrap(True)
         self.lblAboutDescription.setText(about_html)
         self.lblAboutCompany.setText(company_html)
-        self.lblAboutCompany.setAlignment(Qt.AlignRight | Qt.AlignBottom)
-        self.txtversion.setAlignment(Qt.AlignLeft | Qt.AlignBottom)
+        self.txtversion.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
+        self.lblAboutCompany.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+        self.horizontalLayoutVersionCopyright.setAlignment(self.txtversion, Qt.AlignVCenter)
+        self.horizontalLayoutVersionCopyright.setAlignment(self.btnCopyVersionInfo, Qt.AlignVCenter)
+        self.btnCopyVersionInfo.setFixedHeight(28)
+        self.btnCopyVersionInfo.setMinimumWidth(68)
+        self.lblGpuStatus = QLabel(self)
+        self.lblGpuStatus.setObjectName("lblGpuStatus")
+        self.lblGpuStatus.setTextFormat(Qt.PlainText)
+        self.lblGpuStatus.setStyleSheet("color: #A9B3C3; font-size: 10px; font-weight: normal;")
+        self.lblGpuStatus.setMinimumHeight(22)
+        self.lblGpuStatus.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        self.gpuBadge = GpuStatusBadge(self)
+        gpu_row = QHBoxLayout()
+        gpu_row.setSpacing(8)
+        gpu_row.addWidget(self.gpuBadge)
+        gpu_row.addWidget(self.lblGpuStatus, 1)
+        self.verticalLayout.insertLayout(2, gpu_row)
+        self.gpu_status_timer = QTimer(self)
+        self.gpu_status_timer.setInterval(1000)
+        self.gpu_status_timer.timeout.connect(self.update_gpu_status)
+        self.update_gpu_status()
         self.copy_version_tooltip = _("Copy Version Info")
         self.copy_success_message = _("Version info copied to clipboard")
         self.btnCopyVersionInfo.setToolTip(self.copy_version_tooltip)
@@ -353,9 +374,12 @@ class About(QDialog):
         # exposed pixel is covered by our cache, so Qt need not clear beneath it.
         self.setAttribute(Qt.WA_OpaquePaintEvent)
         self.update_particle_timer()
+        self.update_gpu_status()
+        self.gpu_status_timer.start()
 
     def hideEvent(self, event):
         self.particle_timer.stop()
+        self.gpu_status_timer.stop()
         super().hideEvent(event)
 
     def changeEvent(self, event):
@@ -459,6 +483,21 @@ class About(QDialog):
         super().resizeEvent(event)
         if hasattr(self, "copy_feedback_label") and self.copy_feedback_label.isVisible():
             self.position_copy_confirmation()
+        if hasattr(self, "lblGpuStatus"):
+            self.update_gpu_status()
+
+    def update_gpu_status(self):
+        """Keep the footer small; put the cached evidence in its tooltip."""
+        diagnostics = getattr(self.app, "gpu_diagnostics", None)
+        text = (diagnostics.brief(self.app._tr) if diagnostics else
+                self.app._tr("GPU diagnostics not collected"))
+        state = diagnostics.user_status(self.app._tr) if diagnostics else {}
+        self.gpuBadge.set_mode(state.get('mode', 'cpu') if isinstance(state, dict) else 'cpu')
+        self.gpuBadge.setToolTip(text)
+        width = max(100, self.width() - 120)
+        self.lblGpuStatus.setText(self.lblGpuStatus.fontMetrics().elidedText(text, Qt.ElideRight, width))
+        self.lblGpuStatus.setAccessibleName(text)
+        self.lblGpuStatus.setToolTip("\n".join(diagnostics.report_lines()) if diagnostics else text)
 
     def build_version_info_markdown(self):
         """Return a compact markdown block with version, system, and performance info."""
@@ -491,6 +530,8 @@ class About(QDialog):
             lines.append(" | ".join(hardware_parts))
 
         lines.extend(self.get_performance_details())
+        diagnostics = getattr(self.app, "gpu_diagnostics", None)
+        lines.extend(diagnostics.copy_lines() if diagnostics else ["GPU diagnostics: not collected"])
         return "\n".join(lines)
 
     def get_build_details(self):
@@ -618,7 +659,7 @@ class About(QDialog):
             ),
             (
                 f"Performance: Threads: OMP {omp_threads} | FFmpeg {ff_threads}, "
-                f"Cards: Decode: {hw_decoder} ({hw_decode_card}) | Encode: {hw_encode_card}"
+                f"Legacy HW preferences: Decode: {hw_decoder} ({hw_decode_card}) | Encode: {hw_encode_card}"
             ),
         ]
 
