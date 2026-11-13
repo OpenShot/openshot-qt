@@ -137,6 +137,59 @@ class FeedbackTests(unittest.TestCase):
         self.assertTrue(controller.action.isEnabled())
         self.assertFalse(controller.timer.isActive())
 
+    def test_store_routing_is_limited_to_official_windows_msix(self):
+        for system, kind, official in (
+                ("windows", "msix", True), ("windows", "msix", False),
+                ("windows", "exe", True), ("linux", "appimage", True),
+                ("darwin", "appbundle", True), ("linux", "msix", True)):
+            for entry in ("banner", "menu"):
+                with self.subTest(system=system, kind=kind, official=official, entry=entry):
+                    controller = self.make_controller(Settings())
+                    controller.show_invitation()
+                    distribution = {"platform": system, "package_type": kind,
+                                    "official": official, "app_version": "4.0.1"}
+                    with patch("windows.feedback.get_distribution_info", return_value=distribution), \
+                            patch("windows.feedback.QDesktopServices.openUrl", return_value=True) as opened:
+                        if entry == "banner":
+                            controller.banner.primary.click()
+                        else:
+                            controller.action.trigger()
+                    url = opened.call_args[0][0].toString()
+                    if (system, kind, official) == ("windows", "msix", True):
+                        self.assertEqual(url, "ms-windows-store://review/?ProductId=9P6R2PMH4C04")
+                    else:
+                        self.decode_context(url)
+                    self.assertEqual(controller.policy.shown, entry == "banner")
+                    self.assertEqual(controller.banner is None, entry == "banner")
+
+    def test_store_launch_failure_preserves_invitation_behavior(self):
+        distribution = {"platform": "windows", "package_type": "msix", "official": True}
+        for entry in ("banner", "menu"):
+            for outcome in (False, OSError("no handler")):
+                with self.subTest(entry=entry, outcome=outcome):
+                    controller = self.make_controller(Settings())
+                    controller.show_invitation()
+                    with patch("windows.feedback.get_distribution_info", return_value=distribution), \
+                            patch("windows.feedback.QDesktopServices.openUrl", return_value=False,
+                                  side_effect=outcome if isinstance(outcome, Exception) else None), \
+                            patch("windows.feedback.QMessageBox.warning") as warning:
+                        if entry == "banner":
+                            controller.banner.primary.click()
+                        else:
+                            controller.action.trigger()
+                    self.assertEqual(warning.call_args[0][1], "Unable to open Microsoft Store")
+                    self.assertEqual(controller.policy.shown, entry == "banner")
+                    self.assertTrue(controller.action.isEnabled())
+
+    def test_store_banner_dismissal_does_not_launch_feedback(self):
+        controller = self.make_controller(Settings())
+        controller.show_invitation()
+        with patch("windows.feedback.QDesktopServices.openUrl") as opened:
+            controller.banner.close_button.click()
+        opened.assert_not_called()
+        self.assertTrue(controller.policy.shown)
+        self.assertIsNone(controller.banner)
+
     def test_help_browser_failure_allows_retry_without_nag(self):
         controller = self.make_controller(Settings())
         with patch("windows.feedback.QDesktopServices.openUrl", return_value=False), \

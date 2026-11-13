@@ -66,7 +66,7 @@ class FeedbackController(QObject):
         self.timer.stop()
 
     def open_from_banner(self):
-        # A click acknowledges the banner even if the browser fails or the survey is abandoned.
+        # A click acknowledges the banner even if launching feedback fails or is abandoned.
         self.dismiss()
         self.open_survey()
 
@@ -88,14 +88,29 @@ class FeedbackController(QObject):
 
     def open_survey(self):
         _ = self.translate
-        url = survey_url(get_distribution_info(), self.settings.get("unique_install_id"),
-                         info.website_language())
+        distribution = get_distribution_info()
+        store_review = (distribution.get("platform") == "windows"
+                        and distribution.get("package_type") == "msix"
+                        and distribution.get("official") is True)
+        # Product ID from openshot.org/download/. Reuse Qt's protocol launcher;
+        # no WinRT dependency or Windows API calls on other installations.
+        # https://learn.microsoft.com/windows/apps/develop/launch/launch-store-app
+        if store_review:
+            url = "ms-windows-store://review/?ProductId=9P6R2PMH4C04"
+        else:
+            url = survey_url(distribution, self.settings.get("unique_install_id"),
+                             info.website_language())
         try:
             opened = QDesktopServices.openUrl(QUrl(url))
         except Exception:
             opened = False
         if not opened:
-            QMessageBox.warning(self.window, _("Unable to open browser"),
-                                _("Couldn’t open your browser. Please try again."))
-            log.warning("Unable to open feedback survey in browser")
+            if store_review:
+                QMessageBox.warning(self.window, _("Unable to open Microsoft Store"),
+                                    _("Couldn’t open Microsoft Store. Please try again."))
+                log.warning("Unable to open Microsoft Store review dialog")
+            else:
+                QMessageBox.warning(self.window, _("Unable to open browser"),
+                                    _("Couldn’t open your browser. Please try again."))
+                log.warning("Unable to open feedback survey in browser")
         return opened
