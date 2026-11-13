@@ -60,6 +60,20 @@ class GpuMetricTests(unittest.TestCase):
         self.assertEqual(diagnostics.previews[7]['native_draws'], 0)
         native.ResetGpuMetrics.assert_called_with(False)
 
+    def test_inspector_updates_live_encoding_without_timeline_playback(self):
+        measurements = Mock()
+        measurements.snapshot.return_value = {"encode_gpu": 12, "uploads": 12}
+        dock = GpuMetricsDock(measurements, lambda text: text)
+        try:
+            self.assertEqual(dock.encode_row.value.text(), "100%")
+            self.assertEqual(dock.transfer_values["uploads"].text(), "12")
+            measurements.snapshot.return_value = {"encode_gpu": 24, "uploads": 24}
+            dock.refresh()
+            self.assertIn("24 / 24", dock.encode_row.caption.text())
+            self.assertEqual(dock.transfer_values["uploads"].text(), "24")
+        finally:
+            dock.close()
+
     def test_old_bindings_leave_native_stages_unknown(self):
         raw = GpuMeasurements(SimpleNamespace()).snapshot()
         self.assertTrue(all(row['percent'] is None for row in stages(raw)))

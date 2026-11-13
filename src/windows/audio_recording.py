@@ -48,6 +48,7 @@ from classes import info
 from classes.app import get_app
 from classes.assets import get_assets_path
 from classes.logger import log
+from classes.export_settings import preferred_export_codec
 from classes.query import Clip, File, Track
 from classes.waveform import DEFAULT_SAMPLES_PER_SECOND, configured_waveform_sample_rate
 from classes.thumbnail import (
@@ -56,6 +57,7 @@ from classes.thumbnail import (
 )
 from classes.tray_status import TrayStatus
 from windows.recording_widgets import (
+    RecordingPreviewLabel,
     RecordingSourceCard, RecordingSection, SegmentButton,
     pick_screen_region, pick_screen_window, screen_capture_sources, screen_root_geometry,
 )
@@ -63,9 +65,23 @@ from windows.recording_widgets import (
 
 RECORDING_DOCK_MIN_WIDTH = 320
 NO_RECORDING_TRACK = "__no_recording_track__"
+WEBCAM_PREVIEW_MAX_FPS = 30.0
+WEBCAM_PREVIEW_SIZE = 440  # Twice the dock preview width, including HiDPI displays.
 
 
-def frame_to_qimage(frame):
+def webcam_preview_interval(fps):
+    rate = float(fps.num) / float(fps.den or 1)
+    return 1.0 / min(WEBCAM_PREVIEW_MAX_FPS, max(1.0, rate))
+
+
+def next_preview_deadline(previous, now, interval):
+    # Keep the source cadence despite small timing variations between frames.
+    if not previous:
+        return now + interval
+    return previous + (int((now - previous) / interval) + 1) * interval
+
+
+def frame_to_qimage(frame, preview=False):
     """Copy a libopenshot RGBA frame into a Qt image for preview signals."""
     width = int(frame.GetWidth())
     height = int(frame.GetHeight())
@@ -73,13 +89,19 @@ def frame_to_qimage(frame):
     pixels = frame.GetPixelsBytes()
     if not pixels or width <= 0 or height <= 0 or bytes_per_line <= 0:
         return None
-    return QImage(
+    image = QImage(
         pixels,
         width,
         height,
         bytes_per_line,
         QImage.Format_RGBA8888_Premultiplied,
-    ).copy()
+    )
+    if preview and max(width, height) > WEBCAM_PREVIEW_SIZE:
+        # Scale while the Python pixel buffer is alive; the returned image owns
+        # its storage and keeps full-size frames out of the GUI signal queue.
+        return image.scaled(WEBCAM_PREVIEW_SIZE, WEBCAM_PREVIEW_SIZE,
+                            Qt.KeepAspectRatio, Qt.SmoothTransformation)
+    return image.copy()
 
 
 class RecordingLevelMeter(QWidget):
@@ -338,7 +360,7 @@ class LiveVideoRecordingJob(QObject):
     finished = pyqtSignal(str)
     previewFrameReady = pyqtSignal(object)
 
-    def __init__(self, reader, path, width, height, fps, codec="libx264", bit_rate=4000000,
+    def __init__(self, reader, path, width, height, fps, codec=None, bit_rate=4000000,
                  source_type="video", use_reader_fps=True, preview_file_id=""):
         super().__init__()
         self.reader = reader
@@ -431,6 +453,12 @@ class LiveVideoRecordingJob(QObject):
                 self.width,
                 self.height,
             )
+        if self.codec is None:
+            self.codec = preferred_export_codec({
+                "libx264", "h264_vulkan", "h264_videotoolbox", "h264_nvenc",
+                "h264_qsv", "h264_amf", "h264_vaapi",
+            })
+        log.info("Live %s recording encoder: %s", self.source_type, self.codec)
         self._writer = openshot.FFmpegWriter(self.path)
         self._writer.SetVideoOptions(
             True,
@@ -511,7 +539,8 @@ class LiveVideoRecordingJob(QObject):
         capture_frame_number = 2 if self._initial_frame is not None else 1
         written_frames = 0
         last_output_frame_number = 0
-        last_preview_emit = 0.0
+        next_preview_emit = 0.0
+        preview_interval = webcam_preview_interval(self.fps)
         fps_value = max(1.0, float(self.fps.num) / float(self.fps.den or 1))
         try:
             while True:
@@ -532,6 +561,7 @@ class LiveVideoRecordingJob(QObject):
                     capture_frame_number += 1
                     continue
                 now = time.monotonic()
+                stop_time = self._stop_time
                 if stop_time is not None:
                     now = min(now, stop_time)
                 if capture_timestamp is not None:
@@ -541,6 +571,8 @@ class LiveVideoRecordingJob(QObject):
                 else:
                     elapsed = max(0.0, now - float(self._start_time or now))
                 output_frame_number = max(1, int(math.floor((elapsed * fps_value) + 0.5)) + 1)
+                if stop_time is not None:
+                    output_frame_number = min(output_frame_number, self._stop_frame_number())
                 if output_frame_number <= last_output_frame_number:
                     capture_frame_number += 1
                     if stop_time is not None:
@@ -557,11 +589,11 @@ class LiveVideoRecordingJob(QObject):
                 if self.thumbnail_cache:
                     self.thumbnail_cache.save_frame(frame, output_frame_number)
                 if self.source_type == "webcam":
-                    if now - last_preview_emit >= 0.2:
-                        image = frame_to_qimage(frame)
+                    if now >= next_preview_emit:
+                        image = frame_to_qimage(frame, preview=True)
                         if image:
                             self.previewFrameReady.emit(image)
-                        last_preview_emit = now
+                        next_preview_emit = next_preview_deadline(next_preview_emit, now, preview_interval)
                 last_output_frame_number = output_frame_number
                 self.frames = output_frame_number
                 self._last_output_frame_number = output_frame_number
@@ -601,6 +633,20 @@ class LiveVideoRecordingJob(QObject):
         try:
             with self._writer_lock:
                 if self._writer:
+                    # Hold the last image to the shared session endpoint. Two
+                    # adjacent final timestamps preserve the nominal FPS when
+                    # a sparse capture would otherwise suggest a lower rate.
+                    final_frame_number = self._stop_frame_number()
+                    if not self.error and self._last_frame is not None:
+                        for number in range(max(self._last_output_frame_number + 1,
+                                                final_frame_number - 1), final_frame_number + 1):
+                            frame = self._copy_frame(self._last_frame)
+                            add_system_audio = getattr(self.reader, "AddSystemAudio", None)
+                            if callable(add_system_audio):
+                                add_system_audio(frame, number)
+                            self._write_numbered_frame(frame, number)
+                            self.frames = number
+                            self._last_output_frame_number = number
                     self._writer.Close()
                     self._writer = None
         except Exception as ex:
@@ -608,6 +654,13 @@ class LiveVideoRecordingJob(QObject):
                 self.error = ex
                 self.errorOccurred.emit(self.source_type, str(ex))
         self.finished.emit(self.path)
+
+    def _stop_frame_number(self):
+        """Round the shared session duration up to a complete output frame."""
+        if self._stop_time is None or not self._start_time:
+            return 0
+        fps_value = float(self.fps.num) / float(self.fps.den or 1)
+        return max(1, int(math.ceil(max(0.0, self._stop_time - self._start_time) * fps_value)))
 
     def _write_numbered_frame(self, frame, frame_number):
         if not self._writer or frame is None:
@@ -651,8 +704,10 @@ class WebcamPreviewJob(QObject):
     frameReady = pyqtSignal(object)
     errorOccurred = pyqtSignal(str)
 
-    def __init__(self, device, width, height, backend=None, parent=None):
+    def __init__(self, device, width, height, backend=None, parent=None, fps=None, input_format=None):
         super().__init__(parent)
+        self.fps = fps
+        self.input_format = input_format
         self.device = device
         self.width = int(width)
         self.height = int(height)
@@ -697,21 +752,24 @@ class WebcamPreviewJob(QObject):
             settings.device = self.device
             settings.width = self.width
             settings.height = self.height
-            settings.fps = openshot.Fraction(5, 1)
+            settings.fps = self.fps or openshot.Fraction(30, 1)
             if camera_capture_backend_is_windows(self.backend) or camera_capture_backend_is_mac(self.backend):
                 settings.options["use_device_defaults"] = "1"
+            elif self.input_format:
+                settings.options["input_format"] = self.input_format
             self._reader = openshot.CameraCaptureReader(settings)
             self._reader.Open()
             frame_number = 1
-            last_emit = 0.0
+            next_emit = 0.0
+            preview_interval = webcam_preview_interval(settings.fps)
             while not self._stop.is_set():
                 frame = self._reader.GetFrame(frame_number)
                 now = time.monotonic()
-                if now - last_emit >= 0.2:
-                    image = frame_to_qimage(frame)
+                if now >= next_emit:
+                    image = frame_to_qimage(frame, preview=True)
                     if image:
                         self.frameReady.emit(image)
-                    last_emit = now
+                    next_emit = next_preview_deadline(next_emit, now, preview_interval)
                 frame_number += 1
         except Exception as ex:
             if not self._stop.is_set():
@@ -964,7 +1022,7 @@ class AudioRecordingDockContent(QWidget):
         layout.addWidget(self.screen_section)
 
         self.camera_section = RecordingSection(_("Webcam"), "◉", self)
-        self.webcam_preview_label = QLabel(_("Preview"), self.camera_section)
+        self.webcam_preview_label = RecordingPreviewLabel(_("Preview"), self.camera_section)
         self.webcam_preview_label.setAlignment(Qt.AlignCenter)
         self.webcam_preview_label.setFixedSize(220, 124)
         self.webcam_preview_label.setStyleSheet(
@@ -2260,7 +2318,14 @@ class AudioRecordingDockContent(QWidget):
         camera_size = self.camera_size_combo.currentData() or (640, 480)
         width = self._safe_even_dimension(camera_size[0])
         height = self._safe_even_dimension(camera_size[1])
-        self._webcam_preview = WebcamPreviewJob(device, min(width, 640), min(height, 360), camera_capture_backend(), self)
+        selected_fps = float(self.camera_fps_combo.currentData() or 30)
+        rate = self._camera_mode_rates.get(selected_fps, (int(round(selected_fps)), 1))
+        input_format = self._camera_mode_formats.get((width, height, selected_fps))
+        # Use the recording mode, not an unsupported size/rate selected by the
+        # driver. Presentation is capped independently at 30 updates per second.
+        self._webcam_preview = WebcamPreviewJob(
+            device, width, height, camera_capture_backend(), self,
+            fps=openshot.Fraction(*rate), input_format=input_format)
         self._webcam_preview.frameReady.connect(self._update_webcam_preview)
         self._webcam_preview.errorOccurred.connect(self._webcam_preview_error)
         self._webcam_preview.start()

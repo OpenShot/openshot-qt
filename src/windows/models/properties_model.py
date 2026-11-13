@@ -33,10 +33,10 @@ from operator import itemgetter
 from qt_api import QMimeData, Qt, QLocale, QTimer
 from qt_api import (
     QStandardItemModel, QStandardItem,
-    QPixmap, QColor,
+    QPixmap, QColor, QBrush,
     )
 
-from classes.keyframe_editing import auto_keyframes_enabled, edit_frame, retarget_keyframe_changes
+from classes.keyframe_editing import auto_keyframes_enabled, edit_frame, retarget_keyframe_changes, is_keyframe_patch
 from classes.waveform import get_audio_data
 from classes import info, updates
 from classes import openshot_rc  # noqa
@@ -494,6 +494,9 @@ class PropertiesModel(updates.UpdateInterface):
 
     # This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface)
     def changed(self, action):
+        if action and action.type == "update" and is_keyframe_patch(action.values):
+            PropertiesModel.queue_live_transform_refresh(self)
+            return
         # A rich editor already owns this value and updates its row preview.
         # Skip only its synchronous save notification, not other edits or undo.
         preview_values = getattr(self, "_live_preview_values", None)
@@ -1466,6 +1469,28 @@ class PropertiesModel(updates.UpdateInterface):
                 if current_row >= 0:
                     self.parent.setCurrentIndex(self.model.index(current_row, 0))
 
+    def _property_edit_point(self, name, points, metadata):
+        """Use native frame hints without repeatedly traversing entire curves."""
+        if getattr(self, "_reading_native_properties", False):
+            indexes = getattr(self, "_edit_point_indexes", {})
+            cached = indexes.get(name)
+            if cached is None or cached[0] is not points or cached[1] != len(points):
+                by_frame = {}
+                for point in points:
+                    by_frame.setdefault(point["co"]["X"], point)
+                cached = indexes[name] = (points, len(points), by_frame)
+                self._edit_point_indexes = indexes
+            # Native metadata uses sorted curves, including boundary clamping.
+            closest = metadata.get("closest_point_x", -1)
+            target = None
+            if isinstance(closest, (int, float)):
+                target = closest if closest <= self.frame_number else metadata.get("previous_point_x", -1)
+            point = cached[2].get(target)
+            if point is not None:
+                return target, point
+        target = edit_frame(points, self.frame_number, False)
+        return target, next(p for p in points if p["co"]["X"] == target)
+
     def set_property(self, property, filter, c, item_type, object_id=None):
         app = get_app()
         _ = app._tr
@@ -1493,8 +1518,7 @@ class PropertiesModel(updates.UpdateInterface):
                 data, _parent = self._tracked_object_clip_data(data, object_id)
             curve = data.get(name, {}) if isinstance(data, dict) else {}
             if isinstance(curve, dict) and curve.get("Points"):
-                target = edit_frame(curve["Points"], self.frame_number, False)
-                point = next(p for p in curve["Points"] if p["co"]["X"] == target)
+                target, point = self._property_edit_point(name, curve["Points"], property[1])
                 edit_tooltip = _("Editing keyframe at frame %s") % int(target)
                 if type in ("float", "int") and not property[1]["choices"]:
                     value = point["co"]["Y"]
@@ -1655,7 +1679,10 @@ class PropertiesModel(updates.UpdateInterface):
             # Update the value of the existing model
             # Get 1st Column
             col = self.items[name]["row"][0]
-            col.setData(property)
+            # QVariant wraps Python tuples by identity. Replacing equal metadata
+            # otherwise emits dataChanged for every label on every refresh.
+            if col.data() != property:
+                col.setData(property)
 
             # For non-color types, update the background color
             if keyframe and points > 1:
@@ -1663,7 +1690,7 @@ class PropertiesModel(updates.UpdateInterface):
             elif points > 1:
                 col.setBackground(QColor(42, 130, 218))  # Highlight interpolated value background
             else:
-                col.setBackground(QStandardItem("Empty").background())
+                col.setBackground(QBrush())
 
             # Update helper dictionary
             row.append(col)
@@ -1736,7 +1763,7 @@ class PropertiesModel(updates.UpdateInterface):
 
             else:
                 # clear background color
-                col.setBackground(QStandardItem("Empty").background())
+                col.setBackground(QBrush())
 
                 # clear icon
                 my_icon = QPixmap()
@@ -1763,8 +1790,40 @@ class PropertiesModel(updates.UpdateInterface):
         # Keep track of items in a dictionary (for quick look up)
         self.items[name] = {"row": row, "property": property}
 
-    def update_model(self, filter=""):
+    def queue_live_transform_refresh(self):
+        """Coalesce mouse samples and playback notifications into one UI refresh."""
+        parent = getattr(self, "parent", None)
+        if parent is not None and not parent.isVisible():
+            return
+        timer = getattr(self, "_live_transform_timer", None)
+        if timer is None:
+            timer = self._live_transform_timer = QTimer(self.parent)
+            timer.setSingleShot(True)
+            timer.timeout.connect(lambda: PropertiesModel.refresh_live_transform(self))
+        if not timer.isActive():
+            timer.start(0)
+
+    def refresh_live_transform(self):
         app = get_app()
+        preview = getattr(app.window, "videoPreview", None)
+        action = getattr(app.updates, "last_action", None)
+        if (getattr(preview, "mouse_pressed", False)
+                and is_keyframe_patch(getattr(action, "values", None))):
+            self.update_model(app.window.txtPropertyFilter.text(), live_transform=True)
+
+    def update_model(self, filter_text="", *, live_transform=False):
+        app = get_app()
+        preview = getattr(app.window, "videoPreview", None)
+        action = getattr(getattr(app, "updates", None), "last_action", None)
+        if (not live_transform and getattr(preview, "mouse_pressed", False)
+                and is_keyframe_patch(getattr(action, "values", None))):
+            PropertiesModel.queue_live_transform_refresh(self)
+            return
+        if not live_transform:
+            timer = getattr(self, "_live_transform_timer", None)
+            if timer is not None:
+                timer.stop()
+        live_clips = getattr(preview, "_live_transform_clips", {}) if live_transform else {}
         _ = app._tr
         refreshed = False
 
@@ -1776,6 +1835,7 @@ class PropertiesModel(updates.UpdateInterface):
 
         # Ignore any events from this method
         self.ignore_update_signal = True
+        self._reading_native_properties = True
 
         try:
             # Check for a selected clip
@@ -1789,18 +1849,19 @@ class PropertiesModel(updates.UpdateInterface):
 
                 self._edit_source_data = None
                 if len(self.selected) == 1 and not auto_keyframes_enabled(app.window):
-                    self._edit_source_data = json.loads(c.Json())
-                    if self.selected[0][1] == "clip":
-                        source_clip = Clip.get(id=c.Id())
-                        if source_clip and source_clip.data.get("direct_text"):
-                            self._edit_source_data.update(source_clip.data)
+                    getter = {"clip": Clip.get, "transition": Transition.get, "effect": Effect.get}.get(item_type)
+                    source = live_clips.get(c.Id()) or (getter(id=c.Id()) if getter else None)
+                    # Project curves are authoritative for edits. Serializing the
+                    # whole native object here makes refresh cost grow with every keyframe.
+                    data = getattr(source, "data", None)
+                    self._edit_source_data = dict(data) if isinstance(data, dict) else json.loads(c.Json())
 
                 # Build list of raw properties for all selected items
                 all_raw_properties = []
                 for obj, _item_type in self.selected:
                     props = json.loads(obj.PropertiesJSON(self.frame_number))
                     if _item_type == "clip":
-                        clip = Clip.get(id=obj.Id())
+                        clip = live_clips.get(obj.Id()) or Clip.get(id=obj.Id())
                         if clip:
                             props.update(self._direct_text_properties(clip.data))
                     all_raw_properties.append(props)
@@ -1852,12 +1913,13 @@ class PropertiesModel(updates.UpdateInterface):
                 all_properties = OrderedDict(sorted(raw_properties.items(), key=lambda x: x[1]['name']))
 
                 # Check if filter was changed (if so, wipe previous model data)
-                if self.previous_filter != filter:
-                    self.previous_filter = filter
+                if self.previous_filter != filter_text:
+                    self.previous_filter = filter_text
                     self.new_item = True  # filter changed, so we need to regenerate the entire model
 
                 # Build or update the model
                 if self.new_item:
+                    self._edit_point_indexes = {}
                     # Prepare for new properties
                     self.items = {}
                     self.model.clear()
@@ -1872,10 +1934,10 @@ class PropertiesModel(updates.UpdateInterface):
                 for property in all_properties.items():
                     if property[0] in tracked_object_properties:
                         # Add/update tracked object property
-                        self.set_property(property, filter, c, item_type, object_id=tracked_object_id)
+                        self.set_property(property, filter_text, c, item_type, object_id=tracked_object_id)
                     else:
                         # Add/update base property
-                        self.set_property(property, filter, c, item_type)
+                        self.set_property(property, filter_text, c, item_type)
 
                 # After first render, future calls will update in place
                 self.new_item = False
@@ -1891,6 +1953,7 @@ class PropertiesModel(updates.UpdateInterface):
         finally:
             # Done updating model (even if we returned early)
             self.ignore_update_signal = False
+            self._reading_native_properties = False
 
         if refreshed:
             refresh_callback = getattr(self.parent, "property_model_refreshed", None)

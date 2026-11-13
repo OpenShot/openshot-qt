@@ -47,7 +47,7 @@ import openshot  # Python module for libopenshot (required video editing module 
 from classes import updates
 from classes import openshot_rc  # noqa
 from classes.logger import log
-from classes.keyframe_editing import auto_keyframes_enabled, edit_frame
+from classes.keyframe_editing import auto_keyframes_enabled, edit_frame, is_keyframe_patch, apply_keyframe_patch
 from classes.app import get_app
 from classes.query import Clip, Effect
 
@@ -1184,21 +1184,6 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
                 self.region_rect_drag_current = QPointF(point)
                 self.update()
 
-        # Ignore undo/redo history temporarily (to avoid a huge pile of undo/redo history)
-        get_app().updates.ignore_history = True
-
-        if self.transforming_clips or self.transforming_effect:
-            self.transaction_id = str(uuid.uuid4())
-            self.original_clip_data_map = {c.id: json.loads(json.dumps(c.data)) for c in self.transforming_clips} if self.transforming_clips else {}
-            self.original_effect_data = json.loads(json.dumps(self.transforming_effect.data)) if self.transforming_effect else None
-            get_app().updates.transaction_id = self.transaction_id
-            if self.transform_mode == 'draw_margin_box' and self.transform:
-                self.margin_box_drag_anchor = self.transform.inverted()[0].map(event.pos())
-        else:
-            self.transaction_id = None
-            self.original_clip_data_map = {}
-            self.original_effect_data = None
-
         # Live edits invalidate the frames the background cache worker is filling.
         # Suspend that work during transforms so it does not compete with playback
         # and mouse updates for the native timeline's render lock.
@@ -1211,6 +1196,23 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         elif not self._is_playing():
             openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
         log.debug('mousePressEvent: Stop caching frames on timeline')
+
+        # Ignore undo/redo history temporarily (to avoid a huge pile of undo/redo history)
+        get_app().updates.ignore_history = True
+
+        if self.transforming_clips or self.transforming_effect:
+            self.transaction_id = str(uuid.uuid4())
+            self.original_clip_data_map = {c.id: json.loads(json.dumps(c.data)) for c in self.transforming_clips} if self.transforming_clips else {}
+            self.original_effect_data = json.loads(json.dumps(self.transforming_effect.data)) if self.transforming_effect else None
+            get_app().updates.transaction_id = self.transaction_id
+            self._live_transform_clips = {c.id: c for c in self.transforming_clips}
+            self._live_transform_indexes = {}
+            if self.transform_mode == 'draw_margin_box' and self.transform:
+                self.margin_box_drag_anchor = self.transform.inverted()[0].map(event.pos())
+        else:
+            self.transaction_id = None
+            self.original_clip_data_map = {}
+            self.original_effect_data = None
 
     def _restore_transform_playback_cache(self):
         previous = getattr(self, "_transform_playback_cache_state", None)
@@ -1316,13 +1318,22 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         get_app().updates.ignore_history = False
 
         # Record history for all transformed clips
+        live_clips = dict(getattr(self, "_live_transform_clips", {}))
         for clip in self.transforming_clips:
+            clip = live_clips.get(clip.id, clip)
             original = self.original_clip_data_map.get(clip.id)
             if original:
+                # Samples already updated the native clip. Commit only changed
+                # properties so ending a drag doesn't rebuild its source mapper.
+                changed = {name: value for name, value in clip.data.items()
+                           if name not in original or original[name] != value}
+                if not changed:
+                    continue
                 get_app().updates.ignore_history = True
                 get_app().updates.transaction_id = self.transaction_id
-                clip.save()
-                get_app().updates.apply_last_action_to_history(original)
+                get_app().updates.update(clip.key, changed)
+                get_app().updates.apply_last_action_to_history(
+                    {name: original[name] for name in changed if name in original})
                 get_app().updates.ignore_history = False
 
         if self.transforming_effect and self.original_effect_data:
@@ -1335,6 +1346,12 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         self.original_clip_data = None
         self.original_clip_data_map = {}
         self.original_effect_data = None
+        self._live_transform_clips = {}
+        self._live_transform_indexes = {}
+        timeline = getattr(getattr(get_app(), "window", None), "timeline", None)
+        finish = getattr(timeline, "finish_live_transform", None)
+        if callable(finish):
+            finish()
         self._restore_transform_playback_cache()
         self.setCursor(Qt.ArrowCursor)
 
@@ -2249,11 +2266,36 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
 
     def updateClipProperties(self, clip_id, frame_number, values, refresh=True):
         """Apply one transform sample together, refreshing dependent UI only once."""
-        c = Clip.get(id=clip_id)
+        live = bool(getattr(self, "mouse_pressed", False) and self.transaction_id
+                    and get_app().updates.ignore_history)
+        clips = getattr(self, "_live_transform_clips", {}) if live else {}
+        c = clips.get(clip_id) or Clip.get(id=clip_id)
         if not c:
             return
+        if live:
+            clips[clip_id] = c
+            self._live_transform_clips = clips
         changed = {}
         auto_keyframes = auto_keyframes_enabled(get_app().window)
+        if live:
+            patches = {}
+            for name, value in values.items():
+                if value is None:
+                    continue
+                points = c.data.get(name, {}).get("Points", [])
+                target = edit_frame(points, frame_number, auto_keyframes)
+                patch = {"co": {"X": target, "Y": float(value)}}
+                if auto_keyframes:
+                    patch["interpolation"] = openshot.BEZIER
+                patches[name] = {"Point": patch}
+            if patches:
+                indexes = getattr(self, "_live_transform_indexes", {})
+                apply_keyframe_patch(c.data, patches, indexes)
+                self._live_transform_indexes = indexes
+                get_app().updates.update(c.key, patches)
+                if refresh:
+                    get_app().window.refreshFrameSignal.emit()
+            return
         for property_key, new_value in values.items():
             if property_key not in c.data:
                 c.data[property_key] = {"Points": []}
@@ -2757,6 +2799,13 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         # have no project transform selection to rebind.
         if not getattr(self, "watch_project", True):
             return
+
+        action = getattr(get_app().updates, "last_action", None)
+        if (getattr(self, "_live_transform_clips", None)
+                and is_keyframe_patch(getattr(action, "values", None))):
+            return
+        self._live_transform_clips = {}
+        self._live_transform_indexes = {}
 
         # SWIG references do not keep timeline-owned objects alive. Undo/redo
         # can delete or replace them, so resolve both sides by their Python IDs.

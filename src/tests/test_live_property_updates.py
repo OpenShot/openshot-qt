@@ -1,5 +1,6 @@
 """Regression coverage for avoiding redundant work during rich-property drags."""
 import copy
+import json
 import types
 import unittest
 from unittest.mock import Mock, patch
@@ -18,6 +19,194 @@ class LivePropertyUpdateTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.app = QApplication.instance() or QApplication([])
+
+    def make_transform_model(self):
+        import openshot
+        model = properties_model.PropertiesModel.__new__(properties_model.PropertiesModel)
+        def prop(name, value, kind="float"):
+            return dict(name=name, value=value, type=kind, memo="", readonly=False, keyframe=False,
+                        points=1, interpolation=openshot.LINEAR, closest_point_x=1, previous_point_x=1,
+                        min=0, max=10, choices=[])
+        raw = {"scale_x": prop("Scale X", 1.0), "alpha": prop("Alpha", 1.0), "layer": prop("Track", 1, "int")}
+        native = types.SimpleNamespace(Id=lambda: "clip", PropertiesJSON=lambda frame: json.dumps(raw))
+        source = types.SimpleNamespace(data={})
+        preview = types.SimpleNamespace(mouse_pressed=True, _live_transform_clips={"clip": source})
+        action = UpdateAction("update", ["clips", {"id": "clip"}],
+                              {"scale_x": {"Point": {"co": {"X": 20, "Y": 1.5}}}})
+        context = types.SimpleNamespace(_tr=lambda text: text,
+            project={"layers": [{"number": 1, "label": "Original track"}]},
+            updates=types.SimpleNamespace(last_action=action),
+            window=types.SimpleNamespace(videoPreview=preview, actionAutoKeyframes=None,
+                CaptionTextLoaded=Mock(), txtPropertyFilter=types.SimpleNamespace(text=lambda: "")))
+        for key, value in dict(selected=[(native, "clip")], selected_ids=[], frame_number=20,
+                new_item=True, items={}, ignore_update_signal=False, previous_filter=None,
+                filter_base_properties=[], _trim_preview_mode=False).items():
+            setattr(model, key, value)
+        model.model = QStandardItemModel()
+        model.parent = QWidget()
+        model.parent.show()
+        def cleanup():
+            timer = getattr(model, "_live_transform_timer", None)
+            if timer is not None:
+                timer.stop()
+            model.parent.deleteLater()
+        self.addCleanup(cleanup)
+        return model, raw, context
+
+    def test_equal_property_metadata_does_not_notify_the_view(self):
+        model, raw, app = self.make_transform_model()
+        with patch.object(properties_model, "get_app", new=lambda: app):
+            model.update_model(live_transform=True)
+            before = model.items["scale_x"]["row"]
+            # Initialize the default background/decoration roles on existing rows.
+            model.update_model(live_transform=True)
+            changes = []
+            model.model.dataChanged.connect(lambda *args: changes.append(args))
+            model.update_model(live_transform=True)
+            self.assertEqual(changes, [])
+            self.assertIs(model.items["scale_x"]["row"][0], before[0])
+            raw["scale_x"].update(value=1.5, keyframe=True, points=20)
+            model.update_model(live_transform=True)
+            self.assertEqual(before[1].text(), "1.500")
+            self.assertTrue(changes)
+            self.assertEqual(before[0].data()[1]["points"], 20)
+            self.assertEqual(before[0].data()[1]["value"], 1.5)
+
+    def test_equal_metadata_still_refreshes_context_and_repairs_external_edits(self):
+        model, raw, app = self.make_transform_model()
+        with patch.object(properties_model, "get_app", new=lambda: app):
+            model.update_model(live_transform=True)
+            model.update_model(live_transform=True)
+            label = model.items["scale_x"]["row"][0]
+            metadata = label.data()
+            metadata[1]["min"] = -999
+            label.setData(metadata)
+            app.project["layers"][0]["label"] = "Renamed track"
+            model.update_model(live_transform=True)
+            self.assertEqual(label.data()[1]["min"], raw["scale_x"]["min"])
+            self.assertEqual(model.items["layer"]["row"][1].text(), "Renamed track")
+
+    def test_transform_properties_refresh_once_per_event_cycle_and_stop_on_release(self):
+        model, raw, app = self.make_transform_model()
+        source = app.window.videoPreview._live_transform_clips["clip"]
+        with patch.object(properties_model, "get_app", new=lambda: app), \
+             patch.object(properties_model.Clip, "get", new=lambda **kwargs: source):
+            model.update_model(live_transform=True)
+            with patch.object(model, "update_model", wraps=model.update_model) as refresh:
+                raw["scale_x"]["value"] = 1.5
+                for _ in range(100):
+                    model.changed(app.updates.last_action)
+                refresh.assert_not_called()
+                self.app.processEvents()
+                refresh.assert_called_once_with("", live_transform=True)
+                self.assertEqual(model.items["scale_x"]["row"][1].text(), "1.500")
+                model.changed(app.updates.last_action)
+                app.window.videoPreview.mouse_pressed = False
+                # A normal committed refresh cancels any queued live callback.
+                app.updates.last_action = UpdateAction("update", ["clips", {"id": "clip"}], {})
+                model.update_model()
+                refresh.reset_mock()
+                self.app.processEvents()
+                refresh.assert_not_called()
+                self.assertFalse(model._live_transform_timer.isActive())
+
+    def test_hidden_properties_do_not_schedule_live_work(self):
+        model, _raw, app = self.make_transform_model()
+        model.parent.hide()
+        model.changed(app.updates.last_action)
+        self.assertIsNone(getattr(model, "_live_transform_timer", None))
+
+    def test_live_auto_keyframes_off_indexes_points_once_and_keeps_correct_target(self):
+        model, raw, app = self.make_transform_model()
+        app.window.actionAutoKeyframes = types.SimpleNamespace(isChecked=lambda: False)
+        class Points(list):
+            visits = 0
+            def __iter__(self):
+                self.visits += 1
+                return super().__iter__()
+        points = Points([{ "co": {"X": 20, "Y": 2.0}}, {"co": {"X": 1, "Y": 0.0}},
+                         {"co": {"X": 10, "Y": 1.0}}])
+        source = app.window.videoPreview._live_transform_clips["clip"]
+        source.data["scale_x"] = {"Points": points}
+        raw["scale_x"].update(points=3, closest_point_x=20, previous_point_x=10)
+        with patch.object(properties_model, "get_app", new=lambda: app):
+            model.frame_number = 15
+            for _ in range(20):
+                model.update_model(live_transform=True)
+            self.assertEqual(points.visits, 1)
+            item = model.items["scale_x"]["row"][1]
+            self.assertEqual(item.text(), "1.000")
+            self.assertIn("10", item.toolTip())
+            points[2]["co"]["Y"] = 3.0
+            model.update_model(live_transform=True)
+            self.assertEqual(item.text(), "3.000")
+            self.assertEqual(points.visits, 1)
+            model.frame_number = 30
+            model.update_model(live_transform=True)
+            self.assertEqual(item.text(), "2.000")
+            model.frame_number = 0
+            raw["scale_x"].update(closest_point_x=1, previous_point_x=1)
+            model.update_model(live_transform=True)
+            self.assertEqual(item.text(), "0.000")
+
+    def test_playback_uses_project_curves_instead_of_serializing_native_objects(self):
+        for kind, query in (("clip", properties_model.Clip), ("effect", properties_model.Effect),
+                            ("transition", properties_model.Transition)):
+            with self.subTest(kind=kind):
+                model, raw, app = self.make_transform_model()
+                app.window.videoPreview.mouse_pressed = False
+                app.window.actionAutoKeyframes = types.SimpleNamespace(isChecked=lambda: False)
+                source = app.window.videoPreview._live_transform_clips["clip"]
+                source.data["scale_x"] = {"Points": [{"co": {"X": 1, "Y": 1.5}}]}
+                native = model.selected[0][0]
+                native.Json = Mock(side_effect=AssertionError("Do not serialize the native object for each frame"))
+                model.selected = [(native, kind)]
+                with patch.object(properties_model, "get_app", new=lambda: app), \
+                     patch.object(query, "get", new=lambda **kwargs: source):
+                    model.update_model()
+                    self.assertEqual(model.items["scale_x"]["row"][1].text(), "1.500")
+                    source.data["scale_x"]["Points"] = [{"co": {"X": 1, "Y": 2.5}}]
+                    model.update_model()
+                    self.assertEqual(model.items["scale_x"]["row"][1].text(), "2.500")
+                    native.Json.assert_not_called()
+
+    def test_temporary_native_preview_keeps_json_fallback(self):
+        model, raw, app = self.make_transform_model()
+        app.window.videoPreview.mouse_pressed = False
+        app.window.actionAutoKeyframes = types.SimpleNamespace(isChecked=lambda: False)
+        native = model.selected[0][0]
+        native.Json = Mock(return_value=json.dumps({"scale_x": {"Points": [{"co": {"X": 1, "Y": 2.0}}]}}))
+        with patch.object(properties_model, "get_app", new=lambda: app), \
+             patch.object(properties_model.Clip, "get", return_value=None):
+            model.update_model()
+            self.assertEqual(model.items["scale_x"]["row"][1].text(), "2.000")
+            native.Json.assert_called_once_with()
+
+    def test_playback_follows_frames_without_resetting_active_editors_or_menus(self):
+        from qt_api import QAbstractItemView
+        view = types.SimpleNamespace(isVisible=lambda: True, mouse_pressed=False, transaction_id=None,
+            update_in_progress=False, menu=None, state=lambda: 0,
+            clip_properties_model=types.SimpleNamespace(update_frame=Mock()))
+        properties_tableview.PropertiesTableView.playback_frame_changed(view, 30)
+        view.clip_properties_model.update_frame.assert_called_once_with(30)
+        view.clip_properties_model.update_frame.reset_mock()
+        for attr, value in (("mouse_pressed", True), ("transaction_id", "wheel-drag"),
+                            ("update_in_progress", True), ("isVisible", lambda: False),
+                            ("state", lambda: QAbstractItemView.State.EditingState)):
+            old = getattr(view, attr)
+            setattr(view, attr, value)
+            properties_tableview.PropertiesTableView.playback_frame_changed(view, 31)
+            setattr(view, attr, old)
+        view.menu = QWidget()
+        view.menu.show()
+        with patch.object(properties_tableview, "isdeleted", return_value=False):
+            properties_tableview.PropertiesTableView.playback_frame_changed(view, 32)
+        view.menu.hide()
+        view.menu.deleteLater()
+        view.menu = None
+        view.clip_properties_model.update_frame.assert_not_called()
+        properties_tableview.PropertiesTableView.playback_frame_changed(view, 33)
+        view.clip_properties_model.update_frame.assert_called_once_with(33)
 
     def make_editor(self, kind="colorgrade_wheels"):
         key = "wheels" if kind == "colorgrade_wheels" else "curve_all"
@@ -160,7 +349,7 @@ class LivePropertyUpdateTests(unittest.TestCase):
                     self.assertEqual(saved["brightness"], expected)
                     self.assertEqual(saved["contrast"], original["contrast"])
 
-    def test_overview_skips_effects_but_refreshes_clip_geometry(self):
+    def test_overview_skips_effects_and_point_edits_but_refreshes_clip_geometry(self):
         widget = QWidget()
         widget.ignore_updates = False
         widget.clip_rects = ["existing"]
@@ -174,6 +363,8 @@ class LivePropertyUpdateTests(unittest.TestCase):
              patch.object(zoom_slider.Track, "filter", return_value=[]) as tracks:
             for key in (["effects", {"id": "effect"}], ["clips", {"id": "clip"}, "effects", {"id": "effect"}]):
                 zoom_slider.ZoomSlider.changed(widget, UpdateAction("update", key, {}))
+            zoom_slider.ZoomSlider.changed(widget, UpdateAction("update", ["clips", {"id": "clip"}],
+                {"scale_x": {"Point": {"co": {"X": 100, "Y": 1.5}}}}))
             tracks.assert_not_called()
             self.assertEqual(widget.clip_rects, ["existing"])
             self.assertEqual(widget.snap_clip_starts, [2.0, 5.0])

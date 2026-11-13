@@ -39,6 +39,7 @@ import tempfile
 
 from classes import info
 from classes.app import get_app
+from classes.keyframe_editing import is_keyframe_patch, apply_keyframe_patch
 from classes.image_types import get_media_type
 from classes.json_data import JsonDataStore
 from classes.logger import log
@@ -298,6 +299,16 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             if key_index < (len(key) - 1) or key_index == 0:
                 parent = obj
 
+
+        if not add and not remove and is_keyframe_patch(values):
+            if not get_app().updates.ignore_history:
+                raise ValueError("Point patches require an active live edit with grouped undo")
+            if not hasattr(self, "_keyframe_patch_indexes"):
+                self._keyframe_patch_indexes = {}
+            apply_keyframe_patch(obj, values, self._keyframe_patch_indexes)
+            # The drag keeps its original snapshot and commits one full undo action.
+            return {}
+        self._keyframe_patch_indexes = {}
 
         # After processing each key, we've found object and parent, return former value/s on update
         # An insertion is reversed by deleting the inserted ID. Sibling items
@@ -1875,6 +1886,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
         updates = get_app().updates
+        if not is_keyframe_patch(action.values):
+            self._keyframe_patch_indexes = {}
 
         def mark_dirty():
             if not self.has_unsaved_changes:

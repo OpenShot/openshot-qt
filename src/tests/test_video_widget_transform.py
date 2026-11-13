@@ -134,6 +134,194 @@ class VideoWidgetTransformTests(unittest.TestCase):
         self.widget = VideoWidget.__new__(VideoWidget)
         self.viewport = QRect(0, 0, 160, 90)
 
+    def test_live_transform_sends_one_point_and_reuses_detached_clip(self):
+        from unittest.mock import Mock
+        points = [{"co": {"X": n, "Y": 1.0}, "interpolation": openshot.LINEAR}
+                  for n in range(1, 5001)]
+        clip = types.SimpleNamespace(id="A", key=["clips", {"id": "A"}],
+                                     data={"scale_x": {"Points": points}}, save=Mock())
+        app = types.SimpleNamespace(updates=types.SimpleNamespace(ignore_history=True, update=Mock()),
+                                    window=types.SimpleNamespace(actionAutoKeyframes=None, refreshFrameSignal=Mock()))
+        widget = types.SimpleNamespace(mouse_pressed=True, transaction_id="drag")
+        with patch("windows.video_widget.get_app", return_value=app), \
+             patch("windows.video_widget.Clip.get", return_value=clip) as query:
+            for frame in (5001, 5002, 5002):
+                VideoWidget.updateClipProperties(widget, "A", frame, {"scale_x": 1.5})
+        query.assert_called_once_with(id="A")
+        self.assertEqual(len(points), 5002)
+        self.assertEqual(points[-1]["co"]["Y"], 1.5)
+        self.assertLess(len(json.dumps(app.updates.update.call_args.args)), 150)
+        clip.save.assert_not_called()
+
+    def test_live_edit_without_auto_keyframes_preserves_interpolation(self):
+        from unittest.mock import Mock
+        points = [{"co": {"X": n, "Y": 1.0}, "interpolation": openshot.LINEAR} for n in (1, 50, 100)]
+        clip = types.SimpleNamespace(id="A", key=["clips", {"id": "A"}], data={"rotation": {"Points": points}})
+        action = Mock()
+        action.isChecked.return_value = False
+        app = types.SimpleNamespace(updates=types.SimpleNamespace(ignore_history=True, update=Mock()),
+            window=types.SimpleNamespace(actionAutoKeyframes=action, refreshFrameSignal=Mock()))
+        widget = types.SimpleNamespace(mouse_pressed=True, transaction_id="drag")
+        with patch("windows.video_widget.get_app", return_value=app), patch("windows.video_widget.Clip.get", return_value=clip):
+            VideoWidget.updateClipProperties(widget, "A", 80, {"rotation": 30})
+        self.assertEqual(len(points), 3)
+        self.assertEqual(points[1], {"co": {"X": 50, "Y": 30.0}, "interpolation": openshot.LINEAR})
+        self.assertNotIn("interpolation", app.updates.update.call_args.args[1]["rotation"]["Point"])
+
+    def test_dense_keyframe_glyphs_are_bounded_without_mutating_markers(self):
+        from windows.views.timeline_backend.paint.keyframe import visible_keyframe_markers
+        markers = [{"rect": QRectF(n / 10, 10, 10, 10), "owner_id": "A", "type": "clip"}
+                   for n in range(10000)]
+        selected = dict(markers[20], selected=True)
+        markers.append(selected)
+        visible = list(visible_keyframe_markers(markers, QRectF(0, 0, 500, 40), 5))
+        self.assertLessEqual(len(visible), 102)
+        self.assertIn(selected, visible)
+        self.assertEqual(len(markers), 10001)
+        other = dict(selected, owner_id="B")
+        self.assertEqual(len(list(visible_keyframe_markers([selected, other], QRectF(0, 0, 500, 40), 5))), 2)
+
+    def test_point_samples_defer_timeline_and_property_editor_rebuilds(self):
+        from unittest.mock import Mock
+        from windows.views.timeline_backend.qwidget.base import TimelineWidgetBase
+        # Resolve the current class after other tests have reloaded this module.
+        from windows.models.properties_model import PropertiesModel  # pylint: disable=reimported
+        action = types.SimpleNamespace(type="update", key=["clips", {"id": "A"}],
+                                       values={"rotation": {"Point": {"co": {"X": 10, "Y": 30}}}})
+        timer = Mock()
+        timer.isActive.return_value = False
+        timeline = types.SimpleNamespace(_live_transform_timer=timer)
+        TimelineWidgetBase.changed(timeline, action)
+        timer.start.assert_called_once_with(250)
+        timer.isActive.return_value = True
+        for _ in range(100):
+            TimelineWidgetBase.changed(timeline, action)
+        timer.start.assert_called_once_with(250)
+        self.assertTrue(timeline._live_transform_pending)
+        property_timer = Mock()
+        property_timer.isActive.return_value = False
+        model = types.SimpleNamespace(_refresh_selected_objects=Mock(), update_model=Mock(),
+                                      _live_transform_timer=property_timer)
+        PropertiesModel.changed(model, action)
+        property_timer.start.assert_called_once_with(0)
+        model._refresh_selected_objects.assert_not_called()
+        model.update_model.assert_not_called()
+        with patch("windows.models.properties_model.get_app", return_value=types.SimpleNamespace(
+                window=types.SimpleNamespace(videoPreview=types.SimpleNamespace(mouse_pressed=True)),
+                updates=types.SimpleNamespace(last_action=action))):
+            # Frame-position notifications must not bypass the drag deferral.
+            PropertiesModel.update_model(types.SimpleNamespace(_live_transform_timer=property_timer))
+        with patch.object(TimelineWidgetBase, "changed") as changed:
+            TimelineWidgetBase.finish_live_transform(timeline)
+            TimelineWidgetBase.finish_live_transform(timeline)
+        changed.assert_called_once_with(timeline, None)
+
+    def test_live_feedback_refreshes_icons_without_full_timeline_rebuild(self):
+        from unittest.mock import Mock
+        from windows.views.timeline_backend.qwidget.base import TimelineWidgetBase
+        model = Mock()
+        timeline = types.SimpleNamespace(_live_transform_pending=True, update=Mock(),
+            win=types.SimpleNamespace(propertyTableView=types.SimpleNamespace(clip_properties_model=model),
+                                      txtPropertyFilter=types.SimpleNamespace(text=lambda: "scale")))
+        sampled = []
+        timeline._refresh_keyframe_markers = lambda: sampled.append(timeline._live_transform_drawing)
+        TimelineWidgetBase.refresh_live_transform(timeline)
+        self.assertEqual(sampled, [True])
+        self.assertFalse(timeline._live_transform_drawing)
+        self.assertFalse(timeline._live_transform_pending)
+        timeline.update.assert_called_once_with()
+        model.update_model.assert_not_called()
+        TimelineWidgetBase.refresh_live_transform(timeline)
+        self.assertEqual(sampled, [True])
+
+    def test_live_marker_sampling_is_visible_only_and_restores_full_editing_data(self):
+        from windows.views.timeline_backend.qwidget.keyframe import KeyframeMixin
+        class Helper(KeyframeMixin):
+            fps_float = 30.0
+            pixels_per_second = 10.0
+            track_name_width = 100
+            keyframe_painter = types.SimpleNamespace(size=10, fill=QColor("blue"))
+            geometry = types.SimpleNamespace(_current_view_state=lambda: {"h_offset": 0, "v_offset": 0})
+            def width(self):
+                return 800
+        helper = Helper()
+        points = [{"co": {"X": n + 1, "Y": 1.0}, "interpolation": 0} for n in range(10000)]
+        data = {"scale_x": {"Points": points}}
+        args = dict(clip_rect=QRectF(100, 0, 3400, 50), clip=None, transition=None,
+                    clip_start=0, clip_end=340, owner_id="A", object_type="clip", selected=True, color=QColor("blue"))
+        helper._live_transform_drawing = True
+        sampled = helper._collect_keyframes_from_data(data, **args)
+        self.assertLessEqual(len(sampled), 143)
+        self.assertGreater(len(sampled), 100)
+        self.assertTrue(all(marker["rect"].center().x() <= 810 for marker in sampled))
+        helper._live_transform_drawing = False
+        restored = helper._collect_keyframes_from_data(data, **args)
+        self.assertEqual(len(restored), 10000)
+        self.assertEqual(len(points), 10000)
+        self.assertTrue(all("data_path" in marker for marker in restored))
+
+    def test_group_release_keeps_final_data_when_first_save_rebinds_selection(self):
+        from unittest.mock import Mock
+        saved = []
+        selected = [types.SimpleNamespace(id=name, save=lambda: saved.append("stale")) for name in ("A", "B")]
+        widget = types.SimpleNamespace(mouse_pressed=True, mouse_dragging=True, region_enabled=False,
+            transforming_clips=selected, transforming_effect=None, original_effect_data=None,
+            original_clip_data_map={"A": {"rotation": 1, "reader": {"path": "source"}},
+                                    "B": {"rotation": 2, "reader": {"path": "source"}}}, transaction_id="drag",
+            _restore_transform_playback_cache=Mock(), setCursor=Mock())
+        def save(key, values):
+            saved.append(key[-1]["id"])
+            self.assertEqual(values, {"rotation": 3})
+            widget._live_transform_clips = {}
+        widget._live_transform_clips = {name: types.SimpleNamespace(id=name, key=["clips", {"id": name}],
+            data={"rotation": 3, "reader": {"path": "source"}})
+                                        for name in ("A", "B")}
+        app = types.SimpleNamespace(updates=types.SimpleNamespace(ignore_history=True, transaction_id="drag",
+                                    apply_last_action_to_history=Mock(), update=save), window=None)
+        with patch("windows.video_widget.get_app", return_value=app):
+            VideoWidget.mouseReleaseEvent(widget, types.SimpleNamespace(accept=lambda: None))
+        self.assertEqual(saved, ["A", "B"])
+        self.assertEqual(app.updates.apply_last_action_to_history.call_count, 2)
+        self.assertEqual([call.args[0] for call in app.updates.apply_last_action_to_history.call_args_list],
+                         [{"rotation": 1}, {"rotation": 2}])
+        self.assertFalse(widget._live_transform_clips)
+
+    def test_unchanged_transform_release_does_not_resend_clip_or_add_history(self):
+        from unittest.mock import Mock
+        clip = types.SimpleNamespace(id="clip", data={"rotation": 0})
+        widget = types.SimpleNamespace(mouse_pressed=True, mouse_dragging=False, region_enabled=False,
+            transforming_clips=[clip], transforming_effect=None, original_effect_data=None,
+            original_clip_data_map={"clip": {"rotation": 0}}, transaction_id="drag",
+            _restore_transform_playback_cache=Mock(), setCursor=Mock())
+        app = types.SimpleNamespace(updates=types.SimpleNamespace(ignore_history=True, transaction_id="drag",
+            update=Mock(), apply_last_action_to_history=Mock()), window=None)
+        with patch("windows.video_widget.get_app", return_value=app):
+            VideoWidget.mouseReleaseEvent(widget, types.SimpleNamespace(accept=lambda: None))
+        app.updates.update.assert_not_called()
+        app.updates.apply_last_action_to_history.assert_not_called()
+        self.assertFalse(app.updates.ignore_history)
+        self.assertIsNone(app.updates.transaction_id)
+
+    def test_property_lanes_bound_dense_glyphs_and_preserve_selected_points(self):
+        from unittest.mock import Mock
+        from qt_api import QBrush, QPen
+        from windows.views.timeline_backend.paint.keyframepanel import KeyframePanelPainter
+        points = [{"seconds": n / 10, "selected": n == 20} for n in range(10000)]
+        panel = types.SimpleNamespace(property_brush=QBrush(QColor("blue")), range_pen=QPen(Qt.NoPen),
+            curve_pen=QPen(QColor("white")), marker_size=10, _draw_marker=Mock(),
+            _seconds_to_x=lambda seconds: seconds,
+            w=types.SimpleNamespace(_panel_add_icon_rect=lambda rect: QRectF()))
+        image = QImage(500, 30, QImage.Format_ARGB32_Premultiplied)
+        painter = QPainter(image)
+        try:
+            KeyframePanelPainter._paint_property_row(panel, painter, QRectF(), QRectF(0, 0, 500, 30),
+                {"points": points}, {}, 0, 0, QRectF(0, 0, 500, 30), draw_labels=False)
+        finally:
+            painter.end()
+        self.assertLessEqual(panel._draw_marker.call_count, 101)
+        self.assertTrue(any(call.kwargs["selected"] for call in panel._draw_marker.call_args_list))
+        self.assertEqual(len(points), 10000)
+
     def test_group_transform_batches_each_clip_and_refreshes_once(self):
         from unittest.mock import Mock
         secondary = Mock()
@@ -241,11 +429,12 @@ class VideoWidgetTransformTests(unittest.TestCase):
                     playing = [True]
                     cache_during_save = []
                     clip = types.SimpleNamespace(
-                        id="clip", data={"id": "clip"},
+                        id="clip", key=["clips", {"id": "clip"}], data={"id": "clip", "rotation": 0},
                         save=lambda: cache_during_save.append(settings.ENABLE_PLAYBACK_CACHING))
                     history = []
                     updates = types.SimpleNamespace(
                         ignore_history=False, transaction_id=None,
+                        update=lambda key, values: cache_during_save.append(settings.ENABLE_PLAYBACK_CACHING),
                         apply_last_action_to_history=lambda original: history.append(
                             (original, settings.ENABLE_PLAYBACK_CACHING)))
                     fake_app = types.SimpleNamespace(updates=updates)
@@ -271,6 +460,8 @@ class VideoWidgetTransformTests(unittest.TestCase):
                         if finish == "clear":
                             VideoWidget.clearTransformState(widget)
                         else:
+                            if not effect_type:
+                                clip.data["rotation"] = 1
                             if finish == "pause_then_release":
                                 playing[0] = False
                             VideoWidget.mouseReleaseEvent(widget, event)
