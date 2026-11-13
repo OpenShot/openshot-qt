@@ -34,10 +34,11 @@ from qt_api import QIcon, QPixmap, QColor
 from qt_api import (
     QDialog, QVBoxLayout, QHBoxLayout, QFormLayout, QLabel, QLineEdit,
     QComboBox, QTextEdit, QTabWidget, QWidget, QPushButton, QMessageBox,
-    QDoubleSpinBox, QSpinBox
+    QDoubleSpinBox, QSpinBox, QFileDialog
 )
 
 from classes import info
+from classes.app import get_app
 from classes.logger import log
 from classes.thumbnail import GetThumbPath
 from classes.query import File
@@ -142,11 +143,14 @@ class GenerateMediaDialog(QDialog):
         highlight_opacity = float(self.highlight_opacity_spin.value()) if hasattr(self, "highlight_opacity_spin") else 0.0
         mask_brightness = float(self.mask_brightness_spin.value()) if hasattr(self, "mask_brightness_spin") else 1.0
         background_brightness = float(self.background_brightness_spin.value()) if hasattr(self, "background_brightness_spin") else 1.0
+        input_file_ids, input_text_values = self._collect_extra_input_values()
         return {
             "name": self.name_edit.text().strip(),
             "template_id": self.template_combo.currentData() or self.template_combo.currentText(),
             "prompt": prompt_text,
-            "reference_image_file_id": self.reference_image_combo.currentData() if hasattr(self, "reference_image_combo") else "",
+            "input_file_ids": input_file_ids,
+            "input_text_values": input_text_values,
+            "reference_image_file_id": input_file_ids.get("reference_image", ""),
             "coordinates_positive": coordinates_positive,
             "coordinates_negative": coordinates_negative,
             "rectangles_positive": rects_positive,
@@ -209,14 +213,79 @@ class GenerateMediaDialog(QDialog):
         layout.setContentsMargins(8, 8, 8, 8)
         layout.setSpacing(10)
 
-        self.reference_image_combo = QComboBox()
-        self.reference_image_combo.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
-        self.reference_image_combo.setIconSize(QSize(96, 96))
-        self.reference_image_combo.addItem("Choose reference image...", "")
-        self._populate_reference_image_combo()
-        layout.addWidget(self.reference_image_combo)
+        self._extra_input_widgets = {}  # key -> (widget, entry_dict)
+        self._extra_input_form = QFormLayout()
+        self._extra_input_form.setSpacing(8)
+        layout.addLayout(self._extra_input_form)
         layout.addStretch(1)
         return tab
+
+    def _clear_extra_input_widgets(self):
+        while self._extra_input_form.rowCount():
+            self._extra_input_form.removeRow(0)
+        self._extra_input_widgets = {}
+
+    def _rebuild_extra_inputs(self, extra_inputs):
+        """Rebuild the Reference tab's widgets to match the current template's
+        declared extra_inputs: one file combo per image/video/audio entry (same
+        Project-Files-backed pattern the original single reference-image combo used),
+        or a text field for a "text" entry.
+        """
+        self._clear_extra_input_widgets()
+        for entry in extra_inputs:
+            key = entry.get("key", "")
+            entry_type = entry.get("type", "")
+            label = entry.get("label") or key
+            if entry_type == "text":
+                widget = QLineEdit()
+                widget.setPlaceholderText(label)
+                default_value = entry.get("default")
+                if isinstance(default_value, str) and default_value:
+                    widget.setText(default_value)
+            elif entry_type == "choice":
+                widget = QComboBox()
+                choices = entry.get("choices", [])
+                widget.addItems(choices)
+                default_value = entry.get("default")
+                if isinstance(default_value, str) and default_value in choices:
+                    widget.setCurrentIndex(choices.index(default_value))
+            else:
+                widget = QComboBox()
+                widget.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLengthWithIcon)
+                widget.setIconSize(QSize(96, 96))
+                widget.addItem("Choose {}...".format(label.lower()), "")
+                self._populate_media_combo(widget, entry_type)
+                chooser = QPushButton("Choose...")
+                chooser.clicked.connect(
+                    lambda _checked, combo=widget, entry_label=label, media_type=entry_type:
+                    self._choose_media_from_project_files(combo, entry_label, media_type)
+                )
+                picker = QWidget(self)
+                picker_layout = QHBoxLayout(picker)
+                picker_layout.setContentsMargins(0, 0, 0, 0)
+                picker_layout.setSpacing(6)
+                picker_layout.addWidget(widget, 1)
+                picker_layout.addWidget(chooser)
+                self._extra_input_form.addRow(label, picker)
+                self._extra_input_widgets[key] = (widget, entry)
+                continue
+            self._extra_input_form.addRow(label, widget)
+            self._extra_input_widgets[key] = (widget, entry)
+
+    def _collect_extra_input_values(self):
+        """Read the current Reference-tab widgets back into the two payload dicts
+        Phase 3 expects: file ids for media inputs, raw strings for text inputs.
+        """
+        input_file_ids = {}
+        input_text_values = {}
+        for key, (widget, entry) in self._extra_input_widgets.items():
+            if entry.get("type") == "text":
+                input_text_values[key] = widget.text().strip()
+            elif entry.get("type") == "choice":
+                input_text_values[key] = widget.currentText().strip()
+            else:
+                input_file_ids[key] = str(widget.currentData() or "").strip()
+        return input_file_ids, input_text_values
 
     def _build_prompt_tab(self):
         tab = QWidget(self)
@@ -372,13 +441,22 @@ class GenerateMediaDialog(QDialog):
         if not self.name_edit.text().strip():
             self.name_edit.setFocus(Qt.TabFocusReason)
             return
-        if self._needs_reference_image() and not str(self.reference_image_combo.currentData() or "").strip():
-            QMessageBox.warning(
-                self,
-                "Missing Reference Image",
-                "Choose a reference image from Project Files.",
-            )
-            self.reference_image_combo.setFocus(Qt.TabFocusReason)
+        missing = self._first_missing_required_input()
+        if missing is not None:
+            widget, entry = missing
+            if entry.get("type") in ("text", "choice"):
+                message = "Enter a value for \"{}\".".format(entry.get("label", entry["key"]))
+            else:
+                self.tabs.setCurrentWidget(self.page_reference)
+                self._choose_media_from_project_files(
+                    widget,
+                    entry.get("label", entry["key"]),
+                    entry.get("type", "file"),
+                )
+                return
+            QMessageBox.warning(self, "Missing Input", message)
+            self.tabs.setCurrentWidget(self.page_reference)
+            widget.setFocus(Qt.TabFocusReason)
             return
         if self._is_track_object_template():
             coordinates_positive, _coordinates_negative, rects_positive, _rects_negative, auto_mode, _tracking_payload, prompt_text = self._current_coordinates_text()
@@ -407,21 +485,61 @@ class GenerateMediaDialog(QDialog):
         template_id = str(self.template_combo.currentData() or "").strip().lower()
         return template_id in ("video-highlight-anything-sam2", "image-highlight-anything-sam2")
 
+    def _template_uses_generic_prompt(self):
+        """Return whether the workflow consumes the dialog's generic Prompt field."""
+        prompt_tokens = ("__openshot_prompt__", "{{openshot_prompt}}", "$openshot_prompt")
+
+        def contains_prompt(value):
+            if isinstance(value, str):
+                return any(token in value for token in prompt_tokens)
+            if isinstance(value, dict):
+                return any(contains_prompt(item) for item in value.values())
+            if isinstance(value, list):
+                return any(contains_prompt(item) for item in value)
+            return False
+
+        return contains_prompt(self._current_template().get("workflow", {}))
+
     def _current_template(self):
         template_id = str(self.template_combo.currentData() or "").strip()
         return self.template_map.get(template_id, {})
 
-    def _needs_reference_image(self):
-        return bool(self._current_template().get("needs_reference_image", False))
+    def _first_missing_required_input(self):
+        """Return (widget, entry) for the first declared extra_inputs entry with no
+        value, or None if every required input is satisfied. Mirrors the original
+        single reference-image required-field check, generalized to N declared inputs.
+        """
+        for entry in self._current_template().get("extra_inputs", []):
+            if not entry.get("required", True):
+                continue
+            widget_entry = self._extra_input_widgets.get(entry.get("key", ""))
+            if widget_entry is None:
+                continue
+            widget, _ = widget_entry
+            if entry.get("type") == "text":
+                value = widget.text().strip()
+            elif entry.get("type") == "choice":
+                value = widget.currentText().strip()
+            else:
+                value = str(widget.currentData() or "").strip()
+            if not value:
+                return widget, entry
+        return None
 
     def _on_template_changed(self, index):
         _ = index
         is_track_template = self._is_track_object_template()
         is_highlight_template = self._is_highlight_template()
-        needs_inputs = self._needs_reference_image()
-        self.reference_image_combo.setVisible(needs_inputs)
-        self._set_tab_visible(self.reference_tab_index, needs_inputs)
-        self._set_tab_visible(self.prompt_tab_index, is_track_template)
+        extra_inputs = self._current_template().get("extra_inputs", [])
+        self._rebuild_extra_inputs(extra_inputs)
+        default_prompt = self._current_template().get("default_prompt", "")
+        if default_prompt and not self.prompt_edit.toPlainText().strip():
+            self.prompt_edit.setPlainText(default_prompt)
+        self._set_tab_visible(self.reference_tab_index, bool(extra_inputs))
+        self._set_tab_visible(
+            self.prompt_tab_index,
+            is_track_template or self._template_uses_generic_prompt(),
+        )
         self._set_tab_visible(self.points_tab_index, is_track_template)
         self._set_tab_visible(self.highlight_tab_index, is_track_template and is_highlight_template)
         self.pick_points_button.setEnabled(bool(self.source_file) and is_track_template)
@@ -430,35 +548,90 @@ class GenerateMediaDialog(QDialog):
             self.pick_points_button.setText("Select objects for tracking")
             self.tabs.setCurrentWidget(self.page_points)
         else:
-            self._set_tab_visible(self.prompt_tab_index, True)
+            self._set_tab_visible(
+                self.prompt_tab_index,
+                self._template_uses_generic_prompt(),
+            )
             self._set_tab_visible(self.points_tab_index, False)
             self._set_tab_visible(self.highlight_tab_index, False)
-            self.tabs.setCurrentWidget(self.page_prompt)
+            if extra_inputs and not self._template_uses_generic_prompt():
+                self.tabs.setCurrentWidget(self.page_reference)
+            else:
+                self.tabs.setCurrentWidget(self.page_prompt)
 
-    def _populate_reference_image_combo(self):
-        current_id = str(self.reference_image_combo.currentData() or "").strip()
-        image_files = []
+    def _populate_media_combo(self, combo, media_type):
+        """Populate `combo` with every Project Files entry matching `media_type`
+        ("image", "video", or "audio") — same File.filter()-backed pattern the
+        original single-purpose reference-image combo used, generalized to any
+        declared extra_inputs media type.
+        """
+        current_id = str(combo.currentData() or "").strip()
+        media_files = []
         for file_obj in File.filter():
             data = file_obj.data if isinstance(getattr(file_obj, "data", None), dict) else {}
-            if str(data.get("media_type", "")).strip().lower() != "image":
+            if str(data.get("media_type", "")).strip().lower() != media_type:
                 continue
-            image_files.append(file_obj)
+            media_files.append(file_obj)
 
-        image_files.sort(key=lambda f: str((f.data or {}).get("name") or os.path.basename((f.data or {}).get("path", ""))).lower())
-        for file_obj in image_files:
+        media_files.sort(key=lambda f: str((f.data or {}).get("name") or os.path.basename((f.data or {}).get("path", ""))).lower())
+        for file_obj in media_files:
             data = file_obj.data if isinstance(file_obj.data, dict) else {}
-            display_name = str(data.get("name") or os.path.basename(data.get("path", "")) or "Image").strip()
+            display_name = str(data.get("name") or os.path.basename(data.get("path", "")) or media_type.capitalize()).strip()
             icon = QIcon()
-            thumb_path = GetThumbPath(file_obj.id, 1)
-            if thumb_path and os.path.exists(thumb_path):
-                icon = QIcon(thumb_path)
-            self.reference_image_combo.addItem(icon, display_name, file_obj.id)
-            self.reference_image_combo.setItemData(self.reference_image_combo.count() - 1, str(data.get("path", "")), Qt.ToolTipRole)
+            if media_type in ("image", "video"):
+                thumb_path = GetThumbPath(file_obj.id, 1)
+                if thumb_path and os.path.exists(thumb_path):
+                    pix = QPixmap(thumb_path)
+                    if not pix.isNull():
+                        pix = pix.scaled(
+                            96, 96, Qt.KeepAspectRatio, Qt.SmoothTransformation,
+                        )
+                        icon = QIcon(pix)
+            elif media_type == "audio":
+                icon = QIcon(os.path.join(info.PATH, "images", "AudioThumbnail.svg"))
+            combo.addItem(icon, display_name, file_obj.id)
+            combo.setItemData(combo.count() - 1, str(data.get("path", "")), Qt.ToolTipRole)
 
         if current_id:
-            index = self.reference_image_combo.findData(current_id)
+            index = combo.findData(current_id)
             if index >= 0:
-                self.reference_image_combo.setCurrentIndex(index)
+                combo.setCurrentIndex(index)
+
+    def _choose_media_from_project_files(self, combo, label, media_type):
+        """Import a media file through the native chooser and select its Project Files ID."""
+        media_type = str(media_type or "").strip().lower()
+        filters = {
+            "image": "Images (*.png *.jpg *.jpeg *.webp *.bmp *.tif *.tiff)",
+            "video": "Videos (*.mp4 *.mov *.avi *.mkv *.webm)",
+            "audio": "Audio (*.wav *.mp3 *.flac *.ogg *.m4a)",
+        }
+        path, _selected_filter = QFileDialog.getOpenFileName(
+            self,
+            "Choose {}".format(label),
+            "",
+            filters.get(media_type, "Media files (*)"),
+        )
+        if not path:
+            return
+
+        try:
+            get_app().window.files_model.add_files(path, prevent_image_seq=True)
+        except Exception as ex:
+            log.warning("Unable to import selected generation input: %s", ex)
+            QMessageBox.warning(self, "Import Failed", "Could not add the selected file to Project Files.")
+            return
+
+        file_obj = File.get(path=path)
+        file_id = str(file_obj.id or "") if file_obj else ""
+        if not file_id:
+            QMessageBox.warning(self, "Import Failed", "The selected file was not added to Project Files.")
+            return
+        index = combo.findData(file_id)
+        if index < 0:
+            combo.addItem(os.path.basename(path), file_id)
+            index = combo.findData(file_id)
+        if index >= 0:
+            combo.setCurrentIndex(index)
 
     def _choose_tracking_clicked(self):
         if not self.source_file:
