@@ -125,7 +125,7 @@ class AboutTests(unittest.TestCase):
         dialog.grab()
         self.assertEqual(dialog.background_cache.cacheKey(), background)
         self.assertEqual(dialog.logo_cache.cacheKey(), logo)
-        dialog.resize(720, 480)
+        dialog.resize(860, 580)
         self.app.processEvents()
         dialog.grab()
         self.assertNotEqual(dialog.background_cache.cacheKey(), background)
@@ -193,35 +193,118 @@ class AboutTests(unittest.TestCase):
         self.assertFalse(dialog.isVisible())
         self.assertFalse(dialog.particle_timer.isActive())
 
-    def test_gpu_footer_and_copy_use_same_cached_evidence(self):
+    def test_gpu_diagnostics_stay_in_copied_version_info(self):
         diagnostics = Mock()
-        diagnostics.brief.return_value = "GPU: Test GPU · Vulkan available · not yet observed"
-        diagnostics.report_lines.return_value = [diagnostics.brief.return_value,
-                                                 "GPU preview: native draws=0; CPU fallback draws=0"]
-        diagnostics.copy_lines.return_value = [diagnostics.brief.return_value,
-                                               "GPU driver: test | Vulkan API: 1.3"]
+        diagnostics.copy_lines.return_value = ['GPU: Test GPU', 'GPU driver: test']
         self.dialog.app.gpu_diagnostics = diagnostics
-        self.dialog.update_gpu_status()
-        self.assertIn("not yet observed", self.dialog.lblGpuStatus.text())
-        self.assertIn("native draws=0", self.dialog.lblGpuStatus.toolTip())
         with patch.object(self.dialog, "get_performance_details", return_value=[]):
             copied = self.dialog.build_version_info_markdown()
-        self.assertIn(diagnostics.brief.return_value, copied)
-        self.assertIn("GPU driver: test", copied)
-        self.assertNotIn("native draws=0", copied)
-        self.assertGreaterEqual(self.dialog.lblGpuStatus.height(), 22)
-        self.assertTrue(self.dialog.gpu_status_timer.isActive())
-        self.dialog.hide()
-        self.assertFalse(self.dialog.gpu_status_timer.isActive())
+        self.assertIn('- **GPU:** Test GPU', copied)
+        self.assertFalse(hasattr(self.dialog, 'gpuBadge'))
 
-    def test_copy_button_centers_beside_two_and_three_version_lines(self):
-        for count in (2, 3):
-            self.dialog.txtversion.setText('<br>'.join(['Version details'] * count))
-            self.app.processEvents()
-            button = self.dialog.btnCopyVersionInfo.geometry()
-            description = self.dialog.txtversion.geometry()
-            self.assertLessEqual(abs(button.center().y() - description.center().y()), 2)
-            self.assertEqual(button.height(), 28)
+    def test_copied_details_use_markdown_bullets(self):
+        with patch.object(self.dialog, 'get_performance_details', return_value=['Cache: Memory']):
+            text = self.dialog.build_version_info_markdown()
+        heading, blank, *details = text.splitlines()
+        self.assertEqual(heading, '**OpenShot Version Info**')
+        self.assertEqual(blank, '')
+        self.assertTrue(all(line.startswith('- **') for line in details))
+        self.assertIn('- **Libraries:** Video ', text)
+        self.assertIn('- **Cache:** Memory', text)
+
+    def test_source_checkout_has_four_rows_without_frozen_metadata(self):
+        self.dialog.source_details = dict(branch='about-audio-version', commit='1234abcd')
+        with patch('windows.about.release_details.get_build_details', return_value={}):
+            self.dialog.display_release('')
+        self.assertEqual(self.dialog.lblBuildValue.text(), 'Local')
+        self.assertEqual(self.dialog.lblReleasedValue.text(), 'Not recorded')
+        self.assertIn('Source checkout', self.dialog.lblCommitValue.text())
+        for key in ('Library', 'Released', 'Build', 'Commit'):
+            self.assertTrue(getattr(self.dialog, 'lbl%sValue' % key).isVisible())
+
+    def test_audio_version_comes_from_runtime_in_dialog_and_clipboard(self):
+        with patch('windows.about.openshot.GetAudioVersion', create=True, return_value='9.8.7-dev2'), \
+                patch('windows.about.release_details.get_build_details', return_value={}), \
+                patch.object(self.dialog, 'get_performance_details', return_value=[]):
+            self.dialog.display_release('')
+            self.assertIn('Audio 9.8.7-dev2', self.dialog.lblLibraryValue.text())
+            self.assertIn('Audio 9.8.7-dev2', self.dialog.build_version_info_markdown())
+
+    def test_build_types_keep_pipeline_number_and_date(self):
+        for name, release, expected in (
+                ('OpenShot-v4.2.0-dev1-daily-18760-abc-def', None, 'Daily | 18760'),
+                ('OpenShot-v4.2.0-release-candidate-18760-abc-def', None, 'RC | 18760'),
+                ('OpenShot-v4.2.0-release-candidate-18760-abc-def', {'sha': 'abc'}, 'Release | 18760')):
+            metadata = {'build_name': name, 'date': '2026-11-13 12:00',
+                        'openshot-qt': {'CI_COMMIT_SHA': 'abc', 'CI_PIPELINE_ID': '18760'}}
+            self.dialog.release_metadata = release
+            with self.subTest(expected=expected), \
+                    patch('windows.about.release_details.get_build_details', return_value=metadata):
+                self.dialog.display_release('')
+                self.assertEqual(self.dialog.lblBuildValue.text(), expected)
+                self.assertEqual(self.dialog.lblReleasedValue.text(), 'November 13, 2026')
+
+    def test_build_matrix_matches_dialog_and_copied_output(self):
+        daily = {'build_name': 'OpenShot-v4.2.0-dev1-daily-18760-abc-def',
+                 'date': '2026-11-13 12:00', 'openshot-qt': {'CI_COMMIT_SHA': 'abc'}}
+        candidate = dict(daily, build_name='OpenShot-v4.2.0-release-candidate-18760-abc-def')
+        cases = [
+            ('release recorded offline', dict(daily, build_name='OpenShot-v4.2.0'), None, {}, 'exe', 'Release', 'November 13, 2026'),
+            ('promoted release', candidate, {'sha': 'abc'}, {}, 'appimage', 'Release | 18760', 'November 13, 2026'),
+            ('candidate offline', candidate, None, {}, 'appbundle', 'RC | 18760', 'November 13, 2026'),
+            ('daily name number', daily, None, {}, 'msix', 'Daily | 18760', 'November 13, 2026'),
+            ('daily pipeline number', dict(daily, **{'openshot-qt': {'CI_PIPELINE_ID': 19000}}), None, {}, 'appimage', 'Daily | 19000', 'November 13, 2026'),
+            ('source checkout', {}, None, {'branch': 'develop'}, 'unknown', 'Local', 'Not recorded'),
+            ('local frozen', {'build_type': 'local', 'date': '2026-11-13 12:00'}, None, {}, 'exe', 'Local', 'November 13, 2026'),
+            ('flatpak', {}, None, {}, 'flatpak', 'External', 'Not recorded'),
+            ('snap', {}, None, {}, 'snap', 'External', 'Not recorded'),
+            ('package manager', {}, None, {}, 'unknown', 'External', 'Not recorded'),
+            ('bad date', dict(daily, date='invalid'), None, {}, 'appimage', 'Daily | 18760', 'Not recorded'),
+            ('missing number', {'build_name': 'OpenShot-v4.2.0-dev1-daily', 'openshot-qt': {'CI_PIPELINE_ID': 'NA'}}, None, {}, 'unknown', 'Daily', 'Not recorded'),
+        ]
+        packages = {'exe': 'Windows installer', 'appimage': 'AppImage', 'appbundle': 'macOS app',
+                    'msix': 'MSIX', 'flatpak': 'Flatpak', 'snap': 'Snap'}
+        for title, metadata, release, source, package, build, date in cases:
+            with self.subTest(build=title), \
+                    patch('windows.about.release_details.get_build_details', return_value=metadata), \
+                    patch('classes.distribution.get_distribution_info', return_value={'package_type': package}), \
+                    patch('classes.distribution.distribution_label', return_value='test distribution'), \
+                    patch('windows.about.openshot.GetAudioVersion', create=True, return_value='1.1.0-dev1'), \
+                    patch('windows.about.info.VERSION', '4.2.0' if title == 'release recorded offline' else '4.2.0-dev1'), \
+                    patch.object(self.dialog, 'get_performance_details', return_value=[]):
+                self.dialog.release_metadata = release
+                self.dialog.source_details = source
+                self.dialog.display_release('')
+                copied = self.dialog.build_version_info_markdown()
+                expected_package = packages.get(package, 'Source checkout' if source else 'Unknown')
+                self.assertEqual(self.dialog.lblBuildValue.toolTip(), build)
+                self.assertEqual(self.dialog.lblReleasedValue.toolTip(), date)
+                self.assertTrue(self.dialog.lblCommitValue.toolTip().startswith(expected_package + ' | '))
+                self.assertIn('- **Build:** ' + build + '\n', copied)
+                self.assertIn('- **Build Date:** ' + date + '\n', copied)
+                self.assertIn('- **Package:** ' + self.dialog.lblCommitValue.toolTip(), copied)
+                self.assertIn('Audio 1.1.0-dev1', copied)
+                for key in ('Build', 'Released', 'Library', 'Commit'):
+                    self.assertTrue(getattr(self.dialog, 'lbl%sValue' % key).isVisible())
+                centers = [getattr(self.dialog, 'lbl%sValue' % key).geometry().center().y()
+                           for key in ('Build', 'Released', 'Library', 'Commit')]
+                self.assertEqual([b - a for a, b in zip(centers, centers[1:])], [35, 35, 35])
+
+    def test_toolbar_controls_keep_their_position_with_long_build_details(self):
+        dialog = self.dialog
+        button = dialog.btnCopyVersionInfo
+        original = button.mapTo(dialog, button.rect().topLeft())
+        build = {'openshot-qt': {'CI_COMMIT_SHA': '123456789abcdef'},
+                 'libopenshot': {'CI_COMMIT_SHA': 'abcdef123456789'}}
+        with patch('windows.about.release_details.get_build_details', return_value=build), \
+                patch.object(dialog, 'get_build_details', return_value=(
+                    'OpenShot-v4.2.0-dev1-daily-18760-e3728b21-c56f94cf', '2026-11-13')):
+            dialog.display_release('Build details')
+        self.app.processEvents()
+        self.assertEqual(button.mapTo(dialog, button.rect().topLeft()), original)
+        self.assertEqual(button.height(), dialog.pushButton_3.height())
+        self.assertIn(' | ', dialog.lblCommitValue.text())
+        self.assertTrue(dialog.lblBuildValue.isVisible())
 
     def test_long_description_keeps_logo_and_controls_separate(self):
         dialog = self.dialog
@@ -232,8 +315,8 @@ class AboutTests(unittest.TestCase):
         self.app.processEvents()
         dialog.grab()
         self.assertLess(dialog.logo_rect.bottom(), dialog.lblAboutDescription.y())
-        self.assertLess(dialog.lblAboutDescription.geometry().bottom(), dialog.txtversion.y())
-        self.assertLess(dialog.btnCopyVersionInfo.geometry().bottom(), dialog.pushButton_3.y())
+        self.assertLess(dialog.lblAboutDescription.geometry().bottom(), dialog.aboutToolbar.y())
+        self.assertEqual(dialog.btnCopyVersionInfo.y(), dialog.pushButton_3.y())
 
     def test_packaged_resources_match_manifest(self):
         images = source_path("images")

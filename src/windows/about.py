@@ -33,11 +33,11 @@ import platform
 import ctypes
 import math
 import random
+import subprocess
 
 from qt_api import Qt, pyqtSignal
-from qt_api import QIcon, QSize, QTimer
-from qt_api import QDialog, QLabel, QHBoxLayout, QSizePolicy
-from windows.views.gpu_performance import GpuStatusBadge
+from qt_api import QTimer
+from qt_api import QDialog, QLabel, QFont
 from qt_api import QColor, QLinearGradient, QPainter, QPointF, QRadialGradient, QRectF, QSvgRenderer
 from qt_api import QElapsedTimer, QEvent, QPixmap, QRegion
 
@@ -124,56 +124,29 @@ class About(QDialog):
         _ = self.app._tr
 
         self.setStyleSheet("""
-            QDialog#aboutDialog {
-                background: transparent;
-                margin: 0px;
-                padding: 0px;
-                border: none;
-            }
-            QLabel {
-                background: transparent;
-                color: #F4F7FF;
+            QDialog#aboutDialog { background: transparent; border: none; }
+            QLabel { background: transparent; color: #F4F7FF; }
+            QWidget#aboutToolbar {
+                background: rgba(12,18,33,95);
+                border-top: 1px solid rgba(215,230,255,25);
             }
             QPushButton {
-                background: #283241;
-                color: #F4F7FF;
-                border: 1px solid #536984;
-                border-radius: 4px;
-                padding: 5px 12px;
+                color: #F4F7FF; background: transparent; border: 1px solid transparent;
+                border-radius: 6px; padding: 0px 8px; font-size: 13px;
+                min-height: 34px;
             }
-            QPushButton:hover {
-                background: #323C50;
-                border-color: #91C3FF;
-            }
-            QPushButton:pressed {
-                background: #141923;
-            }
-            QPushButton:focus, QToolButton#btnCopyVersionInfo:focus {
-                border: 1px solid #91C3FF;
-            }
-            QLabel#txtversion, QLabel#lblAboutCompany {
-                background: transparent;
-                margin-bottom: 0px;
-            }
-            QToolButton#btnCopyVersionInfo {
-                background: rgba(255, 255, 255, 8);
-                border: 1px solid rgba(255, 255, 255, 24);
-                border-radius: 4px;
-                color: #DCEEFF;
-                font-size: 11px;
-                font-weight: 600;
-                margin-bottom: 0px;
-                padding: 2px 8px;
-            }
-            QToolButton#btnCopyVersionInfo:hover {
-                background: rgba(255, 255, 255, 28);
-                border-color: rgba(255, 255, 255, 54);
-            }
-            QToolButton#btnCopyVersionInfo:pressed {
-                background: rgba(255, 255, 255, 45);
-            }
+            QPushButton:hover { background: rgba(220,232,255,24); }
+            QPushButton:focus { border-color: #91C3FF; }
+            QPushButton#btnCopyVersionInfo { border-color: rgba(211,226,255,65); padding: 0px 14px; }
+            QPushButton#pushButton_3 { background: #DDEBFF; color: #172B4A; font-weight:600; min-width:80px; }
+            QPushButton#pushButton_3:hover { background: #FFFFFF; }
         """)
-
+        self.setFont(QFont("Noto Sans", 10))
+        self.setMinimumSize(760, 520)
+        self.lblAboutLogo.setMinimumHeight(102)
+        self.lblAboutLogo.setMinimumWidth(340)
+        self.pushButton_3.setDefault(True)
+        self.lblAboutCompany.setOpenExternalLinks(True)
         # Hide chnagelog button by default
         self.btnchangelog.setVisible(False)
 
@@ -187,57 +160,26 @@ class About(QDialog):
         else:
             log.warn("No changelog files found, disabling button")
 
-        description_text = _("OpenShot Video Editor is an Award-Winning, Free, and<br> Open-Source Video Editor for Linux, Mac, Chrome OS, and Windows.")
-        copyright_text = _('Copyright &copy; %(begin_year)s-%(current_year)s') % {
-            'begin_year': '2008',
-            'current_year': str(datetime.datetime.today().year)
-            }
-        about_html = '''
-            <div align="center" style="">
-              <p style="font-size:11pt; font-weight: 300;">%s</p>
-            </div>
-            ''' % (description_text,)
-        company_html = '''
-            <div style="font-weight:400;" align="right">
-              %s<br>
-              <a href="http://www.openshotstudios.com?r=about-us"
-                 style="text-decoration:none; color: #91C3FF;">OpenShot Studios, LLC</a>
-            </div>
-            ''' % (copyright_text)
-
-        # Set description and company labels
-        self.lblAboutDescription.setWordWrap(True)
-        self.lblAboutDescription.setText(about_html)
-        self.lblAboutCompany.setText(company_html)
-        self.txtversion.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
-        self.lblAboutCompany.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
-        self.horizontalLayoutVersionCopyright.setAlignment(self.txtversion, Qt.AlignVCenter)
-        self.horizontalLayoutVersionCopyright.setAlignment(self.btnCopyVersionInfo, Qt.AlignVCenter)
-        self.btnCopyVersionInfo.setFixedHeight(28)
-        self.btnCopyVersionInfo.setMinimumWidth(68)
-        self.lblGpuStatus = QLabel(self)
-        self.lblGpuStatus.setObjectName("lblGpuStatus")
-        self.lblGpuStatus.setTextFormat(Qt.PlainText)
-        self.lblGpuStatus.setStyleSheet("color: #A9B3C3; font-size: 10px; font-weight: normal;")
-        self.lblGpuStatus.setMinimumHeight(22)
-        self.lblGpuStatus.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
-        self.gpuBadge = GpuStatusBadge(self)
-        gpu_row = QHBoxLayout()
-        gpu_row.setSpacing(8)
-        gpu_row.addWidget(self.gpuBadge)
-        gpu_row.addWidget(self.lblGpuStatus, 1)
-        self.verticalLayout.insertLayout(2, gpu_row)
-        self.gpu_status_timer = QTimer(self)
-        self.gpu_status_timer.setInterval(1000)
-        self.gpu_status_timer.timeout.connect(self.update_gpu_status)
-        self.update_gpu_status()
+        self.lblTagline.setText(_("Create. Edit. Inspire."))
+        self.lblAboutDescription.setText(_(
+            "Award-winning, free, and open-source video editing for Linux, Mac, Chrome OS, and Windows."))
+        self.lblAboutCompany.setText(
+            '© 2008–%s <a href="https://www.openshotstudios.com?r=about-us" '
+            'style="color:#B1BCD1; text-decoration:none;">OpenShot Studios, LLC</a>'
+            % datetime.datetime.today().year)
+        self.lblVersionHeading.setText(_("VERSION"))
+        for key, caption in (("Library", "Libraries"), ("Released", "Date"),
+                             ("Build", "Build"), ("Commit", "Package")):
+            getattr(self, "lbl%sKey" % key).setText(_(caption))
+        for key in ("Library", "Released", "Build", "Commit"):
+            getattr(self, "lbl%sValue" % key).setWordWrap(False)
+        self.source_details = {}
+        self.layout_about_content()
+        self.display_release("")
         self.copy_version_tooltip = _("Copy Version Info")
         self.copy_success_message = _("Version info copied to clipboard")
         self.btnCopyVersionInfo.setToolTip(self.copy_version_tooltip)
-        self.btnCopyVersionInfo.setText(_("Copy"))
-        self.btnCopyVersionInfo.setIcon(QIcon(":/icons/Humanity/actions/16/edit-copy.svg"))
-        self.btnCopyVersionInfo.setIconSize(QSize(14, 14))
-        self.btnCopyVersionInfo.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
+        self.btnCopyVersionInfo.setText(_("Copy Version Info"))
         self.copy_feedback_timer = QTimer(self)
         self.copy_feedback_timer.setSingleShot(True)
         self.copy_feedback_timer.timeout.connect(self.hide_copy_confirmation)
@@ -335,9 +277,9 @@ class About(QDialog):
             x = (u * width + drift * t + 12 * math.sin(t * 0.55 + phase)) % width
             y = (v * height - speed * t) % height
             edge = min(1.0, x / 16, (width - x) / 16, y / 16, (height - y) / 16)
-            opacity = (0.30 + 0.12 * math.sin(t * 0.22 + phase)) * edge
+            opacity = (0.44 + 0.16 * math.sin(t * 0.22 + phase)) * edge
             # Fade toward the footer, where the small version text needs contrast.
-            opacity *= 1.0 - 0.65 * (y / height) ** 2
+            opacity *= 1.0 - 0.50 * (y / height) ** 2
             frame.append((x, y, opacity, sprite))
         return frame
 
@@ -374,12 +316,9 @@ class About(QDialog):
         # exposed pixel is covered by our cache, so Qt need not clear beneath it.
         self.setAttribute(Qt.WA_OpaquePaintEvent)
         self.update_particle_timer()
-        self.update_gpu_status()
-        self.gpu_status_timer.start()
 
     def hideEvent(self, event):
         self.particle_timer.stop()
-        self.gpu_status_timer.stop()
         super().hideEvent(event)
 
     def changeEvent(self, event):
@@ -428,7 +367,7 @@ class About(QDialog):
     def about_logo_rect(self):
         """Fit the wordmark to its layout space without stretching it."""
         # Reserve real layout space for the logo so translated text cannot overlap it.
-        area = QRectF(self.lblAboutLogo.geometry()).adjusted(24, 16, -24, -16)
+        area = QRectF(self.lblAboutLogo.geometry()).adjusted(0, 0, 0, 0)
         size = self.about_logo.viewBoxF().size()
         size.scale(area.size(), Qt.KeepAspectRatio)
         logo_rect = QRectF(QPointF(0, 0), size)
@@ -478,85 +417,94 @@ class About(QDialog):
         y = max(0, self.height() - label_size.height() - 52)
         self.copy_feedback_label.move(x, y)
 
+    def layout_about_content(self):
+        """Align both columns to the same header and body bands as the artwork."""
+        width, height = self.width(), self.height()
+        sx, sy = width / 760.0, (height - 72) / 448.0
+        def place(widget, x, y, w, h):
+            widget.setGeometry(round(x * sx), round(y * sy), round(w * sx), round(h * sy))
+        place(self.lblAboutLogo, 40, 60, 352, 102)
+        place(self.lblVersionHeading, 446, 71, 272, 22)
+        place(self.txtversion, 446, 103, 272, 38)
+        place(self.lblTagline, 40, 204, 352, 42)
+        place(self.lblAboutDescription, 40, 277, 348, 62)
+        place(self.lblAboutCompany, 40, 400, 352, 22)
+        place(self.columnSeparator, 416, 67, 1, 343)
+        for i, key in enumerate(("Build", "Released", "Library", "Commit")):
+            y, h = 207 + i * 35, 24
+            place(getattr(self, "lbl%sKey" % key), 446, y, 54, h)
+            place(getattr(self, "lbl%sValue" % key), 506, y, 234, h)
+        self.aboutToolbar.setGeometry(0, height - 72, width, 72)
+        self.btnCopyVersionInfo.setFixedSize(168, 36)
+        self.pushButton_3.setFixedSize(98, 36)
+        for button, size in ((self.btncredit, 66), (self.btnlicense, 66), (self.btnchangelog, 93)):
+            button.setFixedSize(size, 36)
+
     def resizeEvent(self, event):
-        """Keep transient copy confirmation centered if the dialog resizes."""
         super().resizeEvent(event)
+        self.layout_about_content()
+        for key in ("Library", "Released", "Build", "Commit"):
+            label = getattr(self, "lbl%sValue" % key)
+            label.setText(label.fontMetrics().elidedText(label.toolTip(), Qt.ElideRight, label.width()))
         if hasattr(self, "copy_feedback_label") and self.copy_feedback_label.isVisible():
             self.position_copy_confirmation()
-        if hasattr(self, "lblGpuStatus"):
-            self.update_gpu_status()
-
-    def update_gpu_status(self):
-        """Keep the footer small; put the cached evidence in its tooltip."""
-        diagnostics = getattr(self.app, "gpu_diagnostics", None)
-        text = (diagnostics.brief(self.app._tr) if diagnostics else
-                self.app._tr("GPU diagnostics not collected"))
-        state = diagnostics.user_status(self.app._tr) if diagnostics else {}
-        self.gpuBadge.set_mode(state.get('mode', 'cpu') if isinstance(state, dict) else 'cpu')
-        self.gpuBadge.setToolTip(text)
-        width = max(100, self.width() - 120)
-        self.lblGpuStatus.setText(self.lblGpuStatus.fontMetrics().elidedText(text, Qt.ElideRight, width))
-        self.lblGpuStatus.setAccessibleName(text)
-        self.lblGpuStatus.setToolTip("\n".join(diagnostics.report_lines()) if diagnostics else text)
 
     def build_version_info_markdown(self):
         """Return a compact markdown block with version, system, and performance info."""
-        lines = ["**OpenShot Version Info**"]
+        lines = ["**OpenShot Version Info**", ""]
 
-        version_line = f"Version: {info.VERSION} | libopenshot: {openshot.OPENSHOT_VERSION_FULL}"
-        lines.append(version_line)
+        def add(label, value):
+            lines.append(f"- **{label}:** {value}")
+
+        build, date, package = self.about_build_summary()
+        add("Version", info.VERSION)
+        add("Build", build)
+        add("Build Date", date)
+        add("Libraries", f"Video {openshot.OPENSHOT_VERSION_FULL} | Audio {self.audio_version()}")
+        add("Package", package)
+        add("OS", self.get_os_details())
+        cpu = self.get_cpu_details()
+        if cpu:
+            add("CPU", cpu)
+        memory = self.get_ram_details()
+        if memory:
+            add("Memory", memory)
+
         from classes.distribution import distribution_label
-        lines.append("Distribution: " + distribution_label())
-
-        build_name, release_date = self.get_build_details()
-        build_parts = []
+        add("Distribution", distribution_label())
+        if self.source_details:
+            add("Source", " | ".join(f"{key}: {value}" for key, value in self.source_details.items()))
+        metadata = release_details.get_build_details()
+        for project in ('openshot-qt', 'libopenshot', 'libopenshot-audio'):
+            component = metadata.get(project) or {}
+            commit = component.get('CI_COMMIT_SHA') if isinstance(component, dict) else None
+            if commit:
+                add(f"{project} commit", commit)
+        build_name, _ = self.get_build_details()
         if build_name:
-            build_parts.append(f"Build: {build_name}")
-        if release_date:
-            build_parts.append(f"Released: {release_date}")
-        if build_parts:
-            lines.append(" | ".join(build_parts))
+            add("Build identifier", build_name)
 
-        lines.append(f"OS: {self.get_os_details()}")
-
-        hardware_parts = []
-        cpu_name = self.get_cpu_details()
-        if cpu_name:
-            hardware_parts.append(f"CPU: {cpu_name}")
-        ram_total = self.get_ram_details()
-        if ram_total:
-            hardware_parts.append(f"RAM: {ram_total}")
-        if hardware_parts:
-            lines.append(" | ".join(hardware_parts))
-
-        lines.extend(self.get_performance_details())
         diagnostics = getattr(self.app, "gpu_diagnostics", None)
-        lines.extend(diagnostics.copy_lines() if diagnostics else ["GPU diagnostics: not collected"])
+        details = self.get_performance_details()
+        details.extend(diagnostics.copy_lines() if diagnostics else ["GPU diagnostics: not collected"])
+        for detail in details:
+            label, separator, value = detail.partition(":")
+            if separator:
+                add(label, value.lstrip())
+            else:
+                lines.append("- " + detail)
         return "\n".join(lines)
 
     def get_build_details(self):
-        """Return build name and release date from version.json when available."""
-        version_path = os.path.join(info.PATH, "settings", "version.json")
-        if not os.path.exists(version_path):
-            return "", ""
-
-        try:
-            with open(version_path, "r", encoding="UTF-8") as f:
-                version_info = json.loads(f.read())
-        except Exception:
-            log.warning("Failed to parse build details from %s", version_path, exc_info=1)
-            return "", ""
-
-        build_name = version_info.get("build_name", "")
-        release_date = ""
-        version_date = version_info.get("date")
-        if version_date:
+        """Return the recorded build identifier and date when available."""
+        metadata = release_details.get_build_details()
+        date = ''
+        if metadata.get('date'):
             try:
-                date_obj = datetime.datetime.strptime(version_date, "%Y-%m-%d %H:%M")
-                release_date = date_obj.strftime("%Y-%m-%d")
-            except Exception:
-                log.warning("Failed to parse release date: %s", version_date, exc_info=1)
-        return build_name, release_date
+                date = datetime.datetime.strptime(metadata['date'], '%Y-%m-%d %H:%M').strftime('%Y-%m-%d')
+            except (TypeError, ValueError):
+                pass
+        return metadata.get('build_name') or '', date
 
     def get_os_details(self):
         """Return a compact OS name/version string."""
@@ -677,15 +625,85 @@ class About(QDialog):
         }
         return decoder_map.get(str(decoder_value), str(decoder_value))
 
+    def audio_version(self):
+        """Ask the loaded audio library, independently of package metadata."""
+        getter = getattr(openshot, "GetAudioVersion", None)
+        return getter() if callable(getter) else self.app._tr("Not available")
+
+    def about_build_summary(self):
+        """Describe only build provenance that this copy actually records."""
+        from classes.distribution import get_distribution_info
+        _ = self.app._tr
+        metadata = release_details.get_build_details()
+        qt = metadata.get('openshot-qt') or {}
+        if not isinstance(qt, dict):
+            qt = {}
+        name = metadata.get('build_name') or ''
+        number = str(qt.get('CI_PIPELINE_ID') or '')
+        if not number.isdecimal():
+            number = ''
+        match = re.search(r'-(?:daily|release-candidate)-(\d+)', name)
+        if not number and match:
+            number = match.group(1)
+        if release_details.is_release_build(metadata, getattr(self, 'release_metadata', None)):
+            kind = _('Release')
+        elif '-release-candidate' in name:
+            kind = _('RC')
+        elif '-daily' in name:
+            kind = _('Daily')
+        elif name == 'OpenShot-v' + info.VERSION and release_details.RELEASE_VERSION_RE.fullmatch(info.VERSION):
+            # A recorded release artifact describes its build type, independently
+            # of the online commit check used to confirm official provenance.
+            kind = _('Release')
+        else:
+            local = self.source_details or metadata.get('build_type') == 'local'
+            kind = _('Local') if local else _('External')
+        build = kind + (' | ' + str(number) if number else '')
+        date = _('Not recorded')
+        if metadata.get('date'):
+            try:
+                parsed = datetime.datetime.strptime(metadata['date'], '%Y-%m-%d %H:%M')
+                date = parsed.strftime('%B %d, %Y').replace(' 0', ' ')
+            except (TypeError, ValueError):
+                pass
+        distribution = get_distribution_info()
+        formats = {'appimage': 'AppImage', 'flatpak': 'Flatpak', 'snap': 'Snap',
+                   'msix': 'MSIX', 'exe': 'Windows installer', 'appbundle': 'macOS app'}
+        package = formats.get(distribution['package_type'])
+        if not package:
+            package = _('Source checkout') if self.source_details else _('Unknown')
+        package += ' | ' + platform.system() + ' ' + platform.machine()
+        return build, date, package
+
     def display_release(self, version_text):
+        """Keep four version rows balanced for packaged and source builds."""
+        self.txtversion.setText(info.VERSION)
+        build, date, package = self.about_build_summary()
+        values = {'Library': self.app._tr('Video %s') % openshot.OPENSHOT_VERSION_FULL
+                  + ' | ' + self.app._tr('Audio %s') % self.audio_version(),
+                  'Released': date, 'Build': build, 'Commit': package}
+        for key, value in values.items():
+            label = getattr(self, "lbl%sValue" % key)
+            label.setTextFormat(Qt.PlainText)
+            label.setToolTip(value)
+            available = label.width() - label.margin() * 2
+            label.setText(label.fontMetrics().elidedText(value, Qt.ElideRight, available))
+        self.txtversion.setToolTip(version_text)
 
-        version_html = '''
-            <div style="font-weight:400;" align="left">
-              %s
-            </div>
-            ''' % (version_text)
-
-        self.txtversion.setText(version_html)
+    def read_source_details(self):
+        """Read real checkout metadata on the release worker, never the UI thread."""
+        root = os.path.dirname(info.PATH)
+        if not os.path.exists(os.path.join(root, ".git")):
+            return {}
+        try:
+            def git(*args):
+                return subprocess.check_output(
+                    ["git", "-C", root, *args], text=True, timeout=2,
+                    stderr=subprocess.DEVNULL).strip()
+            commit, date = git("show", "-s", "--format=%h%n%cs", "HEAD").splitlines()
+            return dict(commit=commit, date=date, branch=git("branch", "--show-current"))
+        except (OSError, subprocess.SubprocessError, ValueError):
+            return {}
 
     def get_current_release(self):
         """Get the current version """
@@ -695,7 +713,9 @@ class About(QDialog):
     def get_release_from_http(self):
         """Get the current version # from openshot.org"""
         try:
+            self.source_details = self.read_source_details()
             release_metadata = release_details.get_release_details(info.VERSION)
+            self.release_metadata = release_metadata
 
             # get translations
             self.app = get_app()

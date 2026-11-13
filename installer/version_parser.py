@@ -101,6 +101,10 @@ def write_build_metadata(version_path, version_info, environ=None):
     """
     environ = os.environ if environ is None else environ
     metadata = dict(version_info)
+    metadata.setdefault("date", f'{datetime.datetime.now():%Y-%m-%d %H:%M}')
+    if not any(isinstance(metadata.get(project), dict) and metadata[project]
+               for project in ("openshot-qt", "libopenshot", "libopenshot-audio")):
+        metadata["build_type"] = "local"
     metadata["official_distribution"] = (
         environ.get("CI_SERVER_HOST") == "gitlab.openshot.org"
         and environ.get("CI_PROJECT_PATH") == "OpenShot/openshot-qt"
