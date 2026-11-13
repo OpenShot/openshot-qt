@@ -1,0 +1,1196 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../recording.rst:23
+msgid "Recording"
+msgstr "Εγγραφή"
+
+#: ../recording.rst:25
+msgid ""
+"OpenShot can record a microphone, the desktop, and a webcam directly into "
+"the current project. You can enable one source or combine several in a "
+"synchronized recording session. Each source remains an independent media "
+"file and timeline clip, making it easy to adjust microphone volume, crop a "
+"webcam, or edit the screen capture separately."
+msgstr ""
+"Το OpenShot μπορεί να εγγράψει μικρόφωνο, επιφάνεια εργασίας και κάμερα web "
+"απευθείας στο τρέχον έργο. Μπορείτε να ενεργοποιήσετε μία πηγή ή να "
+"συνδυάσετε πολλές σε μια συγχρονισμένη συνεδρία εγγραφής. Κάθε πηγή "
+"παραμένει ανεξάρτητο αρχείο πολυμέσων και κλιπ στο χρονολόγιο, κάτι που "
+"διευκολύνει τη ρύθμιση της έντασης του μικροφώνου, την περικοπή της κάμερας "
+"web ή την ξεχωριστή επεξεργασία της εγγραφής οθόνης."
+
+#: ../recording.rst:29
+msgid ""
+"Open the dedicated layout with :guilabel:`View → Recording View`, or show "
+"only the dock with :guilabel:`View → Docks → Recording`."
+msgstr ""
+"Ανοίξτε την ειδική διάταξη με :guilabel:`Προβολή → Προβολή εγγραφής` (View →"
+" Recording View) ή εμφανίστε μόνο το πάνελ με :guilabel:`Προβολή → Πάνελ → "
+"Εγγραφή` (View → Docks → Recording)."
+
+#: ../recording.rst:-1
+msgid "OpenShot Recording View with the microphone source selected by default"
+msgstr ""
+"Η Προβολή εγγραφής του OpenShot με το μικρόφωνο επιλεγμένο ως προεπιλεγμένη "
+"πηγή"
+
+#: ../recording.rst:36
+msgid "Quick Start"
+msgstr "Γρήγορη εκκίνηση"
+
+#: ../recording.rst:38
+msgid ""
+"Move the timeline playhead to the point where the recording should begin."
+msgstr ""
+"Μετακινήστε την κεφαλή αναπαραγωγής του χρονολογίου στο σημείο όπου πρέπει "
+"να ξεκινήσει η εγγραφή."
+
+#: ../recording.rst:39
+msgid "Open :guilabel:`View → Recording View`."
+msgstr ""
+"Ανοίξτε την επιλογή :guilabel:`Προβολή → Προβολή εγγραφής` (View → Recording"
+" View)."
+
+#: ../recording.rst:40
+msgid ""
+"Enable :guilabel:`Mic`, :guilabel:`Screen`, :guilabel:`Webcam`, or any "
+"combination of them."
+msgstr ""
+"Ενεργοποιήστε το :guilabel:`Μικρόφωνο` (Mic), την :guilabel:`Οθόνη` "
+"(Screen), την :guilabel:`Κάμερα web` (Webcam) ή οποιονδήποτε συνδυασμό τους."
+
+#: ../recording.rst:41
+msgid ""
+"Select the destination :guilabel:`Track`. Multiple sources use adjacent "
+"tracks automatically. Select :guilabel:`No Track` to add completed "
+"recordings to :guilabel:`Project Files` without creating live previews or "
+"clips on the timeline. Choose whether the timeline :guilabel:`Preview` "
+"should play during Mic or Webcam recording."
+msgstr ""
+"Επιλέξτε τον διάδρομο προορισμού από τη λίστα :guilabel:`Διάδρομος` (Track)."
+" Όταν χρησιμοποιούνται πολλές πηγές, χρησιμοποιούνται αυτόματα διαδοχικοί "
+"διάδρομοι. Επιλέξτε :guilabel:`Χωρίς διάδρομο` (No Track) για να "
+"προστίθενται οι ολοκληρωμένες εγγραφές στα :guilabel:`Αρχεία Έργου` (Project"
+" Files) χωρίς να δημιουργούνται ζωντανές προεπισκοπήσεις ή κλιπ στο "
+"χρονολόγιο. Επιλέξτε αν η :guilabel:`Προεπισκόπηση` (Preview) του "
+"χρονολογίου θα αναπαράγεται κατά την εγγραφή από το μικρόφωνο ή την κάμερα "
+"web."
+
+#: ../recording.rst:44
+msgid ""
+"Open each source's :guilabel:`Advanced` section and verify its device and "
+"quality options."
+msgstr ""
+"Ανοίξτε την ενότητα :guilabel:`Προχωρημένο` (Advanced) κάθε πηγής και "
+"ελέγξτε τη συσκευή και τις επιλογές ποιότητας."
+
+#: ../recording.rst:45
+msgid ""
+"Click :guilabel:`Start Recording`. Perform the narration or action you want "
+"to capture."
+msgstr ""
+"Κάντε κλικ στο :guilabel:`Έναρξη εγγραφής` (Start Recording). "
+"Πραγματοποιήστε την αφήγηση ή την ενέργεια που θέλετε να καταγράψετε."
+
+#: ../recording.rst:46
+msgid ""
+"Click :guilabel:`Stop Recording`, either in the dock or from the recording "
+"status control."
+msgstr ""
+"Κάντε κλικ στο :guilabel:`Διακοπή εγγραφής` (Stop Recording), είτε στο πάνελ"
+" είτε από το στοιχείο ελέγχου κατάστασης εγγραφής."
+
+#: ../recording.rst:47
+msgid ""
+"Wait briefly while OpenShot finishes the files. They are imported into "
+":guilabel:`Project Files` and, unless :guilabel:`No Track` is selected, "
+"placed on the timeline."
+msgstr ""
+"Περιμένετε λίγο ώστε το OpenShot να ολοκληρώσει τα αρχεία. Εισάγονται στα "
+":guilabel:`Αρχεία Έργου` (Project Files) και, εκτός αν έχει επιλεγεί το "
+":guilabel:`Χωρίς διάδρομο` (No Track), τοποθετούνται στο χρονολόγιο."
+
+#: ../recording.rst:51
+msgid "Quick Audio Commentary"
+msgstr "Γρήγορος ηχητικός σχολιασμός"
+
+#: ../recording.rst:53
+msgid ""
+"To begin commentary at an existing clip, right-click the clip and choose "
+":guilabel:`Audio → Record`. OpenShot moves the playhead to the clip's first "
+"frame, opens the Recording dock, and selects the first available unlocked "
+"track below the clip. Verify that :guilabel:`Mic` is enabled, then click "
+":guilabel:`Start Recording`. The full :guilabel:`View → Recording View` "
+"remains the general entry point for screen, webcam, microphone, and combined"
+" recording sessions."
+msgstr ""
+"Για να ξεκινήσετε σχολιασμό σε ένα υπάρχον κλιπ, κάντε δεξί κλικ στο κλιπ "
+"και επιλέξτε :guilabel:`Ήχος → Εγγραφή` (Audio → Record). Το OpenShot "
+"μετακινεί την κεφαλή αναπαραγωγής στο πρώτο καρέ του κλιπ, ανοίγει το πάνελ "
+"Εγγραφής (Recording) και επιλέγει τον πρώτο διαθέσιμο ξεκλείδωτο διάδρομο "
+"κάτω από το κλιπ. Βεβαιωθείτε ότι το :guilabel:`Μικρόφωνο` (Mic) είναι "
+"ενεργοποιημένο και κάντε κλικ στο :guilabel:`Έναρξη εγγραφής` (Start "
+"Recording). Η πλήρης επιλογή :guilabel:`Προβολή → Προβολή εγγραφής` (View → "
+"Recording View) παραμένει το γενικό σημείο εισόδου για συνεδρίες εγγραφής "
+"οθόνης, κάμερας web, μικροφώνου και συνδυασμένης εγγραφής."
+
+#: ../recording.rst:60
+msgid "Recording Sources"
+msgstr "Πηγές εγγραφής"
+
+#: ../recording.rst:62
+msgid ""
+"The source cards at the top of the dock can be enabled independently. An "
+"unavailable card indicates that the required device, operating-system "
+"capture service, or libopenshot feature was not detected."
+msgstr ""
+"Οι κάρτες πηγών στο πάνω μέρος του πάνελ μπορούν να ενεργοποιηθούν "
+"ανεξάρτητα. Μια μη διαθέσιμη κάρτα υποδεικνύει ότι δεν εντοπίστηκε η "
+"απαιτούμενη συσκευή, η υπηρεσία καταγραφής του λειτουργικού συστήματος ή η "
+"δυνατότητα του libopenshot."
+
+#: ../recording.rst:65
+msgid "Recorded sources and outputs"
+msgstr "Πηγές εγγραφής και αρχεία εξόδου"
+
+#: ../recording.rst:69 ../recording.rst:107
+msgid "Source"
+msgstr "Πηγή"
+
+#: ../recording.rst:70
+msgid "Recorded File"
+msgstr "Αρχείο εγγραφής"
+
+#: ../recording.rst:71
+msgid "Audio"
+msgstr "Ήχος"
+
+#: ../recording.rst:72
+msgid "Typical Use"
+msgstr "Τυπική χρήση"
+
+#: ../recording.rst:73 ../recording.rst:111 ../recording.rst:272
+msgid "Mic"
+msgstr "Μικρόφωνο (Mic)"
+
+#: ../recording.rst:74
+msgid "``Mic-<timestamp>``"
+msgstr ""
+
+#: ../recording.rst:75
+msgid "Microphone only"
+msgstr "Μόνο μικρόφωνο"
+
+#: ../recording.rst:76
+msgid "Narration, voice-over, commentary, or interviews."
+msgstr "Αφήγηση, αφήγηση εκτός πλάνου (voiceover), σχολιασμός ή συνεντεύξεις."
+
+#: ../recording.rst:77 ../recording.rst:110 ../recording.rst:194
+#: ../recording.rst:275
+msgid "Screen"
+msgstr "Οθόνη (Screen)"
+
+#: ../recording.rst:78
+msgid "``Screen-<timestamp>.mp4``"
+msgstr ""
+
+#: ../recording.rst:79
+msgid "Optional system audio"
+msgstr "Προαιρετικά ήχος συστήματος"
+
+#: ../recording.rst:80
+msgid "Tutorials, demonstrations, presentations, or games."
+msgstr "Εκπαιδευτικά βίντεο, επιδείξεις, παρουσιάσεις ή παιχνίδια."
+
+#: ../recording.rst:81 ../recording.rst:109
+msgid "Webcam"
+msgstr "Κάμερα web (Webcam)"
+
+#: ../recording.rst:82
+msgid "``Webcam-<timestamp>.mp4``"
+msgstr ""
+
+#: ../recording.rst:83
+msgid "No audio"
+msgstr "Χωρίς ήχο"
+
+#: ../recording.rst:84
+msgid "Presenter video or a picture-in-picture camera."
+msgstr ""
+"Βίντεο παρουσιαστή ή κάμερα τύπου εικόνα σε εικόνα (picture-in-picture)."
+
+#: ../recording.rst:86
+msgid ""
+"When Mic and Screen are enabled together, microphone audio is kept in its "
+"own file while system audio is embedded in the screen video. This separation"
+" is intentional: it lets you independently adjust, mute, fade, or process "
+"the voice and computer audio during editing. Webcam video has no audio, "
+"avoiding a duplicate microphone track and echo."
+msgstr ""
+"Όταν το μικρόφωνο και η οθόνη είναι ενεργοποιημένα μαζί, ο ήχος του "
+"μικροφώνου διατηρείται σε δικό του αρχείο, ενώ ο ήχος του συστήματος "
+"ενσωματώνεται στο βίντεο της οθόνης. Αυτός ο διαχωρισμός είναι σκόπιμος: σας"
+" επιτρέπει να ρυθμίζετε, να σιγάζετε, να εφαρμόζετε βαθμιαία είσοδο/έξοδο ή "
+"να επεξεργάζεστε ανεξάρτητα τη φωνή και τον ήχο του υπολογιστή κατά την "
+"επεξεργασία. Το βίντεο της κάμερας web δεν έχει ήχο, αποφεύγοντας έτσι ένα "
+"διπλό κομμάτι μικροφώνου και την ηχώ."
+
+#: ../recording.rst:91
+msgid "Live Feedback and Timeline Placement"
+msgstr "Ζωντανή ανατροφοδότηση και τοποθέτηση στο χρονολόγιο"
+
+#: ../recording.rst:93
+msgid ""
+"The microphone meter responds before and during recording, which helps "
+"confirm that the selected input is working. During recording, OpenShot draws"
+" a temporary clip and live microphone waveform on the timeline. The "
+"completed files replace these previews after recording stops."
+msgstr ""
+"Ο μετρητής στάθμης του μικροφώνου αντιδρά πριν και κατά τη διάρκεια της "
+"εγγραφής, κάτι που βοηθά να επιβεβαιώσετε ότι η επιλεγμένη είσοδος "
+"λειτουργεί. Κατά την εγγραφή, το OpenShot σχεδιάζει στο χρονολόγιο ένα "
+"προσωρινό κλιπ και μια ζωντανή κυματομορφή του μικροφώνου. Τα ολοκληρωμένα "
+"αρχεία αντικαθιστούν αυτές τις προεπισκοπήσεις μετά τη διακοπή της εγγραφής."
+
+#: ../recording.rst:97
+msgid ""
+"Select :guilabel:`No Track` in the Track list when you want to capture media"
+" without adding live objects or completed clips to the timeline. The "
+"finished recordings are still imported into :guilabel:`Project Files`, ready"
+" to preview, organize, or add to the timeline later. This is useful when "
+"recording several takes before choosing which one to edit."
+msgstr ""
+"Επιλέξτε :guilabel:`Χωρίς διάδρομο` (No Track) στη λίστα διαδρόμων όταν "
+"θέλετε να καταγράψετε πολυμέσα χωρίς να προστεθούν ζωντανά αντικείμενα ή "
+"ολοκληρωμένα κλιπ στο χρονολόγιο. Οι ολοκληρωμένες εγγραφές εισάγονται και "
+"πάλι στα :guilabel:`Αρχεία Έργου` (Project Files), έτοιμες για "
+"προεπισκόπηση, οργάνωση ή προσθήκη στο χρονολόγιο αργότερα. Αυτό είναι "
+"χρήσιμο όταν εγγράφετε αρκετές λήψεις πριν επιλέξετε ποια θα επεξεργαστείτε."
+
+#: ../recording.rst:101
+msgid ""
+"All enabled sources start at the same timeline position. OpenShot stacks "
+"them in a useful compositing order:"
+msgstr ""
+"Όλες οι ενεργοποιημένες πηγές ξεκινούν στην ίδια θέση του χρονολογίου. Το "
+"OpenShot τις στοιβάζει με μια χρήσιμη σειρά σύνθεσης:"
+
+#: ../recording.rst:103
+msgid "Default source stack"
+msgstr "Προεπιλεγμένη στοίβα πηγών"
+
+#: ../recording.rst:107
+msgid "Placement"
+msgstr "Τοποθέτηση"
+
+#: ../recording.rst:109
+msgid "Highest assigned track, so a corner camera appears on top."
+msgstr ""
+"Ο ανώτερος διάδρομος που έχει ανατεθεί, ώστε μια κάμερα στη γωνία να "
+"εμφανίζεται από πάνω."
+
+#: ../recording.rst:110
+msgid "Below the webcam and above microphone audio."
+msgstr "Κάτω από την κάμερα web και πάνω από τον ήχο του μικροφώνου."
+
+#: ../recording.rst:111
+msgid "Lowest assigned track because it contains audio only."
+msgstr "Ο κατώτερος διάδρομος που έχει ανατεθεί, επειδή περιέχει μόνο ήχο."
+
+#: ../recording.rst:114
+msgid ""
+"If there are not enough tracks below the selected track, OpenShot creates or"
+" selects additional tracks as needed. Recordings are also added to "
+":guilabel:`Project Files`, so they can be reused even if you remove their "
+"first timeline clips."
+msgstr ""
+"Αν δεν υπάρχουν αρκετοί διάδρομοι κάτω από τον επιλεγμένο διάδρομο, το "
+"OpenShot δημιουργεί ή επιλέγει επιπλέον διαδρόμους όπως χρειάζεται. Οι "
+"εγγραφές προστίθενται επίσης στα :guilabel:`Αρχεία Έργου` (Project Files), "
+"ώστε να μπορούν να επαναχρησιμοποιηθούν ακόμη και αν αφαιρέσετε τα πρώτα "
+"τους κλιπ από το χρονολόγιο."
+
+#: ../recording.rst:119
+msgid "Timeline Preview During Recording"
+msgstr "Προεπισκόπηση χρονολογίου κατά την εγγραφή"
+
+#: ../recording.rst:121
+msgid ""
+"The :guilabel:`Preview` control beside :guilabel:`Track` can play the "
+"project from the current playhead while a Mic, Webcam, or combined Mic + "
+"Webcam recording is captured. This is useful for voice-over, commentary, and"
+" reaction videos. Stopping the recording also stops timeline playback when "
+"the recorder started it."
+msgstr ""
+"Το στοιχείο ελέγχου :guilabel:`Προεπισκόπηση` (Preview) δίπλα στη λίστα "
+":guilabel:`Διάδρομος` (Track) μπορεί να αναπαράγει το έργο από την τρέχουσα "
+"κεφαλή αναπαραγωγής ενώ καταγράφεται εγγραφή από μικρόφωνο, κάμερα web ή "
+"συνδυασμό μικροφώνου + κάμερας web. Αυτό είναι χρήσιμο για αφήγηση εκτός "
+"πλάνου (voiceover), σχολιασμό και βίντεο αντιδράσεων. Η διακοπή της εγγραφής"
+" διακόπτει και την αναπαραγωγή του χρονολογίου, όταν την είχε ξεκινήσει ο "
+"εγγραφέας."
+
+#: ../recording.rst:125
+msgid "Preview options"
+msgstr "Επιλογές προεπισκόπησης"
+
+#: ../recording.rst:129 ../recording.rst:152 ../recording.rst:192
+#: ../recording.rst:242
+msgid "Option"
+msgstr "Επιλογή"
+
+#: ../recording.rst:129
+msgid "Behavior"
+msgstr "Συμπεριφορά"
+
+#: ../recording.rst:131
+msgid "Off"
+msgstr ""
+
+#: ../recording.rst:131
+msgid "Records without starting timeline playback."
+msgstr "Εγγράφει χωρίς να ξεκινά την αναπαραγωγή του χρονολογίου."
+
+#: ../recording.rst:132
+msgid "Full"
+msgstr ""
+
+#: ../recording.rst:132
+msgid "Plays the timeline using the normal preview resolution."
+msgstr "Αναπαράγει το χρονολόγιο με την κανονική ανάλυση προεπισκόπησης."
+
+#: ../recording.rst:133
+msgid "Half"
+msgstr ""
+
+#: ../recording.rst:133
+msgid "Reduces preview rendering resolution to improve recording performance."
+msgstr ""
+"Μειώνει την ανάλυση απόδοσης της προεπισκόπησης για βελτίωση των επιδόσεων "
+"της εγγραφής."
+
+#: ../recording.rst:134
+msgid "Quarter"
+msgstr ""
+
+#: ../recording.rst:134
+msgid ""
+"Uses the lowest preview resolution for demanding projects or slower "
+"computers."
+msgstr ""
+"Χρησιμοποιεί τη χαμηλότερη ανάλυση προεπισκόπησης για απαιτητικά έργα ή πιο "
+"αργούς υπολογιστές."
+
+#: ../recording.rst:137
+msgid ""
+"Preview resolution changes only the temporary OpenShot preview. It does not "
+"reduce the resolution or quality of the recorded Mic or Webcam files. Use "
+"headphones when the timeline contains audio so the microphone does not "
+"record the speakers. When :guilabel:`Screen` is selected, Preview is forced "
+"to :guilabel:`Off` and disabled; deselecting Screen restores the previous "
+"choice."
+msgstr ""
+"Η ανάλυση προεπισκόπησης αλλάζει μόνο την προσωρινή προεπισκόπηση του "
+"OpenShot. Δεν μειώνει την ανάλυση ή την ποιότητα των εγγεγραμμένων αρχείων "
+"μικροφώνου ή κάμερας web. Χρησιμοποιήστε ακουστικά όταν το χρονολόγιο "
+"περιέχει ήχο, ώστε το μικρόφωνο να μην εγγράφει τα ηχεία. Όταν είναι "
+"επιλεγμένη η :guilabel:`Οθόνη` (Screen), η Προεπισκόπηση τίθεται αναγκαστικά"
+" σε :guilabel:`Ανενεργό` (Off) και απενεργοποιείται· αν καταργήσετε την "
+"επιλογή της οθόνης, επαναφέρεται η προηγούμενη επιλογή."
+
+#: ../recording.rst:143
+msgid "Microphone Recording"
+msgstr "Εγγραφή μικροφώνου"
+
+#: ../recording.rst:145
+msgid ""
+"Enable :guilabel:`Mic` to record narration as a separate audio file. Use the"
+" Mono/Stereo control beside the level meter for the common channel choice, "
+"and open :guilabel:`Advanced` for all settings."
+msgstr ""
+"Ενεργοποιήστε το :guilabel:`Μικρόφωνο` (Mic) για να εγγράψετε αφήγηση ως "
+"ξεχωριστό αρχείο ήχου. Χρησιμοποιήστε το στοιχείο ελέγχου Mono/Stereo δίπλα "
+"στον μετρητή στάθμης για τη συνήθη επιλογή καναλιών και ανοίξτε το "
+":guilabel:`Προχωρημένο` (Advanced) για όλες τις ρυθμίσεις."
+
+#: ../recording.rst:148
+msgid "Microphone options"
+msgstr "Επιλογές μικροφώνου"
+
+#: ../recording.rst:152
+msgid "Typical Default"
+msgstr "Τυπική προεπιλογή"
+
+#: ../recording.rst:152 ../recording.rst:175 ../recording.rst:192
+#: ../recording.rst:242
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: ../recording.rst:154 ../recording.rst:244
+msgid "Input"
+msgstr "Είσοδος (Input)"
+
+#: ../recording.rst:154
+msgid "System input"
+msgstr "Είσοδος συστήματος"
+
+#: ../recording.rst:154
+msgid "Selects the microphone or audio-input device."
+msgstr "Επιλέγει το μικρόφωνο ή τη συσκευή εισόδου ήχου."
+
+#: ../recording.rst:155
+msgid "Format"
+msgstr "Μορφή (Format)"
+
+#: ../recording.rst:155
+msgid "FLAC"
+msgstr ""
+
+#: ../recording.rst:155
+msgid ""
+"Chooses WAV, FLAC, or MP3. FLAC is lossless with smaller files than WAV."
+msgstr ""
+"Επιλέγει WAV, FLAC ή MP3. Το FLAC είναι χωρίς απώλειες και παράγει μικρότερα"
+" αρχεία από το WAV."
+
+#: ../recording.rst:156
+msgid "Sample Rate"
+msgstr "Ρυθμός δειγματοληψίας (Sample Rate)"
+
+#: ../recording.rst:156
+msgid "48000 Hz"
+msgstr ""
+
+#: ../recording.rst:156
+msgid ""
+"Sets the recording sample rate. Match the device and project when possible."
+msgstr ""
+"Ορίζει τον ρυθμό δειγματοληψίας της εγγραφής. Αντιστοιχίστε τον με τη "
+"συσκευή και το έργο όταν είναι δυνατό."
+
+#: ../recording.rst:157
+msgid "Channels"
+msgstr "Κανάλια (Channels)"
+
+#: ../recording.rst:157
+msgid "Mono"
+msgstr ""
+
+#: ../recording.rst:157
+msgid ""
+"Records one or two input channels. Mono is usually best for one microphone."
+msgstr ""
+"Εγγράφει ένα ή δύο κανάλια εισόδου. Το Mono είναι συνήθως η καλύτερη επιλογή"
+" για ένα μικρόφωνο."
+
+#: ../recording.rst:160
+msgid ""
+"Aim for a healthy meter response without clipping. A quiet waveform should "
+"remain visually quiet; OpenShot no longer normalizes every newly generated "
+"waveform to full height. The lighter peak envelope highlights transients "
+"while the solid RMS envelope summarizes sustained energy. Their detail is "
+"controlled by :guilabel:`Edit → Preferences → Timeline → Waveform Samples "
+"(per second)`. See :ref:`clip_presets_ref` for waveform display and audio "
+"volume controls after recording."
+msgstr ""
+"Στοχεύστε σε μια υγιή απόκριση του μετρητή χωρίς ψαλιδισμό (clipping). Μια "
+"χαμηλή κυματομορφή πρέπει να παραμένει οπτικά χαμηλή· το OpenShot δεν "
+"κανονικοποιεί πλέον κάθε νέα κυματομορφή στο πλήρες ύψος. Η ανοιχτόχρωμη "
+"περιβάλλουσα κορυφών αναδεικνύει τις στιγμιαίες κορυφώσεις, ενώ η συμπαγής "
+"περιβάλλουσα RMS συνοψίζει τη διατηρούμενη ενέργεια. Η λεπτομέρειά τους "
+"ελέγχεται από την επιλογή :guilabel:`Επεξεργασία → Προτιμήσεις → Χρονολόγιο "
+"→ Δείγματα κυματομορφής (ανά δευτερόλεπτο)` (Edit → Preferences → Timeline →"
+" Waveform Samples (per second)). Βλ. :ref:`clip_presets_ref` για την "
+"εμφάνιση της κυματομορφής και τα στοιχεία ελέγχου έντασης ήχου μετά την "
+"εγγραφή."
+
+#: ../recording.rst:167
+msgid "Screen Recording"
+msgstr "Εγγραφή οθόνης"
+
+#: ../recording.rst:169
+msgid "Enable :guilabel:`Screen`, then choose a capture mode:"
+msgstr ""
+"Ενεργοποιήστε την :guilabel:`Οθόνη` (Screen) και, στη συνέχεια, επιλέξτε "
+"λειτουργία καταγραφής:"
+
+#: ../recording.rst:171
+msgid "Screen capture modes"
+msgstr "Λειτουργίες καταγραφής οθόνης"
+
+#: ../recording.rst:175
+msgid "Mode"
+msgstr "Λειτουργία"
+
+#: ../recording.rst:177
+msgid "Full Screen"
+msgstr ""
+
+#: ../recording.rst:177
+msgid "Captures the selected display or combined desktop area."
+msgstr ""
+"Καταγράφει την επιλεγμένη οθόνη ή τη συνδυασμένη περιοχή της επιφάνειας "
+"εργασίας."
+
+#: ../recording.rst:178
+msgid "Window"
+msgstr ""
+
+#: ../recording.rst:178
+msgid ""
+"Click a window to capture its bounds. Availability and exact behavior depend"
+" on the platform."
+msgstr ""
+"Κάντε κλικ σε ένα παράθυρο για να καταγράψετε τα όριά του. Η διαθεσιμότητα "
+"και η ακριβής συμπεριφορά εξαρτώνται από την πλατφόρμα."
+
+#: ../recording.rst:179
+msgid "Region"
+msgstr ""
+
+#: ../recording.rst:179
+msgid ""
+"Drag or select a rectangular desktop area. Availability depends on the "
+"platform."
+msgstr ""
+"Σύρετε ή επιλέξτε μια ορθογώνια περιοχή της επιφάνειας εργασίας. Η "
+"διαθεσιμότητα εξαρτάται από την πλατφόρμα."
+
+#: ../recording.rst:182
+msgid ""
+"On Wayland desktops, the operating system's sharing portal asks which screen"
+" or window to share when recording starts. The numeric window and region "
+"controls are hidden because selection belongs to that portal."
+msgstr ""
+"Στις επιφάνειες εργασίας Wayland, η πύλη κοινής χρήσης του λειτουργικού "
+"συστήματος ρωτά ποια οθόνη ή ποιο παράθυρο θα μοιραστεί όταν ξεκινά η "
+"εγγραφή. Τα αριθμητικά στοιχεία ελέγχου παραθύρου και περιοχής είναι "
+"κρυμμένα, επειδή η επιλογή γίνεται μέσω αυτής της πύλης."
+
+#: ../recording.rst:186
+msgid "Screen Advanced Options"
+msgstr "Προχωρημένες επιλογές οθόνης"
+
+#: ../recording.rst:188
+msgid "Screen options"
+msgstr "Επιλογές οθόνης"
+
+#: ../recording.rst:192
+msgid "Default"
+msgstr "Προεπιλογή"
+
+#: ../recording.rst:194
+msgid "Primary display"
+msgstr "Κύρια οθόνη"
+
+#: ../recording.rst:194
+msgid "Selects a display or the complete desktop when supported."
+msgstr ""
+"Επιλέγει μια οθόνη ή ολόκληρη την επιφάνεια εργασίας, όταν υποστηρίζεται."
+
+#: ../recording.rst:195
+msgid "Offset"
+msgstr "Μετατόπιση (Offset)"
+
+#: ../recording.rst:195 ../recording.rst:196
+msgid "Selected bounds"
+msgstr "Επιλεγμένα όρια"
+
+#: ../recording.rst:195
+msgid "Sets the capture area's X and Y desktop coordinates."
+msgstr ""
+"Ορίζει τις συντεταγμένες X και Y της περιοχής καταγραφής στην επιφάνεια "
+"εργασίας."
+
+#: ../recording.rst:196 ../recording.rst:248
+msgid "Size"
+msgstr "Μέγεθος (Size)"
+
+#: ../recording.rst:196
+msgid ""
+"Sets capture width and height. OpenShot uses encoder-safe even dimensions."
+msgstr ""
+"Ορίζει το πλάτος και το ύψος της καταγραφής. Το OpenShot χρησιμοποιεί ζυγές "
+"διαστάσεις ασφαλείς για τον κωδικοποιητή."
+
+#: ../recording.rst:197
+msgid "FPS"
+msgstr ""
+
+#: ../recording.rst:197
+msgid "30"
+msgstr ""
+
+#: ../recording.rst:197
+msgid "Sets the screen recording frame rate: 15, 24, 30, or 60 FPS."
+msgstr "Ορίζει τον ρυθμό καρέ της εγγραφής οθόνης: 15, 24, 30 ή 60 FPS."
+
+#: ../recording.rst:198 ../recording.rst:211
+msgid "System Audio"
+msgstr "Ήχος συστήματος (System Audio)"
+
+#: ../recording.rst:198 ../recording.rst:199
+msgid "On"
+msgstr ""
+
+#: ../recording.rst:198
+msgid "Embeds computer playback audio in the screen MP4 when supported."
+msgstr ""
+"Ενσωματώνει τον ήχο αναπαραγωγής του υπολογιστή στο MP4 της οθόνης, όταν "
+"υποστηρίζεται."
+
+#: ../recording.rst:199
+msgid "Cursor"
+msgstr "Δείκτης ποντικιού (Cursor)"
+
+#: ../recording.rst:199
+msgid "Includes the mouse pointer in the screen recording."
+msgstr "Συμπεριλαμβάνει τον δείκτη του ποντικιού στην εγγραφή οθόνης."
+
+#: ../recording.rst:200
+msgid "Hide OpenShot"
+msgstr "Απόκρυψη OpenShot (Hide OpenShot)"
+
+#: ../recording.rst:200
+msgid "No"
+msgstr ""
+
+#: ../recording.rst:200
+msgid ""
+"Temporarily hides OpenShot during selection and recording when enabled."
+msgstr ""
+"Όταν είναι ενεργοποιημένο, αποκρύπτει προσωρινά το OpenShot κατά την επιλογή"
+" και την εγγραφή."
+
+#: ../recording.rst:205
+msgid ""
+"On some Windows systems using high-DPI display scaling, the mouse pointer "
+"may be displaced or missing from screen recordings made on a scaled display."
+" If pointer visibility is important, record on a display configured at 100% "
+"scaling, temporarily set the target display to 100%, or use a separate "
+"screen-capture application. Screen video is still recorded normally, and "
+"setting :guilabel:`Cursor` to :guilabel:`Off` avoids the affected pointer "
+"overlay."
+msgstr ""
+"Σε ορισμένα συστήματα Windows που χρησιμοποιούν κλιμάκωση οθόνης υψηλής DPI,"
+" ο δείκτης του ποντικιού μπορεί να εμφανίζεται μετατοπισμένος ή να λείπει "
+"από εγγραφές οθόνης που γίνονται σε κλιμακωμένη οθόνη. Αν η ορατότητα του "
+"δείκτη είναι σημαντική, εγγράψτε σε οθόνη ρυθμισμένη στο 100% κλιμάκωσης, "
+"ορίστε προσωρινά την οθόνη-στόχο στο 100% ή χρησιμοποιήστε ξεχωριστή "
+"εφαρμογή καταγραφής οθόνης. Το βίντεο της οθόνης εγγράφεται κανονικά, και η "
+"ρύθμιση του :guilabel:`Δείκτης ποντικιού` (Cursor) σε :guilabel:`Ανενεργό` "
+"(Off) αποφεύγει την επηρεαζόμενη επικάλυψη δείκτη."
+
+#: ../recording.rst:213
+msgid ""
+":guilabel:`System Audio` is enabled by default on supported capture "
+"backends. It records sound playing through the computer—such as a game, "
+"browser, media player, or presentation—inside the screen recording. It does "
+"not replace the Mic source. Enable both sources when you want system audio "
+"and commentary on independently editable clips."
+msgstr ""
+"Ο :guilabel:`Ήχος συστήματος` (System Audio) είναι ενεργοποιημένος από "
+"προεπιλογή στα υποστηριζόμενα συστήματα καταγραφής. Εγγράφει τον ήχο που "
+"παίζει μέσω του υπολογιστή, όπως ενός παιχνιδιού, προγράμματος περιήγησης, "
+"αναπαραγωγέα πολυμέσων ή παρουσίασης, μέσα στην εγγραφή οθόνης. Δεν "
+"αντικαθιστά την πηγή Μικρόφωνο (Mic). Ενεργοποιήστε και τις δύο πηγές όταν "
+"θέλετε ήχο συστήματος και σχολιασμό σε ανεξάρτητα επεξεργάσιμα κλιπ."
+
+#: ../recording.rst:217
+msgid ""
+"If the control is disabled, the active platform or libopenshot build does "
+"not provide system-audio capture. OpenShot forces the option Off rather than"
+" producing a misleading silent audio track. Operating-system privacy "
+"settings and audio-routing configuration can also affect capture."
+msgstr ""
+"Αν το στοιχείο ελέγχου είναι απενεργοποιημένο, η ενεργή πλατφόρμα ή η έκδοση"
+" του libopenshot δεν παρέχει καταγραφή ήχου συστήματος. Το OpenShot θέτει "
+"αναγκαστικά την επιλογή σε Ανενεργό (Off), αντί να παράγει ένα παραπλανητικό"
+" κομμάτι σιωπηλού ήχου. Οι ρυθμίσεις απορρήτου του λειτουργικού συστήματος "
+"και η διαμόρφωση δρομολόγησης ήχου μπορούν επίσης να επηρεάσουν την "
+"καταγραφή."
+
+#: ../recording.rst:223
+msgid ""
+"System Audio recording is not currently available on macOS. Screen video, "
+"microphone, and webcam recording remain available, but the :guilabel:`System"
+" Audio` option is disabled and forced to :guilabel:`Off`."
+msgstr ""
+"Η εγγραφή ήχου συστήματος δεν είναι προς το παρόν διαθέσιμη στο macOS. Η "
+"εγγραφή βίντεο οθόνης, μικροφώνου και κάμερας web παραμένει διαθέσιμη, αλλά "
+"η επιλογή :guilabel:`Ήχος συστήματος` (System Audio) είναι απενεργοποιημένη "
+"και τίθεται αναγκαστικά σε :guilabel:`Ανενεργό` (Off)."
+
+#: ../recording.rst:228
+msgid ""
+"Avoid playing captured system audio through speakers while also recording a "
+"microphone unless that sound is intentional. Headphones reduce echo and "
+"prevent the microphone from recording the speakers a second time."
+msgstr ""
+"Αποφύγετε την αναπαραγωγή του ήχου συστήματος που καταγράφεται μέσω ηχείων "
+"ενώ εγγράφετε ταυτόχρονα με μικρόφωνο, εκτός αν αυτός ο ήχος είναι σκόπιμος."
+" Τα ακουστικά μειώνουν την ηχώ και εμποδίζουν το μικρόφωνο να εγγράψει τα "
+"ηχεία για δεύτερη φορά."
+
+#: ../recording.rst:232
+msgid "Webcam Recording"
+msgstr "Εγγραφή κάμερας web"
+
+#: ../recording.rst:234
+msgid ""
+"Enable :guilabel:`Webcam` to record a camera as a silent video clip. A live "
+"preview helps verify framing before you start. When Screen is also enabled, "
+"the default layout is a rounded, 30% camera in the bottom-right corner. When"
+" the webcam is recorded alone, it defaults to full size."
+msgstr ""
+"Ενεργοποιήστε την :guilabel:`Κάμερα web` (Webcam) για να εγγράψετε μια "
+"κάμερα ως βίντεο κλιπ χωρίς ήχο. Μια ζωντανή προεπισκόπηση βοηθά να "
+"επαληθεύσετε το κάδρο πριν ξεκινήσετε. Όταν είναι ενεργοποιημένη και η "
+"οθόνη, η προεπιλεγμένη διάταξη είναι μια στρογγυλεμένη κάμερα στο 30% στην "
+"κάτω δεξιά γωνία. Όταν η κάμερα web εγγράφεται μόνη της, η προεπιλογή είναι "
+"πλήρες μέγεθος."
+
+#: ../recording.rst:238
+msgid "Webcam options"
+msgstr "Επιλογές κάμερας web"
+
+#: ../recording.rst:244
+msgid "Selects an available webcam or video-capture device."
+msgstr "Επιλέγει μια διαθέσιμη κάμερα web ή συσκευή καταγραφής βίντεο."
+
+#: ../recording.rst:245
+msgid "Resolution"
+msgstr "Ανάλυση (Resolution)"
+
+#: ../recording.rst:245
+msgid "Selects a resolution reported by the camera."
+msgstr "Επιλέγει μια ανάλυση που αναφέρεται από την κάμερα."
+
+#: ../recording.rst:246
+msgid "Record FPS"
+msgstr "FPS εγγραφής (Record FPS)"
+
+#: ../recording.rst:246
+msgid "Selects a frame rate supported at the chosen resolution."
+msgstr "Επιλέγει έναν ρυθμό καρέ που υποστηρίζεται στην επιλεγμένη ανάλυση."
+
+#: ../recording.rst:247
+msgid "Layout"
+msgstr "Διάταξη (Layout)"
+
+#: ../recording.rst:247
+msgid ""
+"Chooses Bottom/Top Left/Right, Left, Right, Center, or Full Size placement."
+msgstr ""
+"Επιλέγει τοποθέτηση Bottom/Top Left/Right, Left, Right, Center ή Full Size."
+
+#: ../recording.rst:248
+msgid "Sets a corner camera to 20%, 30%, or 40% of the project frame."
+msgstr ""
+"Ορίζει το μέγεθος μιας κάμερας γωνίας στο 20%, 30% ή 40% του καρέ του έργου."
+
+#: ../recording.rst:249
+msgid "Corners"
+msgstr "Γωνίες (Corners)"
+
+#: ../recording.rst:249
+msgid "Uses Rectangle, Rounded, or Oval camera corners."
+msgstr "Χρησιμοποιεί γωνίες κάμερας Rectangle, Rounded ή Oval."
+
+#: ../recording.rst:252
+msgid ""
+"Layout choices are applied as ordinary clip properties. After recording, use"
+" :guilabel:`Gravity`, :guilabel:`Scale X`, :guilabel:`Scale Y`, "
+":guilabel:`Margin`, and :guilabel:`Corner Radius` to refine the result. See "
+":ref:`clip_properties_ref`."
+msgstr ""
+"Οι επιλογές διάταξης εφαρμόζονται ως συνηθισμένες ιδιότητες κλιπ. Μετά την "
+"εγγραφή, χρησιμοποιήστε τα :guilabel:`Βαρύτητα` (Gravity), "
+":guilabel:`Κλίμακα Χ` (Scale X), :guilabel:`Κλίμακα Υ` (Scale Y), "
+":guilabel:`Περιθώριο` (Margin) και :guilabel:`Ακτίνα γωνίας` (Corner Radius)"
+" για να βελτιώσετε το αποτέλεσμα. Βλ. :ref:`clip_properties_ref`."
+
+#: ../recording.rst:257
+msgid "Combining Sources"
+msgstr "Συνδυασμός πηγών"
+
+#: ../recording.rst:259
+msgid ""
+"The Recording View keeps all enabled source controls together while leaving "
+"the preview and timeline visible."
+msgstr ""
+"Η Προβολή εγγραφής διατηρεί μαζί όλα τα στοιχεία ελέγχου των ενεργοποιημένων"
+" πηγών, αφήνοντας ορατά την προεπισκόπηση και το χρονολόγιο."
+
+#: ../recording.rst:-1
+msgid ""
+"OpenShot Recording View with microphone, screen, and webcam sources selected"
+msgstr ""
+"Η Προβολή εγγραφής του OpenShot με επιλεγμένες πηγές μικροφώνου, οθόνης και "
+"κάμερας web"
+
+#: ../recording.rst:264
+msgid "Useful recording combinations"
+msgstr "Χρήσιμοι συνδυασμοί εγγραφής"
+
+#: ../recording.rst:268
+msgid "Workflow"
+msgstr "Ροή εργασίας"
+
+#: ../recording.rst:269
+msgid "Enable"
+msgstr "Ενεργοποίηση"
+
+#: ../recording.rst:270
+msgid "Result"
+msgstr "Αποτέλεσμα"
+
+#: ../recording.rst:271
+msgid "Voice-over"
+msgstr "Αφήγηση εκτός πλάνου (Voice-over)"
+
+#: ../recording.rst:273
+msgid "One editable narration file."
+msgstr "Ένα επεξεργάσιμο αρχείο αφήγησης."
+
+#: ../recording.rst:274
+msgid "Silent tutorial"
+msgstr "Εκπαιδευτικό βίντεο χωρίς ήχο"
+
+#: ../recording.rst:276
+msgid "Screen MP4; turn System Audio Off if silence is desired."
+msgstr ""
+"MP4 οθόνης· ρυθμίστε τον Ήχο συστήματος (System Audio) σε Ανενεργό (Off) αν "
+"θέλετε σιωπή."
+
+#: ../recording.rst:277
+msgid "Game commentary"
+msgstr "Σχολιασμός παιχνιδιού"
+
+#: ../recording.rst:278
+msgid "Mic + Screen"
+msgstr ""
+
+#: ../recording.rst:279
+msgid "Separate mic clip plus screen video with game audio."
+msgstr ""
+"Ξεχωριστό κλιπ μικροφώνου και βίντεο οθόνης με τον ήχο του παιχνιδιού."
+
+#: ../recording.rst:280
+msgid "Presenter camera"
+msgstr "Κάμερα παρουσιαστή"
+
+#: ../recording.rst:281
+msgid "Mic + Webcam"
+msgstr ""
+
+#: ../recording.rst:282
+msgid "Separate voice and silent camera video."
+msgstr "Ξεχωριστή φωνή και βίντεο κάμερας χωρίς ήχο."
+
+#: ../recording.rst:283
+msgid "Tutorial with camera"
+msgstr "Εκπαιδευτικό βίντεο με κάμερα"
+
+#: ../recording.rst:284
+msgid "Mic + Screen + Webcam"
+msgstr ""
+
+#: ../recording.rst:285
+msgid "Three synchronized clips with webcam above the screen."
+msgstr "Τρία συγχρονισμένα κλιπ, με την κάμερα web πάνω από την οθόνη."
+
+#: ../recording.rst:288
+msgid "Where Recordings Are Saved"
+msgstr "Πού αποθηκεύονται οι εγγραφές"
+
+#: ../recording.rst:290
+msgid ""
+"Recordings are saved in the project's assets folder under ``recordings``. If"
+" the project has not been saved yet, OpenShot uses its user-data location. "
+"Filenames contain the source name and a timestamp; another numeric suffix "
+"avoids overwriting a file created during the same second."
+msgstr ""
+"Οι εγγραφές αποθηκεύονται στον φάκελο στοιχείων (assets) του έργου, κάτω από"
+" τον φάκελο ``recordings``. Αν το έργο δεν έχει αποθηκευτεί ακόμη, το "
+"OpenShot χρησιμοποιεί τη θέση των δεδομένων χρήστη. Τα ονόματα αρχείων "
+"περιέχουν το όνομα της πηγής και μια χρονοσφραγίδα· ένα επιπλέον αριθμητικό "
+"επίθεμα αποτρέπει την αντικατάσταση ενός αρχείου που δημιουργήθηκε μέσα στο "
+"ίδιο δευτερόλεπτο."
+
+#: ../recording.rst:294
+msgid ""
+"Save the project before a long or important session so its recording "
+"destination is predictable. Do not move or rename recorded files outside "
+"OpenShot while the project is using them."
+msgstr ""
+"Αποθηκεύστε το έργο πριν από μια μεγάλη ή σημαντική συνεδρία, ώστε ο "
+"προορισμός της εγγραφής να είναι προβλέψιμος. Μην μετακινείτε και μην "
+"μετονομάζετε τα εγγεγραμμένα αρχεία έξω από το OpenShot ενώ το έργο τα "
+"χρησιμοποιεί."
+
+#: ../recording.rst:298
+msgid "Permissions and Platform Behavior"
+msgstr "Άδειες και συμπεριφορά ανά πλατφόρμα"
+
+#: ../recording.rst:300
+msgid ""
+"Screen and camera capture depend on operating-system services, hardware, and"
+" build support. The controls in the dock adapt to the available backend."
+msgstr ""
+"Η καταγραφή οθόνης και κάμερας εξαρτάται από υπηρεσίες του λειτουργικού "
+"συστήματος, από το υλικό και από την υποστήριξη της έκδοσης. Τα στοιχεία "
+"ελέγχου στο πάνελ προσαρμόζονται στο διαθέσιμο σύστημα υποστήριξης."
+
+#: ../recording.rst:303
+msgid ""
+"**Linux/X11:** Full-screen, window, and numeric region capture are available"
+" when the X11 capture backend is built."
+msgstr ""
+"**Linux/X11:** Η καταγραφή πλήρους οθόνης, παραθύρου και αριθμητικά "
+"ορισμένης περιοχής είναι διαθέσιμη όταν έχει δημιουργηθεί (build) το σύστημα"
+" καταγραφής X11."
+
+#: ../recording.rst:304
+msgid ""
+"**Linux/Wayland:** The desktop sharing portal chooses the capture source "
+"after recording starts."
+msgstr ""
+"**Linux/Wayland:** Η πύλη κοινής χρήσης της επιφάνειας εργασίας επιλέγει την"
+" πηγή καταγραφής αφού ξεκινήσει η εγγραφή."
+
+#: ../recording.rst:305
+msgid ""
+"**Windows:** Desktop capture uses the available Windows screen backend; "
+"camera devices use Windows capture services."
+msgstr ""
+"**Windows:** Η καταγραφή της επιφάνειας εργασίας χρησιμοποιεί το διαθέσιμο "
+"σύστημα καταγραφής οθόνης των Windows· οι συσκευές κάμερας χρησιμοποιούν τις"
+" υπηρεσίες καταγραφής των Windows."
+
+#: ../recording.rst:306
+msgid ""
+"**macOS:** Screen capture uses the supported macOS backend, with window and "
+"region choices represented as cropped screen bounds when required. System "
+"Audio recording is not currently supported; microphone recording remains "
+"available as a separate audio source."
+msgstr ""
+"**macOS:** Η καταγραφή οθόνης χρησιμοποιεί το υποστηριζόμενο σύστημα του "
+"macOS, με τις επιλογές παραθύρου και περιοχής να αναπαρίστανται ως "
+"περικομμένα όρια οθόνης όταν χρειάζεται. Η εγγραφή ήχου συστήματος δεν "
+"υποστηρίζεται προς το παρόν· η εγγραφή μικροφώνου παραμένει διαθέσιμη ως "
+"ξεχωριστή πηγή ήχου."
+
+#: ../recording.rst:310
+msgid ""
+"The first recording may trigger Screen Recording, Microphone, Camera, or "
+"desktop-sharing permission prompts. Approve the requested source, then "
+"restart OpenShot if the operating system requires it. A disabled source card"
+" or option is preferable to a recording that silently omits an unsupported "
+"source."
+msgstr ""
+"Η πρώτη εγγραφή μπορεί να προκαλέσει μηνύματα άδειας για Εγγραφή οθόνης, "
+"Μικρόφωνο, Κάμερα ή κοινή χρήση επιφάνειας εργασίας. Εγκρίνετε την πηγή που "
+"ζητείται και, στη συνέχεια, επανεκκινήστε το OpenShot αν το απαιτεί το "
+"λειτουργικό σύστημα. Μια απενεργοποιημένη κάρτα πηγής ή επιλογή είναι "
+"προτιμότερη από μια εγγραφή που παραλείπει σιωπηλά μια μη υποστηριζόμενη "
+"πηγή."
+
+#: ../recording.rst:315
+msgid "Troubleshooting Recording"
+msgstr "Αντιμετώπιση προβλημάτων εγγραφής"
+
+#: ../recording.rst:317
+msgid "Common recording problems"
+msgstr "Συνήθη προβλήματα εγγραφής"
+
+#: ../recording.rst:321
+msgid "Problem"
+msgstr "Πρόβλημα"
+
+#: ../recording.rst:321
+msgid "What to Check"
+msgstr "Τι να ελέγξετε"
+
+#: ../recording.rst:323
+msgid "Mic meter does not move"
+msgstr "Ο μετρητής μικροφώνου δεν κινείται"
+
+#: ../recording.rst:323
+msgid ""
+"Select the correct Input, verify OS microphone permission, and check "
+"mute/gain."
+msgstr ""
+"Επιλέξτε τη σωστή είσοδο (Input), ελέγξτε την άδεια μικροφώνου του "
+"λειτουργικού συστήματος και ελέγξτε τη σίγαση και την ενίσχυση (mute/gain)."
+
+#: ../recording.rst:324
+msgid "Mic clips or distorts"
+msgstr "Το μικρόφωνο ψαλιδίζει (clipping) ή παραμορφώνει"
+
+#: ../recording.rst:324
+msgid "Lower hardware/input gain and keep peaks below full scale."
+msgstr ""
+"Μειώστε την ενίσχυση υλικού/εισόδου και κρατήστε τις κορυφές κάτω από την "
+"πλήρη κλίμακα."
+
+#: ../recording.rst:325
+msgid "Mic is very quiet"
+msgstr "Το μικρόφωνο ακούγεται πολύ χαμηλά"
+
+#: ../recording.rst:325
+msgid ""
+"Raise input gain near the device; timeline waveform height does not change "
+"audio."
+msgstr ""
+"Αυξήστε την ενίσχυση εισόδου κοντά στη συσκευή· το ύψος της κυματομορφής στο"
+" χρονολόγιο δεν αλλάζει τον ήχο."
+
+#: ../recording.rst:326
+msgid "System Audio is disabled"
+msgstr "Ο Ήχος συστήματος (System Audio) είναι απενεργοποιημένος"
+
+#: ../recording.rst:326
+msgid ""
+"The active screen backend/build does not support it; check platform audio "
+"routing."
+msgstr ""
+"Το ενεργό σύστημα καταγραφής οθόνης ή η έκδοση (build) δεν τον υποστηρίζει· "
+"ελέγξτε τη δρομολόγηση ήχου της πλατφόρμας."
+
+#: ../recording.rst:327
+msgid "System Audio is silent"
+msgstr "Ο Ήχος συστήματος (System Audio) είναι σιωπηλός"
+
+#: ../recording.rst:327
+msgid ""
+"Play audio before testing, verify the output device, and inspect OS "
+"privacy/routing."
+msgstr ""
+"Αναπαράγετε ήχο πριν από τη δοκιμή, ελέγξτε τη συσκευή εξόδου και εξετάστε "
+"τις ρυθμίσεις απορρήτου/δρομολόγησης του λειτουργικού συστήματος."
+
+#: ../recording.rst:328
+msgid "Voice contains game echo"
+msgstr "Η φωνή περιέχει ηχώ από το παιχνίδι"
+
+#: ../recording.rst:328
+msgid "Use headphones so the mic does not capture speaker playback."
+msgstr ""
+"Χρησιμοποιήστε ακουστικά, ώστε το μικρόφωνο να μην καταγράφει την "
+"αναπαραγωγή από τα ηχεία."
+
+#: ../recording.rst:329
+msgid "Screen source is incorrect"
+msgstr "Η πηγή οθόνης είναι λανθασμένη"
+
+#: ../recording.rst:329
+msgid ""
+"Re-select Full Screen/Window/Region; on Wayland, choose again in the portal."
+msgstr ""
+"Επιλέξτε ξανά Full Screen/Window/Region· στο Wayland, επιλέξτε ξανά μέσα από"
+" την πύλη."
+
+#: ../recording.rst:330
+msgid "Cursor missing on Windows"
+msgstr "Λείπει ο δείκτης στα Windows"
+
+#: ../recording.rst:330
+msgid ""
+"High-DPI scaling can affect the pointer overlay; try the target display at "
+"100%."
+msgstr ""
+"Η κλιμάκωση υψηλής DPI μπορεί να επηρεάσει την επικάλυψη του δείκτη· "
+"δοκιμάστε την οθόνη-στόχο στο 100%."
+
+#: ../recording.rst:331
+msgid "Webcam is unavailable"
+msgstr "Η κάμερα web δεν είναι διαθέσιμη"
+
+#: ../recording.rst:331
+msgid ""
+"Check camera permission, close other camera apps, and reconnect the device."
+msgstr ""
+"Ελέγξτε την άδεια της κάμερας, κλείστε άλλες εφαρμογές κάμερας και "
+"επανασυνδέστε τη συσκευή."
+
+#: ../recording.rst:332
+msgid "Recording is choppy"
+msgstr "Η εγγραφή κομματιάζεται"
+
+#: ../recording.rst:332
+msgid ""
+"Lower screen/camera FPS or resolution and close CPU-intensive applications."
+msgstr ""
+"Μειώστε τον ρυθμό καρέ (FPS) ή την ανάλυση της οθόνης/κάμερας και κλείστε "
+"εφαρμογές που καταναλώνουν πολλή CPU."
+
+#: ../recording.rst:333
+msgid "Clips appear on wrong track"
+msgstr "Τα κλιπ εμφανίζονται σε λάθος διάδρομο"
+
+#: ../recording.rst:333
+msgid ""
+"Choose the top destination Track before recording, then move clips if "
+"needed."
+msgstr ""
+"Επιλέξτε τον ανώτερο διάδρομο προορισμού (Track) πριν από την εγγραφή και "
+"μετακινήστε τα κλιπ αν χρειαστεί."
+
+#: ../recording.rst:337
+msgid "After Recording"
+msgstr "Μετά την εγγραφή"
+
+#: ../recording.rst:339
+msgid ""
+"Recorded clips behave like imported media. You can trim, slice, move, mute, "
+"fade, add effects, and adjust volume or layout with the standard editing "
+"tools. Useful next topics are:"
+msgstr ""
+"Τα εγγεγραμμένα κλιπ συμπεριφέρονται όπως τα εισαγόμενα πολυμέσα. Μπορείτε "
+"να περικόψετε τα άκρα (trim), να κόψετε, να μετακινήσετε, να σιγάσετε, να "
+"εφαρμόσετε βαθμιαία είσοδο/έξοδο, να προσθέσετε εφέ και να ρυθμίσετε την "
+"ένταση ή τη διάταξη με τα βασικά εργαλεία επεξεργασίας. Χρήσιμα επόμενα "
+"θέματα είναι:"
+
+#: ../recording.rst:342
+msgid ":ref:`clips_cutting_slicing_ref` for trimming and slicing."
+msgstr ":ref:`clips_cutting_slicing_ref` για περικοπή και κόψιμο."
+
+#: ../recording.rst:343
+msgid ""
+":ref:`clip_presets_ref` for waveform, volume, fade, and other clip actions."
+msgstr ""
+":ref:`clip_presets_ref` για κυματομορφή, ένταση, βαθμιαία είσοδο/έξοδο και "
+"άλλες ενέργειες κλιπ."
+
+#: ../recording.rst:344
+msgid ""
+":ref:`clip_properties_ref` for webcam placement and detailed adjustments."
+msgstr ""
+":ref:`clip_properties_ref` για την τοποθέτηση της κάμερας web και "
+"λεπτομερείς ρυθμίσεις."
+
+#: ../recording.rst:345
+msgid ":ref:`playback_ref` for playback and audio troubleshooting."
+msgstr ""
+":ref:`playback_ref` για την αναπαραγωγή και την αντιμετώπιση προβλημάτων "
+"ήχου."

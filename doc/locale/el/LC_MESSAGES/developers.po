@@ -1,0 +1,586 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../developers.rst:21
+msgid "Developers"
+msgstr "Για προγραμματιστές"
+
+#: ../developers.rst:23
+msgid ""
+"If you are a programmer (or want to become a programmer), and are interested"
+" in developing new features, fixing bugs, or improving the user interface "
+"for OpenShot, the following sections will explain how to get started and get"
+" involved!"
+msgstr ""
+"Αν είστε προγραμματιστής (ή θέλετε να γίνετε), και σας ενδιαφέρει η ανάπτυξη"
+" νέων λειτουργιών, η διόρθωση σφαλμάτων ή η βελτίωση της διεπαφής χρήστη του"
+" OpenShot, οι παρακάτω ενότητες θα εξηγήσουν πώς να ξεκινήσετε και να "
+"συμμετάσχετε!"
+
+#: ../developers.rst:28
+msgid "The Big Picture"
+msgstr "Η συνολική εικόνα"
+
+#: ../developers.rst:29
+msgid ""
+"OpenShot Video Editor has 3 main components, a Python & PyQt user interface "
+"(:openshot-github:`openshot-qt`), a C++ audio library (:openshot-"
+"github:`libopenshot-audio`) and a C++ video library (:openshot-"
+"github:`libopenshot`). If you are not familiar with Python, PyQt, or C++, "
+"those would be great topics to research and learn more about at this point."
+msgstr ""
+"Το OpenShot Video Editor έχει 3 βασικά συστατικά: μια διεπαφή χρήστη σε "
+"Python & PyQt (:openshot-github:`openshot-qt`), μια βιβλιοθήκη ήχου σε C++ "
+"(:openshot-github:`libopenshot-audio`) και μια βιβλιοθήκη βίντεο σε C++ "
+"(:openshot-github:`libopenshot`). Αν δεν είστε εξοικειωμένοι με την Python, "
+"το PyQt ή τη C++, αυτά είναι εξαιρετικά θέματα για να τα ερευνήσετε και να "
+"μάθετε περισσότερα σε αυτό το σημείο."
+
+#: ../developers.rst:35
+msgid ""
+"However, many bugs can be fixed and new features added with only Python "
+"knowledge, since the C++ components are not involved in the user interface "
+"at all. Python is an amazing language, and is super fun to learn, and is the"
+" only prerequisite skill needed to become an OpenShot developer!"
+msgstr ""
+"Ωστόσο, πολλά σφάλματα μπορούν να διορθωθούν και νέες λειτουργίες να "
+"προστεθούν μόνο με γνώση της Python, καθώς τα συστατικά C++ δεν εμπλέκονται "
+"καθόλου στη διεπαφή χρήστη. Η Python είναι μια εξαιρετική γλώσσα, πολύ "
+"διασκεδαστική στην εκμάθηση, και είναι η μόνη προαπαιτούμενη δεξιότητα για "
+"να γίνετε προγραμματιστής του OpenShot!"
+
+#: ../developers.rst:42
+msgid ""
+"The instructions that follow are for Ubuntu Linux, which is the easiest "
+"environment to configure for OpenShot development. If you are using another "
+"OS, I suggest running a virtual machine with Ubuntu LTS before continuing "
+"any further."
+msgstr ""
+"Οι οδηγίες που ακολουθούν αφορούν το Ubuntu Linux, το οποίο είναι το "
+"ευκολότερο περιβάλλον για να ρυθμιστεί για ανάπτυξη του OpenShot. Αν "
+"χρησιμοποιείτε άλλο λειτουργικό σύστημα, σας προτείνω να εκτελέσετε μια "
+"εικονική μηχανή με Ubuntu LTS πριν συνεχίσετε."
+
+#: ../developers.rst:47
+msgid ""
+"If you must use a Windows or Mac system for development, start by referring "
+"to the build notes in the ``libopenshot`` wiki. Building the library with "
+"all of its dependencies is the most challenging part of the process."
+msgstr ""
+"Αν πρέπει να χρησιμοποιήσετε σύστημα Windows ή Mac για την ανάπτυξη, "
+"ξεκινήστε συμβουλευόμενοι τις σημειώσεις δημιουργίας (build) στο wiki του "
+"``libopenshot``. Η δημιουργία της βιβλιοθήκης μαζί με όλες τις εξαρτήσεις "
+"της είναι το πιο απαιτητικό μέρος της διαδικασίας."
+
+#: ../developers.rst:51
+msgid ""
+":libopenshot-wiki:`Windows Build Instructions <Windows-Build-Instructions>`"
+msgstr ""
+":libopenshot-wiki:`Οδηγίες δημιουργίας για Windows <Windows-Build-"
+"Instructions>`"
+
+#: ../developers.rst:52
+msgid ":libopenshot-wiki:`Mac Build Instructions <Mac-Build-Instructions>`"
+msgstr ""
+":libopenshot-wiki:`Οδηγίες δημιουργίας για Mac <Mac-Build-Instructions>`"
+
+#: ../developers.rst:55
+msgid "Getting the Latest Source Code"
+msgstr "Λήψη του τελευταίου πηγαίου κώδικα"
+
+#: ../developers.rst:56
+msgid ""
+"Before we can fix any bugs or add any features, we need to get the source "
+"code onto your computer."
+msgstr ""
+"Για να διορθώσουμε σφάλματα ή να προσθέσουμε λειτουργίες, πρέπει πρώτα να "
+"φέρουμε τον πηγαίο κώδικα στον υπολογιστή σας."
+
+#: ../developers.rst:59
+msgid "Use git to clone our 3 repositories:"
+msgstr ""
+"Χρησιμοποιήστε το git για να κλωνοποιήσετε (clone) τα 3 αποθετήριά μας:"
+
+#: ../developers.rst:68
+msgid "Configuring your Development Environment"
+msgstr "Ρύθμιση του περιβάλλοντος ανάπτυξης"
+
+#: ../developers.rst:69
+msgid ""
+"In order to actually compile or run OpenShot, we need to install some "
+"dependencies on your system. The easiest way to accomplish this is with our "
+"`Daily PPA <https://www.openshot.org/ppa/>`_. A PPA is an unofficial Ubuntu "
+"repository, which has our software packages available to download and "
+"install."
+msgstr ""
+"Για να μεταγλωττίσουμε ή να εκτελέσουμε πραγματικά το OpenShot, χρειάζεται "
+"να εγκαταστήσουμε ορισμένες εξαρτήσεις στο σύστημά σας. Ο ευκολότερος τρόπος"
+" είναι μέσω του `Daily PPA <https://www.openshot.org/ppa/>`_ μας. Ένα PPA "
+"είναι ένα ανεπίσημο αποθετήριο του Ubuntu, από το οποίο μπορείτε να "
+"κατεβάσετε και να εγκαταστήσετε τα πακέτα λογισμικού μας."
+
+#: ../developers.rst:110
+msgid ""
+"OpenShot supports PyQt5, PyQt6, and PySide6. libopenshot must be built "
+"against the correct Qt version for the binding you are using (Qt5: PyQt5, "
+"Qt6: PyQt6 or PySide6)."
+msgstr ""
+"Το OpenShot υποστηρίζει PyQt5, PyQt6 και PySide6. Η βιβλιοθήκη libopenshot "
+"πρέπει να έχει δημιουργηθεί με τη σωστή έκδοση του Qt για τη σύνδεση "
+"(binding) που χρησιμοποιείτε (Qt5: PyQt5, Qt6: PyQt6 ή PySide6)."
+
+#: ../developers.rst:114
+msgid "For PySide6 (Qt6) bindings, install these packages:"
+msgstr "Για συνδέσεις PySide6 (Qt6), εγκαταστήστε αυτά τα πακέτα:"
+
+#: ../developers.rst:127
+msgid "For PyQt6, install these packages:"
+msgstr "Για PyQt6, εγκαταστήστε αυτά τα πακέτα:"
+
+#: ../developers.rst:137
+msgid ""
+"The PyQt6 runtime must provide ``QtCore``, ``QtGui``, ``QtWidgets``, "
+"``QtSvg``, ``QtStateMachine``, and ``uic``. Some distributions split these "
+"modules into separate packages. In particular, Ubuntu 24.04's "
+"``python3-pyqt6`` package does not include ``QtStateMachine``. On that "
+"release, use the PySide6 packages above or install the complete PyQt6 wheel "
+"in a Python virtual environment:"
+msgstr ""
+"Το περιβάλλον εκτέλεσης του PyQt6 πρέπει να παρέχει τα ``QtCore``, "
+"``QtGui``, ``QtWidgets``, ``QtSvg``, ``QtStateMachine`` και ``uic``. "
+"Ορισμένες διανομές χωρίζουν αυτές τις ενότητες σε ξεχωριστά πακέτα. "
+"Συγκεκριμένα, το πακέτο ``python3-pyqt6`` του Ubuntu 24.04 δεν περιλαμβάνει "
+"το ``QtStateMachine``. Σε αυτή την έκδοση, χρησιμοποιήστε τα παραπάνω πακέτα"
+" PySide6 ή εγκαταστήστε το πλήρες wheel του PyQt6 σε ένα εικονικό περιβάλλον"
+" Python:"
+
+#: ../developers.rst:149
+msgid ""
+"Verify the selected Qt binding and its required modules before launching "
+"OpenShot:"
+msgstr ""
+"Επαληθεύστε τη συγκεκριμένη σύνδεση Qt και τις απαιτούμενες ενότητές της "
+"πριν εκκινήσετε το OpenShot:"
+
+#: ../developers.rst:157
+msgid ""
+"At this point, you should have all 3 OpenShot components source code cloned "
+"into local folders, the OpenShot daily PPA installed, and all of the "
+"required development and runtime dependencies installed. This is a great "
+"start, and we are now ready to start compiling some code!"
+msgstr ""
+"Σε αυτό το σημείο, θα πρέπει να έχετε κλωνοποιήσει τον πηγαίο κώδικα και των"
+" 3 συστατικών του OpenShot σε τοπικούς φακέλους, να έχετε εγκαταστήσει το "
+"ημερήσιο PPA του OpenShot και να έχετε εγκαταστήσει όλες τις απαιτούμενες "
+"εξαρτήσεις ανάπτυξης και εκτέλεσης. Αυτό είναι μια εξαιρετική αρχή και "
+"είμαστε πλέον έτοιμοι να αρχίσουμε να μεταγλωττίζουμε κώδικα!"
+
+#: ../developers.rst:162
+msgid "libopenshot-audio (Build Instructions)"
+msgstr "libopenshot-audio (οδηγίες δημιουργίας)"
+
+#: ../developers.rst:163
+msgid ""
+"This library is required for audio playback and audio effects. It is based "
+"on the JUCE audio framework. Here are the commands to build it:"
+msgstr ""
+"Η βιβλιοθήκη αυτή απαιτείται για την αναπαραγωγή ήχου και τα εφέ ήχου. "
+"Βασίζεται στο πλαίσιο ήχου JUCE. Ακολουθούν οι εντολές για τη δημιουργία "
+"της:"
+
+#: ../developers.rst:176
+msgid ""
+"Essentially, we are switching to the ``libopenshot-audio/build`` folder, "
+"then running ``cmake ..`` on the parent folder. This finds dependencies and "
+"creates all the needed Makefiles used to compile this library. Then ``make``"
+" uses those Makefiles to compile this library, and ``make install`` installs"
+" them in the location we specified. If ``CMAKE_INSTALL_PREFIX`` isn't set, "
+"the files will install to ``/usr/local/`` (by default) and ``make install`` "
+"will require administrative privileges to run."
+msgstr ""
+"Ουσιαστικά, μεταβαίνουμε στον φάκελο ``libopenshot-audio/build`` και στη "
+"συνέχεια εκτελούμε το ``cmake ..`` στον γονικό φάκελο. Έτσι βρίσκονται οι "
+"εξαρτήσεις και δημιουργούνται όλα τα απαραίτητα Makefiles που "
+"χρησιμοποιούνται για τη μεταγλώττιση αυτής της βιβλιοθήκης. Έπειτα το "
+"``make`` χρησιμοποιεί αυτά τα Makefiles για να μεταγλωττίσει τη βιβλιοθήκη "
+"και το ``make install`` την εγκαθιστά στη θέση που ορίσαμε. Αν δεν έχει "
+"οριστεί το ``CMAKE_INSTALL_PREFIX``, τα αρχεία θα εγκατασταθούν (από "
+"προεπιλογή) στο ``/usr/local/`` και το ``make install`` θα απαιτήσει "
+"δικαιώματα διαχειριστή για να εκτελεστεί."
+
+#: ../developers.rst:184
+msgid "libopenshot (Build Instructions)"
+msgstr "libopenshot (οδηγίες δημιουργίας)"
+
+#: ../developers.rst:185
+msgid ""
+"This library is required for video decoding, encoding, animation, and just "
+"about everything else. It does all the heavy lifting of video editing and "
+"video playback. Here are the commands to build it:"
+msgstr ""
+"Η βιβλιοθήκη αυτή απαιτείται για την αποκωδικοποίηση και την κωδικοποίηση "
+"βίντεο, τα κινούμενα γραφικά και σχεδόν για οτιδήποτε άλλο. Κάνει όλη τη "
+"βαριά δουλειά της επεξεργασίας και της αναπαραγωγής βίντεο. Ακολουθούν οι "
+"εντολές για τη δημιουργία της:"
+
+#: ../developers.rst:197
+msgid ""
+"Essentially, we are switching to the ``libopenshot/build`` folder, then "
+"running ``cmake ..`` on the parent folder. This finds dependencies and "
+"creates all the needed Makefiles used to compile this library. Then ``make``"
+" uses those Makefiles to compile this library. Because we provided the "
+"location of our compiled ``libopenshot-audio`` installation, that version of"
+" the library will be used instead of the system version (if any)."
+msgstr ""
+"Ουσιαστικά, μεταβαίνουμε στον φάκελο ``libopenshot/build`` και στη συνέχεια "
+"εκτελούμε το ``cmake ..`` στον γονικό φάκελο. Έτσι βρίσκονται οι εξαρτήσεις "
+"και δημιουργούνται όλα τα απαραίτητα Makefiles που χρησιμοποιούνται για τη "
+"μεταγλώττιση αυτής της βιβλιοθήκης. Έπειτα το ``make`` χρησιμοποιεί αυτά τα "
+"Makefiles για να μεταγλωττίσει τη βιβλιοθήκη. Επειδή δώσαμε τη θέση της "
+"μεταγλωττισμένης εγκατάστασης του ``libopenshot-audio``, θα χρησιμοποιηθεί "
+"αυτή η έκδοση της βιβλιοθήκης αντί για την έκδοση του συστήματος (αν "
+"υπάρχει)."
+
+#: ../developers.rst:204
+msgid ""
+"We don't install our ``libopenshot`` after building, because we don't need "
+"to. For testing purposes, we can tell OpenShot to use ``libopenshot`` right "
+"from our ``build`` directory."
+msgstr ""
+"Δεν εγκαθιστούμε το ``libopenshot`` μετά τη δημιουργία του, επειδή δεν "
+"χρειάζεται. Για δοκιμαστικούς σκοπούς, μπορούμε να πούμε στο OpenShot να "
+"χρησιμοποιήσει το ``libopenshot`` απευθείας από τον φάκελο ``build``."
+
+#: ../developers.rst:208
+msgid "Language Bindings"
+msgstr "Συνδέσεις γλωσσών (language bindings)"
+
+#: ../developers.rst:209
+msgid ""
+"The ``libopenshot`` API is available in several languages through SWIG "
+"bindings.  Python is used by the OpenShot user interface, and we also "
+"provide Ruby and Java bindings.  Experimental support for Godot **4.4** is "
+"included for developers who wish to integrate video editing features into "
+"the Godot game engine.  All of these bindings map to the same C++ codebase "
+"so you can edit video from the environment you prefer."
+msgstr ""
+"Το API του ``libopenshot`` είναι διαθέσιμο σε διάφορες γλώσσες μέσω "
+"συνδέσεων SWIG.  Η Python χρησιμοποιείται από τη διεπαφή χρήστη του OpenShot"
+" και παρέχουμε επίσης συνδέσεις για Ruby και Java.  Περιλαμβάνεται "
+"πειραματική υποστήριξη για το Godot **4.4**, για προγραμματιστές που θέλουν "
+"να ενσωματώσουν λειτουργίες επεξεργασίας βίντεο στη μηχανή παιχνιδιών Godot."
+"  Όλες αυτές οι συνδέσεις αντιστοιχούν στην ίδια βάση κώδικα C++, ώστε να "
+"μπορείτε να επεξεργάζεστε βίντεο από το περιβάλλον που προτιμάτε."
+
+#: ../developers.rst:215
+msgid "openshot-qt (Launch Instructions)"
+msgstr "openshot-qt (οδηγίες εκκίνησης)"
+
+#: ../developers.rst:216
+msgid ""
+"This is our main PyQt Python application. Because it is written in Python, "
+"it does not require any compiling to run. To launch OpenShot from the source"
+" code with our newly-built ``libopenshot-audio`` and ``libopenshot`` "
+"libraries, use the following commands:"
+msgstr ""
+"Αυτή είναι η κύρια εφαρμογή μας σε PyQt και Python. Επειδή είναι γραμμένη σε"
+" Python, δεν απαιτεί μεταγλώττιση για να εκτελεστεί. Για να εκκινήσετε το "
+"OpenShot από τον πηγαίο κώδικα με τις νεοδημιουργημένες βιβλιοθήκες "
+"``libopenshot-audio`` και ``libopenshot``, χρησιμοποιήστε τις ακόλουθες "
+"εντολές:"
+
+#: ../developers.rst:227
+msgid ""
+"This should launch the OpenShot user interface. Any changes you have made to"
+" the source code files (``*.py`` Python files, ``*.ui`` PyQt UI files, "
+"etc...) will be included. This requires the ``libopenshot-audio`` and "
+"``libopenshot`` libraries, and if anything went wrong with the steps above, "
+"OpenShot will likely not launch."
+msgstr ""
+"Αυτό θα πρέπει να εκκινήσει τη διεπαφή χρήστη του OpenShot. Όλες οι αλλαγές "
+"που έχετε κάνει στα αρχεία του πηγαίου κώδικα (αρχεία Python ``*.py``, "
+"αρχεία διεπαφής PyQt ``*.ui`` κ.λπ.) θα συμπεριληφθούν. Απαιτούνται οι "
+"βιβλιοθήκες ``libopenshot-audio`` και ``libopenshot`` και, αν κάτι πήγε "
+"στραβά στα παραπάνω βήματα, το OpenShot πιθανότατα δεν θα εκκινήσει."
+
+#: ../developers.rst:233
+msgid ""
+"If OpenShot launches at this point, congratulations! You now have a working "
+"local version of OpenShot, which is running off your local source code. Try "
+"making some changes to the source code and re-launch OpenShot... you should "
+"now see your changes!"
+msgstr ""
+"Αν το OpenShot εκκινήσει σε αυτό το σημείο, συγχαρητήρια! Έχετε πλέον μια "
+"λειτουργική τοπική έκδοση του OpenShot, που εκτελείται από τον τοπικό πηγαίο"
+" κώδικά σας. Δοκιμάστε να κάνετε κάποιες αλλαγές στον πηγαίο κώδικα και να "
+"εκκινήσετε ξανά το OpenShot... θα πρέπει πλέον να βλέπετε τις αλλαγές σας!"
+
+#: ../developers.rst:239
+msgid "Command-Line Options"
+msgstr "Επιλογές γραμμής εντολών"
+
+#: ../developers.rst:241
+msgid ""
+"These options work with the installed OpenShot application, including "
+"``openshot-qt.exe`` on Windows. When running from source, use ``python3 "
+"src/launch.py`` in place of the application name. Put options before any "
+"file paths you want OpenShot to open."
+msgstr ""
+"Οι επιλογές αυτές λειτουργούν με την εγκατεστημένη εφαρμογή OpenShot, "
+"συμπεριλαμβανομένου του ``openshot-qt.exe`` στα Windows. Όταν εκτελείτε από "
+"τον πηγαίο κώδικα, χρησιμοποιήστε το ``python3 src/launch.py`` στη θέση του "
+"ονόματος της εφαρμογής. Τοποθετήστε τις επιλογές πριν από τυχόν διαδρομές "
+"αρχείων που θέλετε να ανοίξει το OpenShot."
+
+#: ../developers.rst:246
+msgid "OpenShot command-line options"
+msgstr "Επιλογές γραμμής εντολών του OpenShot"
+
+#: ../developers.rst:250
+msgid "Option"
+msgstr "Επιλογή"
+
+#: ../developers.rst:251
+msgid "What it does"
+msgstr "Τι κάνει"
+
+#: ../developers.rst:252
+msgid "``-h``, ``--help``"
+msgstr ""
+
+#: ../developers.rst:253
+msgid "Show the available options and exit."
+msgstr "Εμφανίζει τις διαθέσιμες επιλογές και τερματίζει."
+
+#: ../developers.rst:254
+msgid "``-V``, ``--version``"
+msgstr ""
+
+#: ../developers.rst:255
+msgid "Print the OpenShot version and exit."
+msgstr "Εκτυπώνει την έκδοση του OpenShot και τερματίζει."
+
+#: ../developers.rst:256
+msgid "``-l CODE``, ``--lang CODE``"
+msgstr ""
+
+#: ../developers.rst:257
+msgid ""
+"Use the chosen interface language for this launch. The code must be one of "
+"those shown by ``--list-languages``."
+msgstr ""
+"Χρησιμοποιεί την επιλεγμένη γλώσσα διεπαφής για αυτή την εκκίνηση. Ο κωδικός"
+" πρέπει να είναι ένας από αυτούς που εμφανίζει το ``--list-languages``."
+
+#: ../developers.rst:259
+msgid "``--list-languages``"
+msgstr ""
+
+#: ../developers.rst:260
+msgid "List supported language codes and exit."
+msgstr "Απαριθμεί τους υποστηριζόμενους κωδικούς γλωσσών και τερματίζει."
+
+#: ../developers.rst:261
+msgid "``--path FOLDER``"
+msgstr ""
+
+#: ../developers.rst:262
+msgid ""
+"Add a folder to the Python module search path. You can repeat this option to"
+" add more than one folder."
+msgstr ""
+"Προσθέτει έναν φάκελο στη διαδρομή αναζήτησης ενοτήτων (modules) της Python."
+" Μπορείτε να επαναλάβετε αυτή την επιλογή για να προσθέσετε περισσότερους "
+"από έναν φακέλους."
+
+#: ../developers.rst:264
+msgid "``--feedback-preview``"
+msgstr ""
+
+#: ../developers.rst:265
+msgid ""
+"Show the feedback notice on launch without marking the invitation as shown "
+"in saved settings."
+msgstr ""
+"Εμφανίζει την ειδοποίηση σχολίων (feedback) κατά την εκκίνηση χωρίς να "
+"σημειώνει την πρόσκληση ως εμφανισμένη στις αποθηκευμένες ρυθμίσεις."
+
+#: ../developers.rst:267
+msgid "``--update-preview``"
+msgstr ""
+
+#: ../developers.rst:268
+msgid ""
+"Show the update notice on launch. Both preview options can be used together."
+msgstr ""
+"Εμφανίζει την ειδοποίηση ενημέρωσης κατά την εκκίνηση. Και οι δύο επιλογές "
+"προεπισκόπησης μπορούν να χρησιμοποιηθούν μαζί."
+
+#: ../developers.rst:269
+msgid "``--test-models``"
+msgstr ""
+
+#: ../developers.rst:270
+msgid ""
+"Enable Qt's data model tester for development (requires Qt 5.11 or later)."
+msgstr ""
+"Ενεργοποιεί τον ελεγκτή μοντέλων δεδομένων του Qt για ανάπτυξη (απαιτεί Qt "
+"5.11 ή νεότερο)."
+
+#: ../developers.rst:271
+msgid "``-d``, ``--debug``, ``--debug-ui``"
+msgstr ""
+
+#: ../developers.rst:272
+msgid "Add detailed interface messages to its log file and the terminal."
+msgstr ""
+"Προσθέτει αναλυτικά μηνύματα της διεπαφής στο αρχείο καταγραφής της και στο "
+"τερματικό."
+
+#: ../developers.rst:273
+msgid "``--debug-engine``"
+msgstr ""
+
+#: ../developers.rst:274
+msgid ""
+"Add detailed video and audio engine messages to its log file and the "
+"terminal."
+msgstr ""
+"Προσθέτει αναλυτικά μηνύματα της μηχανής βίντεο και ήχου στο αρχείο "
+"καταγραφής της και στο τερματικό."
+
+#: ../developers.rst:275
+msgid "``--log-level LEVEL``"
+msgstr ""
+
+#: ../developers.rst:276
+msgid ""
+"Set the logging level for both parts of OpenShot, in files and the terminal."
+msgstr ""
+"Ορίζει το επίπεδο καταγραφής και για τα δύο μέρη του OpenShot, στα αρχεία "
+"και στο τερματικό."
+
+#: ../developers.rst:277
+msgid "``--log-file-level LEVEL``"
+msgstr ""
+
+#: ../developers.rst:278
+msgid "Set the logging level in both log files."
+msgstr "Ορίζει το επίπεδο καταγραφής και στα δύο αρχεία καταγραφής."
+
+#: ../developers.rst:279
+msgid "``--log-console-level LEVEL``"
+msgstr ""
+
+#: ../developers.rst:280
+msgid "Set the logging level in the terminal for both parts of OpenShot."
+msgstr ""
+"Ορίζει το επίπεδο καταγραφής στο τερματικό και για τα δύο μέρη του OpenShot."
+
+#: ../developers.rst:281
+msgid "``--debug-file``"
+msgstr ""
+
+#: ../developers.rst:282
+msgid ""
+"Add detailed interface messages to its log file only. This older option is "
+"accepted but is not shown by ``--help``."
+msgstr ""
+"Προσθέτει αναλυτικά μηνύματα της διεπαφής μόνο στο αρχείο καταγραφής της. Η "
+"παλαιότερη αυτή επιλογή γίνεται δεκτή, αλλά δεν εμφανίζεται από το "
+"``--help``."
+
+#: ../developers.rst:284
+msgid "``--debug-console``"
+msgstr ""
+
+#: ../developers.rst:285
+msgid ""
+"Add detailed interface messages to the terminal only. This older option is "
+"accepted but is not shown by ``--help``."
+msgstr ""
+"Προσθέτει αναλυτικά μηνύματα της διεπαφής μόνο στο τερματικό. Η παλαιότερη "
+"αυτή επιλογή γίνεται δεκτή, αλλά δεν εμφανίζεται από το ``--help``."
+
+#: ../developers.rst:287
+msgid "``PROJECT.osp`` or media file paths"
+msgstr "``PROJECT.osp`` ή διαδρομές αρχείων πολυμέσων"
+
+#: ../developers.rst:288
+msgid ""
+"Open a project when the first file path ends in ``.osp``. Otherwise, start a"
+" new project and import the supplied media files."
+msgstr ""
+"Ανοίγει ένα έργο όταν η πρώτη διαδρομή αρχείου τελειώνει σε ``.osp``. "
+"Διαφορετικά, ξεκινά ένα νέο έργο και εισάγει τα αρχεία πολυμέσων που "
+"δόθηκαν."
+
+#: ../developers.rst:291
+msgid ""
+"For ``LEVEL``, use ``debug``, ``info``, ``warning``, ``error``, "
+"``critical``, or ``off``. See :ref:`logging_ref` for log file locations, "
+"examples, and more about choosing logging options."
+msgstr ""
+"Για το ``LEVEL``, χρησιμοποιήστε ``debug``, ``info``, ``warning``, "
+"``error``, ``critical`` ή ``off``. Δείτε το :ref:`logging_ref` για τις "
+"θέσεις των αρχείων καταγραφής, παραδείγματα και περισσότερα σχετικά με την "
+"επιλογή ρυθμίσεων καταγραφής."
+
+#: ../developers.rst:296
+msgid "GitHub Issues"
+msgstr "Θέματα (Issues) στο GitHub"
+
+#: ../developers.rst:297
+msgid ""
+"Now that you have successfully compiled and launched OpenShot Video Editor "
+"from source code, be sure to check out our list of bug reports on GitHub: "
+"`OpenShot Issues`_. Also, you are encouraged to fill out our quick "
+"`contributor form <https://forms.gle/CRqkS5tLMJE1V36V8>`_ and introduce "
+"yourself!"
+msgstr ""
+"Τώρα που έχετε μεταγλωττίσει και εκκινήσει με επιτυχία το OpenShot Video "
+"Editor από τον πηγαίο κώδικα, φροντίστε να δείτε τη λίστα αναφορών σφαλμάτων"
+" μας στο GitHub: `OpenShot Issues`_. Επίσης, σας ενθαρρύνουμε να "
+"συμπληρώσετε τη σύντομη `φόρμα συνεισφέροντος "
+"<https://forms.gle/CRqkS5tLMJE1V36V8>`_ και να συστηθείτε!"
+
+#: ../developers.rst:303
+msgid "Share your Changes"
+msgstr "Κοινοποίηση των αλλαγών σας"
+
+#: ../developers.rst:304
+msgid ""
+"Once you have fixed a bug or added an amazing new feature, be sure to share "
+"it with the OpenShot team. Ideally, we can merge this into our main source "
+"code branch. The easiest way to share your changes is by creating a fork of "
+"our repo, pushing your changes back to GitHub, and creating a `Pull "
+"Request`_. A Pull Request lets the OpenShot team know you have changes ready"
+" to be merged. Then we can review things, give feedback, and hopefully merge"
+" your changes into the main branch."
+msgstr ""
+"Όταν διορθώσετε ένα σφάλμα ή προσθέσετε μια εκπληκτική νέα λειτουργία, "
+"φροντίστε να τη μοιραστείτε με την ομάδα του OpenShot. Ιδανικά, μπορούμε να "
+"τη συγχωνεύσουμε στον κύριο κλάδο του πηγαίου κώδικά μας. Ο ευκολότερος "
+"τρόπος να μοιραστείτε τις αλλαγές σας είναι να δημιουργήσετε ένα fork του "
+"αποθετηρίου μας, να στείλετε (push) τις αλλαγές σας πίσω στο GitHub και να "
+"δημιουργήσετε ένα `Pull Request`_. Ένα Pull Request ενημερώνει την ομάδα του"
+" OpenShot ότι έχετε αλλαγές έτοιμες για συγχώνευση. Στη συνέχεια μπορούμε να"
+" τις εξετάσουμε, να δώσουμε σχόλια και, ελπίζουμε, να συγχωνεύσουμε τις "
+"αλλαγές σας στον κύριο κλάδο."

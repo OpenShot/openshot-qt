@@ -1,0 +1,209 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../import_export.rst:21
+msgid "Import & Export"
+msgstr "Εισαγωγή και εξαγωγή"
+
+#: ../import_export.rst:23
+msgid ""
+"Video editing projects (including tracks, clips, and keyframes) can be "
+"**imported** and **exported** from OpenShot Video Editor in widely supported"
+" formats (**EDL**: Edit Decision Lists, and **XML**: Final Cut Pro format). "
+"For example, if you start editing a video in a different program (Adobe "
+"Premier, Final Cut Pro, etc...), but later need to move all your edits to "
+"OpenShot (or vice versa)."
+msgstr ""
+"Τα έργα επεξεργασίας βίντεο (συμπεριλαμβανομένων των διαδρόμων, των κλιπ και"
+" των βασικών καρέ) μπορούν να **εισαχθούν** και να **εξαχθούν** από το "
+"OpenShot Video Editor σε ευρέως υποστηριζόμενες μορφές (**EDL**: Edit "
+"Decision Lists, και **XML**: μορφή Final Cut Pro). Για παράδειγμα, αν "
+"ξεκινήσετε την επεξεργασία ενός βίντεο σε διαφορετικό πρόγραμμα (Adobe "
+"Premier, Final Cut Pro κ.λπ.), αλλά αργότερα χρειαστεί να μεταφέρετε όλες "
+"τις επεξεργασίες σας στο OpenShot (ή αντίστροφα)."
+
+#: ../import_export.rst:29
+msgid "EDL (Edit Decision Lists)"
+msgstr "EDL (Edit Decision Lists)"
+
+#: ../import_export.rst:30
+msgid ""
+"The following features are supported when importing and exporting an EDL "
+"file with OpenShot."
+msgstr ""
+"Τα ακόλουθα χαρακτηριστικά υποστηρίζονται κατά την εισαγωγή και την εξαγωγή "
+"αρχείου EDL με το OpenShot."
+
+#: ../import_export.rst:36
+msgid "EDL Option Name"
+msgstr "Όνομα επιλογής EDL"
+
+#: ../import_export.rst:36 ../import_export.rst:122
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: ../import_export.rst:38
+msgid "EDL Format"
+msgstr "Μορφή EDL"
+
+#: ../import_export.rst:38
+msgid "CMX-3600 (a very widely supported variation)"
+msgstr "CMX-3600 (μια πολύ ευρέως υποστηριζόμενη παραλλαγή)"
+
+#: ../import_export.rst:39
+msgid "Single Track"
+msgstr "Ένας διάδρομος"
+
+#: ../import_export.rst:39
+msgid ""
+"Only a single track can be imported at a time (this is a limitation of the "
+"EDL format)"
+msgstr ""
+"Μπορεί να εισαχθεί μόνο ένας διάδρομος κάθε φορά (αυτός είναι περιορισμός "
+"της μορφής EDL)"
+
+#: ../import_export.rst:40
+msgid "Tape Name"
+msgstr "Όνομα ταινίας (Tape Name)"
+
+#: ../import_export.rst:40
+msgid "Only **AX** and **BL** tape names are currently supported in OpenShot"
+msgstr ""
+"Προς το παρόν υποστηρίζονται στο OpenShot μόνο τα ονόματα ταινίας **AX** και"
+" **BL**"
+
+#: ../import_export.rst:41
+msgid "Edits (V and A)"
+msgstr "Επεξεργασίες (V και A)"
+
+#: ../import_export.rst:41
+msgid "Only edits are currently supported (transitions are not yet supported)"
+msgstr ""
+"Προς το παρόν υποστηρίζονται μόνο οι επεξεργασίες (οι μεταβάσεις δεν "
+"υποστηρίζονται ακόμη)"
+
+#: ../import_export.rst:42 ../import_export.rst:127
+msgid "Opacity"
+msgstr "Αδιαφάνεια (Opacity)"
+
+#: ../import_export.rst:42 ../import_export.rst:127
+msgid "Opacity keyframes are supported"
+msgstr "Υποστηρίζονται τα βασικά καρέ αδιαφάνειας"
+
+#: ../import_export.rst:43 ../import_export.rst:128
+msgid "Audio Levels"
+msgstr "Στάθμες ήχου (Audio Levels)"
+
+#: ../import_export.rst:43 ../import_export.rst:128
+msgid "Volume keyframes are supported"
+msgstr "Υποστηρίζονται τα βασικά καρέ έντασης"
+
+#: ../import_export.rst:47
+msgid "Example EDL Output"
+msgstr "Παράδειγμα εξόδου EDL"
+
+#: ../import_export.rst:49
+msgid ""
+"OpenShot follows the CMX 3600 layout for event lines and uses comment lines "
+"(`* ...`) to carry keyframes. CMX 3600 does not define units or "
+"interpolation in comments, so our exporter adds readable values and "
+"interpolation names, and our importer is very forgiving: it accepts units "
+"with or without spaces, mixed case, optional interpolation tokens, and "
+"ignores unknown trailing text/reel tags to maximize compatibility."
+msgstr ""
+"Το OpenShot ακολουθεί τη διάταξη CMX 3600 για τις γραμμές συμβάντων και "
+"χρησιμοποιεί γραμμές σχολίων (`* ...`) για να μεταφέρει βασικά καρέ. Η CMX "
+"3600 δεν ορίζει μονάδες ή παρεμβολή στα σχόλια, γι’ αυτό ο εξαγωγέας μας "
+"προσθέτει αναγνώσιμες τιμές και ονόματα παρεμβολής, ενώ ο εισαγωγέας μας "
+"είναι πολύ ανεκτικός: δέχεται μονάδες με ή χωρίς κενά, μικτά κεφαλαία και "
+"πεζά, προαιρετικά στοιχεία παρεμβολής και αγνοεί άγνωστο κείμενο στο τέλος "
+"και ετικέτες καρουλιού (reel tags), ώστε να επιτυγχάνεται η μέγιστη "
+"συμβατότητα."
+
+#: ../import_export.rst:109
+msgid "XML (Final Cut Pro format)"
+msgstr "XML (μορφή Final Cut Pro)"
+
+#: ../import_export.rst:110
+msgid ""
+"The following features are supported when importing and exporting an XML "
+"file with OpenShot. This XML format is supported in many video editors (not "
+"just Final Cut Pro). In fact, most commercial video editors have some "
+"support for importing and exporting this same XML format."
+msgstr ""
+"Τα ακόλουθα χαρακτηριστικά υποστηρίζονται κατά την εισαγωγή και την εξαγωγή "
+"αρχείου XML με το OpenShot. Αυτή η μορφή XML υποστηρίζεται σε πολλά "
+"προγράμματα επεξεργασίας βίντεο (όχι μόνο στο Final Cut Pro). Μάλιστα, τα "
+"περισσότερα εμπορικά προγράμματα επεξεργασίας βίντεο διαθέτουν κάποια "
+"υποστήριξη για εισαγωγή και εξαγωγή αυτής ακριβώς της μορφής XML."
+
+#: ../import_export.rst:114
+msgid ""
+"OpenShot uses the legacy Final Cut Pro XML Interchange Format (**xmeml**) "
+"from Final Cut Pro 7. Our exporter writes `<!DOCTYPE xmeml>` projects that "
+"follow the Final Cut Pro XML DTD v1.0, and is compatible with the v4 and v5 "
+"schema versions of that interchange format (the DTDs shipped with Final Cut "
+"Pro 7)."
+msgstr ""
+"Το OpenShot χρησιμοποιεί την παλαιά μορφή ανταλλαγής XML του Final Cut Pro "
+"(**xmeml**) από το Final Cut Pro 7. Ο εξαγωγέας μας γράφει έργα `<!DOCTYPE "
+"xmeml>` που ακολουθούν το Final Cut Pro XML DTD v1.0 και είναι συμβατός με "
+"τις εκδόσεις σχήματος v4 και v5 αυτής της μορφής ανταλλαγής (τα DTD που "
+"συνοδεύουν το Final Cut Pro 7)."
+
+#: ../import_export.rst:122
+msgid "XML Option Name"
+msgstr "Όνομα επιλογής XML"
+
+#: ../import_export.rst:124
+msgid "XML Format"
+msgstr "Μορφή XML"
+
+#: ../import_export.rst:124
+msgid ""
+"Final Cut Pro format (but most commercial video editors also support this "
+"format)"
+msgstr ""
+"Μορφή Final Cut Pro (αλλά τα περισσότερα εμπορικά προγράμματα επεξεργασίας "
+"βίντεο υποστηρίζουν επίσης αυτή τη μορφή)"
+
+#: ../import_export.rst:125
+msgid "All Tracks"
+msgstr "Όλοι οι διάδρομοι"
+
+#: ../import_export.rst:125
+msgid "All video and audio tracks are supported"
+msgstr "Υποστηρίζονται όλοι οι διάδρομοι βίντεο και ήχου"
+
+#: ../import_export.rst:126
+msgid "Edits"
+msgstr "Επεξεργασίες"
+
+#: ../import_export.rst:126
+msgid ""
+"All clips on all tracks are supported (video, image, and audio files). "
+"Transitions are not yet supported."
+msgstr ""
+"Υποστηρίζονται όλα τα κλιπ σε όλους τους διαδρόμους (αρχεία βίντεο, εικόνας "
+"και ήχου). Οι μεταβάσεις δεν υποστηρίζονται ακόμη."
+
+#: ../import_export.rst:132
+msgid "Example XML Output (tree view)"
+msgstr "Παράδειγμα εξόδου XML (προβολή δέντρου)"

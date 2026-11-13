@@ -1,0 +1,39 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../index.rst:21
+msgid "OpenShot User Guide"
+msgstr "Οδηγός χρήσης του OpenShot"
+
+#: ../index.rst:23
+msgid ""
+"OpenShot Video Editor is a free, award-winning, open-source video editor, "
+"available on Linux, Mac, Chrome OS, and Windows. OpenShot can create "
+"stunning videos, films, and animations with an easy-to-use interface and "
+"rich set of features."
+msgstr ""
+"Το OpenShot Video Editor είναι ένα δωρεάν, βραβευμένο πρόγραμμα επεξεργασίας"
+" βίντεο ανοιχτού κώδικα, διαθέσιμο για Linux, Mac, Chrome OS και Windows. Με"
+" το OpenShot μπορείτε να δημιουργήσετε εντυπωσιακά βίντεο, ταινίες και "
+"κινούμενα γραφικά, με μια εύχρηστη διεπαφή και πλούσιο σύνολο λειτουργιών."
+
+#: ../index.rst:30
+msgid "Table of Contents:"
+msgstr "Πίνακας περιεχομένων:"
