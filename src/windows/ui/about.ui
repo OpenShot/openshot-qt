@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>760</width>
-    <height>520</height>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,6 +25,9 @@
    </property>
    <property name="wordWrap">
     <bool>true</bool>
+   </property>
+   <property name="accessibleName">
+    <string>OpenShot Video Editor</string>
    </property>
   </widget>
   <widget class="QLabel" name="lblVersionHeading">
@@ -293,6 +296,11 @@
     </item>
    </layout>
   </widget>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>:/openshot.svg</normaloff>
+   </iconset>
+  </property>
  </widget>
  <resources />
  <connections>

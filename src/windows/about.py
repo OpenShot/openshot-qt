@@ -142,7 +142,7 @@ class About(QDialog):
             QPushButton#pushButton_3:hover { background: #FFFFFF; }
         """)
         self.setFont(QFont("Noto Sans", 10))
-        self.setMinimumSize(760, 520)
+        self.setMinimumSize(760, 450)
         self.lblAboutLogo.setMinimumHeight(102)
         self.lblAboutLogo.setMinimumWidth(340)
         self.pushButton_3.setDefault(True)
@@ -420,18 +420,18 @@ class About(QDialog):
     def layout_about_content(self):
         """Align both columns to the same header and body bands as the artwork."""
         width, height = self.width(), self.height()
-        sx, sy = width / 760.0, (height - 72) / 448.0
+        sx, sy = width / 760.0, (height - 72) / 378.0
         def place(widget, x, y, w, h):
             widget.setGeometry(round(x * sx), round(y * sy), round(w * sx), round(h * sy))
-        place(self.lblAboutLogo, 40, 60, 352, 102)
-        place(self.lblVersionHeading, 446, 71, 272, 22)
-        place(self.txtversion, 446, 103, 272, 38)
-        place(self.lblTagline, 40, 204, 352, 42)
-        place(self.lblAboutDescription, 40, 277, 348, 62)
-        place(self.lblAboutCompany, 40, 400, 352, 22)
-        place(self.columnSeparator, 416, 67, 1, 343)
+        place(self.lblAboutLogo, 40, 36, 352, 102)
+        place(self.lblVersionHeading, 446, 47, 272, 22)
+        place(self.txtversion, 446, 79, 272, 38)
+        place(self.lblTagline, 40, 174, 352, 42)
+        place(self.lblAboutDescription, 40, 226, 348, 62)
+        place(self.lblAboutCompany, 40, 334, 352, 22)
+        place(self.columnSeparator, 416, 43, 1, 303)
         for i, key in enumerate(("Build", "Released", "Library", "Commit")):
-            y, h = 207 + i * 35, 24
+            y, h = 177 + i * 32, 24
             place(getattr(self, "lbl%sKey" % key), 446, y, 54, h)
             place(getattr(self, "lbl%sValue" % key), 506, y, 234, h)
         self.aboutToolbar.setGeometry(0, height - 72, width, 72)
@@ -837,7 +837,7 @@ class License(QDialog):
         # Init license
         with open(os.path.join(info.RESOURCES_PATH, 'license.txt'), 'r') as my_license:
             text = my_license.read()
-            font = QFontDatabase.systemFont(QFontDatabase.FixedFont)
+            font = QFontDatabase.systemFont(getattr(QFontDatabase, "SystemFont", QFontDatabase).FixedFont)
             font.setPixelSize(13)
             self.textBrowser.setStyleSheet('font-family: "%s"; font-size: 13px;' % font.family())
             self.textBrowser.document().setDefaultFont(font)

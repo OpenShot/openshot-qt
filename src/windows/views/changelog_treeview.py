@@ -64,7 +64,10 @@ class ChangelogTreeView(QTreeView):
     def showEvent(self, event):
         super().showEvent(event)
         # Parent dialog typography is applied after the view is constructed.
-        self.refresh_view()
+        # Preserve any column widths the user chooses after the first show.
+        if not getattr(self, '_columns_sized', False):
+            self.refresh_view()
+            self._columns_sized = True
 
     def filter_changed(self, text=""):
         """Apply filter text to proxy model"""

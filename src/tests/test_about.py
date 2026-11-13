@@ -289,7 +289,7 @@ class AboutTests(unittest.TestCase):
                     self.assertTrue(getattr(self.dialog, 'lbl%sValue' % key).isVisible())
                 centers = [getattr(self.dialog, 'lbl%sValue' % key).geometry().center().y()
                            for key in ('Build', 'Released', 'Library', 'Commit')]
-                self.assertEqual([b - a for a, b in zip(centers, centers[1:])], [35, 35, 35])
+                self.assertEqual([b - a for a, b in zip(centers, centers[1:])], [32, 32, 32])
 
     def test_toolbar_controls_keep_their_position_with_long_build_details(self):
         dialog = self.dialog
