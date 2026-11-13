@@ -111,7 +111,7 @@ class LivePropertyUpdateTests(unittest.TestCase):
                 self.assertFalse(model._live_transform_timer.isActive())
 
     def test_hidden_properties_do_not_schedule_live_work(self):
-        model, raw, app = self.make_transform_model()
+        model, _raw, app = self.make_transform_model()
         model.parent.hide()
         model.changed(app.updates.last_action)
         self.assertIsNone(getattr(model, "_live_transform_timer", None))

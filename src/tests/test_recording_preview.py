@@ -1208,11 +1208,12 @@ class RecordingPreviewTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which("ffprobe"), "ffprobe is needed to inspect output files")
     def test_finished_video_files_match_microphone_duration(self):
         import json
-        import subprocess
+        import subprocess  # nosec B404 - Inspect locally generated test media without a shell.
         import wave
         helper = self.audio_recording_module
         native = helper.openshot
         duration = 2.013
+        ffprobe = shutil.which("ffprobe")
         with tempfile.TemporaryDirectory() as directory:
             mic_path = os.path.join(directory, "mic.wav")
             with wave.open(mic_path, "wb") as mic:
@@ -1222,8 +1223,8 @@ class RecordingPreviewTests(unittest.TestCase):
                 mic.writeframes(b"\0\0" * round(duration * 48000))
 
             def inspect(path):
-                result = subprocess.run(
-                    ["ffprobe", "-v", "error", "-show_entries",
+                result = subprocess.run(  # nosec B603 - Fixed ffprobe arguments and test-generated paths; no shell.
+                    [ffprobe, "-v", "error", "-show_entries",
                      "format=duration:stream=codec_type,duration", "-of", "json", path],
                     check=True, capture_output=True, text=True, timeout=15)
                 return json.loads(result.stdout)

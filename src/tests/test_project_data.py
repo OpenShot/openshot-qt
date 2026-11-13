@@ -134,7 +134,6 @@ class ProjectDataTests(unittest.TestCase):
         ensure_app_state(self.app)
 
     def test_point_patches_commit_full_history_and_round_trip_undo(self):
-        from classes.updates import UpdateManager
         from classes.keyframe_editing import is_keyframe_patch
         manager = UpdateManager()
         self.app.updates = manager

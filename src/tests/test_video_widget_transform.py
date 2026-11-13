@@ -184,7 +184,6 @@ class VideoWidgetTransformTests(unittest.TestCase):
     def test_point_samples_defer_timeline_and_property_editor_rebuilds(self):
         from unittest.mock import Mock
         from windows.views.timeline_backend.qwidget.base import TimelineWidgetBase
-        from windows.models.properties_model import PropertiesModel
         action = types.SimpleNamespace(type="update", key=["clips", {"id": "A"}],
                                        values={"rotation": {"Point": {"co": {"X": 10, "Y": 30}}}})
         timer = Mock()

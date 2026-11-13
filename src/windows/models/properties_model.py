@@ -1811,7 +1811,7 @@ class PropertiesModel(updates.UpdateInterface):
                 and is_keyframe_patch(getattr(action, "values", None))):
             self.update_model(app.window.txtPropertyFilter.text(), live_transform=True)
 
-    def update_model(self, filter="", *, live_transform=False):
+    def update_model(self, filter_text="", *, live_transform=False):
         app = get_app()
         preview = getattr(app.window, "videoPreview", None)
         action = getattr(getattr(app, "updates", None), "last_action", None)
@@ -1913,8 +1913,8 @@ class PropertiesModel(updates.UpdateInterface):
                 all_properties = OrderedDict(sorted(raw_properties.items(), key=lambda x: x[1]['name']))
 
                 # Check if filter was changed (if so, wipe previous model data)
-                if self.previous_filter != filter:
-                    self.previous_filter = filter
+                if self.previous_filter != filter_text:
+                    self.previous_filter = filter_text
                     self.new_item = True  # filter changed, so we need to regenerate the entire model
 
                 # Build or update the model
@@ -1934,10 +1934,10 @@ class PropertiesModel(updates.UpdateInterface):
                 for property in all_properties.items():
                     if property[0] in tracked_object_properties:
                         # Add/update tracked object property
-                        self.set_property(property, filter, c, item_type, object_id=tracked_object_id)
+                        self.set_property(property, filter_text, c, item_type, object_id=tracked_object_id)
                     else:
                         # Add/update base property
-                        self.set_property(property, filter, c, item_type)
+                        self.set_property(property, filter_text, c, item_type)
 
                 # After first render, future calls will update in place
                 self.new_item = False
