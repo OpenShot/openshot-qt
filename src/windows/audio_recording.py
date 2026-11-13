@@ -561,6 +561,7 @@ class LiveVideoRecordingJob(QObject):
                     capture_frame_number += 1
                     continue
                 now = time.monotonic()
+                stop_time = self._stop_time
                 if stop_time is not None:
                     now = min(now, stop_time)
                 if capture_timestamp is not None:
@@ -570,6 +571,8 @@ class LiveVideoRecordingJob(QObject):
                 else:
                     elapsed = max(0.0, now - float(self._start_time or now))
                 output_frame_number = max(1, int(math.floor((elapsed * fps_value) + 0.5)) + 1)
+                if stop_time is not None:
+                    output_frame_number = min(output_frame_number, self._stop_frame_number())
                 if output_frame_number <= last_output_frame_number:
                     capture_frame_number += 1
                     if stop_time is not None:
@@ -630,6 +633,20 @@ class LiveVideoRecordingJob(QObject):
         try:
             with self._writer_lock:
                 if self._writer:
+                    # Hold the last image to the shared session endpoint. Two
+                    # adjacent final timestamps preserve the nominal FPS when
+                    # a sparse capture would otherwise suggest a lower rate.
+                    final_frame_number = self._stop_frame_number()
+                    if not self.error and self._last_frame is not None:
+                        for number in range(max(self._last_output_frame_number + 1,
+                                                final_frame_number - 1), final_frame_number + 1):
+                            frame = self._copy_frame(self._last_frame)
+                            add_system_audio = getattr(self.reader, "AddSystemAudio", None)
+                            if callable(add_system_audio):
+                                add_system_audio(frame, number)
+                            self._write_numbered_frame(frame, number)
+                            self.frames = number
+                            self._last_output_frame_number = number
                     self._writer.Close()
                     self._writer = None
         except Exception as ex:
@@ -637,6 +654,13 @@ class LiveVideoRecordingJob(QObject):
                 self.error = ex
                 self.errorOccurred.emit(self.source_type, str(ex))
         self.finished.emit(self.path)
+
+    def _stop_frame_number(self):
+        """Round the shared session duration up to a complete output frame."""
+        if self._stop_time is None or not self._start_time:
+            return 0
+        fps_value = float(self.fps.num) / float(self.fps.den or 1)
+        return max(1, int(math.ceil(max(0.0, self._stop_time - self._start_time) * fps_value)))
 
     def _write_numbered_frame(self, frame, frame_number):
         if not self._writer or frame is None:

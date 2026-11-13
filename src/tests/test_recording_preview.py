@@ -1105,7 +1105,7 @@ class RecordingPreviewTests(unittest.TestCase):
 
         self.assertEqual(writer.frame_numbers, [(42, 42)])
 
-    def test_live_video_stop_does_not_write_final_gap_frames(self):
+    def test_live_video_stop_holds_last_image_to_shared_endpoint(self):
         helper = self.audio_recording_module
 
         class FakeFrame:
@@ -1144,8 +1144,140 @@ class RecordingPreviewTests(unittest.TestCase):
 
         self.assertIsNone(job._writer)
         self.assertTrue(writer.closed)
-        self.assertEqual(writer.frame_numbers, [])
-        self.assertEqual(job.frames, 0)
+        self.assertEqual(writer.frame_numbers, [299, 300])
+        self.assertEqual(job.frames, 300)
+
+    def test_live_video_stop_uses_requested_time_and_drains_remaining_system_audio(self):
+        helper = self.audio_recording_module
+        reader = MagicMock()
+        writer = MagicMock()
+        job = helper.LiveVideoRecordingJob(
+            reader, "screen.mp4", 640, 480, types.SimpleNamespace(num=30, den=1))
+        job._writer = writer
+        job._last_frame = helper.openshot.Frame(1, 64, 64, "black")
+        job._last_output_frame_number = 16
+        job.begin(100.0)
+        job.request_stop(102.01)
+        with patch.object(helper.time, "monotonic", return_value=110.0):
+            job.finish_stop()
+        self.assertEqual(job.frames, 61)
+        self.assertEqual(reader.AddSystemAudio.call_args.args[1], 61)
+        self.assertEqual(writer.WriteFrameAt.call_args.args[1], 61)
+        writer.Close.assert_called_once()
+
+    def test_live_video_stop_does_not_pad_failed_empty_or_complete_capture(self):
+        helper = self.audio_recording_module
+        for empty, failed, last_number in ((True, False, 0), (False, True, 16),
+                                          (False, False, 60)):
+            with self.subTest(empty=empty, failed=failed, last_number=last_number):
+                job = helper.LiveVideoRecordingJob(
+                    MagicMock(), "webcam.mp4", 640, 480,
+                    types.SimpleNamespace(num=30, den=1))
+                writer = MagicMock()
+                job._writer = writer
+                job._last_frame = None if empty else helper.openshot.Frame(1, 64, 64, "black")
+                job._last_output_frame_number = last_number
+                job.error = RuntimeError("capture failed") if failed else None
+                job.begin(100.0)
+                job.stop(102.0)
+                writer.WriteFrameAt.assert_not_called()
+                writer.Close.assert_called_once()
+
+    def test_live_video_frame_returned_after_stop_cannot_extend_recording(self):
+        helper = self.audio_recording_module
+        frame = helper.openshot.Frame(1, 64, 64, "black")
+        frame.capture_timestamp = 500.0
+        reader = MagicMock()
+        job = helper.LiveVideoRecordingJob(
+            reader, "webcam.mp4", 640, 480, types.SimpleNamespace(num=30, den=1))
+        writer = MagicMock()
+        job._writer = writer
+        job.begin(100.0)
+        job._output_capture_start_timestamp = 10.0
+
+        def late_frame(_number):
+            job.request_stop(102.0)
+            return frame
+
+        reader.GetFrame.side_effect = late_frame
+        with patch.object(helper.time, "monotonic", return_value=110.0):
+            job._run()
+        self.assertEqual(writer.WriteFrameAt.call_args.args[1], 60)
+        self.assertEqual(job.frames, 60)
+
+    @unittest.skipUnless(shutil.which("ffprobe"), "ffprobe is needed to inspect output files")
+    def test_finished_video_files_match_microphone_duration(self):
+        import json
+        import subprocess
+        import wave
+        helper = self.audio_recording_module
+        native = helper.openshot
+        duration = 2.013
+        with tempfile.TemporaryDirectory() as directory:
+            mic_path = os.path.join(directory, "mic.wav")
+            with wave.open(mic_path, "wb") as mic:
+                mic.setnchannels(1)
+                mic.setsampwidth(2)
+                mic.setframerate(48000)
+                mic.writeframes(b"\0\0" * round(duration * 48000))
+
+            def inspect(path):
+                result = subprocess.run(
+                    ["ffprobe", "-v", "error", "-show_entries",
+                     "format=duration:stream=codec_type,duration", "-of", "json", path],
+                    check=True, capture_output=True, text=True, timeout=15)
+                return json.loads(result.stdout)
+
+            mic_duration = float(inspect(mic_path)["format"]["duration"])
+            for fps in (15, 30, 60):
+                for with_audio in (False, True):
+                    with self.subTest(fps=fps, system_audio=with_audio):
+                        path = os.path.join(directory, "%s-%s.mp4" % (fps, with_audio))
+                        writer = native.FFmpegWriter(path)
+                        writer.SetVideoOptions(True, "libx264", native.Fraction(fps, 1),
+                                               64, 64, native.Fraction(1, 1), False, False, 400000)
+                        if with_audio:
+                            writer.SetAudioOptions(True, "aac", 48000, 2, native.LAYOUT_STEREO, 128000)
+                        writer.Open()
+                        reader = types.SimpleNamespace()
+                        last_audio_number = [0]
+
+                        def add_audio(frame, number):
+                            count = sum(native.Frame.GetSamplesPerFrame(
+                                n, native.Fraction(fps, 1), 48000, 2)
+                                for n in range(last_audio_number[0] + 1, number + 1))
+                            frame.ResizeAudio(2, count, 48000, native.LAYOUT_STEREO)
+                            frame.AddAudioSilence(count)
+                            last_audio_number[0] = number
+
+                        if with_audio:
+                            reader.AddSystemAudio = add_audio
+                        job = helper.LiveVideoRecordingJob(
+                            reader, path, 64, 64, native.Fraction(fps, 1))
+                        job._writer = writer
+                        job.begin(100.0)
+                        # Simulate video capture ending early, at half a second.
+                        for number in (1, fps // 2):
+                            frame = native.Frame(number, 64, 64, "black")
+                            if with_audio:
+                                add_audio(frame, number)
+                            job._write_numbered_frame(frame, number)
+                            job._last_frame = frame
+                            job._last_output_frame_number = number
+                        job.stop(100.0 + duration)
+                        imported = native.FFmpegReader(path)
+                        imported.Open()
+                        try:
+                            self.assertLessEqual(abs(imported.info.duration - mic_duration),
+                                                 1.0 / fps + 0.03)
+                        finally:
+                            imported.Close()
+                        result = inspect(path)
+                        self.assertLessEqual(abs(float(result["format"]["duration"]) - mic_duration),
+                                             1.0 / fps + 0.03)
+                        for stream in result["streams"]:
+                            self.assertLessEqual(abs(float(stream["duration"]) - mic_duration),
+                                                 1.0 / fps + 0.03)
 
     def test_live_video_wait_until_opened_times_out_and_closes_reader(self):
         helper = self.audio_recording_module
