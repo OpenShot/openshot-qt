@@ -10,12 +10,13 @@ from windows.notifications import NotificationBanner, notification_area, notific
 
 
 class FeedbackController(QObject):
-    def __init__(self, window, settings, translate, preview=False):
+    def __init__(self, window, settings, translate, preview=False, rating_preview=False):
         super().__init__(window)
         _ = translate
         self.window = window
         self.settings = settings
         self.translate = translate
+        preview = preview or rating_preview
         self.policy = FeedbackPolicy(settings, None if preview else info.VERSION)
         self.preview = preview
         self.presented = False
@@ -26,6 +27,8 @@ class FeedbackController(QObject):
         self.store_review = (distribution.get("platform") == "windows"
                              and distribution.get("package_type") == "msix"
                              and distribution.get("official") is True)
+        if preview:
+            self.store_review = bool(rating_preview)
         self.rating_action = None
         if self.store_review:
             self.rating_action = QAction(_("Leave Rating…"), window)

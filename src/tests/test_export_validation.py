@@ -183,6 +183,15 @@ class ExportValidationTests(unittest.TestCase):
         self.assertEqual(self.issues(mode="image_sequence", image_format="-%05d.xyz")[("image_format", "error")].fix,
                          "-%05d.png")
 
+    def test_empty_timeline_blocks_export_even_with_a_valid_range(self):
+        for end in (1, 2, 100):
+            issues = self.issues(has_timeline_clips=False, start_frame=1, end_frame=end)
+            self.assertIn(("timeline", "error"), issues)
+            self.assertEqual(issues[("timeline", "error")].message,
+                             "Add a clip to the timeline before exporting.")
+            self.assertNotIn(("end_frame", "error"), issues)
+        self.assertEqual(self.issues(has_timeline_clips=True), {})
+
     def test_frame_range_and_folder(self):
         self.assertIn(("end_frame", "error"), self.issues(start_frame=10, end_frame=10))
         self.assertIn(("folder", "error"), self.issues(folder=os.path.join(PATH, "no-such-folder")))
@@ -358,9 +367,21 @@ class ExportDialogValidationTests(unittest.TestCase):
                              (dialog.txtVideoBitRate, "8 Mb/s"), (dialog.txtAudioCodec, "aac"),
                              (dialog.txtAudioBitrate, "192 kb/s"), (dialog.txtImageFormat, "-%05d.png")):
             widget.setText(text)
-        with patch("windows.export_validation_ui.get_app", return_value=SimpleNamespace(_tr=lambda text: text)):
+        with patch("windows.export_validation_ui.get_app", return_value=SimpleNamespace(_tr=lambda text: text, project={"clips": [{"id": "test-clip"}]})):
             validation = ExportValidationUI(dialog, ExportValidator(Capabilities(FakeWriter)))
         return dialog, validation
+
+    def test_empty_project_disables_export_until_a_clip_is_added(self):
+        dialog, validation = self.dialog()
+        validation.project["clips"] = []
+        for end in (1, 2):
+            dialog.txtEndFrame.setValue(end)
+            validation.validate()
+            self.assertFalse(dialog.export_button.isEnabled())
+            self.assertEqual(validation.issues[0].field, "timeline")
+        validation.project["clips"] = [{"id": "clip"}]
+        validation.validate()
+        self.assertTrue(dialog.export_button.isEnabled())
 
     def test_hardware_fix_checks_candidates_and_stops_at_first_success(self):
         from unittest.mock import patch

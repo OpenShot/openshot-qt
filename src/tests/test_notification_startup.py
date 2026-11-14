@@ -76,7 +76,8 @@ for key, value in list(vars(info).items()):
 info._path_defaults = {key: profile + value[len(original):]
                        for key, value in info._path_defaults.items()}
 info.setup_userdirs()
-info.FEEDBACK_PREVIEW = True
+info.FEEDBACK_PREVIEW = os.environ["TEST_STORE_INSTALL"] == "0"
+info.RATING_PREVIEW = os.environ["TEST_STORE_INSTALL"] == "1"
 info.UPDATE_PREVIEW = True
 version.get_current_Version = lambda: None
 from classes.app import OpenShotApp

@@ -117,7 +117,11 @@ def main():
     from classes import log_config
     log_config.add_arguments(parser)
     parser.add_argument('-V', '--version', action='store_true')
-    parser.add_argument(
+    banner_preview = parser.add_mutually_exclusive_group()
+    banner_preview.add_argument(
+        '--rating-preview', action='store_true',
+        help='Preview the Store rating banner and menu without changing saved feedback state')
+    banner_preview.add_argument(
         '--feedback-preview', action='store_true',
         help='Show the feedback banner on launch without changing saved feedback state')
     parser.add_argument(
@@ -130,6 +134,7 @@ def main():
     if args.cli:
         parser.error('--cli must be the first argument. Start with: openshot-qt --cli help')
     info.FEEDBACK_PREVIEW = args.feedback_preview
+    info.RATING_PREVIEW = args.rating_preview
     info.UPDATE_PREVIEW = args.update_preview
 
     # Display version and exit (if requested)

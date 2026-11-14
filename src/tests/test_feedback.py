@@ -104,7 +104,7 @@ class FeedbackTests(unittest.TestCase):
                 self.assertEqual(payload["os"], expected)
                 self.assertEqual(payload["source"], "unknown")
 
-    def make_controller(self, settings, preview=False, distribution=None):
+    def make_controller(self, settings, preview=False, distribution=None, rating_preview=False):
         window = QMainWindow()
         window.resize(1000, 700)
         window.menuHelp = window.menuBar().addMenu("Help")
@@ -114,7 +114,8 @@ class FeedbackTests(unittest.TestCase):
         window.menuHelp.addSeparator()
         window.actionAbout = window.menuHelp.addAction("About")
         with patch("windows.feedback.get_distribution_info", return_value=distribution or {}):
-            controller = FeedbackController(window, settings, lambda text: text, preview=preview)
+            controller = FeedbackController(window, settings, lambda text: text, preview=preview,
+                                            rating_preview=rating_preview)
         self.addCleanup(lambda: window.deleteLater() if not isdeleted(window) else None)
         self.addCleanup(lambda: controller.timer.stop() if not isdeleted(controller.timer) else None)
         return controller
@@ -137,6 +138,22 @@ class FeedbackTests(unittest.TestCase):
         self.assertFalse(settings.get("feedback-shown"))
         self.assertTrue(controller.action.isEnabled())
         self.assertFalse(controller.timer.isActive())
+
+    def test_preview_flags_override_install_without_consuming_invitation(self):
+        for distribution in ({}, {"platform": "windows", "package_type": "msix", "official": True}):
+            for rating in (False, True):
+                with self.subTest(distribution=distribution, rating=rating):
+                    controller = self.make_controller(Settings(), preview=True,
+                                                      distribution=distribution, rating_preview=rating)
+                    self.assertEqual(controller.store_review, rating)
+                    self.assertEqual(controller.rating_action is not None, rating)
+                    controller.show_invitation()
+                    with patch("windows.feedback.QDesktopServices.openUrl", return_value=True) as opened:
+                        controller.banner.primary.click()
+                    self.assertEqual(opened.call_args[0][0].scheme(),
+                                     "ms-windows-store" if rating else "https")
+                    self.assertFalse(controller.policy.shown)
+                    self.assertEqual(controller.settings.saved, {})
 
     def test_store_routing_and_separate_feedback_menu(self):
         for system, kind, official in (

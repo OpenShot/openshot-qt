@@ -5911,7 +5911,9 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
         # Init all Keyboard shortcuts
         from windows.feedback import FeedbackController
-        self.feedback_controller = FeedbackController(self, s, _, preview=info.FEEDBACK_PREVIEW)
+        self.feedback_controller = FeedbackController(
+            self, s, _, preview=info.FEEDBACK_PREVIEW or info.RATING_PREVIEW,
+            rating_preview=info.RATING_PREVIEW)
         self.initShortcuts()
 
         # Apply accessibility-friendly tab order after layout settles
