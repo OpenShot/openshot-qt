@@ -845,7 +845,14 @@ elif sys.platform == "win32":
     from installer.windows_ffmpeg import stage_ffmpeg_runtime
     for frozen_path in os.listdir(build_path):
         if frozen_path.startswith("exe") and ".previous-" not in frozen_path:
-            stage_ffmpeg_runtime(os.path.dirname(ffmpeg_bin_path), os.path.join(build_path, frozen_path))
+            package_root = os.path.join(build_path, frozen_path)
+            stage_ffmpeg_runtime(os.path.dirname(ffmpeg_bin_path), package_root)
+            if artifact_path:
+                for dll_name in ("libopenshot.dll", "libopenshot-audio.dll"):
+                    dll_source = os.path.join(artifact_path, "bin", dll_name)
+                    if os.path.isfile(dll_source):
+                        log.info("Staging artifact DLL: %s", dll_source)
+                        copy(dll_source, os.path.join(package_root, "lib", dll_name))
 
 elif sys.platform == "linux":
     # Linux issues with frozen folder

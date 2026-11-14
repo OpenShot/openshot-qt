@@ -70,6 +70,16 @@ class ReleaseDetailsTests(unittest.TestCase):
             with patch("builtins.open", side_effect=PermissionError("unreadable")):
                 self.assertEqual(release_details.get_build_details(), {})
 
+    def test_partial_downstream_metadata_is_normalized(self):
+        with tempfile.TemporaryDirectory() as root, patch.object(release_details.info, 'PATH', root):
+            os.mkdir(os.path.join(root, 'settings'))
+            path = os.path.join(root, 'settings', 'version.json')
+            with open(path, 'w') as stream:
+                json.dump({'openshot-qt': ['unexpected'], 'libopenshot-audio': 'unknown',
+                           'build_name': 123, 'date': [], 'build_type': False}, stream)
+            self.assertEqual(release_details.get_build_details(),
+                             {'openshot-qt': {}, 'libopenshot-audio': {}})
+
     def test_release_lookup_uses_installed_version_and_survives_failure(self):
         with patch.object(release_details.http_client, "get_json", return_value={"sha": "abc"}) as get:
             self.assertEqual(release_details.get_release_details("4.0.1"), {"sha": "abc"})

@@ -248,51 +248,23 @@ class GpuDiagnostics:
         if device is None:
             device = next((d for d in state["devices"] if d["type"] != "software"), None)
         lines = ["GPU: " + (device["name"] if device else "not identified")]
-        previews = state["previews"]
-        native = sum(p["native_draws"] for p in previews)
-        cpu = sum(p["cpu_draws"] for p in previews)
         if not state["apis"]["ListGpuDevices"]:
-            status = "GPU acceleration unavailable in this build"
+            status = "Unavailable in this build"
         elif state["backend"] == "cpu":
-            status = "CPU rendering was explicitly requested"
-        elif native and cpu:
-            status = "GPU acceleration worked, but CPU fallback also occurred"
-        elif native:
-            status = "GPU acceleration used for preview"
-        elif cpu:
-            status = "CPU preview used; GPU presentation did not succeed"
-        elif previews and not any(p["enabled"] for p in previews):
-            status = "CPU preview selected"
+            status = "CPU mode explicitly selected"
         elif state["probe"] != "complete":
-            status = "Checking whether GPU acceleration is available"
+            status = "Checking capabilities"
         elif state["selected"]:
-            status = "GPU acceleration available; not yet used for preview"
+            status = "Available"
         else:
-            status = "No usable Vulkan device"
-        lines.append("Preview: " + status)
+            status = "Unavailable"
+        lines.append("GPU Support: " + status)
         driver_line = None
         if device:
             driver_line = "Driver: %s | Vulkan: %s" % (device["driver"] or "not reported", device["vulkan_api"])
-        if state["backend"] != "cpu":
-            # Prefer the timeline's explanation; keep additional previews and
-            # earlier reasons in the detailed report rather than the clipboard.
-            reasons = []
-            for preview in sorted(state["previews"], key=lambda p: p["name"] != "timeline"):
-                if preview["fallback_reasons"]:
-                    reasons.append(preview["fallback_reasons"][-1])
-                elif not preview["enabled"]:
-                    reasons.append(preview["selection_reason"])
-            if reasons or state["errors"]:
-                reason = (reasons or state["errors"])[0].splitlines()[0]
-                if "selected different GPUs" in reason:
-                    reason = "Display and video processing selected different GPUs"
-                elif reason.startswith("Frame is CPU-backed"):
-                    reason = "This preview needed CPU image data"
-                elif reason == "Qt could not create a usable OpenGL context":
-                    reason = "Display initialization could not enable GPU preview"
-                elif reason == "libopenshot has no Vulkan presenter binding":
-                    reason = "This build does not provide GPU preview support"
-                lines.append("Fallback reason: " + (reason[:237] + "…" if len(reason) > 240 else reason))
+        if state["backend"] != "cpu" and not state["selected"] and state["errors"]:
+            reason = state["errors"][0].splitlines()[0]
+            lines.append("GPU initialization: " + (reason[:237] + "…" if len(reason) > 240 else reason))
         if driver_line:
             lines.append(driver_line)
         debug = ["%s=%s" % (key, self.environ[key]) for key in DEBUG_VARIABLES if self.environ.get(key)]

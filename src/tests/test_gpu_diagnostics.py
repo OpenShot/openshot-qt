@@ -70,19 +70,20 @@ class GpuDiagnosticsTests(unittest.TestCase):
         self.assertEqual(report.encoder_capabilities()['encoders'], ('h264_nvenc', 'h264_qsv'))
         self.assertEqual(writer.Test.call_count, 2)
 
-    def test_copy_is_short_and_keeps_fallback_without_verbose_evidence(self):
+    def test_copy_reports_capability_independently_of_preview_activity(self):
         report = GpuDiagnostics(native_api(), Mock(), {})
         report.probe()
+        initial = report.copy_lines()
+        self.assertEqual(initial[1], "GPU Support: Available")
         key = report.register_preview("timeline", True, "available")
         report.observe_preview(key, True)
-        self.assertEqual(len(report.copy_lines()), 3)
+        self.assertEqual(report.copy_lines(), initial)
         report.observe_preview(key, False, "Qt/OpenGL and Vulkan selected different GPUs")
         copied = report.copy_lines()
-        self.assertEqual(len(copied), 4)
-        self.assertIn("Vulkan: 1.3.290", copied[3])
-        self.assertEqual(copied[1], "Preview: GPU acceleration worked, but CPU fallback also occurred")
-        self.assertEqual(copied[2], "Fallback reason: Display and video processing selected different GPUs")
-        self.assertIn("different GPUs", copied[2])
+        self.assertEqual(copied, initial)
+        self.assertIn("Vulkan: 1.3.290", copied[2])
+        self.assertEqual(copied[1], "GPU Support: Available")
+        self.assertFalse(any(line.startswith("Fallback reason:") for line in copied))
         self.assertNotIn("native draws", "\n".join(copied))
         self.assertNotIn("h264_nvenc", "\n".join(copied))
         self.assertIn("h264_nvenc", "\n".join(report.report_lines()))
@@ -140,6 +141,9 @@ class GpuDiagnosticsTests(unittest.TestCase):
         self.assertEqual(preview["cpu_draws"], 10)
         self.assertEqual(preview["fallback_reasons"], [])
         self.assertEqual(logger.info.call_count, calls)
+        self.assertEqual(report.copy_lines()[1],
+                         "GPU Support: Available")
+        self.assertFalse(any(line.startswith("Fallback reason:") for line in report.copy_lines()))
         # After the warm-up the same reason is a real fallback.
         report.observe_preview(key, False, "Frame is CPU-backed (decode, rendering, or an effect required CPU pixels)")
         self.assertEqual(len(report.snapshot()["previews"][0]["fallback_reasons"]), 1)
@@ -170,6 +174,7 @@ class GpuDiagnosticsTests(unittest.TestCase):
         report = GpuDiagnostics(native, Mock(), {"OPENSHOT_RENDER_BACKEND": "cpu"})
         report.probe()
         native.GpuEncoders.assert_not_called()
+        self.assertIn("GPU Support: CPU mode explicitly selected", report.copy_lines())
         self.assertIn("CPU rendering requested", report.brief())
         self.assertIn("not checked", "\n".join(report.report_lines()))
 
@@ -181,6 +186,8 @@ class GpuDiagnosticsTests(unittest.TestCase):
         self.assertIn("Test GPU", report.brief())
         self.assertIn("Vulkan unavailable", report.brief())
         self.assertIn("vkCreateDevice failed", "\n".join(report.report_lines()))
+        self.assertIn("GPU Support: Unavailable", report.copy_lines())
+        self.assertIn("GPU initialization: ActiveGpuDevice: vkCreateDevice failed", report.copy_lines())
         self.assertIn("Hardware encoders that opened: not checked", "\n".join(report.report_lines()))
         native.GpuEncoders.assert_not_called()
 
