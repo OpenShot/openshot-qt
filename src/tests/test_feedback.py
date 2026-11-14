@@ -104,7 +104,7 @@ class FeedbackTests(unittest.TestCase):
                 self.assertEqual(payload["os"], expected)
                 self.assertEqual(payload["source"], "unknown")
 
-    def make_controller(self, settings, preview=False):
+    def make_controller(self, settings, preview=False, distribution=None):
         window = QMainWindow()
         window.resize(1000, 700)
         window.menuHelp = window.menuBar().addMenu("Help")
@@ -113,7 +113,8 @@ class FeedbackTests(unittest.TestCase):
         window.actionUpdate = window.menuHelp.addAction("Update Available")
         window.menuHelp.addSeparator()
         window.actionAbout = window.menuHelp.addAction("About")
-        controller = FeedbackController(window, settings, lambda text: text, preview=preview)
+        with patch("windows.feedback.get_distribution_info", return_value=distribution or {}):
+            controller = FeedbackController(window, settings, lambda text: text, preview=preview)
         self.addCleanup(lambda: window.deleteLater() if not isdeleted(window) else None)
         self.addCleanup(lambda: controller.timer.stop() if not isdeleted(controller.timer) else None)
         return controller
@@ -137,25 +138,40 @@ class FeedbackTests(unittest.TestCase):
         self.assertTrue(controller.action.isEnabled())
         self.assertFalse(controller.timer.isActive())
 
-    def test_store_routing_is_limited_to_official_windows_msix(self):
+    def test_store_routing_and_separate_feedback_menu(self):
         for system, kind, official in (
                 ("windows", "msix", True), ("windows", "msix", False),
                 ("windows", "exe", True), ("linux", "appimage", True),
                 ("darwin", "appbundle", True), ("linux", "msix", True)):
-            for entry in ("banner", "menu"):
+            distribution = {"platform": system, "package_type": kind,
+                            "official": official, "app_version": "4.0.1"}
+            store = (system, kind, official) == ("windows", "msix", True)
+            for entry in ("banner", "feedback", "rating"):
                 with self.subTest(system=system, kind=kind, official=official, entry=entry):
-                    controller = self.make_controller(Settings())
+                    controller = self.make_controller(Settings(), distribution=distribution)
+                    self.assertEqual(controller.rating_action is not None, store)
+                    if store:
+                        self.assertFalse(controller.rating_action.icon().isNull())
                     controller.show_invitation()
-                    distribution = {"platform": system, "package_type": kind,
-                                    "official": official, "app_version": "4.0.1"}
+                    self.assertEqual(controller.banner.message.text(),
+                                     "Rate your experience with OpenShot." if store else
+                                     "Tell us about your experience with OpenShot.")
+                    self.assertEqual(controller.banner.primary.text(),
+                                     "Rate && review" if store else "Share feedback")
                     with patch("windows.feedback.get_distribution_info", return_value=distribution), \
                             patch("windows.feedback.QDesktopServices.openUrl", return_value=True) as opened:
                         if entry == "banner":
                             controller.banner.primary.click()
-                        else:
+                        elif entry == "feedback":
                             controller.action.trigger()
+                        elif store:
+                            controller.rating_action.trigger()
+                        else:
+                            self.assertFalse(controller.open_rating())
+                            opened.assert_not_called()
+                            continue
                     url = opened.call_args[0][0].toString()
-                    if (system, kind, official) == ("windows", "msix", True):
+                    if store and entry != "feedback":
                         self.assertEqual(url, "ms-windows-store://review/?ProductId=9P6R2PMH4C04")
                     else:
                         self.decode_context(url)
@@ -167,22 +183,22 @@ class FeedbackTests(unittest.TestCase):
         for entry in ("banner", "menu"):
             for outcome in (False, OSError("no handler")):
                 with self.subTest(entry=entry, outcome=outcome):
-                    controller = self.make_controller(Settings())
+                    controller = self.make_controller(Settings(), distribution=distribution)
                     controller.show_invitation()
-                    with patch("windows.feedback.get_distribution_info", return_value=distribution), \
-                            patch("windows.feedback.QDesktopServices.openUrl", return_value=False,
-                                  side_effect=outcome if isinstance(outcome, Exception) else None), \
+                    with patch("windows.feedback.QDesktopServices.openUrl", return_value=False,
+                               side_effect=outcome if isinstance(outcome, Exception) else None), \
                             patch("windows.feedback.QMessageBox.warning") as warning:
                         if entry == "banner":
                             controller.banner.primary.click()
                         else:
-                            controller.action.trigger()
+                            controller.rating_action.trigger()
                     self.assertEqual(warning.call_args[0][1], "Unable to open Microsoft Store")
                     self.assertEqual(controller.policy.shown, entry == "banner")
-                    self.assertTrue(controller.action.isEnabled())
+                    self.assertTrue(controller.rating_action.isEnabled())
 
     def test_store_banner_dismissal_does_not_launch_feedback(self):
-        controller = self.make_controller(Settings())
+        controller = self.make_controller(Settings(), distribution={
+            "platform": "windows", "package_type": "msix", "official": True})
         controller.show_invitation()
         with patch("windows.feedback.QDesktopServices.openUrl") as opened:
             controller.banner.close_button.click()
@@ -401,6 +417,7 @@ class FeedbackTests(unittest.TestCase):
             self.assertEqual(restored.get("dismissed-update-version"), "4.1.0")
             self.assertEqual(restored.get("unique_install_id"), "persistent-test-id")
             self.assertEqual(restored.get("actionShareFeedback"), "F8")
+            self.assertEqual(restored.get("actionLeaveRating"), "F10")
             self.assertEqual(restored.get("actionUpdate"), "F9")
 
     def test_new_release_resets_acknowledgement(self):

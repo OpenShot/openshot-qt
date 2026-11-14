@@ -19,7 +19,7 @@ for name in ('AA_EnableHighDpiScaling', 'AA_UseHighDpiPixmaps'):
         QApplication.setAttribute(getattr(Qt, name))
 app = QApplication([])
 from windows.notifications import NotificationBanner, banner_colors, notification_icon
-for kind in ('feedback', 'update'):
+for kind in ('feedback', 'rating', 'update'):
     banner = NotificationBanner(None, kind, 'Open', lambda: None, lambda: None,
                                 str, icon_name=kind)
     for name in ('Cosmic Dusk', 'Humanity: Dark', 'Retro'):
@@ -34,7 +34,7 @@ for kind in ('feedback', 'update'):
         source = notification_icon(banner, kind, theme).pixmap(banner.symbol.size()).toImage()
         actual = pixmap.toImage()
         assert source.size() == actual.size()
-        expected = QColor(colors['text'])
+        expected = QColor(colors.get('icon', colors['text']))
         visible = 0
         for y in range(actual.height()):
             for x in range(actual.width()):
@@ -100,9 +100,16 @@ def verify():
         actions = window.menuHelp.actions()
         start = actions.index(window.actionShareFeedback)
         assert actions[start - 1].isSeparator()
-        assert actions[start + 1] is window.actionUpdate
-        assert actions[start + 2].isSeparator()
-        assert actions[start + 3] is window.actionAbout
+        store = os.environ["TEST_STORE_INSTALL"] == "1"
+        if store:
+            assert actions[start + 1] is window.actionLeaveRating
+            assert window.actionLeaveRating.shortcut().toString() == "F10"
+        else:
+            assert not hasattr(window, "actionLeaveRating")
+        update = actions.index(window.actionUpdate)
+        assert update == start + (2 if store else 1)
+        assert actions[update + 1].isSeparator()
+        assert actions[update + 2] is window.actionAbout
         for theme in ("Cosmic Dusk", "Humanity: Dark", "Retro"):
             app.theme_manager.apply_theme(theme)
             app.processEvents()
@@ -113,6 +120,13 @@ def verify():
                 assert not action.icon().pixmap(24, 24).isNull(), theme
         window.activateWindow()
         app.processEvents()
+        if store:
+            with patch("windows.feedback.QDesktopServices.openUrl", return_value=True) as opened:
+                QTest.keyClick(window, Qt.Key_F10)
+                app.processEvents()
+                opened.assert_called_once()
+                assert opened.call_args[0][0].toString() == "ms-windows-store://review/?ProductId=9P6R2PMH4C04"
+                assert set(area.banners) == {"feedback", "update"}
         with patch("windows.feedback.QDesktopServices.openUrl", return_value=True) as opened:
             QTest.keyClick(window, Qt.Key_F8)
             app.processEvents()
@@ -135,7 +149,10 @@ def verify():
     finally:
         app.quit()
 
-assert app.gui()
+distribution = ({"platform": "windows", "package_type": "msix", "official": True}
+                if os.environ["TEST_STORE_INSTALL"] == "1" else {})
+with patch("windows.feedback.get_distribution_info", return_value=distribution):
+    assert app.gui()
 # Start after GUI initialization; slow builders may process events during gui().
 QTimer.singleShot(4000, verify)
 app.exec_()
@@ -144,7 +161,10 @@ assert passed, "Notification startup checks failed"
         source = str(Path(__file__).resolve().parents[1])
         env = dict(os.environ, PYTHONPATH=os.pathsep.join(filter(None, (source, os.environ.get("PYTHONPATH")))), QT_QPA_PLATFORM="offscreen",
                    QT_QUICK_BACKEND="software")
-        result = subprocess.run([sys.executable, "-c", script], env=env,
-                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                universal_newlines=True, timeout=60)
-        self.assertEqual(result.returncode, 0, result.stdout[-16000:])
+        for store in ("0", "1"):
+            with self.subTest(store=store):
+                env["TEST_STORE_INSTALL"] = store
+                result = subprocess.run([sys.executable, "-c", script], env=env,
+                                        stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                        universal_newlines=True, timeout=60)
+                self.assertEqual(result.returncode, 0, result.stdout[-16000:])

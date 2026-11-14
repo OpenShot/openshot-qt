@@ -33,20 +33,20 @@ def banner_colors(window, theme=None, kind="update"):
     name = getattr(theme, "name", "")
     background = window.palette().color(QPalette.Window)
     if name == "Retro" or (not name and background.lightness() >= 128):
-        if kind == "feedback":
-            return dict(backdrop="#ededed", surface="#eef8f5", border="#a4d4c8",
-                        text="#17665a", action="#155da6", close="#536579", hover="#d9f0e9")
+        if kind in ("feedback", "rating"):
+            return dict(backdrop="#ededed", surface="#edf3ff", middle="#f1edfb", end="#f9edf5", border="#c5b9df",
+                        text="#403568", action="#4540a0", close="#625773", hover="#e7dff5")
         return dict(backdrop="#ededed", surface="#eef5fc", border="#b2c9e0", text="#155da6",
                     action="#155da6", close="#536579", hover="#dcebf9")
     if name == "Cosmic Dusk" or (not name and background.blue() > background.red() + 10):
-        if kind == "feedback":
-            return dict(backdrop="#192332", surface="#172d32", border="#386761",
-                        text="#8cdbca", action="#a5d8f8", close="#a9bdc5", hover="#204149")
+        if kind in ("feedback", "rating"):
+            return dict(backdrop="#192332", surface="#1c2c46", middle="#2a2444", end="#38243c", border="#61517c",
+                        text="#e0dcf7", icon="#91c3ff", action="#b9d7ff", close="#c1b6ce", hover="#3a3153")
         return dict(backdrop="#192332", surface="#17283a", border="#365574", text="#a7d0ff",
                     action="#a7d0ff", close="#aebdcc", hover="#223d58")
-    if kind == "feedback":
-        return dict(backdrop="#303030", surface="#253632", border="#477669",
-                    text="#9cdec7", action="#afd8ff", close="#b9c6c3", hover="#304b42")
+    if kind in ("feedback", "rating"):
+        return dict(backdrop="#303030", surface="#293347", middle="#342c46", end="#412d40", border="#776384",
+                    text="#e9dff6", icon="#a9d2ff", action="#bfd9ff", close="#d1bfd5", hover="#493b56")
     return dict(backdrop="#303030", surface="#26323f", border="#48637e", text="#acd3ff",
                 action="#acd3ff", close="#bdc9d5", hover="#34475c")
 
@@ -98,12 +98,19 @@ class NotificationBanner(QFrame):
         pixmap = notification_icon(self, self.icon_name, theme).pixmap(self.symbol.size())
         painter = QPainter(pixmap)
         painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
-        painter.fillRect(pixmap.rect(), QColor(colors["text"]))
+        painter.fillRect(pixmap.rect(), QColor(colors.get("icon", colors["text"])))
         painter.end()
         self.symbol.setPixmap(pixmap)
+        colors = dict(colors)
+        colors["background"] = colors["surface"]
+        if self.icon_name in ("feedback", "rating"):
+            # A restrained echo of About's blue, violet, and pink lighting.
+            colors["background"] = (
+                "qlineargradient(x1:0, y1:0, x2:1, y2:0, "
+                "stop:0 %(surface)s, stop:0.55 %(middle)s, stop:1 %(end)s)" % colors)
         self.setStyleSheet("""
             QFrame#notificationBanner {
-                background: %(surface)s; border: 1px solid %(border)s; border-radius: 6px;
+                background: %(background)s; border: 1px solid %(border)s; border-radius: 6px;
             }
             QFrame#notificationBanner:hover { background: %(hover)s; }
             QFrame#notificationBanner QLabel {

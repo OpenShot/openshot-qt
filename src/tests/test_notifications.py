@@ -185,8 +185,10 @@ class NotificationTests(unittest.TestCase):
             for kind in ("update", "feedback"):
                 colors = banner_colors(self.make_window(), SimpleNamespace(name=name), kind)
                 for role in ("text", "action", "close"):
-                    values = sorted([luminance(colors["surface"]), luminance(colors[role])])
-                    self.assertGreaterEqual((values[1] + 0.05) / (values[0] + 0.05), 4.5)
+                    for surface in ("surface", "middle", "end", "hover"):
+                        if surface in colors:
+                            values = sorted([luminance(colors[surface]), luminance(colors[role])])
+                            self.assertGreaterEqual((values[1] + 0.05) / (values[0] + 0.05), 4.5)
 
     def test_banner_surface_click_and_dismiss_are_separate(self):
         window = self.make_window()
