@@ -470,11 +470,10 @@ class About(QDialog):
         if memory:
             add("Memory", memory)
 
-        from classes.distribution import distribution_label
-        add("Distribution", distribution_label())
+        metadata = release_details.get_build_details()
+        add("Official Distribution", "Yes" if metadata.get("official_distribution") is True else "No")
         if self.source_details:
             add("Source", " | ".join(f"{key}: {value}" for key, value in self.source_details.items()))
-        metadata = release_details.get_build_details()
         for project in ('openshot-qt', 'libopenshot', 'libopenshot-audio'):
             component = metadata.get(project) or {}
             commit = component.get('CI_COMMIT_SHA') if isinstance(component, dict) else None
@@ -647,6 +646,10 @@ class About(QDialog):
             number = match.group(1)
         if release_details.is_release_build(metadata, getattr(self, 'release_metadata', None)):
             kind = _('Release')
+        elif (metadata.get('build_type') == 'test' or
+              (qt.get('CI_COMMIT_REF_NAME') and qt['CI_COMMIT_REF_NAME'] != 'develop'
+               and not qt['CI_COMMIT_REF_NAME'].startswith('release'))):
+            kind = _('Test')
         elif '-release-candidate' in name:
             kind = _('RC')
         elif '-daily' in name:

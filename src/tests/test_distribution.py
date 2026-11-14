@@ -134,4 +134,9 @@ class BuildProvenanceTests(unittest.TestCase):
             self.assertFalse(local['official_distribution'])
             self.assertEqual(local['build_type'], 'local')
             self.assertRegex(local['date'], r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$')
+            write_build_metadata(target, source, dict(official_env, CI_COMMIT_REF_NAME="about-audio-version",
+                                                      CI_PIPELINE_ID="18880"))
+            artifact = json.loads(target.read_text())
+            self.assertTrue(artifact['official_distribution'])
+            self.assertEqual(artifact['build_type'], 'test')
             self.assertTrue(source["official_distribution"])

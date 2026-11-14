@@ -255,6 +255,7 @@ class AboutTests(unittest.TestCase):
             ('candidate offline', candidate, None, {}, 'appbundle', 'RC | 18760', 'November 13, 2026'),
             ('daily name number', daily, None, {}, 'msix', 'Daily | 18760', 'November 13, 2026'),
             ('daily pipeline number', dict(daily, **{'openshot-qt': {'CI_PIPELINE_ID': 19000}}), None, {}, 'appimage', 'Daily | 19000', 'November 13, 2026'),
+            ('branch artifact', {'openshot-qt': {'CI_COMMIT_REF_NAME': 'about-audio-version', 'CI_PIPELINE_ID': '18880'}, 'official_distribution': True}, None, {}, 'exe', 'Test | 18880', 'Not recorded'),
             ('source checkout', {}, None, {'branch': 'develop'}, 'unknown', 'Local', 'Not recorded'),
             ('local frozen', {'build_type': 'local', 'date': '2026-11-13 12:00'}, None, {}, 'exe', 'Local', 'November 13, 2026'),
             ('flatpak', {}, None, {}, 'flatpak', 'External', 'Not recorded'),
@@ -285,6 +286,9 @@ class AboutTests(unittest.TestCase):
                 self.assertIn('- **Build Date:** ' + date + '\n', copied)
                 self.assertIn('- **Package:** ' + self.dialog.lblCommitValue.toolTip(), copied)
                 self.assertIn('Audio 1.1.0-dev1', copied)
+                self.assertNotIn('Build Source', copied)
+                official = 'Yes' if metadata.get('official_distribution') is True else 'No'
+                self.assertIn('- **Official Distribution:** ' + official + '\n', copied)
                 for key in ('Build', 'Released', 'Library', 'Commit'):
                     self.assertTrue(getattr(self.dialog, 'lbl%sValue' % key).isVisible())
                 centers = [getattr(self.dialog, 'lbl%sValue' % key).geometry().center().y()

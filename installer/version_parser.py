@@ -109,6 +109,9 @@ def write_build_metadata(version_path, version_info, environ=None):
         environ.get("CI_SERVER_HOST") == "gitlab.openshot.org"
         and environ.get("CI_PROJECT_PATH") == "OpenShot/openshot-qt"
     )
+    branch = environ.get("CI_COMMIT_REF_NAME", "")
+    if environ.get("CI_PIPELINE_ID") and branch and branch != "develop" and not branch.startswith("release"):
+        metadata["build_type"] = "test"
     with open(version_path, "w", encoding="utf-8") as stream:
         json.dump(metadata, stream, indent=4)
 
