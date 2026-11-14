@@ -62,6 +62,13 @@ def get_build_details():
         with open(path, encoding="utf-8") as stream:
             metadata = json.load(stream)
         if isinstance(metadata, dict):
+            # Downstream packages may supply partial or differently shaped data.
+            for project in ('openshot-qt', 'libopenshot', 'libopenshot-audio'):
+                if project in metadata and not isinstance(metadata[project], dict):
+                    metadata[project] = {}
+            for key in ('build_name', 'date', 'build_type'):
+                if key in metadata and not isinstance(metadata[key], str):
+                    metadata.pop(key)
             return metadata
     except FileNotFoundError:
         pass

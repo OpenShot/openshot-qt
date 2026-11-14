@@ -6,188 +6,309 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>540</width>
-    <height>349</height>
+    <width>760</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>About OpenShot</string>
   </property>
+  <widget class="QLabel" name="lblAboutLogo">
+   <property name="text">
+    <string />
+   </property>
+   <property name="styleSheet">
+    <string />
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+   <property name="accessibleName">
+    <string>OpenShot Video Editor</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblVersionHeading">
+   <property name="text">
+    <string>VERSION</string>
+   </property>
+   <property name="styleSheet">
+    <string>font-size:10px; color:#B7C5DD; font-weight:600;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="txtversion">
+   <property name="text">
+    <string>4.2.0-dev1</string>
+   </property>
+   <property name="styleSheet">
+    <string>font-size:28px; font-weight:600;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblTagline">
+   <property name="text">
+    <string>Create. Edit. Inspire.</string>
+   </property>
+   <property name="styleSheet">
+    <string>font-size:25px; font-weight:600;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblAboutDescription">
+   <property name="text">
+    <string />
+   </property>
+   <property name="styleSheet">
+    <string>font-size:14px; color:#D0D9EC;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblLibraryKey">
+   <property name="text">
+    <string>libopenshot</string>
+   </property>
+   <property name="styleSheet">
+    <string>font-size:11px; color:#9FB2CF;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblLibraryValue">
+   <property name="text">
+    <string />
+   </property>
+   <property name="styleSheet">
+    <string>font-size:12px; color:#DAE3F4;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblReleasedKey">
+   <property name="text">
+    <string>Released</string>
+   </property>
+   <property name="styleSheet">
+    <string>font-size:11px; color:#9FB2CF;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblReleasedValue">
+   <property name="text">
+    <string />
+   </property>
+   <property name="styleSheet">
+    <string>font-size:12px; color:#DAE3F4;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblBuildKey">
+   <property name="text">
+    <string>Build</string>
+   </property>
+   <property name="styleSheet">
+    <string>font-size:11px; color:#9FB2CF;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblBuildValue">
+   <property name="text">
+    <string />
+   </property>
+   <property name="styleSheet">
+    <string>font-size:12px; color:#DAE3F4;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblCommitKey">
+   <property name="text">
+    <string>Commit</string>
+   </property>
+   <property name="styleSheet">
+    <string>font-size:11px; color:#9FB2CF;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblCommitValue">
+   <property name="text">
+    <string />
+   </property>
+   <property name="styleSheet">
+    <string>font-size:12px; color:#DAE3F4;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblAboutCompany">
+   <property name="text">
+    <string />
+   </property>
+   <property name="styleSheet">
+    <string>font-size:10px; color:#B1BCD1;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QFrame" name="columnSeparator">
+   <property name="styleSheet">
+    <string>background:rgba(220,230,255,38);</string>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>1</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>1</width>
+     <height>16777215</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QWidget" name="aboutToolbar">
+   <layout class="QHBoxLayout" name="horizontalLayoutButtons">
+    <property name="leftMargin">
+     <number>28</number>
+    </property>
+    <property name="rightMargin">
+     <number>28</number>
+    </property>
+    <property name="topMargin">
+     <number>18</number>
+    </property>
+    <property name="bottomMargin">
+     <number>18</number>
+    </property>
+    <property name="spacing">
+     <number>12</number>
+    </property>
+    <item>
+     <widget class="QPushButton" name="btncredit">
+      <property name="text">
+       <string>Credits</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnlicense">
+      <property name="text">
+       <string>License</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnchangelog">
+      <property name="text">
+       <string>Changelog</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="toolbarStretch">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btnCopyVersionInfo">
+      <property name="text">
+       <string>Copy Version Info</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="text">
+       <string>Close</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <property name="windowIcon">
    <iconset>
-    <normaloff>:/openshot.svg</normaloff>:/openshot.svg</iconset>
+    <normaloff>:/openshot.svg</normaloff>
+   </iconset>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="0" colspan="3">
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QLabel" name="lblAboutDescription">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">font-size: 16px; font-weight: bold; color: #FFFFFF; margin-bottom: 12px;</string>
-       </property>
-       <property name="text">
-        <string>Create &amp; Edit Amazing Videos and Movies</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayoutVersionCopyright">
-       <item alignment="Qt::AlignBottom">
-        <widget class="QLabel" name="txtversion">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">font-size: 12px; color: #FFFFFF; </string>
-         </property>
-         <property name="text">
-          <string>Version Loading</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-         </property>
-        </widget>
-       </item>
-       <item alignment="Qt::AlignBottom">
-        <widget class="QToolButton" name="btnCopyVersionInfo">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>68</width>
-           <height>24</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string>Copy Version Info</string>
-         </property>
-         <property name="text">
-          <string>Copy</string>
-         </property>
-         <property name="autoRaise">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacerVersionCopy">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QLabel" name="lblAboutCompany">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">font-size: 12px; color: #FFFFFF; </string>
-         </property>
-         <property name="text">
-          <string>© 2024 OpenShot Studios, LLC</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayoutButtons">
-       <item>
-        <widget class="QPushButton" name="btncredit">
-         <property name="text">
-          <string>Credits</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btnlicense">
-         <property name="text">
-          <string>License</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btnchangelog">
-         <property name="text">
-          <string>Changelog</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_3">
-         <property name="text">
-          <string>Close</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </item>
-   <item row="0" column="0" colspan="3">
-    <widget class="QLabel" name="lblAboutLogo">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>120</height>
-      </size>
-     </property>
-     <property name="accessibleName">
-      <string>OpenShot Video Editor</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </item>
-  </layout>
  </widget>
- <resources/>
+ <resources />
  <connections>
   <connection>
    <sender>pushButton_3</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
    <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>522</x>
-     <y>777</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>613</x>
-     <y>765</y>
-    </hint>
-   </hints>
   </connection>
  </connections>
 </ui>
