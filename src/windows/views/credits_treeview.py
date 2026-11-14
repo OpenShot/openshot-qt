@@ -49,13 +49,19 @@ class CreditsTreeView(QTreeView):
         # Model is already populated; just adjust view
 
         # Format columns
-        self.header().setSectionResizeMode(0, QHeaderView.Fixed)
-        self.header().setSectionResizeMode(1, QHeaderView.Fixed)
-        self.setColumnWidth(0, 22)
-        self.setColumnWidth(1, 22)
-        self.setColumnWidth(2, 150)
-        self.setColumnWidth(3, 150)
-        self.setColumnWidth(4, 150)
+        header = self.header()
+        header.setMinimumSectionSize(22)
+        header.setStretchLastSection(False)
+        header.setSectionResizeMode(0, QHeaderView.Fixed)
+        header.setSectionResizeMode(1, QHeaderView.Fixed)
+        self.setColumnWidth(0, 24)
+        self.setColumnWidth(1, 24)
+        header.setSectionResizeMode(2, QHeaderView.Interactive if "email" in self.columns else QHeaderView.Stretch)
+        header.setSectionResizeMode(3, QHeaderView.Interactive)
+        header.setSectionResizeMode(4, QHeaderView.Stretch if "email" in self.columns else QHeaderView.Interactive)
+        self.setColumnWidth(2, 200)
+        self.setColumnWidth(3, 220)
+        self.setColumnWidth(4, 280)
         self.sortByColumn(2, Qt.AscendingOrder)
 
         if "email" not in self.columns:
@@ -119,7 +125,8 @@ class CreditsTreeView(QTreeView):
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.setSelectionMode(QAbstractItemView.ExtendedSelection)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.setWordWrap(True)
+        self.setWordWrap(False)
+        self.setUniformRowHeights(True)
         self.columns = columns
 
         # Populate model

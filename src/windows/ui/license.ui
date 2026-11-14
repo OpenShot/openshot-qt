@@ -19,7 +19,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QTextBrowser" name="textBrowser"/>
+    <widget class="QTextBrowser" name="textBrowser" />
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
@@ -39,18 +39,36 @@
      <item>
       <widget class="QPushButton" name="btnclose">
        <property name="locale">
-        <locale language="English" country="UnitedStates"/>
+        <locale language="English" country="UnitedStates" />
        </property>
        <property name="text">
         <string>Close</string>
        </property>
       </widget>
      </item>
+     <property name="spacing">
+      <number>12</number>
+     </property>
     </layout>
    </item>
+   <property name="leftMargin">
+    <number>20</number>
+   </property>
+   <property name="topMargin">
+    <number>20</number>
+   </property>
+   <property name="rightMargin">
+    <number>20</number>
+   </property>
+   <property name="bottomMargin">
+    <number>16</number>
+   </property>
+   <property name="spacing">
+    <number>16</number>
+   </property>
   </layout>
  </widget>
- <resources/>
+ <resources />
  <connections>
   <connection>
    <sender>btnclose</sender>
