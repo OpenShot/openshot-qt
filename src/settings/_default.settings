@@ -875,6 +875,14 @@
   },
   {
     "category": "Keyboard",
+    "title": "Leave Rating...",
+    "restart": false,
+    "setting": "actionLeaveRating",
+    "value": "F10",
+    "type": "text"
+  },
+  {
+    "category": "Keyboard",
     "title": "Report a Bug...",
     "restart": false,
     "setting": "actionReportBug",
