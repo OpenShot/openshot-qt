@@ -325,7 +325,7 @@ class ExportValidator:
     """Check a dictionary of export settings, and return a list of Issues.
 
     Settings keys: mode, vformat, vcodec, video_bitrate, width, height, fps_num, fps_den,
-    image_format, acodec, sample_rate, channel_layout, audio_bitrate, start_frame, end_frame, folder."""
+    image_format, acodec, sample_rate, channel_layout, audio_bitrate, start_frame, end_frame, folder, has_timeline_clips (optional)."""
 
     def __init__(self, capabilities=None, tr=None):
         self.caps = capabilities or Capabilities()
@@ -618,7 +618,10 @@ class ExportValidator:
     def _check_range_and_folder(self, settings, issues):
         _ = self._
         start, end = settings.get("start_frame"), settings.get("end_frame")
-        if start is not None and end is not None and int(start) >= int(end):
+        if settings.get("has_timeline_clips") is False:
+            issues.insert(0, Issue("timeline", ERROR,
+                                   _("Add a clip to the timeline before exporting.")))
+        elif start is not None and end is not None and int(start) >= int(end):
             issues.append(Issue("end_frame", ERROR, _("The end frame must come after the start frame.")))
         folder = (settings.get("folder") or "").lstrip()
         if folder and not os.path.isdir(folder) and not os.path.isdir(folder.rstrip()):

@@ -178,6 +178,7 @@ BLENDER_MIN_VERSION = "5.0"
 # Data-model debugging enabler
 MODEL_TEST = False
 FEEDBACK_PREVIEW = False  # Launch-only preview; never stored in user settings.
+RATING_PREVIEW = False  # Launch-only Store UI preview on any installation.
 UPDATE_PREVIEW = False
 
 # Default/initial logging levels

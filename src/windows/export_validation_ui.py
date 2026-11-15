@@ -211,6 +211,7 @@ class ExportValidationUI(QObject):
         super().__init__(dialog)
         self.dialog = dialog
         self._ = get_app()._tr
+        self.project = get_app().project
         self.validator = validator or ExportValidator(Capabilities(), self._)
         self.issues = []
         self.auto_fix = False
@@ -325,6 +326,7 @@ class ExportValidationUI(QObject):
             "sample_rate": d.txtSampleRate.value(),
             "channel_layout": d.cboChannelLayout.currentData(),
             "audio_bitrate": d.txtAudioBitrate.text(),
+            "has_timeline_clips": bool(self.project.get("clips")),
             "start_frame": d.txtStartFrame.value(),
             "end_frame": d.txtEndFrame.value(),
             "folder": d.txtExportFolder.text(),
