@@ -1953,3 +1953,36 @@ in audio storytelling to convey secrecy or intimacy.
    ==========================  ============
 
 For more info on key frames and animation, see :ref:`animation_ref`.
+
+Distort
+-------
+
+Distort bends and stretches a clip using a smooth mesh with 4 rows and 4 columns
+of control points. It supports CPU and Vulkan rendering, with automatic CPU
+fallback when Vulkan is unavailable.
+
+Select the effect's badge on the timeline to display its mesh in the preview.
+Drag any of the 16 handles to reshape the image. The mesh follows the clip's
+position, scale, rotation, and preview zoom. Points may be moved outside the
+image; pixels outside the output frame are clipped, and uncovered areas are
+transparent. Strong deformations can fold the mesh over itself.
+
+The Properties dock provides these controls:
+
+* **Preset**: Custom (flat), Bend, Flag, Bulge, Pinch, Taper, or Squeeze.
+  Presets are base shapes; changing the preset preserves custom point offsets.
+* **Strength**: Blend from the original image at 0 to the complete deformation
+  at 1. Negative values reverse the displacement. This affects both the preset
+  and custom offsets. Dragging handles is disabled at zero strength.
+* **Selected Point**: Choose a point by row and column, or click its preview handle.
+* **Point X Offset / Point Y Offset**: Fine adjustment of the selected point,
+  as fractions of the image width and height, before Strength is applied.
+
+Strength and point offsets support normal keyframe editing. With Auto Keyframes
+on, dragging a point records its position at the playhead. With it off, edits use
+the existing keyframe editing rules. Each drag is one undoable action.
+
+Right-click the preview for **Reset Selected Point** and **Reset Mesh**. These
+reset custom offsets using the current keyframe editing rules; they preserve the
+preset, strength, and other animation keys. Choose Custom to remove the base
+preset shape. Grid density is fixed so animated points retain their identity.

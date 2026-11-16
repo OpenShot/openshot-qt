@@ -1909,6 +1909,14 @@ class PropertiesModel(updates.UpdateInterface):
 
                     raw_properties = shared
 
+                # Distort exposes only the selected point's coordinate curves.
+                # Rebuild when that selection changes so stale point rows disappear.
+                if "selected_point" in raw_properties and "preset" in raw_properties:
+                    point_schema = tuple(sorted(k for k in raw_properties if k.startswith("point_")))
+                    if point_schema != getattr(self, "_distort_point_schema", None):
+                        self._distort_point_schema = point_schema
+                        self.new_item = True
+
                 # Sort all properties (by 'name')
                 all_properties = OrderedDict(sorted(raw_properties.items(), key=lambda x: x[1]['name']))
 
