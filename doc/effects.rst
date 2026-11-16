@@ -98,7 +98,7 @@ Keyframes off change the keyframe at or before the playhead.
 
 List of Effects
 ---------------
-OpenShot Video Editor has a total of 43 built-in video and audio effects: 34 video effects and 9 audio effects.
+OpenShot Video Editor has a total of 44 built-in video and audio effects: 35 video effects and 9 audio effects.
 These effects can be added to a clip by dragging the effect onto a clip. The following table contains
 the name and short description of each effect.
 
@@ -246,6 +246,10 @@ the name and short description of each effect.
    :width: 50px
    :alt: Delay Icon
 
+.. |distort_icon| image:: ../src/effects/icons/distort@2x.png
+   :width: 50px
+   :alt: Distort Icon
+
 .. |distortion_icon| image:: ../src/effects/icons/distortion@2x.png
    :width: 50px
    :alt: Distortion Icon
@@ -299,6 +303,7 @@ the name and short description of each effect.
    |delay_icon|                Delay                         Adjust audio-video synchronism.
    |denoiseimage_icon|         Denoise Image                 Reduce visible grain and color speckles in video frames.
    |displace_icon|             Displacement Map              Use a grayscale image or video to warp the frame.
+   |distort_icon|              Distort                       Bend and stretch an image with an editable mesh.
    |distortion_icon|           Distortion                    Clip audio signal for distortion.
    |echo_icon|                 Echo                          Add delayed sound reflection.
    |expander_icon|             Expander                      Make loud parts relatively louder.
@@ -1202,6 +1207,81 @@ Usage Notes
    replace_image               ``(int, choices: ['Yes', 'No'])`` Replace the output image with the processed map, useful for previewing or debugging the distortion map
    ==========================  ============================================================================
 
+.. _distort_ref:
+
+Distort
+"""""""
+The **Distort** effect bends and stretches an image using a grid of 16 control points.
+Use it to curve a title, reshape a logo, bend a photo, or create a flowing entrance
+or exit. Moving a point smoothly changes the image around it.
+
+Start shaping an image
+^^^^^^^^^^^^^^^^^^^^^^
+
+1. Drag :guilabel:`Distort` from the :guilabel:`Effects` tab onto a clip.
+2. Select the effect's badge on the clip to show its grid in the video preview.
+3. Drag a control point to bend or stretch that part of the image.
+4. Open the effect's :guilabel:`Properties` to choose a starting shape or make precise adjustments.
+
+To move several points together, drag a selection rectangle from empty preview
+space around the points you want. Selected points turn white. Drag any selected
+point to move the group. Click empty space to clear the selection.
+
+Points can move beyond the image edges. Areas left uncovered become transparent,
+and anything moved outside the video frame is cut off. For a smooth, recognizable
+shape, start with small movements; large movements can fold the image over itself.
+
+Shape presets and properties
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- **Preset**: Choose :guilabel:`Custom` for a flat starting grid, or try
+  :guilabel:`Bend`, :guilabel:`Flag`, :guilabel:`Bulge`, :guilabel:`Pinch`,
+  :guilabel:`Taper`, or :guilabel:`Squeeze`. These are starting shapes, not automatic
+  animations. Changing the preset keeps your individual point adjustments.
+- **Strength**: Set how much distortion is visible. At 0 the image is unchanged;
+  at 1 the full shape is visible. Negative values bend it in the opposite direction.
+  Use a nonzero strength to drag points in the preview.
+- **Selected Point**: Choose a point by row and column, or select its handle in the preview.
+- **Point X Offset / Point Y Offset**: Adjust the selected point horizontally or
+  vertically. For example, an X offset of 0.1 moves it by one tenth of the image width
+  when Strength is 1.
+
+Resetting points
+^^^^^^^^^^^^^^^^
+
+Select the points you want to straighten, then right-click the preview and choose
+:guilabel:`Reset Selected Points`. To restore the whole grid, click empty space
+first, then right-click and choose :guilabel:`Reset All Points`.
+
+Reset returns points to their normal grid positions, even with a shape preset
+active. It follows your Auto Keyframes setting, so resetting at one moment does
+not remove the rest of an animation. Use Undo to undo a drag or reset.
+
+Animating Distort
+^^^^^^^^^^^^^^^^^
+
+Turn on :ref:`auto_keyframes_ref`, move the playhead to a moment you want to change,
+and drag a point or group. Move to another moment and choose a new shape. OpenShot
+animates between those shapes. You can also animate **Strength** to gradually
+introduce or remove a distortion.
+
+To record a movement as you watch, start playback and drag the points. Keyframe
+icons appear on the clip while you move, giving you feedback that your animation
+is being recorded. Each drag can be undone in one step. With Auto Keyframes off,
+your edits adjust the existing keyframe at or before the playhead instead.
+
+For ready-made animations, right-click the clip and use :guilabel:`Motion`:
+
+- **Lens Resolve In / Lens Resolve Out**: A curved, lens-like image settles into place or bends away.
+- **Ribbon In / Ribbon Out**: A compressed, curved image opens out or folds away.
+- **Wave In / Wave Out**: The image stretches into or out of place with a gentle return ripple.
+- **Emphasis → Wave Pass**: A bend travels through the image while its outer edges stay in place.
+
+Choose the In or Out version of each entrance or exit preset. These animations
+include fades that overlap the movement. Wave Pass adds a brief accent at the
+playhead without fading or moving the whole clip. See :ref:`clip_presets_ref`
+for the Motion menu and :ref:`animation_ref` for editing keyframes.
+
 Film Grain
 """"""""""
 The **Film Grain** effect adds a gentle moving texture to your video, similar to the tiny speckles you see in
@@ -1953,42 +2033,3 @@ in audio storytelling to convey secrecy or intimacy.
    ==========================  ============
 
 For more info on key frames and animation, see :ref:`animation_ref`.
-
-Distort
--------
-
-Distort bends and stretches a clip using a smooth mesh with 4 rows and 4 columns
-of control points. It supports CPU and Vulkan rendering, with automatic CPU
-fallback when Vulkan is unavailable.
-
-Select the effect's badge on the timeline to display its mesh in the preview.
-Click a handle to select it, or drag a rectangle in empty preview space to select
-several handles. Selected handles are white. Drag any selected handle to move the
-selected group together. Click empty space to clear the selection.
-The mesh follows the clip's
-position, scale, rotation, and preview zoom. Points may be moved outside the
-image; pixels outside the output frame are clipped, and uncovered areas are
-transparent. Strong deformations can fold the mesh over itself.
-
-The Properties dock provides these controls:
-
-* **Preset**: Custom (flat), Bend, Flag, Bulge, Pinch, Taper, or Squeeze.
-  Presets are base shapes; changing the preset preserves custom point offsets.
-* **Strength**: Blend from the original image at 0 to the complete deformation
-  at 1. Negative values reverse the displacement. This affects both the preset
-  and custom offsets. Dragging handles is disabled at zero strength.
-* **Selected Point**: Choose a point by row and column, or click its preview handle.
-* **Point X Offset / Point Y Offset**: Fine adjustment of the selected point,
-  as fractions of the image width and height, before Strength is applied.
-
-Strength and point offsets support normal keyframe editing. With Auto Keyframes
-on, dragging a point during playback records positions at the advancing playhead,
-including when dragging a group. The preview uses incremental point updates so
-recording does not resend the whole animation on each mouse move. With it off, edits use
-the existing keyframe editing rules. Each drag is one undoable action.
-
-Right-click the preview for **Reset Selected Points**, or **Reset All Points**
-when no handles are selected. Reset returns those handles to the regular,
-undeformed grid, including when a base shape preset is active. It follows the
-current keyframe editing rules and preserves other animation keys. Grid density
-is fixed so animated points retain their identity.

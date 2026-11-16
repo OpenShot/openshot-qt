@@ -212,6 +212,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self._panel_heights = {}
         self._panel_refresh_signature = None
         self._panel_selected_keyframes = {}
+        self._selected_keyframe_keys = set()
         self._panel_box_track = None
         self._panel_box_bounds = QRectF()
         self._panel_press_info = None
@@ -553,8 +554,9 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         resize.exited.connect(self._finishResize)
         playhead.entered.connect(self._startPlayhead)
         playhead.exited.connect(self._finishPlayhead)
-        boxsel.entered.connect(self._startBoxSelect)
-        boxsel.exited.connect(self._finishBoxSelect)
+        # BoxSelectState owns these calls in onEntry/onExit. Connecting them
+        # again would finish twice; the second pass sees an empty rectangle
+        # and clears the selected owner (including its keyframe panel).
         keydrag.entered.connect(self._startKeyframeDrag)
         keydrag.exited.connect(self._finishKeyframeDrag)
 
@@ -2799,6 +2801,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         """Clear all timeline selections and keyframe highlights."""
         self.win.clearSelections()
         self._active_keyframe_marker = None
+        self._selected_keyframe_keys = set()
         if hasattr(self, "_clear_panel_selection"):
             self._clear_panel_selection(None)
         self.clip_painter.clear_render_cache()
@@ -3603,6 +3606,15 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                     owner_selected = owner_id in selected_clip_ids
                 if owner_selected and selected_item_count > 1:
                     clear_existing = False
+            existing_keys = set(getattr(self, "_selected_keyframe_keys", set()))
+            selected_keys = existing_keys if ctrl or marker.get("key") in existing_keys else set()
+            if marker.get("key"):
+                selected_keys.add(marker["key"])
+            self._selected_keyframe_keys = selected_keys
+            if not ctrl:
+                clear_panel = getattr(self, "_clear_panel_selection", None)
+                if callable(clear_panel):
+                    clear_panel(None)
             self._press_keyframe_clear = clear_existing
             self._select_marker_owner(marker, clear_existing=self._press_keyframe_clear)
             return
@@ -3611,6 +3623,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self._press_keyframe_clear = True
         add_button = self._panel_add_button_at(pos)
         if add_button:
+            if not ctrl:
+                self._selected_keyframe_keys = set()
             self._press_hit = "panel-add"
             add_button = dict(add_button)
             add_button["modifiers"] = modifiers
@@ -3618,6 +3632,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             return
         panel_marker = self._panel_marker_at(pos)
         if panel_marker and panel_marker.get("point"):
+            if not ctrl:
+                self._selected_keyframe_keys = set()
             self._press_hit = "panel-keyframe"
             panel_marker = dict(panel_marker)
             panel_marker["modifiers"] = modifiers
@@ -3626,22 +3642,28 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self._panel_press_info = None
         panel_lane = self._panel_lane_at(pos)
         if panel_lane:
+            if not ctrl:
+                self._selected_keyframe_keys = set()
             self._press_hit = "panel"
             self._panel_press_info = {"lane": panel_lane}
             return
         panel_track = self._panel_track_at_pos(pos)
         if panel_track is not None:
+            if not ctrl:
+                self._selected_keyframe_keys = set()
             self._press_hit = "panel"
             self._panel_press_info = {"track": panel_track}
             return
         icon_entry = self._effect_icon_at(pos)
         if icon_entry:
+            self._selected_keyframe_keys = set()
             self._press_hit = "effect-icon"
             self._press_effect_icon = icon_entry
             return
         self._press_effect_icon = None
         resize_hit = _resize_hit_at(self, pos)
         if resize_hit:
+            self._selected_keyframe_keys = set()
             _rect, item, edge, _kind, targets = resize_hit
             self._press_hit = "clip-edge"
             self._resizing_item = item
@@ -3652,6 +3674,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self._resize_items = []
         self._resize_edge = None
         self._press_hit = self._hitTest(pos)
+        if self._press_hit == "clip":
+            self._selected_keyframe_keys = set()
 
     def _item_resize_edge_at(self, rect, pos, edge=16):
         """Return the clip/transition edge under *pos* without requiring interior hits."""

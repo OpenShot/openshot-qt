@@ -41,7 +41,9 @@ def visible_keyframe_markers(markers, content_area, spacing):
         key = (marker.get("type"), marker.get("owner_id"),
                int(rect.center().y()), int(rect.center().x() // spacing))
         previous = buckets.get(key)
-        if previous is None or (marker.get("selected") and not previous.get("selected")):
+        priority = (bool(marker.get("keyframe_selected")), bool(marker.get("selected")))
+        previous_priority = (bool(previous.get("keyframe_selected")), bool(previous.get("selected"))) if previous else (-1, -1)
+        if previous is None or priority > previous_priority:
             buckets[key] = marker
     return buckets.values()
 
@@ -75,6 +77,12 @@ class KeyframePainter(BasePainter):
             self.w.height() - self.w.ruler_height - self.w.scroll_bar_thickness,
         )
 
+        selected_keys = getattr(self.w, "_selected_keyframe_keys", set())
+        active = getattr(self.w, "_active_keyframe_marker", None) or {}
+        for marker in markers:
+            key = marker.get("key")
+            marker["keyframe_selected"] = bool(key and (key in selected_keys or key == active.get("key")))
+
         painter.save()
         painter.setClipRect(content_area, Qt.IntersectClip)
         painter.setRenderHint(QPainter.Antialiasing, True)
@@ -94,6 +102,14 @@ class KeyframePainter(BasePainter):
             if feedback:
                 style = "transition" if marker.get("type") == "transition" else "clip"
                 color = feedback.keyframe_fill(color, rect, style)
+            selected = marker.get("keyframe_selected", False)
+            panel = getattr(self.w, "keyframe_panel_painter", None)
+            selected_pen = QPen(getattr(panel, "marker_pen_selected", self.pen))
+            selected_pen.setWidthF(max(1.8, selected_pen.widthF()))
+            painter.setPen(selected_pen if selected else self.pen)
+            if selected:
+                painter.setOpacity(1.0)
+                color = color.lighter(125)
             painter.setBrush(color)
             interpolation = marker.get("interpolation", "bezier")
             if interpolation == "linear":
