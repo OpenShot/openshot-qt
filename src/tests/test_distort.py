@@ -5,7 +5,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 import openshot
-from qt_api import QApplication, QColor, QImage, QPainter, QPointF, QTransform, Qt
+from qt_api import QColor, QImage, QPainter, QPointF, QTransform, Qt
 from windows.video_widget import VideoWidget
 
 
@@ -205,7 +205,7 @@ class DistortSelectionTests(unittest.TestCase):
         for selected in ({5, 6}, set(range(16))):
             with patch('windows.video_widget.get_app', return_value=app):
                 VideoWidget._reset_distort_points(widget, selected)
-            _, frame, object_id, values = widget.updateEffectProperties.call_args.args
+            _, frame, _, values = widget.updateEffectProperties.call_args.args
             self.assertEqual(frame, 10)
             self.assertEqual(len(values), len(selected)*2)
             reset = openshot.Distort()

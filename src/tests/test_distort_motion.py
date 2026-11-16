@@ -187,7 +187,10 @@ class DistortMotionTests(unittest.TestCase):
             horizontal = [pose[5][0] for pose in poses]
             self.assertTrue(all(value >= 0 for value in horizontal))
             for a, b in zip(horizontal, horizontal[1:]):
-                self.assertGreaterEqual(b, a) if exiting else self.assertLessEqual(b, a)
+                if exiting:
+                    self.assertGreaterEqual(b, a)
+                else:
+                    self.assertLessEqual(b, a)
             # Average the two interior rows to isolate the return ripple from
             # the main squeeze. Its displacement remains below 1.5% of height.
             for pose in poses:

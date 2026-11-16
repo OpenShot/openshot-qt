@@ -135,7 +135,6 @@ class ProjectDataTests(unittest.TestCase):
 
     @unittest.skipUnless(hasattr(openshot, "Distort"), "Requires libopenshot Distort")
     def test_live_distort_patches_record_native_frames_and_undo_as_one_drag(self):
-        from unittest.mock import Mock
         from windows.video_widget import VideoWidget
         from classes.query import Effect
         manager = UpdateManager()

@@ -51,15 +51,15 @@ class SelectionHelper(KeyframeMixin, ClipInteractionMixin):
         self._update_track_panel_properties=Mock()
         self._panel_lane_at=lambda pos:None
         self._panel_track_at_pos=lambda pos:None
-        self._selected_effect_ids=lambda:set()
+        self._selected_effect_ids=set
         self.track_name_width=0
         self.width=lambda:400
 
     def box(self,rect,ctrl=False):
         mods=Qt.ControlModifier if ctrl else Qt.NoModifier
-        self._last_event=types.SimpleNamespace(modifiers=lambda:mods,position=lambda:rect.topLeft())
+        self._last_event=types.SimpleNamespace(modifiers=lambda:mods,position=rect.topLeft)
         self._startBoxSelect()
-        self._last_event=types.SimpleNamespace(modifiers=lambda:mods,position=lambda:rect.bottomRight())
+        self._last_event=types.SimpleNamespace(modifiers=lambda:mods,position=rect.bottomRight)
         self._boxMove()
         self._finishBoxSelect()
 
