@@ -417,6 +417,31 @@ class VideoWidgetTransformTests(unittest.TestCase):
                 self.assertFalse(widget.middle_pan_active)
                 self.assertFalse(widget.mouse_pressed)
 
+    def test_source_detail_refines_once_for_the_group_after_drag(self):
+        from unittest.mock import Mock
+        native = types.SimpleNamespace(BeginClipTransform=Mock(), EndClipTransform=Mock(side_effect=[True, False]))
+        window = types.SimpleNamespace(timeline_sync=types.SimpleNamespace(timeline=native), refreshFrameSignal=Mock())
+        widget = types.SimpleNamespace(transforming_clips=[types.SimpleNamespace(id=name) for name in ("A", "B")])
+        with patch("windows.video_widget.get_app", return_value=types.SimpleNamespace(window=window)):
+            VideoWidget._begin_source_transform(widget)
+            self.assertEqual([call.args[0] for call in native.BeginClipTransform.call_args_list], ["A", "B"])
+            native.EndClipTransform.assert_not_called()
+            VideoWidget._finish_source_transform(widget)
+            VideoWidget._finish_source_transform(widget)
+        self.assertEqual([call.args[0] for call in native.EndClipTransform.call_args_list], ["A", "B"])
+        window.refreshFrameSignal.emit.assert_called_once_with()
+        self.assertEqual(widget._source_transform_ids, [])
+
+    def test_unchanged_source_detail_does_not_request_an_extra_frame(self):
+        from unittest.mock import Mock
+        native = types.SimpleNamespace(EndClipTransform=Mock(return_value=False))
+        window = types.SimpleNamespace(refreshFrameSignal=Mock())
+        widget = types.SimpleNamespace(_source_transform_timeline=native, _source_transform_ids=["A"])
+        with patch("windows.video_widget.get_app", return_value=types.SimpleNamespace(window=window)):
+            VideoWidget._finish_source_transform(widget)
+        native.EndClipTransform.assert_called_once_with("A")
+        window.refreshFrameSignal.emit.assert_not_called()
+
     def test_live_transform_suspends_cache_until_commit_or_clear(self):
         for initially_enabled in (True, False):
             for finish, effect_type in (
