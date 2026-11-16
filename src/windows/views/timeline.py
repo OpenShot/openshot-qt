@@ -67,7 +67,7 @@ from classes.effect_init import effect_options
 from classes.logger import log
 from classes.query import File, Clip, Transition, Track, Effect
 from classes.clipboard import ClipboardManager
-from classes.direct_text import copied_text_keyframes, copied_text_style
+from classes.direct_text import copied_text_keyframes, copied_text_style, save_text_asset
 from classes.thumbnail import GetThumbPath
 from classes.waveform_cache import sample_count, is_reference
 from classes.waveform import (
@@ -397,6 +397,11 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     obj.data.pop("id", None)
                     obj.id = None
                     self._assign_new_effect_ids(obj.data)
+                    if isinstance(obj, Clip) and obj.data.get("direct_text"):
+                        # A pasted text clip owns its words independently of the source.
+                        # Keep its reader and style curves, including animated overrides.
+                        asset = save_text_asset(obj.data["direct_text"])
+                        obj.data["file_id"] = asset.id
                     obj.data["position"] = obj.data.get("position", 0.0) + position_diff
                     old_layer = obj.data.get("layer", 0)
                     try:
