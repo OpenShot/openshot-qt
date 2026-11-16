@@ -280,14 +280,17 @@ several submenus. See :ref:`clip_location_x_ref` and :ref:`clip_scale_x_ref` key
   - **Blur In** — clip fades in from a motion blur.
   - **Bounce In** (Center / From Bottom / Left / Right / Top) — clip bounces as it enters.
   - **Focus Wipe In** (Circle Expand / Circle Shrink / From Bottom / Left / Right / Top) — clip is revealed by a wipe while sharpening from blur into focus.
+  - **Lens Resolve In** — a broad radial mesh warp relaxes into the image, with overscan and an overlapping fade. Useful for product shots and photographic cards.
   - **Pop In** — clip scales up quickly from nothing.
+  - **Ribbon In** — a bowed, compressed ribbon progressively opens into the title or logo.
   - **Slide In** (From Bottom / Left / Right / Top) — clip slides onto the screen.
   - **Spiral In** — clip rotates in while scaling up.
+  - **Wave In** — the trailing mesh catches up while one slight ripple travels back across it. Wave Out carries a matching return ripple as it pulls away.
   - **Wipe In** (Circle Expand / Circle Shrink / From Bottom / Left / Right / Top) — clip is revealed by a wipe.
 
-- :guilabel:`Out` — exit animations applied at the end of the clip (mirrors the In options: Back Out, Blur Out, Bounce Out, Focus Wipe Out, Pop Out, Slide Out, Spiral Out, Wipe Out).
+- :guilabel:`Out` — exit animations applied at the end of the clip (mirrors the In options: Back Out, Blur Out, Bounce Out, Focus Wipe Out, Lens Resolve Out, Pop Out, Ribbon Out, Slide Out, Spiral Out, Wave Out, Wipe Out).
 
-- :guilabel:`Emphasis` — short attention-grabbing animations **inserted at the current playhead position** (not applied across the whole clip). Useful for mid-clip highlights: **Bounce**, **Flash**, **Heartbeat**, **Jello**, **Pulse**, **Rubber Band**, **Shake X**, **Shake Y**, **Swing**, **Tada**, **Wobble**.
+- :guilabel:`Emphasis` — short attention-grabbing animations **inserted at the current playhead position** (not applied across the whole clip). Useful for mid-clip highlights: **Bounce**, **Flash**, **Heartbeat**, **Jello**, **Pulse**, **Rubber Band**, **Shake X**, **Shake Y**, **Swing**, **Tada**, **Wobble**, **Wave Pass**. Wave Pass sends a visible bend across the interior while holding the outer frame still; it changes neither clip opacity nor position.
 
 - :guilabel:`Camera` — simulates camera movement on the clip by animating scale and position:
 
@@ -297,6 +300,8 @@ several submenus. See :ref:`clip_location_x_ref` and :ref:`clip_scale_x_ref` key
 
 - :guilabel:`Credits` — scrolling credit animations: **Scroll Up** and **Scroll Down**.
 
+- **Tip:** Lens Resolve, Ribbon, and Wave have matching entrance and exit presets. They create editable Distort point keyframes with an overlapping fade. Ribbon opens geometrically rather than using a reveal mask. Each end lasts up to one second, shortened to half the clip for clips under two seconds. Applying a different distortion preset replaces that end's recipe while preserving the opposite end. :guilabel:`No Motion` removes the generated mesh while preserving manually added Distort effects.
+- **Tip:** Distortion motion presets work best on artwork with modest transparent margins. They deform the whole source image, so heavily padded logos may need cropping first.
 - **Tip:** Emphasis presets are placed at the current playhead position, so position the playhead over the moment you want to highlight before applying one.
 - **Tip:** Camera presets use *Auto Direction* by default, which picks the optimal pan direction for wide or tall media to avoid black bars.
 - **Tip:** In, Out and Emphasis presets build on the clip's current position, scale and opacity, so a clip you scaled and moved into a corner stays there, and presets can be combined (for example, **Blur In** and then **Bounce**). Camera and Credits presets, and :guilabel:`No Motion`, reframe the clip from the center.

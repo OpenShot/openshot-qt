@@ -404,7 +404,7 @@ def build_parser():
             p.add_argument('--audio-only', action='store_true', help='Disable video/embedded album art; keep audio.')
             p.add_argument('--volume', type=number, default=1, help='Constant linear gain: 0=mute, 1=original, 0.5=half amplitude.')
             p.add_argument('--end', type=number, help='Exclusive source out-point; default media duration (10s for images).')
-            p = command(s, 'motion', "Apply the editor's Motion menu preset: slides, wipes, bounces, emphasis, camera zoom/pan, credits. Values are relative to the clip's current transform. One undo step.", 'clip.motion')
+            p = command(s, 'motion', "Apply the editor's Motion menu preset: slides, wipes, bounces, lens-resolve/ribbon/wave in/out, emphasis, camera zoom/pan, credits. Values are relative to the clip's current transform. One undo step.", 'clip.motion')
             p.add_argument('id', help='Clip ID with video (or a visible waveform).')
             p.add_argument('--preset', required=True, choices=MOTION_PRESETS, metavar='PRESET', help='*-in-* uses the first second, *-out-* the last second, cam-*/ken-burns-*/credits-* the whole clip, and other emphasis presets one second from --at. none resets motion. Presets: ' + ', '.join(MOTION_PRESETS) + '.')
             p.add_argument('--at', type=number, help='Timeline seconds where an emphasis preset starts; default (or outside the clip) is the clip start.')

@@ -156,6 +156,14 @@ class MenuAnimate(Enum):
     # ── Credits ──────────────────────────────────────────────────────────────
     CREDITS_UP = auto()
     CREDITS_DOWN = auto()
+    # Append new values to preserve existing animation enum values.
+    RIBBON_IN = auto()
+    RIBBON_OUT = auto()
+    WAVE_IN = auto()
+    WAVE_OUT = auto()
+    LENS_RESOLVE_IN = auto()
+    LENS_RESOLVE_OUT = auto()
+    WAVE_PASS = auto()
 
 
 class MenuVolume(Enum):

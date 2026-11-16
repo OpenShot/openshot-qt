@@ -29,6 +29,7 @@ import os
 
 import openshot
 from classes import info
+from classes.distort_motion import mesh_pose, smooth, wave_pose
 from classes.animation_presets import PRESETS as _ANIMATION_PRESETS, KEYFRAME_EASING as _KEYFRAME_EASING
 from classes.camera_motion import (
     KEN_BURNS_AUTO,
@@ -186,9 +187,9 @@ def apply_motion(data, action, fps_float, base_clip=None, playhead_frame=1,
     # Relative presets keep the clip's gravity, so placed clips stay anchored.
     # Reset, Camera and Credits frame the clip absolutely from the center.
 
-    # ── RESET (always runs first for non-NONE actions) ─────────────
-    # Clears all previous motion keyframes and removes Blur/Mask effects
-    # added by prior motion presets so animations are never additive.
+    # ── RESET (No Motion only) ────────────────────────────────────
+    # Clear motion keyframes and companion effects. Manual Distort effects
+    # remain separate from the generated motion mesh.
     def _reset_motion():
         data["gravity"]    = openshot.GRAVITY_CENTER
         data["scale"]      = openshot.SCALE_FIT
@@ -207,8 +208,11 @@ def apply_motion(data, action, fps_float, base_clip=None, playhead_frame=1,
             eff for eff in (effects if isinstance(effects, list) else [])
             if not isinstance(eff, dict)
             or (
-                eff.get("class_name") not in ("Blur", "Mask")
-                or eff.get("ui-menu") == LOOK_EFFECT_UI_MENU
+                not (eff.get("class_name") == "Distort" and eff.get("ui-menu") == MOTION_EFFECT_UI_MENU)
+                and (
+                    eff.get("class_name") not in ("Blur", "Mask")
+                    or eff.get("ui-menu") == LOOK_EFFECT_UI_MENU
+                )
             )
         ]
 
@@ -323,6 +327,77 @@ def apply_motion(data, action, fps_float, base_clip=None, playhead_frame=1,
         _set_motion_effect_points(fx, "horizontal_radius", *_eased_pts(), replace_all=created)
         _set_motion_effect_points(fx, "vertical_radius", *_eased_pts(), replace_all=created)
 
+    def _apply_distort_motion(style, exiting):
+        # Reserve at most half of short clips for each end so paired presets
+        # meet at a neutral pose rather than overwriting one another.
+        span = min(zone, max(0, (e - s) // 2))
+        if span < 1:
+            return
+        first, last = (e - span, e) if exiting else (s, s + span)
+        resting = first if exiting else last
+        fx, created = _find_or_create_motion_effect("Distort")
+        zone_key = "motion-distort-out" if exiting else "motion-distort-in"
+        previous = fx.get(zone_key)
+        # Replacing a recipe removes its companion animation only in this zone.
+        if previous == "lens_resolve" and style != previous:
+            for prop in ("scale_x", "scale_y"):
+                base = _base(prop, resting)
+                remove_points_in_range(data[prop], first, last)
+                add(prop, kf(first, base), kf(last, base))
+        if previous == "ribbon":
+            for mask in data["effects"]:
+                if mask.get("class_name") == "Mask" and mask.get("ui-menu") == MOTION_EFFECT_UI_MENU:
+                    _set_motion_effect_points(mask, "brightness", kf(first, -1.0), kf(last, -1.0))
+        fx[zone_key] = style
+        fx["preset"] = 0
+        fx["strength"] = {"Points": [kf(1, 1.0)]}
+        samples = sorted({first + round(i * span / 24.0) for i in range(25)})
+        poses = [mesh_pose(style, (frame - first) / span, exiting) for frame in samples]
+        for index in range(16):
+            for axis, component in (("x", 0), ("y", 1)):
+                prop = "point_%s_%s" % (index, axis)
+                points = [kf(frame, pose[index][component], openshot.LINEAR)
+                          for frame, pose in zip(samples, poses)]
+                _set_motion_effect_points(fx, prop, *points, replace_all=created)
+                # An exit applied by itself must not deform the earlier clip.
+                if created and first > s:
+                    add_point(fx[prop], kf(s, 0.0, openshot.LINEAR))
+
+        # Overlap the fade with the moving mesh so arrival/departure reads as
+        # one gesture rather than a fade followed by deformation.
+        base_alpha = _base("alpha", resting)
+        remove_points_in_range(data["alpha"], first, last)
+        for frame in samples:
+            t = (frame - first) / span
+            alpha = 1.0 - smooth((t - 0.72) / 0.28) if exiting else smooth(t / 0.28)
+            add("alpha", kf(frame, alpha * base_alpha, openshot.LINEAR))
+        if style == "lens_resolve":
+            for prop in ("scale_x", "scale_y"):
+                base = _base(prop, resting)
+                remove_points_in_range(data[prop], first, last)
+                for frame in samples:
+                    t = (frame - first) / span
+                    amount = smooth(t) if exiting else 1.0 - smooth(t)
+                    add(prop, kf(frame, base * (1.0 + 0.10 * amount), openshot.LINEAR))
+
+    def _apply_wave_pass():
+        first, last = emph_start, emph_end
+        if last <= first:
+            return
+        fx, created = _find_or_create_motion_effect("Distort")
+        fx["preset"] = 0
+        fx["strength"] = {"Points": [kf(1, 1.0)]}
+        frames = sorted({first + round(i * (last - first) / 30.0) for i in range(31)})
+        poses = [wave_pose((frame - first) / (last - first)) for frame in frames]
+        for index in range(16):
+            for axis, component in (("x", 0), ("y", 1)):
+                prop = "point_%s_%s" % (index, axis)
+                points = [kf(frame, pose[index][component], openshot.LINEAR)
+                          for frame, pose in zip(frames, poses)]
+                _set_motion_effect_points(fx, prop, *points, replace_all=created)
+                if created and first > s:
+                    add_point(fx[prop], kf(s, 0.0, openshot.LINEAR))
+
     def _apply_preset(preset_name, t_start, t_end, resting_frame):
         """Apply an animation preset scaled to [t_start, t_end] frames.
 
@@ -434,8 +509,21 @@ def apply_motion(data, action, fps_float, base_clip=None, playhead_frame=1,
         if not isinstance(data.get("effects"), list):
             data["effects"] = []
 
+        distort_actions = {
+            MenuAnimate.RIBBON_IN: ("ribbon", False),
+            MenuAnimate.RIBBON_OUT: ("ribbon", True),
+            MenuAnimate.WAVE_IN: ("stretch", False),
+            MenuAnimate.WAVE_OUT: ("stretch", True),
+            MenuAnimate.LENS_RESOLVE_IN: ("lens_resolve", False),
+            MenuAnimate.LENS_RESOLVE_OUT: ("lens_resolve", True),
+        }
+        if action == MenuAnimate.WAVE_PASS:
+            _apply_wave_pass()
+        elif action in distort_actions:
+            _apply_distort_motion(*distort_actions[action])
+
         # ── SLIDE IN ──────────────────────────────────────────────
-        if action == MenuAnimate.SLIDE_IN_LEFT:
+        elif action == MenuAnimate.SLIDE_IN_LEFT:
             bx = _base('location_x', in_end)
             remove_points_in_range(data["location_x"], s, in_end)
             add("location_x", kf(s, bx - 1.0), kf(in_end, bx))
