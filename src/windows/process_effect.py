@@ -1550,6 +1550,8 @@ class ProcessEffect(QDialog):
             win = SelectRegion(f, self.clip_instance, parent=self)
             # Run the dialog event loop - blocking interaction on this window during that time
             result = win.exec_()
+            # Qt destroys the dialog (and its GL contexts) once this handler returns.
+            win.deleteLater()
             if result == QDialog.Accepted:
                 # self.first_frame = win.current_frame
                 # Region selected (get coordinates if any)
@@ -1646,6 +1648,8 @@ class ProcessEffect(QDialog):
             object_mask_preview_context=dict(self.context),
         )
         result = win.exec_()
+        # Qt destroys the dialog (and its GL contexts) once this handler returns.
+        win.deleteLater()
         if result != QDialog.Accepted:
             return
 

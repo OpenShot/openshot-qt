@@ -1,0 +1,1924 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../doc/keyboard.rst:4
+msgid "Keyboard Shortcuts"
+msgstr "Toetsenbord Sneltoetsen"
+
+#: ../doc/keyboard.rst:5
+msgid ""
+"Find shortcuts by task below, or jump to the full reference. These are the "
+"default assignments; customize them in :guilabel:`Edit → Preferences → "
+"Keyboard` (:guilabel:`OpenShot Video Editor → Preferences` on macOS). See "
+":ref:`preferences_keyboard_ref` for details."
+msgstr ""
+"Zoek sneltoetsen per taak hieronder, of ga naar de volledige referentie. Dit"
+" zijn de standaardtoewijzingen; pas ze aan in :guilabel:`Bewerken → "
+"Voorkeuren → Toetsenbord` (:guilabel:`OpenShot Video Editor → Voorkeuren` op"
+" macOS). Zie :ref:`preferences_keyboard_ref` voor details."
+
+#: ../doc/keyboard.rst:10
+msgid "On macOS, use Command for shortcuts shown with Ctrl."
+msgstr ""
+"Gebruik op macOS Command in plaats van Ctrl voor de weergegeven sneltoetsen."
+
+#: ../doc/keyboard.rst:14
+msgid "On this page"
+msgstr "Op deze pagina"
+
+#: ../doc/keyboard.rst:19
+msgid "Using the timeline with a keyboard"
+msgstr "De tijdlijn gebruiken met een toetsenbord"
+
+#: ../doc/keyboard.rst:20
+msgid ""
+"Focus the timeline before selecting, moving, or trimming clips and "
+"transitions with these shortcuts."
+msgstr ""
+"Focus de tijdlijn voordat je clips en overgangen selecteert, verplaatst of "
+"bijsnijdt met deze sneltoetsen."
+
+#: ../doc/keyboard.rst:23
+msgid "Moving between panels"
+msgstr "Navigeren tussen panelen"
+
+#: ../doc/keyboard.rst:29 ../doc/keyboard.rst:153 ../doc/keyboard.rst:186
+#: ../doc/keyboard.rst:224 ../doc/keyboard.rst:250 ../doc/keyboard.rst:389
+#: ../doc/keyboard.rst:420
+msgid "Action"
+msgstr "Actie"
+
+#: ../doc/keyboard.rst:30 ../doc/keyboard.rst:111 ../doc/keyboard.rst:154
+#: ../doc/keyboard.rst:187 ../doc/keyboard.rst:225 ../doc/keyboard.rst:251
+msgid "Shortcut"
+msgstr "Sneltoets"
+
+#: ../doc/keyboard.rst:31 ../doc/keyboard.rst:522
+msgid "Focus Project Files"
+msgstr "Focus Projectbestanden"
+
+#: ../doc/keyboard.rst:32 ../doc/keyboard.rst:523
+msgid ":kbd:`Shift+1`"
+msgstr ":kbd:`Shift+1`"
+
+#: ../doc/keyboard.rst:33
+msgid "Preview the selected file or timeline clip's source"
+msgstr ""
+"Bekijk een voorbeeld van het geselecteerde bestand of de bron van de "
+"tijdlijnclip"
+
+#: ../doc/keyboard.rst:34 ../doc/keyboard.rst:394 ../doc/keyboard.rst:601
+msgid ":kbd:`Shift+2` or :kbd:`Alt+P`"
+msgstr ":kbd:`Shift+2` of :kbd:`Alt+P`"
+
+#: ../doc/keyboard.rst:35
+msgid "Focus the timeline"
+msgstr "Focus de tijdlijn"
+
+#: ../doc/keyboard.rst:36 ../doc/keyboard.rst:526
+msgid ":kbd:`Shift+3`"
+msgstr ":kbd:`Shift+3`"
+
+#: ../doc/keyboard.rst:37 ../doc/keyboard.rst:528
+msgid "Focus Transitions"
+msgstr "Focus Overgangen"
+
+#: ../doc/keyboard.rst:38 ../doc/keyboard.rst:529
+msgid ":kbd:`Shift+7`"
+msgstr ":kbd:`Shift+7`"
+
+#: ../doc/keyboard.rst:39 ../doc/keyboard.rst:516
+msgid "Focus Effects"
+msgstr "Focus Effecten"
+
+#: ../doc/keyboard.rst:40 ../doc/keyboard.rst:517
+msgid ":kbd:`Shift+8`"
+msgstr ":kbd:`Shift+8`"
+
+#: ../doc/keyboard.rst:41 ../doc/keyboard.rst:519
+msgid "Focus Emojis"
+msgstr "Focus Emoji's"
+
+#: ../doc/keyboard.rst:42 ../doc/keyboard.rst:520
+msgid ":kbd:`Shift+9`"
+msgstr ":kbd:`Shift+9`"
+
+#: ../doc/keyboard.rst:43
+msgid "Move to the next / previous control"
+msgstr "Ga naar de volgende / vorige bedieningselement"
+
+#: ../doc/keyboard.rst:44 ../doc/keyboard.rst:46
+msgid ":kbd:`Tab` / :kbd:`Shift+Tab`"
+msgstr ":kbd:`Tab` / :kbd:`Shift+Tab`"
+
+#: ../doc/keyboard.rst:45
+msgid "Focus the next / previous dock tab title without selecting it"
+msgstr "Focus de volgende / vorige dock-tabtitel zonder deze te selecteren"
+
+#: ../doc/keyboard.rst:47
+msgid "Move focus between dock tab titles"
+msgstr "Verplaats focus tussen dock-tabtitels"
+
+#: ../doc/keyboard.rst:48
+msgid ":kbd:`Left` / :kbd:`Right` while a title has focus"
+msgstr ":kbd:`Links` / :kbd:`Rechts` terwijl een titel focus heeft"
+
+#: ../doc/keyboard.rst:49
+msgid "Activate the focused dock tab and enter its first control"
+msgstr ""
+"Activeer de gefocuste dock-tab en ga naar het eerste bedieningselement"
+
+#: ../doc/keyboard.rst:50
+msgid ":kbd:`Space` or :kbd:`Enter`"
+msgstr ":kbd:`Spatie` of :kbd:`Enter`"
+
+#: ../doc/keyboard.rst:51
+msgid "Browse Project Files, transitions, effects, or emojis"
+msgstr "Blader door projectbestanden, overgangen, effecten of emoji's"
+
+#: ../doc/keyboard.rst:52
+msgid "Arrow keys while the list has focus"
+msgstr "Pijltjestoetsen terwijl de lijst focus heeft"
+
+#: ../doc/keyboard.rst:54
+msgid ""
+"Each grouped dock title is a separate Tab stop. Its normal focus style marks"
+" the focused title (an underline in Cosmic Dusk); moving focus does not "
+"change the selected dock. Activate a title to switch docks and focus its "
+"first control. Clicking a dock tab also focuses its first control, even if "
+"that tab is already selected. Only the active dock's visible controls "
+"participate in the Tab sequence; hidden dock controls are skipped."
+msgstr ""
+"Elke gegroepeerde dock-titel is een aparte Tab-stop. De normale focusstijl "
+"markeert de gefocuste titel (een onderstreping in Cosmic Dusk); het "
+"verplaatsen van de focus verandert de geselecteerde dock niet. Activeer een "
+"titel om van dock te wisselen en focus op het eerste bedieningselement. "
+"Klikken op een dock-tab focust ook het eerste bedieningselement, zelfs als "
+"die tab al geselecteerd is. Alleen de zichtbare bedieningselementen van de "
+"actieve dock nemen deel aan de Tab-volgorde; verborgen dock-"
+"bedieningselementen worden overgeslagen."
+
+#: ../doc/keyboard.rst:61
+msgid ""
+"When focus is inside a dock, the underline stays beneath its active tab. "
+"When you Tab between titles, the underline follows the focused title. The "
+"timeline itself is one Tab stop; Tab does not visit each clip or transition."
+msgstr ""
+"Wanneer de focus binnen een dock is, blijft de onderstreping onder de "
+"actieve tab. Wanneer je tussen titels tabt, volgt de onderstreping de "
+"gefocuste titel. De tijdlijn zelf is één Tab-stop; Tab bezoekt niet elke "
+"clip of overgang."
+
+#: ../doc/keyboard.rst:65
+msgid ""
+"The timeline's ruler and track headers, including their labels, dim when "
+"unfocused. The clip area stays the same. In Cosmic Dusk, a blue underline "
+"marks the focused dock's title text or active tab, and buttons show a blue "
+"focus border. The untitled timeline dock has no underline."
+msgstr ""
+"De liniaal en spoorheaders van de tijdlijn, inclusief hun labels, vervagen "
+"wanneer ze niet gefocust zijn. Het clipgebied blijft hetzelfde. In Cosmic "
+"Dusk markeert een blauwe onderstreping de titeltekst van de gefocuste dock "
+"of de actieve tab, en knoppen tonen een blauwe focusrand. De tijdlijn-dock "
+"zonder titel heeft geen onderstreping."
+
+#: ../doc/keyboard.rst:71
+msgid "Previewing a source"
+msgstr "Een bron bekijken"
+
+#: ../doc/keyboard.rst:72
+msgid ""
+"Press :kbd:`Shift+2` or :kbd:`Alt+P` with focus in Project Files to preview "
+"the selected file. With focus on the timeline, the same command previews the"
+" active selected clip from its Start point. With multiple items selected, "
+"the active selection anchor determines the source. Transitions and clips "
+"without an available project file do not open a source preview."
+msgstr ""
+"Druk op :kbd:`Shift+2` of :kbd:`Alt+P` met focus op Projectbestanden om het "
+"geselecteerde bestand te bekijken. Met focus op de tijdlijn toont dezelfde "
+"opdracht een voorbeeld van de actieve geselecteerde clip vanaf het "
+"startpunt. Bij meerdere geselecteerde items bepaalt het actieve "
+"selectieanker de bron. Overgangen en clips zonder beschikbaar projectbestand"
+" openen geen bronvoorbeeld."
+
+#: ../doc/keyboard.rst:78
+msgid ""
+"An existing preview for the same file or the same timeline clip is reused. "
+"Different timeline clips have separate range-editing targets, even if they "
+"use the same source. When neither the file list nor the timeline has focus, "
+"the command does nothing."
+msgstr ""
+"Een bestaand voorbeeld voor hetzelfde bestand of dezelfde tijdlijnclip wordt"
+" hergebruikt. Verschillende tijdlijnclips hebben aparte "
+"bereikbewerkingsdoelen, zelfs als ze dezelfde bron gebruiken. Wanneer noch "
+"de bestandslijst noch de tijdlijn focus heeft, doet de opdracht niets."
+
+#: ../doc/keyboard.rst:83
+msgid ""
+"In Preview File, click or drag the source ruler to scrub. Preview Clip and "
+"Split File also provide range editing: drag the Start/End grips, move the "
+"selected filmstrip range, draw a new range outside it, or edit their "
+"timecodes, or press :kbd:`I` / :kbd:`O` to set a marker at the playhead. End"
+" is the last included frame. :guilabel:`Loop` repeats the marked range. The "
+"preview uses your configured timeline playback and range-editing shortcuts: "
+":kbd:`,` / :kbd:`.` move the range one frame (:kbd:`Shift` moves five). "
+":kbd:`[` selects Start for trimming, :kbd:`]` selects End; comma and period "
+"then trim that edge. :kbd:`Esc` leaves trim mode before closing the dialog. "
+":kbd:`Left` / :kbd:`Right` scrub frames without changing the range. "
+":kbd:`Space` toggles playback, :kbd:`J` / :kbd:`L` change playback speed and"
+" :kbd:`K` pauses. These shortcuts leave text entry alone in Name and "
+"timecodes."
+msgstr ""
+"Klik of sleep in Voorbeeld Bestand op de bronliniaal om te scrubben. "
+"Voorbeeld Clip en Bestand Splitsen bieden ook bereikbewerking: sleep de "
+"Start/Eind-handgrepen, verplaats het geselecteerde filmstrookbereik, teken "
+"een nieuw bereik erbuiten, bewerk hun tijdcodes, of druk op :kbd:`I` / "
+":kbd:`O` om een marker bij de afspeelkop te zetten. Eind is het laatste "
+"inbegrepen frame. :guilabel:`Loop` herhaalt het gemarkeerde bereik. Het "
+"voorbeeld gebruikt je geconfigureerde sneltoetsen voor tijdlijnweergave en "
+"bereikbewerking: :kbd:`,` / :kbd:`.` verplaatsen het bereik één frame "
+"(:kbd:`Shift` verplaatst vijf). :kbd:`[` selecteert Start voor trimmen, "
+":kbd:`]` selecteert Eind; komma en punt trimmen dan die rand. :kbd:`Esc` "
+"verlaat de trimmodus voordat het dialoogvenster sluit. :kbd:`Links` / "
+":kbd:`Rechts` scrubben frames zonder het bereik te veranderen. :kbd:`Spatie`"
+" schakelt afspelen aan/uit, :kbd:`J` / :kbd:`L` veranderen de "
+"afspeelsnelheid en :kbd:`K` pauzeert. Deze sneltoetsen laten tekstinvoer "
+"ongemoeid in Naam en tijdcodes."
+
+#: ../doc/keyboard.rst:96
+msgid ""
+"Scrubbing and moving markers do not edit the project until you click the "
+"dialog's Create, Update, or Update Clip button. See :ref:`split_clip_ref`."
+msgstr ""
+"Het schuiven en verplaatsen van markers bewerkt het project niet totdat u op"
+" de knop Maken, Bijwerken of Clip Bijwerken in het dialoogvenster klikt. Zie"
+" :ref:`split_clip_ref`."
+
+#: ../doc/keyboard.rst:100
+msgid "Adding and applying assets"
+msgstr "Assets toevoegen en toepassen"
+
+#: ../doc/keyboard.rst:101
+msgid ""
+"The panel shortcuts above open the dock and focus its asset list directly. "
+"Use the arrow keys to choose an asset, then :kbd:`Ctrl+Enter` to add or "
+"apply it. Your existing browser selection is preserved; if nothing is "
+"selected, focusing the browser selects its current item or the first "
+"available item."
+msgstr ""
+"De bovenstaande paneelsneltoetsen openen het dock en richten direct de focus"
+" op de assetlijst. Gebruik de pijltjestoetsen om een asset te kiezen en druk"
+" vervolgens op :kbd:`Ctrl+Enter` om deze toe te voegen of toe te passen. Uw "
+"huidige browserselectie blijft behouden; als er niets geselecteerd is, "
+"selecteert het richten op de browser het huidige item of het eerste "
+"beschikbare item."
+
+#: ../doc/keyboard.rst:110
+msgid "Panel / action"
+msgstr "Paneel / actie"
+
+#: ../doc/keyboard.rst:112
+msgid "Result"
+msgstr "Resultaat"
+
+#: ../doc/keyboard.rst:113
+msgid "Project Files: add selected files"
+msgstr "Projectbestanden: geselecteerde bestanden toevoegen"
+
+#: ../doc/keyboard.rst:114 ../doc/keyboard.rst:117 ../doc/keyboard.rst:120
+#: ../doc/keyboard.rst:123 ../doc/keyboard.rst:430
+msgid ":kbd:`Ctrl+Enter`"
+msgstr ":kbd:`Ctrl+Enter`"
+
+#: ../doc/keyboard.rst:115
+msgid ""
+"Place files sequentially at the playhead, in browser order, on the target "
+"track."
+msgstr ""
+"Plaats bestanden achtereenvolgens bij de afspeelkop, in browser volgorde, op"
+" de doelspoor."
+
+#: ../doc/keyboard.rst:116
+msgid "Effects: apply selected effects"
+msgstr "Effecten: geselecteerde effecten toepassen"
+
+#: ../doc/keyboard.rst:118
+msgid ""
+"Apply to the selected timeline clips. Browsing effects keeps that clip "
+"selection."
+msgstr ""
+"Toepassen op de geselecteerde tijdlijnclips. Het bladeren door effecten "
+"behoudt die clipselectie."
+
+#: ../doc/keyboard.rst:119
+msgid "Transitions: add selected transitions"
+msgstr "Overgangen: geselecteerde overgangen toevoegen"
+
+#: ../doc/keyboard.rst:121
+msgid ""
+"Place at the playhead on the target track, using the default transition "
+"length."
+msgstr ""
+"Plaats bij de afspeelkop op de doelspoor, met de standaard overgangsduur."
+
+#: ../doc/keyboard.rst:122
+msgid "Emojis: add selected emoji"
+msgstr "Emoji's: geselecteerde emoji toevoegen"
+
+#: ../doc/keyboard.rst:124
+msgid ""
+"Place at the playhead on the target track, using the default image length."
+msgstr ""
+"Plaats bij de afspeelkop op de doelspoor, met de standaard afbeeldingsduur."
+
+#: ../doc/keyboard.rst:125
+msgid "Open the Add to Timeline dialog for selected files"
+msgstr ""
+"Open het dialoogvenster Toevoegen aan Tijdlijn voor geselecteerde bestanden"
+
+#: ../doc/keyboard.rst:126 ../doc/keyboard.rst:436
+msgid ":kbd:`Ctrl+Alt+A`"
+msgstr ":kbd:`Ctrl+Alt+A`"
+
+#: ../doc/keyboard.rst:127
+msgid "Choose placement and other options before adding the files."
+msgstr "Kies plaatsing en andere opties voordat u de bestanden toevoegt."
+
+#: ../doc/keyboard.rst:129
+msgid ""
+"The target is the selected timeline item's track, or the remembered track if"
+" nothing is selected. With neither available, OpenShot uses the highest "
+"unlocked track. The target track label appears **bold** while browsing "
+"assets. To change it, select an item on the desired track or clear the "
+"timeline selection and click the desired track before returning to the "
+"browser. A locked target blocks the operation; effects also require selected"
+" clips on unlocked tracks."
+msgstr ""
+"Het doel is de spoor van het geselecteerde tijdlijnitem, of het onthouden "
+"spoor als er niets geselecteerd is. Als geen van beide beschikbaar is, "
+"gebruikt OpenShot het hoogste ontgrendelde spoor. Het label van het "
+"doelspoor verschijnt **vetgedrukt** tijdens het bladeren door assets. Om dit"
+" te wijzigen, selecteert u een item op het gewenste spoor of wist u de "
+"tijdlijnselectie en klikt u op het gewenste spoor voordat u terugkeert naar "
+"de browser. Een vergrendeld doel blokkeert de bewerking; effecten vereisen "
+"ook geselecteerde clips op ontgrendelde sporen."
+
+#: ../doc/keyboard.rst:136
+msgid ""
+"Adding at the playhead uses normal OpenShot placement: it does not make room"
+" by shifting later clips or overwrite their content. As with dragging a "
+"single clip, an overlap can create an automatic transition. The playhead "
+"stays in place and focus stays in the browser, so you can continue choosing "
+"assets. Press :kbd:`Shift+3` to edit the newly added timeline items."
+msgstr ""
+"Toevoegen bij de afspeelkop gebruikt de normale OpenShot-plaatsing: het "
+"maakt geen ruimte door latere clips te verschuiven of overschrijft hun "
+"inhoud niet. Net als bij het slepen van een enkele clip kan een overlap een "
+"automatische overgang creëren. De afspeelkop blijft op zijn plaats en de "
+"focus blijft in de browser, zodat u kunt doorgaan met het kiezen van assets."
+" Druk op :kbd:`Shift+3` om de nieuw toegevoegde tijdlijnitems te bewerken."
+
+#: ../doc/keyboard.rst:142
+msgid ""
+"For example: :kbd:`Shift+1` → arrow keys → :kbd:`Ctrl+Enter` → "
+":kbd:`Shift+3`. The add/apply shortcut works in the asset list, not while "
+"typing in a filter or renaming an item."
+msgstr ""
+"Bijvoorbeeld: :kbd:`Shift+1` → pijltjestoetsen → :kbd:`Ctrl+Enter` → "
+":kbd:`Shift+3`. De sneltoets voor toevoegen/toepassen werkt in de "
+"assetlijst, niet tijdens het typen in een filter of het hernoemen van een "
+"item."
+
+#: ../doc/keyboard.rst:147
+msgid "Moving the playhead"
+msgstr "De afspeelkop verplaatsen"
+
+#: ../doc/keyboard.rst:155
+msgid "Step backward / forward one frame"
+msgstr "Stap één frame terug / vooruit"
+
+#: ../doc/keyboard.rst:156
+msgid ":kbd:`Left` / :kbd:`Right`"
+msgstr ":kbd:`Links` / :kbd:`Rechts`"
+
+#: ../doc/keyboard.rst:157
+msgid "Step backward / forward five frames"
+msgstr "Stap vijf frames terug / vooruit"
+
+#: ../doc/keyboard.rst:158
+msgid ":kbd:`Shift+Left` / :kbd:`Shift+Right`"
+msgstr ":kbd:`Shift+Links` / :kbd:`Shift+Rechts`"
+
+#: ../doc/keyboard.rst:159
+msgid "Go to the previous / next edit"
+msgstr "Ga naar de vorige / volgende bewerking"
+
+#: ../doc/keyboard.rst:160
+msgid ":kbd:`Up` / :kbd:`Down`"
+msgstr ":kbd:`Omhoog` / :kbd:`Omlaag`"
+
+#: ../doc/keyboard.rst:161
+msgid "Jump to the start / end"
+msgstr "Spring naar het begin / einde"
+
+#: ../doc/keyboard.rst:162
+msgid ":kbd:`Home` / :kbd:`End`"
+msgstr ":kbd:`Home` / :kbd:`End`"
+
+#: ../doc/keyboard.rst:163
+msgid "Center the timeline on the playhead"
+msgstr "Centreer de tijdlijn op de afspeelkop"
+
+#: ../doc/keyboard.rst:164 ../doc/keyboard.rst:451
+msgid ":kbd:`Shift+C`"
+msgstr ":kbd:`Shift+C`"
+
+#: ../doc/keyboard.rst:165 ../doc/keyboard.rst:292
+msgid "Play / pause"
+msgstr "Afspelen / pauzeren"
+
+#: ../doc/keyboard.rst:166 ../doc/keyboard.rst:595
+msgid ":kbd:`Space`"
+msgstr ":kbd:`Spatie`"
+
+#: ../doc/keyboard.rst:167
+msgid "Play in reverse"
+msgstr "Achteruit afspelen"
+
+#: ../doc/keyboard.rst:168 ../doc/keyboard.rst:634
+msgid ":kbd:`J`"
+msgstr ":kbd:`J`"
+
+#: ../doc/keyboard.rst:169
+msgid "Stop playback"
+msgstr "Stop afspelen"
+
+#: ../doc/keyboard.rst:170 ../doc/keyboard.rst:712
+msgid ":kbd:`K`"
+msgstr ":kbd:`K`"
+
+#: ../doc/keyboard.rst:171
+msgid "Play forward"
+msgstr "Vooruit afspelen"
+
+#: ../doc/keyboard.rst:172 ../doc/keyboard.rst:511
+msgid ":kbd:`L`"
+msgstr ":kbd:`L`"
+
+#: ../doc/keyboard.rst:174
+msgid ""
+"Edit navigation uses the selected item's track, or the last clicked track if"
+" nothing is selected. With no active track, it starts on the highest track "
+"containing a clip or transition at the playhead, or the highest populated "
+"track in a gap."
+msgstr ""
+"Bewerkingsnavigatie gebruikt het spoor van het geselecteerde item, of het "
+"laatst aangeklikte spoor als er niets geselecteerd is. Zonder actief spoor "
+"begint het op het hoogste spoor met een clip of overgang bij de afspeelkop, "
+"of het hoogste bezette spoor in een gat."
+
+#: ../doc/keyboard.rst:179
+msgid "Selecting clips and transitions"
+msgstr "Clips en overgangen selecteren"
+
+#: ../doc/keyboard.rst:180
+msgid ""
+"These shortcuts select both clips and transitions. Selection brings an item "
+"into view without changing the zoom or playhead."
+msgstr ""
+"Deze sneltoetsen selecteren zowel clips als overgangen. Selectie brengt een "
+"item in beeld zonder de zoom of afspeelkop te wijzigen."
+
+#: ../doc/keyboard.rst:188
+msgid "Select the previous / next item"
+msgstr "Selecteer het vorige / volgende item"
+
+#: ../doc/keyboard.rst:189
+msgid ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+Links` / :kbd:`Ctrl+Rechts`"
+
+#: ../doc/keyboard.rst:190
+msgid "Select an item above / below"
+msgstr "Selecteer een item boven / onder"
+
+#: ../doc/keyboard.rst:191
+msgid ":kbd:`Ctrl+Up` / :kbd:`Ctrl+Down`"
+msgstr ":kbd:`Ctrl+Omhoog` / :kbd:`Ctrl+Omlaag`"
+
+#: ../doc/keyboard.rst:192
+msgid "Extend selection to the previous / next item"
+msgstr "Selectie uitbreiden naar het vorige / volgende item"
+
+#: ../doc/keyboard.rst:193
+msgid ":kbd:`Ctrl+Shift+Left` / :kbd:`Ctrl+Shift+Right`"
+msgstr ":kbd:`Ctrl+Shift+Links` / :kbd:`Ctrl+Shift+Rechts`"
+
+#: ../doc/keyboard.rst:194
+msgid "Cycle through items under the playhead"
+msgstr "Cyclisch door items onder de afspeelkop bladeren"
+
+#: ../doc/keyboard.rst:195 ../doc/keyboard.rst:652
+msgid ":kbd:`D`"
+msgstr ":kbd:`D`"
+
+#: ../doc/keyboard.rst:196
+msgid "Extend selection through items under the playhead"
+msgstr "Selectie uitbreiden door items onder de afspeelkop"
+
+#: ../doc/keyboard.rst:197 ../doc/keyboard.rst:502
+msgid ":kbd:`Ctrl+Shift+D`"
+msgstr ":kbd:`Ctrl+Shift+D`"
+
+#: ../doc/keyboard.rst:198
+msgid "Select all / clear selection"
+msgstr "Alles selecteren / selectie wissen"
+
+#: ../doc/keyboard.rst:199
+msgid ":kbd:`Ctrl+A` / :kbd:`Ctrl+Shift+A`"
+msgstr ":kbd:`Ctrl+A` / :kbd:`Ctrl+Shift+A`"
+
+#: ../doc/keyboard.rst:201
+msgid ""
+"**Left/right** follows the current track first. When no item remains in that"
+" direction, it continues to the closest item start on another track."
+msgstr ""
+"**Links/rechts** volgt eerst de huidige track. Wanneer er in die richting "
+"geen item meer is, gaat het verder naar het dichtstbijzijnde item begin op "
+"een andere track."
+
+#: ../doc/keyboard.rst:204
+msgid ""
+"**Up/down** looks above or below the selected item, preferring items that "
+"overlap it in time. The nearest overlapping track wins. If nothing overlaps,"
+" the smallest horizontal gap wins, then the nearest track. Ties on a track "
+"favor the closest item center. Empty tracks and unrelated items farther to "
+"the side do not block navigation. With no selection, the playhead supplies "
+"the starting position."
+msgstr ""
+"**Omhoog/omlaag** kijkt boven of onder het geselecteerde item, met voorkeur "
+"voor items die er in de tijd overheen liggen. De dichtstbijzijnde "
+"overlappende track wint. Als er niets overlapt, wint de kleinste horizontale"
+" afstand, daarna de dichtstbijzijnde track. Gelijke stand op een track geeft"
+" de voorkeur aan het dichtstbijzijnde itemcentrum. Lege tracks en niet-"
+"gerelateerde items verder aan de zijkant blokkeren de navigatie niet. Zonder"
+" selectie levert de afspeelkop de startpositie."
+
+#: ../doc/keyboard.rst:210
+msgid ""
+"**Selection at the playhead** cycles from the highest track to the lowest, "
+"then wraps to the top. Moving the playhead restarts the cycle. If no item is"
+" under it, the selection stays unchanged. Extending selection keeps items "
+"already selected."
+msgstr ""
+"**Selectie bij de afspeelkop** doorloopt van de hoogste naar de laagste "
+"track en gaat dan weer naar boven. Het verplaatsen van de afspeelkop start "
+"de cyclus opnieuw. Als er geen item onder staat, blijft de selectie "
+"ongewijzigd. Selectie uitbreiden behoudt reeds geselecteerde items."
+
+#: ../doc/keyboard.rst:217
+msgid "Moving clips and transitions"
+msgstr "Knipsels en overgangen verplaatsen"
+
+#: ../doc/keyboard.rst:218
+msgid ""
+"These shortcuts move the selected clips and transitions when no trim edge is"
+" selected."
+msgstr ""
+"Deze sneltoetsen verplaatsen de geselecteerde knipsels en overgangen wanneer"
+" geen trimrand is geselecteerd."
+
+#: ../doc/keyboard.rst:226
+msgid "Move left / right one frame"
+msgstr "Eén frame naar links / rechts verplaatsen"
+
+#: ../doc/keyboard.rst:227 ../doc/keyboard.rst:257
+msgid ":kbd:`,` / :kbd:`.`"
+msgstr ":kbd:`,` / :kbd:`.`"
+
+#: ../doc/keyboard.rst:228
+msgid "Move left / right five frames"
+msgstr "Vijf frames naar links / rechts verplaatsen"
+
+#: ../doc/keyboard.rst:229 ../doc/keyboard.rst:259
+msgid ":kbd:`Shift+,` / :kbd:`Shift+.`"
+msgstr ":kbd:`Shift+,` / :kbd:`Shift+.`"
+
+#: ../doc/keyboard.rst:230
+msgid "Move up / down one track"
+msgstr "Eén track omhoog / omlaag verplaatsen"
+
+#: ../doc/keyboard.rst:231
+msgid ":kbd:`Alt+Up` / :kbd:`Alt+Down`"
+msgstr ":kbd:`Alt+Omhoog` / :kbd:`Alt+Omlaag`"
+
+#: ../doc/keyboard.rst:233
+msgid ""
+"Track moves keep the selection's timing and can use empty tracks. A locked "
+"track or the edge of the track list blocks the whole track move."
+msgstr ""
+"Trackverplaatsingen behouden de timing van de selectie en kunnen lege tracks"
+" gebruiken. Een vergrendelde track of de rand van de tracklijst blokkeert de"
+" hele trackverplaatsing."
+
+#: ../doc/keyboard.rst:236
+msgid ""
+"Hold a comma/period shortcut to move continuously. OpenShot previews the "
+"movement while the key repeats, then saves the final positions when you "
+"release it. One Undo reverses the entire hold, including all selected items."
+" Separate key taps remain separate undo steps. Leaving the timeline or "
+"starting another keyboard command also finishes the current movement."
+msgstr ""
+"Houd een komma/punt sneltoets ingedrukt om continu te verplaatsen. OpenShot "
+"toont een voorbeeld van de beweging terwijl de toets herhaald wordt, en "
+"slaat de eindposities op wanneer je loslaat. Eén Ongedaan maken keert de "
+"hele ingedrukte actie terug, inclusief alle geselecteerde items. Losse "
+"toetsaanslagen blijven aparte ongedaanmaakstappen. Het verlaten van de "
+"tijdlijn of starten van een andere sneltoets beëindigt ook de huidige "
+"beweging."
+
+#: ../doc/keyboard.rst:243
+msgid "Trimming clips and transitions"
+msgstr "Knipsels en overgangen trimmen"
+
+#: ../doc/keyboard.rst:244
+msgid ""
+"Select a clip or transition, choose its left or right edge, then adjust that"
+" edge."
+msgstr ""
+"Selecteer een knipsel of overgang, kies de linker- of rechterrand en pas die"
+" rand aan."
+
+#: ../doc/keyboard.rst:252
+msgid "Select the left trim edge"
+msgstr "Selecteer de linker trimrand"
+
+#: ../doc/keyboard.rst:253 ../doc/keyboard.rst:661
+msgid ":kbd:`[`"
+msgstr ":kbd:`[`"
+
+#: ../doc/keyboard.rst:254
+msgid "Select the right trim edge"
+msgstr "Selecteer de rechter trimrand"
+
+#: ../doc/keyboard.rst:255 ../doc/keyboard.rst:673
+msgid ":kbd:`]`"
+msgstr ":kbd:`]`"
+
+#: ../doc/keyboard.rst:256
+msgid "Move the selected edge left / right one frame"
+msgstr "Verplaats de geselecteerde rand één frame naar links / rechts"
+
+#: ../doc/keyboard.rst:258
+msgid "Move the selected edge left / right five frames"
+msgstr "Verplaats de geselecteerde rand vijf frames naar links / rechts"
+
+#: ../doc/keyboard.rst:260
+msgid "Leave trim mode and restore the timeline preview"
+msgstr "Verlaat de trimmodus en herstel de tijdlijnvoorbeeld"
+
+#: ../doc/keyboard.rst:261
+msgid ":kbd:`Esc`"
+msgstr ":kbd:`Esc`"
+
+#: ../doc/keyboard.rst:263
+msgid ""
+"The selected edge has a fading highlight. Video Preview shows the first "
+"included frame for the left edge or the last included frame for the right "
+"edge, updating after each trim without moving the playhead. For transitions,"
+" the preview shows the transition mask. Trims respect the available source "
+"media and do not ripple other clips."
+msgstr ""
+"De geselecteerde rand heeft een vervagende markering. Video Preview toont "
+"het eerste frame voor de linker rand of het laatste frame voor de rechter "
+"rand, en werkt bij na elke trim zonder de afspeelkop te verplaatsen. Voor "
+"overgangen toont de preview het overgangsmasker. Trims houden rekening met "
+"de beschikbare bronmedia en veroorzaken geen verschuiving van andere "
+"knipsels."
+
+#: ../doc/keyboard.rst:269
+msgid ""
+"Holding a trim shortcut also groups its repeated adjustments into one undo "
+"step."
+msgstr ""
+"Het ingedrukt houden van een trim-sneltoets groepeert herhaalde aanpassingen"
+" in één ongedaanmaakstap."
+
+#: ../doc/keyboard.rst:271
+msgid ""
+"After leaving trim mode, comma/period move whole clips and transitions "
+"again."
+msgstr ""
+"Na het verlaten van de trimmodus verplaatsen komma/punt weer hele knipsels "
+"en overgangen."
+
+#: ../doc/keyboard.rst:274
+msgid "Coming from another editor?"
+msgstr "Kom je van een andere editor?"
+
+#: ../doc/keyboard.rst:275
+msgid ""
+"Compare a few everyday editing tasks with shortcuts you may already know."
+msgstr ""
+"Vergelijk een paar dagelijkse bewerkingstaken met sneltoetsen die je "
+"misschien al kent."
+
+#: ../doc/keyboard.rst:277
+msgid ""
+"The table shows OpenShot's Windows/Linux defaults, Adobe Premiere Pro and "
+"DaVinci Resolve Windows defaults, and Final Cut Pro Mac defaults. On macOS, "
+"OpenShot uses Command for shortcuts shown with Ctrl. Shortcuts in other "
+"editors can vary with the version, keyboard layout, selected preset, and "
+"active panel. Similar shortcuts can also behave differently on stacked or "
+"connected clips."
+msgstr ""
+"De tabel toont OpenShot's standaardinstellingen voor Windows/Linux, Adobe "
+"Premiere Pro en DaVinci Resolve Windows-standaarden, en Final Cut Pro Mac-"
+"standaarden. Op macOS gebruikt OpenShot Command voor sneltoetsen die met "
+"Ctrl worden weergegeven. Sneltoetsen in andere editors kunnen variëren "
+"afhankelijk van versie, toetsenbordindeling, geselecteerde preset en actief "
+"paneel. Vergelijkbare sneltoetsen kunnen ook anders werken bij gestapelde of"
+" verbonden knipsels."
+
+#: ../doc/keyboard.rst:283
+msgid "Everyday editing shortcuts"
+msgstr "Dagelijkse bewerkingssneltoetsen"
+
+#: ../doc/keyboard.rst:287
+msgid "Task"
+msgstr "Taak"
+
+#: ../doc/keyboard.rst:288
+msgid "OpenShot"
+msgstr "OpenShot"
+
+#: ../doc/keyboard.rst:289
+msgid "Premiere Pro"
+msgstr "Premiere Pro"
+
+#: ../doc/keyboard.rst:290
+msgid "DaVinci Resolve"
+msgstr "DaVinci Resolve"
+
+#: ../doc/keyboard.rst:291
+msgid "Final Cut Pro"
+msgstr "Final Cut Pro"
+
+#: ../doc/keyboard.rst:293 ../doc/keyboard.rst:294 ../doc/keyboard.rst:295
+#: ../doc/keyboard.rst:296
+msgid "Space"
+msgstr "Spatie"
+
+#: ../doc/keyboard.rst:297
+msgid "Reverse / stop / forward"
+msgstr "Terug / stop / vooruit"
+
+#: ../doc/keyboard.rst:298 ../doc/keyboard.rst:299 ../doc/keyboard.rst:300
+#: ../doc/keyboard.rst:301
+msgid "J / K / L"
+msgstr "J / K / L"
+
+#: ../doc/keyboard.rst:302
+msgid "Previous / next frame"
+msgstr "Vorige / volgende frame"
+
+#: ../doc/keyboard.rst:303 ../doc/keyboard.rst:304 ../doc/keyboard.rst:305
+#: ../doc/keyboard.rst:306
+msgid "Left / Right"
+msgstr "Links / Rechts"
+
+#: ../doc/keyboard.rst:307
+msgid "Previous / next edit"
+msgstr "Vorige / volgende bewerking"
+
+#: ../doc/keyboard.rst:308
+msgid "Up / Down (active track)"
+msgstr "Omhoog / omlaag (actieve track)"
+
+#: ../doc/keyboard.rst:309 ../doc/keyboard.rst:310 ../doc/keyboard.rst:311
+msgid "Up / Down"
+msgstr "Omhoog / omlaag"
+
+#: ../doc/keyboard.rst:312
+msgid "Focus media browser / project assets"
+msgstr "Focus media-browser / projectmiddelen"
+
+#: ../doc/keyboard.rst:313
+msgid "Shift+1"
+msgstr "Shift+1"
+
+#: ../doc/keyboard.rst:314
+msgid "Shift+1 (Project panel)"
+msgstr "Shift+1 (Projectpaneel)"
+
+#: ../doc/keyboard.rst:315 ../doc/keyboard.rst:320
+msgid "Not listed here"
+msgstr "Hier niet vermeld"
+
+#: ../doc/keyboard.rst:316
+msgid "Cmd+1 (Browser)"
+msgstr "Cmd+1 (Browser)"
+
+#: ../doc/keyboard.rst:317
+msgid "Focus timeline"
+msgstr "Focus op tijdlijn"
+
+#: ../doc/keyboard.rst:318 ../doc/keyboard.rst:319
+msgid "Shift+3"
+msgstr "Shift+3"
+
+#: ../doc/keyboard.rst:321
+msgid "Cmd+2"
+msgstr "Cmd+2"
+
+#: ../doc/keyboard.rst:322
+msgid "Add source media at the playhead"
+msgstr "Bronmedia toevoegen bij de afspeelkop"
+
+#: ../doc/keyboard.rst:323
+msgid "Ctrl+Enter (place on target track)"
+msgstr "Ctrl+Enter (plaats op doelspoor)"
+
+#: ../doc/keyboard.rst:324
+msgid "Comma (insert); period (overwrite)"
+msgstr "Komma (invoegen); punt (overschrijven)"
+
+#: ../doc/keyboard.rst:325
+msgid "F9 (insert); F10 (overwrite)"
+msgstr "F9 (invoegen); F10 (overschrijven)"
+
+#: ../doc/keyboard.rst:326
+msgid "W (insert); D (overwrite); Q (connect)"
+msgstr "W (invoegen); D (overschrijven); Q (verbinden)"
+
+#: ../doc/keyboard.rst:327
+msgid "Select previous / next clip"
+msgstr "Selecteer vorige / volgende clip"
+
+#: ../doc/keyboard.rst:328 ../doc/keyboard.rst:330
+msgid "Ctrl+Left / Right"
+msgstr "Ctrl+Links / Rechts"
+
+#: ../doc/keyboard.rst:329 ../doc/keyboard.rst:333 ../doc/keyboard.rst:335
+msgid "Ctrl+Up / Down"
+msgstr "Ctrl+Omhoog / Omlaag"
+
+#: ../doc/keyboard.rst:331
+msgid "Cmd+Left / Right (same role; also moves playhead)"
+msgstr "Cmd+Links / Rechts (zelfde functie; verplaatst ook afspeelkop)"
+
+#: ../doc/keyboard.rst:332
+msgid "Select clip above / below"
+msgstr "Selecteer clip boven / onder"
+
+#: ../doc/keyboard.rst:334
+msgid "No default listed here"
+msgstr "Geen standaard hier vermeld"
+
+#: ../doc/keyboard.rst:336
+msgid "Cmd+Up / Down"
+msgstr "Cmd+Omhoog / Omlaag"
+
+#: ../doc/keyboard.rst:337
+msgid "Move selection up / down"
+msgstr "Verplaats selectie omhoog / omlaag"
+
+#: ../doc/keyboard.rst:338 ../doc/keyboard.rst:339 ../doc/keyboard.rst:340
+msgid "Alt+Up / Down"
+msgstr "Alt+Omhoog / Omlaag"
+
+#: ../doc/keyboard.rst:341
+msgid "Option+Up / Down (connected clips)"
+msgstr "Option+Omhoog / Omlaag (verbonden clips)"
+
+#: ../doc/keyboard.rst:342
+msgid "Nudge left / right one frame"
+msgstr "Verschuif één frame naar links / rechts"
+
+#: ../doc/keyboard.rst:343 ../doc/keyboard.rst:345 ../doc/keyboard.rst:346
+msgid "Comma / period"
+msgstr "Komma / punt"
+
+#: ../doc/keyboard.rst:344
+msgid "Alt+Left / Right"
+msgstr "Alt+Links / Rechts"
+
+#: ../doc/keyboard.rst:347
+msgid "Nudge by several frames"
+msgstr "Verschuif met meerdere frames"
+
+#: ../doc/keyboard.rst:348
+msgid "Shift+comma / period (5)"
+msgstr "Shift+komma / punt (5)"
+
+#: ../doc/keyboard.rst:349
+msgid "Alt+Shift+Left / Right (5)"
+msgstr "Alt+Shift+Links / Rechts (5)"
+
+#: ../doc/keyboard.rst:350
+msgid "Shift+comma / period (configurable; default 5)"
+msgstr "Shift+komma / punt (configureerbaar; standaard 5)"
+
+#: ../doc/keyboard.rst:351
+msgid "Shift+comma / period (10)"
+msgstr "Shift+komma / punt (10)"
+
+#: ../doc/keyboard.rst:352
+msgid "Select at playhead"
+msgstr "Selecteer bij afspeelkop"
+
+#: ../doc/keyboard.rst:353
+msgid "D (cycles through stacked clips)"
+msgstr "D (doorloopt gestapelde clips)"
+
+#: ../doc/keyboard.rst:354
+msgid "D"
+msgstr "D"
+
+#: ../doc/keyboard.rst:355
+msgid "Shift+V (nearest clip/gap)"
+msgstr "Shift+V (dichtstbijzijnde clip/gat)"
+
+#: ../doc/keyboard.rst:356
+msgid "X selects a range; C selects under the pointer"
+msgstr "X selecteert een bereik; C selecteert onder de aanwijzer"
+
+#: ../doc/keyboard.rst:357
+msgid "Split at playhead"
+msgstr "Splits bij afspeelkop"
+
+#: ../doc/keyboard.rst:358
+msgid "Ctrl+K (selected clips)"
+msgstr "Ctrl+K (geselecteerde clips)"
+
+#: ../doc/keyboard.rst:359
+msgid "Ctrl+K (targeted tracks)"
+msgstr "Ctrl+K (gerichte sporen)"
+
+#: ../doc/keyboard.rst:360
+msgid "Ctrl+B"
+msgstr "Ctrl+B"
+
+#: ../doc/keyboard.rst:361
+msgid "Cmd+B"
+msgstr "Cmd+B"
+
+#: ../doc/keyboard.rst:362 ../doc/keyboard.rst:726
+msgid "Undo"
+msgstr "Ongedaan maken"
+
+#: ../doc/keyboard.rst:363 ../doc/keyboard.rst:364 ../doc/keyboard.rst:365
+msgid "Ctrl+Z"
+msgstr "Ctrl+Z"
+
+#: ../doc/keyboard.rst:366
+msgid "Cmd+Z"
+msgstr "Cmd+Z"
+
+#: ../doc/keyboard.rst:367
+msgid "Save project"
+msgstr "Project opslaan"
+
+#: ../doc/keyboard.rst:368 ../doc/keyboard.rst:369 ../doc/keyboard.rst:370
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: ../doc/keyboard.rst:371
+msgid "Saves automatically"
+msgstr "Slaat automatisch op"
+
+#: ../doc/keyboard.rst:373
+msgid ""
+"For complete shortcut lists and customization options, see the `Premiere Pro"
+" keyboard reference <https://helpx.adobe.com/premiere/desktop/get-"
+"started/keyboard-shortcuts/default-keyboard-shortcuts.html>`_, `DaVinci "
+"Resolve training guides "
+"<https://www.blackmagicdesign.com/products/davinciresolve/training>`_, and "
+"`Final Cut Pro keyboard reference <https://support.apple.com/guide/final-"
+"cut-pro/ver90ba5929/mac>`_."
+msgstr ""
+"Voor volledige lijsten met sneltoetsen en aanpassingsopties, zie de "
+"`Premiere Pro keyboard reference "
+"<https://helpx.adobe.com/premiere/desktop/get-started/keyboard-"
+"shortcuts/default-keyboard-shortcuts.html>`_, `DaVinci Resolve training "
+"guides "
+"<https://www.blackmagicdesign.com/products/davinciresolve/training>`_, en "
+"`Final Cut Pro keyboard reference <https://support.apple.com/guide/final-"
+"cut-pro/ver90ba5929/mac>`_."
+
+#: ../doc/keyboard.rst:381
+msgid "Mouse shortcuts"
+msgstr "Muis sneltoetsen"
+
+#: ../doc/keyboard.rst:382
+msgid ""
+"These gestures complement the keyboard shortcuts. In Project Files' Details "
+"view, double-click the thumbnail column for the file actions below."
+msgstr ""
+"Deze gebaren vullen de sneltoetsen aan. Dubbelklik in de Details-weergave "
+"van Projectbestanden op de miniatuurkolom voor onderstaande bestandsacties."
+
+#: ../doc/keyboard.rst:390
+msgid "Mouse gesture"
+msgstr "Muisgebaar"
+
+#: ../doc/keyboard.rst:391
+msgid "Keyboard alternative"
+msgstr "Toetsenbord alternatief"
+
+#: ../doc/keyboard.rst:392
+msgid "Preview a file in Project Files"
+msgstr "Voorbeeld van een bestand in Projectbestanden"
+
+#: ../doc/keyboard.rst:393
+msgid "Double-click the file"
+msgstr "Dubbelklik op het bestand"
+
+#: ../doc/keyboard.rst:395
+msgid "Open file properties in Project Files"
+msgstr "Open bestandseigenschappen in Projectbestanden"
+
+#: ../doc/keyboard.rst:396
+msgid ":kbd:`Ctrl` + double-click the file"
+msgstr ":kbd:`Ctrl` + dubbelklik op het bestand"
+
+#: ../doc/keyboard.rst:397 ../doc/keyboard.rst:514
+msgid ":kbd:`Alt+I`"
+msgstr ":kbd:`Alt+I`"
+
+#: ../doc/keyboard.rst:398
+msgid "Split a file in Project Files"
+msgstr "Splits een bestand in Projectbestanden"
+
+#: ../doc/keyboard.rst:399
+msgid ":kbd:`Shift` + double-click the file"
+msgstr ":kbd:`Shift` + dubbelklik op het bestand"
+
+#: ../doc/keyboard.rst:400 ../doc/keyboard.rst:709
+msgid ":kbd:`Alt+S`"
+msgstr ":kbd:`Alt+S`"
+
+#: ../doc/keyboard.rst:401
+msgid "Select an item and everything to its right on the same track"
+msgstr "Selecteer een item en alles rechts ervan op hetzelfde spoor"
+
+#: ../doc/keyboard.rst:402
+msgid ":kbd:`Alt` + click the clip or transition"
+msgstr ":kbd:`Alt` + klik op de clip of overgang"
+
+#: ../doc/keyboard.rst:403
+msgid ":kbd:`Alt+A` with an item selected"
+msgstr ":kbd:`Alt+A` met een item geselecteerd"
+
+#: ../doc/keyboard.rst:404
+msgid "Open properties for a timeline clip or transition"
+msgstr "Open eigenschappen voor een tijdlijnclip of overgang"
+
+#: ../doc/keyboard.rst:405
+msgid "Double-click the item"
+msgstr "Dubbelklik op het item"
+
+#: ../doc/keyboard.rst:406 ../doc/keyboard.rst:616
+msgid ":kbd:`U`"
+msgstr ":kbd:`U`"
+
+#: ../doc/keyboard.rst:407
+msgid "Fit the whole timeline in view"
+msgstr "Pas de hele tijdlijn in beeld aan"
+
+#: ../doc/keyboard.rst:408
+msgid "Double-click the zoom slider"
+msgstr "Dubbelklik op de zoomschuifregelaar"
+
+#: ../doc/keyboard.rst:409
+msgid ":kbd:`\\\\` or :kbd:`Shift+\\\\`"
+msgstr ":kbd:`\\\\` of :kbd:`Shift+\\\\`"
+
+#: ../doc/keyboard.rst:412
+msgid "Full shortcut reference"
+msgstr "Volledige sneltoetsreferentie"
+
+#: ../doc/keyboard.rst:413
+msgid ""
+"These are the default shortcuts, including view shortcuts supplied by the "
+"menus. Your assignments in Preferences may differ. On macOS, Command is used"
+" for shortcuts shown with Ctrl."
+msgstr ""
+"Dit zijn de standaard sneltoetsen, inclusief weergavesneltoetsen geleverd "
+"door de menu's. Uw toewijzingen in Voorkeuren kunnen verschillen. Op macOS "
+"wordt Command gebruikt voor sneltoetsen die met Ctrl worden weergegeven."
+
+#: ../doc/keyboard.rst:416
+msgid "Default keyboard shortcuts"
+msgstr "Standaard sneltoetsen"
+
+#: ../doc/keyboard.rst:421
+msgid "Primary shortcut"
+msgstr "Primaire sneltoets"
+
+#: ../doc/keyboard.rst:422
+msgid "Alternatives"
+msgstr "Alternatieven"
+
+#: ../doc/keyboard.rst:423
+msgid "About OpenShot"
+msgstr "Over OpenShot"
+
+#: ../doc/keyboard.rst:424
+msgid ":kbd:`Ctrl+H`"
+msgstr ":kbd:`Ctrl+H`"
+
+#: ../doc/keyboard.rst:426
+msgid "Add Marker"
+msgstr "Marker Toevoegen"
+
+#: ../doc/keyboard.rst:427
+msgid ":kbd:`M`"
+msgstr ":kbd:`M`"
+
+#: ../doc/keyboard.rst:429
+msgid "Add or Apply Selected Asset"
+msgstr "Geselecteerd item toevoegen of toepassen"
+
+#: ../doc/keyboard.rst:432
+msgid "Add Text"
+msgstr "Tekst Toevoegen"
+
+#: ../doc/keyboard.rst:433
+msgid ":kbd:`Shift+T`"
+msgstr ":kbd:`Shift+T`"
+
+#: ../doc/keyboard.rst:435
+msgid "Add to Timeline"
+msgstr "Toevoegen aan Tijdlijn"
+
+#: ../doc/keyboard.rst:438
+msgid "Add Track"
+msgstr "Track Toevoegen"
+
+#: ../doc/keyboard.rst:439
+msgid ":kbd:`Ctrl+Y`"
+msgstr ":kbd:`Ctrl+Y`"
+
+#: ../doc/keyboard.rst:441
+msgid "Animated Title"
+msgstr "Geanimeerde Titel"
+
+#: ../doc/keyboard.rst:442
+msgid ":kbd:`Ctrl+Shift+T`"
+msgstr ":kbd:`Ctrl+Shift+T`"
+
+#: ../doc/keyboard.rst:444
+msgid "Ask a Question..."
+msgstr "Stel een Vraag..."
+
+#: ../doc/keyboard.rst:445
+msgid ":kbd:`F4`"
+msgstr ":kbd:`F4`"
+
+#: ../doc/keyboard.rst:447
+msgid "Auto-Optimize"
+msgstr "Automatisch Optimaliseren"
+
+#: ../doc/keyboard.rst:448
+msgid ":kbd:`Ctrl+Alt+O`"
+msgstr ":kbd:`Ctrl+Alt+O`"
+
+#: ../doc/keyboard.rst:450
+msgid "Center on Playhead"
+msgstr "Centreren op afspeelkop"
+
+#: ../doc/keyboard.rst:453
+msgid "Choose Profile"
+msgstr "Profiel Kiezen"
+
+#: ../doc/keyboard.rst:454
+msgid ":kbd:`Ctrl+Alt+P`"
+msgstr ":kbd:`Ctrl+Alt+P`"
+
+#: ../doc/keyboard.rst:456
+msgid "Clear All Cache"
+msgstr "Alle Cache Wissen"
+
+#: ../doc/keyboard.rst:457
+msgid ":kbd:`Ctrl+Shift+ESC`"
+msgstr ":kbd:`Ctrl+Shift+ESC`"
+
+#: ../doc/keyboard.rst:459
+msgid "Clear History"
+msgstr "Geschiedenis Wissen"
+
+#: ../doc/keyboard.rst:460
+msgid ":kbd:`Ctrl+Shift+H`"
+msgstr ":kbd:`Ctrl+Shift+H`"
+
+#: ../doc/keyboard.rst:462
+msgid "Clear Waveform Display Data"
+msgstr "Golfvormweergavegegevens Wissen"
+
+#: ../doc/keyboard.rst:463
+msgid ":kbd:`Ctrl+Shift+W`"
+msgstr ":kbd:`Ctrl+Shift+W`"
+
+#: ../doc/keyboard.rst:465
+msgid "Color View"
+msgstr "Kleurweergave"
+
+#: ../doc/keyboard.rst:466
+msgid ":kbd:`Alt+Shift+2`"
+msgstr ":kbd:`Alt+Shift+2`"
+
+#: ../doc/keyboard.rst:468
+msgid "Copy"
+msgstr "Kopiëren"
+
+#: ../doc/keyboard.rst:469
+msgid ":kbd:`Ctrl+C`"
+msgstr ":kbd:`Ctrl+C`"
+
+#: ../doc/keyboard.rst:471
+msgid "Cut"
+msgstr "Knippen"
+
+#: ../doc/keyboard.rst:472
+msgid ":kbd:`Ctrl+X`"
+msgstr ":kbd:`Ctrl+X`"
+
+#: ../doc/keyboard.rst:474
+msgid "Delete Item"
+msgstr "Item Verwijderen"
+
+#: ../doc/keyboard.rst:475
+msgid ":kbd:`Delete`"
+msgstr ":kbd:`Delete`"
+
+#: ../doc/keyboard.rst:476
+msgid ":kbd:`Backspace`"
+msgstr ":kbd:`Backspace`"
+
+#: ../doc/keyboard.rst:477
+msgid "Delete Item (Ripple)"
+msgstr "Item Verwijderen (Ripple)"
+
+#: ../doc/keyboard.rst:478
+msgid ":kbd:`Shift+Delete`"
+msgstr ":kbd:`Shift+Delete`"
+
+#: ../doc/keyboard.rst:480
+msgid "Delete Optimized Videos"
+msgstr "Geoptimaliseerde Video's Verwijderen"
+
+#: ../doc/keyboard.rst:481
+msgid ":kbd:`Ctrl+Shift+O`"
+msgstr ":kbd:`Ctrl+Shift+O`"
+
+#: ../doc/keyboard.rst:483
+msgid "Details View"
+msgstr "Details Weergave"
+
+#: ../doc/keyboard.rst:484
+msgid ":kbd:`Ctrl+Page Up`"
+msgstr ":kbd:`Ctrl+Page Up`"
+
+#: ../doc/keyboard.rst:486
+msgid "Donate"
+msgstr "Doneren"
+
+#: ../doc/keyboard.rst:487
+msgid ":kbd:`F7`"
+msgstr ":kbd:`F7`"
+
+#: ../doc/keyboard.rst:489
+msgid "Duplicate"
+msgstr "Dupliceren"
+
+#: ../doc/keyboard.rst:490
+msgid ":kbd:`Ctrl+Shift+/`"
+msgstr ":kbd:`Ctrl+Shift+/`"
+
+#: ../doc/keyboard.rst:492
+msgid "Edit Title"
+msgstr "Titel Bewerken"
+
+#: ../doc/keyboard.rst:493
+msgid ":kbd:`Alt+T`"
+msgstr ":kbd:`Alt+T`"
+
+#: ../doc/keyboard.rst:495
+msgid "Export Files"
+msgstr "Bestanden Exporteren"
+
+#: ../doc/keyboard.rst:496
+msgid ":kbd:`Ctrl+Shift+E`"
+msgstr ":kbd:`Ctrl+Shift+E`"
+
+#: ../doc/keyboard.rst:498
+msgid "Export Video"
+msgstr "Video Exporteren"
+
+#: ../doc/keyboard.rst:499
+msgid ":kbd:`Ctrl+E`"
+msgstr ":kbd:`Ctrl+E`"
+
+#: ../doc/keyboard.rst:500
+msgid ":kbd:`Ctrl+M`"
+msgstr ":kbd:`Ctrl+M`"
+
+#: ../doc/keyboard.rst:501
+msgid "Extend Selection at Playhead"
+msgstr "Selectie Uitbreiden bij Afspeelkop"
+
+#: ../doc/keyboard.rst:504
+msgid "Extend Selection to Next Item"
+msgstr "Selectie Uitbreiden naar Volgend Item"
+
+#: ../doc/keyboard.rst:505
+msgid ":kbd:`Ctrl+Shift+Right`"
+msgstr ":kbd:`Ctrl+Shift+Right`"
+
+#: ../doc/keyboard.rst:507
+msgid "Extend Selection to Previous Item"
+msgstr "Selectie Uitbreiden naar Vorig Item"
+
+#: ../doc/keyboard.rst:508
+msgid ":kbd:`Ctrl+Shift+Left`"
+msgstr ":kbd:`Ctrl+Shift+Left`"
+
+#: ../doc/keyboard.rst:510
+msgid "Fast Forward"
+msgstr "Sneller Vooruit"
+
+#: ../doc/keyboard.rst:513
+msgid "File Properties"
+msgstr "Bestandseigenschappen"
+
+#: ../doc/keyboard.rst:525
+msgid "Focus Timeline"
+msgstr "Focus op Tijdlijn"
+
+#: ../doc/keyboard.rst:531
+msgid "Fullscreen"
+msgstr "Volledig Scherm"
+
+#: ../doc/keyboard.rst:532
+msgid ":kbd:`F11`"
+msgstr ":kbd:`F11`"
+
+#: ../doc/keyboard.rst:534
+msgid "Import Files..."
+msgstr "Bestanden Importeren..."
+
+#: ../doc/keyboard.rst:535
+msgid ":kbd:`Ctrl+I`"
+msgstr ":kbd:`Ctrl+I`"
+
+#: ../doc/keyboard.rst:537
+msgid "Insert Keyframe"
+msgstr "Keyframe Invoegen"
+
+#: ../doc/keyboard.rst:538
+msgid ":kbd:`Alt+Shift+K`"
+msgstr ":kbd:`Alt+Shift+K`"
+
+#: ../doc/keyboard.rst:540
+msgid "Join our Community..."
+msgstr "Word lid van onze Community..."
+
+#: ../doc/keyboard.rst:541
+msgid ":kbd:`F5`"
+msgstr ":kbd:`F5`"
+
+#: ../doc/keyboard.rst:543
+msgid "Jump To End"
+msgstr "Spring naar Einde"
+
+#: ../doc/keyboard.rst:544
+msgid ":kbd:`End`"
+msgstr ":kbd:`End`"
+
+#: ../doc/keyboard.rst:546
+msgid "Jump To Start"
+msgstr "Spring naar Begin"
+
+#: ../doc/keyboard.rst:547
+msgid ":kbd:`Home`"
+msgstr ":kbd:`Home`"
+
+#: ../doc/keyboard.rst:549
+msgid "Launch Tutorial"
+msgstr "Tutorial Starten"
+
+#: ../doc/keyboard.rst:550
+msgid ":kbd:`F2`"
+msgstr ":kbd:`F2`"
+
+#: ../doc/keyboard.rst:552
+msgid "Move Selection Down One Track"
+msgstr "Selectie Eén Track Naar Beneden Verplaatsen"
+
+#: ../doc/keyboard.rst:553
+msgid ":kbd:`Alt+Down`"
+msgstr ":kbd:`Alt+Down`"
+
+#: ../doc/keyboard.rst:555
+msgid "Move Selection Up One Track"
+msgstr "Selectie Eén Track Naar Boven Verplaatsen"
+
+#: ../doc/keyboard.rst:556
+msgid ":kbd:`Alt+Up`"
+msgstr ":kbd:`Alt+Up`"
+
+#: ../doc/keyboard.rst:558
+msgid "New Project"
+msgstr "Nieuw Project"
+
+#: ../doc/keyboard.rst:559
+msgid ":kbd:`Ctrl+N`"
+msgstr ":kbd:`Ctrl+N`"
+
+#: ../doc/keyboard.rst:561
+msgid "Next Edit Point"
+msgstr "Volgend Bewerkingspunt"
+
+#: ../doc/keyboard.rst:562
+msgid ":kbd:`Down`"
+msgstr ":kbd:`Down`"
+
+#: ../doc/keyboard.rst:564
+msgid "Next Five Frames"
+msgstr "Volgende Vijf Frames"
+
+#: ../doc/keyboard.rst:565
+msgid ":kbd:`Shift+Right`"
+msgstr ":kbd:`Shift+Right`"
+
+#: ../doc/keyboard.rst:567
+msgid "Next Frame"
+msgstr "Volgend Frame"
+
+#: ../doc/keyboard.rst:568
+msgid ":kbd:`Right`"
+msgstr ":kbd:`Right`"
+
+#: ../doc/keyboard.rst:570
+msgid "Next Marker"
+msgstr "Volgende Marker"
+
+#: ../doc/keyboard.rst:571
+msgid ":kbd:`Shift+M`"
+msgstr ":kbd:`Shift+M`"
+
+#: ../doc/keyboard.rst:572
+msgid ":kbd:`Alt+Right`"
+msgstr ":kbd:`Alt+Right`"
+
+#: ../doc/keyboard.rst:573
+msgid "Nudge left (1 Frame)"
+msgstr "Een beetje naar links (1 Frame)"
+
+#: ../doc/keyboard.rst:574
+msgid ":kbd:`,`"
+msgstr ":kbd:`,`"
+
+#: ../doc/keyboard.rst:576
+msgid "Nudge left (5 Frames)"
+msgstr "Een beetje naar links (5 Frames)"
+
+#: ../doc/keyboard.rst:577
+msgid ":kbd:`Shift+,`"
+msgstr ":kbd:`Shift+,`"
+
+#: ../doc/keyboard.rst:579
+msgid "Nudge right (1 Frame)"
+msgstr "Een beetje naar rechts (1 Frame)"
+
+#: ../doc/keyboard.rst:580
+msgid ":kbd:`.`"
+msgstr ":kbd:`.`"
+
+#: ../doc/keyboard.rst:582
+msgid "Nudge right (5 Frames)"
+msgstr "Een beetje naar rechts (5 Frames)"
+
+#: ../doc/keyboard.rst:583
+msgid ":kbd:`Shift+.`"
+msgstr ":kbd:`Shift+.`"
+
+#: ../doc/keyboard.rst:585
+msgid "Open Help Contents"
+msgstr "Help-inhoud openen"
+
+#: ../doc/keyboard.rst:586
+msgid ":kbd:`F1`"
+msgstr ":kbd:`F1`"
+
+#: ../doc/keyboard.rst:588
+msgid "Open Project..."
+msgstr "Project openen..."
+
+#: ../doc/keyboard.rst:589
+msgid ":kbd:`Ctrl+O`"
+msgstr ":kbd:`Ctrl+O`"
+
+#: ../doc/keyboard.rst:591
+msgid "Paste"
+msgstr "Plakken"
+
+#: ../doc/keyboard.rst:592
+msgid ":kbd:`Ctrl+V`"
+msgstr ":kbd:`Ctrl+V`"
+
+#: ../doc/keyboard.rst:594
+msgid "Play/Pause Toggle"
+msgstr "Afspelen/Pauzeren wisselen"
+
+#: ../doc/keyboard.rst:597
+msgid "Preferences"
+msgstr "Voorkeuren"
+
+#: ../doc/keyboard.rst:598
+msgid ":kbd:`Ctrl+P`"
+msgstr ":kbd:`Ctrl+P`"
+
+#: ../doc/keyboard.rst:600
+msgid "Preview File"
+msgstr "Bestand bekijken"
+
+#: ../doc/keyboard.rst:603
+msgid "Previous Edit Point"
+msgstr "Vorige bewerkingspunt"
+
+#: ../doc/keyboard.rst:604
+msgid ":kbd:`Up`"
+msgstr ":kbd:`Pijl Omhoog`"
+
+#: ../doc/keyboard.rst:606
+msgid "Previous Five Frames"
+msgstr "Vorige vijf frames"
+
+#: ../doc/keyboard.rst:607
+msgid ":kbd:`Shift+Left`"
+msgstr ":kbd:`Shift+Pijl Links`"
+
+#: ../doc/keyboard.rst:609
+msgid "Previous Frame"
+msgstr "Vorige frame"
+
+#: ../doc/keyboard.rst:610
+msgid ":kbd:`Left`"
+msgstr ":kbd:`Pijl Links`"
+
+#: ../doc/keyboard.rst:612
+msgid "Previous Marker"
+msgstr "Vorige marker"
+
+#: ../doc/keyboard.rst:613
+msgid ":kbd:`Ctrl+Shift+M`"
+msgstr ":kbd:`Ctrl+Shift+M`"
+
+#: ../doc/keyboard.rst:614
+msgid ":kbd:`Alt+Left`"
+msgstr ":kbd:`Alt+Pijl Links`"
+
+#: ../doc/keyboard.rst:615
+msgid "Properties"
+msgstr "Eigenschappen"
+
+#: ../doc/keyboard.rst:618
+msgid "Quit"
+msgstr "Afsluiten"
+
+#: ../doc/keyboard.rst:619
+msgid ":kbd:`Ctrl+Q`"
+msgstr ":kbd:`Ctrl+Q`"
+
+#: ../doc/keyboard.rst:621
+msgid "Razor Toggle"
+msgstr "Scheermes wisselen"
+
+#: ../doc/keyboard.rst:622
+msgid ":kbd:`C`"
+msgstr ":kbd:`C`"
+
+#: ../doc/keyboard.rst:623
+msgid ":kbd:`B` or :kbd:`R`"
+msgstr ":kbd:`B` of :kbd:`R`"
+
+#: ../doc/keyboard.rst:624
+msgid "Recording View"
+msgstr "Opnameweergave"
+
+#: ../doc/keyboard.rst:625
+msgid ":kbd:`Alt+Shift+3`"
+msgstr ":kbd:`Alt+Shift+3`"
+
+#: ../doc/keyboard.rst:627
+msgid "Redo"
+msgstr "Opnieuw uitvoeren"
+
+#: ../doc/keyboard.rst:628
+msgid ":kbd:`Ctrl+Shift+Z`"
+msgstr ":kbd:`Ctrl+Shift+Z`"
+
+#: ../doc/keyboard.rst:630
+msgid "Report a Bug..."
+msgstr "Een fout melden..."
+
+#: ../doc/keyboard.rst:631
+msgid ":kbd:`F3`"
+msgstr ":kbd:`F3`"
+
+#: ../doc/keyboard.rst:633
+msgid "Rewind"
+msgstr "Terugspoelen"
+
+#: ../doc/keyboard.rst:636
+msgid "Save Current Frame"
+msgstr "Huidige frame opslaan"
+
+#: ../doc/keyboard.rst:637
+msgid ":kbd:`Shift+E`"
+msgstr ":kbd:`Shift+E`"
+
+#: ../doc/keyboard.rst:639
+msgid "Save Project"
+msgstr "Project opslaan"
+
+#: ../doc/keyboard.rst:640
+msgid ":kbd:`Ctrl+S`"
+msgstr ":kbd:`Ctrl+S`"
+
+#: ../doc/keyboard.rst:642
+msgid "Save Project As..."
+msgstr "Project opslaan als..."
+
+#: ../doc/keyboard.rst:643
+msgid ":kbd:`Ctrl+Shift+S`"
+msgstr ":kbd:`Ctrl+Shift+S`"
+
+#: ../doc/keyboard.rst:645
+msgid "Select All"
+msgstr "Alles selecteren"
+
+#: ../doc/keyboard.rst:646
+msgid ":kbd:`Ctrl+A`"
+msgstr ":kbd:`Ctrl+A`"
+
+#: ../doc/keyboard.rst:648
+msgid "Select Item Above"
+msgstr "Selecteer item hierboven"
+
+#: ../doc/keyboard.rst:649
+msgid ":kbd:`Ctrl+Up`"
+msgstr ":kbd:`Ctrl+Pijl Omhoog`"
+
+#: ../doc/keyboard.rst:651
+msgid "Select Item at Playhead"
+msgstr "Selecteer item bij afspeelkop"
+
+#: ../doc/keyboard.rst:654
+msgid "Select Item Below"
+msgstr "Selecteer item hieronder"
+
+#: ../doc/keyboard.rst:655
+msgid ":kbd:`Ctrl+Down`"
+msgstr ":kbd:`Ctrl+Pijl Omlaag`"
+
+#: ../doc/keyboard.rst:657
+msgid "Select Item (Ripple)"
+msgstr "Selecteer item (rimpeling)"
+
+#: ../doc/keyboard.rst:658
+msgid ":kbd:`Alt+A`"
+msgstr ":kbd:`Alt+A`"
+
+#: ../doc/keyboard.rst:660
+msgid "Select Left Item Edge"
+msgstr "Selecteer linker rand van item"
+
+#: ../doc/keyboard.rst:663
+msgid "Select Next Item"
+msgstr "Selecteer volgend item"
+
+#: ../doc/keyboard.rst:664
+msgid ":kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+Pijl Rechts`"
+
+#: ../doc/keyboard.rst:666
+msgid "Select None"
+msgstr "Niets selecteren"
+
+#: ../doc/keyboard.rst:667
+msgid ":kbd:`Ctrl+Shift+A`"
+msgstr ":kbd:`Ctrl+Shift+A`"
+
+#: ../doc/keyboard.rst:669
+msgid "Select Previous Item"
+msgstr "Selecteer vorig item"
+
+#: ../doc/keyboard.rst:670
+msgid ":kbd:`Ctrl+Left`"
+msgstr ":kbd:`Ctrl+Pijl Links`"
+
+#: ../doc/keyboard.rst:672
+msgid "Select Right Item Edge"
+msgstr "Selecteer rechter rand van item"
+
+#: ../doc/keyboard.rst:675
+msgid "Share Feedback..."
+msgstr "Feedback delen..."
+
+#: ../doc/keyboard.rst:676
+msgid ":kbd:`F8`"
+msgstr ":kbd:`F8`"
+
+#: ../doc/keyboard.rst:678
+msgid "Simple View"
+msgstr "Eenvoudige weergave"
+
+#: ../doc/keyboard.rst:679
+msgid ":kbd:`Alt+Shift+0`"
+msgstr ":kbd:`Alt+Shift+0`"
+
+#: ../doc/keyboard.rst:681
+msgid "Slice All: Keep Both Sides"
+msgstr "Alles snijden: beide zijden behouden"
+
+#: ../doc/keyboard.rst:682
+msgid ":kbd:`Ctrl+Shift+K`"
+msgstr ":kbd:`Ctrl+Shift+K`"
+
+#: ../doc/keyboard.rst:684
+msgid "Slice All: Keep Left Side"
+msgstr "Alles snijden: linkerzijde behouden"
+
+#: ../doc/keyboard.rst:685
+msgid ":kbd:`Ctrl+Shift+J`"
+msgstr ":kbd:`Ctrl+Shift+J`"
+
+#: ../doc/keyboard.rst:687
+msgid "Slice All: Keep Right Side"
+msgstr "Alles snijden: rechterzijde behouden"
+
+#: ../doc/keyboard.rst:688
+msgid ":kbd:`Ctrl+Shift+L`"
+msgstr ":kbd:`Ctrl+Shift+L`"
+
+#: ../doc/keyboard.rst:690
+msgid "Slice Selected: Keep Both Sides"
+msgstr "Geselecteerd snijden: beide zijden behouden"
+
+#: ../doc/keyboard.rst:691
+msgid ":kbd:`Ctrl+K`"
+msgstr ":kbd:`Ctrl+K`"
+
+#: ../doc/keyboard.rst:693
+msgid "Slice Selected: Keep Left (Ripple)"
+msgstr "Geselecteerd snijden: linkerzijde behouden (rimpeling)"
+
+#: ../doc/keyboard.rst:694
+msgid ":kbd:`W`"
+msgstr ":kbd:`W`"
+
+#: ../doc/keyboard.rst:696
+msgid "Slice Selected: Keep Left Side"
+msgstr "Geselecteerd snijden: linkerzijde behouden"
+
+#: ../doc/keyboard.rst:697
+msgid ":kbd:`Ctrl+J`"
+msgstr ":kbd:`Ctrl+J`"
+
+#: ../doc/keyboard.rst:699
+msgid "Slice Selected: Keep Right (Ripple)"
+msgstr "Geselecteerd snijden: rechterzijde behouden (rimpeling)"
+
+#: ../doc/keyboard.rst:700
+msgid ":kbd:`Q`"
+msgstr ":kbd:`Q`"
+
+#: ../doc/keyboard.rst:702
+msgid "Slice Selected: Keep Right Side"
+msgstr "Geselecteerd snijden: rechterzijde behouden"
+
+#: ../doc/keyboard.rst:703
+msgid ":kbd:`Ctrl+L`"
+msgstr ":kbd:`Ctrl+L`"
+
+#: ../doc/keyboard.rst:705
+msgid "Snapping Toggle"
+msgstr "Magnetisch vastzetten wisselen"
+
+#: ../doc/keyboard.rst:706
+msgid ":kbd:`S`"
+msgstr ":kbd:`S`"
+
+#: ../doc/keyboard.rst:708
+msgid "Split File"
+msgstr "Bestand splitsen"
+
+#: ../doc/keyboard.rst:711
+msgid "Stop Playback"
+msgstr "Afspelen stoppen"
+
+#: ../doc/keyboard.rst:714
+msgid "Thumbnail View"
+msgstr "Miniatuurweergave"
+
+#: ../doc/keyboard.rst:715
+msgid ":kbd:`Ctrl+Page Down`"
+msgstr ":kbd:`Ctrl+Page Down`"
+
+#: ../doc/keyboard.rst:717
+msgid "Timing Toggle"
+msgstr "Tijdinstelling wisselen"
+
+#: ../doc/keyboard.rst:718
+msgid ":kbd:`T`"
+msgstr ":kbd:`T`"
+
+#: ../doc/keyboard.rst:720
+msgid "Title"
+msgstr "Titel"
+
+#: ../doc/keyboard.rst:721
+msgid ":kbd:`Ctrl+T`"
+msgstr ":kbd:`Ctrl+T`"
+
+#: ../doc/keyboard.rst:723
+msgid "Translate this Application..."
+msgstr "Vertaal deze applicatie..."
+
+#: ../doc/keyboard.rst:724
+msgid ":kbd:`F6`"
+msgstr ":kbd:`F6`"
+
+#: ../doc/keyboard.rst:727
+msgid ":kbd:`Ctrl+Z`"
+msgstr ":kbd:`Ctrl+Z`"
+
+#: ../doc/keyboard.rst:729
+msgid "Update Available"
+msgstr "Update beschikbaar"
+
+#: ../doc/keyboard.rst:730
+msgid ":kbd:`F9`"
+msgstr ":kbd:`F9`"
+
+#: ../doc/keyboard.rst:732
+msgid "View Toolbar"
+msgstr "Werkbalk weergeven"
+
+#: ../doc/keyboard.rst:733
+msgid ":kbd:`Ctrl+Shift+B`"
+msgstr ":kbd:`Ctrl+Shift+B`"
+
+#: ../doc/keyboard.rst:735
+msgid "Zoom In"
+msgstr "Inzoomen"
+
+#: ../doc/keyboard.rst:736
+msgid ":kbd:`=`"
+msgstr ":kbd:`=`"
+
+#: ../doc/keyboard.rst:737
+msgid ":kbd:`Ctrl+=`"
+msgstr ":kbd:`Ctrl+=`"
+
+#: ../doc/keyboard.rst:738
+msgid "Zoom Out"
+msgstr "Uitzoomen"
+
+#: ../doc/keyboard.rst:739
+msgid ":kbd:`-`"
+msgstr ":kbd:`-`"
+
+#: ../doc/keyboard.rst:740
+msgid ":kbd:`Ctrl+-`"
+msgstr ":kbd:`Ctrl+-`"
+
+#: ../doc/keyboard.rst:741
+msgid "Zoom to Timeline"
+msgstr "Inzoomen op Tijdlijn"
+
+#: ../doc/keyboard.rst:742
+msgid ":kbd:`\\\\`"
+msgstr ":kbd:`\\\\`"
+
+#: ../doc/keyboard.rst:743
+msgid ":kbd:`Shift+\\\\`"
+msgstr ":kbd:`Shift+\\\\`"

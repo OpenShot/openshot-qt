@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,66 +18,66 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:21
+#: ../doc/import_export.rst:21
 msgid "Import & Export"
 msgstr "Nhập & Xuất"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:23
+#: ../doc/import_export.rst:23
 msgid ""
 "Video editing projects (including tracks, clips, and keyframes) can be "
-"**imported** and **exported** from OpenShot Video Editor in widely supported "
-"formats (**EDL**: Edit Decision Lists, and **XML**: Final Cut Pro format). "
+"**imported** and **exported** from OpenShot Video Editor in widely supported"
+" formats (**EDL**: Edit Decision Lists, and **XML**: Final Cut Pro format). "
 "For example, if you start editing a video in a different program (Adobe "
 "Premier, Final Cut Pro, etc...), but later need to move all your edits to "
 "OpenShot (or vice versa)."
 msgstr ""
 "Các dự án chỉnh sửa video (bao gồm các track, clip và keyframe) có thể được "
-"**nhập** và **xuất** từ OpenShot Video Editor dưới các định dạng được hỗ trợ "
-"rộng rãi (**EDL**: Danh sách quyết định chỉnh sửa, và **XML**: định dạng "
+"**nhập** và **xuất** từ OpenShot Video Editor dưới các định dạng được hỗ trợ"
+" rộng rãi (**EDL**: Danh sách quyết định chỉnh sửa, và **XML**: định dạng "
 "Final Cut Pro). Ví dụ, nếu bạn bắt đầu chỉnh sửa video trong một chương "
 "trình khác (Adobe Premiere, Final Cut Pro, v.v...), nhưng sau đó cần chuyển "
 "tất cả các chỉnh sửa sang OpenShot (hoặc ngược lại)."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:29
+#: ../doc/import_export.rst:29
 msgid "EDL (Edit Decision Lists)"
 msgstr "EDL (Danh sách quyết định chỉnh sửa)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:30
+#: ../doc/import_export.rst:30
 msgid ""
 "The following features are supported when importing and exporting an EDL "
 "file with OpenShot."
 msgstr "Các tính năng sau được hỗ trợ khi nhập và xuất tệp EDL với OpenShot."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:36
+#: ../doc/import_export.rst:36
 msgid "EDL Option Name"
 msgstr "Tên tùy chọn EDL"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:36 ../import_export.rst:122
+#: ../doc/import_export.rst:36 ../doc/import_export.rst:122
 msgid "Description"
 msgstr "Mô tả"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:38
+#: ../doc/import_export.rst:38
 msgid "EDL Format"
 msgstr "Định dạng EDL"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:38
+#: ../doc/import_export.rst:38
 msgid "CMX-3600 (a very widely supported variation)"
 msgstr "CMX-3600 (một biến thể được hỗ trợ rộng rãi)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:39
+#: ../doc/import_export.rst:39
 msgid "Single Track"
 msgstr "Một track duy nhất"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:39
+#: ../doc/import_export.rst:39
 msgid ""
 "Only a single track can be imported at a time (this is a limitation of the "
 "EDL format)"
@@ -86,52 +86,52 @@ msgstr ""
 "EDL)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:40
+#: ../doc/import_export.rst:40
 msgid "Tape Name"
 msgstr "Tên băng"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:40
+#: ../doc/import_export.rst:40
 msgid "Only **AX** and **BL** tape names are currently supported in OpenShot"
 msgstr "Hiện tại OpenShot chỉ hỗ trợ tên băng **AX** và **BL**"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:41
+#: ../doc/import_export.rst:41
 msgid "Edits (V and A)"
 msgstr "Chỉnh sửa (V và A)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:41
+#: ../doc/import_export.rst:41
 msgid "Only edits are currently supported (transitions are not yet supported)"
 msgstr "Hiện tại chỉ hỗ trợ chỉnh sửa (chưa hỗ trợ chuyển cảnh)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:42 ../import_export.rst:127
+#: ../doc/import_export.rst:42 ../doc/import_export.rst:127
 msgid "Opacity"
 msgstr "Độ mờ"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:42 ../import_export.rst:127
+#: ../doc/import_export.rst:42 ../doc/import_export.rst:127
 msgid "Opacity keyframes are supported"
 msgstr "Hỗ trợ keyframe độ mờ"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:43 ../import_export.rst:128
+#: ../doc/import_export.rst:43 ../doc/import_export.rst:128
 msgid "Audio Levels"
 msgstr "Mức âm thanh"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:43 ../import_export.rst:128
+#: ../doc/import_export.rst:43 ../doc/import_export.rst:128
 msgid "Volume keyframes are supported"
 msgstr "Hỗ trợ keyframe âm lượng"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:47
+#: ../doc/import_export.rst:47
 msgid "Example EDL Output"
 msgstr "Ví dụ xuất EDL"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:49
+#: ../doc/import_export.rst:49
 msgid ""
 "OpenShot follows the CMX 3600 layout for event lines and uses comment lines "
 "(`* ...`) to carry keyframes. CMX 3600 does not define units or "
@@ -142,19 +142,19 @@ msgid ""
 msgstr ""
 "OpenShot tuân theo bố cục CMX 3600 cho các dòng sự kiện và sử dụng dòng chú "
 "thích (`* ...`) để chứa keyframe. CMX 3600 không định nghĩa đơn vị hoặc nội "
-"suy trong chú thích, vì vậy trình xuất của chúng tôi thêm các giá trị và tên "
-"nội suy dễ đọc, và trình nhập của chúng tôi rất linh hoạt: chấp nhận đơn vị "
-"có hoặc không có khoảng trắng, chữ hoa chữ thường hỗn hợp, các token nội suy "
-"tùy chọn, và bỏ qua văn bản/thẻ cuộn không xác định để tối đa hóa khả năng "
-"tương thích."
+"suy trong chú thích, vì vậy trình xuất của chúng tôi thêm các giá trị và tên"
+" nội suy dễ đọc, và trình nhập của chúng tôi rất linh hoạt: chấp nhận đơn vị"
+" có hoặc không có khoảng trắng, chữ hoa chữ thường hỗn hợp, các token nội "
+"suy tùy chọn, và bỏ qua văn bản/thẻ cuộn không xác định để tối đa hóa khả "
+"năng tương thích."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:109
+#: ../doc/import_export.rst:109
 msgid "XML (Final Cut Pro format)"
 msgstr "XML (định dạng Final Cut Pro)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:110
+#: ../doc/import_export.rst:110
 msgid ""
 "The following features are supported when importing and exporting an XML "
 "file with OpenShot. This XML format is supported in many video editors (not "
@@ -167,7 +167,7 @@ msgstr ""
 "và xuất định dạng XML này."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:114
+#: ../doc/import_export.rst:114
 msgid ""
 "OpenShot uses the legacy Final Cut Pro XML Interchange Format (**xmeml**) "
 "from Final Cut Pro 7. Our exporter writes `<!DOCTYPE xmeml>` projects that "
@@ -181,17 +181,17 @@ msgstr ""
 "và v5 của định dạng trao đổi đó (các DTD đi kèm với Final Cut Pro 7)."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:122
+#: ../doc/import_export.rst:122
 msgid "XML Option Name"
 msgstr "Tên tùy chọn XML"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:124
+#: ../doc/import_export.rst:124
 msgid "XML Format"
 msgstr "Định dạng XML"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:124
+#: ../doc/import_export.rst:124
 msgid ""
 "Final Cut Pro format (but most commercial video editors also support this "
 "format)"
@@ -200,22 +200,22 @@ msgstr ""
 "cũng hỗ trợ định dạng này)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:125
+#: ../doc/import_export.rst:125
 msgid "All Tracks"
 msgstr "Tất cả các track"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:125
+#: ../doc/import_export.rst:125
 msgid "All video and audio tracks are supported"
 msgstr "Hỗ trợ tất cả các track video và âm thanh"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:126
+#: ../doc/import_export.rst:126
 msgid "Edits"
 msgstr "Chỉnh sửa"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:126
+#: ../doc/import_export.rst:126
 msgid ""
 "All clips on all tracks are supported (video, image, and audio files). "
 "Transitions are not yet supported."
@@ -224,6 +224,6 @@ msgstr ""
 "thanh). Chưa hỗ trợ chuyển cảnh."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:132
+#: ../doc/import_export.rst:132
 msgid "Example XML Output (tree view)"
 msgstr "Ví dụ xuất XML (dạng cây)"

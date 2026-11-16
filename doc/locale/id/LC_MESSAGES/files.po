@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-02 17:20-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,16 +20,16 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:23
+#: ../doc/files.rst:23
 msgid "Files"
 msgstr "Berkas"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:25
+#: ../doc/files.rst:25
 msgid ""
 "To create a video, we need to make media files available to our project by "
-"importing files into OpenShot. Most media file types are recognized, such as "
-"videos, images, and audio files. Files can be viewed and managed in the "
+"importing files into OpenShot. Most media file types are recognized, such as"
+" videos, images, and audio files. Files can be viewed and managed in the "
 "**Project Files** panel."
 msgstr ""
 "Untuk membuat video, kita perlu menyediakan berkas media ke proyek kita "
@@ -38,7 +38,7 @@ msgstr ""
 "dikelola di panel **Berkas Proyek**."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:29
+#: ../doc/files.rst:29
 msgid ""
 "Note that imported files are not copied anywhere, they remain in the "
 "physical location they were before and are simply being made available to "
@@ -58,12 +58,12 @@ msgstr ""
 "Anda."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:39
+#: ../doc/files.rst:39
 msgid "Import Files"
 msgstr "Impor Berkas"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:40
+#: ../doc/files.rst:40
 msgid ""
 "There are many different ways to import media files into an OpenShot "
 "project. When a file is imported successfully, it will be automatically "
@@ -78,23 +78,23 @@ msgstr ""
 "akan secara otomatis menampilkan panel tersebut."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:48
+#: ../doc/files.rst:48
 msgid "Import File Method"
 msgstr "Metode Impor Berkas"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:48 ../files.rst:85 ../files.rst:142 ../files.rst:182
-#: ../files.rst:216 ../files.rst:240
+#: ../doc/files.rst:48 ../doc/files.rst:85 ../doc/files.rst:288
+#: ../doc/files.rst:362 ../doc/files.rst:386
 msgid "Description"
 msgstr "Deskripsi"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:50
+#: ../doc/files.rst:50
 msgid "Drag and Drop"
 msgstr "Seret dan Lepas"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:50
+#: ../doc/files.rst:50
 msgid ""
 "Drag and drop the files from your file manager (file explorer, finder, "
 "etc...)."
@@ -103,69 +103,70 @@ msgstr ""
 "finder, dll...)."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:51
+#: ../doc/files.rst:51
 msgid "Context menu (`File Menu`_)"
 msgstr "Menu konteks (`Menu Berkas`_)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:51
+#: ../doc/files.rst:51
 msgid ""
-"Right click anywhere in the **Project Files** panel and choose :guilabel:"
-"`Import Files`."
+"Right click anywhere in the **Project Files** panel and choose "
+":guilabel:`Import Files`."
 msgstr ""
-"Klik kanan di mana saja di panel **Berkas Proyek** dan pilih :guilabel:"
-"`Impor Berkas`."
+"Klik kanan di mana saja di panel **Berkas Proyek** dan pilih "
+":guilabel:`Impor Berkas`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:52
+#: ../doc/files.rst:52
 msgid "Main Menu"
 msgstr "Menu Utama"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:52
+#: ../doc/files.rst:52
 msgid "In the main menu choose: :guilabel:`File\\→Import Files`."
 msgstr "Di menu utama pilih: :guilabel:`Berkas\\→Impor Berkas`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:53
+#: ../doc/files.rst:53
 msgid "Toolbar button"
 msgstr "Tombol toolbar"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:53
+#: ../doc/files.rst:53
 msgid "Click the :guilabel:`+` toolbar button in the main toolbar."
 msgstr "Klik tombol toolbar :guilabel:`+` di toolbar utama."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:54
+#: ../doc/files.rst:54
 msgid "Keyboard shortcut"
 msgstr "Pintasan keyboard"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:54
+#: ../doc/files.rst:54
 msgid "Press :kbd:`Ctrl-F` (:kbd:`Cmd-F` on Mac)."
 msgstr "Tekan :kbd:`Ctrl-F` (:kbd:`Cmd-F` di Mac)."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:55 ../files.rst:63
+#: ../doc/files.rst:55 ../doc/files.rst:63
 msgid "Paste from Clipboard"
 msgstr "Tempel dari Clipboard"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:55
+#: ../doc/files.rst:55
 msgid ""
 "Press :kbd:`Ctrl-V` (:kbd:`Cmd-V` on Mac) to paste copied files from your "
 "clipboard. See :ref:`paste_from_clipboard_ref`."
 msgstr ""
-"Tekan :kbd:`Ctrl-V` (:kbd:`Cmd-V` di Mac) untuk menempel berkas yang disalin "
-"dari clipboard Anda. Lihat :ref:`paste_from_clipboard_ref`."
+"Tekan :kbd:`Ctrl-V` (:kbd:`Cmd-V` di Mac) untuk menempel berkas yang disalin"
+" dari clipboard Anda. Lihat :ref:`paste_from_clipboard_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:64
+#: ../doc/files.rst:64
 msgid ""
 "You can paste files and clipboard media straight into OpenShot. If you "
-"copied one or more files in your file manager, switch to OpenShot and press :"
-"kbd:`Ctrl-V` in the **Project Files** panel to add them, just like importing."
+"copied one or more files in your file manager, switch to OpenShot and press "
+":kbd:`Ctrl-V` in the **Project Files** panel to add them, just like "
+"importing."
 msgstr ""
 "Anda dapat menempel berkas dan media clipboard langsung ke OpenShot. Jika "
 "Anda menyalin satu atau lebih berkas di pengelola berkas Anda, beralih ke "
@@ -173,13 +174,14 @@ msgstr ""
 "menambahkannya, sama seperti mengimpor."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:67
+#: ../doc/files.rst:67
 msgid ""
 "If you copied media **data** (for example, **Copy Image** in a web browser, "
-"a pasted frame from another app, or other image/audio/video clipboard data), "
-"press :kbd:`Ctrl-V` in OpenShot to create a file for that clipboard content. "
-"OpenShot saves a copy in a temporary folder: ``.openshot_qt/clipboard/``. "
-"The new file is then added to your project and appears in **Project Files**."
+"a pasted frame from another app, or other image/audio/video clipboard data),"
+" press :kbd:`Ctrl-V` in OpenShot to create a file for that clipboard "
+"content. OpenShot saves a copy in a temporary folder: "
+"``.openshot_qt/clipboard/``. The new file is then added to your project and "
+"appears in **Project Files**."
 msgstr ""
 "Jika Anda menyalin data media **(data)** (misalnya, **Salin Gambar** di "
 "peramban web, frame yang ditempel dari aplikasi lain, atau data clipboard "
@@ -189,12 +191,12 @@ msgstr ""
 "proyek Anda dan muncul di **Berkas Proyek**."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:74
+#: ../doc/files.rst:74
 msgid "File Menu"
 msgstr "Menu Berkas"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:75
+#: ../doc/files.rst:75
 msgid ""
 "To view the file menu, right click on a file (in the **Project Files** "
 "panel). Here are the actions you can use from the file menu."
@@ -203,63 +205,63 @@ msgstr ""
 "Proyek**). Berikut adalah tindakan yang dapat Anda gunakan dari menu berkas."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:84
+#: ../doc/files.rst:84
 msgid "File Context Option"
 msgstr "Opsi Konteks Berkas"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:86
+#: ../doc/files.rst:86
 msgid "Import Files..."
 msgstr "Impor Berkas..."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:87
+#: ../doc/files.rst:87
 msgid "Import files into your project"
 msgstr "Impor berkas ke dalam proyek Anda"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:88
+#: ../doc/files.rst:88
 msgid "Create with AI / Enhance with AI (Optional)"
 msgstr "Buat dengan AI / Tingkatkan dengan AI (Opsional)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:89
+#: ../doc/files.rst:89
 msgid ""
 "AI menu actions for generating or enhancing media files. These options are "
 "shown only when AI is enabled and the selected file type supports the "
 "workflow. See :ref:`ai_ref`."
 msgstr ""
-"Aksi menu AI untuk menghasilkan atau meningkatkan file media. Opsi ini hanya "
-"ditampilkan saat AI diaktifkan dan tipe file yang dipilih mendukung alur "
+"Aksi menu AI untuk menghasilkan atau meningkatkan file media. Opsi ini hanya"
+" ditampilkan saat AI diaktifkan dan tipe file yang dipilih mendukung alur "
 "kerja ini. Lihat :ref:`ai_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:90
+#: ../doc/files.rst:90
 msgid "Details View"
 msgstr "Tampilan Detail"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:91
+#: ../doc/files.rst:91
 msgid "Switch the Project Files panel to details view"
 msgstr "Beralih ke panel File Proyek dalam tampilan detail"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:92 ../files.rst:114
+#: ../doc/files.rst:92 ../doc/files.rst:116
 msgid "Preview File"
 msgstr "Pratinjau Berkas"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:93
+#: ../doc/files.rst:93
 msgid "Preview a media file"
 msgstr "Pratinjau berkas media"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:94 ../files.rst:170
+#: ../doc/files.rst:94 ../doc/files.rst:316
 msgid "Split File"
 msgstr "Pisah Berkas"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:95
+#: ../doc/files.rst:95
 msgid ""
 "Split a file into many smaller files. The new trimmed files appear in the "
 "Project Files list."
@@ -268,22 +270,22 @@ msgstr ""
 "dipangkas baru akan muncul di daftar Berkas Proyek."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:96 ../files.rst:193
+#: ../doc/files.rst:96 ../doc/files.rst:339
 msgid "Export Files"
 msgstr "Ekspor Berkas"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:97
+#: ../doc/files.rst:97
 msgid "Export selected files (and split segments) to a destination folder"
 msgstr "Ekspor file terpilih (dan segmen terpisah) ke folder tujuan"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:98 ../files.rst:205
+#: ../doc/files.rst:98 ../doc/files.rst:351
 msgid "Add to Timeline"
 msgstr "Tambahkan ke Timeline"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:99
+#: ../doc/files.rst:99
 msgid ""
 "Add many files to the timeline in one step, including transitions or "
 "alternating tracks."
@@ -292,15 +294,15 @@ msgstr ""
 "atau trek bergantian."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:100
+#: ../doc/files.rst:100
 msgid "Choose Profile"
 msgstr "Pilih Profil"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:101
+#: ../doc/files.rst:101
 msgid ""
-"Change the current project profile to match the selected file. If the file's "
-"profile does not match a known profile, it will give you the option to "
+"Change the current project profile to match the selected file. If the file's"
+" profile does not match a known profile, it will give you the option to "
 "create a custom profile."
 msgstr ""
 "Ubah profil proyek saat ini agar sesuai dengan berkas yang dipilih. Jika "
@@ -308,22 +310,22 @@ msgstr ""
 "untuk membuat profil kustom."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:102 ../files.rst:242
+#: ../doc/files.rst:102 ../doc/files.rst:388
 msgid "File Properties"
 msgstr "Properti Berkas"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:103
+#: ../doc/files.rst:103
 msgid "View the properties of a file, such as frame rate, size, etc..."
 msgstr "Lihat properti berkas, seperti laju bingkai, ukuran, dll..."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:104 ../files.rst:125
+#: ../doc/files.rst:104 ../doc/files.rst:184
 msgid "Optimize"
 msgstr "Optimalkan"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:105
+#: ../doc/files.rst:105
 msgid ""
 "Create, link, unlink, or delete optimized preview files for the selected "
 "video files."
@@ -332,80 +334,230 @@ msgstr ""
 "untuk file video yang dipilih."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:106 ../files.rst:250
+#: ../doc/files.rst:106 ../doc/files.rst:396
 msgid "Remove from Project"
 msgstr "Hapus dari Proyek"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:107
+#: ../doc/files.rst:107
 msgid "Remove a file from the project"
 msgstr "Hapus sebuah berkas dari proyek"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:108
+#: ../doc/files.rst:108
 msgid "Edit Title"
 msgstr "Sunting Judul"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:109
+#: ../doc/files.rst:109
 msgid "Edit an existing title SVG file (shown when an SVG title is selected)"
 msgstr "Sunting file judul SVG yang ada (ditampilkan saat judul SVG dipilih)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:110
+#: ../doc/files.rst:110
 msgid "Duplicate Title"
 msgstr "Duplikat Judul"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:111
+#: ../doc/files.rst:111
 #, fuzzy
 msgid ""
 "Make a copy, and then edit the copied title SVG file (shown when an SVG "
 "title is selected)"
 msgstr "Buat salinan, lalu sunting berkas judul SVG yang disalin"
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:115
+#: ../doc/files.rst:117
 msgid ""
 "The :guilabel:`Preview File` action opens the Preview dialog for the "
-"selected file from :guilabel:`Project Files`. Simply double check a file to "
-"open this dialog."
+"selected file from :guilabel:`Project Files`. Double-click a file, or press "
+":kbd:`Shift+2` or :kbd:`Alt+P` while the file list has focus. With the "
+"timeline focused, the same shortcut plays the selected clip from its Start "
+"point. You can also right-click a timeline clip and choose "
+":guilabel:`Preview Clip`. Double-clicking a saved split reopens its range "
+"editor instead of read-only preview."
 msgstr ""
-"Aksi :guilabel:`Pratinjau File` membuka dialog Pratinjau untuk file yang "
-"dipilih dari :guilabel:`File Proyek`. Cukup klik dua kali file untuk membuka "
-"dialog ini."
+"Aksi :guilabel:`Preview File` membuka dialog Pratinjau untuk file yang "
+"dipilih dari :guilabel:`Project Files`. Klik dua kali sebuah file, atau "
+"tekan :kbd:`Shift+2` atau :kbd:`Alt+P` saat daftar file dalam fokus. Dengan "
+"timeline dalam fokus, pintasan yang sama memutar klip yang dipilih dari "
+"titik Mulai-nya. Anda juga dapat klik kanan klip timeline dan pilih "
+":guilabel:`Preview Clip`. Klik dua kali pada split yang disimpan membuka "
+"kembali editor rentangnya, bukan pratinjau hanya-baca."
+
+#: ../doc/files.rst:124
+msgid "Playback starts automatically when you open a preview or Split File."
+msgstr ""
+"Pemutaran dimulai secara otomatis saat Anda membuka pratinjau atau Split "
+"File."
+
+#: ../doc/files.rst:125
+msgid ""
+":guilabel:`Loop` repeats playback and is enabled by default in Preview."
+msgstr ""
+":guilabel:`Loop` mengulang pemutaran dan diaktifkan secara default di "
+"Pratinjau."
+
+#: ../doc/files.rst:126
+msgid "Click the speaker to mute preview audio without changing the project."
+msgstr ""
+"Klik ikon speaker untuk membisukan audio pratinjau tanpa mengubah proyek."
+
+#: ../doc/files.rst:127
+msgid ""
+"Click or drag the volume slider to adjust preview audio without affecting "
+"your exported video. Save the project to remember this volume for all its "
+"previews."
+msgstr ""
+"Klik atau seret penggeser volume untuk mengatur audio pratinjau tanpa "
+"memengaruhi video yang diekspor. Simpan proyek untuk mengingat volume ini "
+"untuk semua pratinjaunya."
+
+#: ../doc/files.rst:129
+msgid ""
+"Use Fit Window to size the video area to the source aspect ratio. Black bars"
+" already encoded in the source remain visible."
+msgstr ""
+"Gunakan Fit Window untuk mengatur ukuran area video sesuai rasio aspek "
+"sumber. Bilah hitam yang sudah terkodekan di sumber tetap terlihat."
+
+#: ../doc/files.rst:131
+msgid ""
+"Seeking during playback keeps playback running. Dragging to resize, move, or"
+" draw a range pauses playback so its boundary frames can be inspected."
+msgstr ""
+"Mencari selama pemutaran menjaga pemutaran tetap berjalan. Menyeret untuk "
+"mengubah ukuran, memindahkan, atau menggambar rentang akan menjeda pemutaran"
+" agar bingkai batas dapat diperiksa."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:118
-msgid "Playback starts automatically."
-msgstr "Pemutaran dimulai secara otomatis."
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:119
-msgid "Loop is enabled by default."
-msgstr "Pengulangan diaktifkan secara default."
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:120
+#: ../doc/files.rst:133
 msgid "Press :kbd:`Space` to toggle play/pause."
 msgstr "Tekan :kbd:`Space` untuk mengalihkan putar/jeda."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:121
+#: ../doc/files.rst:134
 msgid "Use the mouse scroll wheel to zoom in/out."
 msgstr "Gunakan roda gulir mouse untuk memperbesar/memperkecil."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:122
+#: ../doc/files.rst:135
 msgid ""
-"A :guilabel:`Reset Zoom` button appears when zoom is not 100%, and resets to "
-"100%."
+"A :guilabel:`Reset Zoom` button appears when zoom is not 100%, and resets to"
+" 100%."
 msgstr ""
 "Tombol :guilabel:`Reset Zoom` muncul saat zoom tidak 100%, dan mengatur "
 "ulang ke 100%."
 
+#: ../doc/files.rst:137
+msgid ""
+"Resize or maximize the window to suit your workspace. Preview and Split File"
+" remember your window size when you save the project."
+msgstr ""
+"Ubah ukuran atau maksimalkan jendela sesuai ruang kerja Anda. Pratinjau dan "
+"Split File mengingat ukuran jendela saat Anda menyimpan proyek."
+
+#: ../doc/files.rst:140
+msgid ""
+"The colored bar beneath the ruler shows sections already loaded for "
+"playback. If playback is choppy, try a smaller window or :ref:`optimize the "
+"file <optimize_ref>`."
+msgstr ""
+"Bar berwarna di bawah penggaris menunjukkan bagian yang sudah dimuat untuk "
+"pemutaran. Jika pemutaran tersendat, coba jendela yang lebih kecil atau "
+":ref:`optimalkan file <optimize_ref>`."
+
+#: ../doc/files.rst:143
+msgid ""
+"Preview File shows playback and scrubbing controls only. Preview Clip and "
+"Split File add range editing below the shared preview. The source ruler and "
+"filmstrip show the full recording, with the selected range highlighted. Drag"
+" either grip to adjust the range and move the playhead with it. Drag on the "
+"ruler above the filmstrip to scrub without changing the range. Edit the "
+"Start and End timecodes for precise boundaries, or click the adjacent clock "
+"button to use the current playhead position (:kbd:`I` / :kbd:`O`). End is "
+"the last included frame; a one-frame range is valid. Duration shows the "
+"length of the selected range and can be edited to move End while keeping "
+"Start fixed. Duration is limited to at least one frame and at most the "
+"remaining source length. The buttons beside Play jump to Start and End."
+msgstr ""
+"Preview File hanya menampilkan kontrol pemutaran dan scrubbing. Preview Clip"
+" dan Split File menambahkan pengeditan rentang di bawah pratinjau bersama. "
+"Penggaris sumber dan filmstrip menunjukkan rekaman penuh, dengan rentang "
+"yang dipilih disorot. Seret salah satu pegangan untuk mengatur rentang dan "
+"memindahkan playhead bersamanya. Seret pada penggaris di atas filmstrip "
+"untuk scrubbing tanpa mengubah rentang. Edit kode waktu Mulai dan Akhir "
+"untuk batas yang tepat, atau klik tombol jam di samping untuk menggunakan "
+"posisi playhead saat ini (:kbd:`I` / :kbd:`O`). Akhir adalah bingkai "
+"terakhir yang termasuk; rentang satu bingkai valid. Durasi menunjukkan "
+"panjang rentang yang dipilih dan dapat diedit untuk memindahkan Akhir sambil"
+" menjaga Mulai tetap. Durasi dibatasi minimal satu bingkai dan maksimal "
+"panjang sumber yang tersisa. Tombol di samping Putar melompat ke Mulai dan "
+"Akhir."
+
+#: ../doc/files.rst:155
+msgid ""
+"When editing a timeline clip, :guilabel:`Update Clip` updates only that "
+"clip. Its position stays fixed and its duration changes; neighboring clips "
+"do not move. Locked or retimed clips can be previewed, but range application"
+" is disabled. :guilabel:`Reset` reloads the saved range. Each update is one "
+"undo step."
+msgstr ""
+"Saat mengedit klip timeline, :guilabel:`Update Clip` hanya memperbarui klip "
+"tersebut. Posisinya tetap dan durasinya berubah; klip tetangga tidak "
+"bergerak. Klip yang terkunci atau diubah waktunya dapat dipratinjau, tetapi "
+"penerapan rentang dinonaktifkan. :guilabel:`Reset` memuat ulang rentang yang"
+" disimpan. Setiap pembaruan adalah satu langkah batalkan."
+
+#: ../doc/files.rst:160
+msgid ""
+"Split File provides Start, End, Duration, and an optional Name beside "
+":guilabel:`Create`. Each click creates one Project Files entry and leaves "
+"the window open to create another. Pressing :kbd:`Enter` in Name or outside "
+"the time fields saves and closes the editor. In Start, End, or Duration, "
+"Enter commits the value and keeps the editor open. Tab moves through Start, "
+"End, Duration, and Name; Shift+Tab reverses the order. Each creation is one "
+"undo step. Opening an existing split lets you update its range and name "
+"without changing existing timeline clips. :guilabel:`Update` saves the split"
+" and closes its editor, refreshing the file and dependent clip thumbnails. "
+":guilabel:`Update Clip` saves and closes clip preview. Use the window close "
+"control or :kbd:`Esc` to close without applying changes."
+msgstr ""
+"Split File menyediakan Mulai, Akhir, Durasi, dan Nama opsional di samping "
+":guilabel:`Create`. Setiap klik membuat satu entri Project Files dan "
+"membiarkan jendela terbuka untuk membuat yang lain. Menekan :kbd:`Enter` di "
+"Nama atau di luar bidang waktu menyimpan dan menutup editor. Di Mulai, "
+"Akhir, atau Durasi, Enter mengonfirmasi nilai dan menjaga editor tetap "
+"terbuka. Tab berpindah melalui Mulai, Akhir, Durasi, dan Nama; Shift+Tab "
+"membalik urutan. Setiap pembuatan adalah satu langkah batalkan. Membuka "
+"split yang ada memungkinkan Anda memperbarui rentang dan nama tanpa mengubah"
+" klip timeline yang ada. :guilabel:`Update` menyimpan split dan menutup "
+"editornya, menyegarkan file dan thumbnail klip terkait. :guilabel:`Update "
+"Clip` menyimpan dan menutup pratinjau klip. Gunakan kontrol tutup jendela "
+"atau :kbd:`Esc` untuk menutup tanpa menerapkan perubahan."
+
+#: ../doc/files.rst:173
+msgid ""
+"Drag a filmstrip handle to trim, drag inside the selection to move it, or "
+"drag outside it to draw a new range. Click to seek, or drag on the ruler to "
+"scrub without changing the range."
+msgstr ""
+"Seret pegangan filmstrip untuk memotong, seret di dalam seleksi untuk "
+"memindahkannya, atau seret di luar seleksi untuk menggambar rentang baru. "
+"Klik untuk mencari, atau seret pada penggaris untuk scrubbing tanpa mengubah"
+" rentang."
+
+#: ../doc/files.rst:177
+msgid ""
+"If a modified range changes elsewhere in the project, discard its local "
+"changes and reload it before saving. The dialog remains attached to its "
+"original source or timeline clip when the main-window selection changes."
+msgstr ""
+"Jika rentang yang dimodifikasi berubah di tempat lain dalam proyek, buang "
+"perubahan lokalnya dan muat ulang sebelum menyimpan. Dialog tetap terpasang "
+"pada sumber asli atau klip timeline saat pilihan jendela utama berubah."
+
 # Translated with gpt-4.1-mini
-#: ../files.rst:126
+#: ../doc/files.rst:185
 msgid ""
 "Optimized preview files are lower-resolution copies of your source video "
 "files (sometimes referred to as proxy files), used to improve editing "
@@ -413,45 +565,302 @@ msgid ""
 "helpful with large formats such as 4K, high frame rate, or high bitrate "
 "footage."
 msgstr ""
-"File pratinjau yang dioptimalkan adalah salinan beresolusi lebih rendah dari "
-"file video sumber Anda (kadang disebut file proxy), digunakan untuk "
+"File pratinjau yang dioptimalkan adalah salinan beresolusi lebih rendah dari"
+" file video sumber Anda (kadang disebut file proxy), digunakan untuk "
 "meningkatkan responsivitas pengeditan tanpa mengubah media asli. Ini sangat "
 "berguna untuk format besar seperti 4K, frame rate tinggi, atau rekaman "
 "bitrate tinggi."
 
+#: ../doc/files.rst:190
+msgid "Automatic optimization"
+msgstr "Optimasi otomatis"
+
+#: ../doc/files.rst:191
+msgid ""
+"When OpenShot creates a video's first thumbnail, it records how long the "
+"first frame takes to produce. This uses work already needed to display the "
+"video in Project Files; there is no separate decoding test. Videos whose "
+"thumbnail frame takes longer than the :guilabel:`Auto-Optimize Threshold` "
+"may benefit from smaller preview copies."
+msgstr ""
+"Saat OpenShot membuat thumbnail pertama video, ia merekam berapa lama "
+"bingkai pertama dibuat. Ini menggunakan pekerjaan yang sudah diperlukan "
+"untuk menampilkan video di Project Files; tidak ada tes decoding terpisah. "
+"Video yang bingkai thumbnailnya memakan waktu lebih lama dari "
+":guilabel:`Auto-Optimize Threshold` mungkin mendapat manfaat dari salinan "
+"pratinjau yang lebih kecil."
+
+#: ../doc/files.rst:196
+msgid ""
+"With the default :guilabel:`Ask` preference, a banner appears when OpenShot "
+"finds a qualifying video in a project that does not yet have a saved choice:"
+msgstr ""
+"Dengan preferensi default :guilabel:`Ask`, sebuah spanduk muncul saat "
+"OpenShot menemukan video yang memenuhi syarat dalam proyek yang belum "
+"memiliki pilihan tersimpan:"
+
+#: ../doc/files.rst:199
+msgid ""
+"**Optimize videos for smoother playback?** Originals and export quality stay"
+" unchanged."
+msgstr ""
+"**Optimalkan video untuk pemutaran lebih lancar?** Asli dan kualitas ekspor "
+"tetap tidak berubah."
+
+#: ../doc/files.rst:201
+msgid ""
+"Click :guilabel:`Optimize Automatically` to enable automatic optimization "
+"for the current project. The banner disappears immediately, and qualifying "
+"videos are added to the optimization queue. Videos you import later also "
+"join the queue when they qualify, even if another video is already being "
+"optimized. You are not asked again for each file."
+msgstr ""
+"Klik :guilabel:`Optimize Automatically` untuk mengaktifkan optimasi otomatis"
+" untuk proyek saat ini. Spanduk langsung hilang, dan video yang memenuhi "
+"syarat ditambahkan ke antrean optimasi. Video yang Anda impor kemudian juga "
+"bergabung ke antrean saat memenuhi syarat, meskipun video lain sedang "
+"dioptimalkan. Anda tidak akan ditanya lagi untuk setiap file."
+
+#: ../doc/files.rst:206
+msgid ""
+"You can continue editing while optimization runs. There is no progress "
+"banner; progress appears on the files in Project Files instead."
+msgstr ""
+"Anda dapat terus mengedit saat optimasi berjalan. Tidak ada spanduk "
+"kemajuan; kemajuan muncul pada file di Project Files sebagai gantinya."
+
+#: ../doc/files.rst:209
+msgid ""
+"Click :guilabel:`Not Now` or close the banner to decline. OpenShot remembers"
+" your choice when you save the project, so reopening it or importing more "
+"videos does not repeat the suggestion. To change your choice, check or "
+"uncheck :menuselection:`File --> Auto-Optimize` or press :kbd:`Ctrl+Alt+O` "
+"(:kbd:`Command+Alt+O` on macOS). Customize this shortcut in "
+":menuselection:`Edit --> Preferences --> Keyboard`. Turning it off stops new"
+" automatic work; jobs already started can be canceled through the file's "
+":guilabel:`Optimize` submenu. Existing optimized copies remain available."
+msgstr ""
+"Klik :guilabel:`Not Now` atau tutup banner untuk menolak. OpenShot mengingat"
+" pilihan Anda saat Anda menyimpan proyek, jadi membuka kembali atau "
+"mengimpor video lebih banyak tidak akan mengulangi saran tersebut. Untuk "
+"mengubah pilihan Anda, centang atau hapus centang :menuselection:`File --> "
+"Auto-Optimize` atau tekan :kbd:`Ctrl+Alt+O` (:kbd:`Command+Alt+O` di macOS)."
+" Sesuaikan pintasan ini di :menuselection:`Edit --> Preferences --> "
+"Keyboard`. Mematikannya menghentikan pekerjaan otomatis baru; pekerjaan yang"
+" sudah dimulai dapat dibatalkan melalui submenu :guilabel:`Optimize` pada "
+"file. Salinan yang sudah dioptimalkan tetap tersedia."
+
+#: ../doc/files.rst:217
+msgid ""
+"In :menuselection:`Edit --> Preferences`, open the :guilabel:`Optimize` tab "
+"(see :ref:`preferences_optimize_ref`):"
+msgstr ""
+"Di :menuselection:`Edit --> Preferences`, buka tab :guilabel:`Optimize` "
+"(lihat :ref:`preferences_optimize_ref`):"
+
+#: ../doc/files.rst:220
+msgid ""
+":guilabel:`Auto-Optimize`: :guilabel:`Ask` shows the banner and is the "
+"default. :guilabel:`Always` optimizes qualifying videos without a banner. "
+":guilabel:`Never` disables suggestions and automatic processing. These "
+"defaults apply to projects without a saved choice; a project's own setting "
+"takes precedence."
+msgstr ""
+":guilabel:`Auto-Optimize`: :guilabel:`Ask` menampilkan banner dan merupakan "
+"default. :guilabel:`Always` mengoptimalkan video yang memenuhi syarat tanpa "
+"banner. :guilabel:`Never` menonaktifkan saran dan pemrosesan otomatis. "
+"Default ini berlaku untuk proyek tanpa pilihan yang disimpan; pengaturan "
+"proyek sendiri yang diutamakan."
+
+#: ../doc/files.rst:224
+msgid ""
+":guilabel:`Auto-Optimize Threshold`: defaults to **200 ms**. Lower values "
+"include more videos; higher values include fewer. This measures producing "
+"the first thumbnail frame, not opening the file, saving the thumbnail, or "
+"waiting in a queue."
+msgstr ""
+":guilabel:`Auto-Optimize Threshold`: defaultnya adalah **200 ms**. Nilai "
+"yang lebih rendah mencakup lebih banyak video; nilai yang lebih tinggi "
+"mencakup lebih sedikit. Ini mengukur pembuatan frame thumbnail pertama, "
+"bukan membuka file, menyimpan thumbnail, atau menunggu dalam antrean."
+
+#: ../doc/files.rst:227
+msgid ""
+":guilabel:`Optimized Preview Resolution` and :guilabel:`Concurrent Optimize "
+"Jobs` control the preview copies and how many videos can be processed at "
+"once."
+msgstr ""
+":guilabel:`Optimized Preview Resolution` dan :guilabel:`Concurrent Optimize "
+"Jobs` mengontrol salinan pratinjau dan berapa banyak video yang dapat "
+"diproses sekaligus."
+
+#: ../doc/files.rst:230
+msgid ""
+"Thumbnail timing is saved with each file in the project. OpenShot reuses a "
+"valid timing when you reopen the project on the same computer. A changed "
+"source file or a different computer needs a new measurement. When opening "
+"older projects, OpenShot refreshes missing timings in the background, one "
+"small thumbnail at a time, checking videos used on the timeline first. New "
+"checks pause during playback. Slow videos trigger the same banner; accepting"
+" it also checks and queues the remaining videos. Enabling :guilabel:`File → "
+"Auto-Optimize` starts these checks too. Choosing :guilabel:`Never` or "
+"dismissing the banner stops further checks for that project. Save the "
+"project to keep its timings for next time. You can always optimize videos "
+"manually."
+msgstr ""
+"Waktu thumbnail disimpan dengan setiap file dalam proyek. OpenShot "
+"menggunakan kembali waktu yang valid saat Anda membuka kembali proyek di "
+"komputer yang sama. File sumber yang berubah atau komputer yang berbeda "
+"memerlukan pengukuran baru. Saat membuka proyek lama, OpenShot memperbarui "
+"waktu yang hilang di latar belakang, satu thumbnail kecil sekaligus, "
+"memeriksa video yang digunakan di timeline terlebih dahulu. Pemeriksaan baru"
+" berhenti saat pemutaran. Video yang lambat memicu banner yang sama; "
+"menerima banner juga memeriksa dan mengantri video yang tersisa. "
+"Mengaktifkan :guilabel:`File → Auto-Optimize` juga memulai pemeriksaan ini. "
+"Memilih :guilabel:`Never` atau menutup banner menghentikan pemeriksaan lebih"
+" lanjut untuk proyek tersebut. Simpan proyek untuk mempertahankan waktunya "
+"untuk berikutnya. Anda selalu dapat mengoptimalkan video secara manual."
+
+#: ../doc/files.rst:240
+msgid ""
+"The threshold is a guide, not a guarantee of playback performance. Other "
+"applications can affect timing, and effects or overlapping clips can slow "
+"playback independently of the source video. Optimized copies use additional "
+"disk space in the project's assets folder; original files and export quality"
+" stay unchanged. Canceled or failed automatic jobs are not automatically "
+"retried during the current project session."
+msgstr ""
+"Ambang batas adalah panduan, bukan jaminan kinerja pemutaran. Aplikasi lain "
+"dapat memengaruhi waktu, dan efek atau klip yang tumpang tindih dapat "
+"memperlambat pemutaran secara independen dari video sumber. Salinan yang "
+"dioptimalkan menggunakan ruang disk tambahan di folder aset proyek; file "
+"asli dan kualitas ekspor tetap tidak berubah. Pekerjaan otomatis yang "
+"dibatalkan atau gagal tidak secara otomatis dicoba ulang selama sesi proyek "
+"saat ini."
+
+#: ../doc/files.rst:246
+msgid ""
+"Closing OpenShot cancels queued and running optimization jobs. Active jobs "
+"finish their current processing step before closing, and unfinished preview "
+"files are removed."
+msgstr ""
+"Menutup OpenShot membatalkan pekerjaan optimasi yang sedang antre dan "
+"berjalan. Pekerjaan aktif menyelesaikan langkah pemrosesan saat ini sebelum "
+"menutup, dan file pratinjau yang belum selesai dihapus."
+
+#: ../doc/files.rst:250
+msgid "Optimization status"
+msgstr "Status optimasi"
+
+#: ../doc/files.rst:251
+msgid ""
+"Hover over a file in Project Files to see its filename followed by a brief "
+"status:"
+msgstr ""
+"Arahkan kursor ke file di Project Files untuk melihat nama file diikuti oleh"
+" status singkat:"
+
+#: ../doc/files.rst:257
+msgid "Tooltip status"
+msgstr "Status tooltip"
+
+#: ../doc/files.rst:258
+msgid "Meaning"
+msgstr "Arti"
+
+#: ../doc/files.rst:259
+msgid "Queued for optimization"
+msgstr "Dalam antrean untuk optimasi"
+
+#: ../doc/files.rst:260
+msgid "Waiting for an available optimization job slot."
+msgstr "Menunggu slot pekerjaan optimasi yang tersedia."
+
+#: ../doc/files.rst:261
+msgid "Optimizing for smoother playback — 35%"
+msgstr "Mengoptimalkan untuk pemutaran lebih lancar — 35%"
+
+#: ../doc/files.rst:262
+msgid "Creating a preview copy. The percentage shows progress."
+msgstr "Membuat salinan pratinjau. Persentase menunjukkan kemajuan."
+
+#: ../doc/files.rst:263
+msgid "Optimized for smoother playback"
+msgstr "Dioptimalkan untuk pemutaran lebih lancar"
+
+#: ../doc/files.rst:264
+msgid "The preview copy is ready to use."
+msgstr "Salinan pratinjau siap digunakan."
+
+#: ../doc/files.rst:265
+msgid "Canceling optimization"
+msgstr "Membatalkan optimasi"
+
+#: ../doc/files.rst:266
+msgid "Stopping the current job and cleaning up the unfinished copy."
+msgstr ""
+"Menghentikan pekerjaan saat ini dan membersihkan salinan yang belum selesai."
+
+#: ../doc/files.rst:267
+msgid "Optimized preview missing"
+msgstr "Pratinjau yang dioptimalkan hilang"
+
+#: ../doc/files.rst:268
+msgid ""
+"The linked preview copy cannot be found. Recreate it with Optimize Video or "
+"link an existing copy."
+msgstr ""
+"Salinan pratinjau yang terhubung tidak dapat ditemukan. Buat ulang dengan "
+"Optimize Video atau tautkan salinan yang sudah ada."
+
+#: ../doc/files.rst:270
+msgid ""
+"To stop a queued or running job, right-click the file and choose "
+":menuselection:`Optimize --> Cancel`. Canceling a job does not turn off "
+":menuselection:`File --> Auto-Optimize` for later imports."
+msgstr ""
+"Untuk menghentikan pekerjaan yang sedang antre atau berjalan, klik kanan "
+"file dan pilih :menuselection:`Optimize --> Cancel`. Membatalkan pekerjaan "
+"tidak mematikan :menuselection:`File --> Auto-Optimize` untuk impor "
+"berikutnya."
+
+#: ../doc/files.rst:275
+msgid "Manual optimization"
+msgstr "Optimasi manual"
+
 # Translated with gpt-4.1-mini
-#: ../files.rst:130
+#: ../doc/files.rst:276
 msgid ""
 "For video files, the file context menu includes an :guilabel:`Optimize` "
-"submenu. This feature creates or links smaller preview copies of your source "
-"clips, which can improve playback and scrubbing on slower systems or with "
+"submenu. This feature creates or links smaller preview copies of your source"
+" clips, which can improve playback and scrubbing on slower systems or with "
 "high-resolution footage. Optimizing also pre-loads thumbnails to further "
 "improve the editing smoothness when zooming into the timeline."
 msgstr ""
-"Untuk file video, menu konteks file menyertakan submenu :guilabel:"
-"`Optimalkan`. Fitur ini membuat atau menautkan salinan pratinjau yang lebih "
-"kecil dari klip sumber Anda, yang dapat meningkatkan pemutaran dan "
-"pengguliran pada sistem yang lebih lambat atau dengan rekaman beresolusi "
-"tinggi. Optimasi juga memuat thumbnail sebelumnya untuk lebih meningkatkan "
+"Untuk file video, menu konteks file menyertakan submenu "
+":guilabel:`Optimalkan`. Fitur ini membuat atau menautkan salinan pratinjau "
+"yang lebih kecil dari klip sumber Anda, yang dapat meningkatkan pemutaran "
+"dan pengguliran pada sistem yang lebih lambat atau dengan rekaman beresolusi"
+" tinggi. Optimasi juga memuat thumbnail sebelumnya untuk lebih meningkatkan "
 "kelancaran pengeditan saat memperbesar timeline."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:135
+#: ../doc/files.rst:281
 msgid "The :guilabel:`Optimize` submenu contains these actions:"
 msgstr "Submenu :guilabel:`Optimalkan` berisi tindakan-tindakan berikut:"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:141
+#: ../doc/files.rst:287
 msgid "Action"
 msgstr "Tindakan"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:143
+#: ../doc/files.rst:289
 msgid "Optimize Video"
 msgstr "Optimalkan Video"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:144
+#: ../doc/files.rst:290
 msgid ""
 "Create an optimized preview file for each selected video file. OpenShot "
 "stores these files in the project's ``optimized`` assets folder."
@@ -460,28 +869,29 @@ msgstr ""
 "OpenShot menyimpan file-file ini di folder aset ``optimized`` proyek."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:145
+#: ../doc/files.rst:291
 msgid "Link to Existing..."
 msgstr "Tautkan ke yang Ada..."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:146
+#: ../doc/files.rst:292
 msgid ""
-"Choose a folder containing already-created optimized files and link the best "
-"matching files to the selected source clips. This supports common proxy "
-"naming styles, known proxy suffixes, file ID suffixes, and extension changes."
+"Choose a folder containing already-created optimized files and link the best"
+" matching files to the selected source clips. This supports common proxy "
+"naming styles, known proxy suffixes, file ID suffixes, and extension "
+"changes."
 msgstr ""
-"Pilih folder yang berisi file yang sudah dibuat dan tautkan file yang paling "
-"cocok ke klip sumber yang dipilih. Ini mendukung gaya penamaan proxy umum, "
+"Pilih folder yang berisi file yang sudah dibuat dan tautkan file yang paling"
+" cocok ke klip sumber yang dipilih. Ini mendukung gaya penamaan proxy umum, "
 "akhiran proxy yang dikenal, akhiran ID file, dan perubahan ekstensi."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:147
+#: ../doc/files.rst:293
 msgid "Unlink"
 msgstr "Putuskan Tautan"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:148
+#: ../doc/files.rst:294
 msgid ""
 "Remove the optimized preview link from the selected file without deleting "
 "the optimized file from disk."
@@ -490,12 +900,12 @@ msgstr ""
 "menghapus file yang dioptimalkan dari disk."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:149
+#: ../doc/files.rst:295
 msgid "Delete & Unlink"
 msgstr "Hapus & Putuskan Tautan"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:150
+#: ../doc/files.rst:296
 msgid ""
 "Delete the linked optimized file from disk, then remove the link from the "
 "selected file."
@@ -504,153 +914,120 @@ msgstr ""
 "dari file yang dipilih."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:152
+#: ../doc/files.rst:298
 msgid ""
-"When optimization is in progress, the submenu changes to a single :guilabel:"
-"`Cancel` action for the selected file(s). Optimized preview files are used "
-"only for editing and preview playback. Your final export still uses the "
-"original source files."
+"When optimization is in progress, the submenu changes to a single "
+":guilabel:`Cancel` action for the selected file(s). Optimized preview files "
+"are used only for editing and preview playback. Your final export still uses"
+" the original source files."
 msgstr ""
-"Saat optimasi sedang berlangsung, submenu berubah menjadi satu tindakan :"
-"guilabel:`Batal` untuk file yang dipilih. File pratinjau yang dioptimalkan "
+"Saat optimasi sedang berlangsung, submenu berubah menjadi satu tindakan "
+":guilabel:`Batal` untuk file yang dipilih. File pratinjau yang dioptimalkan "
 "hanya digunakan untuk pengeditan dan pemutaran pratinjau. Ekspor akhir Anda "
 "tetap menggunakan file sumber asli."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:155
+#: ../doc/files.rst:301
 msgid ""
 "When you use :guilabel:`Link to Existing...`, OpenShot tries to match each "
-"selected source clip to an existing optimized file in a safe order. It first "
-"looks for the same base filename with a different video extension, then for "
-"common proxy-style names such as ``_proxy``, ``_preview``, ``_optimized``, "
-"``_lowres``, resolution tags such as ``_720p`` or ``_1080p``, and camera/"
-"editor-style variants such as ``_p``. It also supports names that add the "
-"OpenShot file ID after a known proxy suffix, such as ``clip001_proxy_F1."
-"mp4``, and it can still match files named only by file ID, such as ``F1."
-"mp4``."
+"selected source clip to an existing optimized file in a safe order. It first"
+" looks for the same base filename with a different video extension, then for"
+" common proxy-style names such as ``_proxy``, ``_preview``, ``_optimized``, "
+"``_lowres``, resolution tags such as ``_720p`` or ``_1080p``, and "
+"camera/editor-style variants such as ``_p``. It also supports names that add"
+" the OpenShot file ID after a known proxy suffix, such as "
+"``clip001_proxy_F1.mp4``, and it can still match files named only by file "
+"ID, such as ``F1.mp4``."
 msgstr ""
 "Saat Anda menggunakan :guilabel:`Tautkan ke yang Ada...`, OpenShot mencoba "
 "mencocokkan setiap klip sumber yang dipilih dengan file yang dioptimalkan "
 "yang sudah ada dalam urutan yang aman. Pertama mencari nama file dasar yang "
 "sama dengan ekstensi video berbeda, kemudian nama gaya proxy umum seperti "
 "``_proxy``, ``_preview``, ``_optimized``, ``_lowres``, tag resolusi seperti "
-"``_720p`` atau ``_1080p``, dan varian gaya kamera/editor seperti ``_p``. Ini "
-"juga mendukung nama yang menambahkan ID file OpenShot setelah akhiran proxy "
-"yang dikenal, seperti ``clip001_proxy_F1.mp4``, dan masih bisa mencocokkan "
+"``_720p`` atau ``_1080p``, dan varian gaya kamera/editor seperti ``_p``. Ini"
+" juga mendukung nama yang menambahkan ID file OpenShot setelah akhiran proxy"
+" yang dikenal, seperti ``clip001_proxy_F1.mp4``, dan masih bisa mencocokkan "
 "file yang hanya dinamai dengan ID file, seperti ``F1.mp4``."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:162
+#: ../doc/files.rst:308
 msgid ""
 "Best practice when bringing your own optimized files is to keep the same "
 "base filename as the source clip and add a clear proxy-style suffix, for "
-"example ``clip001_proxy.mp4`` or ``clip001_proxy.mov``. If you need to avoid "
-"filename collisions, append the OpenShot file ID after the proxy suffix, for "
-"example ``clip001_proxy_F1.mp4``. Avoid unrelated suffixes such as "
-"``_final`` or ``_reviewcopy``, because OpenShot does not treat those as safe "
-"proxy naming patterns."
+"example ``clip001_proxy.mp4`` or ``clip001_proxy.mov``. If you need to avoid"
+" filename collisions, append the OpenShot file ID after the proxy suffix, "
+"for example ``clip001_proxy_F1.mp4``. Avoid unrelated suffixes such as "
+"``_final`` or ``_reviewcopy``, because OpenShot does not treat those as safe"
+" proxy naming patterns."
 msgstr ""
 "Praktik terbaik saat membawa file yang dioptimalkan sendiri adalah menjaga "
 "nama file dasar yang sama dengan klip sumber dan menambahkan akhiran gaya "
-"proxy yang jelas, misalnya ``clip001_proxy.mp4`` atau ``clip001_proxy.mov``. "
-"Jika Anda perlu menghindari tabrakan nama file, tambahkan ID file OpenShot "
+"proxy yang jelas, misalnya ``clip001_proxy.mp4`` atau ``clip001_proxy.mov``."
+" Jika Anda perlu menghindari tabrakan nama file, tambahkan ID file OpenShot "
 "setelah akhiran proxy, misalnya ``clip001_proxy_F1.mp4``. Hindari akhiran "
 "yang tidak terkait seperti ``_final`` atau ``_reviewcopy``, karena OpenShot "
 "tidak menganggapnya sebagai pola penamaan proxy yang aman."
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:171
+#: ../doc/files.rst:317
 msgid ""
-"If you need to cut a large video file into many smaller files before "
-"editing, the **Split File** dialog is built exactly for this purpose. Right "
-"click on a file, and choose :guilabel:`Split File`. Use this dialog to "
-"quickly separate a large file into many smaller segments. For each segment, "
-"you can select the starting and ending frame, and a title. Each segment "
-"appears as a new file in the Project Files dialog."
+"Use **Split File** to choose the parts of a longer recording you want to "
+"work with. Right click a file in **Project Files** and choose "
+":guilabel:`Split File`. Select the start and end of a segment, give it an "
+"optional name, and click :guilabel:`Create`. Adjust the markers and repeat "
+"to prepare as many segments as you need."
 msgstr ""
-"Jika Anda perlu memotong berkas video besar menjadi banyak berkas kecil "
-"sebelum mengedit, dialog **Pisah Berkas** dibuat khusus untuk tujuan ini. "
-"Klik kanan pada sebuah berkas, dan pilih :guilabel:`Pisah Berkas`. Gunakan "
-"dialog ini untuk dengan cepat memisahkan berkas besar menjadi banyak segmen "
-"kecil. Untuk setiap segmen, Anda dapat memilih bingkai awal dan akhir, serta "
-"judul. Setiap segmen muncul sebagai berkas baru di dialog Berkas Proyek."
+"Gunakan **Split File** untuk memilih bagian dari rekaman panjang yang ingin "
+"Anda kerjakan. Klik kanan file di **Project Files** dan pilih "
+":guilabel:`Split File`. Pilih awal dan akhir segmen, beri nama opsional, dan"
+" klik :guilabel:`Create`. Sesuaikan penanda dan ulangi untuk menyiapkan "
+"sebanyak segmen yang Anda butuhkan."
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:182 ../files.rst:216 ../files.rst:240
-msgid "#"
-msgstr "No."
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:182 ../files.rst:216 ../files.rst:240
-msgid "Name"
-msgstr "Nama"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:184 ../files.rst:218 ../files.rst:242
-msgid "1"
-msgstr "1"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:184
-msgid "Start of File"
-msgstr "Awal Berkas"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:184
-msgid "Choose the starting frame of your file by clicking this button"
-msgstr "Pilih bingkai awal berkas Anda dengan mengklik tombol ini"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:185 ../files.rst:219 ../files.rst:243
-msgid "2"
-msgstr "2"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:185
-msgid "End of File"
-msgstr "Akhir Berkas"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:185
-msgid "Choose the ending frame of your file by clicking this button"
-msgstr "Pilih frame akhir dari berkas Anda dengan mengklik tombol ini"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:186 ../files.rst:220
-msgid "3"
-msgstr "3"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:186
-msgid "Name of File"
-msgstr "Nama Berkas"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:186
-msgid "Enter an optional name"
-msgstr "Masukkan nama opsional"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:187 ../files.rst:221
-msgid "4"
-msgstr "4"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:187
-msgid "Create Button"
-msgstr "Tombol Buat"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:187
+#: ../doc/files.rst:322
 msgid ""
-"Create the file (which resets this dialog, so you can repeat these steps for "
-"each segment)"
+"Each segment appears in Project Files and can be added to the timeline like "
+"any other file. The segments all use the original media on disk, so you can "
+"prepare them without making extra copies of the recording."
 msgstr ""
-"Buat berkas (yang akan mengatur ulang dialog ini, sehingga Anda dapat "
-"mengulangi langkah ini untuk setiap segmen)"
+"Setiap segmen muncul di Project Files dan dapat ditambahkan ke timeline "
+"seperti file lainnya. Semua segmen menggunakan media asli di disk, jadi Anda"
+" dapat menyiapkannya tanpa membuat salinan tambahan dari rekaman."
+
+#: ../doc/files.rst:325
+msgid ""
+"When you add a segment to the timeline, OpenShot gives its properties "
+"starting keyframes at the segment's beginning. For example, with "
+":ref:`auto_keyframes_ref` on, you can move to the end and change the "
+"rotation to make it turn over the length of that segment. The animation "
+"starts from the part you chose to use."
+msgstr ""
+"Saat Anda menambahkan segmen ke timeline, OpenShot memberikan properti "
+"dengan keyframe awal di awal segmen. Misalnya, dengan "
+":ref:`auto_keyframes_ref` aktif, Anda dapat bergerak ke akhir dan mengubah "
+"rotasi untuk membuatnya berputar sepanjang segmen tersebut. Animasi dimulai "
+"dari bagian yang Anda pilih untuk digunakan."
+
+#: ../doc/files.rst:329
+msgid ""
+"If you have already animated a timeline clip, slicing it preserves that "
+"animation through the cut. Split File is useful for choosing your segments "
+"before you begin that work."
+msgstr ""
+"Jika Anda sudah menganimasikan klip timeline, memotongnya mempertahankan "
+"animasi tersebut melalui pemotongan. Split File berguna untuk memilih segmen"
+" Anda sebelum memulai pekerjaan tersebut."
+
+#: ../doc/files.rst:332
+msgid ""
+"Preview an existing split-file entry to adjust its saved IN/OUT range. The "
+"ruler includes the surrounding footage, allowing you to extend the range "
+"again without reimporting the source."
+msgstr ""
+"Pratinjau entri split-file yang ada untuk menyesuaikan rentang IN/OUT yang "
+"disimpan. Penggaris mencakup rekaman di sekitarnya, memungkinkan Anda "
+"memperpanjang rentang lagi tanpa mengimpor ulang sumber."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:190
+#: ../doc/files.rst:336
 msgid ""
 "Please refer to the section :ref:`clips_cutting_slicing_ref` for more ways "
 "to cut and slice clips directly in the timeline."
@@ -659,31 +1036,31 @@ msgstr ""
 "memotong dan membagi klip langsung di timeline."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:194
+#: ../doc/files.rst:340
 msgid ""
 "If you want your split file segments available outside of your OpenShot "
-"project, or want to copy all your video assets to one place, you can do this "
-"with the **Export Files** dialog. Simply :kbd:`Ctrl+Click` to select all the "
-"files you like, then :kbd:`Right Click` and choose :guilabel:`Export Files`. "
-"In the dialog that appears, choose a destination folder, and click :guilabel:"
-"`Export`."
+"project, or want to copy all your video assets to one place, you can do this"
+" with the **Export Files** dialog. Simply :kbd:`Ctrl+Click` to select all "
+"the files you like, then :kbd:`Right Click` and choose :guilabel:`Export "
+"Files`. In the dialog that appears, choose a destination folder, and click "
+":guilabel:`Export`."
 msgstr ""
 "Jika Anda ingin segmen berkas yang dipisah tersedia di luar proyek OpenShot "
 "Anda, atau ingin menyalin semua aset video ke satu tempat, Anda dapat "
 "melakukannya dengan dialog **Ekspor Berkas**. Cukup :kbd:`Ctrl+Klik` untuk "
-"memilih semua berkas yang Anda inginkan, lalu :kbd:`Klik Kanan` dan pilih :"
-"guilabel:`Ekspor Berkas`. Dalam dialog yang muncul, pilih folder tujuan, dan "
-"klik :guilabel:`Ekspor`."
+"memilih semua berkas yang Anda inginkan, lalu :kbd:`Klik Kanan` dan pilih "
+":guilabel:`Ekspor Berkas`. Dalam dialog yang muncul, pilih folder tujuan, "
+"dan klik :guilabel:`Ekspor`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:199
+#: ../doc/files.rst:345
 msgid ""
 "NOTE: This will export each file or file segment using its **original video "
-"profile** (width, height, framerate, aspect ratio, etc...). It also supports "
-"any :ref:`split_clip_ref` (described above). For example, if you have split "
-"a long video file into many different segments (and named them), you can now "
-"export all the segments as separate video files (using the original file's "
-"video profile)."
+"profile** (width, height, framerate, aspect ratio, etc...). It also supports"
+" any :ref:`split_clip_ref` (described above). For example, if you have split"
+" a long video file into many different segments (and named them), you can "
+"now export all the segments as separate video files (using the original "
+"file's video profile)."
 msgstr ""
 "CATATAN: Ini akan mengekspor setiap berkas atau segmen berkas menggunakan "
 "**profil video asli** (lebar, tinggi, frame rate, rasio aspek, dll...). Ini "
@@ -693,36 +1070,56 @@ msgstr ""
 "video terpisah (menggunakan profil video berkas asli)."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:206
+#: ../doc/files.rst:352
 msgid ""
 "In certain cases, you might need to add many files to the timeline at the "
 "same time. For example, a photo slideshow, or a large number of short video "
-"clips. The **Add to Timeline** dialog can automate this task for you. First, "
-"select all files you need to add, right click, and choose Add to Timeline."
+"clips. The **Add to Timeline** dialog can automate this task for you. First,"
+" select all files you need to add, right click, and choose Add to Timeline."
 msgstr ""
 "Dalam beberapa kasus, Anda mungkin perlu menambahkan banyak berkas ke "
-"timeline sekaligus. Misalnya, slideshow foto, atau sejumlah besar klip video "
-"pendek. Dialog **Tambahkan ke Timeline** dapat mengotomatisasi tugas ini "
+"timeline sekaligus. Misalnya, slideshow foto, atau sejumlah besar klip video"
+" pendek. Dialog **Tambahkan ke Timeline** dapat mengotomatisasi tugas ini "
 "untuk Anda. Pertama, pilih semua berkas yang perlu ditambahkan, klik kanan, "
 "dan pilih Tambahkan ke Timeline."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:218
+#: ../doc/files.rst:362 ../doc/files.rst:386
+msgid "#"
+msgstr "No."
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:362 ../doc/files.rst:386
+msgid "Name"
+msgstr "Nama"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:364 ../doc/files.rst:388
+msgid "1"
+msgstr "1"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:364
 msgid "Selected Files"
 msgstr "Berkas Terpilih"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:218
+#: ../doc/files.rst:364
 msgid "The list of selected files that need to be added to the timeline"
 msgstr "Daftar berkas terpilih yang perlu ditambahkan ke timeline"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:219
+#: ../doc/files.rst:365 ../doc/files.rst:389
+msgid "2"
+msgstr "2"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:365
 msgid "Order of Files"
 msgstr "Urutan Berkas"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:219
+#: ../doc/files.rst:365
 msgid ""
 "Use these buttons to reorder the list of files (move up, move down, "
 "randomize, remove)"
@@ -731,26 +1128,36 @@ msgstr ""
 "pindah ke bawah, acak, hapus)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:220
+#: ../doc/files.rst:366
+msgid "3"
+msgstr "3"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:366
 msgid "Timeline Position"
 msgstr "Posisi Timeline"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:220
+#: ../doc/files.rst:366
 msgid ""
-"Choose the starting position and track where these files need to be inserted "
-"on the timeline"
+"Choose the starting position and track where these files need to be inserted"
+" on the timeline"
 msgstr ""
 "Pilih posisi awal dan trek tempat berkas-berkas ini harus disisipkan di "
 "timeline"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:221
+#: ../doc/files.rst:367
+msgid "4"
+msgstr "4"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:367
 msgid "Fade Options"
 msgstr "Opsi Fade"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:221
+#: ../doc/files.rst:367
 msgid ""
 "Fade in, fade out, both, or none (only affects the image, and not audio)"
 msgstr ""
@@ -758,32 +1165,32 @@ msgstr ""
 "gambar, bukan audio)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "5"
 msgstr "5"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "Zoom Options"
 msgstr "Opsi Zoom"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "Zoom in, zoom out, or none"
 msgstr "Perbesar, perkecil, atau tidak sama sekali"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid "6"
 msgstr "6"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid "Transitions"
 msgstr "Transisi"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid ""
 "Choose a specific transition to use between files, random, or none (only "
 "affects the image, and not the audio)"
@@ -792,16 +1199,16 @@ msgstr ""
 "sekali (hanya memengaruhi gambar, bukan audio)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:229
+#: ../doc/files.rst:375
 msgid "Properties"
 msgstr "Properti"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:230
+#: ../doc/files.rst:376
 msgid ""
 "To view the properties of any imported file in your video project, right "
-"click on the file, and choose **File Properties**. This will launch the file "
-"properties dialog, which displays information about your media file. For "
+"click on the file, and choose **File Properties**. This will launch the file"
+" properties dialog, which displays information about your media file. For "
 "certain types of images (i.e. image sequences), you can adjust the frame "
 "rate on this dialog also."
 msgstr ""
@@ -812,7 +1219,7 @@ msgstr ""
 "mengatur frame rate di dialog ini."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:242
+#: ../doc/files.rst:388
 msgid ""
 "Select an image sequence in the **Project Files** panel, right click and "
 "choose **File Properties**"
@@ -821,34 +1228,47 @@ msgstr ""
 "**Properti Berkas**"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:243
+#: ../doc/files.rst:389
 msgid "Frame Rate"
 msgstr "Frame Rate"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:243
+#: ../doc/files.rst:389
 msgid ""
 "For image sequences, you can also adjust the frame rate of the animation"
 msgstr "Untuk urutan gambar, Anda juga dapat mengatur frame rate animasi"
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:252
+#: ../doc/files.rst:398
 msgid ""
-"This will remove a file from the project. It will not delete the underlying "
-"physical file though, so removing a file from the project merely makes it "
-"unavailable for this video project."
+"Removing an entry from **Project Files** does not delete the source media "
+"from disk."
 msgstr ""
-"Ini akan menghapus berkas dari proyek. Namun, berkas fisik yang mendasarinya "
-"tidak akan dihapus, jadi menghapus berkas dari proyek hanya membuatnya tidak "
-"tersedia untuk proyek video ini."
+"Menghapus entri dari **Project Files** tidak menghapus media sumber dari "
+"disk."
+
+#: ../doc/files.rst:400
+msgid ""
+"You can import the file again whenever you need it. For example, after "
+"preparing several :ref:`Split File segments <split_clip_ref>` and removing "
+"the original from Project Files, you might want to use a different part of "
+"the recording. Import it again to work with the whole recording; your "
+"existing segments stay as they are. If the original is already in Project "
+"Files, importing it again selects it."
+msgstr ""
+"Anda dapat mengimpor file tersebut lagi kapan pun Anda membutuhkannya. "
+"Misalnya, setelah menyiapkan beberapa :ref:`Split File segments "
+"<split_clip_ref>` dan menghapus file asli dari Project Files, Anda mungkin "
+"ingin menggunakan bagian lain dari rekaman tersebut. Impor kembali untuk "
+"bekerja dengan seluruh rekaman; segmen yang sudah ada tetap seperti semula. "
+"Jika file asli sudah ada di Project Files, mengimpor ulang akan memilihnya."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:257
+#: ../doc/files.rst:408
 msgid "Project Assets Folder"
 msgstr "Folder Aset Proyek"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:258
+#: ../doc/files.rst:409
 msgid ""
 "OpenShot creates and uses a few **temporary working folders** while you "
 "edit. These live under ``.openshot_qt/`` in your user profile and hold "
@@ -860,7 +1280,7 @@ msgstr ""
 "untuk Anda:"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:261
+#: ../doc/files.rst:412
 msgid ""
 "``.openshot_qt/blender/`` - Blender animation renders created by the "
 "Animated Title dialog"
@@ -869,13 +1289,13 @@ msgstr ""
 "Judul Animasi"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:262
+#: ../doc/files.rst:413
 msgid "``.openshot_qt/title/`` - SVG title files created by the Title dialog"
 msgstr ""
 "``.openshot_qt/title/`` - Berkas judul SVG yang dibuat oleh dialog Judul"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:263
+#: ../doc/files.rst:414
 msgid ""
 "``.openshot_qt/thumbnail/`` - Thumbnails generated for Project Files and "
 "Timeline"
@@ -884,7 +1304,7 @@ msgstr ""
 "dan Timeline"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:264
+#: ../doc/files.rst:415
 msgid ""
 "``.openshot_qt/clipboard/`` - Media created from clipboard pastes (images, "
 "audio, or video that must be saved to disk first)"
@@ -893,7 +1313,7 @@ msgstr ""
 "(gambar, audio, atau video yang harus disimpan ke disk terlebih dahulu)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:265
+#: ../doc/files.rst:416
 msgid ""
 "``.openshot_qt/optimized/`` - Optimized preview files created for smoother "
 "editing"
@@ -902,12 +1322,12 @@ msgstr ""
 "pengeditan yang lebih lancar"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:266
+#: ../doc/files.rst:417
 msgid "``.openshot_qt/protobuf_data`` - Tracking and object detection data"
 msgstr "``.openshot_qt/protobuf_data`` - Data pelacakan dan deteksi objek"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:268
+#: ../doc/files.rst:419
 msgid ""
 "When you choose **File→Save As**, OpenShot copies these folders into your "
 "project directory, inside a single folder named ``PROJECTNAME_Assets``. For "
@@ -917,36 +1337,36 @@ msgid ""
 msgstr ""
 "Saat Anda memilih **File→Simpan Sebagai**, OpenShot menyalin folder-folder "
 "ini ke direktori proyek Anda, di dalam satu folder bernama "
-"``PROJECTNAME_Assets``. Misalnya: ``MyProject_Assets/clipboard`` akan berisi "
-"media apa pun yang Anda tempel dari clipboard, dan ``MyProject_Assets/"
-"optimized`` akan berisi file pratinjau yang dioptimalkan yang ditautkan ke "
-"proyek."
+"``PROJECTNAME_Assets``. Misalnya: ``MyProject_Assets/clipboard`` akan berisi"
+" media apa pun yang Anda tempel dari clipboard, dan "
+"``MyProject_Assets/optimized`` akan berisi file pratinjau yang dioptimalkan "
+"yang ditautkan ke proyek."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:272
+#: ../doc/files.rst:423
 #, fuzzy
 msgid ""
 "As part of this process, all paths inside your ``*.osp`` project file are "
 "updated to be **relative** to your project folder."
 msgstr ""
-"Sebagai bagian dari proses ini, semua jalur di dalam berkas proyek ``*.osp`` "
-"Anda diperbarui menjadi **relatif** terhadap folder proyek Anda. Ini menjaga "
-"semuanya tetap mandiri dan mudah dipindahkan atau dicadangkan sebagai satu "
-"folder."
+"Sebagai bagian dari proses ini, semua jalur di dalam berkas proyek ``*.osp``"
+" Anda diperbarui menjadi **relatif** terhadap folder proyek Anda. Ini "
+"menjaga semuanya tetap mandiri dan mudah dipindahkan atau dicadangkan "
+"sebagai satu folder."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:275
+#: ../doc/files.rst:426
 msgid "Missing Files"
 msgstr "Berkas Hilang"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:277
+#: ../doc/files.rst:428
 msgid ""
 "When you create and save a project in OpenShot, any files imported into the "
 "software (such as videos, audio, and images) must remain accessible "
 "throughout the project's duration. This means that these imported files "
-"should not be renamed, deleted, or moved to different folders. Additionally, "
-"the full path where these files are located should not be renamed either. "
+"should not be renamed, deleted, or moved to different folders. Additionally,"
+" the full path where these files are located should not be renamed either. "
 "This principle applies to other video editing software as well."
 msgstr ""
 "Saat Anda membuat dan menyimpan proyek di OpenShot, semua file yang diimpor "
@@ -957,13 +1377,14 @@ msgstr ""
 "Prinsip ini juga berlaku untuk perangkat lunak pengedit video lainnya."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:282
+#: ../doc/files.rst:433
 msgid ""
 "For example, users might move or delete folders, unplug their USB devices, "
-"or move or delete their project files. Any of these examples cause a :"
-"guilabel:`Missing File` message, in which OpenShot prompts you to locate the "
-"folder of the missing file(s). Depending on the number of files you added to "
-"your project, OpenShot could prompt you many times to find the missing files."
+"or move or delete their project files. Any of these examples cause a "
+":guilabel:`Missing File` message, in which OpenShot prompts you to locate "
+"the folder of the missing file(s). Depending on the number of files you "
+"added to your project, OpenShot could prompt you many times to find the "
+"missing files."
 msgstr ""
 "Misalnya, pengguna mungkin memindahkan atau menghapus folder, mencabut "
 "perangkat USB mereka, atau memindahkan atau menghapus file proyek mereka. "
@@ -973,7 +1394,7 @@ msgstr ""
 "meminta Anda berkali-kali untuk menemukan file yang hilang."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:286
+#: ../doc/files.rst:437
 msgid ""
 "When OpenShot saves a project, all file paths are converted to **relative** "
 "file paths. As long as you keep all assets organized in the same parent "
@@ -988,7 +1409,7 @@ msgstr ""
 "memindahkan folder proyek yang mandiri ke komputer lain tanpa masalah."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:290
+#: ../doc/files.rst:441
 msgid ""
 "Everyone has their unique way of organizing files, and it's crucial to "
 "remember not to make changes to file paths, rename files, or delete files "
@@ -1000,5 +1421,85 @@ msgstr ""
 "untuk diingat agar tidak mengubah jalur file, mengganti nama file, atau "
 "menghapus file saat bekerja dengan editor video, karena hal ini dapat "
 "menyebabkan masalah file yang hilang. Untuk panduan rinci tentang file yang "
-"hilang, lihat `The Case of “Missing Files”! <https://github.com/OpenShot/"
-"openshot-qt/wiki/Missing-File-Prompt>`_"
+"hilang, lihat `The Case of “Missing Files”! "
+"<https://github.com/OpenShot/openshot-qt/wiki/Missing-File-Prompt>`_"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "The :guilabel:`Preview File` action opens the Preview dialog for the "
+#~ "selected file from :guilabel:`Project Files`. Simply double check a file to "
+#~ "open this dialog."
+#~ msgstr ""
+#~ "Aksi :guilabel:`Pratinjau File` membuka dialog Pratinjau untuk file yang "
+#~ "dipilih dari :guilabel:`File Proyek`. Cukup klik dua kali file untuk membuka"
+#~ " dialog ini."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Playback starts automatically."
+#~ msgstr "Pemutaran dimulai secara otomatis."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Loop is enabled by default."
+#~ msgstr "Pengulangan diaktifkan secara default."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "If you need to cut a large video file into many smaller files before "
+#~ "editing, the **Split File** dialog is built exactly for this purpose. Right "
+#~ "click on a file, and choose :guilabel:`Split File`. Use this dialog to "
+#~ "quickly separate a large file into many smaller segments. For each segment, "
+#~ "you can select the starting and ending frame, and a title. Each segment "
+#~ "appears as a new file in the Project Files dialog."
+#~ msgstr ""
+#~ "Jika Anda perlu memotong berkas video besar menjadi banyak berkas kecil "
+#~ "sebelum mengedit, dialog **Pisah Berkas** dibuat khusus untuk tujuan ini. "
+#~ "Klik kanan pada sebuah berkas, dan pilih :guilabel:`Pisah Berkas`. Gunakan "
+#~ "dialog ini untuk dengan cepat memisahkan berkas besar menjadi banyak segmen "
+#~ "kecil. Untuk setiap segmen, Anda dapat memilih bingkai awal dan akhir, serta"
+#~ " judul. Setiap segmen muncul sebagai berkas baru di dialog Berkas Proyek."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Start of File"
+#~ msgstr "Awal Berkas"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Choose the starting frame of your file by clicking this button"
+#~ msgstr "Pilih bingkai awal berkas Anda dengan mengklik tombol ini"
+
+# Translated with gpt-4.1-mini
+#~ msgid "End of File"
+#~ msgstr "Akhir Berkas"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Choose the ending frame of your file by clicking this button"
+#~ msgstr "Pilih frame akhir dari berkas Anda dengan mengklik tombol ini"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Name of File"
+#~ msgstr "Nama Berkas"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Enter an optional name"
+#~ msgstr "Masukkan nama opsional"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Create Button"
+#~ msgstr "Tombol Buat"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Create the file (which resets this dialog, so you can repeat these steps for"
+#~ " each segment)"
+#~ msgstr ""
+#~ "Buat berkas (yang akan mengatur ulang dialog ini, sehingga Anda dapat "
+#~ "mengulangi langkah ini untuk setiap segmen)"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "This will remove a file from the project. It will not delete the underlying "
+#~ "physical file though, so removing a file from the project merely makes it "
+#~ "unavailable for this video project."
+#~ msgstr ""
+#~ "Ini akan menghapus berkas dari proyek. Namun, berkas fisik yang mendasarinya"
+#~ " tidak akan dihapus, jadi menghapus berkas dari proyek hanya membuatnya "
+#~ "tidak tersedia untuk proyek video ini."

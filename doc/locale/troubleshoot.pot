@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenShot Video Editor 4.0\n"
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,450 +16,486 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../troubleshoot.rst:23
+#: ../doc/troubleshoot.rst:23
 msgid "Troubleshooting"
 msgstr ""
 
-#: ../troubleshoot.rst:25
+#: ../doc/troubleshoot.rst:25
 msgid "If you are experiencing an issue with OpenShot, such as a freeze, crash, or error message, there are many different techniques which can be useful for troubleshooting the issue."
 msgstr ""
 
-#: ../troubleshoot.rst:31
+#: ../doc/troubleshoot.rst:31
+msgid "Large or Slow Project Files with Audio Waveforms"
+msgstr ""
+
+#: ../doc/troubleshoot.rst:33
+msgid "Older projects with many audio waveforms can have unusually large ``.osp`` files and take longer to open or save. Older builds stored the waveform measurements inside the project file, sometimes repeating them for clips and undo history."
+msgstr ""
+
+#: ../doc/troubleshoot.rst:37
+msgid "The latest build stores these measurements in **separate compressed waveform files** instead. The project keeps small references to those files, reducing the data copied during editing and written into the ``.osp`` file. These files describe audio levels for display, not copies of the audio itself; your media and exported sound are unchanged."
+msgstr ""
+
+#: ../doc/troubleshoot.rst:43
+msgid "To update an older project:"
+msgstr ""
+
+#: ../doc/troubleshoot.rst:45
+msgid "Open it in the latest build. OpenShot automatically moves embedded waveform data into its waveform cache, preserving the existing waveform appearance."
+msgstr ""
+
+#: ../doc/troubleshoot.rst:47
+msgid "Choose :guilabel:`File → Save Project As` to keep the original project as a backup, or save normally to update the existing file."
+msgstr ""
+
+#: ../doc/troubleshoot.rst:49
+msgid "Keep the saved project's ``_assets`` folder alongside its ``.osp`` file when copying or backing up the project."
+msgstr ""
+
+#: ../doc/troubleshoot.rst:52
+msgid "For example, ``MyProject.osp`` stores its compressed ``.wfc`` waveform files in ``MyProject_assets/waveforms/``. Each file contains compact numeric measurements compressed for storage. Identical waveform data can share the same cache file. OpenShot also uses a local cache while you work, including before the first save."
+msgstr ""
+
+#: ../doc/troubleshoot.rst:57
+msgid "The first opening still needs to read the old embedded data, so it can take time. The smaller project file is written when you save. Generating a waveform for a new, long audio file still requires analyzing that audio. If waveform cache files are missing, OpenShot can rebuild visible waveforms from the original media. See :ref:`timeline_waveform_display_ref` for waveform display and regeneration options."
+msgstr ""
+
+#: ../doc/troubleshoot.rst:66
 msgid "Using Logs to Troubleshoot a Problem"
 msgstr ""
 
-#: ../troubleshoot.rst:33
+#: ../doc/troubleshoot.rst:68
 msgid "A log is a text file that records what OpenShot is doing, along with warnings and errors. These files can help the support team understand a problem, even when you do not see an error message on screen."
 msgstr ""
 
-#: ../troubleshoot.rst:37
+#: ../doc/troubleshoot.rst:72
 msgid "OpenShot keeps two log files in the ``.openshot_qt`` folder inside your home folder. On Linux and macOS, this location is written as ``~/.openshot_qt/``. The folder may be hidden in your file manager."
 msgstr ""
 
-#: ../troubleshoot.rst:41
+#: ../doc/troubleshoot.rst:76
 msgid "The two log files"
 msgstr ""
 
-#: ../troubleshoot.rst:45
+#: ../doc/troubleshoot.rst:80
 msgid "File"
 msgstr ""
 
-#: ../troubleshoot.rst:46
+#: ../doc/troubleshoot.rst:81
 msgid "What it records"
 msgstr ""
 
-#: ../troubleshoot.rst:47
-#: ../troubleshoot.rst:74
+#: ../doc/troubleshoot.rst:82
+#: ../doc/troubleshoot.rst:109
 msgid "``openshot-qt.log``"
 msgstr ""
 
-#: ../troubleshoot.rst:48
+#: ../doc/troubleshoot.rst:83
 msgid "Activity in the editor: starting OpenShot, loading projects, changing settings, and using the interface. This is usually the best place to start when investigating a problem."
 msgstr ""
 
-#: ../troubleshoot.rst:51
-#: ../troubleshoot.rst:77
+#: ../doc/troubleshoot.rst:86
+#: ../doc/troubleshoot.rst:112
 msgid "``libopenshot.log``"
 msgstr ""
 
-#: ../troubleshoot.rst:52
+#: ../doc/troubleshoot.rst:87
 msgid "Activity in OpenShot's video and audio engine, the part that reads media and builds the pictures and sound used in previews and exported videos. Detailed engine logging can help investigate playback and export problems."
 msgstr ""
 
-#: ../troubleshoot.rst:56
+#: ../doc/troubleshoot.rst:91
 msgid "These files record different parts of the same application. When reporting a problem, include both files if available. You do not need to understand every line yourself."
 msgstr ""
 
-#: ../troubleshoot.rst:61
+#: ../doc/troubleshoot.rst:96
 msgid "Choose which part of OpenShot to log"
 msgstr ""
 
-#: ../troubleshoot.rst:63
+#: ../doc/troubleshoot.rst:98
 msgid "Open **Edit → Preferences → Advanced** to find these two settings:"
 msgstr ""
 
-#: ../troubleshoot.rst:65
+#: ../doc/troubleshoot.rst:100
 msgid "Preferences and matching terminal options"
 msgstr ""
 
-#: ../troubleshoot.rst:69
+#: ../doc/troubleshoot.rst:104
 msgid "Preference"
 msgstr ""
 
-#: ../troubleshoot.rst:70
+#: ../doc/troubleshoot.rst:105
 msgid "Matching argument"
 msgstr ""
 
-#: ../troubleshoot.rst:71
+#: ../doc/troubleshoot.rst:106
 msgid "Log file"
 msgstr ""
 
-#: ../troubleshoot.rst:72
+#: ../doc/troubleshoot.rst:107
 msgid "User Interface Debug Logging"
 msgstr ""
 
-#: ../troubleshoot.rst:73
+#: ../doc/troubleshoot.rst:108
 msgid "``--debug-ui``"
 msgstr ""
 
-#: ../troubleshoot.rst:75
+#: ../doc/troubleshoot.rst:110
 msgid "Video & Audio Engine Debug Logging"
 msgstr ""
 
-#: ../troubleshoot.rst:76
-#: ../troubleshoot.rst:142
+#: ../doc/troubleshoot.rst:111
+#: ../doc/troubleshoot.rst:179
 msgid "``--debug-engine``"
 msgstr ""
 
-#: ../troubleshoot.rst:79
+#: ../doc/troubleshoot.rst:114
 msgid "Both preferences are off by default, which keeps the normal summary messages. Turning one on adds detail to its log file immediately. It does not change the other log or add messages to the terminal. Preferences stay enabled between launches until you turn them off."
 msgstr ""
 
-#: ../troubleshoot.rst:84
+#: ../doc/troubleshoot.rst:119
 msgid "**User Interface Debug Logging** is a good starting point for problems with startup, project loading, settings, or the interface. **Video & Audio Engine Debug Logging** adds details about video and audio processing, which can help investigate playback and export problems. Engine logs can grow very quickly and may slow OpenShot down. Turn this setting on shortly before repeating the problem, then turn it off afterward."
 msgstr ""
 
-#: ../troubleshoot.rst:91
+#: ../doc/troubleshoot.rst:126
 msgid "The engine preference was previously called **Debug Mode (Verbose)**. Its saved on/off setting carries over to the new name."
 msgstr ""
 
-#: ../troubleshoot.rst:95
+#: ../doc/troubleshoot.rst:130
 msgid "Use a terminal for one launch"
 msgstr ""
 
-#: ../troubleshoot.rst:97
+#: ../doc/troubleshoot.rst:132
 msgid "A terminal is a window where you type commands. The matching arguments enable the same extra detail as the preferences, and also display it in the terminal:"
 msgstr ""
 
-#: ../troubleshoot.rst:104
+#: ../doc/troubleshoot.rst:139
 msgid "This records interface details for one launch. The familiar ``--debug`` and shorter ``-d`` options mean exactly the same thing as ``--debug-ui``. For video and audio engine details, use:"
 msgstr ""
 
-#: ../troubleshoot.rst:112
+#: ../doc/troubleshoot.rst:147
 msgid "To collect both types of detail together:"
 msgstr ""
 
-#: ../troubleshoot.rst:118
+#: ../doc/troubleshoot.rst:153
 msgid "Repeat the steps that cause the problem, then close OpenShot and collect the logs. These arguments do not change your saved preferences. Starting OpenShot normally returns to your usual logging settings."
 msgstr ""
 
-#: ../troubleshoot.rst:122
+#: ../doc/troubleshoot.rst:157
 msgid "``openshot-qt.log`` starts a new file when it reaches about 25 MB and keeps three older copies. ``libopenshot.log`` keeps growing as messages are added. After saving any logs you need, you can remove old log files while OpenShot is closed."
 msgstr ""
 
-#: ../troubleshoot.rst:128
-msgid "Other command-line options"
+#: ../doc/troubleshoot.rst:163
+msgid "Other logging options"
 msgstr ""
 
-#: ../troubleshoot.rst:130
-msgid "Most users only need the two controls above. The following options let you choose how much detail goes into the files or appears in the terminal. Here, *console* means the terminal output."
+#: ../doc/troubleshoot.rst:165
+msgid "Most users only need the two controls above. The following options let you choose how much detail goes into the files or appears in the terminal. Here, *console* means the terminal output. For the complete list of application launch options, see :ref:`launch_options_ref`. To edit projects or automate exports from the terminal, see :ref:`cli_ref`."
 msgstr ""
 
-#: ../troubleshoot.rst:134
+#: ../doc/troubleshoot.rst:171
 msgid "Logging options"
 msgstr ""
 
-#: ../troubleshoot.rst:138
+#: ../doc/troubleshoot.rst:175
 msgid "Option"
 msgstr ""
 
-#: ../troubleshoot.rst:139
+#: ../doc/troubleshoot.rst:176
 msgid "What it does"
 msgstr ""
 
-#: ../troubleshoot.rst:140
+#: ../doc/troubleshoot.rst:177
 msgid "``--debug-ui``, ``--debug``, or ``-d``"
 msgstr ""
 
-#: ../troubleshoot.rst:141
+#: ../doc/troubleshoot.rst:178
 msgid "Enables User Interface Debug Logging in its file and the terminal."
 msgstr ""
 
-#: ../troubleshoot.rst:143
+#: ../doc/troubleshoot.rst:180
 msgid "Enables Video & Audio Engine Debug Logging in its file and the terminal."
 msgstr ""
 
-#: ../troubleshoot.rst:144
+#: ../doc/troubleshoot.rst:181
 msgid "``--debug-file``"
 msgstr ""
 
-#: ../troubleshoot.rst:145
+#: ../doc/troubleshoot.rst:182
 msgid "Adds editor details to ``openshot-qt.log`` without adding terminal detail."
 msgstr ""
 
-#: ../troubleshoot.rst:146
+#: ../doc/troubleshoot.rst:183
 msgid "``--debug-console``"
 msgstr ""
 
-#: ../troubleshoot.rst:147
+#: ../doc/troubleshoot.rst:184
 msgid "Adds editor details in the terminal without adding file detail."
 msgstr ""
 
-#: ../troubleshoot.rst:148
+#: ../doc/troubleshoot.rst:185
 msgid "``--log-level LEVEL``"
 msgstr ""
 
-#: ../troubleshoot.rst:149
+#: ../doc/troubleshoot.rst:186
 msgid "Sets the detail for both logs and their terminal output."
 msgstr ""
 
-#: ../troubleshoot.rst:150
+#: ../doc/troubleshoot.rst:187
 msgid "``--log-file-level LEVEL``"
 msgstr ""
 
-#: ../troubleshoot.rst:151
+#: ../doc/troubleshoot.rst:188
 msgid "Sets the detail for both log files, leaving terminal settings alone."
 msgstr ""
 
-#: ../troubleshoot.rst:152
+#: ../doc/troubleshoot.rst:189
 msgid "``--log-console-level LEVEL``"
 msgstr ""
 
-#: ../troubleshoot.rst:153
+#: ../doc/troubleshoot.rst:190
 msgid "Sets the detail in the terminal for both the editor and engine, leaving file settings alone."
 msgstr ""
 
-#: ../troubleshoot.rst:156
+#: ../doc/troubleshoot.rst:193
 msgid "Replace ``LEVEL`` with ``debug`` for detailed messages or ``info`` for the normal summary. ``warning`` shows warnings and errors; ``error`` shows errors and critical failures; ``critical`` shows only critical failures. ``off`` stops ordinary log messages, but existing crash diagnostics may still be written. Uppercase names such as ``DEBUG`` work too."
 msgstr ""
 
-#: ../troubleshoot.rst:162
+#: ../doc/troubleshoot.rst:199
 msgid "For example, to collect detailed messages in **both files** while keeping the terminal at its usual level:"
 msgstr ""
 
-#: ../troubleshoot.rst:169
+#: ../doc/troubleshoot.rst:206
 msgid "This also enables the large engine log, so use it briefly. The older ``--debug-file`` and ``--debug-console`` options still work even though they are not listed in ``--help``."
 msgstr ""
 
-#: ../troubleshoot.rst:174
+#: ../doc/troubleshoot.rst:211
 msgid "Environment variables"
 msgstr ""
 
-#: ../troubleshoot.rst:176
+#: ../doc/troubleshoot.rst:213
 msgid "An environment variable is a named setting passed to a program when it starts. These are useful when starting OpenShot from a script or when a support person asks you to try a particular setting. You do not need to set them for normal use."
 msgstr ""
 
-#: ../troubleshoot.rst:180
+#: ../doc/troubleshoot.rst:217
 msgid "Optional environment settings"
 msgstr ""
 
-#: ../troubleshoot.rst:184
+#: ../doc/troubleshoot.rst:221
 msgid "Variable"
 msgstr ""
 
-#: ../troubleshoot.rst:185
+#: ../doc/troubleshoot.rst:222
 msgid "What it controls"
 msgstr ""
 
-#: ../troubleshoot.rst:186
+#: ../doc/troubleshoot.rst:223
 msgid "``OPENSHOT_LOG_LEVEL``"
 msgstr ""
 
-#: ../troubleshoot.rst:187
+#: ../doc/troubleshoot.rst:224
 msgid "Detail in both files and the terminal."
 msgstr ""
 
-#: ../troubleshoot.rst:188
+#: ../doc/troubleshoot.rst:225
 msgid "``OPENSHOT_LOG_FILE_LEVEL``"
 msgstr ""
 
-#: ../troubleshoot.rst:189
+#: ../doc/troubleshoot.rst:226
 msgid "Detail in both files only."
 msgstr ""
 
-#: ../troubleshoot.rst:190
+#: ../doc/troubleshoot.rst:227
 msgid "``OPENSHOT_LOG_CONSOLE_LEVEL``"
 msgstr ""
 
-#: ../troubleshoot.rst:191
+#: ../doc/troubleshoot.rst:228
 msgid "Detail in the terminal only, for both parts of OpenShot."
 msgstr ""
 
-#: ../troubleshoot.rst:192
+#: ../doc/troubleshoot.rst:229
 msgid "``LIBOPENSHOT_LOG_LEVEL``"
 msgstr ""
 
-#: ../troubleshoot.rst:193
+#: ../doc/troubleshoot.rst:230
 msgid "Detail for the video and audio engine, in its file and the terminal."
 msgstr ""
 
-#: ../troubleshoot.rst:194
+#: ../doc/troubleshoot.rst:231
 msgid "``LIBOPENSHOT_LOG_FILE_LEVEL``"
 msgstr ""
 
-#: ../troubleshoot.rst:195
+#: ../doc/troubleshoot.rst:232
 msgid "Detail in ``libopenshot.log`` only."
 msgstr ""
 
-#: ../troubleshoot.rst:196
+#: ../doc/troubleshoot.rst:233
 msgid "``LIBOPENSHOT_LOG_CONSOLE_LEVEL``"
 msgstr ""
 
-#: ../troubleshoot.rst:197
+#: ../doc/troubleshoot.rst:234
 msgid "Engine detail in the terminal only."
 msgstr ""
 
-#: ../troubleshoot.rst:199
+#: ../doc/troubleshoot.rst:236
 msgid "For example, this Linux/macOS terminal command requests detailed engine logging in its file for one launch:"
 msgstr ""
 
-#: ../troubleshoot.rst:206
+#: ../doc/troubleshoot.rst:243
 msgid "If settings overlap, command-line options take priority, followed by environment variables, then Preferences, then the normal defaults. Each control only affects the output it describes: ``--debug`` does not override the engine preference. Temporary overrides do not change your saved preferences. Hover over either checkbox to see whether another setting is controlling that log file."
 msgstr ""
 
-#: ../troubleshoot.rst:212
+#: ../doc/troubleshoot.rst:249
 msgid "Within the environment settings, ``LIBOPENSHOT_`` values take priority over ``OPENSHOT_`` values for the engine. Within either group, a file-only or console-only level takes priority over the general level. Command-line options follow the same file/console rule. Conflicting command-line levels for the same output are rejected; invalid environment levels are reported and ignored."
 msgstr ""
 
-#: ../troubleshoot.rst:218
+#: ../doc/troubleshoot.rst:255
 msgid "For older scripts, ``LIBOPENSHOT_DEBUG`` still enables detailed engine messages in the terminal whenever it is present, even if its value is ``0``. The newer level settings take priority over it. ``LIBOPENSHOT_LOG_FILE`` is intended for programs using the engine separately; OpenShot itself uses the log folder above. Changing logging settings does not change your error-reporting preference."
 msgstr ""
 
-#: ../troubleshoot.rst:225
+#: ../doc/troubleshoot.rst:262
 msgid "Windows 11 Unresponsive"
 msgstr ""
 
-#: ../troubleshoot.rst:227
+#: ../doc/troubleshoot.rst:264
 msgid "If you experience a freeze on Windows 11, this is a known issue with PyQt5 and Windows 11, related to the accessibility features in Qt. This is triggered by pressing :kbd:`Ctrl+C` in OpenShot (*only on Windows 11*). OpenShot will become unresponsive and a memory leak is also present (i.e. the longer OpenShot is unresponsive, the larger your memory leak will become until OpenShot finally crashes or the user kills the process)."
 msgstr ""
 
-#: ../troubleshoot.rst:232
+#: ../doc/troubleshoot.rst:269
 msgid "A simple work-around is to avoid :kbd:`Ctrl+C` on Windows 11, and instead use the right-click Copy/Paste menus. Another work-around is to remap your \"Copy\" from :kbd:`Ctrl+C` to something else, for example :kbd:`Alt+C`. You can change your keyboard mappings in the OpenShot Preferences. See :ref:`preferences_keyboard_ref`."
 msgstr ""
 
-#: ../troubleshoot.rst:237
+#: ../doc/troubleshoot.rst:274
 msgid "Windows Debugging with GDB"
 msgstr ""
 
-#: ../troubleshoot.rst:239
+#: ../doc/troubleshoot.rst:276
 msgid "If you are experiencing a crash or freeze with OpenShot in Windows 10/11, the following step by step instructions will help you determine the cause of the crash. These instructions will display a stack trace of OpenShot's source code, at the location of the crash. This information can be extremely useful for our development team, and very useful to attach to bug reports (for a quicker resolution)."
 msgstr ""
 
-#: ../troubleshoot.rst:245
+#: ../doc/troubleshoot.rst:282
 msgid "Install the Latest Daily Build"
 msgstr ""
 
-#: ../troubleshoot.rst:247
+#: ../doc/troubleshoot.rst:284
 msgid "Before attaching a debugger, please download the **latest version** of OpenShot: https://www.openshot.org/download#daily. Install this version of OpenShot to the default location: ``C:\\Program Files\\OpenShot Video Editor\\``. For details instructions on debugging OpenShot on Windows, please see `this wiki <https://github.com/OpenShot/openshot-qt/wiki/Windows-Debugging-with-GDB>`_."
 msgstr ""
 
-#: ../troubleshoot.rst:252
+#: ../doc/troubleshoot.rst:289
 msgid "Install MSYS2"
 msgstr ""
 
-#: ../troubleshoot.rst:254
+#: ../doc/troubleshoot.rst:291
 msgid "The Windows version of OpenShot is compiled using an environment called MSYS2. In order to attach the GDB debugger to our executable, ``openshot-qt.exe``, you must first install MSYS2. This step is only required once."
 msgstr ""
 
-#: ../troubleshoot.rst:257
+#: ../doc/troubleshoot.rst:294
 msgid "Download & Install MSYS2: `<http://www.msys2.org/>`_"
 msgstr ""
 
-#: ../troubleshoot.rst:258
-#: ../troubleshoot.rst:274
+#: ../doc/troubleshoot.rst:295
+#: ../doc/troubleshoot.rst:311
 msgid "Run ``MSYS2 MinGW x64`` command prompt (for example: ``C:\\msys64\\msys2_shell.cmd -mingw64``)"
 msgstr ""
 
-#: ../troubleshoot.rst:259
+#: ../doc/troubleshoot.rst:296
 msgid "Update all packages (*Copy/Paste the following command*):"
 msgstr ""
 
-#: ../troubleshoot.rst:265
+#: ../doc/troubleshoot.rst:302
 msgid "Install GDB debugger (*Copy/Paste the following command*):"
 msgstr ""
 
-#: ../troubleshoot.rst:272
+#: ../doc/troubleshoot.rst:309
 msgid "Launch OpenShot with GDB Debugger"
 msgstr ""
 
-#: ../troubleshoot.rst:276
+#: ../doc/troubleshoot.rst:313
 msgid "Update the PATH (*Copy/Paste the following commands*):"
 msgstr ""
 
-#: ../troubleshoot.rst:283
+#: ../doc/troubleshoot.rst:320
 msgid "Load OpenShot into the GDB debugger (*Copy/Paste the following commands*):"
 msgstr ""
 
-#: ../troubleshoot.rst:290
+#: ../doc/troubleshoot.rst:327
 msgid "Launch OpenShot from GDB prompt (*Copy/Paste the following command*):"
 msgstr ""
 
-#: ../troubleshoot.rst:297
+#: ../doc/troubleshoot.rst:334
 msgid "Print Debugging Info"
 msgstr ""
 
-#: ../troubleshoot.rst:299
+#: ../doc/troubleshoot.rst:336
 msgid "Once OpenShot has launched successfully with GDB attached, all you need to do is trigger a crash or freeze in OpenShot. When a crash occurs, switch back to the MSYS2 MinGW64 terminal and run one of the following commands (by typing it and pressing ENTER). Usually, the first command to enter is ``bt``, which stands for ``backtrace``. More commands are listed below."
 msgstr ""
 
-#: ../troubleshoot.rst:313
+#: ../doc/troubleshoot.rst:350
 msgid "High DPI / 4K Monitors"
 msgstr ""
 
-#: ../troubleshoot.rst:315
+#: ../doc/troubleshoot.rst:352
 msgid "OpenShot Video Editor provides robust support for High DPI (Dots Per Inch) monitors, ensuring that the interface looks sharp and is easily readable on displays with various DPI settings. This support is particularly helpful on 4K monitors and other high-resolution displays."
 msgstr ""
 
-#: ../troubleshoot.rst:321
+#: ../doc/troubleshoot.rst:358
 msgid "Per Monitor DPI Awareness"
 msgstr ""
 
-#: ../troubleshoot.rst:323
+#: ../doc/troubleshoot.rst:360
 msgid "OpenShot is DPI aware on a per-monitor basis, meaning it can adjust its scaling dynamically depending on the DPI settings of each connected monitor. This helps provide a consistent experience across different displays."
 msgstr ""
 
-#: ../troubleshoot.rst:328
+#: ../doc/troubleshoot.rst:365
 msgid "DPI Scaling on Windows"
 msgstr ""
 
-#: ../troubleshoot.rst:330
+#: ../doc/troubleshoot.rst:367
 msgid "On Windows, OpenShot rounds the scaling factor to the nearest whole value to maintain visual integrity. This helps avoid visual artifacts in the UI and keeps interface elements crisp and well-aligned. Due to this rounding, some scaling options can lead to larger fonts and UI elements than expected."
 msgstr ""
 
-#: ../troubleshoot.rst:335
+#: ../doc/troubleshoot.rst:372
 msgid "**125% scaling** rounds to **100%**"
 msgstr ""
 
-#: ../troubleshoot.rst:336
+#: ../doc/troubleshoot.rst:373
 msgid "**150% scaling** rounds to **200%**"
 msgstr ""
 
-#: ../troubleshoot.rst:339
+#: ../doc/troubleshoot.rst:376
 msgid "Workarounds for Fine-Grained Adjustment"
 msgstr ""
 
-#: ../troubleshoot.rst:341
+#: ../doc/troubleshoot.rst:378
 msgid "While rounding helps maintain a clean interface, there are workarounds for users who require more precise control over scaling. These methods are **not recommended** due to potential visual artifacts:"
 msgstr ""
 
-#: ../troubleshoot.rst:345
+#: ../doc/troubleshoot.rst:382
 msgid "**QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough**"
 msgstr ""
 
-#: ../troubleshoot.rst:347
+#: ../doc/troubleshoot.rst:384
 msgid "Setting this environment variable can disable rounding and allow more precise scaling."
 msgstr ""
 
-#: ../troubleshoot.rst:348
+#: ../doc/troubleshoot.rst:385
 msgid "**Note:** This may cause visual artifacts, particularly in the timeline, and is not recommended."
 msgstr ""
 
-#: ../troubleshoot.rst:350
+#: ../doc/troubleshoot.rst:387
 msgid "**QT_SCALE_FACTOR=1.25** (or similar value)"
 msgstr ""
 
-#: ../troubleshoot.rst:352
+#: ../doc/troubleshoot.rst:389
 msgid "Manually setting the scale factor can provide finer adjustments to the font and UI scaling."
 msgstr ""
 
-#: ../troubleshoot.rst:353
+#: ../doc/troubleshoot.rst:390
 msgid "This can also be set via Preferences (User Interface Scale), but expect border/line issues on Windows with fractional scales."
 msgstr ""
 
-#: ../troubleshoot.rst:354
+#: ../doc/troubleshoot.rst:391
 msgid "**Note:** This method can also lead to visual artifacts and make OpenShot harder to use."
 msgstr ""
 
-#: ../troubleshoot.rst:356
+#: ../doc/troubleshoot.rst:393
 msgid "For more info on adjusting these environment variables, please visit https://github.com/OpenShot/openshot-qt/wiki/OpenShot-UI-too-large."
 msgstr ""

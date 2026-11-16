@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:23
+#: ../doc/playback.rst:23
 msgid "Playback"
 msgstr "Phát lại"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:24
+#: ../doc/playback.rst:24
 msgid ""
 "The preview window is where video & audio playback takes place in OpenShot "
 "Video Editor. The preview window utilizes real-time video rendering, "
@@ -35,47 +35,57 @@ msgid ""
 msgstr ""
 "Cửa sổ xem trước là nơi phát lại video và âm thanh trong OpenShot Video "
 "Editor. Cửa sổ xem trước sử dụng kết xuất video thời gian thực, bộ nhớ đệm, "
-"tái lấy mẫu và thay đổi kích thước hình ảnh. Đây là khu vực chính để xem lại "
-"(và nghe) các chỉnh sửa của bạn, cung cấp phản hồi cần thiết để điều chỉnh. "
-"Đây cũng là một trong những tác vụ tốn nhiều tài nguyên CPU nhất, và yêu cầu "
-"một máy tính hiện đại cùng một số giả định và yếu tố hợp lý (được liệt kê "
-"bên dưới)."
+"tái lấy mẫu và thay đổi kích thước hình ảnh. Đây là khu vực chính để xem lại"
+" (và nghe) các chỉnh sửa của bạn, cung cấp phản hồi cần thiết để điều chỉnh."
+" Đây cũng là một trong những tác vụ tốn nhiều tài nguyên CPU nhất, và yêu "
+"cầu một máy tính hiện đại cùng một số giả định và yếu tố hợp lý (được liệt "
+"kê bên dưới)."
+
+#: ../doc/playback.rst:29
+msgid ""
+"To watch a file or choose a section before adding it to the timeline, right-"
+"click it in Project Files and choose :guilabel:`Preview File` or "
+":guilabel:`Split File`. See :ref:`source_preview_ref`."
+msgstr ""
+"Để xem trước một tệp hoặc chọn một phần trước khi thêm vào dòng thời gian, "
+"nhấp chuột phải vào tệp trong Tệp Dự án và chọn :guilabel:`Xem Trước Tệp` "
+"hoặc :guilabel:`Chia Tệp`. Xem :ref:`source_preview_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:30
+#: ../doc/playback.rst:34
 msgid "Real-Time Preview"
 msgstr "Xem trước thời gian thực"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:31
+#: ../doc/playback.rst:35
 msgid ""
 "Many factors affect how smoothly the **real-time video preview** can "
 "playback on your computer. This requires a fast, modern multi-threaded CPU, "
-"lots of RAM (memory), and a modern GPU. We have listed many of the important "
-"factors below."
+"lots of RAM (memory), and a modern GPU. We have listed many of the important"
+" factors below."
 msgstr ""
-"Nhiều yếu tố ảnh hưởng đến độ mượt mà của **xem trước video thời gian thực** "
-"trên máy tính của bạn. Điều này đòi hỏi CPU đa luồng nhanh và hiện đại, "
+"Nhiều yếu tố ảnh hưởng đến độ mượt mà của **xem trước video thời gian thực**"
+" trên máy tính của bạn. Điều này đòi hỏi CPU đa luồng nhanh và hiện đại, "
 "nhiều RAM (bộ nhớ), và GPU hiện đại. Chúng tôi đã liệt kê nhiều yếu tố quan "
 "trọng bên dưới."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:38
+#: ../doc/playback.rst:42
 msgid "Factor"
 msgstr "Yếu tố"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:38 ../playback.rst:97
+#: ../doc/playback.rst:42 ../doc/playback.rst:101
 msgid "Description"
 msgstr "Mô tả"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:40
+#: ../doc/playback.rst:44
 msgid "CPU"
 msgstr "CPU"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:40
+#: ../doc/playback.rst:44
 msgid ""
 "If your CPU is too slow or has too few cores, you will likely experience a "
 "slow, choppy preview. We recommend installing OpenShot on fairly modern "
@@ -88,29 +98,29 @@ msgstr ""
 "phần cứng cho OpenShot Video Editor."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:43
+#: ../doc/playback.rst:47
 msgid "Memory"
 msgstr "Bộ nhớ"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:43
+#: ../doc/playback.rst:47
 msgid ""
 "If your available RAM memory is too limited, you will likely see huge drops "
 "in real-time performance, and your entire system will lag. We recommend "
-"installing additional RAM in your computer, if possible. See :ref:"
-"`min_system_req_ref`."
+"installing additional RAM in your computer, if possible. See "
+":ref:`min_system_req_ref`."
 msgstr ""
 "Nếu RAM khả dụng của bạn quá hạn chế, bạn có thể thấy hiệu suất thời gian "
 "thực giảm mạnh và toàn bộ hệ thống bị chậm. Chúng tôi khuyên bạn nên lắp "
 "thêm RAM cho máy tính nếu có thể. Xem :ref:`min_system_req_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:46
+#: ../doc/playback.rst:50
 msgid "Cache"
 msgstr "Bộ nhớ đệm"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:46
+#: ../doc/playback.rst:50
 msgid ""
 "Your cache settings in the OpenShot Preferences are very important for "
 "determining how many frames to processes in advance. A value too low or too "
@@ -118,8 +128,8 @@ msgid ""
 "related to the available RAM. The higher the cache values, the more RAM and "
 "CPU is needed. We recommend experimenting with the Cache Preferences in "
 "OpenShot if you are experiencing issues with smooth playback. This same "
-"caching system also prepares frames ahead of time during export, speeding up "
-"the final render. See :ref:`preferences_cache_ref`."
+"caching system also prepares frames ahead of time during export, speeding up"
+" the final render. See :ref:`preferences_cache_ref`."
 msgstr ""
 "Cài đặt bộ nhớ đệm trong phần Tùy chọn của OpenShot rất quan trọng để xác "
 "định số khung hình được xử lý trước. Giá trị quá thấp hoặc quá cao có thể "
@@ -127,16 +137,16 @@ msgstr ""
 "đến RAM khả dụng. Giá trị bộ nhớ đệm càng cao, càng cần nhiều RAM và CPU. "
 "Chúng tôi khuyên bạn nên thử nghiệm với Tùy chọn Bộ nhớ đệm trong OpenShot "
 "nếu gặp vấn đề về phát lại mượt mà. Hệ thống bộ nhớ đệm này cũng chuẩn bị "
-"khung hình trước trong quá trình xuất, giúp tăng tốc kết xuất cuối cùng. "
-"Xem :ref:`preferences_cache_ref`."
+"khung hình trước trong quá trình xuất, giúp tăng tốc kết xuất cuối cùng. Xem"
+" :ref:`preferences_cache_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:52
+#: ../doc/playback.rst:56
 msgid "Preview Size"
 msgstr "Kích thước xem trước"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:52
+#: ../doc/playback.rst:56
 msgid ""
 "The height x width of your preview dock (widget) is very important for "
 "smooth real-time previews. The larger the window size, the more pixels must "
@@ -153,12 +163,12 @@ msgstr ""
 "để xem trước thời gian thực (ví dụ 320 x 240)."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:57
+#: ../doc/playback.rst:61
 msgid "Profile"
 msgstr "Hồ sơ"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:57
+#: ../doc/playback.rst:61
 msgid ""
 "Your project profile determines which size (width x height) and frame rate "
 "(FPS) are used during both playback and exporting. For example, if you are "
@@ -168,19 +178,19 @@ msgid ""
 "information on available profiles."
 msgstr ""
 "Hồ sơ dự án của bạn xác định kích thước (chiều rộng x chiều cao) và tốc độ "
-"khung hình (FPS) được sử dụng trong cả phát lại và xuất file. Ví dụ, nếu bạn "
-"sử dụng hồ sơ kích thước FHD 1920x1080, bạn cũng có thể chọn hồ sơ nhỏ hơn "
-"với tỷ lệ khung hình giống nhau (``16x9`` trong ví dụ này), để cải thiện tốc "
-"độ xem trước trên máy tính chậm hơn. Xem :ref:`profiles_ref` để biết thêm "
+"khung hình (FPS) được sử dụng trong cả phát lại và xuất file. Ví dụ, nếu bạn"
+" sử dụng hồ sơ kích thước FHD 1920x1080, bạn cũng có thể chọn hồ sơ nhỏ hơn "
+"với tỷ lệ khung hình giống nhau (``16x9`` trong ví dụ này), để cải thiện tốc"
+" độ xem trước trên máy tính chậm hơn. Xem :ref:`profiles_ref` để biết thêm "
 "thông tin về các hồ sơ có sẵn."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:61
+#: ../doc/playback.rst:65
 msgid "FPS (Frame Rate)"
 msgstr "FPS (Tốc độ khung hình)"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:61
+#: ../doc/playback.rst:65
 msgid ""
 "The FPS of your project is also very important, and a large factor for "
 "smooth video playback. For example, a 60 FPS video must render twice the "
@@ -194,12 +204,12 @@ msgstr ""
 "thể hữu ích khi giảm FPS dự án xuống giá trị thấp hơn, như 30 hoặc 24."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:65
+#: ../doc/playback.rst:69
 msgid "Matching Rates"
 msgstr "Tỷ lệ phù hợp"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:65
+#: ../doc/playback.rst:69
 msgid ""
 "It is very important to match your source assets FPS and Sample Rate with "
 "your Project FPS and Project sample rate. If either rate does not match "
@@ -210,28 +220,29 @@ msgid ""
 "inspect the source asset rates, and ensure they match your Project settings "
 "(shown at the top of OpenShot). See :ref:`file_properties_ref`."
 msgstr ""
-"Rất quan trọng để khớp FPS và Tốc độ mẫu của nguồn với FPS và tốc độ mẫu của "
-"Dự án. Nếu một trong hai không khớp chính xác, OpenShot sẽ cần nhiều CPU và "
-"RAM hơn để chuẩn hóa các tỷ lệ không khớp. Điều này có thể dẫn đến tiếng nổ "
-"âm thanh, lệch khung hình, khung hình trùng lặp và giật lag khi xem trước "
-"video thời gian thực. Bạn có thể nhấp chuột phải vào tệp và chọn :guilabel:"
-"`Thuộc tính Tệp` để kiểm tra tỷ lệ nguồn và đảm bảo chúng khớp với cài đặt "
-"Dự án của bạn (hiển thị ở đầu OpenShot). Xem :ref:`file_properties_ref`."
+"Rất quan trọng để khớp FPS và Tốc độ mẫu của nguồn với FPS và tốc độ mẫu của"
+" Dự án. Nếu một trong hai không khớp chính xác, OpenShot sẽ cần nhiều CPU và"
+" RAM hơn để chuẩn hóa các tỷ lệ không khớp. Điều này có thể dẫn đến tiếng nổ"
+" âm thanh, lệch khung hình, khung hình trùng lặp và giật lag khi xem trước "
+"video thời gian thực. Bạn có thể nhấp chuột phải vào tệp và chọn "
+":guilabel:`Thuộc tính Tệp` để kiểm tra tỷ lệ nguồn và đảm bảo chúng khớp với"
+" cài đặt Dự án của bạn (hiển thị ở đầu OpenShot). Xem "
+":ref:`file_properties_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:71
+#: ../doc/playback.rst:75
 msgid "Source Assets"
 msgstr "Tệp nguồn"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:71
+#: ../doc/playback.rst:75
 msgid ""
 "For example, if you are editing 4K 60 FPS source assets, this is likely "
 "going to put a strain on your system. A common solution is using another "
-"tool (such as FFmpeg) to create a copy (or proxy) of all your source assets, "
-"at a lower resolution (and maybe even a lower FPS). It is recommended to "
-"keep these proxy video files in their own folder, separate from the original "
-"video files. Once you have completed your video editing with the proxy "
+"tool (such as FFmpeg) to create a copy (or proxy) of all your source assets,"
+" at a lower resolution (and maybe even a lower FPS). It is recommended to "
+"keep these proxy video files in their own folder, separate from the original"
+" video files. Once you have completed your video editing with the proxy "
 "files, simply copy/paste your `*.osp` project file back into the original "
 "folder, and export the higher quality, original files."
 msgstr ""
@@ -244,35 +255,35 @@ msgstr ""
 "trở lại thư mục gốc và xuất các tệp gốc chất lượng cao hơn."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:77 ../playback.rst:101
+#: ../doc/playback.rst:81 ../doc/playback.rst:105
 msgid "Audio Device"
 msgstr "Thiết bị âm thanh"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:77
+#: ../doc/playback.rst:81
 msgid ""
-"If you are still having issues with audio lag or sync, please verify you are "
-"using the correct :guilabel:`Playback Audio Device` for playback (in the "
+"If you are still having issues with audio lag or sync, please verify you are"
+" using the correct :guilabel:`Playback Audio Device` for playback (in the "
 "OpenShot Preferences). See :ref:`preferences_preview_ref`. Verify your "
 "default audio device (on your operating system) is using the same sample "
-"rate and all *Audio Enhancements* are disabled. On certain operating systems "
-"(such as Windows), mismatching sample rates or audio enhancements can cause "
-"severe audio / video sync problems. Lastly, try adjusting the :guilabel:"
-"`Playback Audio Buffer Size` (lower values will playback audio with less "
-"delay, higher values will playback audio with a larger delay). OpenShot "
-"defaults to a buffer size of 512, which is reasonable for most systems, "
-"however on some systems you might need to lower (or raise) this value for "
-"smooth and lag-free audio playback. Be sure to restart OpenShot after "
-"changing the audio playback settings."
+"rate and all *Audio Enhancements* are disabled. On certain operating systems"
+" (such as Windows), mismatching sample rates or audio enhancements can cause"
+" severe audio / video sync problems. Lastly, try adjusting the "
+":guilabel:`Playback Audio Buffer Size` (lower values will playback audio "
+"with less delay, higher values will playback audio with a larger delay). "
+"OpenShot defaults to a buffer size of 512, which is reasonable for most "
+"systems, however on some systems you might need to lower (or raise) this "
+"value for smooth and lag-free audio playback. Be sure to restart OpenShot "
+"after changing the audio playback settings."
 msgstr ""
-"Nếu bạn vẫn gặp sự cố về độ trễ hoặc đồng bộ âm thanh, vui lòng xác nhận bạn "
-"đang sử dụng :guilabel:`Thiết Bị Phát Âm Thanh` đúng cho việc phát lại "
+"Nếu bạn vẫn gặp sự cố về độ trễ hoặc đồng bộ âm thanh, vui lòng xác nhận bạn"
+" đang sử dụng :guilabel:`Thiết Bị Phát Âm Thanh` đúng cho việc phát lại "
 "(trong phần Tùy Chọn của OpenShot). Xem :ref:`preferences_preview_ref`. Xác "
-"nhận thiết bị âm thanh mặc định của bạn (trên hệ điều hành) sử dụng cùng tần "
-"số mẫu và tất cả *Tăng Cường Âm Thanh* đều bị tắt. Trên một số hệ điều hành "
-"(như Windows), tần số mẫu không khớp hoặc tăng cường âm thanh có thể gây ra "
-"vấn đề nghiêm trọng về đồng bộ âm thanh / video. Cuối cùng, thử điều chỉnh :"
-"guilabel:`Kích Thước Bộ Đệm Phát Âm Thanh` (giá trị thấp hơn sẽ phát âm "
+"nhận thiết bị âm thanh mặc định của bạn (trên hệ điều hành) sử dụng cùng tần"
+" số mẫu và tất cả *Tăng Cường Âm Thanh* đều bị tắt. Trên một số hệ điều hành"
+" (như Windows), tần số mẫu không khớp hoặc tăng cường âm thanh có thể gây ra"
+" vấn đề nghiêm trọng về đồng bộ âm thanh / video. Cuối cùng, thử điều chỉnh "
+":guilabel:`Kích Thước Bộ Đệm Phát Âm Thanh` (giá trị thấp hơn sẽ phát âm "
 "thanh với độ trễ ít hơn, giá trị cao hơn sẽ phát âm thanh với độ trễ lớn "
 "hơn). OpenShot mặc định bộ đệm là 512, phù hợp với hầu hết hệ thống, tuy "
 "nhiên trên một số hệ thống bạn có thể cần giảm (hoặc tăng) giá trị này để "
@@ -280,12 +291,12 @@ msgstr ""
 "sau khi thay đổi cài đặt phát âm thanh."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:89
+#: ../doc/playback.rst:93
 msgid "Audio Troubleshooting"
 msgstr "Khắc Phục Sự Cố Âm Thanh"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:90
+#: ../doc/playback.rst:94
 msgid ""
 "If you are still experiencing audio related issues, and the above real-time "
 "playback factors did not resolve your issue, here are some additional "
@@ -296,36 +307,36 @@ msgstr ""
 "bổ sung bạn có thể thực hiện."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:97
+#: ../doc/playback.rst:101
 msgid "Step"
 msgstr "Bước"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:99
+#: ../doc/playback.rst:103
 msgid "Latest Daily Build"
 msgstr "Phiên Bản Daily Mới Nhất"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:99
+#: ../doc/playback.rst:103
 msgid ""
-"Verify you are running the latest daily build of OpenShot: https://www."
-"openshot.org/download#daily"
+"Verify you are running the latest daily build of OpenShot: "
+"https://www.openshot.org/download#daily"
 msgstr ""
-"Xác nhận bạn đang chạy phiên bản daily mới nhất của OpenShot: https://www."
-"openshot.org/download#daily"
+"Xác nhận bạn đang chạy phiên bản daily mới nhất của OpenShot: "
+"https://www.openshot.org/download#daily"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:100
+#: ../doc/playback.rst:104
 msgid "Clean Install"
 msgstr "Cài Đặt Sạch"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:100
+#: ../doc/playback.rst:104
 msgid "See :ref:`preferences_reset_ref` for a clean install"
 msgstr "Xem :ref:`preferences_reset_ref` để biết cách cài đặt sạch"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:101
+#: ../doc/playback.rst:105
 msgid ""
 "Check that the Playback Audio Device is set correctly for your sound output "
 "under Preferences in the Preview tab. Restart OpenShot after changing the "
@@ -333,25 +344,25 @@ msgid ""
 "from the video card, headphones, etc.) to rule out other audio issues. "
 "Disable `automatic sound suppression` for voice calls during microphone "
 "activity, and disable `Audio Enhancements` under the advanced settings tab "
-"of your audio device (not all audio devices have these settings). See :ref:"
-"`preferences_preview_ref`."
+"of your audio device (not all audio devices have these settings). See "
+":ref:`preferences_preview_ref`."
 msgstr ""
-"Kiểm tra xem Thiết Bị Phát Âm Thanh có được đặt đúng cho đầu ra âm thanh của "
-"bạn trong phần Tùy Chọn ở tab Xem Trước hay không. Khởi động lại OpenShot "
+"Kiểm tra xem Thiết Bị Phát Âm Thanh có được đặt đúng cho đầu ra âm thanh của"
+" bạn trong phần Tùy Chọn ở tab Xem Trước hay không. Khởi động lại OpenShot "
 "sau khi thay đổi cài đặt. Bạn cũng có thể thử thiết bị âm thanh khác (USB, "
 "âm thanh qua HDMI từ card video, tai nghe, v.v.) để loại trừ các vấn đề âm "
 "thanh khác. Tắt `tự động giảm tiếng ồn` cho cuộc gọi thoại khi micro hoạt "
 "động, và tắt `Tăng Cường Âm Thanh` trong tab cài đặt nâng cao của thiết bị "
-"âm thanh của bạn (không phải thiết bị âm thanh nào cũng có các cài đặt này). "
-"Xem :ref:`preferences_preview_ref`."
+"âm thanh của bạn (không phải thiết bị âm thanh nào cũng có các cài đặt này)."
+" Xem :ref:`preferences_preview_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:107
+#: ../doc/playback.rst:111
 msgid "Audio Buffer Size"
 msgstr "Kích Thước Bộ Đệm Âm Thanh"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:107
+#: ../doc/playback.rst:111
 msgid ""
 "The audio buffer size is the amount of audio samples which must first be "
 "buffered in OpenShot before audio playback can begin. If this value is too "
@@ -367,19 +378,19 @@ msgstr ""
 "trong OpenShot trước khi phát âm thanh có thể bắt đầu. Nếu giá trị này quá "
 "thấp, bạn có thể gặp hiện tượng âm thanh bị gián đoạn / lách tách / nổ. Nếu "
 "giá trị này quá cao, bạn có thể gặp độ trễ hoặc lag trước khi phát âm thanh "
-"bắt đầu. OpenShot mặc định giá trị này là 512, là giá trị hợp lý cho hầu hết "
-"hệ thống, giúp phát âm thanh mượt mà với độ trễ hoặc lag tối thiểu có thể "
-"nhận thấy. Tuy nhiên, trên một số hệ thống, giá trị này có thể cần được điều "
-"chỉnh lên hoặc xuống để phát âm thanh đồng bộ và không bị lag. Phạm vi là từ "
-"128 đến 4096."
+"bắt đầu. OpenShot mặc định giá trị này là 512, là giá trị hợp lý cho hầu hết"
+" hệ thống, giúp phát âm thanh mượt mà với độ trễ hoặc lag tối thiểu có thể "
+"nhận thấy. Tuy nhiên, trên một số hệ thống, giá trị này có thể cần được điều"
+" chỉnh lên hoặc xuống để phát âm thanh đồng bộ và không bị lag. Phạm vi là "
+"từ 128 đến 4096."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:113
+#: ../doc/playback.rst:117
 msgid "Sample Rate"
 msgstr "Tần Số Mẫu"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:113
+#: ../doc/playback.rst:117
 msgid ""
 "Ensure that the `Default Audio Sample Rate` and `Default Audio Channels` on "
 "the Preview tab of the Preferences window match your hardware. You can also "
@@ -392,31 +403,31 @@ msgstr ""
 "dụ: Bảng Điều Khiển Âm Thanh Windows). Xem :ref:`preferences_preview_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:116
+#: ../doc/playback.rst:120
 msgid "Volume"
 msgstr "Âm Lượng"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:116
+#: ../doc/playback.rst:120
 msgid ""
-"Ensure that the volume does not exceed 100% on overlapping clips (such as an "
-"audio track combined with a video track). Lower the volume on individual "
+"Ensure that the volume does not exceed 100% on overlapping clips (such as an"
+" audio track combined with a video track). Lower the volume on individual "
 "clips if needed. See :ref:`clip_volume_mixing_ref`."
 msgstr ""
-"Đảm bảo âm lượng không vượt quá 100% trên các clip chồng lên nhau (chẳng hạn "
-"như một bản nhạc âm thanh kết hợp với bản nhạc video). Giảm âm lượng trên "
+"Đảm bảo âm lượng không vượt quá 100% trên các clip chồng lên nhau (chẳng hạn"
+" như một bản nhạc âm thanh kết hợp với bản nhạc video). Giảm âm lượng trên "
 "từng clip nếu cần. Xem :ref:`clip_volume_mixing_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:118
+#: ../doc/playback.rst:122
 msgid "Headphones"
 msgstr "Tai Nghe"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:118
+#: ../doc/playback.rst:122
 msgid ""
-"If you're using headphones, plug them in before starting OpenShot. Launching "
-"OpenShot with no speakers, headphones, or valid audio playback device can "
+"If you're using headphones, plug them in before starting OpenShot. Launching"
+" OpenShot with no speakers, headphones, or valid audio playback device can "
 "cause OpenShot to freeze during playback."
 msgstr ""
 "Nếu bạn sử dụng tai nghe, hãy cắm chúng trước khi khởi động OpenShot. Khởi "
@@ -424,17 +435,49 @@ msgstr ""
 "có thể khiến OpenShot bị treo trong quá trình phát."
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:120
+#: ../doc/playback.rst:124
 msgid "OS Updates"
 msgstr "Cập Nhật Hệ Điều Hành"
 
 # Translated with gpt-4.1-mini
-#: ../playback.rst:120
+#: ../doc/playback.rst:124
 msgid ""
 "Update your operating system and any pending security updates. Some audio "
 "issues, especially audio device specific issues, can be resolved with an "
 "operating system update."
 msgstr ""
-"Cập nhật hệ điều hành và các bản cập nhật bảo mật đang chờ. Một số vấn đề âm "
-"thanh, đặc biệt là các vấn đề liên quan đến thiết bị âm thanh, có thể được "
+"Cập nhật hệ điều hành và các bản cập nhật bảo mật đang chờ. Một số vấn đề âm"
+" thanh, đặc biệt là các vấn đề liên quan đến thiết bị âm thanh, có thể được "
 "giải quyết bằng cách cập nhật hệ điều hành."
+
+#: ../doc/playback.rst:129
+msgid "Smoother playback with optimized videos"
+msgstr "Phát mượt mà hơn với video được tối ưu hóa"
+
+#: ../doc/playback.rst:130
+msgid ""
+"If your source videos are difficult to play smoothly, enable "
+":menuselection:`File --> Auto-Optimize`. OpenShot identifies videos on your "
+"computer using their recorded thumbnail timings, and creates smaller preview"
+" copies for videos above the threshold in :menuselection:`Edit --> "
+"Preferences --> Optimize`. This setting belongs to the current project and "
+"is saved with it. You can keep editing while copies are created; exporting "
+"still uses your original files."
+msgstr ""
+"Nếu video gốc của bạn khó phát mượt mà, hãy bật :menuselection:`File --> Tự "
+"Động Tối Ưu`. OpenShot xác định video trên máy tính của bạn dựa trên thời "
+"gian ghi lại của hình thu nhỏ, và tạo các bản xem trước nhỏ hơn cho các "
+"video vượt quá ngưỡng trong :menuselection:`Edit --> Preferences --> "
+"Optimize`. Cài đặt này thuộc về dự án hiện tại và được lưu cùng với nó. Bạn "
+"có thể tiếp tục chỉnh sửa trong khi các bản sao được tạo; xuất vẫn sử dụng "
+"các tệp gốc của bạn."
+
+#: ../doc/playback.rst:137
+msgid ""
+"See :ref:`optimize_ref` for the banner, progress indicators, and manual "
+"optimization options, or :ref:`preferences_optimize_ref` to adjust the "
+"threshold and default behavior."
+msgstr ""
+"Xem :ref:`optimize_ref` để biết về biểu ngữ, chỉ báo tiến trình và các tùy "
+"chọn tối ưu hóa thủ công, hoặc :ref:`preferences_optimize_ref` để điều chỉnh"
+" ngưỡng và hành vi mặc định."

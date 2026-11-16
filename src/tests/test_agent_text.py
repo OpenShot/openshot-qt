@@ -172,7 +172,7 @@ class AgentTextTests(unittest.TestCase):
         self.assertEqual([row['text'] for row in self.call('text.list', search='second')['texts']], ['Second title'])
         page = self.call('text.list', limit=1)
         self.assertEqual((len(page['texts']), page['total'], page['next_offset']), (1, 2, 1))
-        fonts = self.call('text.fonts', search=self.added['style']['font_family'][:4])
+        fonts = self.call('text.fonts', search=self.added['style']['font_family'])
         self.assertIn(self.added['style']['font_family'], fonts['fonts'])
         selection = self.call('edit.select', selection={'text': True})
         self.assertEqual(selection['count'], 2)

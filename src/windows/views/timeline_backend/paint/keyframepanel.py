@@ -341,6 +341,8 @@ class KeyframePanelPainter(BasePainter):
             painter.drawLine(QPointF(start_x, baseline), QPointF(end_x, baseline))
 
         inactive = 0.72
+        glyphs = {}
+        spacing = max(1.0, self.marker_size / 2.0)
         for point in prop.get("points") or []:
             seconds = point.get("seconds")
             if seconds is None:
@@ -349,6 +351,11 @@ class KeyframePanelPainter(BasePainter):
             if x < lane_clip.left() - 1.0 or x > lane_clip.right() + 1.0:
                 continue
             x = max(lane_clip.left(), min(lane_clip.right(), x))
+            bucket = int(x // spacing)
+            previous = glyphs.get(bucket)
+            if previous is None or (point.get("selected") and not previous[1].get("selected")):
+                glyphs[bucket] = (x, point)
+        for x, point in glyphs.values():
             selected = bool(point.get("selected"))
             painter.setOpacity(1.0 if selected else inactive)
             self._draw_marker(

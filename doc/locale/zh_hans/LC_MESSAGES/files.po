@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-02 17:20-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,24 +20,23 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:23
+#: ../doc/files.rst:23
 msgid "Files"
 msgstr "文件"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:25
+#: ../doc/files.rst:25
 msgid ""
 "To create a video, we need to make media files available to our project by "
-"importing files into OpenShot. Most media file types are recognized, such as "
-"videos, images, and audio files. Files can be viewed and managed in the "
+"importing files into OpenShot. Most media file types are recognized, such as"
+" videos, images, and audio files. Files can be viewed and managed in the "
 "**Project Files** panel."
 msgstr ""
-"要创建视频，我们需要通过将文件导入 OpenShot，使媒体文件可用于项目。大多数媒体"
-"文件类型都被识别，如视频、图像和音频文件。文件可以在**项目文件** 面板中查看和"
-"管理。"
+"要创建视频，我们需要通过将文件导入 OpenShot，使媒体文件可用于项目。大多数媒体文件类型都被识别，如视频、图像和音频文件。文件可以在\\ "
+"**项目文件** 面板中查看和管理。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:29
+#: ../doc/files.rst:29
 msgid ""
 "Note that imported files are not copied anywhere, they remain in the "
 "physical location they were before and are simply being made available to "
@@ -47,19 +46,16 @@ msgid ""
 "are interested in. You can also toggle the view between :guilabel:`details` "
 "and :guilabel:`thumbnails` view of your files."
 msgstr ""
-"请注意，导入的文件不会被复制到任何地方，它们仍然保留在原来的物理位置，只是被"
-"提供给您的视频项目使用。因此，添加到项目后，文件不能被删除、重命名或移动。文"
-"件上方的“显示全部”、“视频”、“音频”、“图像”过滤器允许您只查看感兴趣的文件类"
-"型。您还可以在 :guilabel:`详细信息` 和 :guilabel:` 缩略图` 视图之间切换文件显"
-"示方式。"
+"请注意，导入的文件不会被复制到任何地方，它们仍然保留在原来的物理位置，只是被提供给您的视频项目使用。因此，添加到项目后，文件不能被删除、重命名或移动。文件上方的“显示全部”、“视频”、“音频”、“图像”过滤器允许您只查看感兴趣的文件类型。您还可以在"
+" :guilabel:`详细信息` 和 :guilabel:` 缩略图` 视图之间切换文件显示方式。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:39
+#: ../doc/files.rst:39
 msgid "Import Files"
 msgstr "导入文件"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:40
+#: ../doc/files.rst:40
 msgid ""
 "There are many different ways to import media files into an OpenShot "
 "project. When a file is imported successfully, it will be automatically "
@@ -67,322 +63,420 @@ msgid ""
 "the **Project Files** panel is not currently visible, OpenShot will "
 "automatically display the panel."
 msgstr ""
-"有多种方式可以将媒体文件导入 OpenShot 项目。文件导入成功后，会自动被选中并滚"
-"动到视图中（在**项目文件** 面板）。如果**项目文件** 面板当前不可见，OpenShot "
-"会自动显示该面板。"
+"有多种方式可以将媒体文件导入 OpenShot 项目。文件导入成功后，会自动被选中并滚动到视图中（在\\ **项目文件** 面板）。如果\\ "
+"**项目文件** 面板当前不可见，OpenShot 会自动显示该面板。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:48
+#: ../doc/files.rst:48
 msgid "Import File Method"
 msgstr "导入文件方法"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:48 ../files.rst:85 ../files.rst:142 ../files.rst:182
-#: ../files.rst:216 ../files.rst:240
+#: ../doc/files.rst:48 ../doc/files.rst:85 ../doc/files.rst:288
+#: ../doc/files.rst:362 ../doc/files.rst:386
 msgid "Description"
 msgstr "描述"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:50
+#: ../doc/files.rst:50
 msgid "Drag and Drop"
 msgstr "拖放"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:50
+#: ../doc/files.rst:50
 msgid ""
 "Drag and drop the files from your file manager (file explorer, finder, "
 "etc...)."
 msgstr "从文件管理器（文件资源管理器、访达等）拖放文件。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:51
+#: ../doc/files.rst:51
 msgid "Context menu (`File Menu`_)"
 msgstr "上下文菜单 (`File Menu`_)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:51
+#: ../doc/files.rst:51
 msgid ""
-"Right click anywhere in the **Project Files** panel and choose :guilabel:"
-"`Import Files`."
-msgstr "在**项目文件** 面板任意位置右键点击，选择 :guilabel:`导入文件` 。"
+"Right click anywhere in the **Project Files** panel and choose "
+":guilabel:`Import Files`."
+msgstr "在\\ **项目文件** 面板任意位置右键点击，选择 :guilabel:`导入文件` 。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:52
+#: ../doc/files.rst:52
 msgid "Main Menu"
 msgstr "主菜单"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:52
+#: ../doc/files.rst:52
 msgid "In the main menu choose: :guilabel:`File\\→Import Files`."
-msgstr "在主菜单中选择：:guilabel:`文件\\→导入文件` 。"
+msgstr "在主菜单中选择：\\ :guilabel:`文件\\→导入文件` 。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:53
+#: ../doc/files.rst:53
 msgid "Toolbar button"
 msgstr "工具栏按钮"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:53
+#: ../doc/files.rst:53
 msgid "Click the :guilabel:`+` toolbar button in the main toolbar."
 msgstr "点击主工具栏中的 :guilabel:`+` 按钮。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:54
+#: ../doc/files.rst:54
 msgid "Keyboard shortcut"
 msgstr "快捷键"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:54
+#: ../doc/files.rst:54
 msgid "Press :kbd:`Ctrl-F` (:kbd:`Cmd-F` on Mac)."
 msgstr "按 :kbd:`Ctrl-F` （Mac 上为 :kbd:`Cmd-F` ）。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:55 ../files.rst:63
+#: ../doc/files.rst:55 ../doc/files.rst:63
 msgid "Paste from Clipboard"
 msgstr "从剪贴板粘贴"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:55
+#: ../doc/files.rst:55
 msgid ""
 "Press :kbd:`Ctrl-V` (:kbd:`Cmd-V` on Mac) to paste copied files from your "
 "clipboard. See :ref:`paste_from_clipboard_ref`."
 msgstr ""
-"按 :kbd:`Ctrl-V` （Mac 上为 :kbd:`Cmd-V` ）从剪贴板粘贴复制的文件。参见 :ref:"
-"`paste_from_clipboard_ref` 。"
+"按 :kbd:`Ctrl-V` （Mac 上为 :kbd:`Cmd-V` ）从剪贴板粘贴复制的文件。参见 "
+":ref:`paste_from_clipboard_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:64
+#: ../doc/files.rst:64
 msgid ""
 "You can paste files and clipboard media straight into OpenShot. If you "
-"copied one or more files in your file manager, switch to OpenShot and press :"
-"kbd:`Ctrl-V` in the **Project Files** panel to add them, just like importing."
+"copied one or more files in your file manager, switch to OpenShot and press "
+":kbd:`Ctrl-V` in the **Project Files** panel to add them, just like "
+"importing."
 msgstr ""
-"您可以直接将文件和剪贴板媒体粘贴到 OpenShot。如果您在文件管理器中复制了一个或"
-"多个文件，切换到 OpenShot 并在**项目文件** 面板按 :kbd:`Ctrl-V` 添加它们，就"
-"像导入一样。"
+"您可以直接将文件和剪贴板媒体粘贴到 OpenShot。如果您在文件管理器中复制了一个或多个文件，切换到 OpenShot 并在\\ **项目文件** "
+"面板按 :kbd:`Ctrl-V` 添加它们，就像导入一样。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:67
+#: ../doc/files.rst:67
 msgid ""
 "If you copied media **data** (for example, **Copy Image** in a web browser, "
-"a pasted frame from another app, or other image/audio/video clipboard data), "
-"press :kbd:`Ctrl-V` in OpenShot to create a file for that clipboard content. "
-"OpenShot saves a copy in a temporary folder: ``.openshot_qt/clipboard/``. "
-"The new file is then added to your project and appears in **Project Files**."
+"a pasted frame from another app, or other image/audio/video clipboard data),"
+" press :kbd:`Ctrl-V` in OpenShot to create a file for that clipboard "
+"content. OpenShot saves a copy in a temporary folder: "
+"``.openshot_qt/clipboard/``. The new file is then added to your project and "
+"appears in **Project Files**."
 msgstr ""
-"如果您复制了媒体**数据** （例如，网页浏览器中的**复制图像** ，来自其他应用的"
-"粘贴帧，或其他图像/音频/视频剪贴板数据），在 OpenShot 中按 :kbd:`Ctrl-V` 会为"
-"该剪贴板内容创建一个文件。OpenShot 会将副本保存到临时文件夹：``.openshot_qt/"
-"clipboard/`` 。新文件随后会被添加到您的项目并显示在**项目文件** 中。"
+"如果您复制了媒体\\ **数据** （例如，网页浏览器中的\\ **复制图像** ，来自其他应用的粘贴帧，或其他图像/音频/视频剪贴板数据），在 "
+"OpenShot 中按 :kbd:`Ctrl-V` 会为该剪贴板内容创建一个文件。OpenShot 会将副本保存到临时文件夹：\\ "
+"``.openshot_qt/clipboard/`` 。新文件随后会被添加到您的项目并显示在\\ **项目文件** 中。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:74
+#: ../doc/files.rst:74
 msgid "File Menu"
 msgstr "文件菜单"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:75
+#: ../doc/files.rst:75
 msgid ""
 "To view the file menu, right click on a file (in the **Project Files** "
 "panel). Here are the actions you can use from the file menu."
-msgstr ""
-"要查看文件菜单，在文件（**项目文件** 面板中）上右键点击。以下是文件菜单中可用"
-"的操作。"
+msgstr "要查看文件菜单，在文件（\\ **项目文件** 面板中）上右键点击。以下是文件菜单中可用的操作。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:84
+#: ../doc/files.rst:84
 msgid "File Context Option"
 msgstr "文件上下文选项"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:86
+#: ../doc/files.rst:86
 msgid "Import Files..."
 msgstr "导入文件..."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:87
+#: ../doc/files.rst:87
 msgid "Import files into your project"
 msgstr "将文件导入到您的项目中"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:88
+#: ../doc/files.rst:88
 msgid "Create with AI / Enhance with AI (Optional)"
 msgstr "使用 AI 创建 / 使用 AI 增强（可选）"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:89
+#: ../doc/files.rst:89
 msgid ""
 "AI menu actions for generating or enhancing media files. These options are "
 "shown only when AI is enabled and the selected file type supports the "
 "workflow. See :ref:`ai_ref`."
 msgstr ""
-"用于生成或增强媒体文件的 AI 菜单操作。仅当启用 AI 且所选文件类型支持该工作流"
-"程时，才显示这些选项。参见 :ref:`ai_ref`。"
+"用于生成或增强媒体文件的 AI 菜单操作。仅当启用 AI 且所选文件类型支持该工作流程时，才显示这些选项。参见 :ref:`ai_ref`\\ 。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:90
+#: ../doc/files.rst:90
 msgid "Details View"
 msgstr "详细视图"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:91
+#: ../doc/files.rst:91
 msgid "Switch the Project Files panel to details view"
 msgstr "将项目文件面板切换到详细视图"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:92 ../files.rst:114
+#: ../doc/files.rst:92 ../doc/files.rst:116
 msgid "Preview File"
 msgstr "预览文件"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:93
+#: ../doc/files.rst:93
 msgid "Preview a media file"
 msgstr "预览媒体文件"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:94 ../files.rst:170
+#: ../doc/files.rst:94 ../doc/files.rst:316
 msgid "Split File"
 msgstr "拆分文件"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:95
+#: ../doc/files.rst:95
 msgid ""
 "Split a file into many smaller files. The new trimmed files appear in the "
 "Project Files list."
 msgstr "将文件拆分成多个更小的文件。新的剪辑文件会出现在项目文件列表中。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:96 ../files.rst:193
+#: ../doc/files.rst:96 ../doc/files.rst:339
 msgid "Export Files"
 msgstr "导出文件"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:97
+#: ../doc/files.rst:97
 msgid "Export selected files (and split segments) to a destination folder"
 msgstr "导出选定的文件（及拆分的片段）到目标文件夹"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:98 ../files.rst:205
+#: ../doc/files.rst:98 ../doc/files.rst:351
 msgid "Add to Timeline"
 msgstr "添加到时间线"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:99
+#: ../doc/files.rst:99
 msgid ""
 "Add many files to the timeline in one step, including transitions or "
 "alternating tracks."
 msgstr "一次性将多个文件添加到时间线，包括转场或交替轨道。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:100
+#: ../doc/files.rst:100
 msgid "Choose Profile"
 msgstr "选择配置文件"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:101
+#: ../doc/files.rst:101
 msgid ""
-"Change the current project profile to match the selected file. If the file's "
-"profile does not match a known profile, it will give you the option to "
+"Change the current project profile to match the selected file. If the file's"
+" profile does not match a known profile, it will give you the option to "
 "create a custom profile."
-msgstr ""
-"更改当前项目配置文件以匹配所选文件。如果文件的配置文件不匹配已知配置文件，将"
-"提供创建自定义配置文件的选项。"
+msgstr "更改当前项目配置文件以匹配所选文件。如果文件的配置文件不匹配已知配置文件，将提供创建自定义配置文件的选项。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:102 ../files.rst:242
+#: ../doc/files.rst:102 ../doc/files.rst:388
 msgid "File Properties"
 msgstr "文件属性"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:103
+#: ../doc/files.rst:103
 msgid "View the properties of a file, such as frame rate, size, etc..."
 msgstr "查看文件属性，如帧率、大小等..."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:104 ../files.rst:125
+#: ../doc/files.rst:104 ../doc/files.rst:184
 msgid "Optimize"
 msgstr "优化"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:105
+#: ../doc/files.rst:105
 msgid ""
 "Create, link, unlink, or delete optimized preview files for the selected "
 "video files."
 msgstr "为所选视频文件创建、链接、取消链接或删除优化的预览文件。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:106 ../files.rst:250
+#: ../doc/files.rst:106 ../doc/files.rst:396
 msgid "Remove from Project"
 msgstr "从项目中移除"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:107
+#: ../doc/files.rst:107
 msgid "Remove a file from the project"
 msgstr "从项目中移除文件"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:108
+#: ../doc/files.rst:108
 msgid "Edit Title"
 msgstr "编辑标题"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:109
+#: ../doc/files.rst:109
 msgid "Edit an existing title SVG file (shown when an SVG title is selected)"
 msgstr "编辑现有的标题 SVG 文件（选中 SVG 标题时显示）"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:110
+#: ../doc/files.rst:110
 msgid "Duplicate Title"
 msgstr "复制标题"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:111
+#: ../doc/files.rst:111
 #, fuzzy
 msgid ""
 "Make a copy, and then edit the copied title SVG file (shown when an SVG "
 "title is selected)"
 msgstr "制作副本，然后编辑复制的标题 SVG 文件"
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:115
+#: ../doc/files.rst:117
 msgid ""
 "The :guilabel:`Preview File` action opens the Preview dialog for the "
-"selected file from :guilabel:`Project Files`. Simply double check a file to "
-"open this dialog."
+"selected file from :guilabel:`Project Files`. Double-click a file, or press "
+":kbd:`Shift+2` or :kbd:`Alt+P` while the file list has focus. With the "
+"timeline focused, the same shortcut plays the selected clip from its Start "
+"point. You can also right-click a timeline clip and choose "
+":guilabel:`Preview Clip`. Double-clicking a saved split reopens its range "
+"editor instead of read-only preview."
 msgstr ""
-":guilabel:`预览文件` 操作会打开来自 :guilabel:`项目文件` 中所选文件的预览对话"
-"框。只需双击文件即可打开此对话框。"
+":guilabel:`预览文件` 操作会打开所选文件的预览对话框，文件来自 :guilabel:`项目文件`\\ 。双击文件，或在文件列表获得焦点时按 "
+":kbd:`Shift+2` 或 :kbd:`Alt+P`\\ "
+"。在时间轴获得焦点时，相同的快捷键会从起始点播放所选剪辑。你也可以右键点击时间轴剪辑并选择 :guilabel:`预览剪辑`\\ "
+"。双击已保存的拆分会重新打开其范围编辑器，而非只读预览。"
+
+#: ../doc/files.rst:124
+msgid "Playback starts automatically when you open a preview or Split File."
+msgstr "打开预览或拆分文件时，播放会自动开始。"
+
+#: ../doc/files.rst:125
+msgid ""
+":guilabel:`Loop` repeats playback and is enabled by default in Preview."
+msgstr ":guilabel:`循环` 会重复播放，且在预览中默认启用。"
+
+#: ../doc/files.rst:126
+msgid "Click the speaker to mute preview audio without changing the project."
+msgstr "点击扬声器图标可静音预览音频，而不改变项目。"
+
+#: ../doc/files.rst:127
+msgid ""
+"Click or drag the volume slider to adjust preview audio without affecting "
+"your exported video. Save the project to remember this volume for all its "
+"previews."
+msgstr "点击或拖动音量滑块调整预览音频，且不影响导出视频。保存项目以记住所有预览的此音量设置。"
+
+#: ../doc/files.rst:129
+msgid ""
+"Use Fit Window to size the video area to the source aspect ratio. Black bars"
+" already encoded in the source remain visible."
+msgstr "使用“适合窗口”将视频区域调整为源的宽高比。源中已编码的黑边仍然可见。"
+
+#: ../doc/files.rst:131
+msgid ""
+"Seeking during playback keeps playback running. Dragging to resize, move, or"
+" draw a range pauses playback so its boundary frames can be inspected."
+msgstr "播放时拖动定位会保持播放继续。拖动调整大小、移动或绘制范围时会暂停播放，以便检查边界帧。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:118
-msgid "Playback starts automatically."
-msgstr "播放自动开始。"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:119
-msgid "Loop is enabled by default."
-msgstr "默认启用循环播放。"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:120
+#: ../doc/files.rst:133
 msgid "Press :kbd:`Space` to toggle play/pause."
 msgstr "按 :kbd:`空格` 键切换播放/暂停。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:121
+#: ../doc/files.rst:134
 msgid "Use the mouse scroll wheel to zoom in/out."
 msgstr "使用鼠标滚轮进行放大/缩小。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:122
+#: ../doc/files.rst:135
 msgid ""
-"A :guilabel:`Reset Zoom` button appears when zoom is not 100%, and resets to "
-"100%."
+"A :guilabel:`Reset Zoom` button appears when zoom is not 100%, and resets to"
+" 100%."
+msgstr "当缩放比例不为 100% 时，会显示 :guilabel:`重置缩放` 按钮，点击可重置为 100%。"
+
+#: ../doc/files.rst:137
+msgid ""
+"Resize or maximize the window to suit your workspace. Preview and Split File"
+" remember your window size when you save the project."
+msgstr "调整或最大化窗口以适应你的工作空间。预览和拆分文件会在保存项目时记住窗口大小。"
+
+#: ../doc/files.rst:140
+msgid ""
+"The colored bar beneath the ruler shows sections already loaded for "
+"playback. If playback is choppy, try a smaller window or :ref:`optimize the "
+"file <optimize_ref>`."
+msgstr "标尺下方的彩色条显示已加载用于播放的部分。如果播放卡顿，尝试缩小窗口或 :ref:`优化文件 <optimize_ref>`\\ 。"
+
+#: ../doc/files.rst:143
+msgid ""
+"Preview File shows playback and scrubbing controls only. Preview Clip and "
+"Split File add range editing below the shared preview. The source ruler and "
+"filmstrip show the full recording, with the selected range highlighted. Drag"
+" either grip to adjust the range and move the playhead with it. Drag on the "
+"ruler above the filmstrip to scrub without changing the range. Edit the "
+"Start and End timecodes for precise boundaries, or click the adjacent clock "
+"button to use the current playhead position (:kbd:`I` / :kbd:`O`). End is "
+"the last included frame; a one-frame range is valid. Duration shows the "
+"length of the selected range and can be edited to move End while keeping "
+"Start fixed. Duration is limited to at least one frame and at most the "
+"remaining source length. The buttons beside Play jump to Start and End."
 msgstr ""
-"当缩放比例不为 100% 时，会显示 :guilabel:`重置缩放` 按钮，点击可重置为 100%。"
+"预览文件仅显示播放和拖动控制。预览剪辑和拆分文件在共享预览下方增加范围编辑。源标尺和胶片条显示完整录制，选定范围高亮。拖动任一把手调整范围并移动播放头。拖动胶片条上方的标尺可拖动播放头而不改变范围。编辑开始和结束时间码以精确界定边界，或点击旁边的时钟按钮使用当前播放头位置"
+" (:kbd:`I` / "
+":kbd:`O`)。结束是包含的最后一帧；一帧范围有效。持续时间显示选定范围长度，可编辑以移动结束点同时保持开始点固定。持续时间限制为至少一帧，最多为剩余源长度。播放旁的按钮跳转到开始和结束。"
+
+#: ../doc/files.rst:155
+msgid ""
+"When editing a timeline clip, :guilabel:`Update Clip` updates only that "
+"clip. Its position stays fixed and its duration changes; neighboring clips "
+"do not move. Locked or retimed clips can be previewed, but range application"
+" is disabled. :guilabel:`Reset` reloads the saved range. Each update is one "
+"undo step."
+msgstr ""
+"编辑时间轴剪辑时，\\ :guilabel:`更新剪辑` "
+"仅更新该剪辑。其位置保持固定，持续时间改变；相邻剪辑不移动。锁定或重新定时的剪辑可预览，但范围应用被禁用。\\ :guilabel:`重置` "
+"重新加载已保存的范围。每次更新为一个撤销步骤。"
+
+#: ../doc/files.rst:160
+msgid ""
+"Split File provides Start, End, Duration, and an optional Name beside "
+":guilabel:`Create`. Each click creates one Project Files entry and leaves "
+"the window open to create another. Pressing :kbd:`Enter` in Name or outside "
+"the time fields saves and closes the editor. In Start, End, or Duration, "
+"Enter commits the value and keeps the editor open. Tab moves through Start, "
+"End, Duration, and Name; Shift+Tab reverses the order. Each creation is one "
+"undo step. Opening an existing split lets you update its range and name "
+"without changing existing timeline clips. :guilabel:`Update` saves the split"
+" and closes its editor, refreshing the file and dependent clip thumbnails. "
+":guilabel:`Update Clip` saves and closes clip preview. Use the window close "
+"control or :kbd:`Esc` to close without applying changes."
+msgstr ""
+"拆分文件提供开始、结束、持续时间和可选名称，旁边有 :guilabel:`创建`\\ "
+"。每次点击创建一个项目文件条目，并保持窗口打开以创建另一个。在名称字段或时间字段外按 :kbd:`Enter` "
+"保存并关闭编辑器。在开始、结束或持续时间字段按 Enter 提交值并保持编辑器打开。Tab 键在开始、结束、持续时间和名称间切换；Shift+Tab "
+"反向切换。每次创建为一个撤销步骤。打开现有拆分可更新其范围和名称，而不改变现有时间轴剪辑。\\ :guilabel:`更新` "
+"保存拆分并关闭编辑器，刷新文件和依赖剪辑缩略图。\\ :guilabel:`更新剪辑` 保存并关闭剪辑预览。使用窗口关闭控件或 :kbd:`Esc` "
+"关闭而不应用更改。"
+
+#: ../doc/files.rst:173
+msgid ""
+"Drag a filmstrip handle to trim, drag inside the selection to move it, or "
+"drag outside it to draw a new range. Click to seek, or drag on the ruler to "
+"scrub without changing the range."
+msgstr "拖动胶片条把手进行修剪，拖动选区内移动选区，拖动选区外绘制新范围。点击定位，或拖动标尺拖动播放头而不改变范围。"
+
+#: ../doc/files.rst:177
+msgid ""
+"If a modified range changes elsewhere in the project, discard its local "
+"changes and reload it before saving. The dialog remains attached to its "
+"original source or timeline clip when the main-window selection changes."
+msgstr "如果修改的范围在项目其他地方发生变化，保存前请放弃本地更改并重新加载。主窗口选择更改时，对话框仍附着于其原始源或时间轴剪辑。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:126
+#: ../doc/files.rst:185
 msgid ""
 "Optimized preview files are lower-resolution copies of your source video "
 "files (sometimes referred to as proxy files), used to improve editing "
@@ -390,453 +484,638 @@ msgid ""
 "helpful with large formats such as 4K, high frame rate, or high bitrate "
 "footage."
 msgstr ""
-"优化的预览文件是您源视频文件的低分辨率副本（有时称为代理文件），用于在不更改"
-"原始媒体的情况下提高编辑响应速度。它们对4K、高帧率或高比特率等大格式视频特别"
-"有帮助。"
+"优化的预览文件是您源视频文件的低分辨率副本（有时称为代理文件），用于在不更改原始媒体的情况下提高编辑响应速度。它们对4K、高帧率或高比特率等大格式视频特别有帮助。"
+
+#: ../doc/files.rst:190
+msgid "Automatic optimization"
+msgstr "自动优化"
+
+#: ../doc/files.rst:191
+msgid ""
+"When OpenShot creates a video's first thumbnail, it records how long the "
+"first frame takes to produce. This uses work already needed to display the "
+"video in Project Files; there is no separate decoding test. Videos whose "
+"thumbnail frame takes longer than the :guilabel:`Auto-Optimize Threshold` "
+"may benefit from smaller preview copies."
+msgstr ""
+"OpenShot 创建视频的第一个缩略图时，会记录生成第一帧所需时间。这利用了显示视频在项目文件中已需的工作；没有单独的解码测试。缩略图帧生成时间超过 "
+":guilabel:`自动优化阈值` 的视频，可能受益于更小的预览副本。"
+
+#: ../doc/files.rst:196
+msgid ""
+"With the default :guilabel:`Ask` preference, a banner appears when OpenShot "
+"finds a qualifying video in a project that does not yet have a saved choice:"
+msgstr "默认 :guilabel:`询问` 偏好下，当 OpenShot 在项目中发现符合条件但尚未保存选择的视频时，会显示横幅："
+
+#: ../doc/files.rst:199
+msgid ""
+"**Optimize videos for smoother playback?** Originals and export quality stay"
+" unchanged."
+msgstr "**优化视频以获得更流畅的播放？** 原始文件和导出质量保持不变。"
+
+#: ../doc/files.rst:201
+msgid ""
+"Click :guilabel:`Optimize Automatically` to enable automatic optimization "
+"for the current project. The banner disappears immediately, and qualifying "
+"videos are added to the optimization queue. Videos you import later also "
+"join the queue when they qualify, even if another video is already being "
+"optimized. You are not asked again for each file."
+msgstr ""
+"点击 :guilabel:`自动优化` "
+"以启用当前项目的自动优化。横幅会立即消失，符合条件的视频会加入优化队列。之后导入的符合条件视频也会加入队列，即使已有视频正在优化。不会对每个文件重复询问。"
+
+#: ../doc/files.rst:206
+msgid ""
+"You can continue editing while optimization runs. There is no progress "
+"banner; progress appears on the files in Project Files instead."
+msgstr "优化运行时你可以继续编辑。没有进度横幅；进度显示在项目文件中的文件上。"
+
+#: ../doc/files.rst:209
+msgid ""
+"Click :guilabel:`Not Now` or close the banner to decline. OpenShot remembers"
+" your choice when you save the project, so reopening it or importing more "
+"videos does not repeat the suggestion. To change your choice, check or "
+"uncheck :menuselection:`File --> Auto-Optimize` or press :kbd:`Ctrl+Alt+O` "
+"(:kbd:`Command+Alt+O` on macOS). Customize this shortcut in "
+":menuselection:`Edit --> Preferences --> Keyboard`. Turning it off stops new"
+" automatic work; jobs already started can be canceled through the file's "
+":guilabel:`Optimize` submenu. Existing optimized copies remain available."
+msgstr ""
+"点击 :guilabel:`暂不` 或关闭横幅以拒绝。OpenShot "
+"会在保存项目时记住您的选择，因此重新打开项目或导入更多视频时不会重复提示。要更改您的选择，请勾选或取消勾选 :menuselection:`文件 -->"
+" 自动优化`\\ ，或按 :kbd:`Ctrl+Alt+O`\\ （macOS 上为 :kbd:`Command+Alt+O`\\ ）。您可以在 "
+":menuselection:`编辑 --> 首选项 --> 键盘` 中自定义此快捷键。关闭此功能将停止新的自动工作；已开始的任务可以通过文件的 "
+":guilabel:`优化` 子菜单取消。现有的优化副本仍然可用。"
+
+#: ../doc/files.rst:217
+msgid ""
+"In :menuselection:`Edit --> Preferences`, open the :guilabel:`Optimize` tab "
+"(see :ref:`preferences_optimize_ref`):"
+msgstr ""
+"在 :menuselection:`编辑 --> 首选项` 中，打开 :guilabel:`优化` 选项卡（参见 "
+":ref:`preferences_optimize_ref`\\ ）："
+
+#: ../doc/files.rst:220
+msgid ""
+":guilabel:`Auto-Optimize`: :guilabel:`Ask` shows the banner and is the "
+"default. :guilabel:`Always` optimizes qualifying videos without a banner. "
+":guilabel:`Never` disables suggestions and automatic processing. These "
+"defaults apply to projects without a saved choice; a project's own setting "
+"takes precedence."
+msgstr ""
+":guilabel:`自动优化`\\ ：\\ :guilabel:`询问` 会显示横幅且为默认选项。\\ :guilabel:`始终` "
+"会自动优化符合条件的视频且不显示横幅。\\ :guilabel:`从不` 禁用建议和自动处理。这些默认设置适用于没有保存选择的项目；项目自身的设置优先。"
+
+#: ../doc/files.rst:224
+msgid ""
+":guilabel:`Auto-Optimize Threshold`: defaults to **200 ms**. Lower values "
+"include more videos; higher values include fewer. This measures producing "
+"the first thumbnail frame, not opening the file, saving the thumbnail, or "
+"waiting in a queue."
+msgstr ""
+":guilabel:`自动优化阈值`\\ ：默认值为 **200 毫秒**\\ "
+"。较低的值包含更多视频；较高的值包含更少。此值测量生成第一帧缩略图的时间，不包括打开文件、保存缩略图或排队等待的时间。"
+
+#: ../doc/files.rst:227
+msgid ""
+":guilabel:`Optimized Preview Resolution` and :guilabel:`Concurrent Optimize "
+"Jobs` control the preview copies and how many videos can be processed at "
+"once."
+msgstr ":guilabel:`优化预览分辨率` 和 :guilabel:`并发优化任务数` 控制预览副本的质量以及一次可以处理多少视频。"
+
+#: ../doc/files.rst:230
+msgid ""
+"Thumbnail timing is saved with each file in the project. OpenShot reuses a "
+"valid timing when you reopen the project on the same computer. A changed "
+"source file or a different computer needs a new measurement. When opening "
+"older projects, OpenShot refreshes missing timings in the background, one "
+"small thumbnail at a time, checking videos used on the timeline first. New "
+"checks pause during playback. Slow videos trigger the same banner; accepting"
+" it also checks and queues the remaining videos. Enabling :guilabel:`File → "
+"Auto-Optimize` starts these checks too. Choosing :guilabel:`Never` or "
+"dismissing the banner stops further checks for that project. Save the "
+"project to keep its timings for next time. You can always optimize videos "
+"manually."
+msgstr ""
+"缩略图时间信息会随项目中的每个文件保存。OpenShot "
+"在同一台电脑上重新打开项目时会重用有效的时间信息。更改了源文件或在不同电脑上打开时需要重新测量。打开旧项目时，OpenShot "
+"会在后台逐个刷新缺失的时间信息，优先检查时间线上的视频。播放时会暂停新的检查。播放缓慢的视频会触发相同的横幅；接受后也会检查并排队剩余视频。启用 "
+":guilabel:`文件 → 自动优化` 也会启动这些检查。选择 :guilabel:`从不` "
+"或关闭横幅会停止该项目的进一步检查。保存项目以保留时间信息以备下次使用。您也可以随时手动优化视频。"
+
+#: ../doc/files.rst:240
+msgid ""
+"The threshold is a guide, not a guarantee of playback performance. Other "
+"applications can affect timing, and effects or overlapping clips can slow "
+"playback independently of the source video. Optimized copies use additional "
+"disk space in the project's assets folder; original files and export quality"
+" stay unchanged. Canceled or failed automatic jobs are not automatically "
+"retried during the current project session."
+msgstr ""
+"阈值仅作为参考，并不保证播放性能。其他应用程序可能影响时间，且特效或重叠剪辑可能独立于源视频减慢播放速度。优化副本会占用项目资源文件夹中的额外磁盘空间；原始文件和导出质量保持不变。取消或失败的自动任务在当前项目会话中不会自动重试。"
+
+#: ../doc/files.rst:246
+msgid ""
+"Closing OpenShot cancels queued and running optimization jobs. Active jobs "
+"finish their current processing step before closing, and unfinished preview "
+"files are removed."
+msgstr "关闭 OpenShot 会取消排队和正在运行的优化任务。活动任务会在关闭前完成当前处理步骤，未完成的预览文件将被删除。"
+
+#: ../doc/files.rst:250
+msgid "Optimization status"
+msgstr "优化状态"
+
+#: ../doc/files.rst:251
+msgid ""
+"Hover over a file in Project Files to see its filename followed by a brief "
+"status:"
+msgstr "将鼠标悬停在项目文件中的文件上，可查看其文件名及简要状态："
+
+#: ../doc/files.rst:257
+msgid "Tooltip status"
+msgstr "工具提示状态"
+
+#: ../doc/files.rst:258
+msgid "Meaning"
+msgstr "含义"
+
+#: ../doc/files.rst:259
+msgid "Queued for optimization"
+msgstr "排队等待优化"
+
+#: ../doc/files.rst:260
+msgid "Waiting for an available optimization job slot."
+msgstr "等待可用的优化任务槽位。"
+
+#: ../doc/files.rst:261
+msgid "Optimizing for smoother playback — 35%"
+msgstr "正在优化以实现更流畅的播放 — 35%"
+
+#: ../doc/files.rst:262
+msgid "Creating a preview copy. The percentage shows progress."
+msgstr "正在创建预览副本。百分比显示进度。"
+
+#: ../doc/files.rst:263
+msgid "Optimized for smoother playback"
+msgstr "已优化以实现更流畅的播放"
+
+#: ../doc/files.rst:264
+msgid "The preview copy is ready to use."
+msgstr "预览副本已准备好使用。"
+
+#: ../doc/files.rst:265
+msgid "Canceling optimization"
+msgstr "正在取消优化"
+
+#: ../doc/files.rst:266
+msgid "Stopping the current job and cleaning up the unfinished copy."
+msgstr "停止当前任务并清理未完成的副本。"
+
+#: ../doc/files.rst:267
+msgid "Optimized preview missing"
+msgstr "缺少优化预览"
+
+#: ../doc/files.rst:268
+msgid ""
+"The linked preview copy cannot be found. Recreate it with Optimize Video or "
+"link an existing copy."
+msgstr "找不到关联的预览副本。请使用“优化视频”重新创建或链接现有副本。"
+
+#: ../doc/files.rst:270
+msgid ""
+"To stop a queued or running job, right-click the file and choose "
+":menuselection:`Optimize --> Cancel`. Canceling a job does not turn off "
+":menuselection:`File --> Auto-Optimize` for later imports."
+msgstr ""
+"要停止排队或正在运行的任务，请右键点击文件并选择 :menuselection:`优化 --> 取消`\\ 。取消任务不会关闭 "
+":menuselection:`文件 --> 自动优化`\\ ，后续导入仍会自动优化。"
+
+#: ../doc/files.rst:275
+msgid "Manual optimization"
+msgstr "手动优化"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:130
+#: ../doc/files.rst:276
 msgid ""
 "For video files, the file context menu includes an :guilabel:`Optimize` "
-"submenu. This feature creates or links smaller preview copies of your source "
-"clips, which can improve playback and scrubbing on slower systems or with "
+"submenu. This feature creates or links smaller preview copies of your source"
+" clips, which can improve playback and scrubbing on slower systems or with "
 "high-resolution footage. Optimizing also pre-loads thumbnails to further "
 "improve the editing smoothness when zooming into the timeline."
 msgstr ""
-"对于视频文件，文件上下文菜单包含一个 :guilabel:`优化` 子菜单。此功能创建或链"
-"接源剪辑的较小预览副本，可改善较慢系统或高分辨率素材的播放和拖动。优化还会预"
-"加载缩略图，进一步提升缩放时间线时的编辑流畅度。"
+"对于视频文件，文件上下文菜单包含一个 :guilabel:`优化` "
+"子菜单。此功能创建或链接源剪辑的较小预览副本，可改善较慢系统或高分辨率素材的播放和拖动。优化还会预加载缩略图，进一步提升缩放时间线时的编辑流畅度。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:135
+#: ../doc/files.rst:281
 msgid "The :guilabel:`Optimize` submenu contains these actions:"
 msgstr ":guilabel:`优化` 子菜单包含以下操作："
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:141
+#: ../doc/files.rst:287
 msgid "Action"
 msgstr "操作"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:143
+#: ../doc/files.rst:289
 msgid "Optimize Video"
 msgstr "优化视频"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:144
+#: ../doc/files.rst:290
 msgid ""
 "Create an optimized preview file for each selected video file. OpenShot "
 "stores these files in the project's ``optimized`` assets folder."
-msgstr ""
-"为每个选定的视频文件创建优化的预览文件。OpenShot 将这些文件存储在项目的 "
-"``optimized`` 资源文件夹中。"
+msgstr "为每个选定的视频文件创建优化的预览文件。OpenShot 将这些文件存储在项目的 ``optimized`` 资源文件夹中。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:145
+#: ../doc/files.rst:291
 msgid "Link to Existing..."
 msgstr "链接到现有文件..."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:146
+#: ../doc/files.rst:292
 msgid ""
-"Choose a folder containing already-created optimized files and link the best "
-"matching files to the selected source clips. This supports common proxy "
-"naming styles, known proxy suffixes, file ID suffixes, and extension changes."
-msgstr ""
-"选择包含已创建优化文件的文件夹，并将最佳匹配的文件链接到所选源剪辑。此功能支"
-"持常见的代理命名样式、已知代理后缀、文件ID后缀和扩展名更改。"
+"Choose a folder containing already-created optimized files and link the best"
+" matching files to the selected source clips. This supports common proxy "
+"naming styles, known proxy suffixes, file ID suffixes, and extension "
+"changes."
+msgstr "选择包含已创建优化文件的文件夹，并将最佳匹配的文件链接到所选源剪辑。此功能支持常见的代理命名样式、已知代理后缀、文件ID后缀和扩展名更改。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:147
+#: ../doc/files.rst:293
 msgid "Unlink"
 msgstr "取消链接"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:148
+#: ../doc/files.rst:294
 msgid ""
 "Remove the optimized preview link from the selected file without deleting "
 "the optimized file from disk."
 msgstr "从所选文件中移除优化预览链接，但不删除磁盘上的优化文件。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:149
+#: ../doc/files.rst:295
 msgid "Delete & Unlink"
 msgstr "删除并取消链接"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:150
+#: ../doc/files.rst:296
 msgid ""
 "Delete the linked optimized file from disk, then remove the link from the "
 "selected file."
 msgstr "从磁盘删除已链接的优化文件，然后从所选文件中移除链接。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:152
+#: ../doc/files.rst:298
 msgid ""
-"When optimization is in progress, the submenu changes to a single :guilabel:"
-"`Cancel` action for the selected file(s). Optimized preview files are used "
-"only for editing and preview playback. Your final export still uses the "
-"original source files."
+"When optimization is in progress, the submenu changes to a single "
+":guilabel:`Cancel` action for the selected file(s). Optimized preview files "
+"are used only for editing and preview playback. Your final export still uses"
+" the original source files."
 msgstr ""
-"优化进行时，子菜单会变为针对所选文件的单一 :guilabel:`取消` 操作。优化的预览"
-"文件仅用于编辑和预览播放，最终导出仍使用原始源文件。"
+"优化进行时，子菜单会变为针对所选文件的单一 :guilabel:`取消` 操作。优化的预览文件仅用于编辑和预览播放，最终导出仍使用原始源文件。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:155
+#: ../doc/files.rst:301
 msgid ""
 "When you use :guilabel:`Link to Existing...`, OpenShot tries to match each "
-"selected source clip to an existing optimized file in a safe order. It first "
-"looks for the same base filename with a different video extension, then for "
-"common proxy-style names such as ``_proxy``, ``_preview``, ``_optimized``, "
-"``_lowres``, resolution tags such as ``_720p`` or ``_1080p``, and camera/"
-"editor-style variants such as ``_p``. It also supports names that add the "
-"OpenShot file ID after a known proxy suffix, such as ``clip001_proxy_F1."
-"mp4``, and it can still match files named only by file ID, such as ``F1."
-"mp4``."
+"selected source clip to an existing optimized file in a safe order. It first"
+" looks for the same base filename with a different video extension, then for"
+" common proxy-style names such as ``_proxy``, ``_preview``, ``_optimized``, "
+"``_lowres``, resolution tags such as ``_720p`` or ``_1080p``, and "
+"camera/editor-style variants such as ``_p``. It also supports names that add"
+" the OpenShot file ID after a known proxy suffix, such as "
+"``clip001_proxy_F1.mp4``, and it can still match files named only by file "
+"ID, such as ``F1.mp4``."
 msgstr ""
-"使用 :guilabel:`链接到现有文件...` 时，OpenShot 会按安全顺序尝试将每个选定的"
-"源剪辑匹配到现有的优化文件。它首先查找具有不同视频扩展名但相同基本文件名的文"
-"件，然后查找常见的代理样式名称，如 ``_proxy``、``_preview``、``_optimized``、"
-"``_lowres``，分辨率标签如 ``_720p`` 或 ``_1080p``，以及摄像机/编辑器样式变体"
-"如 ``_p``。它还支持在已知代理后缀后添加 OpenShot 文件ID的名称，如 "
-"``clip001_proxy_F1.mp4``，并且仍能匹配仅以文件ID命名的文件，如 ``F1.mp4``。"
+"使用 :guilabel:`链接到现有文件...` 时，OpenShot "
+"会按安全顺序尝试将每个选定的源剪辑匹配到现有的优化文件。它首先查找具有不同视频扩展名但相同基本文件名的文件，然后查找常见的代理样式名称，如 "
+"``_proxy``\\ 、\\ ``_preview``\\ 、\\ ``_optimized``\\ 、\\ ``_lowres``\\ "
+"，分辨率标签如 ``_720p`` 或 ``_1080p``\\ ，以及摄像机/编辑器样式变体如 ``_p``\\ 。它还支持在已知代理后缀后添加 "
+"OpenShot 文件ID的名称，如 ``clip001_proxy_F1.mp4``\\ ，并且仍能匹配仅以文件ID命名的文件，如 "
+"``F1.mp4``\\ 。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:162
+#: ../doc/files.rst:308
 msgid ""
 "Best practice when bringing your own optimized files is to keep the same "
 "base filename as the source clip and add a clear proxy-style suffix, for "
-"example ``clip001_proxy.mp4`` or ``clip001_proxy.mov``. If you need to avoid "
-"filename collisions, append the OpenShot file ID after the proxy suffix, for "
-"example ``clip001_proxy_F1.mp4``. Avoid unrelated suffixes such as "
-"``_final`` or ``_reviewcopy``, because OpenShot does not treat those as safe "
-"proxy naming patterns."
+"example ``clip001_proxy.mp4`` or ``clip001_proxy.mov``. If you need to avoid"
+" filename collisions, append the OpenShot file ID after the proxy suffix, "
+"for example ``clip001_proxy_F1.mp4``. Avoid unrelated suffixes such as "
+"``_final`` or ``_reviewcopy``, because OpenShot does not treat those as safe"
+" proxy naming patterns."
 msgstr ""
-"自带优化文件时的最佳做法是保持与源剪辑相同的基本文件名，并添加明确的代理样式"
-"后缀，例如 ``clip001_proxy.mp4`` 或 ``clip001_proxy.mov``。如果需要避免文件名"
-"冲突，可在代理后缀后附加 OpenShot 文件ID，例如 ``clip001_proxy_F1.mp4``。避免"
-"使用无关后缀如 ``_final`` 或 ``_reviewcopy``，因为 OpenShot 不将其视为安全的"
-"代理命名模式。"
+"自带优化文件时的最佳做法是保持与源剪辑相同的基本文件名，并添加明确的代理样式后缀，例如 ``clip001_proxy.mp4`` 或 "
+"``clip001_proxy.mov``\\ 。如果需要避免文件名冲突，可在代理后缀后附加 OpenShot 文件ID，例如 "
+"``clip001_proxy_F1.mp4``\\ 。避免使用无关后缀如 ``_final`` 或 ``_reviewcopy``\\ ，因为 "
+"OpenShot 不将其视为安全的代理命名模式。"
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:171
+#: ../doc/files.rst:317
 msgid ""
-"If you need to cut a large video file into many smaller files before "
-"editing, the **Split File** dialog is built exactly for this purpose. Right "
-"click on a file, and choose :guilabel:`Split File`. Use this dialog to "
-"quickly separate a large file into many smaller segments. For each segment, "
-"you can select the starting and ending frame, and a title. Each segment "
-"appears as a new file in the Project Files dialog."
+"Use **Split File** to choose the parts of a longer recording you want to "
+"work with. Right click a file in **Project Files** and choose "
+":guilabel:`Split File`. Select the start and end of a segment, give it an "
+"optional name, and click :guilabel:`Create`. Adjust the markers and repeat "
+"to prepare as many segments as you need."
 msgstr ""
-"如果您需要在编辑前将大型视频文件切割成多个小文件，**拆分文件** 对话框正是为此"
-"设计。右键点击文件，选择 :guilabel:`拆分文件` 。使用此对话框快速将大文件分割"
-"成多个小片段。每个片段可以选择起始和结束帧，以及标题。每个片段会作为新文件出"
-"现在项目文件对话框中。"
+"使用 **拆分文件** 来选择您想处理的较长录制的部分。在 **项目文件** 中右键点击文件，选择 :guilabel:`拆分文件`\\ "
+"。选择片段的开始和结束，给它一个可选名称，然后点击 :guilabel:`创建`\\ 。调整标记并重复操作，准备所需的多个片段。"
+
+#: ../doc/files.rst:322
+msgid ""
+"Each segment appears in Project Files and can be added to the timeline like "
+"any other file. The segments all use the original media on disk, so you can "
+"prepare them without making extra copies of the recording."
+msgstr "每个片段都会出现在项目文件中，可以像其他文件一样添加到时间线。所有片段都使用磁盘上的原始媒体，因此您可以准备它们而无需制作录制的额外副本。"
+
+#: ../doc/files.rst:325
+msgid ""
+"When you add a segment to the timeline, OpenShot gives its properties "
+"starting keyframes at the segment's beginning. For example, with "
+":ref:`auto_keyframes_ref` on, you can move to the end and change the "
+"rotation to make it turn over the length of that segment. The animation "
+"starts from the part you chose to use."
+msgstr ""
+"当您将片段添加到时间线时，OpenShot 会将其属性的起始关键帧设置在片段的开始处。例如，启用 :ref:`auto_keyframes_ref` "
+"后，您可以移动到片段末尾并更改旋转，使其在该片段长度内旋转。动画从您选择使用的部分开始。"
+
+#: ../doc/files.rst:329
+msgid ""
+"If you have already animated a timeline clip, slicing it preserves that "
+"animation through the cut. Split File is useful for choosing your segments "
+"before you begin that work."
+msgstr "如果您已经为时间线剪辑制作了动画，切割它会保留该动画。拆分文件功能适合在开始工作前选择片段。"
+
+#: ../doc/files.rst:332
+msgid ""
+"Preview an existing split-file entry to adjust its saved IN/OUT range. The "
+"ruler includes the surrounding footage, allowing you to extend the range "
+"again without reimporting the source."
+msgstr "预览现有的拆分文件条目以调整其保存的入点/出点范围。标尺包含周围的素材，允许您在不重新导入源文件的情况下再次扩展范围。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:182 ../files.rst:216 ../files.rst:240
+#: ../doc/files.rst:336
+msgid ""
+"Please refer to the section :ref:`clips_cutting_slicing_ref` for more ways "
+"to cut and slice clips directly in the timeline."
+msgstr "请参阅章节 :ref:`clips_cutting_slicing_ref` 了解更多在时间线上直接剪切和分割剪辑的方法。"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:340
+msgid ""
+"If you want your split file segments available outside of your OpenShot "
+"project, or want to copy all your video assets to one place, you can do this"
+" with the **Export Files** dialog. Simply :kbd:`Ctrl+Click` to select all "
+"the files you like, then :kbd:`Right Click` and choose :guilabel:`Export "
+"Files`. In the dialog that appears, choose a destination folder, and click "
+":guilabel:`Export`."
+msgstr ""
+"如果您希望在 OpenShot 项目外使用拆分的文件片段，或想将所有视频素材复制到一个位置，可以使用 **导出文件** 对话框。只需按住 "
+":kbd:`Ctrl` 并点击选择所有文件，然后 :kbd:` 右键点击` 并选择 :guilabel:` 导出文件` "
+"。在弹出的对话框中，选择目标文件夹，然后点击 :guilabel:` 导出` 。"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:345
+msgid ""
+"NOTE: This will export each file or file segment using its **original video "
+"profile** (width, height, framerate, aspect ratio, etc...). It also supports"
+" any :ref:`split_clip_ref` (described above). For example, if you have split"
+" a long video file into many different segments (and named them), you can "
+"now export all the segments as separate video files (using the original "
+"file's video profile)."
+msgstr ""
+"注意：这将使用每个文件或文件片段的\\ **原始视频配置** （宽度、高度、帧率、宽高比等）进行导出。它还支持任何 "
+":ref:`split_clip_ref` "
+"（如上所述）。例如，如果您将一个长视频文件拆分成多个不同的片段（并命名），现在可以将所有片段作为独立视频文件导出（使用原始文件的视频配置）。"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:352
+msgid ""
+"In certain cases, you might need to add many files to the timeline at the "
+"same time. For example, a photo slideshow, or a large number of short video "
+"clips. The **Add to Timeline** dialog can automate this task for you. First,"
+" select all files you need to add, right click, and choose Add to Timeline."
+msgstr ""
+"在某些情况下，您可能需要同时将许多文件添加到时间线上。例如，照片幻灯片或大量短视频剪辑。\\ **添加到时间线** "
+"对话框可以为您自动完成此任务。首先，选择所有需要添加的文件，右键点击，选择“添加到时间线”。"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:362 ../doc/files.rst:386
 msgid "#"
 msgstr "编号"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:182 ../files.rst:216 ../files.rst:240
+#: ../doc/files.rst:362 ../doc/files.rst:386
 msgid "Name"
 msgstr "名称"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:184 ../files.rst:218 ../files.rst:242
+#: ../doc/files.rst:364 ../doc/files.rst:388
 msgid "1"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:184
-msgid "Start of File"
-msgstr "文件起始"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:184
-msgid "Choose the starting frame of your file by clicking this button"
-msgstr "点击此按钮选择文件的起始帧"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:185 ../files.rst:219 ../files.rst:243
-msgid "2"
-msgstr "2"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:185
-msgid "End of File"
-msgstr "文件结尾"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:185
-msgid "Choose the ending frame of your file by clicking this button"
-msgstr "点击此按钮选择文件的结束帧"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:186 ../files.rst:220
-msgid "3"
-msgstr "3"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:186
-msgid "Name of File"
-msgstr "文件名"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:186
-msgid "Enter an optional name"
-msgstr "输入可选名称"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:187 ../files.rst:221
-msgid "4"
-msgstr "4"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:187
-msgid "Create Button"
-msgstr "创建按钮"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:187
-msgid ""
-"Create the file (which resets this dialog, so you can repeat these steps for "
-"each segment)"
-msgstr "创建文件（这将重置此对话框，您可以为每个片段重复这些步骤）"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:190
-msgid ""
-"Please refer to the section :ref:`clips_cutting_slicing_ref` for more ways "
-"to cut and slice clips directly in the timeline."
-msgstr ""
-"请参阅章节 :ref:`clips_cutting_slicing_ref` 了解更多在时间线上直接剪切和分割"
-"剪辑的方法。"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:194
-msgid ""
-"If you want your split file segments available outside of your OpenShot "
-"project, or want to copy all your video assets to one place, you can do this "
-"with the **Export Files** dialog. Simply :kbd:`Ctrl+Click` to select all the "
-"files you like, then :kbd:`Right Click` and choose :guilabel:`Export Files`. "
-"In the dialog that appears, choose a destination folder, and click :guilabel:"
-"`Export`."
-msgstr ""
-"如果您希望在 OpenShot 项目外使用拆分的文件片段，或想将所有视频素材复制到一个"
-"位置，可以使用 **导出文件** 对话框。只需按住 :kbd:`Ctrl` 并点击选择所有文件，"
-"然后 :kbd:` 右键点击` 并选择 :guilabel:` 导出文件` 。在弹出的对话框中，选择目"
-"标文件夹，然后点击 :guilabel:` 导出` 。"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:199
-msgid ""
-"NOTE: This will export each file or file segment using its **original video "
-"profile** (width, height, framerate, aspect ratio, etc...). It also supports "
-"any :ref:`split_clip_ref` (described above). For example, if you have split "
-"a long video file into many different segments (and named them), you can now "
-"export all the segments as separate video files (using the original file's "
-"video profile)."
-msgstr ""
-"注意：这将使用每个文件或文件片段的**原始视频配置** （宽度、高度、帧率、宽高比"
-"等）进行导出。它还支持任何 :ref:`split_clip_ref` （如上所述）。例如，如果您将"
-"一个长视频文件拆分成多个不同的片段（并命名），现在可以将所有片段作为独立视频"
-"文件导出（使用原始文件的视频配置）。"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:206
-msgid ""
-"In certain cases, you might need to add many files to the timeline at the "
-"same time. For example, a photo slideshow, or a large number of short video "
-"clips. The **Add to Timeline** dialog can automate this task for you. First, "
-"select all files you need to add, right click, and choose Add to Timeline."
-msgstr ""
-"在某些情况下，您可能需要同时将许多文件添加到时间线上。例如，照片幻灯片或大量"
-"短视频剪辑。**添加到时间线** 对话框可以为您自动完成此任务。首先，选择所有需要"
-"添加的文件，右键点击，选择“添加到时间线”。"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:218
+#: ../doc/files.rst:364
 msgid "Selected Files"
 msgstr "已选文件"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:218
+#: ../doc/files.rst:364
 msgid "The list of selected files that need to be added to the timeline"
 msgstr "需要添加到时间线的已选文件列表"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:219
+#: ../doc/files.rst:365 ../doc/files.rst:389
+msgid "2"
+msgstr "2"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:365
 msgid "Order of Files"
 msgstr "文件顺序"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:219
+#: ../doc/files.rst:365
 msgid ""
 "Use these buttons to reorder the list of files (move up, move down, "
 "randomize, remove)"
 msgstr "使用这些按钮重新排序文件列表（上移、下移、随机、移除）"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:220
+#: ../doc/files.rst:366
+msgid "3"
+msgstr "3"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:366
 msgid "Timeline Position"
 msgstr "时间线位置"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:220
+#: ../doc/files.rst:366
 msgid ""
-"Choose the starting position and track where these files need to be inserted "
-"on the timeline"
+"Choose the starting position and track where these files need to be inserted"
+" on the timeline"
 msgstr "选择这些文件在时间线上插入的起始位置和轨道"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:221
+#: ../doc/files.rst:367
+msgid "4"
+msgstr "4"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:367
 msgid "Fade Options"
 msgstr "淡入淡出选项"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:221
+#: ../doc/files.rst:367
 msgid ""
 "Fade in, fade out, both, or none (only affects the image, and not audio)"
 msgstr "淡入、淡出、两者或无（仅影响图像，不影响音频）"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "5"
 msgstr "5"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "Zoom Options"
 msgstr "缩放选项"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "Zoom in, zoom out, or none"
 msgstr "放大、缩小或无"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid "6"
 msgstr "6"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid "Transitions"
 msgstr "转场"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid ""
 "Choose a specific transition to use between files, random, or none (only "
 "affects the image, and not the audio)"
 msgstr "选择文件间使用的特定转场、随机或无（仅影响图像，不影响音频）"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:229
+#: ../doc/files.rst:375
 msgid "Properties"
 msgstr "属性"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:230
+#: ../doc/files.rst:376
 msgid ""
 "To view the properties of any imported file in your video project, right "
-"click on the file, and choose **File Properties**. This will launch the file "
-"properties dialog, which displays information about your media file. For "
+"click on the file, and choose **File Properties**. This will launch the file"
+" properties dialog, which displays information about your media file. For "
 "certain types of images (i.e. image sequences), you can adjust the frame "
 "rate on this dialog also."
 msgstr ""
-"要查看视频项目中任何导入文件的属性，右键点击该文件，选择**文件属性** 。这将打"
-"开文件属性对话框，显示媒体文件的信息。对于某些类型的图像（如图像序列），您还"
-"可以在此对话框中调整帧率。"
+"要查看视频项目中任何导入文件的属性，右键点击该文件，选择\\ **文件属性** "
+"。这将打开文件属性对话框，显示媒体文件的信息。对于某些类型的图像（如图像序列），您还可以在此对话框中调整帧率。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:242
+#: ../doc/files.rst:388
 msgid ""
 "Select an image sequence in the **Project Files** panel, right click and "
 "choose **File Properties**"
-msgstr "在**项目文件** 面板中选择一个图像序列，右键点击并选择**文件属性**"
+msgstr "在\\ **项目文件** 面板中选择一个图像序列，右键点击并选择\\ **文件属性**"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:243
+#: ../doc/files.rst:389
 msgid "Frame Rate"
 msgstr "帧率"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:243
+#: ../doc/files.rst:389
 msgid ""
 "For image sequences, you can also adjust the frame rate of the animation"
 msgstr "对于图像序列，您还可以调整动画的帧率"
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:252
+#: ../doc/files.rst:398
 msgid ""
-"This will remove a file from the project. It will not delete the underlying "
-"physical file though, so removing a file from the project merely makes it "
-"unavailable for this video project."
+"Removing an entry from **Project Files** does not delete the source media "
+"from disk."
+msgstr "从 **项目文件** 中移除条目不会删除磁盘上的源媒体。"
+
+#: ../doc/files.rst:400
+msgid ""
+"You can import the file again whenever you need it. For example, after "
+"preparing several :ref:`Split File segments <split_clip_ref>` and removing "
+"the original from Project Files, you might want to use a different part of "
+"the recording. Import it again to work with the whole recording; your "
+"existing segments stay as they are. If the original is already in Project "
+"Files, importing it again selects it."
 msgstr ""
-"这将从项目中移除文件，但不会删除其物理文件，因此移除文件仅使其在此视频项目中"
-"不可用。"
+"您可以在需要时再次导入该文件。例如，在准备了几个 :ref:`Split File segments <split_clip_ref>` "
+"并从项目文件中移除原始文件后，您可能想使用录制的不同部分。再次导入它以处理整个录制；您现有的片段保持不变。如果原始文件已经在项目文件中，再次导入会选中它。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:257
+#: ../doc/files.rst:408
 msgid "Project Assets Folder"
 msgstr "项目素材文件夹"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:258
+#: ../doc/files.rst:409
 msgid ""
 "OpenShot creates and uses a few **temporary working folders** while you "
 "edit. These live under ``.openshot_qt/`` in your user profile and hold "
 "project-specific files that OpenShot generates for you:"
 msgstr ""
-"OpenShot 在编辑时会创建并使用一些**临时工作文件夹** 。这些文件夹位于用户配置"
-"文件下的 ``.openshot_qt/`` 目录中，存放 OpenShot 为您生成的项目专用文件："
+"OpenShot 在编辑时会创建并使用一些\\ **临时工作文件夹** 。这些文件夹位于用户配置文件下的 ``.openshot_qt/`` "
+"目录中，存放 OpenShot 为您生成的项目专用文件："
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:261
+#: ../doc/files.rst:412
 msgid ""
 "``.openshot_qt/blender/`` - Blender animation renders created by the "
 "Animated Title dialog"
-msgstr ""
-"``.openshot_qt/blender/`` - 由动画标题对话框创建的 Blender 动画渲染文件"
+msgstr "``.openshot_qt/blender/`` - 由动画标题对话框创建的 Blender 动画渲染文件"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:262
+#: ../doc/files.rst:413
 msgid "``.openshot_qt/title/`` - SVG title files created by the Title dialog"
 msgstr "``.openshot_qt/title/`` - 由标题对话框创建的 SVG 标题文件"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:263
+#: ../doc/files.rst:414
 msgid ""
 "``.openshot_qt/thumbnail/`` - Thumbnails generated for Project Files and "
 "Timeline"
 msgstr "``.openshot_qt/thumbnail/`` - 为项目文件和时间线生成的缩略图"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:264
+#: ../doc/files.rst:415
 msgid ""
 "``.openshot_qt/clipboard/`` - Media created from clipboard pastes (images, "
 "audio, or video that must be saved to disk first)"
-msgstr ""
-"``.openshot_qt/clipboard/`` - 从剪贴板粘贴创建的媒体（图像、音频或视频，需先"
-"保存到磁盘）"
+msgstr "``.openshot_qt/clipboard/`` - 从剪贴板粘贴创建的媒体（图像、音频或视频，需先保存到磁盘）"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:265
+#: ../doc/files.rst:416
 msgid ""
 "``.openshot_qt/optimized/`` - Optimized preview files created for smoother "
 "editing"
 msgstr "``.openshot_qt/optimized/`` - 为更流畅编辑创建的优化预览文件"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:266
+#: ../doc/files.rst:417
 msgid "``.openshot_qt/protobuf_data`` - Tracking and object detection data"
 msgstr "``.openshot_qt/protobuf_data`` - 跟踪和目标检测数据"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:268
+#: ../doc/files.rst:419
 msgid ""
 "When you choose **File→Save As**, OpenShot copies these folders into your "
 "project directory, inside a single folder named ``PROJECTNAME_Assets``. For "
@@ -844,57 +1123,53 @@ msgid ""
 "from the clipboard, and ``MyProject_Assets/optimized`` will contain any "
 "optimized preview files linked to the project."
 msgstr ""
-"当您选择 **文件→另存为** 时，OpenShot 会将这些文件夹复制到您的项目目录中，放"
-"入名为 ``PROJECTNAME_Assets`` 的单一文件夹内。例如：``MyProject_Assets/"
-"clipboard`` 将包含您从剪贴板粘贴的任何媒体，``MyProject_Assets/optimized`` 将"
-"包含链接到项目的任何优化预览文件。"
+"当您选择 **文件→另存为** 时，OpenShot 会将这些文件夹复制到您的项目目录中，放入名为 ``PROJECTNAME_Assets`` "
+"的单一文件夹内。例如：\\ ``MyProject_Assets/clipboard`` 将包含您从剪贴板粘贴的任何媒体，\\ "
+"``MyProject_Assets/optimized`` 将包含链接到项目的任何优化预览文件。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:272
+#: ../doc/files.rst:423
 #, fuzzy
 msgid ""
 "As part of this process, all paths inside your ``*.osp`` project file are "
 "updated to be **relative** to your project folder."
 msgstr ""
-"作为此过程的一部分，您的 ``*.osp`` 项目文件中的所有路径都会更新为相对于项目文"
-"件夹的**相对路径** 。这使得所有内容自包含，便于作为一个文件夹移动或备份。"
+"作为此过程的一部分，您的 ``*.osp`` 项目文件中的所有路径都会更新为相对于项目文件夹的\\ **相对路径** "
+"。这使得所有内容自包含，便于作为一个文件夹移动或备份。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:275
+#: ../doc/files.rst:426
 msgid "Missing Files"
 msgstr "缺失文件"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:277
+#: ../doc/files.rst:428
 msgid ""
 "When you create and save a project in OpenShot, any files imported into the "
 "software (such as videos, audio, and images) must remain accessible "
 "throughout the project's duration. This means that these imported files "
-"should not be renamed, deleted, or moved to different folders. Additionally, "
-"the full path where these files are located should not be renamed either. "
+"should not be renamed, deleted, or moved to different folders. Additionally,"
+" the full path where these files are located should not be renamed either. "
 "This principle applies to other video editing software as well."
 msgstr ""
-"当您在 OpenShot 中创建并保存项目时，导入到软件中的任何文件（如视频、音频和图"
-"像）必须在整个项目期间保持可访问。这意味着这些导入的文件不应被重命名、删除或"
-"移动到不同的文件夹。此外，这些文件所在的完整路径也不应被重命名。此原则同样适"
-"用于其他视频编辑软件。"
+"当您在 OpenShot "
+"中创建并保存项目时，导入到软件中的任何文件（如视频、音频和图像）必须在整个项目期间保持可访问。这意味着这些导入的文件不应被重命名、删除或移动到不同的文件夹。此外，这些文件所在的完整路径也不应被重命名。此原则同样适用于其他视频编辑软件。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:282
+#: ../doc/files.rst:433
 msgid ""
 "For example, users might move or delete folders, unplug their USB devices, "
-"or move or delete their project files. Any of these examples cause a :"
-"guilabel:`Missing File` message, in which OpenShot prompts you to locate the "
-"folder of the missing file(s). Depending on the number of files you added to "
-"your project, OpenShot could prompt you many times to find the missing files."
+"or move or delete their project files. Any of these examples cause a "
+":guilabel:`Missing File` message, in which OpenShot prompts you to locate "
+"the folder of the missing file(s). Depending on the number of files you "
+"added to your project, OpenShot could prompt you many times to find the "
+"missing files."
 msgstr ""
-"例如，用户可能会移动或删除文件夹，拔出 USB 设备，或移动或删除项目文件。任何这"
-"些情况都会导致出现 :guilabel:`缺少文件` 提示，OpenShot 会提示您定位缺失文件所"
-"在的文件夹。根据您添加到项目中的文件数量，OpenShot 可能会多次提示您查找缺失的"
-"文件。"
+"例如，用户可能会移动或删除文件夹，拔出 USB 设备，或移动或删除项目文件。任何这些情况都会导致出现 :guilabel:`缺少文件` "
+"提示，OpenShot 会提示您定位缺失文件所在的文件夹。根据您添加到项目中的文件数量，OpenShot 可能会多次提示您查找缺失的文件。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:286
+#: ../doc/files.rst:437
 msgid ""
 "When OpenShot saves a project, all file paths are converted to **relative** "
 "file paths. As long as you keep all assets organized in the same parent "
@@ -902,13 +1177,11 @@ msgid ""
 "project folder without triggering any missing file(s) prompts. You can even "
 "move a self-contained project folder to another computer without any issues."
 msgstr ""
-"当 OpenShot 保存项目时，所有文件路径都会转换为**相对** 路径。只要您将所有资源"
-"保存在同一个父文件夹中（包括 \\*.osp 项目文件），就可以移动项目文件夹而不会触"
-"发任何缺少文件的提示。您甚至可以将自包含的项目文件夹移动到另一台计算机，且不"
-"会出现任何问题。"
+"当 OpenShot 保存项目时，所有文件路径都会转换为\\ **相对** 路径。只要您将所有资源保存在同一个父文件夹中（包括 \\*.osp "
+"项目文件），就可以移动项目文件夹而不会触发任何缺少文件的提示。您甚至可以将自包含的项目文件夹移动到另一台计算机，且不会出现任何问题。"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:290
+#: ../doc/files.rst:441
 msgid ""
 "Everyone has their unique way of organizing files, and it's crucial to "
 "remember not to make changes to file paths, rename files, or delete files "
@@ -916,8 +1189,75 @@ msgid ""
 "a detailed guide on missing file(s), see `The Case of “Missing Files”! "
 "<https://github.com/OpenShot/openshot-qt/wiki/Missing-File-Prompt>`_"
 msgstr ""
-"每个人都有自己独特的文件组织方式，但在使用视频编辑器时，务必记住不要更改文件"
-"路径、重命名文件或删除文件，因为这可能导致缺少文件的问题。有关缺少文件的详细"
-"指南，请参见 `缺少文件的案例！ <https://github.com/OpenShot/openshot-qt/wiki/"
-"Missing-File-Prompt>`_ 。 `The Case of “Missing Files”! <https://github.com/"
-"OpenShot/openshot-qt/wiki/Missing-File-Prompt>`_"
+"每个人都有自己独特的文件组织方式，但在使用视频编辑器时，务必记住不要更改文件路径、重命名文件或删除文件，因为这可能导致缺少文件的问题。有关缺少文件的详细指南，请参见"
+" `缺少文件的案例！ <https://github.com/OpenShot/openshot-qt/wiki/Missing-File-"
+"Prompt>`_ 。 `The Case of “Missing Files”! "
+"<https://github.com/OpenShot/openshot-qt/wiki/Missing-File-Prompt>`_"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "The :guilabel:`Preview File` action opens the Preview dialog for the "
+#~ "selected file from :guilabel:`Project Files`. Simply double check a file to "
+#~ "open this dialog."
+#~ msgstr ":guilabel:`预览文件` 操作会打开来自 :guilabel:`项目文件` 中所选文件的预览对话框。只需双击文件即可打开此对话框。"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Playback starts automatically."
+#~ msgstr "播放自动开始。"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Loop is enabled by default."
+#~ msgstr "默认启用循环播放。"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "If you need to cut a large video file into many smaller files before "
+#~ "editing, the **Split File** dialog is built exactly for this purpose. Right "
+#~ "click on a file, and choose :guilabel:`Split File`. Use this dialog to "
+#~ "quickly separate a large file into many smaller segments. For each segment, "
+#~ "you can select the starting and ending frame, and a title. Each segment "
+#~ "appears as a new file in the Project Files dialog."
+#~ msgstr ""
+#~ "如果您需要在编辑前将大型视频文件切割成多个小文件，\\ **拆分文件** 对话框正是为此设计。右键点击文件，选择 :guilabel:`拆分文件` "
+#~ "。使用此对话框快速将大文件分割成多个小片段。每个片段可以选择起始和结束帧，以及标题。每个片段会作为新文件出现在项目文件对话框中。"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Start of File"
+#~ msgstr "文件起始"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Choose the starting frame of your file by clicking this button"
+#~ msgstr "点击此按钮选择文件的起始帧"
+
+# Translated with gpt-4.1-mini
+#~ msgid "End of File"
+#~ msgstr "文件结尾"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Choose the ending frame of your file by clicking this button"
+#~ msgstr "点击此按钮选择文件的结束帧"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Name of File"
+#~ msgstr "文件名"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Enter an optional name"
+#~ msgstr "输入可选名称"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Create Button"
+#~ msgstr "创建按钮"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Create the file (which resets this dialog, so you can repeat these steps for"
+#~ " each segment)"
+#~ msgstr "创建文件（这将重置此对话框，您可以为每个片段重复这些步骤）"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "This will remove a file from the project. It will not delete the underlying "
+#~ "physical file though, so removing a file from the project merely makes it "
+#~ "unavailable for this video project."
+#~ msgstr "这将从项目中移除文件，但不会删除其物理文件，因此移除文件仅使其在此视频项目中不可用。"

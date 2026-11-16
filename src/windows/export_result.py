@@ -9,6 +9,9 @@ from qt_api import (
 )
 
 from classes.desktop_open import open_file, reveal_file
+from classes.export_settings import encoder_backend
+from classes.gpu_metrics import export_acceleration
+from windows.views.hardware_combo import backend_technology
 
 # Feather-style 24px outline icons, tinted at render time.
 ICONS = {
@@ -26,6 +29,7 @@ ICONS = {
     "timer": '<circle cx="12" cy="13.5" r="7.5"/><path d="M12 13.5V10M10 2.5h4M18.5 6.5l1.5-1.5"/>',
     "audio": '<path d="M3 12h2M7 8v8M11 4.5v15M15 8v8M19 10.5v3M21 12h0"/>',
 }
+ICONS["lightning"] = '<path d="M13 2 4 14h7l-1 8 10-12h-7l1-8Z"/>'
 # Signal bars, filled up to the quality level.
 QUALITY_LEVELS = {"Low": 1, "Med": 2, "High": 3}
 for _level in (1, 2, 3):
@@ -39,7 +43,7 @@ ERROR = "#e5484d"
 # Mid-tone accents read on both light and dark backgrounds.
 ACCENTS = {"file": "#4a9eff", "film": "#a06cf0", "quality-1": "#f0a020", "quality-2": "#f0a020",
            "quality-3": "#f0a020", "size": "#2fbfa0", "clock": "#4a9eff", "frames": "#a06cf0",
-           "timer": "#e8618c", "audio": "#a06cf0"}
+           "timer": "#e8618c", "audio": "#a06cf0", "gpu": "#2fbf71", "cpu": "#8a94a6"}
 VIDEO_CODECS = (("libx264", "H.264"), ("h264", "H.264"), ("libx265", "H.265"), ("hevc", "H.265"),
                 ("libvpx-vp9", "VP9"), ("vp9", "VP9"), ("libvpx", "VP8"), ("av1", "AV1"),
                 ("libaom", "AV1"), ("libsvtav1", "AV1"), ("prores", "ProRes"), ("dnxhd", "DNxHD"),
@@ -264,6 +268,32 @@ class ExportResultTab(QWidget):
         self.cards_layout.setHorizontalSpacing(8)
         self.cards_layout.setVerticalSpacing(8)
         layout.addLayout(self.cards_layout)
+        # A compact summary belongs with this export's result, not its settings.
+        self.gpu_summary = QFrame(self.content)
+        self.gpu_summary.setObjectName('exportInfoCard')
+        gpu_layout = QHBoxLayout(self.gpu_summary)
+        gpu_layout.setContentsMargins(14, 12, 14, 12)
+        gpu_layout.setSpacing(12)
+        self.gpu_icon = QLabel(self.gpu_summary)
+        self.gpu_icon.setFixedSize(24, 24)
+        gpu_layout.addWidget(self.gpu_icon)
+        gpu_text = QVBoxLayout()
+        gpu_text.setSpacing(3)
+        self.gpu_headline = QLabel(self.gpu_summary)
+        self.gpu_headline.setObjectName('exportInfoValue')
+        self.gpu_headline.setWordWrap(True)
+        gpu_text.addWidget(self.gpu_headline)
+        self.gpu_stage_summary = QLabel(self.gpu_summary)
+        self.gpu_stage_summary.setObjectName('exportInfoTitle')
+        self.gpu_stage_summary.setWordWrap(True)
+        gpu_text.addWidget(self.gpu_stage_summary)
+        gpu_layout.addLayout(gpu_text, 1)
+        from windows.views.gpu_metrics import GpuSegments
+        self.gpu_segments = GpuSegments(self.translate, self.gpu_summary, exporting=True)
+        self.gpu_segments.setFixedSize(92, 16)
+        gpu_layout.addWidget(self.gpu_segments)
+        layout.addWidget(self.gpu_summary)
+        self.gpu_summary.hide()
         layout.addStretch(1)
 
         footer = QVBoxLayout()
@@ -292,6 +322,31 @@ class ExportResultTab(QWidget):
         actions.addWidget(self.primary_button)
         footer.addLayout(actions)
         outer.addLayout(footer)
+
+    def set_gpu_metrics(self, snapshot):
+        self.gpu_segments.set_snapshot(snapshot)
+        state, headline, caption = export_acceleration(snapshot)
+        self.gpu_acceleration_state = state
+        self.gpu_headline.setText(self.translate(headline))
+        self.gpu_stage_summary.setText(self.translate(caption))
+        self.refresh_gpu_icon()
+        tooltip = self.gpu_segments.toolTip()
+        codec = snapshot.get('encoder')
+        if codec:
+            _, title, value = encoder_detail(codec, self.translate)
+            tooltip += '\n%s: %s' % (title, value)
+        self.gpu_summary.setToolTip(tooltip)
+        self.gpu_summary.setAccessibleName(self.translate(headline))
+        self.gpu_summary.setAccessibleDescription(self.translate(caption))
+        self.gpu_summary.setVisible(bool(snapshot) and (snapshot.get('native_available') is False
+                                   or any(row['total'] for row in self.gpu_segments.rows)))
+
+    def refresh_gpu_icon(self):
+        color = {'full': '#2fbf71', 'partial': '#d99b36'}.get(
+            getattr(self, 'gpu_acceleration_state', 'unknown'), '#8a94a6')
+        if luma(self.palette().color(QPalette.Active, QPalette.WindowText)) < 128:
+            color = QColor(color).darker(125)
+        self.gpu_icon.setPixmap(svg_pixmap('lightning', color, 24, self.devicePixelRatioF()))
 
     def show_success(self, path, kind, details):
         """kind: video, audio or image_sequence. details: (icon, title, value) tuples."""
@@ -358,7 +413,9 @@ class ExportResultTab(QWidget):
         for card in self.cards:
             self.cards_layout.removeWidget(card)
         for index, card in enumerate(self.cards):
-            self.cards_layout.addWidget(card, index // columns, index % columns)
+            # The last card fills a partial row, e.g. 7 cards as 3 + 3 + 1 wide.
+            span = columns - index % columns if index == len(self.cards) - 1 else 1
+            self.cards_layout.addWidget(card, index // columns, index % columns, 1, span)
         for column in range(self.MAX_COLUMNS):
             self.cards_layout.setColumnStretch(column, 1 if column < columns else 0)
 
@@ -500,6 +557,7 @@ class ExportResultTab(QWidget):
             self.primary_button.setIcon(QIcon(svg_pixmap("play", "#ffffff", 14, ratio)) if self.success else QIcon())
             for card in self.cards:
                 card.refresh_icon(light)
+            self.refresh_gpu_icon()
         finally:
             self.styling = False
 
@@ -542,6 +600,15 @@ def export_details(dialog, path, kind, translate):
     if path and elapsed is not None:
         details.append(("timer", _("Export Time"), format_elapsed(elapsed)))
     return details
+
+
+def encoder_detail(codec, translate):
+    """The export target's CPU/GPU badge as a tile, e.g. GPU · NVENC."""
+    _ = translate
+    backend = encoder_backend(codec)
+    if backend == "cpu":
+        return "cpu", _("Encoder"), "%s · %s" % (_("CPU"), _("Software"))
+    return "gpu", _("Encoder"), "%s · %s" % (_("GPU"), backend_technology(backend))
 
 
 def audio_label(dialog, translate):

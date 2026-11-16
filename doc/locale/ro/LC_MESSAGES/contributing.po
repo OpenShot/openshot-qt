@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:22
+#: ../doc/contributing.rst:22
 msgid "Contributing"
 msgstr "Contribuind"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:24
+#: ../doc/contributing.rst:24
 msgid ""
 "Want to help improve OpenShot (*and make some friends in the process*)? "
 "Please consider joining our open-source team by filling out this quick "
@@ -33,133 +33,136 @@ msgid ""
 msgstr ""
 "Vrei să ajuți la îmbunătățirea OpenShot (*și să-ți faci prieteni în acest "
 "proces*)? Te rugăm să iei în considerare să te alături echipei noastre open-"
-"source completând acest scurt `formular pentru contributori <https://forms."
-"gle/CRqkS5tLMJE1V36V8>`_ și să te prezinți! Toți voluntarii sunt bineveniți, "
-"indiferent de abilități sau nivelul acestora. **Hai să construim ceva "
-"uimitor!**"
+"source completând acest scurt `formular pentru contributori "
+"<https://forms.gle/CRqkS5tLMJE1V36V8>`_ și să te prezinți! Toți voluntarii "
+"sunt bineveniți, indiferent de abilități sau nivelul acestora. **Hai să "
+"construim ceva uimitor!**"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:30
+#: ../doc/contributing.rst:30
 msgid "How to Contribute"
 msgstr "Cum să contribui"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:32
+#: ../doc/contributing.rst:32
 msgid "There are many different ways to help and support OpenShot, including:"
-msgstr "Există multe moduri diferite de a ajuta și susține OpenShot, inclusiv:"
+msgstr ""
+"Există multe moduri diferite de a ajuta și susține OpenShot, inclusiv:"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:34
+#: ../doc/contributing.rst:34
 msgid "Testing"
 msgstr "Testare"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:35
+#: ../doc/contributing.rst:35
 msgid "`Translations <https://translations.launchpad.net/openshot/2.0>`_"
 msgstr "`Traduceri <https://translations.launchpad.net/openshot/2.0>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:36
+#: ../doc/contributing.rst:36
 msgid ""
 "`Documentation <https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_"
 msgstr ""
 "`Documentație <https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:37
+#: ../doc/contributing.rst:37
 msgid "Customer Service"
 msgstr "Serviciu Clienți"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:38
+#: ../doc/contributing.rst:38
 msgid "Social Media / Marketing"
 msgstr "Social Media / Marketing"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:39
+#: ../doc/contributing.rst:39
 msgid "`Software Development <https://github.com/OpenShot>`_"
 msgstr "`Dezvoltare Software <https://github.com/OpenShot>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:40
+#: ../doc/contributing.rst:40
 msgid "Art / Design / UI"
 msgstr "Artă / Design / UI"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:41
+#: ../doc/contributing.rst:41
 msgid "`User Community <https://openshot.org/forum>`_"
 msgstr "`Comunitate Utilizatori <https://openshot.org/forum>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:42
+#: ../doc/contributing.rst:42
 msgid "`Donations <https://openshot.org/donate>`_"
 msgstr "`Donații <https://openshot.org/donate>`_"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:44
+#: ../doc/contributing.rst:44
 msgid ""
-"All of these areas are **equally important**, so we would love to know which "
-"ones appeal to you the most. Please take a moment and fill-out our quick "
+"All of these areas are **equally important**, so we would love to know which"
+" ones appeal to you the most. Please take a moment and fill-out our quick "
 "`contributor form <https://forms.gle/CRqkS5tLMJE1V36V8>`_."
 msgstr ""
 "Toate aceste domenii sunt **la fel de importante**, așa că ne-ar plăcea să "
 "știm care dintre ele te atrag cel mai mult. Te rugăm să acorzi un moment și "
-"să completezi rapid `formularul pentru contributori <https://forms.gle/"
-"CRqkS5tLMJE1V36V8>`_."
+"să completezi rapid `formularul pentru contributori "
+"<https://forms.gle/CRqkS5tLMJE1V36V8>`_."
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:48
+#: ../doc/contributing.rst:48
 msgid "Did you find a bug?"
 msgstr "Ai găsit un bug?"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:50
+#: ../doc/contributing.rst:50
 msgid ""
-"Please use our step-by-step bug reporting page: https://openshot.org/issues/"
-"new/ to troubleshoot a potential new bug. This guide will instruct you on "
-"how to delete you log files, test with the latest daily build, and search "
-"for duplicate bug reports (in case someone else has already reported this "
-"same issue). At the end of the guide, it will help you create a detailed and "
-"useful bug report for our development team and volunteers."
+"Please use our step-by-step bug reporting page: "
+"https://openshot.org/issues/new/ to troubleshoot a potential new bug. This "
+"guide will instruct you on how to delete you log files, test with the latest"
+" daily build, and search for duplicate bug reports (in case someone else has"
+" already reported this same issue). At the end of the guide, it will help "
+"you create a detailed and useful bug report for our development team and "
+"volunteers."
 msgstr ""
 "Te rugăm să folosești pagina noastră de raportare a bug-urilor pas cu pas: "
 "https://openshot.org/issues/new/ pentru a investiga un posibil bug nou. "
-"Acest ghid te va învăța cum să ștergi fișierele de jurnal, să testezi cu cea "
-"mai recentă versiune zilnică și să cauți rapoarte duplicate de bug-uri (în "
+"Acest ghid te va învăța cum să ștergi fișierele de jurnal, să testezi cu cea"
+" mai recentă versiune zilnică și să cauți rapoarte duplicate de bug-uri (în "
 "cazul în care altcineva a raportat deja aceeași problemă). La finalul "
 "ghidului, te va ajuta să creezi un raport de bug detaliat și util pentru "
 "echipa noastră de dezvoltare și voluntari."
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:57
+#: ../doc/contributing.rst:57
 msgid "Software Developers"
 msgstr "Dezvoltatori Software"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:58
+#: ../doc/contributing.rst:58
 msgid ""
-"OpenShot uses GitHub to manage issues and source code: https://github.com/"
-"OpenShot. Please read our guide on `Becoming a Developer <https://github.com/"
-"OpenShot/openshot-qt/wiki/Become-a-Developer>`_ for a step-by-step guide on "
-"compiling OpenShot and making your first pull request on GitHub."
+"OpenShot uses GitHub to manage issues and source code: "
+"https://github.com/OpenShot. Please read our guide on `Becoming a Developer "
+"<https://github.com/OpenShot/openshot-qt/wiki/Become-a-Developer>`_ for a "
+"step-by-step guide on compiling OpenShot and making your first pull request "
+"on GitHub."
 msgstr ""
-"OpenShot folosește GitHub pentru gestionarea problemelor și a codului sursă: "
-"https://github.com/OpenShot. Te rugăm să citești ghidul nostru `Cum să devii "
-"dezvoltator <https://github.com/OpenShot/openshot-qt/wiki/Become-a-"
+"OpenShot folosește GitHub pentru gestionarea problemelor și a codului sursă:"
+" https://github.com/OpenShot. Te rugăm să citești ghidul nostru `Cum să "
+"devii dezvoltator <https://github.com/OpenShot/openshot-qt/wiki/Become-a-"
 "Developer>`_ pentru un ghid pas cu pas despre compilarea OpenShot și "
 "realizarea primei cereri de pull pe GitHub."
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:63
+#: ../doc/contributing.rst:63
 msgid "Made with Love"
 msgstr "Creat cu dragoste"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:65
+#: ../doc/contributing.rst:65
 msgid ""
 "OpenShot Video Editor is a volunteer effort and a **labor of love**. Please "
-"be patient with any issues you find, and feel free to `get involved <https://"
-"forms.gle/CRqkS5tLMJE1V36V8>`_ and help us fix them!"
+"be patient with any issues you find, and feel free to `get involved "
+"<https://forms.gle/CRqkS5tLMJE1V36V8>`_ and help us fix them!"
 msgstr ""
 "OpenShot Video Editor este un efort voluntar și o **muncă din pasiune**. Te "
 "rugăm să ai răbdare cu orice probleme găsești și simte-te liber să `te "
@@ -167,11 +170,11 @@ msgstr ""
 "rezolvăm!"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:69
+#: ../doc/contributing.rst:69
 msgid "Thank you for your support!"
 msgstr "Îți mulțumim pentru sprijin!"
 
 # Translated with gpt-4.1-mini
-#: ../contributing.rst:70
+#: ../doc/contributing.rst:70
 msgid "*-- OpenShot Team*"
 msgstr "*-- Echipa OpenShot*"

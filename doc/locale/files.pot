@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenShot Video Editor 4.0\n"
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,525 +16,670 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../files.rst:23
+#: ../doc/files.rst:23
 msgid "Files"
 msgstr ""
 
-#: ../files.rst:25
+#: ../doc/files.rst:25
 msgid "To create a video, we need to make media files available to our project by importing files into OpenShot. Most media file types are recognized, such as videos, images, and audio files. Files can be viewed and managed in the **Project Files** panel."
 msgstr ""
 
-#: ../files.rst:29
+#: ../doc/files.rst:29
 msgid "Note that imported files are not copied anywhere, they remain in the physical location they were before and are simply being made available to your video project. So, they must not be deleted, renamed, or moved after adding them to your project. The \"Show All\", \"Video\", \"Audio\", \"Image\" filters above the files allows you to only see the file types you are interested in. You can also toggle the view between :guilabel:`details` and :guilabel:`thumbnails` view of your files."
 msgstr ""
 
-#: ../files.rst:39
+#: ../doc/files.rst:39
 msgid "Import Files"
 msgstr ""
 
-#: ../files.rst:40
+#: ../doc/files.rst:40
 msgid "There are many different ways to import media files into an OpenShot project. When a file is imported successfully, it will be automatically selected and scrolled into view (in the **Project Files** panel). Also, if the **Project Files** panel is not currently visible, OpenShot will automatically display the panel."
 msgstr ""
 
-#: ../files.rst:48
+#: ../doc/files.rst:48
 msgid "Import File Method"
 msgstr ""
 
-#: ../files.rst:48
-#: ../files.rst:85
-#: ../files.rst:142
-#: ../files.rst:182
-#: ../files.rst:216
-#: ../files.rst:240
+#: ../doc/files.rst:48
+#: ../doc/files.rst:85
+#: ../doc/files.rst:288
+#: ../doc/files.rst:362
+#: ../doc/files.rst:386
 msgid "Description"
 msgstr ""
 
-#: ../files.rst:50
+#: ../doc/files.rst:50
 msgid "Drag and Drop"
 msgstr ""
 
-#: ../files.rst:50
+#: ../doc/files.rst:50
 msgid "Drag and drop the files from your file manager (file explorer, finder, etc...)."
 msgstr ""
 
-#: ../files.rst:51
+#: ../doc/files.rst:51
 msgid "Context menu (`File Menu`_)"
 msgstr ""
 
-#: ../files.rst:51
+#: ../doc/files.rst:51
 msgid "Right click anywhere in the **Project Files** panel and choose :guilabel:`Import Files`."
 msgstr ""
 
-#: ../files.rst:52
+#: ../doc/files.rst:52
 msgid "Main Menu"
 msgstr ""
 
-#: ../files.rst:52
+#: ../doc/files.rst:52
 msgid "In the main menu choose: :guilabel:`File\\→Import Files`."
 msgstr ""
 
-#: ../files.rst:53
+#: ../doc/files.rst:53
 msgid "Toolbar button"
 msgstr ""
 
-#: ../files.rst:53
+#: ../doc/files.rst:53
 msgid "Click the :guilabel:`+` toolbar button in the main toolbar."
 msgstr ""
 
-#: ../files.rst:54
+#: ../doc/files.rst:54
 msgid "Keyboard shortcut"
 msgstr ""
 
-#: ../files.rst:54
+#: ../doc/files.rst:54
 msgid "Press :kbd:`Ctrl-F` (:kbd:`Cmd-F` on Mac)."
 msgstr ""
 
-#: ../files.rst:55
-#: ../files.rst:63
+#: ../doc/files.rst:55
+#: ../doc/files.rst:63
 msgid "Paste from Clipboard"
 msgstr ""
 
-#: ../files.rst:55
+#: ../doc/files.rst:55
 msgid "Press :kbd:`Ctrl-V` (:kbd:`Cmd-V` on Mac) to paste copied files from your clipboard. See :ref:`paste_from_clipboard_ref`."
 msgstr ""
 
-#: ../files.rst:64
+#: ../doc/files.rst:64
 msgid "You can paste files and clipboard media straight into OpenShot. If you copied one or more files in your file manager, switch to OpenShot and press :kbd:`Ctrl-V` in the **Project Files** panel to add them, just like importing."
 msgstr ""
 
-#: ../files.rst:67
+#: ../doc/files.rst:67
 msgid "If you copied media **data** (for example, **Copy Image** in a web browser, a pasted frame from another app, or other image/audio/video clipboard data), press :kbd:`Ctrl-V` in OpenShot to create a file for that clipboard content. OpenShot saves a copy in a temporary folder: ``.openshot_qt/clipboard/``. The new file is then added to your project and appears in **Project Files**."
 msgstr ""
 
-#: ../files.rst:74
+#: ../doc/files.rst:74
 msgid "File Menu"
 msgstr ""
 
-#: ../files.rst:75
+#: ../doc/files.rst:75
 msgid "To view the file menu, right click on a file (in the **Project Files** panel). Here are the actions you can use from the file menu."
 msgstr ""
 
-#: ../files.rst:84
+#: ../doc/files.rst:84
 msgid "File Context Option"
 msgstr ""
 
-#: ../files.rst:86
+#: ../doc/files.rst:86
 msgid "Import Files..."
 msgstr ""
 
-#: ../files.rst:87
+#: ../doc/files.rst:87
 msgid "Import files into your project"
 msgstr ""
 
-#: ../files.rst:88
+#: ../doc/files.rst:88
 msgid "Create with AI / Enhance with AI (Optional)"
 msgstr ""
 
-#: ../files.rst:89
+#: ../doc/files.rst:89
 msgid "AI menu actions for generating or enhancing media files. These options are shown only when AI is enabled and the selected file type supports the workflow. See :ref:`ai_ref`."
 msgstr ""
 
-#: ../files.rst:90
+#: ../doc/files.rst:90
 msgid "Details View"
 msgstr ""
 
-#: ../files.rst:91
+#: ../doc/files.rst:91
 msgid "Switch the Project Files panel to details view"
 msgstr ""
 
-#: ../files.rst:92
-#: ../files.rst:114
+#: ../doc/files.rst:92
+#: ../doc/files.rst:116
 msgid "Preview File"
 msgstr ""
 
-#: ../files.rst:93
+#: ../doc/files.rst:93
 msgid "Preview a media file"
 msgstr ""
 
-#: ../files.rst:94
-#: ../files.rst:170
+#: ../doc/files.rst:94
+#: ../doc/files.rst:316
 msgid "Split File"
 msgstr ""
 
-#: ../files.rst:95
+#: ../doc/files.rst:95
 msgid "Split a file into many smaller files. The new trimmed files appear in the Project Files list."
 msgstr ""
 
-#: ../files.rst:96
-#: ../files.rst:193
+#: ../doc/files.rst:96
+#: ../doc/files.rst:339
 msgid "Export Files"
 msgstr ""
 
-#: ../files.rst:97
+#: ../doc/files.rst:97
 msgid "Export selected files (and split segments) to a destination folder"
 msgstr ""
 
-#: ../files.rst:98
-#: ../files.rst:205
+#: ../doc/files.rst:98
+#: ../doc/files.rst:351
 msgid "Add to Timeline"
 msgstr ""
 
-#: ../files.rst:99
+#: ../doc/files.rst:99
 msgid "Add many files to the timeline in one step, including transitions or alternating tracks."
 msgstr ""
 
-#: ../files.rst:100
+#: ../doc/files.rst:100
 msgid "Choose Profile"
 msgstr ""
 
-#: ../files.rst:101
+#: ../doc/files.rst:101
 msgid "Change the current project profile to match the selected file. If the file's profile does not match a known profile, it will give you the option to create a custom profile."
 msgstr ""
 
-#: ../files.rst:102
-#: ../files.rst:242
+#: ../doc/files.rst:102
+#: ../doc/files.rst:388
 msgid "File Properties"
 msgstr ""
 
-#: ../files.rst:103
+#: ../doc/files.rst:103
 msgid "View the properties of a file, such as frame rate, size, etc..."
 msgstr ""
 
-#: ../files.rst:104
-#: ../files.rst:125
+#: ../doc/files.rst:104
+#: ../doc/files.rst:184
 msgid "Optimize"
 msgstr ""
 
-#: ../files.rst:105
+#: ../doc/files.rst:105
 msgid "Create, link, unlink, or delete optimized preview files for the selected video files."
 msgstr ""
 
-#: ../files.rst:106
-#: ../files.rst:250
+#: ../doc/files.rst:106
+#: ../doc/files.rst:396
 msgid "Remove from Project"
 msgstr ""
 
-#: ../files.rst:107
+#: ../doc/files.rst:107
 msgid "Remove a file from the project"
 msgstr ""
 
-#: ../files.rst:108
+#: ../doc/files.rst:108
 msgid "Edit Title"
 msgstr ""
 
-#: ../files.rst:109
+#: ../doc/files.rst:109
 msgid "Edit an existing title SVG file (shown when an SVG title is selected)"
 msgstr ""
 
-#: ../files.rst:110
+#: ../doc/files.rst:110
 msgid "Duplicate Title"
 msgstr ""
 
-#: ../files.rst:111
+#: ../doc/files.rst:111
 msgid "Make a copy, and then edit the copied title SVG file (shown when an SVG title is selected)"
 msgstr ""
 
-#: ../files.rst:115
-msgid "The :guilabel:`Preview File` action opens the Preview dialog for the selected file from :guilabel:`Project Files`. Simply double check a file to open this dialog."
+#: ../doc/files.rst:117
+msgid "The :guilabel:`Preview File` action opens the Preview dialog for the selected file from :guilabel:`Project Files`. Double-click a file, or press :kbd:`Shift+2` or :kbd:`Alt+P` while the file list has focus. With the timeline focused, the same shortcut plays the selected clip from its Start point. You can also right-click a timeline clip and choose :guilabel:`Preview Clip`. Double-clicking a saved split reopens its range editor instead of read-only preview."
 msgstr ""
 
-#: ../files.rst:118
-msgid "Playback starts automatically."
+#: ../doc/files.rst:124
+msgid "Playback starts automatically when you open a preview or Split File."
 msgstr ""
 
-#: ../files.rst:119
-msgid "Loop is enabled by default."
+#: ../doc/files.rst:125
+msgid ":guilabel:`Loop` repeats playback and is enabled by default in Preview."
 msgstr ""
 
-#: ../files.rst:120
+#: ../doc/files.rst:126
+msgid "Click the speaker to mute preview audio without changing the project."
+msgstr ""
+
+#: ../doc/files.rst:127
+msgid "Click or drag the volume slider to adjust preview audio without affecting your exported video. Save the project to remember this volume for all its previews."
+msgstr ""
+
+#: ../doc/files.rst:129
+msgid "Use Fit Window to size the video area to the source aspect ratio. Black bars already encoded in the source remain visible."
+msgstr ""
+
+#: ../doc/files.rst:131
+msgid "Seeking during playback keeps playback running. Dragging to resize, move, or draw a range pauses playback so its boundary frames can be inspected."
+msgstr ""
+
+#: ../doc/files.rst:133
 msgid "Press :kbd:`Space` to toggle play/pause."
 msgstr ""
 
-#: ../files.rst:121
+#: ../doc/files.rst:134
 msgid "Use the mouse scroll wheel to zoom in/out."
 msgstr ""
 
-#: ../files.rst:122
+#: ../doc/files.rst:135
 msgid "A :guilabel:`Reset Zoom` button appears when zoom is not 100%, and resets to 100%."
 msgstr ""
 
-#: ../files.rst:126
+#: ../doc/files.rst:137
+msgid "Resize or maximize the window to suit your workspace. Preview and Split File remember your window size when you save the project."
+msgstr ""
+
+#: ../doc/files.rst:140
+msgid "The colored bar beneath the ruler shows sections already loaded for playback. If playback is choppy, try a smaller window or :ref:`optimize the file <optimize_ref>`."
+msgstr ""
+
+#: ../doc/files.rst:143
+msgid "Preview File shows playback and scrubbing controls only. Preview Clip and Split File add range editing below the shared preview. The source ruler and filmstrip show the full recording, with the selected range highlighted. Drag either grip to adjust the range and move the playhead with it. Drag on the ruler above the filmstrip to scrub without changing the range. Edit the Start and End timecodes for precise boundaries, or click the adjacent clock button to use the current playhead position (:kbd:`I` / :kbd:`O`). End is the last included frame; a one-frame range is valid. Duration shows the length of the selected range and can be edited to move End while keeping Start fixed. Duration is limited to at least one frame and at most the remaining source length. The buttons beside Play jump to Start and End."
+msgstr ""
+
+#: ../doc/files.rst:155
+msgid "When editing a timeline clip, :guilabel:`Update Clip` updates only that clip. Its position stays fixed and its duration changes; neighboring clips do not move. Locked or retimed clips can be previewed, but range application is disabled. :guilabel:`Reset` reloads the saved range. Each update is one undo step."
+msgstr ""
+
+#: ../doc/files.rst:160
+msgid "Split File provides Start, End, Duration, and an optional Name beside :guilabel:`Create`. Each click creates one Project Files entry and leaves the window open to create another. Pressing :kbd:`Enter` in Name or outside the time fields saves and closes the editor. In Start, End, or Duration, Enter commits the value and keeps the editor open. Tab moves through Start, End, Duration, and Name; Shift+Tab reverses the order. Each creation is one undo step. Opening an existing split lets you update its range and name without changing existing timeline clips. :guilabel:`Update` saves the split and closes its editor, refreshing the file and dependent clip thumbnails. :guilabel:`Update Clip` saves and closes clip preview. Use the window close control or :kbd:`Esc` to close without applying changes."
+msgstr ""
+
+#: ../doc/files.rst:173
+msgid "Drag a filmstrip handle to trim, drag inside the selection to move it, or drag outside it to draw a new range. Click to seek, or drag on the ruler to scrub without changing the range."
+msgstr ""
+
+#: ../doc/files.rst:177
+msgid "If a modified range changes elsewhere in the project, discard its local changes and reload it before saving. The dialog remains attached to its original source or timeline clip when the main-window selection changes."
+msgstr ""
+
+#: ../doc/files.rst:185
 msgid "Optimized preview files are lower-resolution copies of your source video files (sometimes referred to as proxy files), used to improve editing responsiveness without changing the original media. They are especially helpful with large formats such as 4K, high frame rate, or high bitrate footage."
 msgstr ""
 
-#: ../files.rst:130
+#: ../doc/files.rst:190
+msgid "Automatic optimization"
+msgstr ""
+
+#: ../doc/files.rst:191
+msgid "When OpenShot creates a video's first thumbnail, it records how long the first frame takes to produce. This uses work already needed to display the video in Project Files; there is no separate decoding test. Videos whose thumbnail frame takes longer than the :guilabel:`Auto-Optimize Threshold` may benefit from smaller preview copies."
+msgstr ""
+
+#: ../doc/files.rst:196
+msgid "With the default :guilabel:`Ask` preference, a banner appears when OpenShot finds a qualifying video in a project that does not yet have a saved choice:"
+msgstr ""
+
+#: ../doc/files.rst:199
+msgid "**Optimize videos for smoother playback?** Originals and export quality stay unchanged."
+msgstr ""
+
+#: ../doc/files.rst:201
+msgid "Click :guilabel:`Optimize Automatically` to enable automatic optimization for the current project. The banner disappears immediately, and qualifying videos are added to the optimization queue. Videos you import later also join the queue when they qualify, even if another video is already being optimized. You are not asked again for each file."
+msgstr ""
+
+#: ../doc/files.rst:206
+msgid "You can continue editing while optimization runs. There is no progress banner; progress appears on the files in Project Files instead."
+msgstr ""
+
+#: ../doc/files.rst:209
+msgid "Click :guilabel:`Not Now` or close the banner to decline. OpenShot remembers your choice when you save the project, so reopening it or importing more videos does not repeat the suggestion. To change your choice, check or uncheck :menuselection:`File --> Auto-Optimize` or press :kbd:`Ctrl+Alt+O` (:kbd:`Command+Alt+O` on macOS). Customize this shortcut in :menuselection:`Edit --> Preferences --> Keyboard`. Turning it off stops new automatic work; jobs already started can be canceled through the file's :guilabel:`Optimize` submenu. Existing optimized copies remain available."
+msgstr ""
+
+#: ../doc/files.rst:217
+msgid "In :menuselection:`Edit --> Preferences`, open the :guilabel:`Optimize` tab (see :ref:`preferences_optimize_ref`):"
+msgstr ""
+
+#: ../doc/files.rst:220
+msgid ":guilabel:`Auto-Optimize`: :guilabel:`Ask` shows the banner and is the default. :guilabel:`Always` optimizes qualifying videos without a banner. :guilabel:`Never` disables suggestions and automatic processing. These defaults apply to projects without a saved choice; a project's own setting takes precedence."
+msgstr ""
+
+#: ../doc/files.rst:224
+msgid ":guilabel:`Auto-Optimize Threshold`: defaults to **200 ms**. Lower values include more videos; higher values include fewer. This measures producing the first thumbnail frame, not opening the file, saving the thumbnail, or waiting in a queue."
+msgstr ""
+
+#: ../doc/files.rst:227
+msgid ":guilabel:`Optimized Preview Resolution` and :guilabel:`Concurrent Optimize Jobs` control the preview copies and how many videos can be processed at once."
+msgstr ""
+
+#: ../doc/files.rst:230
+msgid "Thumbnail timing is saved with each file in the project. OpenShot reuses a valid timing when you reopen the project on the same computer. A changed source file or a different computer needs a new measurement. When opening older projects, OpenShot refreshes missing timings in the background, one small thumbnail at a time, checking videos used on the timeline first. New checks pause during playback. Slow videos trigger the same banner; accepting it also checks and queues the remaining videos. Enabling :guilabel:`File → Auto-Optimize` starts these checks too. Choosing :guilabel:`Never` or dismissing the banner stops further checks for that project. Save the project to keep its timings for next time. You can always optimize videos manually."
+msgstr ""
+
+#: ../doc/files.rst:240
+msgid "The threshold is a guide, not a guarantee of playback performance. Other applications can affect timing, and effects or overlapping clips can slow playback independently of the source video. Optimized copies use additional disk space in the project's assets folder; original files and export quality stay unchanged. Canceled or failed automatic jobs are not automatically retried during the current project session."
+msgstr ""
+
+#: ../doc/files.rst:246
+msgid "Closing OpenShot cancels queued and running optimization jobs. Active jobs finish their current processing step before closing, and unfinished preview files are removed."
+msgstr ""
+
+#: ../doc/files.rst:250
+msgid "Optimization status"
+msgstr ""
+
+#: ../doc/files.rst:251
+msgid "Hover over a file in Project Files to see its filename followed by a brief status:"
+msgstr ""
+
+#: ../doc/files.rst:257
+msgid "Tooltip status"
+msgstr ""
+
+#: ../doc/files.rst:258
+msgid "Meaning"
+msgstr ""
+
+#: ../doc/files.rst:259
+msgid "Queued for optimization"
+msgstr ""
+
+#: ../doc/files.rst:260
+msgid "Waiting for an available optimization job slot."
+msgstr ""
+
+#: ../doc/files.rst:261
+msgid "Optimizing for smoother playback — 35%"
+msgstr ""
+
+#: ../doc/files.rst:262
+msgid "Creating a preview copy. The percentage shows progress."
+msgstr ""
+
+#: ../doc/files.rst:263
+msgid "Optimized for smoother playback"
+msgstr ""
+
+#: ../doc/files.rst:264
+msgid "The preview copy is ready to use."
+msgstr ""
+
+#: ../doc/files.rst:265
+msgid "Canceling optimization"
+msgstr ""
+
+#: ../doc/files.rst:266
+msgid "Stopping the current job and cleaning up the unfinished copy."
+msgstr ""
+
+#: ../doc/files.rst:267
+msgid "Optimized preview missing"
+msgstr ""
+
+#: ../doc/files.rst:268
+msgid "The linked preview copy cannot be found. Recreate it with Optimize Video or link an existing copy."
+msgstr ""
+
+#: ../doc/files.rst:270
+msgid "To stop a queued or running job, right-click the file and choose :menuselection:`Optimize --> Cancel`. Canceling a job does not turn off :menuselection:`File --> Auto-Optimize` for later imports."
+msgstr ""
+
+#: ../doc/files.rst:275
+msgid "Manual optimization"
+msgstr ""
+
+#: ../doc/files.rst:276
 msgid "For video files, the file context menu includes an :guilabel:`Optimize` submenu. This feature creates or links smaller preview copies of your source clips, which can improve playback and scrubbing on slower systems or with high-resolution footage. Optimizing also pre-loads thumbnails to further improve the editing smoothness when zooming into the timeline."
 msgstr ""
 
-#: ../files.rst:135
+#: ../doc/files.rst:281
 msgid "The :guilabel:`Optimize` submenu contains these actions:"
 msgstr ""
 
-#: ../files.rst:141
+#: ../doc/files.rst:287
 msgid "Action"
 msgstr ""
 
-#: ../files.rst:143
+#: ../doc/files.rst:289
 msgid "Optimize Video"
 msgstr ""
 
-#: ../files.rst:144
+#: ../doc/files.rst:290
 msgid "Create an optimized preview file for each selected video file. OpenShot stores these files in the project's ``optimized`` assets folder."
 msgstr ""
 
-#: ../files.rst:145
+#: ../doc/files.rst:291
 msgid "Link to Existing..."
 msgstr ""
 
-#: ../files.rst:146
+#: ../doc/files.rst:292
 msgid "Choose a folder containing already-created optimized files and link the best matching files to the selected source clips. This supports common proxy naming styles, known proxy suffixes, file ID suffixes, and extension changes."
 msgstr ""
 
-#: ../files.rst:147
+#: ../doc/files.rst:293
 msgid "Unlink"
 msgstr ""
 
-#: ../files.rst:148
+#: ../doc/files.rst:294
 msgid "Remove the optimized preview link from the selected file without deleting the optimized file from disk."
 msgstr ""
 
-#: ../files.rst:149
+#: ../doc/files.rst:295
 msgid "Delete & Unlink"
 msgstr ""
 
-#: ../files.rst:150
+#: ../doc/files.rst:296
 msgid "Delete the linked optimized file from disk, then remove the link from the selected file."
 msgstr ""
 
-#: ../files.rst:152
+#: ../doc/files.rst:298
 msgid "When optimization is in progress, the submenu changes to a single :guilabel:`Cancel` action for the selected file(s). Optimized preview files are used only for editing and preview playback. Your final export still uses the original source files."
 msgstr ""
 
-#: ../files.rst:155
+#: ../doc/files.rst:301
 msgid "When you use :guilabel:`Link to Existing...`, OpenShot tries to match each selected source clip to an existing optimized file in a safe order. It first looks for the same base filename with a different video extension, then for common proxy-style names such as ``_proxy``, ``_preview``, ``_optimized``, ``_lowres``, resolution tags such as ``_720p`` or ``_1080p``, and camera/editor-style variants such as ``_p``. It also supports names that add the OpenShot file ID after a known proxy suffix, such as ``clip001_proxy_F1.mp4``, and it can still match files named only by file ID, such as ``F1.mp4``."
 msgstr ""
 
-#: ../files.rst:162
+#: ../doc/files.rst:308
 msgid "Best practice when bringing your own optimized files is to keep the same base filename as the source clip and add a clear proxy-style suffix, for example ``clip001_proxy.mp4`` or ``clip001_proxy.mov``. If you need to avoid filename collisions, append the OpenShot file ID after the proxy suffix, for example ``clip001_proxy_F1.mp4``. Avoid unrelated suffixes such as ``_final`` or ``_reviewcopy``, because OpenShot does not treat those as safe proxy naming patterns."
 msgstr ""
 
-#: ../files.rst:171
-msgid "If you need to cut a large video file into many smaller files before editing, the **Split File** dialog is built exactly for this purpose. Right click on a file, and choose :guilabel:`Split File`. Use this dialog to quickly separate a large file into many smaller segments. For each segment, you can select the starting and ending frame, and a title. Each segment appears as a new file in the Project Files dialog."
+#: ../doc/files.rst:317
+msgid "Use **Split File** to choose the parts of a longer recording you want to work with. Right click a file in **Project Files** and choose :guilabel:`Split File`. Select the start and end of a segment, give it an optional name, and click :guilabel:`Create`. Adjust the markers and repeat to prepare as many segments as you need."
 msgstr ""
 
-#: ../files.rst:182
-#: ../files.rst:216
-#: ../files.rst:240
-msgid "#"
+#: ../doc/files.rst:322
+msgid "Each segment appears in Project Files and can be added to the timeline like any other file. The segments all use the original media on disk, so you can prepare them without making extra copies of the recording."
 msgstr ""
 
-#: ../files.rst:182
-#: ../files.rst:216
-#: ../files.rst:240
-msgid "Name"
+#: ../doc/files.rst:325
+msgid "When you add a segment to the timeline, OpenShot gives its properties starting keyframes at the segment's beginning. For example, with :ref:`auto_keyframes_ref` on, you can move to the end and change the rotation to make it turn over the length of that segment. The animation starts from the part you chose to use."
 msgstr ""
 
-#: ../files.rst:184
-#: ../files.rst:218
-#: ../files.rst:242
-msgid "1"
+#: ../doc/files.rst:329
+msgid "If you have already animated a timeline clip, slicing it preserves that animation through the cut. Split File is useful for choosing your segments before you begin that work."
 msgstr ""
 
-#: ../files.rst:184
-msgid "Start of File"
+#: ../doc/files.rst:332
+msgid "Preview an existing split-file entry to adjust its saved IN/OUT range. The ruler includes the surrounding footage, allowing you to extend the range again without reimporting the source."
 msgstr ""
 
-#: ../files.rst:184
-msgid "Choose the starting frame of your file by clicking this button"
-msgstr ""
-
-#: ../files.rst:185
-#: ../files.rst:219
-#: ../files.rst:243
-msgid "2"
-msgstr ""
-
-#: ../files.rst:185
-msgid "End of File"
-msgstr ""
-
-#: ../files.rst:185
-msgid "Choose the ending frame of your file by clicking this button"
-msgstr ""
-
-#: ../files.rst:186
-#: ../files.rst:220
-msgid "3"
-msgstr ""
-
-#: ../files.rst:186
-msgid "Name of File"
-msgstr ""
-
-#: ../files.rst:186
-msgid "Enter an optional name"
-msgstr ""
-
-#: ../files.rst:187
-#: ../files.rst:221
-msgid "4"
-msgstr ""
-
-#: ../files.rst:187
-msgid "Create Button"
-msgstr ""
-
-#: ../files.rst:187
-msgid "Create the file (which resets this dialog, so you can repeat these steps for each segment)"
-msgstr ""
-
-#: ../files.rst:190
+#: ../doc/files.rst:336
 msgid "Please refer to the section :ref:`clips_cutting_slicing_ref` for more ways to cut and slice clips directly in the timeline."
 msgstr ""
 
-#: ../files.rst:194
+#: ../doc/files.rst:340
 msgid "If you want your split file segments available outside of your OpenShot project, or want to copy all your video assets to one place, you can do this with the **Export Files** dialog. Simply :kbd:`Ctrl+Click` to select all the files you like, then :kbd:`Right Click` and choose :guilabel:`Export Files`. In the dialog that appears, choose a destination folder, and click :guilabel:`Export`."
 msgstr ""
 
-#: ../files.rst:199
+#: ../doc/files.rst:345
 msgid "NOTE: This will export each file or file segment using its **original video profile** (width, height, framerate, aspect ratio, etc...). It also supports any :ref:`split_clip_ref` (described above). For example, if you have split a long video file into many different segments (and named them), you can now export all the segments as separate video files (using the original file's video profile)."
 msgstr ""
 
-#: ../files.rst:206
+#: ../doc/files.rst:352
 msgid "In certain cases, you might need to add many files to the timeline at the same time. For example, a photo slideshow, or a large number of short video clips. The **Add to Timeline** dialog can automate this task for you. First, select all files you need to add, right click, and choose Add to Timeline."
 msgstr ""
 
-#: ../files.rst:218
+#: ../doc/files.rst:362
+#: ../doc/files.rst:386
+msgid "#"
+msgstr ""
+
+#: ../doc/files.rst:362
+#: ../doc/files.rst:386
+msgid "Name"
+msgstr ""
+
+#: ../doc/files.rst:364
+#: ../doc/files.rst:388
+msgid "1"
+msgstr ""
+
+#: ../doc/files.rst:364
 msgid "Selected Files"
 msgstr ""
 
-#: ../files.rst:218
+#: ../doc/files.rst:364
 msgid "The list of selected files that need to be added to the timeline"
 msgstr ""
 
-#: ../files.rst:219
+#: ../doc/files.rst:365
+#: ../doc/files.rst:389
+msgid "2"
+msgstr ""
+
+#: ../doc/files.rst:365
 msgid "Order of Files"
 msgstr ""
 
-#: ../files.rst:219
+#: ../doc/files.rst:365
 msgid "Use these buttons to reorder the list of files (move up, move down, randomize, remove)"
 msgstr ""
 
-#: ../files.rst:220
+#: ../doc/files.rst:366
+msgid "3"
+msgstr ""
+
+#: ../doc/files.rst:366
 msgid "Timeline Position"
 msgstr ""
 
-#: ../files.rst:220
+#: ../doc/files.rst:366
 msgid "Choose the starting position and track where these files need to be inserted on the timeline"
 msgstr ""
 
-#: ../files.rst:221
+#: ../doc/files.rst:367
+msgid "4"
+msgstr ""
+
+#: ../doc/files.rst:367
 msgid "Fade Options"
 msgstr ""
 
-#: ../files.rst:221
+#: ../doc/files.rst:367
 msgid "Fade in, fade out, both, or none (only affects the image, and not audio)"
 msgstr ""
 
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "5"
 msgstr ""
 
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "Zoom Options"
 msgstr ""
 
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "Zoom in, zoom out, or none"
 msgstr ""
 
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid "6"
 msgstr ""
 
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid "Transitions"
 msgstr ""
 
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid "Choose a specific transition to use between files, random, or none (only affects the image, and not the audio)"
 msgstr ""
 
-#: ../files.rst:229
+#: ../doc/files.rst:375
 msgid "Properties"
 msgstr ""
 
-#: ../files.rst:230
+#: ../doc/files.rst:376
 msgid "To view the properties of any imported file in your video project, right click on the file, and choose **File Properties**. This will launch the file properties dialog, which displays information about your media file. For certain types of images (i.e. image sequences), you can adjust the frame rate on this dialog also."
 msgstr ""
 
-#: ../files.rst:242
+#: ../doc/files.rst:388
 msgid "Select an image sequence in the **Project Files** panel, right click and choose **File Properties**"
 msgstr ""
 
-#: ../files.rst:243
+#: ../doc/files.rst:389
 msgid "Frame Rate"
 msgstr ""
 
-#: ../files.rst:243
+#: ../doc/files.rst:389
 msgid "For image sequences, you can also adjust the frame rate of the animation"
 msgstr ""
 
-#: ../files.rst:252
-msgid "This will remove a file from the project. It will not delete the underlying physical file though, so removing a file from the project merely makes it unavailable for this video project."
+#: ../doc/files.rst:398
+msgid "Removing an entry from **Project Files** does not delete the source media from disk."
 msgstr ""
 
-#: ../files.rst:257
+#: ../doc/files.rst:400
+msgid "You can import the file again whenever you need it. For example, after preparing several :ref:`Split File segments <split_clip_ref>` and removing the original from Project Files, you might want to use a different part of the recording. Import it again to work with the whole recording; your existing segments stay as they are. If the original is already in Project Files, importing it again selects it."
+msgstr ""
+
+#: ../doc/files.rst:408
 msgid "Project Assets Folder"
 msgstr ""
 
-#: ../files.rst:258
+#: ../doc/files.rst:409
 msgid "OpenShot creates and uses a few **temporary working folders** while you edit. These live under ``.openshot_qt/`` in your user profile and hold project-specific files that OpenShot generates for you:"
 msgstr ""
 
-#: ../files.rst:261
+#: ../doc/files.rst:412
 msgid "``.openshot_qt/blender/`` - Blender animation renders created by the Animated Title dialog"
 msgstr ""
 
-#: ../files.rst:262
+#: ../doc/files.rst:413
 msgid "``.openshot_qt/title/`` - SVG title files created by the Title dialog"
 msgstr ""
 
-#: ../files.rst:263
+#: ../doc/files.rst:414
 msgid "``.openshot_qt/thumbnail/`` - Thumbnails generated for Project Files and Timeline"
 msgstr ""
 
-#: ../files.rst:264
+#: ../doc/files.rst:415
 msgid "``.openshot_qt/clipboard/`` - Media created from clipboard pastes (images, audio, or video that must be saved to disk first)"
 msgstr ""
 
-#: ../files.rst:265
+#: ../doc/files.rst:416
 msgid "``.openshot_qt/optimized/`` - Optimized preview files created for smoother editing"
 msgstr ""
 
-#: ../files.rst:266
+#: ../doc/files.rst:417
 msgid "``.openshot_qt/protobuf_data`` - Tracking and object detection data"
 msgstr ""
 
-#: ../files.rst:268
+#: ../doc/files.rst:419
 msgid "When you choose **File→Save As**, OpenShot copies these folders into your project directory, inside a single folder named ``PROJECTNAME_Assets``. For example: ``MyProject_Assets/clipboard`` will contain any media you pasted from the clipboard, and ``MyProject_Assets/optimized`` will contain any optimized preview files linked to the project."
 msgstr ""
 
-#: ../files.rst:272
+#: ../doc/files.rst:423
 msgid "As part of this process, all paths inside your ``*.osp`` project file are updated to be **relative** to your project folder."
 msgstr ""
 
-#: ../files.rst:275
+#: ../doc/files.rst:426
 msgid "Missing Files"
 msgstr ""
 
-#: ../files.rst:277
+#: ../doc/files.rst:428
 msgid "When you create and save a project in OpenShot, any files imported into the software (such as videos, audio, and images) must remain accessible throughout the project's duration. This means that these imported files should not be renamed, deleted, or moved to different folders. Additionally, the full path where these files are located should not be renamed either. This principle applies to other video editing software as well."
 msgstr ""
 
-#: ../files.rst:282
+#: ../doc/files.rst:433
 msgid "For example, users might move or delete folders, unplug their USB devices, or move or delete their project files. Any of these examples cause a :guilabel:`Missing File` message, in which OpenShot prompts you to locate the folder of the missing file(s). Depending on the number of files you added to your project, OpenShot could prompt you many times to find the missing files."
 msgstr ""
 
-#: ../files.rst:286
+#: ../doc/files.rst:437
 msgid "When OpenShot saves a project, all file paths are converted to **relative** file paths. As long as you keep all assets organized in the same parent folder (including the \\*.osp project file), you will be able to move your project folder without triggering any missing file(s) prompts. You can even move a self-contained project folder to another computer without any issues."
 msgstr ""
 
-#: ../files.rst:290
+#: ../doc/files.rst:441
 msgid "Everyone has their unique way of organizing files, and it's crucial to remember not to make changes to file paths, rename files, or delete files when working with video editors, as it can lead to missing file issues. For a detailed guide on missing file(s), see `The Case of “Missing Files”! <https://github.com/OpenShot/openshot-qt/wiki/Missing-File-Prompt>`_"
 msgstr ""

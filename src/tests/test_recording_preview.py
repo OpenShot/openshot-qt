@@ -232,6 +232,7 @@ class RecordingPreviewTests(unittest.TestCase):
             screen_card=types.SimpleNamespace(isChecked=lambda: False),
             camera_card=types.SimpleNamespace(isChecked=lambda: False),
             record_button=FakeButton(),
+            settings_widget=helper.QWidget(),
         )
         dock._has_selected_recording_source = lambda: (
             helper.AudioRecordingDockContent._has_selected_recording_source(dock)
@@ -247,10 +248,51 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertTrue(dock.record_button.enabled)
         self.assertEqual(dock.record_button.tooltip, "")
 
+    def test_recording_settings_lock_preserves_control_availability(self):
+        helper = self.audio_recording_module
+        app = types.SimpleNamespace(_tr=lambda text: text, updates=MagicMock())
+        with patch.object(helper, "get_app", return_value=app), \
+                patch.object(helper.AudioRecordingDockContent, "_sync_source_availability"), \
+                patch.object(helper.AudioRecordingDockContent, "_sync_backend_state"):
+            dock = helper.AudioRecordingDockContent(MagicMock())
+            try:
+                dock.mic_card.blockSignals(True)
+                dock.mic_card.setChecked(True)
+                dock.stereo_button.setEnabled(False)
+                controls = (
+                    dock.mic_card, dock.screen_card, dock.camera_card,
+                    dock.mono_button, dock.device_combo, dock.format_combo,
+                    dock.sample_rate_combo, dock.channels_combo,
+                    dock.mic_section.advanced_button,
+                    dock.screen_section.advanced_button,
+                    dock.camera_section.advanced_button,
+                    dock.full_screen_button, dock.screen_display_edit,
+                    dock.camera_combo, dock.track_combo, dock.preview_combo,
+                )
+                original = [control.isEnabled() for control in controls]
+                for state in ("starting", "recording", "stopping", "saving"):
+                    with self.subTest(state=state):
+                        getattr(dock, "_set_record_button_" + state)()
+                        self.assertTrue(all(not control.isEnabled() for control in controls))
+                        self.assertEqual(dock.record_button.isEnabled(), state == "recording")
+                        with patch.object(dock, "_dock_visible", return_value=True), \
+                                patch.object(dock, "refresh_tracks") as refresh, \
+                                patch.object(dock, "_sync_backend_state") as sync:
+                            dock._activate_after_show()
+                            refresh.assert_not_called()
+                            sync.assert_not_called()
+                        dock._set_record_button_idle()
+                        self.assertEqual([control.isEnabled() for control in controls], original)
+                        self.assertFalse(dock.stereo_button.isEnabled())
+                        self.assertTrue(dock.record_button.isEnabled())
+            finally:
+                dock.deleteLater()
+
     def test_recording_dock_idle_activation_skips_device_discovery(self):
         helper = self.audio_recording_module
         dock = types.SimpleNamespace(
             _activation_pending=True,
+            settings_widget=helper.QWidget(),
             mic_card=types.SimpleNamespace(isChecked=lambda: False),
             camera_card=types.SimpleNamespace(isChecked=lambda: False),
             _dock_visible=lambda: True,
@@ -375,6 +417,49 @@ class RecordingPreviewTests(unittest.TestCase):
         self.assertFalse(available)
         self.assertIn("No webcam", tooltip)
 
+    def test_webcam_preview_follows_source_rate_with_thirty_fps_cap(self):
+        helper = self.audio_recording_module
+        for num, den, expected in ((15, 1, 15), (30, 1, 30), (60, 1, 30),
+                                   (30000, 1001, 30000 / 1001)):
+            interval = helper.webcam_preview_interval(helper.openshot.Fraction(num, den))
+            self.assertAlmostEqual(1 / interval, expected)
+        deadline = helper.next_preview_deadline(0, 10.0, 1 / 30)
+        # A late update advances from the scheduled time rather than drifting.
+        advanced = helper.next_preview_deadline(deadline, deadline + 0.001, 1 / 30)
+        self.assertAlmostEqual(advanced, 10.0 + 2 / 30)
+        self.assertGreater(helper.next_preview_deadline(deadline, 11.0, 1 / 30), 11.0)
+
+    def test_live_preview_keeps_colors_inside_disabled_settings(self):
+        from qt_api import QWidget, QPixmap, QColor
+        label_class = self.recording_widgets_module.RecordingPreviewLabel
+        parent = QWidget()
+        label = label_class(parent)
+        label.resize(32, 32)
+        image = QPixmap(32, 32)
+        image.fill(QColor(220, 40, 70))
+        label.setPixmap(image)
+        parent.setEnabled(False)
+        self.assertFalse(label.isEnabled())
+        self.assertEqual(label.grab().toImage().pixelColor(16, 16), QColor(220, 40, 70))
+        parent.deleteLater()
+
+    def test_webcam_preview_uses_selected_capture_format_and_rate(self):
+        helper = self.audio_recording_module
+        rate = helper.openshot.Fraction(30000, 1001)
+        job = helper.WebcamPreviewJob("/dev/video0", 1280, 720,
+                                      helper.openshot.CAMERA_CAPTURE_V4L2,
+                                      fps=rate, input_format="mjpeg")
+        reader = MagicMock()
+        reader.GetFrame.side_effect = lambda number: job._stop.set()
+        with patch.object(helper.openshot, "CameraCaptureReader", return_value=reader) as factory, \
+                patch.object(helper, "frame_to_qimage", return_value=None):
+            job._run()
+        settings = factory.call_args.args[0]
+        self.assertEqual((settings.width, settings.height), (1280, 720))
+        self.assertEqual((settings.fps.num, settings.fps.den), (30000, 1001))
+        self.assertEqual(settings.options["input_format"], "mjpeg")
+        reader.Close.assert_called_once()
+
     def test_webcam_preview_stop_closes_reader_before_joining_worker(self):
         helper = self.audio_recording_module
         released = helper.threading.Event()
@@ -388,7 +473,7 @@ class RecordingPreviewTests(unittest.TestCase):
                 released.set()
 
         reader = BlockingReader()
-        job = helper.WebcamPreviewJob("", 640, 480)
+        job = helper.WebcamPreviewJob("", 640, 480, helper.openshot.CAMERA_CAPTURE_V4L2)
         job._reader = reader
         job._thread = helper.threading.Thread(target=released.wait, daemon=True)
         job._thread.start()
@@ -397,6 +482,119 @@ class RecordingPreviewTests(unittest.TestCase):
 
         self.assertTrue(reader.closed)
         self.assertFalse(job._thread.is_alive())
+
+    def test_windows_webcam_preview_closes_on_opening_thread(self):
+        helper = self.audio_recording_module
+        for during_open in (False, True):
+            with self.subTest(during_open=during_open):
+                entered = threading.Event()
+                cancelled = threading.Event()
+                calls = []
+
+                class Reader:
+                    def __init__(self, settings):
+                        pass
+
+                    def Open(self):
+                        calls.append(("open", threading.get_ident()))
+                        if during_open:
+                            entered.set()
+                            cancelled.wait(3)
+
+                    def GetFrame(self, number):
+                        entered.set()
+                        cancelled.wait(3)
+                        raise RuntimeError("capture cancelled")
+
+                    def RequestClose(self):
+                        calls.append(("request", threading.get_ident()))
+                        cancelled.set()
+
+                    def Close(self):
+                        calls.append(("close", threading.get_ident()))
+
+                job = helper.WebcamPreviewJob("camera", 640, 360,
+                                              helper.openshot.CAMERA_CAPTURE_WINDOWS_DSHOW)
+                with patch.object(helper.openshot, "CameraCaptureReader", Reader):
+                    job.start()
+                    self.assertTrue(entered.wait(2))
+                    job.stop()
+                self.assertFalse(job._thread.is_alive())
+                owner = calls[0][1]
+                self.assertNotEqual(owner, threading.get_ident())
+                self.assertEqual([thread for name, thread in calls if name == "close"], [owner])
+                self.assertTrue(any(name == "request" and thread == threading.get_ident()
+                                    for name, thread in calls))
+
+    def test_windows_recording_cancel_survives_open_reset_and_closes_on_worker(self):
+        helper = self.audio_recording_module
+        entered = threading.Event()
+        cancelled = threading.Event()
+        calls = []
+
+        class Reader:
+            def Open(self):
+                calls.append(("open", threading.get_ident()))
+                entered.set()
+                cancelled.wait(4)
+                # Native Open can reset cancellation while the UI requests stop.
+                cancelled.clear()
+
+            def GetFrame(self, number):
+                cancelled.wait(4)
+                raise RuntimeError("capture cancelled")
+
+            def RequestClose(self):
+                calls.append(("request", threading.get_ident()))
+                cancelled.set()
+
+            def Close(self):
+                calls.append(("close", threading.get_ident()))
+
+        job = helper.LiveVideoRecordingJob(Reader(), "unused.mp4", 640, 360,
+                                          helper.openshot.Fraction(30, 1), source_type="webcam")
+        with patch.object(helper, "camera_capture_backend_is_windows", return_value=True):
+            job.start_async()
+            self.assertTrue(entered.wait(2))
+            job.stop()
+        self.assertFalse(job._thread.is_alive())
+        self.assertIsNone(job.error)
+        self.assertEqual([t for op, t in calls if op == "close"], [calls[0][1]])
+        self.assertNotEqual(calls[0][1], threading.get_ident())
+        self.assertGreaterEqual(sum(op == "request" for op, _ in calls), 2)
+
+    def test_windows_recording_open_timeout_requests_stop_without_ui_cleanup(self):
+        helper = self.audio_recording_module
+        entered = threading.Event()
+        cancelled = threading.Event()
+        calls = []
+
+        class Reader:
+            def Open(self):
+                calls.append(("open", threading.get_ident()))
+                entered.set()
+                cancelled.wait(3)
+                raise RuntimeError("open cancelled")
+
+            def RequestClose(self):
+                calls.append(("request", threading.get_ident()))
+                cancelled.set()
+
+            def Close(self):
+                calls.append(("close", threading.get_ident()))
+
+        job = helper.LiveVideoRecordingJob(Reader(), "unused.mp4", 640, 360,
+                                          helper.openshot.Fraction(30, 1), source_type="webcam")
+        with patch.object(helper, "camera_capture_backend_is_windows", return_value=True):
+            job.start_async()
+            self.assertTrue(entered.wait(2))
+            with self.assertRaisesRegex(RuntimeError, "Timed out opening"):
+                job.wait_until_opened(timeout=0.01)
+            job.finish_stop()
+        self.assertFalse(job._thread.is_alive())
+        self.assertEqual([t for op, t in calls if op == "close"], [calls[0][1]])
+        self.assertNotEqual(calls[0][1], threading.get_ident())
+        self.assertIn(("request", threading.get_ident()), calls)
 
     def test_xdotool_window_picker_rejects_invalid_window_id(self):
         helper = self.recording_widgets_module
@@ -643,8 +841,11 @@ class RecordingPreviewTests(unittest.TestCase):
 
         fps = types.SimpleNamespace(num=30, den=1)
         job = helper.LiveVideoRecordingJob(FakeReader(), "screen.mp4", 640, 360, fps)
-        with patch.object(helper.openshot, "FFmpegWriter", FakeWriter):
+        with patch.object(helper.openshot, "FFmpegWriter", FakeWriter), \
+                patch.object(helper, "preferred_export_codec", return_value="h264_vulkan") as select:
             job._open()
+        self.assertEqual(job.codec, "h264_vulkan")
+        select.assert_called_once()
 
         self.assertEqual(
             FakeWriter.instance.audio_options,
@@ -904,7 +1105,7 @@ class RecordingPreviewTests(unittest.TestCase):
 
         self.assertEqual(writer.frame_numbers, [(42, 42)])
 
-    def test_live_video_stop_does_not_write_final_gap_frames(self):
+    def test_live_video_stop_holds_last_image_to_shared_endpoint(self):
         helper = self.audio_recording_module
 
         class FakeFrame:
@@ -943,8 +1144,141 @@ class RecordingPreviewTests(unittest.TestCase):
 
         self.assertIsNone(job._writer)
         self.assertTrue(writer.closed)
-        self.assertEqual(writer.frame_numbers, [])
-        self.assertEqual(job.frames, 0)
+        self.assertEqual(writer.frame_numbers, [299, 300])
+        self.assertEqual(job.frames, 300)
+
+    def test_live_video_stop_uses_requested_time_and_drains_remaining_system_audio(self):
+        helper = self.audio_recording_module
+        reader = MagicMock()
+        writer = MagicMock()
+        job = helper.LiveVideoRecordingJob(
+            reader, "screen.mp4", 640, 480, types.SimpleNamespace(num=30, den=1))
+        job._writer = writer
+        job._last_frame = helper.openshot.Frame(1, 64, 64, "black")
+        job._last_output_frame_number = 16
+        job.begin(100.0)
+        job.request_stop(102.01)
+        with patch.object(helper.time, "monotonic", return_value=110.0):
+            job.finish_stop()
+        self.assertEqual(job.frames, 61)
+        self.assertEqual(reader.AddSystemAudio.call_args.args[1], 61)
+        self.assertEqual(writer.WriteFrameAt.call_args.args[1], 61)
+        writer.Close.assert_called_once()
+
+    def test_live_video_stop_does_not_pad_failed_empty_or_complete_capture(self):
+        helper = self.audio_recording_module
+        for empty, failed, last_number in ((True, False, 0), (False, True, 16),
+                                          (False, False, 60)):
+            with self.subTest(empty=empty, failed=failed, last_number=last_number):
+                job = helper.LiveVideoRecordingJob(
+                    MagicMock(), "webcam.mp4", 640, 480,
+                    types.SimpleNamespace(num=30, den=1))
+                writer = MagicMock()
+                job._writer = writer
+                job._last_frame = None if empty else helper.openshot.Frame(1, 64, 64, "black")
+                job._last_output_frame_number = last_number
+                job.error = RuntimeError("capture failed") if failed else None
+                job.begin(100.0)
+                job.stop(102.0)
+                writer.WriteFrameAt.assert_not_called()
+                writer.Close.assert_called_once()
+
+    def test_live_video_frame_returned_after_stop_cannot_extend_recording(self):
+        helper = self.audio_recording_module
+        frame = helper.openshot.Frame(1, 64, 64, "black")
+        frame.capture_timestamp = 500.0
+        reader = MagicMock()
+        job = helper.LiveVideoRecordingJob(
+            reader, "webcam.mp4", 640, 480, types.SimpleNamespace(num=30, den=1))
+        writer = MagicMock()
+        job._writer = writer
+        job.begin(100.0)
+        job._output_capture_start_timestamp = 10.0
+
+        def late_frame(_number):
+            job.request_stop(102.0)
+            return frame
+
+        reader.GetFrame.side_effect = late_frame
+        with patch.object(helper.time, "monotonic", return_value=110.0):
+            job._run()
+        self.assertEqual(writer.WriteFrameAt.call_args.args[1], 60)
+        self.assertEqual(job.frames, 60)
+
+    @unittest.skipUnless(shutil.which("ffprobe"), "ffprobe is needed to inspect output files")
+    def test_finished_video_files_match_microphone_duration(self):
+        import json
+        import subprocess  # nosec B404 - Inspect locally generated test media without a shell.
+        import wave
+        helper = self.audio_recording_module
+        native = helper.openshot
+        duration = 2.013
+        ffprobe = shutil.which("ffprobe")
+        with tempfile.TemporaryDirectory() as directory:
+            mic_path = os.path.join(directory, "mic.wav")
+            with wave.open(mic_path, "wb") as mic:
+                mic.setnchannels(1)
+                mic.setsampwidth(2)
+                mic.setframerate(48000)
+                mic.writeframes(b"\0\0" * round(duration * 48000))
+
+            def inspect(path):
+                result = subprocess.run(  # nosec B603 - Fixed ffprobe arguments and test-generated paths; no shell.
+                    [ffprobe, "-v", "error", "-show_entries",
+                     "format=duration:stream=codec_type,duration", "-of", "json", path],
+                    check=True, capture_output=True, text=True, timeout=15)
+                return json.loads(result.stdout)
+
+            mic_duration = float(inspect(mic_path)["format"]["duration"])
+            for fps in (15, 30, 60):
+                for with_audio in (False, True):
+                    with self.subTest(fps=fps, system_audio=with_audio):
+                        path = os.path.join(directory, "%s-%s.mp4" % (fps, with_audio))
+                        writer = native.FFmpegWriter(path)
+                        writer.SetVideoOptions(True, "libx264", native.Fraction(fps, 1),
+                                               64, 64, native.Fraction(1, 1), False, False, 400000)
+                        if with_audio:
+                            writer.SetAudioOptions(True, "aac", 48000, 2, native.LAYOUT_STEREO, 128000)
+                        writer.Open()
+                        reader = types.SimpleNamespace()
+                        last_audio_number = [0]
+
+                        def add_audio(frame, number):
+                            count = sum(native.Frame.GetSamplesPerFrame(
+                                n, native.Fraction(fps, 1), 48000, 2)
+                                for n in range(last_audio_number[0] + 1, number + 1))
+                            frame.ResizeAudio(2, count, 48000, native.LAYOUT_STEREO)
+                            frame.AddAudioSilence(count)
+                            last_audio_number[0] = number
+
+                        if with_audio:
+                            reader.AddSystemAudio = add_audio
+                        job = helper.LiveVideoRecordingJob(
+                            reader, path, 64, 64, native.Fraction(fps, 1))
+                        job._writer = writer
+                        job.begin(100.0)
+                        # Simulate video capture ending early, at half a second.
+                        for number in (1, fps // 2):
+                            frame = native.Frame(number, 64, 64, "black")
+                            if with_audio:
+                                add_audio(frame, number)
+                            job._write_numbered_frame(frame, number)
+                            job._last_frame = frame
+                            job._last_output_frame_number = number
+                        job.stop(100.0 + duration)
+                        imported = native.FFmpegReader(path)
+                        imported.Open()
+                        try:
+                            self.assertLessEqual(abs(imported.info.duration - mic_duration),
+                                                 1.0 / fps + 0.03)
+                        finally:
+                            imported.Close()
+                        result = inspect(path)
+                        self.assertLessEqual(abs(float(result["format"]["duration"]) - mic_duration),
+                                             1.0 / fps + 0.03)
+                        for stream in result["streams"]:
+                            self.assertLessEqual(abs(float(stream["duration"]) - mic_duration),
+                                                 1.0 / fps + 0.03)
 
     def test_live_video_wait_until_opened_times_out_and_closes_reader(self):
         helper = self.audio_recording_module

@@ -41,6 +41,10 @@ class KeyframeTransportTests(unittest.TestCase):
             directory = Path(temporary)
             from tests.agent_test_support import subprocess_environment
             env = subprocess_environment(QT_QPA_PLATFORM='offscreen', OPENSHOT_SESSION_DIR=str(directory / 'sessions'))
+            # Exercise real transport with a long temp path, as found on macOS.
+            socket_directory = directory / ('socket-' + 'x' * 30)
+            socket_directory.mkdir()
+            env['TMPDIR'] = str(socket_directory)
             env.pop('OPENSHOT_SESSION', None)
             session_id = uuid.uuid4().hex
             with (directory / 'server.log').open('w') as log:
@@ -94,8 +98,14 @@ class KeyframeTransportTests(unittest.TestCase):
                     error = run('clip', 'keyframe', 'set', clips[0], '--property', 'locaton_x', '--at', '1', '--value', '0', ok=False)
                     self.assertEqual(error['code'], 'invalid_keyframe')
                     self.assertIn('location_x', error['message'])
-                    run('session', 'stop', '--discard')
+                    saved = directory / 'closed.osp'
+                    closed = run('session', 'close', '--save', str(saved))
+                    self.assertTrue(closed['data']['closing'])
                     process.wait(timeout=10)
+                    self.assertEqual(process.returncode, 0)
+                    self.assertFalse(record.exists())
+                    self.assertTrue(json.loads(saved.read_text())['clips'])
+                    self.assertIn("OpenShot's session ended", (directory / 'server.log').read_text())
                 finally:
                     if process.poll() is None:
                         process.terminate()

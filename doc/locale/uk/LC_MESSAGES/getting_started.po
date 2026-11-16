@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:21
+#: ../doc/getting_started.rst:21
 msgid "Video Editing Basics"
 msgstr "Основи відеомонтажу"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:23
+#: ../doc/getting_started.rst:23
 msgid ""
 "You do not need to be a trained videographer to understand how to create "
 "videos well. Simple editing can keep your viewers engaged longer, and add a "
@@ -34,7 +34,7 @@ msgstr ""
 "додати професійного вигляду, навіть якщо ви не професійний відеоредактор."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:27
+#: ../doc/getting_started.rst:27
 msgid ""
 "Basically, video editing is taking footage, cutting it up, removing the "
 "pieces you do not want, and keeping the bits you do. Back in the old days, "
@@ -47,37 +47,37 @@ msgstr ""
 "забезпечення значно спростило цей процес."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:32
+#: ../doc/getting_started.rst:32
 msgid "There are three main jobs of video editing:"
 msgstr "Існує три основні завдання відеомонтажу:"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:34
+#: ../doc/getting_started.rst:34
 msgid "Remove mistakes or unwanted sections"
 msgstr "Видалити помилки або небажані фрагменти"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:35
+#: ../doc/getting_started.rst:35
 msgid "Keep the video moving at an engaging pace"
 msgstr "Підтримувати динамічний темп відео"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:36
+#: ../doc/getting_started.rst:36
 msgid "Insert supporting footage, audio, or titles"
 msgstr "Вставляти додаткові відео, аудіо або титри"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:38
+#: ../doc/getting_started.rst:38
 msgid "Use these three points as a checklist as you edit."
 msgstr "Використовуйте ці три пункти як контрольний список під час монтажу."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:41
+#: ../doc/getting_started.rst:41
 msgid "Computer"
 msgstr "Комп’ютер"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:42
+#: ../doc/getting_started.rst:42
 msgid ""
 "Video editing does not require an expensive machine, especially if you are a"
 " beginner. However, it would be best if you had a more recent monitor and "
@@ -95,12 +95,12 @@ msgstr ""
 "відеомонтажу, тому за можливості варто оновити систему."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:50
+#: ../doc/getting_started.rst:50
 msgid "Accessories"
 msgstr "Аксесуари"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:51
+#: ../doc/getting_started.rst:51
 msgid ""
 "Before beginning a video project, ensure there is enough storage space on "
 "your computer to save all the necessary clips. For example, one hour of "
@@ -115,7 +115,7 @@ msgstr ""
 "придбати зовнішній диск."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:57
+#: ../doc/getting_started.rst:57
 msgid ""
 "It would help if you had several cables, usually Firewire or USB, to connect"
 " your computer, external hard drive, and a camera. Different computers and "
@@ -127,12 +127,12 @@ msgstr ""
 "підтримують різні роз’єми, тому перед покупкою перевірте інструкції."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:63
+#: ../doc/getting_started.rst:63
 msgid "Practical Tips"
 msgstr "Практичні поради"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:64
+#: ../doc/getting_started.rst:64
 msgid ""
 "Becoming a great video editor isn’t effortless, but with practice and "
 "patience, you’ll be editing like a professional in no time. Here are a few "
@@ -144,12 +144,12 @@ msgstr ""
 "технік, які допоможуть вам стати майстром відеомонтажу."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:69
+#: ../doc/getting_started.rst:69
 msgid "Pick the Right Computer"
 msgstr "Виберіть правильний комп’ютер"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:70
+#: ../doc/getting_started.rst:70
 msgid ""
 "While having a great computer won’t necessarily make you a great video "
 "editor, a faster computer will allow you to focus more of your time on the "
@@ -163,11 +163,11 @@ msgstr ""
 " монтажу, але все залежить від ваших уподобань."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:77
+#: ../doc/getting_started.rst:77
 msgid "Keep Shooting"
 msgstr "Продовжуйте знімати"
 
-#: ../getting_started.rst:78
+#: ../doc/getting_started.rst:78
 msgid ""
 "Record more video and audio than you think you will need for your project. "
 "Include video that enhances the scene, sets a mood, or tells a story. You "
@@ -191,12 +191,12 @@ msgstr ""
 "допомогою зовнішньої програми та імпортувати готові медіафайли в OpenShot."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:88
+#: ../doc/getting_started.rst:88
 msgid "Organize Your Project Files"
 msgstr "Організуйте файли проєкту"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:89
+#: ../doc/getting_started.rst:89
 msgid ""
 "Composition is the key to success, whether you are running Linux, on a Mac, "
 "or a Windows machine. Be sure to label video files, audio files, and even "
@@ -213,12 +213,12 @@ msgstr ""
 "Організація перед монтажем дуже корисна."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:98
+#: ../doc/getting_started.rst:98
 msgid "Watch Everything"
 msgstr "Переглядайте все"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:99
+#: ../doc/getting_started.rst:99
 msgid ""
 "Watching everything is the first step in the editing process. Writer and "
 "filmmaker David Andrew Stoler says there is gold in the most unlikely of "
@@ -230,12 +230,12 @@ msgstr ""
 "«Деякі з найкрасивіших виразів акторів ви побачите після монтажного зрізу.»"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:105
+#: ../doc/getting_started.rst:105
 msgid "Edit for a Story"
 msgstr "Монтуйте для розповіді"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:106
+#: ../doc/getting_started.rst:106
 msgid ""
 "Remember that as you edit, you are telling a story. Editing is so much more "
 "than merely cutting footage and adding effects. It is an opportunity to take"
@@ -249,12 +249,12 @@ msgstr ""
 "чи особисте відео, ви розповідаєте глибшу історію."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:113
+#: ../doc/getting_started.rst:113
 msgid "Keyboard Shortcuts"
 msgstr "Клавіатурні скорочення"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:114
+#: ../doc/getting_started.rst:114
 msgid ""
 "One of the easiest ways to tell the difference between and professional "
 "video editor and a novice is to simply look at how much they use the "
@@ -267,12 +267,12 @@ msgstr ""
 "накопичуються за весь проєкт."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:120
+#: ../doc/getting_started.rst:120
 msgid "Learn the Lingo"
 msgstr "Вивчайте термінологію"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:121
+#: ../doc/getting_started.rst:121
 msgid ""
 "Video editing is not just a hobby or a profession; it is an industry. And "
 "just like any industry, there is a ton of jargon to learn. Practically "
@@ -287,12 +287,12 @@ msgstr ""
 "редакторами чи клієнтами."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:129
+#: ../doc/getting_started.rst:129
 msgid "Assemble, Then Make a Rough Cut"
 msgstr "Зберіть матеріал, а потім зробіть чорновий монтаж"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:130
+#: ../doc/getting_started.rst:130
 msgid ""
 "Drag and drop all your video footage into a timeline and make sure your "
 "frame size and frame rates are consistent. Begin a new timeline and drag-"
@@ -305,12 +305,12 @@ msgstr ""
 "забувайте часто зберігати роботу та позначати дату і час кожної версії."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:136
+#: ../doc/getting_started.rst:136
 msgid "Refine Your Video"
 msgstr "Удоскональте ваше відео"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:137
+#: ../doc/getting_started.rst:137
 msgid ""
 "In this phase, your rough cut begins to resemble a cohesive project. Adjust "
 "the sound and color, make sure the dialog is audible, and add music, titles,"
@@ -327,12 +327,12 @@ msgstr ""
 "постобробку для отримання послідовного відео."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:145
+#: ../doc/getting_started.rst:145
 msgid "Refine Some More"
 msgstr "Удосконалюйте далі"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:146
+#: ../doc/getting_started.rst:146
 msgid ""
 "A slow scene can set the mood and add tension or it can bore an audience. A "
 "fast scene can add adrenaline to your audience’s systems or it can give them"
@@ -347,12 +347,12 @@ msgstr ""
 "монтажу вашого проєкту вас засмучувати."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:153
+#: ../doc/getting_started.rst:153
 msgid "Exporting"
 msgstr "Експорт"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:154
+#: ../doc/getting_started.rst:154
 msgid ""
 "People view most of their projects on phones, tablets, or computers, so it "
 "is essential to know how to export for the web. The goal when exporting a "
@@ -366,12 +366,12 @@ msgstr ""
 " основні фактори визначають розмір файлу вашого готового відео:"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:160
+#: ../doc/getting_started.rst:160
 msgid "Codec"
 msgstr "Кодек"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:161
+#: ../doc/getting_started.rst:161
 msgid ""
 "A codec determines the type of file format (MP4, AVI, MOV). The more "
 "compression performed by the codec, the smaller your video’s size. Videos "
@@ -382,12 +382,12 @@ msgstr ""
 " зазвичай мають нижчу візуальну якість."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:166
+#: ../doc/getting_started.rst:166
 msgid "Resolution"
 msgstr "Роздільна здатність"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:167
+#: ../doc/getting_started.rst:167
 msgid ""
 "Resolution refers to the number of horizontal and vertical pixels (dots on "
 "display) your video contains. For example, a 4K UHD (2160P) video has four "
@@ -401,12 +401,12 @@ msgstr ""
 "більшим."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:173
+#: ../doc/getting_started.rst:173
 msgid "Bit Rate"
 msgstr "Бітрейт"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:174
+#: ../doc/getting_started.rst:174
 msgid ""
 "The Bit Rate is the measure of the speed of data processing of your video. A"
 " higher bit rate means higher-quality video and larger files. OpenShot "
@@ -418,12 +418,12 @@ msgstr ""
 "встановлювати бітрейт/якість на вкладці «Додатково» вікна експорту відео."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:180
+#: ../doc/getting_started.rst:180
 msgid "Frame Rate"
 msgstr "Частота кадрів"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:181
+#: ../doc/getting_started.rst:181
 msgid ""
 "The frequency (in Hz) at which consecutive images, called frames, appear on "
 "the display is the Frame Rate. Typically, you export your video in the film "
@@ -439,12 +439,12 @@ msgstr ""
 "файлу подвоїться."
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:188
+#: ../doc/getting_started.rst:188
 msgid "Conclusion"
 msgstr "Висновок"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:189
+#: ../doc/getting_started.rst:189
 msgid ""
 "In conclusion, video editing is an accessible skill that can elevate your "
 "video content even if you're not a professional videographer. With the "

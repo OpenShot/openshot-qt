@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:23
+#: ../doc/animation.rst:23
 msgid "Animation"
 msgstr "Animație"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:25
+#: ../doc/animation.rst:25
 msgid ""
 "OpenShot has been designed specifically with animation in mind. The powerful"
 " curve-based animation framework can handle most jobs with ease, and is "
@@ -40,149 +40,164 @@ msgstr ""
 "OpenShot face munca grea de a interpola valorile intermediare."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:30
+#: ../doc/animation.rst:30
 msgid "Overview"
 msgstr "Prezentare generală"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:38 ../animation.rst:141
+#: ../doc/animation.rst:38 ../doc/animation.rst:187
 msgid "#"
 msgstr "#"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:38 ../animation.rst:141
+#: ../doc/animation.rst:38 ../doc/animation.rst:187
 msgid "Name"
 msgstr "Nume"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:38 ../animation.rst:65 ../animation.rst:141
+#: ../doc/animation.rst:38 ../doc/animation.rst:71 ../doc/animation.rst:187
 msgid "Description"
 msgstr "Descriere"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:40 ../animation.rst:41 ../animation.rst:143
+#: ../doc/animation.rst:40 ../doc/animation.rst:41 ../doc/animation.rst:189
 msgid "1"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:40
+#: ../doc/animation.rst:40
 msgid "Green Property"
 msgstr "Proprietate verde"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:40
+#: ../doc/animation.rst:40
 msgid "When the play-head is on a key frame, the property appears green"
 msgstr "Când capul de redare este pe un cadru cheie, proprietatea apare verde"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:41
+#: ../doc/animation.rst:41
 msgid "Blue Property"
 msgstr "Proprietate albastră"
 
-# Translated with gpt-4.1-mini
-#: ../animation.rst:41
-msgid ""
-"When the play-head is on an interpolated value, the property appears blue"
+#: ../doc/animation.rst:41
+msgid "When the play-head is between key frames, the property appears blue"
 msgstr ""
-"Când capul de redare este pe o valoare interpolată, proprietatea apare "
-"albastră"
+"Când capul de redare este între cadrele cheie, proprietatea apare albastră"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:42 ../animation.rst:144
+#: ../doc/animation.rst:42 ../doc/animation.rst:190
 msgid "2"
 msgstr "2"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:42
+#: ../doc/animation.rst:42
 msgid "Value Slider"
 msgstr "Glisor de valoare"
 
-# Translated with gpt-4.1-mini
-#: ../animation.rst:42
+#: ../doc/animation.rst:42
 msgid ""
-"Click and drag your mouse to adjust the value (this automatically creates a "
-"key frame if needed)"
+"Drag to adjust a property. With Auto Keyframes on, this also records the "
+"value at the playhead."
 msgstr ""
-"Faceți clic și trageți mouse-ul pentru a ajusta valoarea (aceasta creează "
-"automat un cadru cheie dacă este necesar)"
+"Trage pentru a ajusta o proprietate. Cu cadrele cheie automate activate, "
+"aceasta înregistrează și valoarea la capul de redare."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:43
+#: ../doc/animation.rst:43
 msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:43
+#: ../doc/animation.rst:43
 msgid "Play-head"
 msgstr "Cap de redare"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:43
+#: ../doc/animation.rst:43
 msgid "Position the play-head over a clip where you need a key frame"
 msgstr ""
 "Poziționați capul de redare peste un clip unde aveți nevoie de un cadru "
 "cheie"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:44
+#: ../doc/animation.rst:44
 msgid "4"
 msgstr "4"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:44
+#: ../doc/animation.rst:44
 msgid "Key frame Markers"
 msgstr "Marcatori cadre cheie"
 
-#: ../animation.rst:44
+#: ../doc/animation.rst:44
 msgid ""
 "Colorful icons line the bottom of the clip for every keyframe "
 "(`circle=Bézier`, `diamond=linear`, `square=constant`). Each icon matches "
 "the color of its clip, effect, or transition. The selected item's keyframe "
 "icons are shown brighter. Filtering the property list also filters these "
-"icons. Click any icon to jump the play-head, load its properties, and select"
-" its clip, effect, or transition. Drag an icon left or right to move the "
-"keyframe and fine‑tune your animation timing. The play-head moves to the "
-"keyframe's new position when you finish dragging."
+"icons. Click any icon to jump the play-head and select its clip, effect, or "
+"transition without opening the Properties dock. Double-click the icon, or "
+"right-click and choose :guilabel:`Properties`, to open the dock. Drag an "
+"icon left or right to move the keyframe and fine‑tune your animation timing."
+" The play-head moves to the keyframe's new position when you finish "
+"dragging."
 msgstr ""
-"Pictograme colorate aliniază partea de jos a clipului pentru fiecare "
-"keyframe (`circle=Bézier`, `diamond=linear`, `square=constant`). Fiecare "
+"Pictograme colorate aliniază partea de jos a clipului pentru fiecare cadru "
+"cheie (`circle=Bézier`, `diamond=linear`, `square=constant`). Fiecare "
 "pictogramă corespunde culorii clipului, efectului sau tranziției sale. "
-"Pictogramele keyframe-ului elementului selectat sunt afișate mai luminoase. "
-"Filtrarea listei de proprietăți filtrează și aceste pictograme. Faceți clic "
-"pe orice pictogramă pentru a sări la poziția play-head-ului, a încărca "
-"proprietățile sale și a selecta clipul, efectul sau tranziția. Trageți o "
-"pictogramă spre stânga sau dreapta pentru a muta keyframe-ul și a regla fin "
-"sincronizarea animației. Play-head-ul se mută la noua poziție a keyframe-"
-"ului când terminați de tras."
+"Pictogramele cadrelor cheie ale elementului selectat sunt afișate mai "
+"luminoase. Filtrarea listei de proprietăți filtrează și aceste pictograme. "
+"Faceți clic pe orice pictogramă pentru a sări capul de redare și a selecta "
+"clipul, efectul sau tranziția fără a deschide panoul Proprietăți. Faceți "
+"dublu clic pe pictogramă sau clic dreapta și alegeți :guilabel:`Properties` "
+"pentru a deschide panoul. Trageți o pictogramă spre stânga sau dreapta "
+"pentru a muta cadrul cheie și a regla fin sincronizarea animației. Capul de "
+"redare se mută la noua poziție a cadrului cheie când terminați de tras."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:48
+#: ../doc/animation.rst:48
 msgid "Key Frames"
 msgstr "Cadre cheie"
 
-# Translated with gpt-4.1-mini
-#: ../animation.rst:49
+#: ../doc/animation.rst:49
 msgid ""
-"To create a key frame in OpenShot, simply position the play-head (i.e. "
-"playback position) at any point over a clip, and edit properties in the "
-"property dialog. If the property supports key frames, it will turn green, "
-"and a small icon (`circle=Bézier, diamond=linear, square=constant`) will "
-"appear on the bottom of your clip at that position. Move your play-head to "
-"another point over that clip, and adjust the properties again. All "
-"animations require at least 2 key frames, but can support an unlimited "
-"number of them."
+"A keyframe remembers a property's value at a particular moment. For example,"
+" to make a clip gradually grow larger, you can set its scale at the "
+"beginning and choose a larger scale near the end. OpenShot calculates the "
+"change between those two keyframes during playback."
 msgstr ""
-"Pentru a crea un cadru cheie în OpenShot, poziționați pur și simplu capul de"
-" redare (adică poziția de redare) în orice punct peste un clip și editați "
-"proprietățile în dialogul de proprietăți. Dacă proprietatea suportă cadre "
-"cheie, aceasta va deveni verde, iar o pictogramă mică (`circle=Bézier, "
-"diamond=linear, square=constant`) va apărea în partea de jos a clipului la "
-"acea poziție. Mutați capul de redare într-un alt punct peste acel clip și "
-"ajustați din nou proprietățile. Toate animațiile necesită cel puțin 2 cadre "
-"cheie, dar pot suporta un număr nelimitat dintre ele."
+"Un cadru cheie reține valoarea unei proprietăți într-un moment anume. De "
+"exemplu, pentru a face un clip să crească treptat, puteți seta scala la "
+"început și alege o scală mai mare aproape de sfârșit. OpenShot calculează "
+"schimbarea dintre cele două cadre cheie în timpul redării."
+
+#: ../doc/animation.rst:53
+msgid ""
+"With :ref:`auto_keyframes_ref` on (the default), move the playhead to the "
+"moment you want to change and adjust a property in the Properties dock. "
+"OpenShot adds a keyframe there, or updates it if one already exists. Move to"
+" another moment and adjust the value again to build your animation."
+msgstr ""
+"Cu :ref:`auto_keyframes_ref` activat (implicit), mutați capul de redare la "
+"momentul pe care doriți să-l schimbați și ajustați o proprietate în panoul "
+"Proprietăți. OpenShot adaugă un cadru cheie acolo sau îl actualizează dacă "
+"există deja unul. Mutați-vă la un alt moment și ajustați din nou valoarea "
+"pentru a construi animația."
+
+#: ../doc/animation.rst:57
+msgid ""
+"A property turns green when the playhead is on one of its keyframes. Small "
+"markers along the bottom of the clip show where its keyframes are. Their "
+"shapes indicate how the values change between them: ``circle=Bézier, "
+"diamond=linear, square=constant``."
+msgstr ""
+"O proprietate devine verde când capul de redare este pe unul dintre cadrele "
+"sale cheie. Marcaje mici de-a lungul părții de jos a clipului arată unde "
+"sunt cadrele cheie. Formele lor indică cum se schimbă valorile între ele: "
+"``circle=Bézier, diamond=linear, square=constant``."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:55
+#: ../doc/animation.rst:61
 msgid ""
 "Use the :guilabel:`Next Marker` and :guilabel:`Previous Marker` toolbar "
 "buttons to step through the selected item's keyframes. They follow whichever"
@@ -196,7 +211,7 @@ msgstr ""
 "clipului părinte."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:59
+#: ../doc/animation.rst:65
 msgid ""
 "To adjust the **interpolation mode**, right click on the small graph icon "
 "next to a property value."
@@ -205,17 +220,17 @@ msgstr ""
 "mică a graficului de lângă o valoare a proprietății."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:65
+#: ../doc/animation.rst:71
 msgid "Key-frame Interpolation"
 msgstr "Interpolarea cadrelor cheie"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:67
+#: ../doc/animation.rst:73
 msgid "Bézier"
 msgstr "Bézier"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:67
+#: ../doc/animation.rst:73
 msgid ""
 "Interpolated values use a quadratic curve, and ease-in and ease-out. Icon: "
 ":guilabel:`Circle`."
@@ -224,12 +239,12 @@ msgstr ""
 "ieșire ușoare. Pictogramă: :guilabel:`Circle`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:68
+#: ../doc/animation.rst:74
 msgid "Linear"
 msgstr "Liniar"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:68
+#: ../doc/animation.rst:74
 msgid ""
 "Interpolated values are calculated linear (each step value is equal). Icon: "
 ":guilabel:`Diamond`."
@@ -238,12 +253,12 @@ msgstr ""
 "valoare). Pictogramă: :guilabel:`Diamond`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:69
+#: ../doc/animation.rst:75
 msgid "Constant"
 msgstr "Constant"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:69
+#: ../doc/animation.rst:75
 msgid ""
 "Interpolated values stay the same until the next key frame, and jump to the "
 "new value. Icon: :guilabel:`Square`."
@@ -252,7 +267,7 @@ msgstr ""
 "noua valoare. Pictogramă: :guilabel:`Square`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:72
+#: ../doc/animation.rst:78
 #, fuzzy
 msgid ""
 "For more info on creating key frames for location, rotation, scale, shear, "
@@ -262,26 +277,154 @@ msgstr ""
 "rotație, scară, înclinare și poziție, consultați :ref:`clip_transform_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:73
+#: ../doc/animation.rst:79
 msgid "For more info on preset animations, see :ref:`clip_presets_ref`."
 msgstr ""
 "Pentru mai multe informații despre animațiile presetate, consultați "
 ":ref:`clip_presets_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:74
+#: ../doc/animation.rst:80
 msgid "For a full list of key frames, see :ref:`clip_properties_ref`."
 msgstr ""
 "Pentru o listă completă a cadrelor cheie, consultați "
 ":ref:`clip_properties_ref`."
 
+#: ../doc/animation.rst:85
+msgid "Auto Keyframes"
+msgstr "Cadre cheie automate"
+
+#: ../doc/animation.rst:86
+msgid ""
+"Auto Keyframes helps you animate as you edit. Leave it on to record changes "
+"at the playhead as you move, resize, or adjust a clip. You can turn it on or"
+" off with the diamond button on the timeline toolbar. The same setting "
+"applies to edits in the Properties dock and to the transform handles in the "
+"preview."
+msgstr ""
+"Cadrele cheie automate te ajută să animezi în timp ce editezi. Lasă-le "
+"activate pentru a înregistra modificările la capul de redare când muți, "
+"redimensionezi sau ajustezi un clip. Poți activa sau dezactiva cu butonul "
+"diamant de pe bara de instrumente a liniei de timp. Aceeași setare se aplică"
+" și editărilor din panoul Proprietăți și mânerelor de transformare din "
+"previzualizare."
+
+#: ../doc/animation.rst:90
+msgid ""
+"Auto Keyframes starts enabled. If you prefer to place keyframes yourself, "
+"turn off **Auto Keyframes on Startup** in **Preferences → Timeline**. "
+"OpenShot will start with it off next time, and you can still switch it on "
+"whenever you need it."
+msgstr ""
+"Cadrele cheie automate pornesc activate. Dacă preferi să plasezi cadrele "
+"cheie manual, dezactivează **Cadre cheie automate la pornire** în "
+"**Preferințe → Linie de timp**. OpenShot va porni dezactivat data viitoare, "
+"dar poți oricând să-l activezi când ai nevoie."
+
+#: ../doc/animation.rst:94
+msgid ""
+"Turn Auto Keyframes off when you want to adjust existing values without "
+"adding more keyframes. For example, if you have not animated a clip's size, "
+"you can resize it while viewing any part of the clip and keep that size "
+"throughout playback."
+msgstr ""
+"Dezactivează cadrele cheie automate când vrei să ajustezi valorile existente"
+" fără a adăuga mai multe cadre cheie. De exemplu, dacă nu ai animat "
+"dimensiunea unui clip, poți redimensiona în timp ce vizualizezi orice parte "
+"a clipului și păstra acea dimensiune pe toată durata redării."
+
+#: ../doc/animation.rst:98
+msgid ""
+"If a property is already animated, your edit changes its keyframe at the "
+"playhead, or the nearest one to the left. Suppose a clip grows from small to"
+" large: editing its scale halfway through with Auto Keyframes off changes "
+"the starting scale and leaves the ending scale alone. To change a particular"
+" keyframe, move the playhead onto it before editing. Turning Auto Keyframes "
+"off does not remove your animation."
+msgstr ""
+"Dacă o proprietate este deja animată, editarea ta modifică cadrul cheie de "
+"la capul de redare sau cel mai apropiat spre stânga. Să presupunem că un "
+"clip crește de la mic la mare: editarea scalei la jumătatea clipului cu "
+"cadrele cheie automate dezactivate schimbă scala de început și lasă scala de"
+" sfârșit neschimbată. Pentru a schimba un cadru cheie anume, mută capul de "
+"redare pe el înainte de editare. Dezactivarea cadrelor cheie automate nu "
+"elimină animația ta."
+
+#: ../doc/animation.rst:103
+msgid ""
+"Auto Keyframes only records on clips under the playhead. When the playhead "
+"is before or after a clip, editing it changes its nearest keyframe instead, "
+"so the whole clip changes without animating. When you edit several selected "
+"clips at once, each clip follows this rule on its own: clips under the "
+"playhead are keyframed at the playhead, and the others change without "
+"animating."
+msgstr ""
+"Cadrele cheie automate înregistrează doar pe clipurile aflate sub capul de "
+"redare. Când capul de redare este înainte sau după un clip, editarea "
+"acestuia modifică cadrul cheie cel mai apropiat, astfel întregul clip se "
+"schimbă fără animație. Când editezi mai multe clipuri selectate simultan, "
+"fiecare clip urmează această regulă individual: clipurile sub capul de "
+"redare primesc cadre cheie la capul de redare, iar celelalte se schimbă fără"
+" animație."
+
+#: ../doc/animation.rst:108
+msgid ""
+"While editing between keyframes, the preview shows the animation at the "
+"playhead. The Properties dock may show the earlier keyframe you are "
+"changing, so its value can differ from what you see in the preview. Hover "
+"over a numeric value to check which frame you are editing."
+msgstr ""
+"În timp ce editezi între cadrele cheie, previzualizarea arată animația la "
+"capul de redare. Panoul Proprietăți poate afișa cadrul cheie anterior pe "
+"care îl modifici, deci valoarea sa poate diferi de ceea ce vezi în "
+"previzualizare. Plasează cursorul peste o valoare numerică pentru a verifica"
+" ce cadru editezi."
+
+#: ../doc/animation.rst:112
+msgid ""
+"You can also build an animation by placing keyframes yourself, with Auto "
+"Keyframes off:"
+msgstr ""
+"Poți construi o animație și plasând cadrele cheie manual, cu cadrele cheie "
+"automate dezactivate:"
+
+#: ../doc/animation.rst:114
+msgid "Move the playhead to where you want the animation to begin."
+msgstr "Mută capul de redare la locul unde vrei să înceapă animația."
+
+#: ../doc/animation.rst:115
+msgid ""
+"Insert a keyframe using the keyframe panel or the Properties context menu. "
+"This remembers the current value."
+msgstr ""
+"Inserează un cadru cheie folosind panoul de cadre cheie sau meniul "
+"contextual din Proprietăți. Acesta reține valoarea curentă."
+
+#: ../doc/animation.rst:116
+msgid "Move to another moment and insert another keyframe."
+msgstr "Mută-te la un alt moment și inserează un alt cadru cheie."
+
+#: ../doc/animation.rst:117
+msgid "Adjust its value. OpenShot animates between the two keyframes."
+msgstr "Ajustează-i valoarea. OpenShot animează între cele două cadre cheie."
+
+#: ../doc/animation.rst:119
+msgid ""
+"Repeat these steps to add more changes to the animation. See "
+":ref:`split_clip_ref` for preparing shorter segments with their own starting"
+" keyframes."
+msgstr ""
+"Repetă acești pași pentru a adăuga mai multe modificări animației. Vezi "
+":ref:`split_clip_ref` pentru pregătirea segmentelor mai scurte cu cadre "
+"cheie de început proprii."
+
 # Main-window terminology review, 2026-09-26.
-#: ../animation.rst:77
+#: ../doc/animation.rst:123
 msgid "Timing"
 msgstr "Modificarea vitezei"
 
 # Main-window terminology review, 2026-09-26.
-#: ../animation.rst:78
+#: ../doc/animation.rst:124
 msgid ""
 "Changing how fast a clip plays is done with the :guilabel:`Time` property "
 "and the :guilabel:`Timing` tool."
@@ -289,7 +432,7 @@ msgstr ""
 "Modificarea vitezei de redare a unui clip se face cu proprietatea "
 ":guilabel:`Time` și cu instrumentul :guilabel:`Modificarea vitezei`."
 
-#: ../animation.rst:80
+#: ../doc/animation.rst:126
 msgid ""
 "The :guilabel:`Speed` menu offers presets such as normal, fast, slow, "
 "freeze, reverse, and repeat. See details in :ref:`clip_time_ref`."
@@ -298,7 +441,7 @@ msgstr ""
 "înghețare, invers și repetare. Vezi detalii în :ref:`clip_time_ref`."
 
 # Main-window terminology review, 2026-09-26.
-#: ../animation.rst:81
+#: ../doc/animation.rst:127
 msgid ""
 "The :guilabel:`Timing` tool lets you drag a clip’s edges to speed it up or "
 "slow it down. OpenShot adds the needed Time keyframes and **scales your "
@@ -312,11 +455,11 @@ msgstr ""
 "cele mai lungi mai lent. Vezi mai mult: :ref:`clip_time_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:86
+#: ../doc/animation.rst:132
 msgid "Repeating"
 msgstr "Repetare"
 
-#: ../animation.rst:87
+#: ../doc/animation.rst:133
 msgid ""
 "To play a clip multiple times, use :guilabel:`Right-Click → Speed → Repeat`."
 msgstr ""
@@ -324,19 +467,19 @@ msgstr ""
 " Speed → Repeat`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:89
+#: ../doc/animation.rst:135
 msgid ":guilabel:`Loop` repeats in one direction (forward or reverse)."
 msgstr ":guilabel:`Loop` repetă într-o singură direcție (înainte sau înapoi)."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:90
+#: ../doc/animation.rst:136
 msgid ""
 ":guilabel:`Ping-Pong` alternates direction (forward then backward, etc.)."
 msgstr ""
 ":guilabel:`Ping-Pong` alternează direcția (înainte apoi înapoi, etc.)."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:91
+#: ../doc/animation.rst:137
 msgid ""
 ":guilabel:`Custom` can add a short pause between passes, speed up or slow "
 "down each pass, including keyframes."
@@ -345,7 +488,7 @@ msgstr ""
 "încetini fiecare trecere, inclusiv cadrele cheie."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:93
+#: ../doc/animation.rst:139
 msgid ""
 "OpenShot writes the :guilabel:`Time` curve for you, and you can edit those "
 "keyframes just like any other. See more: :ref:`clip_time_repeat_ref`."
@@ -355,12 +498,12 @@ msgstr ""
 ":ref:`clip_time_repeat_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:97
+#: ../doc/animation.rst:143
 msgid "Bézier Presets"
 msgstr "Presetări Bézier"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:98
+#: ../doc/animation.rst:144
 msgid ""
 "When using a Bézier curve for animation, OpenShot includes more than 20 "
 "curve presets (which affect the shape of the curve). For example, **Ease-"
@@ -377,7 +520,7 @@ msgstr ""
 "(producând un efect de săritură)."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:103
+#: ../doc/animation.rst:149
 msgid ""
 "To choose a curve preset, right click on the small graph icon next to a key "
 "frame."
@@ -385,11 +528,11 @@ msgstr ""
 "Pentru a alege un preset de curbă, faceți clic dreapta pe pictograma mică a "
 "graficului de lângă un keyframe."
 
-#: ../animation.rst:110
+#: ../doc/animation.rst:156
 msgid "Ken Burns Effect"
 msgstr "Efectul Ken Burns"
 
-#: ../animation.rst:111
+#: ../doc/animation.rst:157
 msgid ""
 "The **Ken Burns effect** is a pan-and-zoom animation technique — named after"
 " documentary filmmaker Ken Burns — that brings still images or video clips "
@@ -409,12 +552,12 @@ msgstr ""
 "Vezi :ref:`clip_presets_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:120
+#: ../doc/animation.rst:166
 msgid "Image Sequences"
 msgstr "Secvențe de imagini"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:121
+#: ../doc/animation.rst:167
 msgid ""
 "If you have a sequence of similarly named images (such as, cat001.png, "
 "cat002.png, cat003.png, etc...), you can simply drag and drop one of them "
@@ -431,7 +574,7 @@ msgstr ""
 "aceste imagini se bazează pe rata lor de cadre."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:126
+#: ../doc/animation.rst:172
 msgid ""
 "**NOTE:** Be sure your image sequence starts at 0 or 1, or you will likely "
 "receive an error when importing it into OpenShot. For example, if your "
@@ -446,7 +589,7 @@ msgstr ""
 "renumărați imaginile astfel încât să înceapă de la 1."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:132
+#: ../doc/animation.rst:178
 msgid ""
 "To adjust the frame rate of the animation, right click and choose **File "
 "Properties** in the **Project Files** panel, and adjust the frame rate. Once"
@@ -458,12 +601,12 @@ msgstr ""
 "temporală."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:143
+#: ../doc/animation.rst:189
 msgid "File Properties"
 msgstr "Proprietăți fișier"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:143
+#: ../doc/animation.rst:189
 msgid ""
 "Select an image sequence in the **Project Files** panel, right click and "
 "choose **File Properties**"
@@ -472,18 +615,74 @@ msgstr ""
 "dreapta și alegeți **Proprietăți fișier**"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:144
+#: ../doc/animation.rst:190
 msgid "Frame Rate"
 msgstr "Rată de cadre"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:144
+#: ../doc/animation.rst:190
 msgid ""
 "Adjust the frame rate of the animation. Typically, hand-drawn animations use"
 " 12 frames per second."
 msgstr ""
 "Ajustați rata de cadre a animației. De obicei, animațiile desenate manual "
 "folosesc 12 cadre pe secundă."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "When the play-head is on an interpolated value, the property appears blue"
+#~ msgstr ""
+#~ "Când capul de redare este pe o valoare interpolată, proprietatea apare "
+#~ "albastră"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Click and drag your mouse to adjust the value (this automatically creates a "
+#~ "key frame if needed)"
+#~ msgstr ""
+#~ "Faceți clic și trageți mouse-ul pentru a ajusta valoarea (aceasta creează "
+#~ "automat un cadru cheie dacă este necesar)"
+
+#~ msgid ""
+#~ "Colorful icons line the bottom of the clip for every keyframe "
+#~ "(`circle=Bézier`, `diamond=linear`, `square=constant`). Each icon matches "
+#~ "the color of its clip, effect, or transition. The selected item's keyframe "
+#~ "icons are shown brighter. Filtering the property list also filters these "
+#~ "icons. Click any icon to jump the play-head, load its properties, and select"
+#~ " its clip, effect, or transition. Drag an icon left or right to move the "
+#~ "keyframe and fine‑tune your animation timing. The play-head moves to the "
+#~ "keyframe's new position when you finish dragging."
+#~ msgstr ""
+#~ "Pictograme colorate aliniază partea de jos a clipului pentru fiecare "
+#~ "keyframe (`circle=Bézier`, `diamond=linear`, `square=constant`). Fiecare "
+#~ "pictogramă corespunde culorii clipului, efectului sau tranziției sale. "
+#~ "Pictogramele keyframe-ului elementului selectat sunt afișate mai luminoase. "
+#~ "Filtrarea listei de proprietăți filtrează și aceste pictograme. Faceți clic "
+#~ "pe orice pictogramă pentru a sări la poziția play-head-ului, a încărca "
+#~ "proprietățile sale și a selecta clipul, efectul sau tranziția. Trageți o "
+#~ "pictogramă spre stânga sau dreapta pentru a muta keyframe-ul și a regla fin "
+#~ "sincronizarea animației. Play-head-ul se mută la noua poziție a keyframe-"
+#~ "ului când terminați de tras."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "To create a key frame in OpenShot, simply position the play-head (i.e. "
+#~ "playback position) at any point over a clip, and edit properties in the "
+#~ "property dialog. If the property supports key frames, it will turn green, "
+#~ "and a small icon (`circle=Bézier, diamond=linear, square=constant`) will "
+#~ "appear on the bottom of your clip at that position. Move your play-head to "
+#~ "another point over that clip, and adjust the properties again. All "
+#~ "animations require at least 2 key frames, but can support an unlimited "
+#~ "number of them."
+#~ msgstr ""
+#~ "Pentru a crea un cadru cheie în OpenShot, poziționați pur și simplu capul de"
+#~ " redare (adică poziția de redare) în orice punct peste un clip și editați "
+#~ "proprietățile în dialogul de proprietăți. Dacă proprietatea suportă cadre "
+#~ "cheie, aceasta va deveni verde, iar o pictogramă mică (`circle=Bézier, "
+#~ "diamond=linear, square=constant`) va apărea în partea de jos a clipului la "
+#~ "acea poziție. Mutați capul de redare într-un alt punct peste acel clip și "
+#~ "ajustați din nou proprietățile. Toate animațiile necesită cel puțin 2 cadre "
+#~ "cheie, dar pot suporta un număr nelimitat dintre ele."
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

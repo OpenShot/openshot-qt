@@ -1,0 +1,1910 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../doc/keyboard.rst:4
+msgid "Keyboard Shortcuts"
+msgstr "Klavye Kısayolları"
+
+#: ../doc/keyboard.rst:5
+msgid ""
+"Find shortcuts by task below, or jump to the full reference. These are the "
+"default assignments; customize them in :guilabel:`Edit → Preferences → "
+"Keyboard` (:guilabel:`OpenShot Video Editor → Preferences` on macOS). See "
+":ref:`preferences_keyboard_ref` for details."
+msgstr ""
+"Aşağıda göreve göre kısayolları bulun veya tam referansa atlayın. Bunlar "
+"varsayılan atamalardır; :guilabel:`Düzenle → Tercihler → Klavye` "
+"(:guilabel:`OpenShot Video Editor → Tercihler` macOS'ta) bölümünden "
+"özelleştirebilirsiniz. Ayrıntılar için :ref:`preferences_keyboard_ref` "
+"bakınız."
+
+#: ../doc/keyboard.rst:10
+msgid "On macOS, use Command for shortcuts shown with Ctrl."
+msgstr ""
+"macOS'ta, Ctrl ile gösterilen kısayollar için Command tuşunu kullanın."
+
+#: ../doc/keyboard.rst:14
+msgid "On this page"
+msgstr "Bu sayfada"
+
+#: ../doc/keyboard.rst:19
+msgid "Using the timeline with a keyboard"
+msgstr "Zaman çizelgesini klavyeyle kullanma"
+
+#: ../doc/keyboard.rst:20
+msgid ""
+"Focus the timeline before selecting, moving, or trimming clips and "
+"transitions with these shortcuts."
+msgstr ""
+"Bu kısayollarla klipleri ve geçişleri seçmeden, taşımadan veya kırpmadan "
+"önce zaman çizelgesine odaklanın."
+
+#: ../doc/keyboard.rst:23
+msgid "Moving between panels"
+msgstr "Paneller arasında geçiş yapma"
+
+#: ../doc/keyboard.rst:29 ../doc/keyboard.rst:153 ../doc/keyboard.rst:186
+#: ../doc/keyboard.rst:224 ../doc/keyboard.rst:250 ../doc/keyboard.rst:389
+#: ../doc/keyboard.rst:420
+msgid "Action"
+msgstr "Eylem"
+
+#: ../doc/keyboard.rst:30 ../doc/keyboard.rst:111 ../doc/keyboard.rst:154
+#: ../doc/keyboard.rst:187 ../doc/keyboard.rst:225 ../doc/keyboard.rst:251
+msgid "Shortcut"
+msgstr "Kısayol"
+
+#: ../doc/keyboard.rst:31 ../doc/keyboard.rst:522
+msgid "Focus Project Files"
+msgstr "Proje Dosyalarına Odaklan"
+
+#: ../doc/keyboard.rst:32 ../doc/keyboard.rst:523
+msgid ":kbd:`Shift+1`"
+msgstr ":kbd:`Shift+1`"
+
+#: ../doc/keyboard.rst:33
+msgid "Preview the selected file or timeline clip's source"
+msgstr "Seçili dosyanın veya zaman çizelgesi klibinin kaynağını önizle"
+
+#: ../doc/keyboard.rst:34 ../doc/keyboard.rst:394 ../doc/keyboard.rst:601
+msgid ":kbd:`Shift+2` or :kbd:`Alt+P`"
+msgstr ":kbd:`Shift+2` veya :kbd:`Alt+P`"
+
+#: ../doc/keyboard.rst:35
+msgid "Focus the timeline"
+msgstr "Zaman çizelgesine odaklan"
+
+#: ../doc/keyboard.rst:36 ../doc/keyboard.rst:526
+msgid ":kbd:`Shift+3`"
+msgstr ":kbd:`Shift+3`"
+
+#: ../doc/keyboard.rst:37 ../doc/keyboard.rst:528
+msgid "Focus Transitions"
+msgstr "Geçişlere Odaklan"
+
+#: ../doc/keyboard.rst:38 ../doc/keyboard.rst:529
+msgid ":kbd:`Shift+7`"
+msgstr ":kbd:`Shift+7`"
+
+#: ../doc/keyboard.rst:39 ../doc/keyboard.rst:516
+msgid "Focus Effects"
+msgstr "Efektlere Odaklan"
+
+#: ../doc/keyboard.rst:40 ../doc/keyboard.rst:517
+msgid ":kbd:`Shift+8`"
+msgstr ":kbd:`Shift+8`"
+
+#: ../doc/keyboard.rst:41 ../doc/keyboard.rst:519
+msgid "Focus Emojis"
+msgstr "Emojilere Odaklan"
+
+#: ../doc/keyboard.rst:42 ../doc/keyboard.rst:520
+msgid ":kbd:`Shift+9`"
+msgstr ":kbd:`Shift+9`"
+
+#: ../doc/keyboard.rst:43
+msgid "Move to the next / previous control"
+msgstr "Sonraki / önceki kontrole geç"
+
+#: ../doc/keyboard.rst:44 ../doc/keyboard.rst:46
+msgid ":kbd:`Tab` / :kbd:`Shift+Tab`"
+msgstr ":kbd:`Tab` / :kbd:`Shift+Tab`"
+
+#: ../doc/keyboard.rst:45
+msgid "Focus the next / previous dock tab title without selecting it"
+msgstr "Seçmeden sonraki / önceki dock sekme başlığına odaklan"
+
+#: ../doc/keyboard.rst:47
+msgid "Move focus between dock tab titles"
+msgstr "Odaklanmayı dock sekme başlıkları arasında hareket ettir"
+
+#: ../doc/keyboard.rst:48
+msgid ":kbd:`Left` / :kbd:`Right` while a title has focus"
+msgstr "Bir başlık odaktayken :kbd:`Sol` / :kbd:`Sağ`"
+
+#: ../doc/keyboard.rst:49
+msgid "Activate the focused dock tab and enter its first control"
+msgstr "Odaklanılan dock sekmesini etkinleştir ve ilk kontrolüne gir"
+
+#: ../doc/keyboard.rst:50
+msgid ":kbd:`Space` or :kbd:`Enter`"
+msgstr ":kbd:`Boşluk` veya :kbd:`Enter`"
+
+#: ../doc/keyboard.rst:51
+msgid "Browse Project Files, transitions, effects, or emojis"
+msgstr "Proje Dosyalarında, geçişlerde, efektlerde veya emojilerde gez"
+
+#: ../doc/keyboard.rst:52
+msgid "Arrow keys while the list has focus"
+msgstr "Liste odaktayken ok tuşları"
+
+#: ../doc/keyboard.rst:54
+msgid ""
+"Each grouped dock title is a separate Tab stop. Its normal focus style marks"
+" the focused title (an underline in Cosmic Dusk); moving focus does not "
+"change the selected dock. Activate a title to switch docks and focus its "
+"first control. Clicking a dock tab also focuses its first control, even if "
+"that tab is already selected. Only the active dock's visible controls "
+"participate in the Tab sequence; hidden dock controls are skipped."
+msgstr ""
+"Her gruplanmış dock başlığı ayrı bir Tab durak noktasıdır. Normal odak stili"
+" odaklanılan başlığı işaretler (Cosmic Dusk'ta alt çizgi); odak değişikliği "
+"seçili dock'u değiştirmez. Bir başlığı etkinleştirerek docklar arasında "
+"geçiş yapabilir ve ilk kontrolüne odaklanabilirsiniz. Bir dock sekmesine "
+"tıklamak da ilk kontrole odaklanır, sekme zaten seçili olsa bile. Sadece "
+"aktif dock'un görünür kontrolleri Tab dizisine katılır; gizli dock "
+"kontrolleri atlanır."
+
+#: ../doc/keyboard.rst:61
+msgid ""
+"When focus is inside a dock, the underline stays beneath its active tab. "
+"When you Tab between titles, the underline follows the focused title. The "
+"timeline itself is one Tab stop; Tab does not visit each clip or transition."
+msgstr ""
+"Odak bir dock içindeyken, alt çizgi aktif sekmenin altında kalır. Başlıklar "
+"arasında Tab ile geçiş yaptığınızda, alt çizgi odaklanılan başlığı takip "
+"eder. Zaman çizelgesi kendisi bir Tab durak noktasıdır; Tab her klip veya "
+"geçişi ziyaret etmez."
+
+#: ../doc/keyboard.rst:65
+msgid ""
+"The timeline's ruler and track headers, including their labels, dim when "
+"unfocused. The clip area stays the same. In Cosmic Dusk, a blue underline "
+"marks the focused dock's title text or active tab, and buttons show a blue "
+"focus border. The untitled timeline dock has no underline."
+msgstr ""
+"Zaman çizelgesinin cetveli ve parça başlıkları, etiketleri dahil, odak "
+"dışıyken soluklaşır. Klip alanı aynı kalır. Cosmic Dusk'ta, mavi bir alt "
+"çizgi odaklanılan dock'un başlık metnini veya aktif sekmesini işaretler ve "
+"düğmeler mavi bir odak sınırı gösterir. İsimsiz zaman çizelgesi dock'unun "
+"alt çizgisi yoktur."
+
+#: ../doc/keyboard.rst:71
+msgid "Previewing a source"
+msgstr "Bir kaynağı önizleme"
+
+#: ../doc/keyboard.rst:72
+msgid ""
+"Press :kbd:`Shift+2` or :kbd:`Alt+P` with focus in Project Files to preview "
+"the selected file. With focus on the timeline, the same command previews the"
+" active selected clip from its Start point. With multiple items selected, "
+"the active selection anchor determines the source. Transitions and clips "
+"without an available project file do not open a source preview."
+msgstr ""
+"Seçili dosyayı önizlemek için Proje Dosyalarında odak varken :kbd:`Shift+2` "
+"veya :kbd:`Alt+P` tuşlarına basın. Zaman çizelgesinde odak varken aynı "
+"komut, aktif seçili klibi Başlangıç noktasından önizler. Birden fazla öğe "
+"seçiliyse, aktif seçim çapa kaynağı belirler. Kullanılabilir proje dosyası "
+"olmayan geçişler ve klipler kaynak önizlemesi açmaz."
+
+#: ../doc/keyboard.rst:78
+msgid ""
+"An existing preview for the same file or the same timeline clip is reused. "
+"Different timeline clips have separate range-editing targets, even if they "
+"use the same source. When neither the file list nor the timeline has focus, "
+"the command does nothing."
+msgstr ""
+"Aynı dosya veya aynı zaman çizelgesi klibi için mevcut bir önizleme yeniden "
+"kullanılır. Farklı zaman çizelgesi kliplerinin, aynı kaynağı kullansalar "
+"bile ayrı aralık düzenleme hedefleri vardır. Dosya listesi veya zaman "
+"çizelgesi odakta değilse, komut hiçbir şey yapmaz."
+
+#: ../doc/keyboard.rst:83
+msgid ""
+"In Preview File, click or drag the source ruler to scrub. Preview Clip and "
+"Split File also provide range editing: drag the Start/End grips, move the "
+"selected filmstrip range, draw a new range outside it, or edit their "
+"timecodes, or press :kbd:`I` / :kbd:`O` to set a marker at the playhead. End"
+" is the last included frame. :guilabel:`Loop` repeats the marked range. The "
+"preview uses your configured timeline playback and range-editing shortcuts: "
+":kbd:`,` / :kbd:`.` move the range one frame (:kbd:`Shift` moves five). "
+":kbd:`[` selects Start for trimming, :kbd:`]` selects End; comma and period "
+"then trim that edge. :kbd:`Esc` leaves trim mode before closing the dialog. "
+":kbd:`Left` / :kbd:`Right` scrub frames without changing the range. "
+":kbd:`Space` toggles playback, :kbd:`J` / :kbd:`L` change playback speed and"
+" :kbd:`K` pauses. These shortcuts leave text entry alone in Name and "
+"timecodes."
+msgstr ""
+"Önizleme Dosyasında, kaynağın cetveline tıklayın veya sürükleyin. Önizleme "
+"Klip ve Dosyayı Bölme ayrıca aralık düzenleme sağlar: Başlangıç/Bitiş "
+"tutamaçlarını sürükleyin, seçili film şeridi aralığını taşıyın, dışarıda "
+"yeni bir aralık çizin veya zaman kodlarını düzenleyin ya da oynatma "
+"kafasında işaretçi koymak için :kbd:`I` / :kbd:`O` tuşlarına basın. Bitiş, "
+"dahil edilen son karedir. :guilabel:`Döngü` işaretli aralığı tekrarlar. "
+"Önizleme, yapılandırılmış zaman çizelgesi oynatma ve aralık düzenleme "
+"kısayollarınızı kullanır: :kbd:`,` / :kbd:`.` aralığı bir kare hareket "
+"ettirir (:kbd:`Shift` beş kare hareket ettirir). :kbd:`[` kırpma için "
+"Başlangıcı seçer, :kbd:`]` Bitişi seçer; virgül ve nokta sonra o kenarı "
+"kırpar. :kbd:`Esc` diyaloğu kapatmadan önce kırpma modundan çıkar. "
+":kbd:`Sol` / :kbd:`Sağ` aralığı değiştirmeden kareleri tarar. :kbd:`Boşluk` "
+"oynatmayı açıp kapatır, :kbd:`J` / :kbd:`L` oynatma hızını değiştirir ve "
+":kbd:`K` duraklatır. Bu kısayollar İsim ve zaman kodlarındaki metin girişine"
+" dokunmaz."
+
+#: ../doc/keyboard.rst:96
+msgid ""
+"Scrubbing and moving markers do not edit the project until you click the "
+"dialog's Create, Update, or Update Clip button. See :ref:`split_clip_ref`."
+msgstr ""
+"Kaydırma ve işaretçileri taşıma, iletişim kutusundaki Oluştur, Güncelle veya"
+" Klip Güncelle düğmesine tıklayana kadar projeyi düzenlemez. Bkz. "
+":ref:`split_clip_ref`."
+
+#: ../doc/keyboard.rst:100
+msgid "Adding and applying assets"
+msgstr "Varlıkları ekleme ve uygulama"
+
+#: ../doc/keyboard.rst:101
+msgid ""
+"The panel shortcuts above open the dock and focus its asset list directly. "
+"Use the arrow keys to choose an asset, then :kbd:`Ctrl+Enter` to add or "
+"apply it. Your existing browser selection is preserved; if nothing is "
+"selected, focusing the browser selects its current item or the first "
+"available item."
+msgstr ""
+"Yukarıdaki panel kısayolları, dock'u açar ve varlık listesini doğrudan "
+"odaklar. Bir varlık seçmek için ok tuşlarını kullanın, ardından eklemek veya"
+" uygulamak için :kbd:`Ctrl+Enter` tuşlarına basın. Mevcut tarayıcı seçiminiz"
+" korunur; hiçbir şey seçilmemişse, tarayıcıya odaklanmak mevcut öğeyi veya "
+"ilk kullanılabilir öğeyi seçer."
+
+#: ../doc/keyboard.rst:110
+msgid "Panel / action"
+msgstr "Panel / eylem"
+
+#: ../doc/keyboard.rst:112
+msgid "Result"
+msgstr "Sonuç"
+
+#: ../doc/keyboard.rst:113
+msgid "Project Files: add selected files"
+msgstr "Proje Dosyaları: seçilen dosyaları ekle"
+
+#: ../doc/keyboard.rst:114 ../doc/keyboard.rst:117 ../doc/keyboard.rst:120
+#: ../doc/keyboard.rst:123 ../doc/keyboard.rst:430
+msgid ":kbd:`Ctrl+Enter`"
+msgstr ":kbd:`Ctrl+Enter`"
+
+#: ../doc/keyboard.rst:115
+msgid ""
+"Place files sequentially at the playhead, in browser order, on the target "
+"track."
+msgstr ""
+"Dosyaları oynatma kafasında, tarayıcı sırasına göre hedef parçaya ardışık "
+"olarak yerleştir."
+
+#: ../doc/keyboard.rst:116
+msgid "Effects: apply selected effects"
+msgstr "Efektler: seçilen efektleri uygula"
+
+#: ../doc/keyboard.rst:118
+msgid ""
+"Apply to the selected timeline clips. Browsing effects keeps that clip "
+"selection."
+msgstr ""
+"Seçilen zaman çizelgesi kliplerine uygula. Efektlere göz atmak klip seçimini"
+" korur."
+
+#: ../doc/keyboard.rst:119
+msgid "Transitions: add selected transitions"
+msgstr "Geçişler: seçilen geçişleri ekle"
+
+#: ../doc/keyboard.rst:121
+msgid ""
+"Place at the playhead on the target track, using the default transition "
+"length."
+msgstr ""
+"Varsayılan geçiş uzunluğunu kullanarak hedef parçadaki oynatma kafasına "
+"yerleştir."
+
+#: ../doc/keyboard.rst:122
+msgid "Emojis: add selected emoji"
+msgstr "Emojiler: seçilen emojiyi ekle"
+
+#: ../doc/keyboard.rst:124
+msgid ""
+"Place at the playhead on the target track, using the default image length."
+msgstr ""
+"Varsayılan resim uzunluğunu kullanarak hedef parçadaki oynatma kafasına "
+"yerleştir."
+
+#: ../doc/keyboard.rst:125
+msgid "Open the Add to Timeline dialog for selected files"
+msgstr "Seçilen dosyalar için Zaman Çizelgesine Ekle iletişim kutusunu aç"
+
+#: ../doc/keyboard.rst:126 ../doc/keyboard.rst:436
+msgid ":kbd:`Ctrl+Alt+A`"
+msgstr ":kbd:`Ctrl+Alt+A`"
+
+#: ../doc/keyboard.rst:127
+msgid "Choose placement and other options before adding the files."
+msgstr "Dosyaları eklemeden önce yerleşim ve diğer seçenekleri seçin."
+
+#: ../doc/keyboard.rst:129
+msgid ""
+"The target is the selected timeline item's track, or the remembered track if"
+" nothing is selected. With neither available, OpenShot uses the highest "
+"unlocked track. The target track label appears **bold** while browsing "
+"assets. To change it, select an item on the desired track or clear the "
+"timeline selection and click the desired track before returning to the "
+"browser. A locked target blocks the operation; effects also require selected"
+" clips on unlocked tracks."
+msgstr ""
+"Hedef, seçilen zaman çizelgesi öğesinin parçası veya hiçbir şey seçilmemişse"
+" hatırlanan parçadır. Hiçbiri mevcut değilse, OpenShot en yüksek kilidi "
+"açılmış parçayı kullanır. Hedef parça etiketi varlıklara göz atarken "
+"**kalın** görünür. Değiştirmek için, istenen parçadaki bir öğeyi seçin veya "
+"zaman çizelgesi seçimini temizleyin ve tarayıcıya dönmeden önce istenen "
+"parçaya tıklayın. Kilitli bir hedef işlemi engeller; efektler ayrıca kilidi "
+"açılmış parçalardaki seçili klipleri gerektirir."
+
+#: ../doc/keyboard.rst:136
+msgid ""
+"Adding at the playhead uses normal OpenShot placement: it does not make room"
+" by shifting later clips or overwrite their content. As with dragging a "
+"single clip, an overlap can create an automatic transition. The playhead "
+"stays in place and focus stays in the browser, so you can continue choosing "
+"assets. Press :kbd:`Shift+3` to edit the newly added timeline items."
+msgstr ""
+"Oynatma kafasına ekleme, normal OpenShot yerleşimini kullanır: sonraki "
+"klipleri kaydırarak yer açmaz veya içeriklerini üzerine yazmaz. Tek bir klip"
+" sürüklemek gibi, bir örtüşme otomatik bir geçiş oluşturabilir. Oynatma "
+"kafası yerinde kalır ve odak tarayıcıda kalır, böylece varlık seçmeye devam "
+"edebilirsiniz. Yeni eklenen zaman çizelgesi öğelerini düzenlemek için "
+":kbd:`Shift+3` tuşuna basın."
+
+#: ../doc/keyboard.rst:142
+msgid ""
+"For example: :kbd:`Shift+1` → arrow keys → :kbd:`Ctrl+Enter` → "
+":kbd:`Shift+3`. The add/apply shortcut works in the asset list, not while "
+"typing in a filter or renaming an item."
+msgstr ""
+"Örneğin: :kbd:`Shift+1` → ok tuşları → :kbd:`Ctrl+Enter` → :kbd:`Shift+3`. "
+"Ekle/uygula kısayolu varlık listesinde çalışır, filtre yazarken veya bir "
+"öğeyi yeniden adlandırırken değil."
+
+#: ../doc/keyboard.rst:147
+msgid "Moving the playhead"
+msgstr "Oynatma kafasını hareket ettirme"
+
+#: ../doc/keyboard.rst:155
+msgid "Step backward / forward one frame"
+msgstr "Bir kare geri / ileri adım"
+
+#: ../doc/keyboard.rst:156
+msgid ":kbd:`Left` / :kbd:`Right`"
+msgstr ":kbd:`Sol` / :kbd:`Sağ`"
+
+#: ../doc/keyboard.rst:157
+msgid "Step backward / forward five frames"
+msgstr "Beş kare geri / ileri adım"
+
+#: ../doc/keyboard.rst:158
+msgid ":kbd:`Shift+Left` / :kbd:`Shift+Right`"
+msgstr ":kbd:`Shift+Sol` / :kbd:`Shift+Sağ`"
+
+#: ../doc/keyboard.rst:159
+msgid "Go to the previous / next edit"
+msgstr "Önceki / sonraki düzenlemeye git"
+
+#: ../doc/keyboard.rst:160
+msgid ":kbd:`Up` / :kbd:`Down`"
+msgstr ":kbd:`Yukarı` / :kbd:`Aşağı`"
+
+#: ../doc/keyboard.rst:161
+msgid "Jump to the start / end"
+msgstr "Başlangıca / sona atla"
+
+#: ../doc/keyboard.rst:162
+msgid ":kbd:`Home` / :kbd:`End`"
+msgstr ":kbd:`Home` / :kbd:`End`"
+
+#: ../doc/keyboard.rst:163
+msgid "Center the timeline on the playhead"
+msgstr "Zaman çizelgesini oynatma kafasına göre ortala"
+
+#: ../doc/keyboard.rst:164 ../doc/keyboard.rst:451
+msgid ":kbd:`Shift+C`"
+msgstr ":kbd:`Shift+C`"
+
+#: ../doc/keyboard.rst:165 ../doc/keyboard.rst:292
+msgid "Play / pause"
+msgstr "Oynat / duraklat"
+
+#: ../doc/keyboard.rst:166 ../doc/keyboard.rst:595
+msgid ":kbd:`Space`"
+msgstr ":kbd:`Space`"
+
+#: ../doc/keyboard.rst:167
+msgid "Play in reverse"
+msgstr "Ters yönde oynat"
+
+#: ../doc/keyboard.rst:168 ../doc/keyboard.rst:634
+msgid ":kbd:`J`"
+msgstr ":kbd:`J`"
+
+#: ../doc/keyboard.rst:169
+msgid "Stop playback"
+msgstr "Oynatmayı durdur"
+
+#: ../doc/keyboard.rst:170 ../doc/keyboard.rst:712
+msgid ":kbd:`K`"
+msgstr ":kbd:`K`"
+
+#: ../doc/keyboard.rst:171
+msgid "Play forward"
+msgstr "İleri oynat"
+
+#: ../doc/keyboard.rst:172 ../doc/keyboard.rst:511
+msgid ":kbd:`L`"
+msgstr ":kbd:`L`"
+
+#: ../doc/keyboard.rst:174
+msgid ""
+"Edit navigation uses the selected item's track, or the last clicked track if"
+" nothing is selected. With no active track, it starts on the highest track "
+"containing a clip or transition at the playhead, or the highest populated "
+"track in a gap."
+msgstr ""
+"Düzenleme navigasyonu, seçilen öğenin parçasını veya hiçbir şey seçilmemişse"
+" son tıklanan parçayı kullanır. Aktif parça yoksa, oynatma kafasındaki bir "
+"klip veya geçiş içeren en yüksek parçadan veya bir boşluktaki en yüksek dolu"
+" parçadan başlar."
+
+#: ../doc/keyboard.rst:179
+msgid "Selecting clips and transitions"
+msgstr "Klipleri ve geçişleri seçme"
+
+#: ../doc/keyboard.rst:180
+msgid ""
+"These shortcuts select both clips and transitions. Selection brings an item "
+"into view without changing the zoom or playhead."
+msgstr ""
+"Bu kısayollar hem klipleri hem de geçişleri seçer. Seçim, yakınlaştırmayı "
+"veya oynatma kafasını değiştirmeden bir öğeyi görünür yapar."
+
+#: ../doc/keyboard.rst:188
+msgid "Select the previous / next item"
+msgstr "Önceki / sonraki öğeyi seç"
+
+#: ../doc/keyboard.rst:189
+msgid ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+Sol` / :kbd:`Ctrl+Sağ`"
+
+#: ../doc/keyboard.rst:190
+msgid "Select an item above / below"
+msgstr "Yukarıdaki / aşağıdaki öğeyi seç"
+
+#: ../doc/keyboard.rst:191
+msgid ":kbd:`Ctrl+Up` / :kbd:`Ctrl+Down`"
+msgstr ":kbd:`Ctrl+Yukarı` / :kbd:`Ctrl+Aşağı`"
+
+#: ../doc/keyboard.rst:192
+msgid "Extend selection to the previous / next item"
+msgstr "Seçimi önceki / sonraki öğeye genişlet"
+
+#: ../doc/keyboard.rst:193
+msgid ":kbd:`Ctrl+Shift+Left` / :kbd:`Ctrl+Shift+Right`"
+msgstr ":kbd:`Ctrl+Shift+Sol` / :kbd:`Ctrl+Shift+Sağ`"
+
+#: ../doc/keyboard.rst:194
+msgid "Cycle through items under the playhead"
+msgstr "Oynatma kafasının altındaki öğeler arasında döngü yap"
+
+#: ../doc/keyboard.rst:195 ../doc/keyboard.rst:652
+msgid ":kbd:`D`"
+msgstr ":kbd:`D`"
+
+#: ../doc/keyboard.rst:196
+msgid "Extend selection through items under the playhead"
+msgstr "Seçimi oynatma kafasının altındaki öğeler boyunca genişlet"
+
+#: ../doc/keyboard.rst:197 ../doc/keyboard.rst:502
+msgid ":kbd:`Ctrl+Shift+D`"
+msgstr ":kbd:`Ctrl+Shift+D`"
+
+#: ../doc/keyboard.rst:198
+msgid "Select all / clear selection"
+msgstr "Tümünü seç / seçimi temizle"
+
+#: ../doc/keyboard.rst:199
+msgid ":kbd:`Ctrl+A` / :kbd:`Ctrl+Shift+A`"
+msgstr ":kbd:`Ctrl+A` / :kbd:`Ctrl+Shift+A`"
+
+#: ../doc/keyboard.rst:201
+msgid ""
+"**Left/right** follows the current track first. When no item remains in that"
+" direction, it continues to the closest item start on another track."
+msgstr ""
+"**Sol/sağ** önce mevcut parçayı takip eder. O yönde öğe kalmadığında, başka "
+"bir parçadaki en yakın öğe başlangıcına devam eder."
+
+#: ../doc/keyboard.rst:204
+msgid ""
+"**Up/down** looks above or below the selected item, preferring items that "
+"overlap it in time. The nearest overlapping track wins. If nothing overlaps,"
+" the smallest horizontal gap wins, then the nearest track. Ties on a track "
+"favor the closest item center. Empty tracks and unrelated items farther to "
+"the side do not block navigation. With no selection, the playhead supplies "
+"the starting position."
+msgstr ""
+"**Yukarı/aşağı** seçili öğenin üstüne veya altına bakar, zaman içinde üst "
+"üste binen öğeleri tercih eder. En yakın üst üste binen parça kazanır. "
+"Hiçbir şey üst üste binmezse, en küçük yatay boşluk kazanır, sonra en yakın "
+"parça. Bir parçada eşitlikler en yakın öğe merkezini tercih eder. Boş "
+"parçalar ve yan taraftaki ilgisiz öğeler gezinmeyi engellemez. Seçim yoksa, "
+"oynatma kafası başlangıç konumunu sağlar."
+
+#: ../doc/keyboard.rst:210
+msgid ""
+"**Selection at the playhead** cycles from the highest track to the lowest, "
+"then wraps to the top. Moving the playhead restarts the cycle. If no item is"
+" under it, the selection stays unchanged. Extending selection keeps items "
+"already selected."
+msgstr ""
+"**Oynatma kafasındaki seçim** en yüksek parçadan en düşüğe döner, sonra en "
+"üste sarar. Oynatma kafasını hareket ettirmek döngüyü yeniden başlatır. "
+"Altında öğe yoksa seçim değişmez. Seçimi genişletmek zaten seçili öğeleri "
+"korur."
+
+#: ../doc/keyboard.rst:217
+msgid "Moving clips and transitions"
+msgstr "Klipleri ve geçişleri taşıma"
+
+#: ../doc/keyboard.rst:218
+msgid ""
+"These shortcuts move the selected clips and transitions when no trim edge is"
+" selected."
+msgstr ""
+"Bu kısayollar, kırpma kenarı seçilmediğinde seçili klipleri ve geçişleri "
+"taşır."
+
+#: ../doc/keyboard.rst:226
+msgid "Move left / right one frame"
+msgstr "Bir kare sola / sağa taşı"
+
+#: ../doc/keyboard.rst:227 ../doc/keyboard.rst:257
+msgid ":kbd:`,` / :kbd:`.`"
+msgstr ":kbd:`,` / :kbd:`.`"
+
+#: ../doc/keyboard.rst:228
+msgid "Move left / right five frames"
+msgstr "Beş kare sola / sağa taşı"
+
+#: ../doc/keyboard.rst:229 ../doc/keyboard.rst:259
+msgid ":kbd:`Shift+,` / :kbd:`Shift+.`"
+msgstr ":kbd:`Shift+,` / :kbd:`Shift+.`"
+
+#: ../doc/keyboard.rst:230
+msgid "Move up / down one track"
+msgstr "Bir parça yukarı / aşağı taşı"
+
+#: ../doc/keyboard.rst:231
+msgid ":kbd:`Alt+Up` / :kbd:`Alt+Down`"
+msgstr ":kbd:`Alt+Yukarı` / :kbd:`Alt+Aşağı`"
+
+#: ../doc/keyboard.rst:233
+msgid ""
+"Track moves keep the selection's timing and can use empty tracks. A locked "
+"track or the edge of the track list blocks the whole track move."
+msgstr ""
+"Parça hareketleri seçimin zamanlamasını korur ve boş parçaları kullanabilir."
+" Kilitli bir parça veya parça listesinin ucu tüm parça hareketini engeller."
+
+#: ../doc/keyboard.rst:236
+msgid ""
+"Hold a comma/period shortcut to move continuously. OpenShot previews the "
+"movement while the key repeats, then saves the final positions when you "
+"release it. One Undo reverses the entire hold, including all selected items."
+" Separate key taps remain separate undo steps. Leaving the timeline or "
+"starting another keyboard command also finishes the current movement."
+msgstr ""
+"Sürekli hareket etmek için virgül/nokta kısayolunu basılı tutun. OpenShot "
+"tuş tekrar ederken hareketi önizler, bırakınca son konumları kaydeder. Bir "
+"Geri Al tüm basılı tutmayı, seçili tüm öğeler dahil, geri alır. Ayrı tuş "
+"vuruşları ayrı geri alma adımları olarak kalır. Zaman çizgisinden çıkmak "
+"veya başka bir klavye komutu başlatmak da mevcut hareketi sonlandırır."
+
+#: ../doc/keyboard.rst:243
+msgid "Trimming clips and transitions"
+msgstr "Klipleri ve geçişleri kırpma"
+
+#: ../doc/keyboard.rst:244
+msgid ""
+"Select a clip or transition, choose its left or right edge, then adjust that"
+" edge."
+msgstr ""
+"Bir klip veya geçiş seçin, sol veya sağ kenarını seçin, sonra o kenarı "
+"ayarlayın."
+
+#: ../doc/keyboard.rst:252
+msgid "Select the left trim edge"
+msgstr "Sol kırpma kenarını seç"
+
+#: ../doc/keyboard.rst:253 ../doc/keyboard.rst:661
+msgid ":kbd:`[`"
+msgstr ":kbd:`[`"
+
+#: ../doc/keyboard.rst:254
+msgid "Select the right trim edge"
+msgstr "Sağ kırpma kenarını seç"
+
+#: ../doc/keyboard.rst:255 ../doc/keyboard.rst:673
+msgid ":kbd:`]`"
+msgstr ":kbd:`]`"
+
+#: ../doc/keyboard.rst:256
+msgid "Move the selected edge left / right one frame"
+msgstr "Seçili kenarı bir kare sola / sağa taşı"
+
+#: ../doc/keyboard.rst:258
+msgid "Move the selected edge left / right five frames"
+msgstr "Seçili kenarı beş kare sola / sağa taşı"
+
+#: ../doc/keyboard.rst:260
+msgid "Leave trim mode and restore the timeline preview"
+msgstr "Kırpma modundan çık ve zaman çizgisi önizlemesini geri yükle"
+
+#: ../doc/keyboard.rst:261
+msgid ":kbd:`Esc`"
+msgstr ":kbd:`Esc`"
+
+#: ../doc/keyboard.rst:263
+msgid ""
+"The selected edge has a fading highlight. Video Preview shows the first "
+"included frame for the left edge or the last included frame for the right "
+"edge, updating after each trim without moving the playhead. For transitions,"
+" the preview shows the transition mask. Trims respect the available source "
+"media and do not ripple other clips."
+msgstr ""
+"Seçili kenarda solan bir vurgulama vardır. Video Önizleme, sol kenar için "
+"dahil edilen ilk kareyi veya sağ kenar için son dahil edilen kareyi "
+"gösterir, her kırpmadan sonra oynatma kafasını hareket ettirmeden "
+"güncellenir. Geçişlerde önizleme geçiş maskesini gösterir. Kırpmalar mevcut "
+"kaynak medyaya saygı gösterir ve diğer klipleri dalgalandırmaz."
+
+#: ../doc/keyboard.rst:269
+msgid ""
+"Holding a trim shortcut also groups its repeated adjustments into one undo "
+"step."
+msgstr ""
+"Bir kırpma kısayolunu basılı tutmak, tekrarlanan ayarları tek bir geri alma "
+"adımında toplar."
+
+#: ../doc/keyboard.rst:271
+msgid ""
+"After leaving trim mode, comma/period move whole clips and transitions "
+"again."
+msgstr ""
+"Kırpma modundan çıktıktan sonra, virgül/nokta tekrar tüm klipleri ve "
+"geçişleri taşır."
+
+#: ../doc/keyboard.rst:274
+msgid "Coming from another editor?"
+msgstr "Başka bir editörden mi geliyorsunuz?"
+
+#: ../doc/keyboard.rst:275
+msgid ""
+"Compare a few everyday editing tasks with shortcuts you may already know."
+msgstr ""
+"Zaten biliyor olabileceğiniz kısayollarla birkaç günlük düzenleme görevini "
+"karşılaştırın."
+
+#: ../doc/keyboard.rst:277
+msgid ""
+"The table shows OpenShot's Windows/Linux defaults, Adobe Premiere Pro and "
+"DaVinci Resolve Windows defaults, and Final Cut Pro Mac defaults. On macOS, "
+"OpenShot uses Command for shortcuts shown with Ctrl. Shortcuts in other "
+"editors can vary with the version, keyboard layout, selected preset, and "
+"active panel. Similar shortcuts can also behave differently on stacked or "
+"connected clips."
+msgstr ""
+"Tablo, OpenShot'un Windows/Linux varsayılanlarını, Adobe Premiere Pro ve "
+"DaVinci Resolve Windows varsayılanlarını ve Final Cut Pro Mac "
+"varsayılanlarını gösterir. macOS'ta OpenShot, Ctrl ile gösterilen kısayollar"
+" için Command kullanır. Diğer editörlerde kısayollar sürüm, klavye düzeni, "
+"seçili ön ayar ve aktif panel ile değişebilir. Benzer kısayollar yığılmış "
+"veya bağlı kliplerde farklı davranabilir."
+
+#: ../doc/keyboard.rst:283
+msgid "Everyday editing shortcuts"
+msgstr "Günlük düzenleme kısayolları"
+
+#: ../doc/keyboard.rst:287
+msgid "Task"
+msgstr "Görev"
+
+#: ../doc/keyboard.rst:288
+msgid "OpenShot"
+msgstr "OpenShot"
+
+#: ../doc/keyboard.rst:289
+msgid "Premiere Pro"
+msgstr "Premiere Pro"
+
+#: ../doc/keyboard.rst:290
+msgid "DaVinci Resolve"
+msgstr "DaVinci Resolve"
+
+#: ../doc/keyboard.rst:291
+msgid "Final Cut Pro"
+msgstr "Final Cut Pro"
+
+#: ../doc/keyboard.rst:293 ../doc/keyboard.rst:294 ../doc/keyboard.rst:295
+#: ../doc/keyboard.rst:296
+msgid "Space"
+msgstr "Boşluk"
+
+#: ../doc/keyboard.rst:297
+msgid "Reverse / stop / forward"
+msgstr "Geri / dur / ileri"
+
+#: ../doc/keyboard.rst:298 ../doc/keyboard.rst:299 ../doc/keyboard.rst:300
+#: ../doc/keyboard.rst:301
+msgid "J / K / L"
+msgstr "J / K / L"
+
+#: ../doc/keyboard.rst:302
+msgid "Previous / next frame"
+msgstr "Önceki / sonraki kare"
+
+#: ../doc/keyboard.rst:303 ../doc/keyboard.rst:304 ../doc/keyboard.rst:305
+#: ../doc/keyboard.rst:306
+msgid "Left / Right"
+msgstr "Sol / Sağ"
+
+#: ../doc/keyboard.rst:307
+msgid "Previous / next edit"
+msgstr "Önceki / sonraki düzenleme"
+
+#: ../doc/keyboard.rst:308
+msgid "Up / Down (active track)"
+msgstr "Yukarı / Aşağı (aktif parça)"
+
+#: ../doc/keyboard.rst:309 ../doc/keyboard.rst:310 ../doc/keyboard.rst:311
+msgid "Up / Down"
+msgstr "Yukarı / Aşağı"
+
+#: ../doc/keyboard.rst:312
+msgid "Focus media browser / project assets"
+msgstr "Medya tarayıcısına / proje varlıklarına odaklan"
+
+#: ../doc/keyboard.rst:313
+msgid "Shift+1"
+msgstr "Shift+1"
+
+#: ../doc/keyboard.rst:314
+msgid "Shift+1 (Project panel)"
+msgstr "Shift+1 (Proje paneli)"
+
+#: ../doc/keyboard.rst:315 ../doc/keyboard.rst:320
+msgid "Not listed here"
+msgstr "Burada listelenmemiş"
+
+#: ../doc/keyboard.rst:316
+msgid "Cmd+1 (Browser)"
+msgstr "Cmd+1 (Tarayıcı)"
+
+#: ../doc/keyboard.rst:317
+msgid "Focus timeline"
+msgstr "Zaman çizelgesine odaklan"
+
+#: ../doc/keyboard.rst:318 ../doc/keyboard.rst:319
+msgid "Shift+3"
+msgstr "Shift+3"
+
+#: ../doc/keyboard.rst:321
+msgid "Cmd+2"
+msgstr "Cmd+2"
+
+#: ../doc/keyboard.rst:322
+msgid "Add source media at the playhead"
+msgstr "Oynatma kafasında kaynak medyayı ekle"
+
+#: ../doc/keyboard.rst:323
+msgid "Ctrl+Enter (place on target track)"
+msgstr "Ctrl+Enter (hedef parçaya yerleştir)"
+
+#: ../doc/keyboard.rst:324
+msgid "Comma (insert); period (overwrite)"
+msgstr "Virgül (ekle); nokta (üzerine yaz)"
+
+#: ../doc/keyboard.rst:325
+msgid "F9 (insert); F10 (overwrite)"
+msgstr "F9 (ekle); F10 (üzerine yaz)"
+
+#: ../doc/keyboard.rst:326
+msgid "W (insert); D (overwrite); Q (connect)"
+msgstr "W (ekle); D (üzerine yaz); Q (bağla)"
+
+#: ../doc/keyboard.rst:327
+msgid "Select previous / next clip"
+msgstr "Önceki / sonraki klibi seç"
+
+#: ../doc/keyboard.rst:328 ../doc/keyboard.rst:330
+msgid "Ctrl+Left / Right"
+msgstr "Ctrl+Sol / Sağ"
+
+#: ../doc/keyboard.rst:329 ../doc/keyboard.rst:333 ../doc/keyboard.rst:335
+msgid "Ctrl+Up / Down"
+msgstr "Ctrl+Yukarı / Aşağı"
+
+#: ../doc/keyboard.rst:331
+msgid "Cmd+Left / Right (same role; also moves playhead)"
+msgstr "Cmd+Sol / Sağ (aynı işlev; oynatma kafasını da hareket ettirir)"
+
+#: ../doc/keyboard.rst:332
+msgid "Select clip above / below"
+msgstr "Yukarıdaki / aşağıdaki klibi seç"
+
+#: ../doc/keyboard.rst:334
+msgid "No default listed here"
+msgstr "Burada varsayılan yok"
+
+#: ../doc/keyboard.rst:336
+msgid "Cmd+Up / Down"
+msgstr "Cmd+Yukarı / Aşağı"
+
+#: ../doc/keyboard.rst:337
+msgid "Move selection up / down"
+msgstr "Seçimi yukarı / aşağı taşı"
+
+#: ../doc/keyboard.rst:338 ../doc/keyboard.rst:339 ../doc/keyboard.rst:340
+msgid "Alt+Up / Down"
+msgstr "Alt+Yukarı / Aşağı"
+
+#: ../doc/keyboard.rst:341
+msgid "Option+Up / Down (connected clips)"
+msgstr "Option+Yukarı / Aşağı (bağlı klipler)"
+
+#: ../doc/keyboard.rst:342
+msgid "Nudge left / right one frame"
+msgstr "Bir kare sola / sağa kaydır"
+
+#: ../doc/keyboard.rst:343 ../doc/keyboard.rst:345 ../doc/keyboard.rst:346
+msgid "Comma / period"
+msgstr "Virgül / nokta"
+
+#: ../doc/keyboard.rst:344
+msgid "Alt+Left / Right"
+msgstr "Alt+Sol / Sağ"
+
+#: ../doc/keyboard.rst:347
+msgid "Nudge by several frames"
+msgstr "Birkaç kare kaydır"
+
+#: ../doc/keyboard.rst:348
+msgid "Shift+comma / period (5)"
+msgstr "Shift+virgül / nokta (5)"
+
+#: ../doc/keyboard.rst:349
+msgid "Alt+Shift+Left / Right (5)"
+msgstr "Alt+Shift+Sol / Sağ (5)"
+
+#: ../doc/keyboard.rst:350
+msgid "Shift+comma / period (configurable; default 5)"
+msgstr "Shift+virgül / nokta (ayar yapılabilir; varsayılan 5)"
+
+#: ../doc/keyboard.rst:351
+msgid "Shift+comma / period (10)"
+msgstr "Shift+virgül / nokta (10)"
+
+#: ../doc/keyboard.rst:352
+msgid "Select at playhead"
+msgstr "Oynatma kafasında seç"
+
+#: ../doc/keyboard.rst:353
+msgid "D (cycles through stacked clips)"
+msgstr "D (üst üste yığılmış klipler arasında döner)"
+
+#: ../doc/keyboard.rst:354
+msgid "D"
+msgstr "D"
+
+#: ../doc/keyboard.rst:355
+msgid "Shift+V (nearest clip/gap)"
+msgstr "Shift+V (en yakın klip/boşluk)"
+
+#: ../doc/keyboard.rst:356
+msgid "X selects a range; C selects under the pointer"
+msgstr "X bir aralığı seçer; C işaretçinin altındakini seçer"
+
+#: ../doc/keyboard.rst:357
+msgid "Split at playhead"
+msgstr "Oynatma kafasında böl"
+
+#: ../doc/keyboard.rst:358
+msgid "Ctrl+K (selected clips)"
+msgstr "Ctrl+K (seçili klipler)"
+
+#: ../doc/keyboard.rst:359
+msgid "Ctrl+K (targeted tracks)"
+msgstr "Ctrl+K (hedeflenen parçalar)"
+
+#: ../doc/keyboard.rst:360
+msgid "Ctrl+B"
+msgstr "Ctrl+B"
+
+#: ../doc/keyboard.rst:361
+msgid "Cmd+B"
+msgstr "Cmd+B"
+
+#: ../doc/keyboard.rst:362 ../doc/keyboard.rst:726
+msgid "Undo"
+msgstr "Geri al"
+
+#: ../doc/keyboard.rst:363 ../doc/keyboard.rst:364 ../doc/keyboard.rst:365
+msgid "Ctrl+Z"
+msgstr "Ctrl+Z"
+
+#: ../doc/keyboard.rst:366
+msgid "Cmd+Z"
+msgstr "Cmd+Z"
+
+#: ../doc/keyboard.rst:367
+msgid "Save project"
+msgstr "Projeyi kaydet"
+
+#: ../doc/keyboard.rst:368 ../doc/keyboard.rst:369 ../doc/keyboard.rst:370
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: ../doc/keyboard.rst:371
+msgid "Saves automatically"
+msgstr "Otomatik kaydeder"
+
+#: ../doc/keyboard.rst:373
+msgid ""
+"For complete shortcut lists and customization options, see the `Premiere Pro"
+" keyboard reference <https://helpx.adobe.com/premiere/desktop/get-"
+"started/keyboard-shortcuts/default-keyboard-shortcuts.html>`_, `DaVinci "
+"Resolve training guides "
+"<https://www.blackmagicdesign.com/products/davinciresolve/training>`_, and "
+"`Final Cut Pro keyboard reference <https://support.apple.com/guide/final-"
+"cut-pro/ver90ba5929/mac>`_."
+msgstr ""
+"Tam kısayol listeleri ve özelleştirme seçenekleri için, `Premiere Pro klavye"
+" referansı <https://helpx.adobe.com/premiere/desktop/get-started/keyboard-"
+"shortcuts/default-keyboard-shortcuts.html>`_, `DaVinci Resolve eğitim "
+"rehberleri "
+"<https://www.blackmagicdesign.com/products/davinciresolve/training>`_ ve "
+"`Final Cut Pro klavye referansı <https://support.apple.com/guide/final-cut-"
+"pro/ver90ba5929/mac>`_ sayfalarına bakınız."
+
+#: ../doc/keyboard.rst:381
+msgid "Mouse shortcuts"
+msgstr "Fare kısayolları"
+
+#: ../doc/keyboard.rst:382
+msgid ""
+"These gestures complement the keyboard shortcuts. In Project Files' Details "
+"view, double-click the thumbnail column for the file actions below."
+msgstr ""
+"Bu hareketler klavye kısayollarını tamamlar. Proje Dosyaları Detay "
+"görünümünde, dosya işlemleri için küçük resim sütununa çift tıklayın."
+
+#: ../doc/keyboard.rst:390
+msgid "Mouse gesture"
+msgstr "Fare hareketi"
+
+#: ../doc/keyboard.rst:391
+msgid "Keyboard alternative"
+msgstr "Klavye alternatifi"
+
+#: ../doc/keyboard.rst:392
+msgid "Preview a file in Project Files"
+msgstr "Proje Dosyalarında bir dosyayı önizle"
+
+#: ../doc/keyboard.rst:393
+msgid "Double-click the file"
+msgstr "Dosyaya çift tıkla"
+
+#: ../doc/keyboard.rst:395
+msgid "Open file properties in Project Files"
+msgstr "Proje Dosyalarında dosya özelliklerini aç"
+
+#: ../doc/keyboard.rst:396
+msgid ":kbd:`Ctrl` + double-click the file"
+msgstr ":kbd:`Ctrl` + dosyaya çift tıkla"
+
+#: ../doc/keyboard.rst:397 ../doc/keyboard.rst:514
+msgid ":kbd:`Alt+I`"
+msgstr ":kbd:`Alt+I`"
+
+#: ../doc/keyboard.rst:398
+msgid "Split a file in Project Files"
+msgstr "Proje Dosyalarında bir dosyayı böl"
+
+#: ../doc/keyboard.rst:399
+msgid ":kbd:`Shift` + double-click the file"
+msgstr ":kbd:`Shift` + dosyaya çift tıkla"
+
+#: ../doc/keyboard.rst:400 ../doc/keyboard.rst:709
+msgid ":kbd:`Alt+S`"
+msgstr ":kbd:`Alt+S`"
+
+#: ../doc/keyboard.rst:401
+msgid "Select an item and everything to its right on the same track"
+msgstr "Bir öğeyi ve aynı parçada sağındaki her şeyi seç"
+
+#: ../doc/keyboard.rst:402
+msgid ":kbd:`Alt` + click the clip or transition"
+msgstr ":kbd:`Alt` + klip veya geçişe tıkla"
+
+#: ../doc/keyboard.rst:403
+msgid ":kbd:`Alt+A` with an item selected"
+msgstr "Bir öğe seçiliyken :kbd:`Alt+A`"
+
+#: ../doc/keyboard.rst:404
+msgid "Open properties for a timeline clip or transition"
+msgstr "Zaman çizelgesi klibi veya geçişi için özellikleri aç"
+
+#: ../doc/keyboard.rst:405
+msgid "Double-click the item"
+msgstr "Öğeye çift tıkla"
+
+#: ../doc/keyboard.rst:406 ../doc/keyboard.rst:616
+msgid ":kbd:`U`"
+msgstr ":kbd:`U`"
+
+#: ../doc/keyboard.rst:407
+msgid "Fit the whole timeline in view"
+msgstr "Tüm zaman çizelgesini görünümde sığdır"
+
+#: ../doc/keyboard.rst:408
+msgid "Double-click the zoom slider"
+msgstr "Yakınlaştırma kaydırıcısına çift tıkla"
+
+#: ../doc/keyboard.rst:409
+msgid ":kbd:`\\\\` or :kbd:`Shift+\\\\`"
+msgstr ":kbd:`\\\\` veya :kbd:`Shift+\\\\`"
+
+#: ../doc/keyboard.rst:412
+msgid "Full shortcut reference"
+msgstr "Tam kısayol referansı"
+
+#: ../doc/keyboard.rst:413
+msgid ""
+"These are the default shortcuts, including view shortcuts supplied by the "
+"menus. Your assignments in Preferences may differ. On macOS, Command is used"
+" for shortcuts shown with Ctrl."
+msgstr ""
+"Bunlar menüler tarafından sağlanan görünüm kısayolları dahil varsayılan "
+"kısayollardır. Tercihlerde yaptığınız atamalar farklı olabilir. macOS'ta, "
+"Ctrl ile gösterilen kısayollar için Command kullanılır."
+
+#: ../doc/keyboard.rst:416
+msgid "Default keyboard shortcuts"
+msgstr "Varsayılan klavye kısayolları"
+
+#: ../doc/keyboard.rst:421
+msgid "Primary shortcut"
+msgstr "Birincil kısayol"
+
+#: ../doc/keyboard.rst:422
+msgid "Alternatives"
+msgstr "Alternatifler"
+
+#: ../doc/keyboard.rst:423
+msgid "About OpenShot"
+msgstr "OpenShot Hakkında"
+
+#: ../doc/keyboard.rst:424
+msgid ":kbd:`Ctrl+H`"
+msgstr ":kbd:`Ctrl+H`"
+
+#: ../doc/keyboard.rst:426
+msgid "Add Marker"
+msgstr "İşaretçi Ekle"
+
+#: ../doc/keyboard.rst:427
+msgid ":kbd:`M`"
+msgstr ":kbd:`M`"
+
+#: ../doc/keyboard.rst:429
+msgid "Add or Apply Selected Asset"
+msgstr "Seçili Varlığı Ekle veya Uygula"
+
+#: ../doc/keyboard.rst:432
+msgid "Add Text"
+msgstr "Metin Ekle"
+
+#: ../doc/keyboard.rst:433
+msgid ":kbd:`Shift+T`"
+msgstr ":kbd:`Shift+T`"
+
+#: ../doc/keyboard.rst:435
+msgid "Add to Timeline"
+msgstr "Zamana Ekle"
+
+#: ../doc/keyboard.rst:438
+msgid "Add Track"
+msgstr "Parça Ekle"
+
+#: ../doc/keyboard.rst:439
+msgid ":kbd:`Ctrl+Y`"
+msgstr ":kbd:`Ctrl+Y`"
+
+#: ../doc/keyboard.rst:441
+msgid "Animated Title"
+msgstr "Animasyonlu Başlık"
+
+#: ../doc/keyboard.rst:442
+msgid ":kbd:`Ctrl+Shift+T`"
+msgstr ":kbd:`Ctrl+Shift+T`"
+
+#: ../doc/keyboard.rst:444
+msgid "Ask a Question..."
+msgstr "Bir Soru Sor..."
+
+#: ../doc/keyboard.rst:445
+msgid ":kbd:`F4`"
+msgstr ":kbd:`F4`"
+
+#: ../doc/keyboard.rst:447
+msgid "Auto-Optimize"
+msgstr "Otomatik Optimize Et"
+
+#: ../doc/keyboard.rst:448
+msgid ":kbd:`Ctrl+Alt+O`"
+msgstr ":kbd:`Ctrl+Alt+O`"
+
+#: ../doc/keyboard.rst:450
+msgid "Center on Playhead"
+msgstr "Oynatma Başlığına Ortala"
+
+#: ../doc/keyboard.rst:453
+msgid "Choose Profile"
+msgstr "Profil Seç"
+
+#: ../doc/keyboard.rst:454
+msgid ":kbd:`Ctrl+Alt+P`"
+msgstr ":kbd:`Ctrl+Alt+P`"
+
+#: ../doc/keyboard.rst:456
+msgid "Clear All Cache"
+msgstr "Tüm Önbelleği Temizle"
+
+#: ../doc/keyboard.rst:457
+msgid ":kbd:`Ctrl+Shift+ESC`"
+msgstr ":kbd:`Ctrl+Shift+ESC`"
+
+#: ../doc/keyboard.rst:459
+msgid "Clear History"
+msgstr "Geçmişi Temizle"
+
+#: ../doc/keyboard.rst:460
+msgid ":kbd:`Ctrl+Shift+H`"
+msgstr ":kbd:`Ctrl+Shift+H`"
+
+#: ../doc/keyboard.rst:462
+msgid "Clear Waveform Display Data"
+msgstr "Dalga Formu Görüntüleme Verisini Temizle"
+
+#: ../doc/keyboard.rst:463
+msgid ":kbd:`Ctrl+Shift+W`"
+msgstr ":kbd:`Ctrl+Shift+W`"
+
+#: ../doc/keyboard.rst:465
+msgid "Color View"
+msgstr "Renk Görünümü"
+
+#: ../doc/keyboard.rst:466
+msgid ":kbd:`Alt+Shift+2`"
+msgstr ":kbd:`Alt+Shift+2`"
+
+#: ../doc/keyboard.rst:468
+msgid "Copy"
+msgstr "Kopyala"
+
+#: ../doc/keyboard.rst:469
+msgid ":kbd:`Ctrl+C`"
+msgstr ":kbd:`Ctrl+C`"
+
+#: ../doc/keyboard.rst:471
+msgid "Cut"
+msgstr "Kes"
+
+#: ../doc/keyboard.rst:472
+msgid ":kbd:`Ctrl+X`"
+msgstr ":kbd:`Ctrl+X`"
+
+#: ../doc/keyboard.rst:474
+msgid "Delete Item"
+msgstr "Öğeyi Sil"
+
+#: ../doc/keyboard.rst:475
+msgid ":kbd:`Delete`"
+msgstr ":kbd:`Delete`"
+
+#: ../doc/keyboard.rst:476
+msgid ":kbd:`Backspace`"
+msgstr ":kbd:`Backspace`"
+
+#: ../doc/keyboard.rst:477
+msgid "Delete Item (Ripple)"
+msgstr "Öğeyi Sil (Dalgalanma)"
+
+#: ../doc/keyboard.rst:478
+msgid ":kbd:`Shift+Delete`"
+msgstr ":kbd:`Shift+Delete`"
+
+#: ../doc/keyboard.rst:480
+msgid "Delete Optimized Videos"
+msgstr "Optimize Edilmiş Videoları Sil"
+
+#: ../doc/keyboard.rst:481
+msgid ":kbd:`Ctrl+Shift+O`"
+msgstr ":kbd:`Ctrl+Shift+O`"
+
+#: ../doc/keyboard.rst:483
+msgid "Details View"
+msgstr "Detay Görünümü"
+
+#: ../doc/keyboard.rst:484
+msgid ":kbd:`Ctrl+Page Up`"
+msgstr ":kbd:`Ctrl+Page Up`"
+
+#: ../doc/keyboard.rst:486
+msgid "Donate"
+msgstr "Bağış Yap"
+
+#: ../doc/keyboard.rst:487
+msgid ":kbd:`F7`"
+msgstr ":kbd:`F7`"
+
+#: ../doc/keyboard.rst:489
+msgid "Duplicate"
+msgstr "Çoğalt"
+
+#: ../doc/keyboard.rst:490
+msgid ":kbd:`Ctrl+Shift+/`"
+msgstr ":kbd:`Ctrl+Shift+/`"
+
+#: ../doc/keyboard.rst:492
+msgid "Edit Title"
+msgstr "Başlığı Düzenle"
+
+#: ../doc/keyboard.rst:493
+msgid ":kbd:`Alt+T`"
+msgstr ":kbd:`Alt+T`"
+
+#: ../doc/keyboard.rst:495
+msgid "Export Files"
+msgstr "Dosyaları Dışa Aktar"
+
+#: ../doc/keyboard.rst:496
+msgid ":kbd:`Ctrl+Shift+E`"
+msgstr ":kbd:`Ctrl+Shift+E`"
+
+#: ../doc/keyboard.rst:498
+msgid "Export Video"
+msgstr "Videoyu Dışa Aktar"
+
+#: ../doc/keyboard.rst:499
+msgid ":kbd:`Ctrl+E`"
+msgstr ":kbd:`Ctrl+E`"
+
+#: ../doc/keyboard.rst:500
+msgid ":kbd:`Ctrl+M`"
+msgstr ":kbd:`Ctrl+M`"
+
+#: ../doc/keyboard.rst:501
+msgid "Extend Selection at Playhead"
+msgstr "Oynatma Başlığında Seçimi Genişlet"
+
+#: ../doc/keyboard.rst:504
+msgid "Extend Selection to Next Item"
+msgstr "Seçimi Sonraki Öğeye Genişlet"
+
+#: ../doc/keyboard.rst:505
+msgid ":kbd:`Ctrl+Shift+Right`"
+msgstr ":kbd:`Ctrl+Shift+Right`"
+
+#: ../doc/keyboard.rst:507
+msgid "Extend Selection to Previous Item"
+msgstr "Seçimi Önceki Öğeye Genişlet"
+
+#: ../doc/keyboard.rst:508
+msgid ":kbd:`Ctrl+Shift+Left`"
+msgstr ":kbd:`Ctrl+Shift+Left`"
+
+#: ../doc/keyboard.rst:510
+msgid "Fast Forward"
+msgstr "İleri Sar"
+
+#: ../doc/keyboard.rst:513
+msgid "File Properties"
+msgstr "Dosya Özellikleri"
+
+#: ../doc/keyboard.rst:525
+msgid "Focus Timeline"
+msgstr "Zaman Çizelgesine Odaklan"
+
+#: ../doc/keyboard.rst:531
+msgid "Fullscreen"
+msgstr "Tam Ekran"
+
+#: ../doc/keyboard.rst:532
+msgid ":kbd:`F11`"
+msgstr ":kbd:`F11`"
+
+#: ../doc/keyboard.rst:534
+msgid "Import Files..."
+msgstr "Dosyaları İçe Aktar..."
+
+#: ../doc/keyboard.rst:535
+msgid ":kbd:`Ctrl+I`"
+msgstr ":kbd:`Ctrl+I`"
+
+#: ../doc/keyboard.rst:537
+msgid "Insert Keyframe"
+msgstr "Anahtar Kare Ekle"
+
+#: ../doc/keyboard.rst:538
+msgid ":kbd:`Alt+Shift+K`"
+msgstr ":kbd:`Alt+Shift+K`"
+
+#: ../doc/keyboard.rst:540
+msgid "Join our Community..."
+msgstr "Topluluğumuza Katıl..."
+
+#: ../doc/keyboard.rst:541
+msgid ":kbd:`F5`"
+msgstr ":kbd:`F5`"
+
+#: ../doc/keyboard.rst:543
+msgid "Jump To End"
+msgstr "Sona Atla"
+
+#: ../doc/keyboard.rst:544
+msgid ":kbd:`End`"
+msgstr ":kbd:`End`"
+
+#: ../doc/keyboard.rst:546
+msgid "Jump To Start"
+msgstr "Başa Atla"
+
+#: ../doc/keyboard.rst:547
+msgid ":kbd:`Home`"
+msgstr ":kbd:`Home`"
+
+#: ../doc/keyboard.rst:549
+msgid "Launch Tutorial"
+msgstr "Eğitimi Başlat"
+
+#: ../doc/keyboard.rst:550
+msgid ":kbd:`F2`"
+msgstr ":kbd:`F2`"
+
+#: ../doc/keyboard.rst:552
+msgid "Move Selection Down One Track"
+msgstr "Seçimi Bir Parça Aşağı Taşı"
+
+#: ../doc/keyboard.rst:553
+msgid ":kbd:`Alt+Down`"
+msgstr ":kbd:`Alt+Down`"
+
+#: ../doc/keyboard.rst:555
+msgid "Move Selection Up One Track"
+msgstr "Seçimi Bir Parça Yukarı Taşı"
+
+#: ../doc/keyboard.rst:556
+msgid ":kbd:`Alt+Up`"
+msgstr ":kbd:`Alt+Up`"
+
+#: ../doc/keyboard.rst:558
+msgid "New Project"
+msgstr "Yeni Proje"
+
+#: ../doc/keyboard.rst:559
+msgid ":kbd:`Ctrl+N`"
+msgstr ":kbd:`Ctrl+N`"
+
+#: ../doc/keyboard.rst:561
+msgid "Next Edit Point"
+msgstr "Sonraki Düzenleme Noktası"
+
+#: ../doc/keyboard.rst:562
+msgid ":kbd:`Down`"
+msgstr ":kbd:`Down`"
+
+#: ../doc/keyboard.rst:564
+msgid "Next Five Frames"
+msgstr "Sonraki Beş Kare"
+
+#: ../doc/keyboard.rst:565
+msgid ":kbd:`Shift+Right`"
+msgstr ":kbd:`Shift+Right`"
+
+#: ../doc/keyboard.rst:567
+msgid "Next Frame"
+msgstr "Sonraki Kare"
+
+#: ../doc/keyboard.rst:568
+msgid ":kbd:`Right`"
+msgstr ":kbd:`Right`"
+
+#: ../doc/keyboard.rst:570
+msgid "Next Marker"
+msgstr "Sonraki İşaretçi"
+
+#: ../doc/keyboard.rst:571
+msgid ":kbd:`Shift+M`"
+msgstr ":kbd:`Shift+M`"
+
+#: ../doc/keyboard.rst:572
+msgid ":kbd:`Alt+Right`"
+msgstr ":kbd:`Alt+Right`"
+
+#: ../doc/keyboard.rst:573
+msgid "Nudge left (1 Frame)"
+msgstr "Bir Kare Sola Kaydır"
+
+#: ../doc/keyboard.rst:574
+msgid ":kbd:`,`"
+msgstr ":kbd:`,`"
+
+#: ../doc/keyboard.rst:576
+msgid "Nudge left (5 Frames)"
+msgstr "Beş Kare Sola Kaydır"
+
+#: ../doc/keyboard.rst:577
+msgid ":kbd:`Shift+,`"
+msgstr ":kbd:`Shift+,`"
+
+#: ../doc/keyboard.rst:579
+msgid "Nudge right (1 Frame)"
+msgstr "Bir Kare Sağa Kaydır"
+
+#: ../doc/keyboard.rst:580
+msgid ":kbd:`.`"
+msgstr ":kbd:`.`"
+
+#: ../doc/keyboard.rst:582
+msgid "Nudge right (5 Frames)"
+msgstr "Beş Kare Sağa Kaydır"
+
+#: ../doc/keyboard.rst:583
+msgid ":kbd:`Shift+.`"
+msgstr ":kbd:`Shift+.`"
+
+#: ../doc/keyboard.rst:585
+msgid "Open Help Contents"
+msgstr "Yardım İçeriğini Aç"
+
+#: ../doc/keyboard.rst:586
+msgid ":kbd:`F1`"
+msgstr ":kbd:`F1`"
+
+#: ../doc/keyboard.rst:588
+msgid "Open Project..."
+msgstr "Projeyi Aç..."
+
+#: ../doc/keyboard.rst:589
+msgid ":kbd:`Ctrl+O`"
+msgstr ":kbd:`Ctrl+O`"
+
+#: ../doc/keyboard.rst:591
+msgid "Paste"
+msgstr "Yapıştır"
+
+#: ../doc/keyboard.rst:592
+msgid ":kbd:`Ctrl+V`"
+msgstr ":kbd:`Ctrl+V`"
+
+#: ../doc/keyboard.rst:594
+msgid "Play/Pause Toggle"
+msgstr "Oynat/Duraklat Değiştir"
+
+#: ../doc/keyboard.rst:597
+msgid "Preferences"
+msgstr "Tercihler"
+
+#: ../doc/keyboard.rst:598
+msgid ":kbd:`Ctrl+P`"
+msgstr ":kbd:`Ctrl+P`"
+
+#: ../doc/keyboard.rst:600
+msgid "Preview File"
+msgstr "Dosyayı Önizle"
+
+#: ../doc/keyboard.rst:603
+msgid "Previous Edit Point"
+msgstr "Önceki Düzenleme Noktası"
+
+#: ../doc/keyboard.rst:604
+msgid ":kbd:`Up`"
+msgstr ":kbd:`Yukarı`"
+
+#: ../doc/keyboard.rst:606
+msgid "Previous Five Frames"
+msgstr "Önceki Beş Kare"
+
+#: ../doc/keyboard.rst:607
+msgid ":kbd:`Shift+Left`"
+msgstr ":kbd:`Shift+Sol`"
+
+#: ../doc/keyboard.rst:609
+msgid "Previous Frame"
+msgstr "Önceki Kare"
+
+#: ../doc/keyboard.rst:610
+msgid ":kbd:`Left`"
+msgstr ":kbd:`Sol`"
+
+#: ../doc/keyboard.rst:612
+msgid "Previous Marker"
+msgstr "Önceki İşaretçi"
+
+#: ../doc/keyboard.rst:613
+msgid ":kbd:`Ctrl+Shift+M`"
+msgstr ":kbd:`Ctrl+Shift+M`"
+
+#: ../doc/keyboard.rst:614
+msgid ":kbd:`Alt+Left`"
+msgstr ":kbd:`Alt+Sol`"
+
+#: ../doc/keyboard.rst:615
+msgid "Properties"
+msgstr "Özellikler"
+
+#: ../doc/keyboard.rst:618
+msgid "Quit"
+msgstr "Çıkış"
+
+#: ../doc/keyboard.rst:619
+msgid ":kbd:`Ctrl+Q`"
+msgstr ":kbd:`Ctrl+Q`"
+
+#: ../doc/keyboard.rst:621
+msgid "Razor Toggle"
+msgstr "Jilet Değiştir"
+
+#: ../doc/keyboard.rst:622
+msgid ":kbd:`C`"
+msgstr ":kbd:`C`"
+
+#: ../doc/keyboard.rst:623
+msgid ":kbd:`B` or :kbd:`R`"
+msgstr ":kbd:`B` veya :kbd:`R`"
+
+#: ../doc/keyboard.rst:624
+msgid "Recording View"
+msgstr "Kayıt Görünümü"
+
+#: ../doc/keyboard.rst:625
+msgid ":kbd:`Alt+Shift+3`"
+msgstr ":kbd:`Alt+Shift+3`"
+
+#: ../doc/keyboard.rst:627
+msgid "Redo"
+msgstr "Yinele"
+
+#: ../doc/keyboard.rst:628
+msgid ":kbd:`Ctrl+Shift+Z`"
+msgstr ":kbd:`Ctrl+Shift+Z`"
+
+#: ../doc/keyboard.rst:630
+msgid "Report a Bug..."
+msgstr "Hata Bildir..."
+
+#: ../doc/keyboard.rst:631
+msgid ":kbd:`F3`"
+msgstr ":kbd:`F3`"
+
+#: ../doc/keyboard.rst:633
+msgid "Rewind"
+msgstr "Geri Sar"
+
+#: ../doc/keyboard.rst:636
+msgid "Save Current Frame"
+msgstr "Geçerli Kareyi Kaydet"
+
+#: ../doc/keyboard.rst:637
+msgid ":kbd:`Shift+E`"
+msgstr ":kbd:`Shift+E`"
+
+#: ../doc/keyboard.rst:639
+msgid "Save Project"
+msgstr "Projeyi Kaydet"
+
+#: ../doc/keyboard.rst:640
+msgid ":kbd:`Ctrl+S`"
+msgstr ":kbd:`Ctrl+S`"
+
+#: ../doc/keyboard.rst:642
+msgid "Save Project As..."
+msgstr "Projeyi Farklı Kaydet..."
+
+#: ../doc/keyboard.rst:643
+msgid ":kbd:`Ctrl+Shift+S`"
+msgstr ":kbd:`Ctrl+Shift+S`"
+
+#: ../doc/keyboard.rst:645
+msgid "Select All"
+msgstr "Tümünü Seç"
+
+#: ../doc/keyboard.rst:646
+msgid ":kbd:`Ctrl+A`"
+msgstr ":kbd:`Ctrl+A`"
+
+#: ../doc/keyboard.rst:648
+msgid "Select Item Above"
+msgstr "Üstteki Öğeyi Seç"
+
+#: ../doc/keyboard.rst:649
+msgid ":kbd:`Ctrl+Up`"
+msgstr ":kbd:`Ctrl+Yukarı`"
+
+#: ../doc/keyboard.rst:651
+msgid "Select Item at Playhead"
+msgstr "Oynatma Başındaki Öğeyi Seç"
+
+#: ../doc/keyboard.rst:654
+msgid "Select Item Below"
+msgstr "Alttaki Öğeyi Seç"
+
+#: ../doc/keyboard.rst:655
+msgid ":kbd:`Ctrl+Down`"
+msgstr ":kbd:`Ctrl+Aşağı`"
+
+#: ../doc/keyboard.rst:657
+msgid "Select Item (Ripple)"
+msgstr "Öğeyi Seç (Dalgalanma)"
+
+#: ../doc/keyboard.rst:658
+msgid ":kbd:`Alt+A`"
+msgstr ":kbd:`Alt+A`"
+
+#: ../doc/keyboard.rst:660
+msgid "Select Left Item Edge"
+msgstr "Sol Öğenin Kenarını Seç"
+
+#: ../doc/keyboard.rst:663
+msgid "Select Next Item"
+msgstr "Sonraki Öğeyi Seç"
+
+#: ../doc/keyboard.rst:664
+msgid ":kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+Sağ`"
+
+#: ../doc/keyboard.rst:666
+msgid "Select None"
+msgstr "Hiçbirini Seçme"
+
+#: ../doc/keyboard.rst:667
+msgid ":kbd:`Ctrl+Shift+A`"
+msgstr ":kbd:`Ctrl+Shift+A`"
+
+#: ../doc/keyboard.rst:669
+msgid "Select Previous Item"
+msgstr "Önceki Öğeyi Seç"
+
+#: ../doc/keyboard.rst:670
+msgid ":kbd:`Ctrl+Left`"
+msgstr ":kbd:`Ctrl+Sol`"
+
+#: ../doc/keyboard.rst:672
+msgid "Select Right Item Edge"
+msgstr "Sağ Öğenin Kenarını Seç"
+
+#: ../doc/keyboard.rst:675
+msgid "Share Feedback..."
+msgstr "Geri Bildirim Paylaş..."
+
+#: ../doc/keyboard.rst:676
+msgid ":kbd:`F8`"
+msgstr ":kbd:`F8`"
+
+#: ../doc/keyboard.rst:678
+msgid "Simple View"
+msgstr "Basit Görünüm"
+
+#: ../doc/keyboard.rst:679
+msgid ":kbd:`Alt+Shift+0`"
+msgstr ":kbd:`Alt+Shift+0`"
+
+#: ../doc/keyboard.rst:681
+msgid "Slice All: Keep Both Sides"
+msgstr "Hepsini Böl: Her İki Tarafı Tut"
+
+#: ../doc/keyboard.rst:682
+msgid ":kbd:`Ctrl+Shift+K`"
+msgstr ":kbd:`Ctrl+Shift+K`"
+
+#: ../doc/keyboard.rst:684
+msgid "Slice All: Keep Left Side"
+msgstr "Hepsini Böl: Sol Tarafı Tut"
+
+#: ../doc/keyboard.rst:685
+msgid ":kbd:`Ctrl+Shift+J`"
+msgstr ":kbd:`Ctrl+Shift+J`"
+
+#: ../doc/keyboard.rst:687
+msgid "Slice All: Keep Right Side"
+msgstr "Hepsini Böl: Sağ Tarafı Tut"
+
+#: ../doc/keyboard.rst:688
+msgid ":kbd:`Ctrl+Shift+L`"
+msgstr ":kbd:`Ctrl+Shift+L`"
+
+#: ../doc/keyboard.rst:690
+msgid "Slice Selected: Keep Both Sides"
+msgstr "Seçileni Böl: Her İki Tarafı Tut"
+
+#: ../doc/keyboard.rst:691
+msgid ":kbd:`Ctrl+K`"
+msgstr ":kbd:`Ctrl+K`"
+
+#: ../doc/keyboard.rst:693
+msgid "Slice Selected: Keep Left (Ripple)"
+msgstr "Seçileni Böl: Solu Tut (Dalgalanma)"
+
+#: ../doc/keyboard.rst:694
+msgid ":kbd:`W`"
+msgstr ":kbd:`W`"
+
+#: ../doc/keyboard.rst:696
+msgid "Slice Selected: Keep Left Side"
+msgstr "Seçileni Böl: Sol Tarafı Tut"
+
+#: ../doc/keyboard.rst:697
+msgid ":kbd:`Ctrl+J`"
+msgstr ":kbd:`Ctrl+J`"
+
+#: ../doc/keyboard.rst:699
+msgid "Slice Selected: Keep Right (Ripple)"
+msgstr "Seçileni Böl: Sağı Tut (Dalgalanma)"
+
+#: ../doc/keyboard.rst:700
+msgid ":kbd:`Q`"
+msgstr ":kbd:`Q`"
+
+#: ../doc/keyboard.rst:702
+msgid "Slice Selected: Keep Right Side"
+msgstr "Seçileni Böl: Sağ Tarafı Tut"
+
+#: ../doc/keyboard.rst:703
+msgid ":kbd:`Ctrl+L`"
+msgstr ":kbd:`Ctrl+L`"
+
+#: ../doc/keyboard.rst:705
+msgid "Snapping Toggle"
+msgstr "Yapışmayı Değiştir"
+
+#: ../doc/keyboard.rst:706
+msgid ":kbd:`S`"
+msgstr ":kbd:`S`"
+
+#: ../doc/keyboard.rst:708
+msgid "Split File"
+msgstr "Dosyayı Böl"
+
+#: ../doc/keyboard.rst:711
+msgid "Stop Playback"
+msgstr "Oynatmayı Durdur"
+
+#: ../doc/keyboard.rst:714
+msgid "Thumbnail View"
+msgstr "Küçük Resim Görünümü"
+
+#: ../doc/keyboard.rst:715
+msgid ":kbd:`Ctrl+Page Down`"
+msgstr ":kbd:`Ctrl+Sayfa Aşağı`"
+
+#: ../doc/keyboard.rst:717
+msgid "Timing Toggle"
+msgstr "Zamanlamayı Değiştir"
+
+#: ../doc/keyboard.rst:718
+msgid ":kbd:`T`"
+msgstr ":kbd:`T`"
+
+#: ../doc/keyboard.rst:720
+msgid "Title"
+msgstr "Başlık"
+
+#: ../doc/keyboard.rst:721
+msgid ":kbd:`Ctrl+T`"
+msgstr ":kbd:`Ctrl+T`"
+
+#: ../doc/keyboard.rst:723
+msgid "Translate this Application..."
+msgstr "Bu Uygulamayı Çevir..."
+
+#: ../doc/keyboard.rst:724
+msgid ":kbd:`F6`"
+msgstr ":kbd:`F6`"
+
+#: ../doc/keyboard.rst:727
+msgid ":kbd:`Ctrl+Z`"
+msgstr ":kbd:`Ctrl+Z`"
+
+#: ../doc/keyboard.rst:729
+msgid "Update Available"
+msgstr "Güncelleme Mevcut"
+
+#: ../doc/keyboard.rst:730
+msgid ":kbd:`F9`"
+msgstr ":kbd:`F9`"
+
+#: ../doc/keyboard.rst:732
+msgid "View Toolbar"
+msgstr "Araç Çubuğunu Göster"
+
+#: ../doc/keyboard.rst:733
+msgid ":kbd:`Ctrl+Shift+B`"
+msgstr ":kbd:`Ctrl+Shift+B`"
+
+#: ../doc/keyboard.rst:735
+msgid "Zoom In"
+msgstr "Yakınlaştır"
+
+#: ../doc/keyboard.rst:736
+msgid ":kbd:`=`"
+msgstr ":kbd:`=`"
+
+#: ../doc/keyboard.rst:737
+msgid ":kbd:`Ctrl+=`"
+msgstr ":kbd:`Ctrl+=`"
+
+#: ../doc/keyboard.rst:738
+msgid "Zoom Out"
+msgstr "Uzaklaştır"
+
+#: ../doc/keyboard.rst:739
+msgid ":kbd:`-`"
+msgstr ":kbd:`-`"
+
+#: ../doc/keyboard.rst:740
+msgid ":kbd:`Ctrl+-`"
+msgstr ":kbd:`Ctrl+-`"
+
+#: ../doc/keyboard.rst:741
+msgid "Zoom to Timeline"
+msgstr "Zamana Yakınlaştır"
+
+#: ../doc/keyboard.rst:742
+msgid ":kbd:`\\\\`"
+msgstr ":kbd:`\\\\`"
+
+#: ../doc/keyboard.rst:743
+msgid ":kbd:`Shift+\\\\`"
+msgstr ":kbd:`Shift+\\\\`"

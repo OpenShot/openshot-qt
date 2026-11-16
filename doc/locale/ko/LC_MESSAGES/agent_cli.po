@@ -1,0 +1,1546 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../doc/agent_cli.rst:6
+msgid "Command Line Interface"
+msgstr "명령줄 인터페이스"
+
+#: ../doc/agent_cli.rst:8
+msgid ""
+"Bring OpenShot into your command-line workflow. Import footage, trim and "
+"arrange clips, apply effects, animate properties with keyframes, and export "
+"videos from your terminal. Use a few commands to automate repetitive edits, "
+"write a script for a recurring project, or let an AI agent help assemble and"
+" refine a video."
+msgstr ""
+"OpenShot을 명령줄 작업 흐름에 통합하세요. 영상 소스를 가져오고, 클립을 자르고 배열하며, 효과를 적용하고, 키프레임으로 속성을 "
+"애니메이션화하고, 터미널에서 비디오를 내보낼 수 있습니다. 몇 가지 명령으로 반복 편집을 자동화하거나, 반복 프로젝트를 위한 스크립트를 "
+"작성하거나, AI 에이전트가 비디오를 조립하고 다듬도록 도울 수 있습니다."
+
+#: ../doc/agent_cli.rst:13
+msgid ""
+"The command line works with the same projects as the editor. You can control"
+" an open editor and review changes as you go, or work in a **headless "
+"session** without opening a window. A session keeps your project open "
+"between commands, including its edits, undo history, and export jobs. Save "
+"it as an ``.osp`` project whenever you want to continue editing later."
+msgstr ""
+"명령줄은 편집기와 동일한 프로젝트를 사용합니다. 열린 편집기를 제어하며 변경 사항을 실시간으로 검토하거나, 창을 열지 않는 **헤드리스 "
+"세션**\\ 에서 작업할 수 있습니다. 세션은 편집, 실행 취소 기록, 내보내기 작업을 포함하여 명령 사이에 프로젝트를 열어 둡니다. "
+"나중에 편집을 계속하려면 언제든지 ``.osp`` 프로젝트로 저장하세요."
+
+#: ../doc/agent_cli.rst:20
+msgid "Getting started"
+msgstr "시작하기"
+
+#: ../doc/agent_cli.rst:22
+msgid ""
+"Use your installed OpenShot executable followed by ``--cli``. Start with "
+"``intro`` for a short guide to sessions, editing, animation, and saving, or "
+"``help`` for the command overview. These commands do not need an active "
+"session. The examples below require an OpenShot build that includes command-"
+"line editing."
+msgstr ""
+"설치된 OpenShot 실행 파일 뒤에 ``--cli``\\ 를 붙여 사용하세요. 세션, 편집, 애니메이션, 저장에 대한 간단한 안내는 "
+"``intro``\\ 로 시작하고, 명령 개요는 ``help``\\ 를 사용하세요. 이 명령들은 활성 세션이 필요하지 않습니다. 아래 "
+"예제는 명령줄 편집 기능이 포함된 OpenShot 빌드가 필요합니다."
+
+#: ../doc/agent_cli.rst:30
+msgid "Linux AppImage"
+msgstr "리눅스 AppImage"
+
+#: ../doc/agent_cli.rst:32
+msgid "From the directory containing your downloaded AppImage::"
+msgstr "다운로드한 AppImage가 있는 디렉터리에서::"
+
+#: ../doc/agent_cli.rst:37
+msgid ""
+"Replace ``OpenShot.AppImage`` with your downloaded filename. If "
+"**AppImageLauncher** shows desktop integration dialogs, set "
+"``APPIMAGELAUNCHER_DISABLE=1`` before launching the command::"
+msgstr ""
+"``OpenShot.AppImage``\\ 를 다운로드한 파일명으로 바꾸세요. **AppImageLauncher**\\ 가 데스크톱 통합"
+" 대화상자를 표시하면, 명령 실행 전에 ``APPIMAGELAUNCHER_DISABLE=1``\\ 을 설정하세요::"
+
+#: ../doc/agent_cli.rst:43
+msgid "For scripts or repeated commands, set it once in your current shell::"
+msgstr "스크립트나 반복 명령을 위해 현재 셸에서 한 번 설정하세요::"
+
+#: ../doc/agent_cli.rst:48
+msgid ""
+"The variable must be set before launching the AppImage: AppImageLauncher can"
+" intercept it before OpenShot receives ``--cli``. Relative media paths and "
+"``@batch.json`` files are resolved from your working directory. Keep the "
+"AppImage file available while its sessions or exports are running."
+msgstr ""
+"변수는 AppImage 실행 전에 설정해야 합니다: AppImageLauncher가 OpenShot이 ``--cli``\\ 를 받기 전에"
+" 이를 가로챌 수 있습니다. 상대 미디어 경로와 ``@batch.json`` 파일은 작업 디렉터리에서 해석됩니다. 세션이나 내보내기가 "
+"실행되는 동안 AppImage 파일을 유지하세요."
+
+#: ../doc/agent_cli.rst:54
+msgid "Linux Snap"
+msgstr "리눅스 Snap"
+
+#: ../doc/agent_cli.rst:56
+msgid "For the `OpenShot Snap <https://snapcraft.io/openshot-qt>`_, use::"
+msgstr "`OpenShot Snap <https://snapcraft.io/openshot-qt>`_\\ 을(를) 사용하려면::"
+
+#: ../doc/agent_cli.rst:62
+msgid ""
+"Snap's file permissions apply to command-line editing too. Keep media, "
+"projects, and exports in locations the Snap can access, such as your home "
+"folder. To allow access to external drives, connect the removable-media "
+"permission::"
+msgstr ""
+"Snap의 파일 권한은 명령줄 편집에도 적용됩니다. 미디어, 프로젝트, 내보내기 파일을 Snap이 접근할 수 있는 위치(예: 홈 폴더)에"
+" 보관하세요. 외장 드라이브 접근을 허용하려면 removable-media 권한을 연결하세요::"
+
+#: ../doc/agent_cli.rst:69
+msgid "Windows"
+msgstr "윈도우"
+
+#: ../doc/agent_cli.rst:73
+msgid ""
+"**Use openshot-qt-cmd.exe for command-line editing on Windows.** This "
+"console executable displays command results, help, and errors in your "
+"terminal. The desktop executable, ``openshot-qt.exe``, does not display "
+"standard output in an interactive terminal, leaving commands without visible"
+" feedback and making the CLI difficult to use."
+msgstr ""
+"**윈도우에서 명령줄 편집에는 openshot-qt-cmd.exe를 사용하세요.** 이 콘솔 실행 파일은 터미널에 명령 결과, 도움말, "
+"오류를 표시합니다. 데스크톱 실행 파일인 ``openshot-qt.exe``\\ 는 대화형 터미널에서 표준 출력을 표시하지 않아 명령에 "
+"대한 피드백이 보이지 않고 CLI 사용이 어렵습니다."
+
+#: ../doc/agent_cli.rst:79
+msgid "In PowerShell, from the OpenShot installation directory::"
+msgstr "PowerShell에서 OpenShot 설치 디렉터리에서::"
+
+#: ../doc/agent_cli.rst:85
+msgid ""
+"If you are in a different directory, use the full path to ``openshot-qt-"
+"cmd.exe``. Keep ``--cli`` after the executable name."
+msgstr ""
+"다른 디렉터리에 있다면 ``openshot-qt-cmd.exe``\\ 의 전체 경로를 사용하세요. 실행 파일 이름 뒤에 "
+"``--cli``\\ 를 유지하세요."
+
+#: ../doc/agent_cli.rst:89
+msgid "macOS"
+msgstr "macOS"
+
+#: ../doc/agent_cli.rst:91
+msgid "For an installation in Applications::"
+msgstr "Applications에 설치된 경우::"
+
+#: ../doc/agent_cli.rst:97
+msgid "Finding commands"
+msgstr "명령 찾기"
+
+#: ../doc/agent_cli.rst:99
+msgid ""
+"Throughout this guide, ``openshot-cli`` is shorthand for your installation's"
+" command above, such as ``snap run openshot-qt --cli`` or "
+"``./OpenShot.AppImage --cli``. Some installations also provide an "
+"``openshot-cli`` command directly. When running from source, use ``python3 "
+"src/launch.py --cli`` in OpenShot's Python environment."
+msgstr ""
+"이 가이드 전체에서 ``openshot-cli``\\ 는 위 설치 명령의 축약형으로, 예를 들어 ``snap run openshot-qt"
+" --cli`` 또는 ``./OpenShot.AppImage --cli``\\ 를 의미합니다. 일부 설치는 ``openshot-cli``"
+" 명령을 직접 제공합니다. 소스에서 실행할 때는 OpenShot의 Python 환경에서 ``python3 src/launch.py "
+"--cli``\\ 를 사용하세요."
+
+#: ../doc/agent_cli.rst:105
+msgid ""
+"Bare ``--cli``, ``--cli help``, and ``--cli --help`` show the same overview."
+" Help becomes more specific as you navigate commands::"
+msgstr ""
+"단순한 ``--cli``, ``--cli help``, ``--cli --help``\\ 는 동일한 개요를 보여줍니다. 명령을 탐색할수록"
+" 도움말이 더 구체적으로 표시됩니다::"
+
+#: ../doc/agent_cli.rst:117
+msgid ""
+"Group help explains workflows with examples; operation help describes "
+"arguments and behavior. ``--help`` is equivalent to trailing ``help``. All "
+"help commands work without an editing session."
+msgstr ""
+"그룹 도움말은 예제와 함께 작업 흐름을 설명하고, 작업 도움말은 인수와 동작을 설명합니다. ``--help``\\ 는 끝에 "
+"``help``\\ 를 붙인 것과 같습니다. 모든 도움말 명령은 편집 세션 없이 작동합니다."
+
+#: ../doc/agent_cli.rst:121
+msgid ""
+"``effects list`` shows the available effects with short descriptions. Effect"
+" help explains their properties, defaults, choices, and ranges. ``effects "
+"instances`` lists effects already attached to clips, with parent clip IDs. "
+"Class names, display names, and underscore aliases identify the same effect."
+msgstr ""
+"``effects list``\\ 는 사용 가능한 효과를 간단한 설명과 함께 보여줍니다. 효과 도움말은 속성, 기본값, 선택 사항, "
+"범위를 설명합니다. ``effects instances``\\ 는 클립에 이미 적용된 효과와 부모 클립 ID를 나열합니다. 클래스 이름,"
+" 표시 이름, 밑줄 별칭은 동일한 효과를 식별합니다."
+
+#: ../doc/agent_cli.rst:127
+msgid "Working with scripts and AI agents"
+msgstr "스크립트 및 AI 에이전트와 작업하기"
+
+#: ../doc/agent_cli.rst:129
+msgid ""
+"AI coding agents such as **Codex** and **Claude Code** can use the CLI to "
+"inspect and edit OpenShot projects through terminal commands. Give your "
+"agent the path to your OpenShot executable, the media or project to work "
+"with, and the desired result: duration, dimensions, animation style, and "
+"output location. Ask it to read ``--cli intro`` before starting. The same "
+"commands work when you type them yourself or run them from a script."
+msgstr ""
+"**Codex** 및 **Claude Code**\\ 와 같은 AI 코딩 에이전트는 CLI를 사용하여 터미널 명령으로 OpenShot "
+"프로젝트를 검사하고 편집할 수 있습니다. 에이전트에 OpenShot 실행 파일 경로, 작업할 미디어 또는 프로젝트, 원하는 결과(길이, "
+"크기, 애니메이션 스타일, 출력 위치)를 제공하세요. 시작 전에 ``--cli intro``\\ 를 읽도록 요청하세요. 동일한 명령은 "
+"직접 입력하거나 스크립트에서 실행할 때도 작동합니다."
+
+#: ../doc/agent_cli.rst:136
+msgid ""
+"Start with ``intro``, then use command-specific help as needed. A useful "
+"workflow is to select a session, inspect the project, make a small set of "
+"changes, review the result, and save. Commands return structured JSON so "
+"scripts and agents can use object IDs and results directly instead of "
+"interpreting screen output."
+msgstr ""
+"``intro``\\ 로 시작한 후 필요에 따라 명령별 도움말을 사용하세요. 유용한 작업 흐름은 세션을 선택하고, 프로젝트를 검사하며, "
+"소규모 변경을 하고, 결과를 검토한 뒤 저장하는 것입니다. 명령은 구조화된 JSON을 반환하여 스크립트와 에이전트가 화면 출력을 해석하지"
+" 않고도 객체 ID와 결과를 직접 사용할 수 있습니다."
+
+#: ../doc/agent_cli.rst:141
+msgid ""
+"**Inspect before editing.** Use returned IDs and property information "
+"instead of guessing names, track numbers, or timing. Select a session "
+"explicitly when more than one project is open."
+msgstr ""
+"**편집 전에 검사하세요.** 이름, 트랙 번호, 타이밍을 추측하지 말고 반환된 ID와 속성 정보를 사용하세요. 프로젝트가 둘 이상 열려"
+" 있을 때는 세션을 명확히 선택하세요."
+
+#: ../doc/agent_cli.rst:144
+msgid ""
+"**Group repeated edits.** Use ``edit apply`` for a sequence of changes or "
+"``edit bulk`` to apply a template to selected clips. Validate with ``--dry-"
+"run`` before applying a batch."
+msgstr ""
+"**반복 편집을 그룹화하세요.** 연속 변경에는 ``edit apply``\\ 를, 선택한 클립에 템플릿을 적용할 때는 ``edit "
+"bulk``\\ 를 사용하세요. 배치를 적용하기 전에 ``--dry-run``\\ 으로 검증하세요."
+
+#: ../doc/agent_cli.rst:147
+msgid ""
+"**Check animation.** Choose a coordinate space, start with a few keyframes, "
+"and use easing presets for familiar motion. ``keyframe preview`` samples the"
+" curve so you can spot pauses or jumps before exporting. Review rendered "
+"motion as well; a contact sheet alone cannot show how an animation feels."
+msgstr ""
+"**애니메이션 확인.** 좌표 공간을 선택하고, 몇 개의 키프레임으로 시작하며, 익숙한 모션을 위해 이징 프리셋을 사용하세요. "
+"``keyframe preview`` 는 곡선을 샘플링하여 내보내기 전에 일시 중지나 점프를 발견할 수 있게 합니다. 렌더링된 모션도 "
+"검토하세요; 단순한 컨택트 시트만으로는 애니메이션의 느낌을 알 수 없습니다."
+
+#: ../doc/agent_cli.rst:151
+msgid ""
+"**Save and follow exports.** Save the project explicitly and check the "
+"export job's status before treating an output as complete. If a request "
+"times out, inspect its status before repeating an edit."
+msgstr ""
+"**저장 및 내보내기 추적.** 프로젝트를 명시적으로 저장하고 출력물을 완성된 것으로 간주하기 전에 내보내기 작업의 상태를 확인하세요. "
+"요청이 시간 초과되면 편집을 반복하기 전에 상태를 점검하세요."
+
+#: ../doc/agent_cli.rst:155
+msgid ""
+"The sections below explain these workflows and their timing conventions."
+msgstr "아래 섹션에서는 이러한 작업 흐름과 타이밍 규칙을 설명합니다."
+
+#: ../doc/agent_cli.rst:158
+msgid "Sessions and outputs"
+msgstr "세션 및 출력"
+
+#: ../doc/agent_cli.rst:161
+msgid "Starting or finding a session"
+msgstr "세션 시작 또는 찾기"
+
+#: ../doc/agent_cli.rst:163
+msgid "Start one headless session (without an editor window)::"
+msgstr "헤드리스 세션 하나 시작하기 (편집기 창 없이)::"
+
+#: ../doc/agent_cli.rst:167
+msgid ""
+"To open an existing project at startup, add ``--project "
+"\"/path/project.osp\"``. The successful JSON response contains "
+"``result.session_id``. Copy that value. If OpenShot is already running, or "
+"you have forgotten the ID, find available sessions with::"
+msgstr ""
+"시작 시 기존 프로젝트를 열려면 ``--project \"/path/project.osp\"`` 를 추가하세요. 성공한 JSON 응답에는"
+" ``result.session_id`` 가 포함됩니다. 해당 값을 복사하세요. OpenShot이 이미 실행 중이거나 ID를 "
+"잊어버렸다면, 사용 가능한 세션을 다음 명령으로 찾으세요::"
+
+#: ../doc/agent_cli.rst:174
+msgid ""
+"Choose the session for the project you intend to edit. You do not need to "
+"start a new session for each command."
+msgstr "편집하려는 프로젝트의 세션을 선택하세요. 각 명령마다 새 세션을 시작할 필요는 없습니다."
+
+#: ../doc/agent_cli.rst:180
+msgid "Selecting a session"
+msgstr "세션 선택"
+
+#: ../doc/agent_cli.rst:184
+msgid ""
+"**Set OPENSHOT_SESSION once, then run commands normally.** Your terminal "
+"remembers the selected session, so you do not need to pass ``--session`` "
+"with every command. Use the PowerShell or Bash example below."
+msgstr ""
+"**OPENSHOT_SESSION을 한 번 설정한 후 명령을 정상적으로 실행하세요.** 터미널이 선택한 세션을 기억하므로 모든 명령에 "
+"``--session`` 을 전달할 필요가 없습니다. 아래 PowerShell 또는 Bash 예제를 사용하세요."
+
+#: ../doc/agent_cli.rst:188
+msgid ""
+"Replace ``SESSION_ID`` below with the ``session_id`` returned by ``session "
+"start`` or ``session list``."
+msgstr ""
+"아래의 ``SESSION_ID`` 를 ``session start`` 또는 ``session list`` 가 반환한 "
+"``session_id`` 로 바꾸세요."
+
+#: ../doc/agent_cli.rst:191 ../doc/agent_cli.rst:422
+msgid "Windows PowerShell::"
+msgstr "Windows PowerShell::"
+
+#: ../doc/agent_cli.rst:197
+msgid "Linux Bash::"
+msgstr "Linux Bash::"
+
+#: ../doc/agent_cli.rst:203
+msgid ""
+"On macOS, use the same ``export`` syntax. For macOS or Snap commands, "
+"substitute your installation's executable from Getting started. The "
+"selection lasts for this terminal and commands launched from it. Set it "
+"again in a new terminal, or update it when switching to a different session."
+msgstr ""
+"macOS에서는 동일한 ``export`` 구문을 사용하세요. macOS 또는 Snap 명령의 경우, 시작하기에서 설치한 실행 파일로 "
+"대체하세요. 선택은 이 터미널과 여기서 실행된 명령에 유효합니다. 새 터미널에서 다시 설정하거나 다른 세션으로 전환할 때 업데이트하세요."
+
+#: ../doc/agent_cli.rst:208
+msgid ""
+"**The remaining editing and export examples assume OPENSHOT_SESSION is "
+"set.** The next subsection shows how to capture the ID automatically for "
+"scripts."
+msgstr ""
+"**나머지 편집 및 내보내기 예제는 OPENSHOT_SESSION이 설정된 상태를 가정합니다.** 다음 하위 섹션에서는 스크립트용 ID "
+"자동 캡처 방법을 보여줍니다."
+
+#: ../doc/agent_cli.rst:211
+msgid ""
+"To target a different session for just one command, use ``--session``. It "
+"overrides ``OPENSHOT_SESSION`` without changing your terminal's selection::"
+msgstr ""
+"한 명령에 대해서만 다른 세션을 지정하려면 ``--session`` 을 사용하세요. 이는 터미널의 선택을 변경하지 않고 "
+"``OPENSHOT_SESSION`` 을 무시합니다::"
+
+#: ../doc/agent_cli.rst:216
+msgid ""
+"With a packaged executable, put this override after ``--cli`` and before the"
+" command group: ``--cli --session OTHER_SESSION_ID project get``."
+msgstr ""
+"패키지된 실행 파일에서는 이 무시 옵션을 ``--cli`` 뒤, 명령 그룹 앞에 넣으세요: ``--cli --session "
+"OTHER_SESSION_ID project get``."
+
+#: ../doc/agent_cli.rst:219
+msgid ""
+"Automatic selection only works when exactly one reachable session exists. If"
+" you see ``session_required``, run ``session list`` and explicitly select "
+"the intended session. If it is no longer listed, start it again and use the "
+"new ID. Help, ``intro``, and session discovery do not require a selected "
+"session."
+msgstr ""
+"자동 선택은 접근 가능한 세션이 정확히 하나일 때만 작동합니다. ``session_required`` 가 표시되면 ``session "
+"list`` 를 실행하고 의도한 세션을 명시적으로 선택하세요. 더 이상 목록에 없으면 다시 시작하고 새 ID를 사용하세요. 도움말, "
+"``intro``, 세션 검색은 선택된 세션이 필요하지 않습니다."
+
+#: ../doc/agent_cli.rst:225
+msgid "Capturing the session ID automatically"
+msgstr "세션 ID 자동 캡처"
+
+#: ../doc/agent_cli.rst:227
+msgid ""
+"Scripts can read ``result.session_id`` directly from the JSON returned by "
+"``session start`` and set ``OPENSHOT_SESSION`` for subsequent commands. "
+"There is no need to copy the ID manually or read a log file. Check that "
+"startup succeeded before using the returned ID."
+msgstr ""
+"스크립트는 ``session start`` 가 반환한 JSON에서 ``result.session_id`` 를 직접 읽고 이후 명령에 대해"
+" ``OPENSHOT_SESSION`` 을 설정할 수 있습니다. ID를 수동으로 복사하거나 로그 파일을 읽을 필요가 없습니다. 반환된 "
+"ID를 사용하기 전에 시작이 성공했는지 확인하세요."
+
+#: ../doc/agent_cli.rst:232
+msgid "Windows PowerShell (set the executable path for your installation)::"
+msgstr "Windows PowerShell (설치한 실행 파일 경로 설정)::"
+
+#: ../doc/agent_cli.rst:244
+msgid "Linux Bash (requires ``jq`` to read JSON)::"
+msgstr "Linux Bash (JSON 읽기에 ``jq`` 필요)::"
+
+#: ../doc/agent_cli.rst:256
+msgid ""
+"The environment variable selects a session for commands launched from this "
+"terminal; it does not change a system-wide setting. Starting a session does "
+"not set the variable automatically. After stopping the session, clear the "
+"selection with ``Remove-Item Env:OPENSHOT_SESSION`` in PowerShell or ``unset"
+" OPENSHOT_SESSION`` in Bash."
+msgstr ""
+"환경 변수는 이 터미널에서 실행된 명령에 대한 세션을 선택하며, 시스템 전체 설정을 변경하지 않습니다. 세션 시작은 변수를 자동으로 "
+"설정하지 않습니다. 세션을 중지한 후에는 PowerShell에서 ``Remove-Item Env:OPENSHOT_SESSION`` 또는 "
+"Bash에서 ``unset OPENSHOT_SESSION`` 으로 선택을 해제하세요."
+
+#: ../doc/agent_cli.rst:263
+msgid "Showing and stopping a session"
+msgstr "세션 표시 및 중지"
+
+#: ../doc/agent_cli.rst:265
+msgid "To show the selected session in the editor::"
+msgstr "선택한 세션을 편집기에서 표시하려면::"
+
+#: ../doc/agent_cli.rst:269
+msgid ""
+"On a desktop, ``session show`` creates the editor in the same process and "
+"keeps the live project, IDs, history, export jobs, and connection. Repeated "
+"calls raise the existing window. ``session start --show`` opens it "
+"immediately. Sessions started without a display, or with "
+"``QT_QPA_PLATFORM=offscreen``/``minimal``, cannot later show a desktop "
+"window. For those sessions, save and open the project in a new desktop "
+"session. Once shown, close the session through the editor window."
+msgstr ""
+"데스크톱에서는 ``session show`` 가 동일 프로세스에서 편집기를 생성하고 라이브 프로젝트, ID, 기록, 내보내기 작업 및 "
+"연결을 유지합니다. 반복 호출 시 기존 창을 활성화합니다. ``session start --show`` 는 즉시 엽니다. 디스플레이 없이"
+" 시작되었거나 ``QT_QPA_PLATFORM=offscreen``/``minimal`` 로 시작된 세션은 나중에 데스크톱 창을 표시할 "
+"수 없습니다. 해당 세션에서는 프로젝트를 저장하고 새 데스크톱 세션에서 여세요. 표시된 후에는 편집기 창에서 세션을 닫으세요."
+
+#: ../doc/agent_cli.rst:277
+msgid ""
+"Global options (``--session``, ``--timeout``) go before the command. "
+"``session serve`` stays in the foreground for supervisors; ``session start``"
+" returns after a background host registers. ``session stop`` refuses unsaved"
+" changes and active exports. Use ``--discard`` only to intentionally discard"
+" unsaved edits."
+msgstr ""
+"전역 옵션(``--session``, ``--timeout``)은 명령 앞에 위치합니다. ``session serve`` 는 감독자를 "
+"위해 포그라운드에 머무르며; ``session start`` 는 백그라운드 호스트 등록 후 반환합니다. ``session stop`` 은"
+" 저장되지 않은 변경 사항과 활성 내보내기를 거부합니다. 저장되지 않은 편집을 의도적으로 버릴 때만 ``--discard`` 를 "
+"사용하세요."
+
+#: ../doc/agent_cli.rst:283
+msgid "Command output"
+msgstr "명령 출력"
+
+#: ../doc/agent_cli.rst:285
+msgid ""
+"Results are JSON on stdout, except the default text timeline view. Errors "
+"are JSON on stderr with exit status 1; argument-parser errors exit 2. "
+"Mutations return compact summaries with an ``inspect`` command. ``get`` "
+"returns native object JSON. Project replies include a revision; effect "
+"catalog replies do not require a session. Logs from headless sessions live "
+"beside their registry records. ``OPENSHOT_SESSION_DIR`` overrides the "
+"default ``~/.openshot_qt/sessions`` directory."
+msgstr ""
+"결과는 기본 텍스트 타임라인 뷰를 제외하고 stdout에 JSON으로 출력됩니다. 오류는 stderr에 JSON으로 출력되며 종료 상태는"
+" 1, 인수 파서 오류는 2입니다. 변경 작업은 ``inspect`` 명령으로 간결한 요약을 반환합니다. ``get`` 은 네이티브 객체"
+" JSON을 반환합니다. 프로젝트 응답에는 리비전이 포함되며, 효과 카탈로그 응답은 세션이 필요하지 않습니다. 헤드리스 세션의 로그는 "
+"레지스트리 기록 옆에 저장됩니다. ``OPENSHOT_SESSION_DIR`` 은 기본 ``~/.openshot_qt/sessions``"
+" 디렉터리를 대체합니다."
+
+#: ../doc/agent_cli.rst:292
+msgid ""
+"Sessions accept commands locally on your computer. Keep the session registry"
+" private, since it contains the credentials used to access your editing "
+"sessions. Exports work from a snapshot, so you can continue editing while a "
+"job runs."
+msgstr ""
+"세션은 컴퓨터에서 로컬로 명령을 수락합니다. 편집 세션에 접근하는 데 사용되는 자격 증명이 포함되어 있으므로 세션 레지스트리를 비공개로 "
+"유지하세요. 내보내기는 스냅샷에서 작동하므로 작업이 실행되는 동안에도 편집을 계속할 수 있습니다."
+
+#: ../doc/agent_cli.rst:297
+msgid "Opening and saving projects"
+msgstr "프로젝트 열기 및 저장"
+
+#: ../doc/agent_cli.rst:299
+msgid ""
+"An OpenShot project (``.osp``) stores your editable timeline. Exporting "
+"creates a finished video; saving the project lets you return to its clips, "
+"effects, and keyframes later. Save your project separately even when you "
+"also export a video."
+msgstr ""
+"OpenShot 프로젝트(``.osp``)는 편집 가능한 타임라인을 저장합니다. 내보내기는 완성된 비디오를 생성하며, 프로젝트 저장은 "
+"나중에 클립, 효과 및 키프레임으로 돌아갈 수 있게 합니다. 비디오를 내보낼 때도 프로젝트를 별도로 저장하세요."
+
+#: ../doc/agent_cli.rst:304
+msgid "Opening a project"
+msgstr "프로젝트 열기"
+
+#: ../doc/agent_cli.rst:306
+msgid "Start a session with an existing project::"
+msgstr "기존 프로젝트로 세션 시작::"
+
+#: ../doc/agent_cli.rst:310
+msgid ""
+"Add ``--show`` to open its editor window too. To use an editor that is "
+"already running, find it with ``session list``. Set ``OPENSHOT_SESSION`` to "
+"its returned session ID, then open or inspect a project::"
+msgstr ""
+"``--show``\\ 를 추가하여 편집기 창도 엽니다. 이미 실행 중인 편집기를 사용하려면 ``session list``\\ 로 "
+"찾으세요. 반환된 세션 ID를 ``OPENSHOT_SESSION``\\ 에 설정한 후 프로젝트를 열거나 검사합니다::"
+
+#: ../doc/agent_cli.rst:317
+msgid ""
+"Replace the example path with your own, and quote paths containing spaces. "
+"``project open`` replaces the selected session's current project. It refuses"
+" to discard unsaved edits unless you explicitly add ``--discard``; save "
+"those edits first if you want to keep them. Opening through the CLI does not"
+" show interactive missing-media dialogs, so keep the project's source media "
+"available."
+msgstr ""
+"예시 경로를 자신의 경로로 바꾸고 공백이 포함된 경로는 따옴표로 감싸세요. ``project open``\\ 은 선택된 세션의 현재 "
+"프로젝트를 대체합니다. 명시적으로 ``--discard``\\ 를 추가하지 않으면 저장되지 않은 편집을 버리지 않습니다; 유지하려면 먼저"
+" 편집을 저장하세요. CLI를 통한 열기는 대화형 누락 미디어 대화상자를 표시하지 않으므로 프로젝트의 원본 미디어를 유지하세요."
+
+#: ../doc/agent_cli.rst:323
+msgid ""
+"For a new, empty project, use ``session start`` without ``--project``, then "
+"import media and add clips as described under Editing."
+msgstr ""
+"새 빈 프로젝트의 경우 ``--project`` 없이 ``session start``\\ 를 사용한 후, 편집 섹션에 설명된 대로 "
+"미디어를 가져오고 클립을 추가하세요."
+
+#: ../doc/agent_cli.rst:327
+msgid "Saving a project or a copy"
+msgstr "프로젝트 또는 복사본 저장"
+
+#: ../doc/agent_cli.rst:329
+msgid ""
+"Save to a new file, or create a separate version before making more "
+"changes::"
+msgstr "새 파일로 저장하거나 변경하기 전에 별도의 버전을 만드세요::"
+
+#: ../doc/agent_cli.rst:333
+msgid "To update an existing file, explicitly allow replacement::"
+msgstr "기존 파일을 업데이트하려면 명시적으로 교체를 허용하세요::"
+
+#: ../doc/agent_cli.rst:337
+msgid ""
+"Always supply the destination path. Saving an ``.osp`` does not package all "
+"your source footage into that file; keep the referenced media available when"
+" moving or reopening the project."
+msgstr ""
+"항상 대상 경로를 지정하세요. ``.osp`` 저장은 모든 원본 영상을 해당 파일에 패키징하지 않습니다; 프로젝트를 이동하거나 다시 열 "
+"때 참조된 미디어를 유지하세요."
+
+#: ../doc/agent_cli.rst:342
+msgid "Exporting a video"
+msgstr "비디오 내보내기"
+
+#: ../doc/agent_cli.rst:344
+msgid ""
+"Automate rendering and exporting from scripts or AI agents, using the "
+"project's settings or choosing a different output profile for each render. "
+"Export jobs can run in the background or wait for completion before your "
+"script continues. To render an MP4 using the project's resolution and frame "
+"rate::"
+msgstr ""
+"스크립트나 AI 에이전트에서 프로젝트 설정을 사용하거나 각 렌더링마다 다른 출력 프로필을 선택하여 렌더링 및 내보내기를 자동화하세요. "
+"내보내기 작업은 백그라운드에서 실행하거나 완료될 때까지 대기할 수 있습니다. 프로젝트의 해상도와 프레임 속도를 사용하여 MP4를 "
+"렌더링하려면::"
+
+#: ../doc/agent_cli.rst:351
+msgid ""
+"By default, OpenShot uses H.264 video and AAC audio. Replace the example "
+"path with your destination, using an existing folder and a new filename. "
+"Existing outputs are never overwritten. Exporting does not save your "
+"editable ``.osp`` project; use ``project save`` separately to keep your "
+"editing work."
+msgstr ""
+"기본적으로 OpenShot은 H.264 비디오와 AAC 오디오를 사용합니다. 예시 경로를 기존 폴더와 새 파일 이름을 사용하여 대상 "
+"경로로 바꾸세요. 기존 출력 파일은 절대 덮어쓰지 않습니다. 내보내기는 편집 가능한 ``.osp`` 프로젝트를 저장하지 않습니다; 편집 "
+"작업을 유지하려면 별도로 ``project save``\\ 를 사용하세요."
+
+#: ../doc/agent_cli.rst:356
+msgid ""
+"The ``--wait`` option keeps the command running until the export completes "
+"or reports a failure. Review the finished video before sharing it."
+msgstr ""
+"``--wait`` 옵션은 내보내기가 완료되거나 실패를 보고할 때까지 명령을 계속 실행합니다. 공유하기 전에 완성된 비디오를 검토하세요."
+
+#: ../doc/agent_cli.rst:360
+msgid "Checking export progress"
+msgstr "내보내기 진행 상황 확인"
+
+#: ../doc/agent_cli.rst:362
+msgid ""
+"Leave off ``--wait`` to start an export in the background. The response "
+"includes a job ID you can use to check its progress::"
+msgstr ""
+"백그라운드에서 내보내기를 시작하려면 ``--wait``\\ 를 빼세요. 응답에는 진행 상황을 확인할 수 있는 작업 ID가 포함됩니다::"
+
+#: ../doc/agent_cli.rst:370
+msgid ""
+"Replace ``JOB_ID`` with the returned ID. If waiting times out, the export "
+"keeps running; check the same job instead of starting another export. To "
+"stop a job, use ``export cancel JOB_ID``. Each job captures the timeline "
+"when it starts, so later edits do not change an export already in progress."
+msgstr ""
+"``JOB_ID``\\ 를 반환된 ID로 바꾸세요. 대기 시간이 초과되면 내보내기는 계속 실행됩니다; 다른 내보내기를 시작하지 말고 "
+"동일한 작업을 확인하세요. 작업을 중지하려면 ``export cancel JOB_ID``\\ 를 사용하세요. 각 작업은 시작 시 "
+"타임라인을 캡처하므로 이후 편집은 이미 진행 중인 내보내기에 영향을 주지 않습니다."
+
+#: ../doc/agent_cli.rst:375
+msgid ""
+"Waiting defaults to 600 seconds; adjust this with ``--wait-timeout``. This "
+"is separate from the global per-request ``--timeout``. Export failures, "
+"cancellation, and wait timeouts exit with status 1 and include job details."
+msgstr ""
+"대기 시간 기본값은 600초이며, ``--wait-timeout``\\ 으로 조정할 수 있습니다. 이는 전역 요청별 "
+"``--timeout``\\ 과 별개입니다. 내보내기 실패, 취소 및 대기 시간 초과 시 상태 1로 종료하며 작업 세부 정보를 "
+"포함합니다."
+
+#: ../doc/agent_cli.rst:380
+msgid "Exporting in multiple profiles"
+msgstr "여러 프로필로 내보내기"
+
+#: ../doc/agent_cli.rst:382
+msgid ""
+"Export the same timeline at different resolutions or aspect ratios by "
+"choosing an export profile for each output. **An export profile applies only"
+" to that job**; it does not change the editing project's profile. A profile "
+"sets dimensions, frame rate, and aspect ratio; an export preset selects "
+"encoding settings such as MP4/H.264."
+msgstr ""
+"각 출력에 대해 내보내기 프로필을 선택하여 동일한 타임라인을 다른 해상도나 종횡비로 내보내세요. **내보내기 프로필은 해당 작업에만 "
+"적용되며** 편집 프로젝트의 프로필을 변경하지 않습니다. 프로필은 크기, 프레임 속도 및 종횡비를 설정하며, 내보내기 프리셋은 "
+"MP4/H.264와 같은 인코딩 설정을 선택합니다."
+
+#: ../doc/agent_cli.rst:388
+msgid "Find the available profiles and inspect their settings::"
+msgstr "사용 가능한 프로필을 찾고 설정을 확인하세요::"
+
+#: ../doc/agent_cli.rst:394
+msgid ""
+"For example, export landscape versions at 720p and 1080p, then a square "
+"version at 1080 by 1080. These profiles all use 30 fps::"
+msgstr ""
+"예를 들어, 720p 및 1080p의 가로형 버전을 내보내고, 1080x1080의 정사각형 버전을 내보내세요. 이 프로필들은 모두 "
+"30fps를 사용합니다::"
+
+#: ../doc/agent_cli.rst:401
+msgid ""
+"Use a different output filename for each version. Keep edits unchanged "
+"between jobs when you want matching versions. Changing aspect ratio can "
+"change framing: review each output, especially titles and animated subjects."
+" For a separately composed square or portrait version, save a project copy, "
+"change its project profile, and adjust the clips before exporting. See "
+"Profiles and the export settings below for custom profiles and encoding "
+"options."
+msgstr ""
+"각 버전에 대해 다른 출력 파일 이름을 사용하세요. 일치하는 버전을 원할 때 작업 간 편집을 변경하지 마세요. 종횡비 변경은 구도를 바꿀"
+" 수 있으므로 각 출력을 검토하세요, 특히 제목과 애니메이션 대상. 별도로 구성된 정사각형 또는 세로형 버전은 프로젝트 복사본을 "
+"저장하고, 프로젝트 프로필을 변경한 후 클립을 조정하고 내보내세요. 사용자 정의 프로필 및 인코딩 옵션은 아래 프로필 및 내보내기 설정을"
+" 참조하세요."
+
+#: ../doc/agent_cli.rst:409
+msgid "Batch exporting multiple projects"
+msgstr "여러 프로젝트 일괄 내보내기"
+
+#: ../doc/agent_cli.rst:411
+msgid ""
+"Reuse one headless session to render several saved projects in sequence. "
+"Open a project, export it with ``--wait``, then open the next project. The "
+"examples below use each project's own resolution and frame rate and create "
+"MP4 files beside the ``.osp`` files. Add ``--profile PROFILE_ID`` to the "
+"export command to use one output profile for every project."
+msgstr ""
+"헤드리스 세션 하나를 재사용하여 여러 저장된 프로젝트를 순차적으로 렌더링하세요. 프로젝트를 열고 ``--wait``\\ 와 함께 내보낸 "
+"다음 다음 프로젝트를 엽니다. 아래 예시는 각 프로젝트의 해상도와 프레임 속도를 사용하며 ``.osp`` 파일 옆에 MP4 파일을 "
+"생성합니다. 모든 프로젝트에 하나의 출력 프로필을 사용하려면 내보내기 명령에 ``--profile PROFILE_ID``\\ 를 "
+"추가하세요."
+
+#: ../doc/agent_cli.rst:417
+msgid ""
+"First run the matching automatic session-ID example above successfully, in "
+"the same terminal. It defines ``openshot`` and selects the new session. "
+"Replace the project paths below with your own. Use distinct output names "
+"that do not already exist; the examples check all destinations before "
+"starting the batch."
+msgstr ""
+"먼저 위의 자동 세션-ID 예제를 같은 터미널에서 성공적으로 실행하세요. 이 예제는 ``openshot`` 을 정의하고 새 세션을 "
+"선택합니다. 아래 프로젝트 경로를 자신의 경로로 바꾸세요. 이미 존재하지 않는 고유한 출력 이름을 사용하세요; 예제는 배치를 시작하기 "
+"전에 모든 대상지를 확인합니다."
+
+#: ../doc/agent_cli.rst:446
+msgid "Linux Bash (the parentheses keep error handling local to the batch)::"
+msgstr "Linux Bash (괄호는 오류 처리를 배치 내에서만 국한시킵니다)::"
+
+#: ../doc/agent_cli.rst:467
+msgid ""
+"Both recipes stop the batch on a command failure and leave the session "
+"available for inspection. The wait limit here is 24 hours per export. A wait"
+" timeout leaves the render running: use ``export list`` and ``export status "
+"JOB_ID --wait`` before retrying. Completed videos remain on disk; remove "
+"completed projects from the batch before resuming. After resolving a "
+"failure, stop the session and clear its environment variable when you are "
+"finished."
+msgstr ""
+"두 방법 모두 명령 실패 시 배치를 중단하고 세션을 검사할 수 있도록 남겨둡니다. 여기서 대기 제한은 내보내기당 24시간입니다. 대기 "
+"시간 초과 시 렌더링은 계속 실행됩니다: 재시도 전에 ``export list`` 와 ``export status JOB_ID "
+"--wait`` 를 사용하세요. 완료된 비디오는 디스크에 남아 있습니다; 재개하기 전에 완료된 프로젝트를 배치에서 제거하세요. 실패를 "
+"해결한 후에는 세션을 중지하고 환경 변수를 지우세요."
+
+#: ../doc/agent_cli.rst:475
+msgid "Choosing presets and encoding settings"
+msgstr "프리셋 및 인코딩 설정 선택"
+
+#: ../doc/agent_cli.rst:477
+msgid "Discover the installed export presets and supported settings::"
+msgstr "설치된 내보내기 프리셋과 지원되는 설정을 확인하세요::"
+
+#: ../doc/agent_cli.rst:484
+msgid ""
+"Export also accepts ``--from-file FILE_ID`` with optional ``--create-"
+"custom``. Settings resolve in this order: project defaults, preset, advanced"
+" JSON, explicit profile/quality/range flags. Advanced JSON exposes "
+"video/audio codecs and bitrate, audio layout/rate/channels, native codec "
+"options, hardware device settings, and thread counts."
+msgstr ""
+"Export 는 선택적 ``--create-custom`` 과 함께 ``--from-file FILE_ID`` 도 허용합니다. 설정은 "
+"다음 순서로 적용됩니다: 프로젝트 기본값, 프리셋, 고급 JSON, 명시적 프로필/품질/범위 플래그. 고급 JSON은 비디오/오디오 "
+"코덱과 비트레이트, 오디오 레이아웃/샘플링률/채널, 네이티브 코덱 옵션, 하드웨어 장치 설정, 스레드 수를 노출합니다."
+
+#: ../doc/agent_cli.rst:490
+msgid "For example, select an encoder option through advanced JSON::"
+msgstr "예를 들어, 고급 JSON을 통해 인코더 옵션을 선택하세요::"
+
+#: ../doc/agent_cli.rst:495
+msgid "Validating export settings"
+msgstr "내보내기 설정 검증"
+
+#: ../doc/agent_cli.rst:497
+msgid "Check settings before starting a render::"
+msgstr "렌더링 시작 전에 설정을 확인하세요::"
+
+#: ../doc/agent_cli.rst:501
+msgid ""
+"Capabilities report compiled codec availability, not physical GPU "
+"availability. Validation goes further: it opens the encoders (including "
+"hardware encoders) and the container with the exact settings, in a separate "
+"process, without writing a file. A combination the container can't hold "
+"fails with ``incompatible_export``, FFmpeg's own explanation, and the "
+"setting to change (``details.cause.path``)::"
+msgstr ""
+"기능 보고서는 컴파일된 코덱 가용성을 나타내며, 물리적 GPU 가용성을 나타내지 않습니다. 검증은 더 나아가서, 별도의 프로세스에서 "
+"파일을 쓰지 않고 정확한 설정으로 인코더(하드웨어 인코더 포함)와 컨테이너를 엽니다. 컨테이너가 지원하지 않는 조합은 "
+"``incompatible_export`` 오류와 FFmpeg의 설명, 변경할 설정(``details.cause.path``)과 함께 "
+"실패합니다::"
+
+#: ../doc/agent_cli.rst:509
+msgid "The export worker runs the same check before rendering."
+msgstr "내보내기 작업자는 렌더링 전에 동일한 검사를 수행합니다."
+
+#: ../doc/agent_cli.rst:512
+msgid "Rendering a frame range"
+msgstr "프레임 범위 렌더링"
+
+#: ../doc/agent_cli.rst:514
+msgid ""
+"Use ``--start-frame`` and ``--end-frame`` to render part of the timeline. "
+"Ranges are inclusive and one-based at the **export profile's FPS**. For "
+"example, render the first 90 frames at 30 fps (three seconds)::"
+msgstr ""
+"타임라인의 일부를 렌더링하려면 ``--start-frame`` 과 ``--end-frame`` 을 사용하세요. 범위는 포함 범위이며 "
+"**내보내기 프로필의 FPS** 기준으로 1부터 시작합니다. 예를 들어, 30fps에서 처음 90프레임(3초)을 렌더링합니다::"
+
+#: ../doc/agent_cli.rst:521
+msgid "Audio-only exports and image sequences"
+msgstr "오디오 전용 내보내기 및 이미지 시퀀스"
+
+#: ../doc/agent_cli.rst:523
+msgid "Choose an output mode with advanced JSON::"
+msgstr "고급 JSON으로 출력 모드를 선택하세요::"
+
+#: ../doc/agent_cli.rst:528
+msgid ""
+"Image sequences require a new output directory. Existing outputs are never "
+"overwritten."
+msgstr "이미지 시퀀스는 새 출력 디렉터리가 필요합니다. 기존 출력은 절대 덮어쓰지 않습니다."
+
+#: ../doc/agent_cli.rst:532
+msgid "Editing"
+msgstr "편집"
+
+#: ../doc/agent_cli.rst:535
+msgid "Adding clips and effects"
+msgstr "클립 및 효과 추가"
+
+#: ../doc/agent_cli.rst:537
+msgid ""
+"Use the IDs returned by import/add/list, and discover layer numbers with "
+"``project get``::"
+msgstr "import/add/list 에서 반환된 ID를 사용하고, ``project get`` 으로 레이어 번호를 확인하세요::"
+
+#: ../doc/agent_cli.rst:549
+msgid ""
+"Choose the project profile early when possible; populated projects also "
+"support profile changes through the existing FPS conversion and undo system."
+" ``--audio-only`` on clip creation suppresses video, including embedded "
+"cover art in music files. To use that clip for Audio Visualization instead, "
+"enable its video and audio, and follow the effect's help for transparent "
+"overlays and layer placement."
+msgstr ""
+"가능하면 프로젝트 프로필을 일찍 선택하세요; 이미 내용이 있는 프로젝트는 기존 FPS 변환 및 실행 취소 시스템을 통해 프로필 변경도 "
+"지원합니다. 클립 생성 시 ``--audio-only`` 는 비디오를 억제하며, 음악 파일에 포함된 커버 아트도 포함됩니다. 대신 해당 "
+"클립을 오디오 시각화에 사용하려면 비디오와 오디오를 활성화하고, 효과 도움말을 참고하여 투명 오버레이와 레이어 배치를 설정하세요."
+
+#: ../doc/agent_cli.rst:556
+msgid "Understanding clip timing"
+msgstr "클립 타이밍 이해하기"
+
+#: ../doc/agent_cli.rst:558
+msgid ""
+"The example keyframes assume a 30fps project and a clip trimmed at source "
+"10s. Position is in timeline seconds; start/end are source seconds, with end"
+" exclusive. Frames start at 1. File thumbnail frames use source FPS. "
+"Timeline frames use project FPS. Clip keyframes use source coordinates at "
+"project FPS, so trimming the clip does not move its first visible keyframe "
+"to frame 1."
+msgstr ""
+"예제 키프레임은 30fps 프로젝트와 소스 10초에서 트리밍된 클립을 가정합니다. 위치는 타임라인 초 단위이며, 시작/끝은 소스 초 "
+"단위이고 끝은 제외입니다. 프레임은 1부터 시작합니다. 파일 썸네일 프레임은 소스 FPS를 사용합니다. 타임라인 프레임은 프로젝트 "
+"FPS를 사용합니다. 클립 키프레임은 프로젝트 FPS 기준 소스 좌표를 사용하므로, 클립을 트리밍해도 첫 번째 보이는 키프레임이 프레임 "
+"1로 이동하지 않습니다."
+
+#: ../doc/agent_cli.rst:565
+msgid "Changing properties"
+msgstr "속성 변경"
+
+#: ../doc/agent_cli.rst:567
+msgid ""
+"``set`` merges top-level properties. Scalars turn keyframed properties into "
+"constants. A supplied nested curve replaces that curve; use ``keyframe set``"
+" to change just one point. JSON arguments accept inline JSON, "
+"``@file.json``, or ``-`` for stdin. Property names, types, enums, keyframes,"
+" references, and timing are validated before editing the project. Errors "
+"identify the field, expected value, received value, and a correction where "
+"possible. GUI slider ranges are advisory where the engine supports values "
+"beyond them."
+msgstr ""
+"``set`` 은 최상위 속성을 병합합니다. 스칼라는 키프레임 속성을 상수로 변환합니다. 제공된 중첩 곡선은 해당 곡선을 대체하며, 한 "
+"점만 변경하려면 ``keyframe set`` 을 사용하세요. JSON 인수는 인라인 JSON, ``@file.json`` 또는 표준 "
+"입력용 ``-`` 을 허용합니다. 속성 이름, 유형, 열거형, 키프레임, 참조 및 타이밍은 프로젝트 편집 전에 검증됩니다. 오류는 필드,"
+" 예상 값, 받은 값 및 가능한 수정 사항을 식별합니다. 엔진이 범위를 초과하는 값을 지원하는 경우 GUI 슬라이더 범위는 참고용입니다."
+
+#: ../doc/agent_cli.rst:576
+msgid "Adding fades"
+msgstr "페이드 추가"
+
+#: ../doc/agent_cli.rst:578
+msgid ""
+"``clip fade ID --in 0.5 --out 0.5`` calculates source-trim keyframe "
+"coordinates automatically. It replaces the alpha curve; ``--property volume "
+"--value 0.25`` instead creates an audio fade with a 0.25 peak gain. "
+"Durations must fit between the first and last visible frames; fade-out "
+"reaches zero on the last frame."
+msgstr ""
+"``clip fade ID --in 0.5 --out 0.5`` 는 소스 트림 키프레임 좌표를 자동으로 계산합니다. 알파 곡선을 "
+"대체하며, ``--property volume --value 0.25`` 는 대신 0.25 최대 게인의 오디오 페이드를 생성합니다. 지속"
+" 시간은 첫 번째와 마지막 보이는 프레임 사이에 맞아야 하며, 페이드 아웃은 마지막 프레임에서 0에 도달합니다."
+
+#: ../doc/agent_cli.rst:584
+msgid "Splitting clips"
+msgstr "클립 분할"
+
+#: ../doc/agent_cli.rst:586
+msgid ""
+"``clip split ID --at 6.5`` uses timeline seconds, snaps to the nearest "
+"project frame, and keeps both halves. It retains source-coordinate curves "
+"and duplicates effects with fresh IDs on the right half, following the "
+"editor's slicing behavior. The left half retains its ID. The response "
+"reports requested/actual split times and both summaries; a named batch "
+"result supports ``{\"$ref\":\"cut.right.id\"}``. Splits reject endpoints and"
+" locked tracks. Undo restores the original clip in one transaction."
+msgstr ""
+"``clip split ID --at 6.5`` 는 타임라인 초를 사용하며, 가장 가까운 프로젝트 프레임에 스냅하고 양쪽 절반을 "
+"유지합니다. 소스 좌표 곡선을 유지하고 오른쪽 절반에 새 ID로 효과를 복제하며, 편집기의 분할 동작을 따릅니다. 왼쪽 절반은 ID를 "
+"유지합니다. 응답은 요청된/실제 분할 시간과 두 요약을 보고하며, 명명된 배치 결과는 "
+"``{\"$ref\":\"cut.right.id\"}`` 를 지원합니다. 분할은 끝점과 잠긴 트랙을 거부합니다. 실행 취소는 한 번의 "
+"트랜잭션으로 원본 클립을 복원합니다."
+
+#: ../doc/agent_cli.rst:595
+msgid "Clip menu presets"
+msgstr "클립 메뉴 프리셋"
+
+#: ../doc/agent_cli.rst:597
+msgid ""
+"The editor's clip menu presets use the same code from the command line. Each"
+" command lists its presets in its help, and each one is a single undo step:"
+msgstr ""
+"편집기의 클립 메뉴 프리셋은 명령줄과 동일한 코드를 사용합니다. 각 명령은 도움말에 프리셋을 나열하며, 각 프리셋은 하나의 단일 실행 "
+"취소 단계입니다:"
+
+#: ../doc/agent_cli.rst:611
+msgid ""
+"Motion presets are relative to the clip's current transform. Look presets "
+"add or replace one effect, and ``none`` removes it. Speed and repeat retime "
+"every keyframe and change the clip's length; ``clip speed --mode reset`` "
+"restores normal speed. Other menu actions are plain edits: rotate and layout"
+" with ``clip set``, crop with ``effects add Crop``. The commands also work "
+"in ``edit apply`` and ``edit bulk``."
+msgstr ""
+"모션 프리셋은 클립의 현재 변환에 상대적입니다. 룩 프리셋은 하나의 효과를 추가하거나 교체하며, ``none`` 은 이를 제거합니다. "
+"속도와 반복은 모든 키프레임의 시간을 재조정하고 클립의 길이를 변경합니다; ``clip speed --mode reset`` 은 정상 "
+"속도를 복원합니다. 다른 메뉴 작업은 일반 편집입니다: ``clip set`` 으로 회전 및 레이아웃, ``effects add "
+"Crop`` 으로 자르기. 이 명령들은 ``edit apply`` 와 ``edit bulk`` 에서도 작동합니다."
+
+#: ../doc/agent_cli.rst:621
+msgid "Adding and styling text"
+msgstr "텍스트 추가 및 스타일 지정"
+
+#: ../doc/agent_cli.rst:623
+msgid ""
+"``text add`` creates a text and places it as a clip, using the same text as "
+"the editor's **Text** tool. Options you leave out use the editor's default "
+"style:"
+msgstr ""
+"``text add`` 는 텍스트를 생성하여 클립으로 배치하며, 편집기의 **텍스트** 도구와 동일한 텍스트를 사용합니다. 생략한 옵션은"
+" 편집기의 기본 스타일을 사용합니다:"
+
+#: ../doc/agent_cli.rst:637
+msgid ""
+"The words, font, size, alignment, box width and default colors belong to the"
+" text in Project Files and are shared by every clip that uses it, just like "
+"in the editor. ``text set`` on one clip changes all of them and lists them "
+"in ``changed_clip_ids``; ``--this-clip-only`` gives that clip its own copy "
+"first. ``clip add FILE_ID`` places another clip of a text from ``text "
+"list``. Sizes are in pixels at the project resolution, and colors are "
+"``#RRGGBB``, ``#AARRGGBB`` (with alpha), a CSS name, or ``transparent``. "
+"``--place`` puts the box at the center, an edge or corner, or a lower third."
+" ``--line-spacing`` is a multiple of the normal distance between lines (1 is"
+" normal), and ``--background-corner`` rounds the background and border "
+"corners by that many pixels."
+msgstr ""
+"단어, 글꼴, 크기, 정렬, 박스 너비 및 기본 색상은 프로젝트 파일 내 텍스트에 속하며 편집기와 마찬가지로 이를 사용하는 모든 클립에서"
+" 공유됩니다. 한 클립에서 ``text set`` 을 하면 모두 변경되고 ``changed_clip_ids`` 에 나열됩니다; "
+"``--this-clip-only`` 는 해당 클립에 먼저 자체 복사본을 제공합니다. ``clip add FILE_ID`` 는 "
+"``text list`` 에서 텍스트의 다른 클립을 배치합니다. 크기는 프로젝트 해상도의 픽셀 단위이며, 색상은 ``#RRGGBB``, "
+"``#AARRGGBB`` (알파 포함), CSS 이름 또는 ``transparent`` 입니다. ``--place`` 는 박스를 중앙, "
+"가장자리 또는 모서리, 또는 하단 3분의 1 위치에 배치합니다. ``--line-spacing`` 은 줄 간격의 배수이며 (1이 기본),"
+" ``--background-corner`` 는 배경과 테두리 모서리를 해당 픽셀 수만큼 둥글게 만듭니다."
+
+#: ../doc/agent_cli.rst:647
+msgid ""
+"A text clip is an ordinary clip. Position, scale, rotation, opacity, timing,"
+" fades, motion presets and effects all use the normal ``clip`` commands. "
+"Font size, padding, box width, and letter and line spacing set the size of "
+"the text box, so they cannot be keyframed; to animate the size of text, "
+"keyframe the clip's scale. Each clip can animate its own text colors and "
+"outline and border widths with the same keyframe commands as any other "
+"property:"
+msgstr ""
+"텍스트 클립은 일반 클립입니다. 위치, 크기, 회전, 불투명도, 타이밍, 페이드, 모션 프리셋 및 효과는 모두 일반 ``clip`` "
+"명령을 사용합니다. 글꼴 크기, 패딩, 박스 너비, 글자 및 줄 간격은 텍스트 박스 크기를 설정하므로 키프레임을 지정할 수 없습니다; "
+"텍스트 크기를 애니메이션하려면 클립의 크기에 키프레임을 지정하세요. 각 클립은 다른 속성과 동일한 키프레임 명령으로 자체 텍스트 색상, "
+"외곽선 및 테두리 너비를 애니메이션할 수 있습니다:"
+
+#: ../doc/agent_cli.rst:659
+msgid ""
+"The animated properties are ``text_color``, ``text_background``, "
+"``text_stroke`` and ``text_border`` (colors, with ``.red``, ``.green``, "
+"``.blue`` and ``.alpha`` from 0 to 255), plus ``text_stroke_width``, "
+"``text_border_width`` and ``text_background_corner``. A clip's own animation"
+" wins over the shared style, and ``text get`` lists which styles a clip "
+"animates. ``text reset CLIP_ID`` returns a clip to the default style, like "
+"**Text → Reset Style**; ``--keyframes-only`` just removes the clip's own "
+"animation. To style many texts at once, select them with "
+"``{\"text\":true}``:"
+msgstr ""
+"애니메이션 가능한 속성은 ``text_color``, ``text_background``, ``text_stroke`` 및 "
+"``text_border`` (색상, ``.red``, ``.green``, ``.blue``, ``.alpha`` 0~255 포함), "
+"그리고 ``text_stroke_width``, ``text_border_width``, ``text_background_corner``"
+" 입니다. 클립 자체 애니메이션이 공유 스타일보다 우선하며, ``text get`` 은 클립이 애니메이션하는 스타일을 나열합니다. "
+"``text reset CLIP_ID`` 는 클립을 기본 스타일로 되돌리며, **텍스트 → 스타일 초기화** 와 같습니다; "
+"``--keyframes-only`` 는 클립 자체 애니메이션만 제거합니다. 여러 텍스트를 한 번에 스타일링하려면 "
+"``{\"text\":true}`` 로 선택하세요:"
+
+#: ../doc/agent_cli.rst:672
+msgid "Applying a batch of edits"
+msgstr "일괄 편집 적용"
+
+#: ../doc/agent_cli.rst:674
+msgid ""
+"``edit apply --json @edits.json --expect-revision 12`` accepts up to 256 "
+"ordered mutation commands, using dotted command names such as ``clip.set`` "
+"and ``effects.add`` (the older ``effect.add`` spelling also works)::"
+msgstr ""
+"``edit apply --json @edits.json --expect-revision 12`` 는 최대 256개의 순서 있는 변경 "
+"명령을 받아들이며, ``clip.set`` 및 ``effects.add`` 와 같은 점(.)으로 구분된 명령 이름을 사용합니다 (이전 "
+"``effect.add`` 철자도 작동합니다)::"
+
+#: ../doc/agent_cli.rst:685
+msgid ""
+"The optional ``as`` binds a result for later commands in the same batch. A "
+"``{\"$ref\":\"shot.id\"}`` object substitutes that result's field. "
+"References only resolve earlier names; misspellings, forward references, and"
+" duplicate names fail before live updates. The response includes ordered "
+"compact results and a ``refs`` map of actual IDs. All changes in a "
+"successful batch form one undo/redo step. ``project.profile.set`` also "
+"supports populated timelines. Opening, saving, exporting, and inspection "
+"commands stay outside edit batches. Each command's help lists its JSON "
+"parameter names, including the underscore spelling of shell flags (for "
+"example, ``--fps-num`` becomes ``fps_num``)."
+msgstr ""
+"선택적 ``as`` 는 동일 배치 내 후속 명령을 위해 결과를 바인딩합니다. ``{\"$ref\":\"shot.id\"}`` 객체는 해당"
+" 결과의 필드를 대체합니다. 참조는 이전 이름만 해결하며, 오타, 미래 참조, 중복 이름은 라이브 업데이트 전에 실패합니다. 응답에는 "
+"순서 있는 간결한 결과와 실제 ID의 ``refs`` 맵이 포함됩니다. 성공한 배치의 모든 변경 사항은 하나의 실행 취소/재실행 단계가 "
+"됩니다. ``project.profile.set`` 은 채워진 타임라인도 지원합니다. 열기, 저장, 내보내기 및 검사 명령은 편집 배치 "
+"외부에 유지됩니다. 각 명령의 도움말에는 쉘 플래그의 밑줄 표기법을 포함한 JSON 매개변수 이름이 나열됩니다 (예: ``--fps-"
+"num`` 은 ``fps_num`` 으로 변환)."
+
+#: ../doc/agent_cli.rst:696
+msgid "Validating batches and handling errors"
+msgstr "배치 검증 및 오류 처리"
+
+#: ../doc/agent_cli.rst:698
+msgid ""
+"All commands in edit batches preflight against a detached project before any"
+" live updates. Invalid input leaves the live project and revision unchanged."
+" Valid batches form one undo group. Unexpected runtime failures can still "
+"produce partial changes; errors report completed operations. A timeout does "
+"not imply cancellation, so inspect state before retrying mutations."
+msgstr ""
+"편집 배치의 모든 명령은 라이브 업데이트 전에 분리된 프로젝트에서 사전 검사됩니다. 잘못된 입력은 라이브 프로젝트와 리비전을 변경하지 "
+"않습니다. 유효한 배치는 하나의 실행 취소 그룹을 형성합니다. 예상치 못한 런타임 실패도 부분 변경을 일으킬 수 있으며, 오류는 완료된 "
+"작업을 보고합니다. 타임아웃은 취소를 의미하지 않으므로 변경을 다시 시도하기 전에 상태를 확인하세요."
+
+#: ../doc/agent_cli.rst:705
+msgid "Precise keyframe editing"
+msgstr "정밀 키프레임 편집"
+
+#: ../doc/agent_cli.rst:707
+msgid ""
+"``clip``, ``transition``, and ``effects`` support ``keyframe list``, "
+"``set``, ``remove``, ``clear``, ``transform``, ``copy``, and ``paste``. "
+"Property paths can address nested curves, such as ``color.red`` on a Chroma "
+"Key effect. Editing a nested curve preserves sibling channels. Run "
+"``keyframe list ID`` without a property to discover curve paths and point "
+"counts. Discovery and point listings include trim/position timing context; "
+"point listings also report native frame coordinates. ``get`` and "
+"``properties`` expose the complete native object and property metadata. "
+"Errors identify invalid fields, suggest close property names, and explain "
+"coordinate corrections."
+msgstr ""
+"``clip``, ``transition``, ``effects`` 는 ``keyframe list``, ``set``, "
+"``remove``, ``clear``, ``transform``, ``copy``, ``paste`` 를 지원합니다. 속성 경로는 "
+"크로마 키 효과의 ``color.red`` 와 같은 중첩 곡선을 지정할 수 있습니다. 중첩 곡선 편집은 형제 채널을 보존합니다. 속성 "
+"없이 ``keyframe list ID`` 를 실행하여 곡선 경로와 점 수를 확인하세요. 발견 및 점 목록에는 트림/위치 타이밍 "
+"컨텍스트가 포함되며, 점 목록은 네이티브 프레임 좌표도 보고합니다. ``get`` 과 ``properties`` 는 완전한 네이티브 객체"
+" 및 속성 메타데이터를 노출합니다. 오류는 잘못된 필드를 식별하고, 유사한 속성 이름을 제안하며, 좌표 수정 방법을 설명합니다."
+
+#: ../doc/agent_cli.rst:717
+msgid ""
+"Choose coordinates explicitly with ``--space native|clip|timeline`` and "
+"``--unit frames|seconds``. All frames use project FPS and are 1-based; "
+"seconds start at zero and snap to the nearest frame. Native is the existing "
+"engine keyframe coordinate (including source trim). Clip coordinates start "
+"at the visible clip in-point; timeline coordinates start at project time "
+"zero. Attached effects use their parent clip's timing. These coordinates "
+"address animation time, not the media frames selected by a time-remapping "
+"curve."
+msgstr ""
+"``--space native|clip|timeline`` 와 ``--unit frames|seconds`` 로 좌표를 명확히 "
+"선택하세요. 모든 프레임은 프로젝트 FPS를 사용하며 1부터 시작합니다; 초는 0부터 시작하며 가장 가까운 프레임에 맞춰집니다. "
+"Native 는 기존 엔진 키프레임 좌표(소스 트림 포함)입니다. 클립 좌표는 보이는 클립 인포인트에서 시작하며, 타임라인 좌표는 "
+"프로젝트 시간 0에서 시작합니다. 첨부된 효과는 부모 클립의 타이밍을 사용합니다. 이 좌표들은 애니메이션 시간을 나타내며, 시간 재매핑 "
+"곡선으로 선택된 미디어 프레임이 아닙니다."
+
+#: ../doc/agent_cli.rst:725
+msgid ""
+"For a clip positioned at 5 seconds, trimmed at 2 seconds, in a 30 fps "
+"project, clip frame 1, timeline frame 151, and native frame 61 address the "
+"same point. Position and trim snap independently to the project frame grid. "
+"Listing an entire curve can include hidden points with nonpositive "
+"clip/timeline coordinates. Legacy ``--frame`` still means a native frame and"
+" cannot combine with ``--at``."
+msgstr ""
+"30fps 프로젝트에서 5초에 위치하고 2초에 트리밍된 클립의 경우, 클립 프레임 1, 타임라인 프레임 151, 네이티브 프레임 61이 "
+"동일한 지점을 가리킵니다. 위치와 트림은 프로젝트 프레임 그리드에 독립적으로 스냅됩니다. 전체 곡선을 나열하면 음수 또는 0인 "
+"클립/타임라인 좌표를 가진 숨겨진 점도 포함될 수 있습니다. 이전 ``--frame`` 옵션은 여전히 네이티브 프레임을 의미하며 "
+"``--at``\\ 과 함께 사용할 수 없습니다."
+
+#: ../doc/agent_cli.rst:731
+msgid "Examples::"
+msgstr "예시::"
+
+#: ../doc/agent_cli.rst:743
+msgid "Interpolation, easing, and preview"
+msgstr "보간, 이징 및 미리보기"
+
+#: ../doc/agent_cli.rst:745
+msgid ""
+"Interpolation describes the segment **into the destination point**. Linear "
+"gives a steady rate between points. Constant holds the preceding value until"
+" the destination, then jumps. Native default Bezier handles ease at both "
+"ends of each segment. Adding an intermediate point can therefore introduce "
+"an unintended slowdown; for one eased move, start with two endpoints. "
+"Normally leave handles alone and choose a named preset for a specific style."
+msgstr ""
+"보간은 **목적지 점으로의 구간**\\ 을 설명합니다. 선형은 점들 사이에 일정한 속도를 제공합니다. 상수는 목적지까지 이전 값을 "
+"유지하다가 갑자기 변경됩니다. 기본 네이티브 베지어는 각 구간 양 끝에서 이징을 처리합니다. 중간 점을 추가하면 의도치 않은 속도 저하가"
+" 발생할 수 있으므로, 하나의 이징된 움직임은 두 끝점으로 시작하는 것이 좋습니다. 일반적으로 핸들은 그대로 두고 특정 스타일을 위한 "
+"이름 있는 프리셋을 선택하세요."
+
+#: ../doc/agent_cli.rst:752
+msgid ""
+"Discover the same easing presets used by the editor's menus, without a "
+"session::"
+msgstr "세션 없이 편집기 메뉴에서 사용하는 동일한 이징 프리셋을 확인하세요::"
+
+#: ../doc/agent_cli.rst:756
+msgid "Apply a preset to the incoming segment by setting its destination::"
+msgstr "목적지를 설정하여 들어오는 구간에 프리셋을 적용하세요::"
+
+#: ../doc/agent_cli.rst:761
+msgid ""
+"The easing option implies Bezier. It sets the previous point's outgoing "
+"handle and the destination's incoming handle together, preserving other "
+"handles and point values. An earlier point must exist. Do not combine it "
+"with custom handles or a different interpolation. Presets work in batches "
+"and bulk templates. The GUI preset **ease** (\"Ease (Default)\") differs "
+"from the native handles used by plain Bezier interpolation. Back presets can"
+" overshoot endpoint values."
+msgstr ""
+"이징 옵션은 베지어를 의미합니다. 이전 점의 나가는 핸들과 목적지 점의 들어오는 핸들을 함께 설정하며, 다른 핸들과 점 값은 유지됩니다."
+" 이전 점이 반드시 존재해야 합니다. 사용자 지정 핸들이나 다른 보간과 함께 사용하지 마세요. 프리셋은 배치 및 대량 템플릿에서 "
+"작동합니다. GUI 프리셋 **ease**\\ (\"Ease (Default)\")는 기본 베지어 보간에 사용되는 네이티브 핸들과 "
+"다릅니다. 백 프리셋은 끝점 값을 초과할 수 있습니다."
+
+#: ../doc/agent_cli.rst:768
+msgid ""
+"Inspect motion **before rendering**, using the native curve evaluator::"
+msgstr "네이티브 곡선 평가기를 사용하여 **렌더링 전에** 모션을 검사하세요::"
+
+#: ../doc/agent_cli.rst:773
+msgid ""
+"Preview is read-only and works identically for effects and transitions. It "
+"returns values and signed incoming_rate / outgoing_rate in property units "
+"per second, calculated from immediately adjacent frames. These are finite "
+"differences, not analytic derivatives. At native frame 1 the incoming rate "
+"is null. Adjacent-frame rates can inspect outside the requested range. Near-"
+"zero rates around an interior point reveal a pause; differing rates reveal a"
+" speed change. Constant interpolation reveals a jump at the destination."
+msgstr ""
+"미리보기는 읽기 전용이며 효과와 전환에 동일하게 작동합니다. 즉시 인접한 프레임에서 계산된 속성 단위 초당 값과 부호가 있는 들어오는 "
+"속도/나가는 속도를 반환합니다. 이는 해석적 미분이 아닌 유한 차분입니다. 네이티브 프레임 1에서는 들어오는 속도가 0입니다. 인접 "
+"프레임 속도는 요청된 범위 밖도 검사할 수 있습니다. 내부 점 주변의 거의 0에 가까운 속도는 일시 정지를 나타내며, 다른 속도는 속도 "
+"변화를 나타냅니다. 상수 보간은 목적지에서 점프를 나타냅니다."
+
+#: ../doc/agent_cli.rst:781
+msgid ""
+"Without a range, preview spans the curve's first and last points. Ranges are"
+" inclusive, with 17 evenly spaced samples by default (--count: 2–256). "
+"Keyframes and their immediate neighbors inside the range are also included, "
+"so a sparse sample count will not hide a keyframe stall. The maximum is 1024"
+" samples; larger requests require a narrower range. --at samples one frame. "
+"Preview reports requested-space coordinates and actual native frames; "
+"seconds snap to project frames as they do for editing."
+msgstr ""
+"범위가 없으면 미리보기는 곡선의 첫 번째와 마지막 점을 포함합니다. 범위는 포함 범위이며 기본적으로 17개의 균등 간격 샘플을 "
+"사용합니다(--count: 2–256). 범위 내의 키프레임과 인접한 점도 포함되어 적은 샘플 수가 키프레임 정지를 숨기지 않습니다. "
+"최대 샘플 수는 1024이며, 더 큰 요청은 더 좁은 범위를 필요로 합니다. --at는 한 프레임을 샘플링합니다. 미리보기는 요청된 공간"
+" 좌표와 실제 네이티브 프레임을 보고하며, 초 단위는 편집 시처럼 프로젝트 프레임에 스냅됩니다."
+
+#: ../doc/agent_cli.rst:789
+msgid ""
+"For advanced custom handles, both X and Y are normalized to the segment: X "
+"is a fraction of its frame span; Y is a fraction of its value change. The "
+"first control comes from the previous point's handle_right, the second from "
+"the destination's handle_left. Native defaults are right=(0.5, 0), "
+"left=(0.5, 1), with flat endpoint tangents. Changing handle_type alone does "
+"not recalculate a continuous tangent through surrounding points. Existing "
+"handles are preserved when moving a point."
+msgstr ""
+"고급 사용자 지정 핸들의 경우 X와 Y 모두 구간에 정규화됩니다: X는 프레임 범위의 일부이고, Y는 값 변화의 일부입니다. 첫 번째 "
+"제어점은 이전 점의 handle_right에서, 두 번째는 목적지의 handle_left에서 옵니다. 기본 네이티브 값은 "
+"right=(0.5, 0), left=(0.5, 1)이며 평평한 끝점 접선을 가집니다. handle_type만 변경해도 주변 점을 통한 "
+"연속 접선이 재계산되지 않습니다. 점을 이동할 때 기존 핸들은 유지됩니다."
+
+#: ../doc/agent_cli.rst:797
+msgid ""
+"Keyframe ranges are **inclusive**, unlike clip-selection time ranges. List "
+"emits ``points`` whose ``co.X`` values use the requested coordinate "
+"space/unit. Pass that array to ``keyframe paste --json @points.json`` with "
+"the same space/unit, choosing ``--mode merge`` (replace matching frames, "
+"retain others) or ``--mode replace`` (replace the entire curve). ``copy`` "
+"accepts a source of the same object kind, an optional ``--source-property``,"
+" and anchors the first selected source point at ``--at`` on the target. "
+"Other curves and source objects remain unchanged."
+msgstr ""
+"키프레임 범위는 클립 선택 시간 범위와 달리 **포함 범위**\\ 입니다. 목록은 요청된 좌표 공간/단위를 사용하는 ``co.X`` 값을"
+" 가진 ``points``\\ 를 출력합니다. 해당 배열을 동일한 공간/단위로 ``keyframe paste --json "
+"@points.json``\\ 에 전달하고 ``--mode merge``(일치하는 프레임 교체, 나머지 유지) 또는 ``--mode "
+"replace``(전체 곡선 교체)를 선택하세요. ``copy``\\ 는 동일한 객체 종류의 소스와 선택적 ``--source-"
+"property``\\ 를 받아들이며, 첫 번째 선택된 소스 점을 대상의 ``--at`` 위치에 고정합니다. 다른 곡선과 소스 객체는 "
+"변경되지 않습니다."
+
+#: ../doc/agent_cli.rst:805
+msgid ""
+"``transform`` applies a positive time scale around the first selected point,"
+" or ``--pivot``, followed by a signed ``--offset`` in the chosen unit. Frame"
+" snapping that creates duplicate coordinates is rejected, including "
+"collisions with points outside the selected range. Native coordinates must "
+"remain at least 1. Native normalized Bézier handles and interpolation travel"
+" with each point; handles are not absolute frame coordinates. ``set "
+"--handles`` changes only supplied handles. Interpolation belongs to the "
+"destination point."
+msgstr ""
+"``transform``\\ 은 첫 번째 선택된 점 또는 ``--pivot``\\ 을 중심으로 양의 시간 배율을 적용하며, 선택한 단위로"
+" 부호가 있는 ``--offset``\\ 이 뒤따릅니다. 중복 좌표를 생성하는 프레임 스냅은 선택 범위 밖 점과의 충돌을 포함하여 "
+"거부됩니다. 네이티브 좌표는 최소 1 이상이어야 합니다. 네이티브 정규화 베지어 핸들과 보간은 각 점과 함께 이동하며, 핸들은 절대 "
+"프레임 좌표가 아닙니다. ``set --handles``\\ 는 제공된 핸들만 변경합니다. 보간은 목적지 점에 속합니다."
+
+#: ../doc/agent_cli.rst:813
+msgid ""
+"``clear`` retains a constant base point at native frame 1: specify "
+"``--value`` or sample the existing curve with ``--at`` (default native frame"
+" 1). Removing the last point also retains a constant base, so subsequent "
+"keyframe additions remain valid."
+msgstr ""
+"``clear``\\ 는 네이티브 프레임 1에서 일정한 기준점을 유지합니다: ``--value``\\ 를 지정하거나 ``--at``\\ "
+"(기본값 네이티브 프레임 1)으로 기존 곡선을 샘플링하세요. 마지막 점을 제거해도 일정한 기준점이 유지되어 이후 키프레임 추가가 "
+"유효합니다."
+
+#: ../doc/agent_cli.rst:818
+msgid "Selecting and editing many clips"
+msgstr "여러 클립 선택 및 편집"
+
+#: ../doc/agent_cli.rst:820
+msgid ""
+"Use ``edit apply --dry-run`` to validate a batch without changing the "
+"project. Use ``edit bulk`` to repeat a small command template for each "
+"selected clip, with all changes grouped into one undo step."
+msgstr ""
+"프로젝트를 변경하지 않고 배치를 검증하려면 ``edit apply --dry-run``\\ 을 사용하세요. 선택한 각 클립에 대해 작은 "
+"명령 템플릿을 반복하고 모든 변경 사항을 하나의 실행 취소 단계로 그룹화하려면 ``edit bulk``\\ 를 사용하세요."
+
+#: ../doc/agent_cli.rst:824
+msgid "First preview a selection::"
+msgstr "먼저 선택 항목을 미리보기::"
+
+#: ../doc/agent_cli.rst:828
+msgid ""
+"Selectors support ``ids`` (unique clip ID array), ``layer``, "
+"``start``/``end`` (timeline seconds), ``file_id``, ``effect`` (class name or"
+" alias), and ``text`` (``true`` selects text clips). Filters combine with "
+"AND. Time ranges select clips overlapping ``[start, end)``; they do not trim"
+" those clips. Results are ordered by position, layer, then ID, and include "
+"IDs, summaries, lock state, and the current revision. Unknown IDs are "
+"errors. An empty selector is rejected; use ``{\"all\":true}`` explicitly for"
+" every clip. Selections are bounded to 256 clips and are never silently "
+"truncated."
+msgstr ""
+"선택기는 ``ids`` (고유 클립 ID 배열), ``layer``, ``start``/``end`` (타임라인 초), "
+"``file_id``, ``effect`` (클래스 이름 또는 별칭), 그리고 ``text`` (``true``\\ 는 텍스트 클립 "
+"선택)를 지원합니다. 필터는 AND로 결합됩니다. 시간 범위는 ``[start, end)``\\ 와 겹치는 클립을 선택하며, 클립을 "
+"자르지 않습니다. 결과는 위치, 레이어, ID 순으로 정렬되며 ID, 요약, 잠금 상태, 현재 리비전을 포함합니다. 알 수 없는 ID는 "
+"오류입니다. 빈 선택기는 거부되며, 모든 클립에 대해 명시적으로 ``{\"all\":true}``\\ 를 사용해야 합니다. 선택은 "
+"256개 클립으로 제한되며 조용히 잘리지 않습니다."
+
+#: ../doc/agent_cli.rst:837
+msgid "For example, save this array as ``templates.json``::"
+msgstr "예를 들어, 이 배열을 ``templates.json`` 으로 저장하세요::"
+
+#: ../doc/agent_cli.rst:846
+msgid "Validate it, then apply against the revision returned by selection::"
+msgstr "이를 검증한 후 선택에서 반환된 리비전에 적용하세요::"
+
+#: ../doc/agent_cli.rst:851
+msgid ""
+"Existing-clip commands inherit ``id``; ``effects.add`` inherits ``clip_id``."
+" Omit these target parameters in templates. Effect edits must reference an "
+"earlier named result. Names are local to each selected clip, so ``look.id`` "
+"refers to a different effect for each clip. To change existing effect "
+"instances by explicit ID, continue using ``edit apply``. The selected ID set"
+" is fixed before expansion; changes to position or effects do not change the"
+" remaining targets."
+msgstr ""
+"기존 클립 명령은 ``id``\\ 를 상속하며, ``effects.add``\\ 는 ``clip_id``\\ 를 상속합니다. 템플릿에서는"
+" 이러한 대상 매개변수를 생략하세요. 효과 편집은 이전에 명명된 결과를 참조해야 합니다. 이름은 각 선택된 클립에 국한되므로 "
+"``look.id``\\ 는 각 클립마다 다른 효과를 가리킵니다. 명시적 ID로 기존 효과 인스턴스를 변경하려면 계속해서 ``edit "
+"apply``\\ 를 사용하세요. 선택된 ID 집합은 확장 전에 고정되며, 위치나 효과 변경은 나머지 대상에 영향을 주지 않습니다."
+
+#: ../doc/agent_cli.rst:858
+msgid ""
+"``clip set`` applies absolute properties; ``clip adjust`` applies "
+"``multiply`` then ``add`` to a numeric property or every value in a curve, "
+"preserving point timing, interpolation, and normalized handles. It validates"
+" resulting values, including nonnegative positions and volume. Structural "
+"fields remain protected."
+msgstr ""
+"``clip set``\\ 은 절대 속성을 적용하며, ``clip adjust``\\ 는 숫자 속성이나 곡선의 모든 값에 대해 "
+"``multiply`` 후 ``add``\\ 를 적용하여 점 타이밍, 보간, 정규화된 핸들을 유지합니다. 결과 값은 0 이상의 위치와 "
+"볼륨을 포함해 검증됩니다. 구조 필드는 보호됩니다."
+
+#: ../doc/agent_cli.rst:863
+msgid ""
+"Bulk operations reject empty selections, locked target tracks, and more than"
+" 256 expanded commands. Every expanded operation passes detached preflight "
+"before any live edit. Dry runs do not reserve generated IDs. Use ``--expect-"
+"revision`` to reject stale selections. Successful batches are one undo step,"
+" including after save/reopen. GUI refreshes are batched. Unexpected "
+"runtime/listener errors can still leave a partial transaction; the error "
+"reports completed operations and undo reverts that group, as with ``edit "
+"apply``."
+msgstr ""
+"대량 작업은 빈 선택, 잠긴 대상 트랙, 256개 초과 확장 명령을 거부합니다. 모든 확장 작업은 라이브 편집 전에 분리된 사전 점검을 "
+"통과합니다. 드라이 런은 생성된 ID를 예약하지 않습니다. ``--expect-revision``\\ 을 사용해 오래된 선택을 "
+"거부하세요. 성공한 배치는 저장/재열기 후에도 하나의 실행 취소 단계입니다. GUI 새로 고침은 일괄 처리됩니다. 예기치 않은 "
+"런타임/리스너 오류가 부분 트랜잭션을 남길 수 있으며, 오류는 완료된 작업을 보고하고 실행 취소는 해당 그룹을 되돌립니다 (``edit "
+"apply``\\ 와 동일)."
+
+#: ../doc/agent_cli.rst:872
+msgid "Profiles"
+msgstr "프로필"
+
+#: ../doc/agent_cli.rst:874
+msgid "Discover profiles and match imported video without guessing IDs::"
+msgstr "프로필을 발견하고 ID를 추측하지 않고 가져온 비디오와 일치시키기::"
+
+#: ../doc/agent_cli.rst:884
+msgid ""
+"Catalog entries include stable IDs, descriptions, dimensions, rational FPS, "
+"aspect ratios, and scan settings. List/search is paginated. Source matching "
+"returns exact IDs and ranked alternatives with explicit differences. Setting"
+" from a file requires an exact match unless ``--create-custom`` is "
+"specified; it never silently chooses a nearby profile. Still images and "
+"audio-only sources cannot define a video profile. Matching uses declared "
+"source FPS."
+msgstr ""
+"카탈로그 항목에는 안정적인 ID, 설명, 크기, 유리수 FPS, 종횡비, 스캔 설정이 포함됩니다. 목록/검색은 페이지로 구분됩니다. 소스"
+" 매칭은 정확한 ID와 명확한 차이가 있는 순위별 대안을 반환합니다. 파일에서 설정할 때 ``--create-custom``\\ 이 "
+"지정되지 않으면 정확한 일치가 필요하며, 근접한 프로필을 조용히 선택하지 않습니다. 정지 이미지 및 오디오 전용 소스는 비디오 프로필을 "
+"정의할 수 없습니다. 매칭은 선언된 소스 FPS를 사용합니다."
+
+#: ../doc/agent_cli.rst:891
+msgid ""
+"Custom settings are embedded in the saved project, including rational rates,"
+" so reopening does not require installing a separate profile file. Project "
+"profile changes use existing frame-rate conversion and one undo transaction."
+" Undo/redo restores clip timing and keyframes, including rounding-sensitive "
+"positions. Export can independently select a profile without changing the "
+"project."
+msgstr ""
+"사용자 설정은 유리수 비율을 포함하여 저장된 프로젝트에 내장되어 있어, 다시 열 때 별도의 프로필 파일 설치가 필요 없습니다. 프로젝트 "
+"프로필 변경은 기존 프레임 속도 변환과 하나의 실행 취소 트랜잭션을 사용합니다. 실행 취소/다시 실행은 반올림에 민감한 위치를 포함해 "
+"클립 타이밍과 키프레임을 복원합니다. 내보내기는 프로젝트를 변경하지 않고 독립적으로 프로필을 선택할 수 있습니다."
+
+#: ../doc/agent_cli.rst:897
+msgid ""
+"Saved undo history follows the editor's history-limit preference. The limit "
+"is a soft action budget: all records belonging to retained transactions are "
+"kept, so saving cannot truncate a large batch into a partial undo action. "
+"Zero disables saved history. The separate 256-command batch request bound "
+"still applies."
+msgstr ""
+"저장된 실행 취소 기록은 편집기의 기록 제한 설정을 따릅니다. 제한은 소프트 작업 예산으로, 유지되는 트랜잭션에 속한 모든 기록이 "
+"보존되어 저장 시 큰 배치를 부분 실행 취소 작업으로 자르지 않습니다. 0은 저장된 기록을 비활성화합니다. 별도의 256명령 배치 요청 "
+"제한은 여전히 적용됩니다."
+
+#: ../doc/agent_cli.rst:903
+msgid "Inspecting media and timelines"
+msgstr "미디어 및 타임라인 검사"
+
+#: ../doc/agent_cli.rst:905
+msgid ""
+"Inspect clip timing and track layout as text or JSON, or render images to "
+"review composition and framing before exporting."
+msgstr ""
+"클립 타이밍과 트랙 레이아웃을 텍스트 또는 JSON으로 검사하거나, 내보내기 전에 구성과 구도를 검토하기 위해 이미지를 렌더링하세요."
+
+#: ../doc/agent_cli.rst:909
+msgid "Timeline summaries"
+msgstr "타임라인 요약"
+
+#: ../doc/agent_cli.rst:911
+msgid ""
+"Use a text view for a quick overview, or structured JSON for scripts and "
+"agents::"
+msgstr "빠른 개요를 위해 텍스트 뷰를 사용하거나 스크립트 및 에이전트를 위해 구조화된 JSON을 사용하세요::"
+
+#: ../doc/agent_cli.rst:917
+msgid ""
+"``timeline view`` defaults to compact text with used tracks, object IDs, "
+"timeline/source intervals, stream state, gain, and gaps/overlaps. Use "
+"``--detail summary|clips|full`` to choose detail, ``--format json`` for "
+"structured context, and ``--start/--end``, ``--layer``, and pagination to "
+"focus the result."
+msgstr ""
+"``timeline view``\\ 는 사용된 트랙, 객체 ID, 타임라인/소스 구간, 스트림 상태, 게인, 간격/중첩을 포함한 간결한 "
+"텍스트를 기본으로 합니다. 세부 사항 선택에는 ``--detail summary|clips|full``, 구조화된 컨텍스트에는 "
+"``--format json``, 결과 집중에는 ``--start/--end``, ``--layer``, 페이지 매김을 사용하세요."
+
+#: ../doc/agent_cli.rst:922
+msgid ""
+"``timeline overview`` supplies compact structured context without image "
+"bytes: ordered IDs, sequence per track, timeline/source intervals, visible "
+"trim ranges, frame coordinates, audio/video state, effects, and neighboring "
+"gaps or overlaps. Intervals and frame spans are end-exclusive; frame numbers"
+" are one-based. Source frames use source FPS; timeline and keyframe "
+"coordinates use project FPS. Use ``--layer`` and ``--start/--end`` to focus,"
+" and ``--limit/--offset`` to paginate (default 100, maximum 500 items). "
+"Time-remapped clips explicitly withhold inferred source mappings. Use the "
+"returned revision with ``edit apply --expect-revision``."
+msgstr ""
+"``timeline overview``\\ 는 이미지 바이트 없이 간결한 구조화된 컨텍스트를 제공합니다: 정렬된 ID, 트랙별 순서, "
+"타임라인/소스 구간, 보이는 트림 범위, 프레임 좌표, 오디오/비디오 상태, 효과, 인접 간격 또는 중첩. 구간과 프레임 범위는 끝 "
+"제외이며, 프레임 번호는 1부터 시작합니다. 소스 프레임은 소스 FPS를 사용하고, 타임라인 및 키프레임 좌표는 프로젝트 FPS를 "
+"사용합니다. 집중에는 ``--layer``\\ 와 ``--start/--end``, 페이지 매김에는 ``--limit/--offset``"
+" (기본 100, 최대 500개 항목)을 사용하세요. 시간 재매핑된 클립은 추론된 소스 매핑을 명시적으로 보류합니다. 반환된 리비전은 "
+"``edit apply --expect-revision``\\ 과 함께 사용하세요."
+
+#: ../doc/agent_cli.rst:932
+msgid "Frame previews and contact sheets"
+msgstr "프레임 미리보기 및 콘택트 시트"
+
+#: ../doc/agent_cli.rst:934
+msgid ""
+"Render a single frame with ``thumbnail`` or sample a range with ``strip``. "
+"Use ``file`` to inspect source media and ``timeline`` to inspect the "
+"composed video, including effects and layered clips::"
+msgstr ""
+"``thumbnail``\\ 으로 단일 프레임을 렌더링하거나 ``strip``\\ 으로 범위를 샘플링하세요. 효과와 레이어드 클립을 "
+"포함한 합성 비디오를 검사하려면 ``file``\\ 로 소스 미디어를, ``timeline``\\ 으로 검사하세요::"
+
+#: ../doc/agent_cli.rst:943
+msgid ""
+"Frame images default to 320x180 pixels; contact sheets default to 160x90 per"
+" tile, plus timecode labels. Use ``--width`` and ``--height`` to choose "
+"output pixels. Responses include exact sample/frame metadata. Contact sheets"
+" help review composition across a sequence; use keyframe previews and "
+"rendered video to assess motion between those samples."
+msgstr ""
+"프레임 이미지는 기본 320x180 픽셀이며, 콘택트 시트는 타일당 기본 160x90 픽셀과 타임코드 레이블을 포함합니다. 출력 픽셀 "
+"선택에는 ``--width``\\ 와 ``--height``\\ 를 사용하세요. 응답에는 정확한 샘플/프레임 메타데이터가 포함됩니다. "
+"콘택트 시트는 시퀀스 전체의 구성을 검토하는 데 도움이 되며, 키프레임 미리보기와 렌더링된 비디오로 샘플 간 움직임을 평가하세요."
+
+#: ../doc/agent_cli.rst:950
+msgid "Timeline images"
+msgstr "타임라인 이미지"
+
+#: ../doc/agent_cli.rst:952
+msgid ""
+"Capture the editor's track layout, including its ruler, thumbnails, effects,"
+" transitions, and waveforms::"
+msgstr "편집기의 눈금자, 썸네일, 효과, 전환 및 파형을 포함한 트랙 레이아웃을 캡처합니다::"
+
+#: ../doc/agent_cli.rst:957
+msgid ""
+"Specifying ``--output`` selects image format; ``--format image`` also "
+"selects it explicitly. The capture does not change the editor's viewport or "
+"project. Responses include clip IDs and timing alongside pixel bounds."
+msgstr ""
+"``--output`` 을 지정하면 이미지 형식을 선택하며, ``--format image`` 도 명시적으로 선택합니다. 캡처는 편집기의"
+" 뷰포트나 프로젝트를 변경하지 않습니다. 응답에는 클립 ID와 타이밍, 픽셀 경계가 포함됩니다."
+
+#: ../doc/agent_cli.rst:961
+msgid ""
+"Images default to 1280 pixels wide, with height fitted to used tracks. Use "
+"``--width``, ``--height``, or ``--all-tracks`` to adjust the layout, and "
+"``--track-size`` or ``--track-label-width`` to adjust tracks and labels. The"
+" start/end range determines zoom; ``--pixels-per-second`` instead derives "
+"the width from the time range."
+msgstr ""
+"이미지는 기본적으로 너비 1280 픽셀이며, 높이는 사용된 트랙에 맞게 조정됩니다. 레이아웃 조정을 위해 ``--width``, "
+"``--height``, 또는 ``--all-tracks`` 를 사용하고, 트랙과 레이블 조정을 위해 ``--track-size`` 또는"
+" ``--track-label-width`` 를 사용하세요. 시작/종료 범위가 줌을 결정하며, ``--pixels-per-second``"
+" 는 시간 범위에서 너비를 계산합니다."
+
+#: ../doc/agent_cli.rst:968
+msgid "Audio waveform views"
+msgstr "오디오 파형 보기"
+
+#: ../doc/agent_cli.rst:970
+msgid ""
+"Choose ``--mode waveforms`` to inspect audio envelopes on the timeline::"
+msgstr "타임라인에서 오디오 엔벨로프를 검사하려면 ``--mode waveforms`` 를 선택하세요::"
+
+#: ../doc/agent_cli.rst:974
+msgid ""
+"``--mode auto`` uses the existing cached waveform display; ``--mode "
+"thumbnails`` shows thumbnails instead. Waveforms represent source peak/RMS "
+"levels with clip volume and timing adjustments, before audio effects or "
+"mixing."
+msgstr ""
+"``--mode auto`` 는 기존 캐시된 파형 표시를 사용하며, ``--mode thumbnails`` 는 대신 썸네일을 표시합니다."
+" 파형은 오디오 효과나 믹싱 전에 클립 볼륨과 타이밍 조정을 포함한 소스 피크/RMS 레벨을 나타냅니다."
+
+#: ../doc/agent_cli.rst:978
+msgid ""
+"Uncached waveform extraction decodes whole sources, limited to 600 seconds "
+"per source and 1200 source-seconds per request. Narrowing the visible range "
+"does not reduce that decoding work. For longer sources, generate waveforms "
+"in the editor first or use thumbnail mode. Subsequent requests can reuse "
+"cached waveforms."
+msgstr ""
+"캐시되지 않은 파형 추출은 전체 소스를 디코딩하며, 소스당 600초, 요청당 1200 소스-초로 제한됩니다. 표시 범위를 좁혀도 디코딩 "
+"작업이 줄어들지 않습니다. 더 긴 소스는 먼저 편집기에서 파형을 생성하거나 썸네일 모드를 사용하세요. 이후 요청은 캐시된 파형을 재사용할"
+" 수 있습니다."
+
+#: ../doc/agent_cli.rst:984
+msgid "Image output and limits"
+msgstr "이미지 출력 및 제한"
+
+#: ../doc/agent_cli.rst:986
+msgid ""
+"Image paths must be new PNG files in existing directories. Images are "
+"limited to 4096 pixels per axis, 8,388,608 total pixels, and 64 contact-"
+"sheet samples. Requests beyond these limits fail before rendering."
+msgstr ""
+"이미지 경로는 기존 디렉터리에 새 PNG 파일이어야 합니다. 이미지는 축당 4096 픽셀, 총 8,388,608 픽셀, 64개의 컨택트 "
+"시트 샘플로 제한됩니다. 이 제한을 초과하는 요청은 렌더링 전에 실패합니다."
+
+#: ../doc/agent_cli.rst:990
+msgid ""
+"Images are written to files; JSON responses include their paths and "
+"``image_bytes`` sizes. Inspection waits for the image to finish, and large "
+"requests can briefly occupy the editor."
+msgstr ""
+"이미지는 파일로 저장되며, JSON 응답에는 경로와 ``image_bytes`` 크기가 포함됩니다. 검사는 이미지 완료를 기다리며, 큰 "
+"요청은 잠시 편집기를 점유할 수 있습니다."
+
+#: ../doc/agent_cli.rst:995
+msgid "Handling command timeouts"
+msgstr "명령 시간 초과 처리"
+
+#: ../doc/agent_cli.rst:997
+msgid ""
+"A request timeout does not mean a mutation failed. Use the operation ID in "
+"the error with ``operation get ID`` before retrying. ``operation list`` "
+"discovers recent mutations and their states, revisions, and outcomes. "
+"Completed operations retain their results when small enough, including "
+"returned object IDs. Storage is bounded to 100 operations and 4 MiB, with "
+"individual result bodies omitted above 256 KiB. These records last only for "
+"the running session. They do not restore projects after a crash or prevent a"
+" repeated command from applying the same edit again. Export jobs have their "
+"own status/list commands."
+msgstr ""
+"요청 시간 초과가 변경 실패를 의미하지는 않습니다. 재시도 전에 오류에 있는 작업 ID를 사용하여 ``operation get ID`` "
+"를 실행하세요. ``operation list`` 는 최근 변경 사항과 상태, 수정본, 결과를 확인합니다. 완료된 작업은 반환된 객체 "
+"ID를 포함하여 충분히 작으면 결과를 유지합니다. 저장소는 100개 작업과 4MiB로 제한되며, 개별 결과 본문은 256KiB 이상일 "
+"경우 생략됩니다. 이 기록은 실행 중인 세션에만 지속되며, 충돌 후 프로젝트를 복구하거나 반복 명령이 동일한 편집을 다시 적용하는 것을 "
+"방지하지 않습니다. 내보내기 작업은 별도의 상태/목록 명령을 가집니다."

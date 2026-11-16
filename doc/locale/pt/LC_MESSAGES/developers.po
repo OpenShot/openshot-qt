@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:21
+#: ../doc/developers.rst:21
 msgid "Developers"
 msgstr "Desenvolvedores"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:23
+#: ../doc/developers.rst:23
 msgid ""
 "If you are a programmer (or want to become a programmer), and are interested"
 " in developing new features, fixing bugs, or improving the user interface "
@@ -35,12 +35,12 @@ msgstr ""
 " do OpenShot, as seções a seguir explicarão como começar e se envolver!"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:28
+#: ../doc/developers.rst:28
 msgid "The Big Picture"
 msgstr "A Visão Geral"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:29
+#: ../doc/developers.rst:29
 msgid ""
 "OpenShot Video Editor has 3 main components, a Python & PyQt user interface "
 "(:openshot-github:`openshot-qt`), a C++ audio library (:openshot-"
@@ -56,7 +56,7 @@ msgstr ""
 "pesquisar e aprender mais neste momento."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:35
+#: ../doc/developers.rst:35
 msgid ""
 "However, many bugs can be fixed and new features added with only Python "
 "knowledge, since the C++ components are not involved in the user interface "
@@ -70,7 +70,7 @@ msgstr ""
 "um desenvolvedor do OpenShot!"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:42
+#: ../doc/developers.rst:42
 msgid ""
 "The instructions that follow are for Ubuntu Linux, which is the easiest "
 "environment to configure for OpenShot development. If you are using another "
@@ -83,7 +83,7 @@ msgstr ""
 "antes de continuar."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:47
+#: ../doc/developers.rst:47
 msgid ""
 "If you must use a Windows or Mac system for development, start by referring "
 "to the build notes in the ``libopenshot`` wiki. Building the library with "
@@ -95,7 +95,7 @@ msgstr ""
 "processo."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:51
+#: ../doc/developers.rst:51
 msgid ""
 ":libopenshot-wiki:`Windows Build Instructions <Windows-Build-Instructions>`"
 msgstr ""
@@ -103,19 +103,19 @@ msgstr ""
 "Instructions>`"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:52
+#: ../doc/developers.rst:52
 msgid ":libopenshot-wiki:`Mac Build Instructions <Mac-Build-Instructions>`"
 msgstr ""
 ":libopenshot-wiki:`Instruções de Compilação para Mac <Mac-Build-"
 "Instructions>`"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:55
+#: ../doc/developers.rst:55
 msgid "Getting the Latest Source Code"
 msgstr "Obtendo o Código Fonte Mais Recente"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:56
+#: ../doc/developers.rst:56
 msgid ""
 "Before we can fix any bugs or add any features, we need to get the source "
 "code onto your computer."
@@ -124,17 +124,17 @@ msgstr ""
 " o código fonte no seu computador."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:59
+#: ../doc/developers.rst:59
 msgid "Use git to clone our 3 repositories:"
 msgstr "Use git para clonar nossos 3 repositórios:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:68
+#: ../doc/developers.rst:68
 msgid "Configuring your Development Environment"
 msgstr "Configurando seu Ambiente de Desenvolvimento"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:69
+#: ../doc/developers.rst:69
 msgid ""
 "In order to actually compile or run OpenShot, we need to install some "
 "dependencies on your system. The easiest way to accomplish this is with our "
@@ -148,7 +148,7 @@ msgstr ""
 "oficial do Ubuntu, que disponibiliza nossos pacotes de software para "
 "download e instalação."
 
-#: ../developers.rst:110
+#: ../doc/developers.rst:110
 msgid ""
 "OpenShot supports PyQt5, PyQt6, and PySide6. libopenshot must be built "
 "against the correct Qt version for the binding you are using (Qt5: PyQt5, "
@@ -158,15 +158,15 @@ msgstr ""
 "contra a versão correta do Qt para a ligação que você está usando (Qt5: "
 "PyQt5, Qt6: PyQt6 ou PySide6)."
 
-#: ../developers.rst:114
+#: ../doc/developers.rst:114
 msgid "For PySide6 (Qt6) bindings, install these packages:"
 msgstr "Para as ligações PySide6 (Qt6), instale estes pacotes:"
 
-#: ../developers.rst:127
+#: ../doc/developers.rst:127
 msgid "For PyQt6, install these packages:"
 msgstr "Para PyQt6, instale estes pacotes:"
 
-#: ../developers.rst:137
+#: ../doc/developers.rst:137
 msgid ""
 "The PyQt6 runtime must provide ``QtCore``, ``QtGui``, ``QtWidgets``, "
 "``QtSvg``, ``QtStateMachine``, and ``uic``. Some distributions split these "
@@ -182,7 +182,7 @@ msgstr ""
 "Nessa versão, use os pacotes PySide6 acima ou instale o pacote completo "
 "PyQt6 wheel em um ambiente virtual Python:"
 
-#: ../developers.rst:149
+#: ../doc/developers.rst:149
 msgid ""
 "Verify the selected Qt binding and its required modules before launching "
 "OpenShot:"
@@ -191,7 +191,7 @@ msgstr ""
 "iniciar o OpenShot:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:157
+#: ../doc/developers.rst:157
 msgid ""
 "At this point, you should have all 3 OpenShot components source code cloned "
 "into local folders, the OpenShot daily PPA installed, and all of the "
@@ -204,12 +204,12 @@ msgstr ""
 " ótimo começo, e agora estamos prontos para começar a compilar código!"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:162
+#: ../doc/developers.rst:162
 msgid "libopenshot-audio (Build Instructions)"
 msgstr "libopenshot-audio (Instruções de Compilação)"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:163
+#: ../doc/developers.rst:163
 msgid ""
 "This library is required for audio playback and audio effects. It is based "
 "on the JUCE audio framework. Here are the commands to build it:"
@@ -218,7 +218,7 @@ msgstr ""
 "baseada no framework de áudio JUCE. Aqui estão os comandos para compilá-la:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:176
+#: ../doc/developers.rst:176
 msgid ""
 "Essentially, we are switching to the ``libopenshot-audio/build`` folder, "
 "then running ``cmake ..`` on the parent folder. This finds dependencies and "
@@ -238,12 +238,12 @@ msgstr ""
 "administrativos para ser executado."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:184
+#: ../doc/developers.rst:184
 msgid "libopenshot (Build Instructions)"
 msgstr "libopenshot (Instruções de Compilação)"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:185
+#: ../doc/developers.rst:185
 msgid ""
 "This library is required for video decoding, encoding, animation, and just "
 "about everything else. It does all the heavy lifting of video editing and "
@@ -254,7 +254,7 @@ msgstr ""
 " da edição e reprodução de vídeo. Aqui estão os comandos para compilá-la:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:197
+#: ../doc/developers.rst:197
 msgid ""
 "Essentially, we are switching to the ``libopenshot/build`` folder, then "
 "running ``cmake ..`` on the parent folder. This finds dependencies and "
@@ -271,7 +271,7 @@ msgstr ""
 "biblioteca será usada em vez da versão do sistema (se houver)."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:204
+#: ../doc/developers.rst:204
 msgid ""
 "We don't install our ``libopenshot`` after building, because we don't need "
 "to. For testing purposes, we can tell OpenShot to use ``libopenshot`` right "
@@ -282,12 +282,12 @@ msgstr ""
 "``libopenshot`` diretamente do nosso diretório ``build``."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:208
+#: ../doc/developers.rst:208
 msgid "Language Bindings"
 msgstr "Bindings de Linguagem"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:209
+#: ../doc/developers.rst:209
 msgid ""
 "The ``libopenshot`` API is available in several languages through SWIG "
 "bindings.  Python is used by the OpenShot user interface, and we also "
@@ -305,12 +305,12 @@ msgstr ""
 "preferir."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:215
+#: ../doc/developers.rst:215
 msgid "openshot-qt (Launch Instructions)"
 msgstr "openshot-qt (Instruções de Execução)"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:216
+#: ../doc/developers.rst:216
 msgid ""
 "This is our main PyQt Python application. Because it is written in Python, "
 "it does not require any compiling to run. To launch OpenShot from the source"
@@ -323,7 +323,7 @@ msgstr ""
 "``libopenshot`` recém-compiladas, use os seguintes comandos:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:227
+#: ../doc/developers.rst:227
 msgid ""
 "This should launch the OpenShot user interface. Any changes you have made to"
 " the source code files (``*.py`` Python files, ``*.ui`` PyQt UI files, "
@@ -338,7 +338,7 @@ msgstr ""
 "com os passos acima, provavelmente o OpenShot não será iniciado."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:233
+#: ../doc/developers.rst:233
 msgid ""
 "If OpenShot launches at this point, congratulations! You now have a working "
 "local version of OpenShot, which is running off your local source code. Try "
@@ -350,55 +350,84 @@ msgstr ""
 " Tente fazer algumas alterações no código-fonte e reinicie o OpenShot... "
 "você deverá ver suas alterações agora!"
 
-#: ../developers.rst:239
-msgid "Command-Line Options"
-msgstr "Opções de Linha de Comando"
+#: ../doc/developers.rst:241
+msgid "Command-Line Launch Options"
+msgstr "Opções de Inicialização pela Linha de Comando"
 
-#: ../developers.rst:241
+#: ../doc/developers.rst:243
 msgid ""
-"These options work with the installed OpenShot application, including "
-"``openshot-qt.exe`` on Windows. When running from source, use ``python3 "
-"src/launch.py`` in place of the application name. Put options before any "
-"file paths you want OpenShot to open."
+"For editing, animation, batch changes, and exports from a terminal or "
+"script, see :ref:`cli_ref`. Start with ``openshot-qt --cli intro`` (or "
+"``python3 src/launch.py --cli intro`` from source). Put ``--cli`` first, "
+"followed by the editing command and its options."
 msgstr ""
-"Estas opções funcionam com o aplicativo OpenShot instalado, incluindo "
-"``openshot-qt.exe`` no Windows. Ao executar a partir do código-fonte, use "
-"``python3 src/launch.py`` no lugar do nome do aplicativo. Coloque as opções "
-"antes de quaisquer caminhos de arquivo que você deseja que o OpenShot abra."
+"Para edição, animação, alterações em lote e exportações a partir de um "
+"terminal ou script, veja :ref:`cli_ref`. Comece com ``openshot-qt --cli "
+"intro`` (ou ``python3 src/launch.py --cli intro`` a partir do código-fonte)."
+" Coloque ``--cli`` primeiro, seguido pelo comando de edição e suas opções."
 
-#: ../developers.rst:246
+#: ../doc/developers.rst:248
+msgid ""
+"The launch options below work with the installed OpenShot application, "
+"including ``openshot-qt-cmd.exe`` on Windows for visible terminal output. "
+"For Windows CLI usage, follow the console-executable guidance in "
+":ref:`cli_ref`. When running from source, use ``python3 src/launch.py`` in "
+"place of the application name. Put options before any file paths you want "
+"OpenShot to open."
+msgstr ""
+"As opções de inicialização abaixo funcionam com o aplicativo OpenShot "
+"instalado, incluindo ``openshot-qt-cmd.exe`` no Windows para saída visível "
+"no terminal. Para uso da CLI no Windows, siga as orientações para "
+"executáveis de console em :ref:`cli_ref`. Ao executar a partir do código-"
+"fonte, use ``python3 src/launch.py`` no lugar do nome do aplicativo. Coloque"
+" as opções antes de quaisquer caminhos de arquivos que deseja que o OpenShot"
+" abra."
+
+#: ../doc/developers.rst:255
 msgid "OpenShot command-line options"
 msgstr "Opções de linha de comando do OpenShot"
 
-#: ../developers.rst:250
+#: ../doc/developers.rst:259
 msgid "Option"
 msgstr "Opção"
 
-#: ../developers.rst:251
+#: ../doc/developers.rst:260
 msgid "What it does"
 msgstr "O que faz"
 
-#: ../developers.rst:252
+#: ../doc/developers.rst:261
+msgid "``--cli``"
+msgstr "``--cli``"
+
+#: ../doc/developers.rst:262
+msgid "Enter the :ref:`cli_ref`. Use ``--cli help`` for editing commands."
+msgstr "Acesse :ref:`cli_ref`. Use ``--cli help`` para comandos de edição."
+
+#: ../doc/developers.rst:263
 msgid "``-h``, ``--help``"
 msgstr "``-h``, ``--help``"
 
-#: ../developers.rst:253
-msgid "Show the available options and exit."
-msgstr "Mostra as opções disponíveis e sai."
+#: ../doc/developers.rst:264
+msgid ""
+"Show application launch options and exit. Use ``--cli help`` for editing "
+"commands."
+msgstr ""
+"Mostre as opções de inicialização do aplicativo e saia. Use ``--cli help`` "
+"para comandos de edição."
 
-#: ../developers.rst:254
+#: ../doc/developers.rst:265
 msgid "``-V``, ``--version``"
 msgstr "``-V``, ``--version``"
 
-#: ../developers.rst:255
+#: ../doc/developers.rst:266
 msgid "Print the OpenShot version and exit."
 msgstr "Exibe a versão do OpenShot e sai."
 
-#: ../developers.rst:256
+#: ../doc/developers.rst:267
 msgid "``-l CODE``, ``--lang CODE``"
 msgstr "``-l CODE``, ``--lang CODE``"
 
-#: ../developers.rst:257
+#: ../doc/developers.rst:268
 msgid ""
 "Use the chosen interface language for this launch. The code must be one of "
 "those shown by ``--list-languages``."
@@ -406,19 +435,19 @@ msgstr ""
 "Use o idioma da interface escolhido para esta inicialização. O código deve "
 "ser um dos mostrados por ``--list-languages``."
 
-#: ../developers.rst:259
+#: ../doc/developers.rst:270
 msgid "``--list-languages``"
 msgstr "``--list-languages``"
 
-#: ../developers.rst:260
+#: ../doc/developers.rst:271
 msgid "List supported language codes and exit."
 msgstr "Lista os códigos de idiomas suportados e sai."
 
-#: ../developers.rst:261
+#: ../doc/developers.rst:272
 msgid "``--path FOLDER``"
 msgstr "``--path FOLDER``"
 
-#: ../developers.rst:262
+#: ../doc/developers.rst:273
 msgid ""
 "Add a folder to the Python module search path. You can repeat this option to"
 " add more than one folder."
@@ -426,11 +455,11 @@ msgstr ""
 "Adiciona uma pasta ao caminho de busca de módulos Python. Você pode repetir "
 "esta opção para adicionar mais de uma pasta."
 
-#: ../developers.rst:264
+#: ../doc/developers.rst:275
 msgid "``--feedback-preview``"
 msgstr "``--feedback-preview``"
 
-#: ../developers.rst:265
+#: ../doc/developers.rst:276
 msgid ""
 "Show the feedback notice on launch without marking the invitation as shown "
 "in saved settings."
@@ -438,42 +467,42 @@ msgstr ""
 "Mostra o aviso de feedback na inicialização sem marcar o convite como "
 "exibido nas configurações salvas."
 
-#: ../developers.rst:267
+#: ../doc/developers.rst:278
 msgid "``--update-preview``"
 msgstr "``--update-preview``"
 
-#: ../developers.rst:268
+#: ../doc/developers.rst:279
 msgid ""
 "Show the update notice on launch. Both preview options can be used together."
 msgstr ""
 "Mostra o aviso de atualização na inicialização. Ambas as opções de pré-"
 "visualização podem ser usadas juntas."
 
-#: ../developers.rst:269
+#: ../doc/developers.rst:280
 msgid "``--test-models``"
 msgstr "``--test-models``"
 
-#: ../developers.rst:270
+#: ../doc/developers.rst:281
 msgid ""
 "Enable Qt's data model tester for development (requires Qt 5.11 or later)."
 msgstr ""
 "Ativa o testador de modelo de dados do Qt para desenvolvimento (requer Qt "
 "5.11 ou superior)."
 
-#: ../developers.rst:271
+#: ../doc/developers.rst:282
 msgid "``-d``, ``--debug``, ``--debug-ui``"
 msgstr "``-d``, ``--debug``, ``--debug-ui``"
 
-#: ../developers.rst:272
+#: ../doc/developers.rst:283
 msgid "Add detailed interface messages to its log file and the terminal."
 msgstr ""
 "Adiciona mensagens detalhadas da interface ao arquivo de log e ao terminal."
 
-#: ../developers.rst:273
+#: ../doc/developers.rst:284
 msgid "``--debug-engine``"
 msgstr "``--debug-engine``"
 
-#: ../developers.rst:274
+#: ../doc/developers.rst:285
 msgid ""
 "Add detailed video and audio engine messages to its log file and the "
 "terminal."
@@ -481,39 +510,39 @@ msgstr ""
 "Adiciona mensagens detalhadas do motor de vídeo e áudio ao arquivo de log e "
 "ao terminal."
 
-#: ../developers.rst:275
+#: ../doc/developers.rst:286
 msgid "``--log-level LEVEL``"
 msgstr "``--log-level LEVEL``"
 
-#: ../developers.rst:276
+#: ../doc/developers.rst:287
 msgid ""
 "Set the logging level for both parts of OpenShot, in files and the terminal."
 msgstr ""
 "Define o nível de registro para ambas as partes do OpenShot, em arquivos e "
 "no terminal."
 
-#: ../developers.rst:277
+#: ../doc/developers.rst:288
 msgid "``--log-file-level LEVEL``"
 msgstr "``--log-file-level LEVEL``"
 
-#: ../developers.rst:278
+#: ../doc/developers.rst:289
 msgid "Set the logging level in both log files."
 msgstr "Define o nível de registro em ambos os arquivos de log."
 
-#: ../developers.rst:279
+#: ../doc/developers.rst:290
 msgid "``--log-console-level LEVEL``"
 msgstr "``--log-console-level LEVEL``"
 
-#: ../developers.rst:280
+#: ../doc/developers.rst:291
 msgid "Set the logging level in the terminal for both parts of OpenShot."
 msgstr ""
 "Define o nível de registro no terminal para ambas as partes do OpenShot."
 
-#: ../developers.rst:281
+#: ../doc/developers.rst:292
 msgid "``--debug-file``"
 msgstr "``--debug-file``"
 
-#: ../developers.rst:282
+#: ../doc/developers.rst:293
 msgid ""
 "Add detailed interface messages to its log file only. This older option is "
 "accepted but is not shown by ``--help``."
@@ -521,11 +550,11 @@ msgstr ""
 "Adiciona mensagens detalhadas da interface apenas ao arquivo de log. Esta "
 "opção antiga é aceita, mas não é mostrada pelo ``--help``."
 
-#: ../developers.rst:284
+#: ../doc/developers.rst:295
 msgid "``--debug-console``"
 msgstr "``--debug-console``"
 
-#: ../developers.rst:285
+#: ../doc/developers.rst:296
 msgid ""
 "Add detailed interface messages to the terminal only. This older option is "
 "accepted but is not shown by ``--help``."
@@ -533,11 +562,11 @@ msgstr ""
 "Adiciona mensagens detalhadas da interface apenas ao terminal. Esta opção "
 "antiga é aceita, mas não é mostrada pelo ``--help``."
 
-#: ../developers.rst:287
+#: ../doc/developers.rst:298
 msgid "``PROJECT.osp`` or media file paths"
 msgstr "``PROJECT.osp`` ou caminhos de arquivos de mídia"
 
-#: ../developers.rst:288
+#: ../doc/developers.rst:299
 msgid ""
 "Open a project when the first file path ends in ``.osp``. Otherwise, start a"
 " new project and import the supplied media files."
@@ -546,7 +575,7 @@ msgstr ""
 "Caso contrário, inicia um novo projeto e importa os arquivos de mídia "
 "fornecidos."
 
-#: ../developers.rst:291
+#: ../doc/developers.rst:302
 msgid ""
 "For ``LEVEL``, use ``debug``, ``info``, ``warning``, ``error``, "
 "``critical``, or ``off``. See :ref:`logging_ref` for log file locations, "
@@ -557,12 +586,12 @@ msgstr ""
 " log, exemplos e mais sobre como escolher opções de registro."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:296
+#: ../doc/developers.rst:307
 msgid "GitHub Issues"
 msgstr "Problemas no GitHub"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:297
+#: ../doc/developers.rst:308
 msgid ""
 "Now that you have successfully compiled and launched OpenShot Video Editor "
 "from source code, be sure to check out our list of bug reports on GitHub: "
@@ -577,12 +606,12 @@ msgstr ""
 "<https://forms.gle/CRqkS5tLMJE1V36V8>`_ e se apresentar!"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:303
+#: ../doc/developers.rst:314
 msgid "Share your Changes"
 msgstr "Compartilhe suas Alterações"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:304
+#: ../doc/developers.rst:315
 msgid ""
 "Once you have fixed a bug or added an amazing new feature, be sure to share "
 "it with the OpenShot team. Ideally, we can merge this into our main source "
@@ -600,3 +629,20 @@ msgstr ""
 "Request`_. Um Pull Request informa à equipe do OpenShot que você tem "
 "alterações prontas para serem mescladas. Então podemos revisar, dar feedback"
 " e, esperançosamente, mesclar suas alterações no ramo principal."
+
+#~ msgid "Command-Line Options"
+#~ msgstr "Opções de Linha de Comando"
+
+#~ msgid ""
+#~ "These options work with the installed OpenShot application, including "
+#~ "``openshot-qt.exe`` on Windows. When running from source, use ``python3 "
+#~ "src/launch.py`` in place of the application name. Put options before any "
+#~ "file paths you want OpenShot to open."
+#~ msgstr ""
+#~ "Estas opções funcionam com o aplicativo OpenShot instalado, incluindo "
+#~ "``openshot-qt.exe`` no Windows. Ao executar a partir do código-fonte, use "
+#~ "``python3 src/launch.py`` no lugar do nome do aplicativo. Coloque as opções "
+#~ "antes de quaisquer caminhos de arquivo que você deseja que o OpenShot abra."
+
+#~ msgid "Show the available options and exit."
+#~ msgstr "Mostra as opções disponíveis e sai."

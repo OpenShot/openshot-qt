@@ -145,9 +145,13 @@ QPushButton#recordingAdvancedLink {
     padding: 0;
     text-align: right;
 }
-QPushButton#recordingAdvancedLink:hover {
+QPushButton#recordingAdvancedLink:enabled:hover {
     color: #b8d7ff;
     text-decoration: underline;
+}
+QPushButton#recordingAdvancedLink:disabled {
+    color: #74849a;
+    text-decoration: none;
 }
 QPushButton#recordingSegment {
     border: 1px solid rgba(83, 105, 134, 120);
@@ -645,6 +649,11 @@ QDockWidget QWidget#dockFilesContents, QWidget#dockTransitionsContents, QWidget#
     border-radius: 4px;
     margin-left: 16px;
     margin-right: 16px;
+}
+
+QDockWidget QWidget#dockGpuInspectorContents {
+    background-color: #141923;
+    border-radius: 4px;
 }
 
 QDockWidget QWidget#dockTimelineContents {

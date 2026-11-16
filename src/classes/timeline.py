@@ -31,6 +31,7 @@ from qt_api import QTimer
 from classes.updates import UpdateInterface
 from classes.logger import log
 from classes.app import get_app
+from classes.keyframe_editing import is_keyframe_patch
 
 
 class TimelineSync(UpdateInterface):
@@ -133,7 +134,7 @@ class TimelineSync(UpdateInterface):
         finally:
             # Refresh borrowed clip/effect pointers before another update listener
             # can process UI events, including between actions in an undo/redo.
-            if action.key and action.key[0] == "clips":
+            if action.key and action.key[0] == "clips" and not is_keyframe_patch(action.values):
                 preview = getattr(self.window, "videoPreview", None)
                 if preview is not None:
                     # ProjectDataStore has not applied this action yet. Reading

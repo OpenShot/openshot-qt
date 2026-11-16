@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-02 17:20-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,16 +20,16 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:23
+#: ../doc/files.rst:23
 msgid "Files"
 msgstr "Tệp"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:25
+#: ../doc/files.rst:25
 msgid ""
 "To create a video, we need to make media files available to our project by "
-"importing files into OpenShot. Most media file types are recognized, such as "
-"videos, images, and audio files. Files can be viewed and managed in the "
+"importing files into OpenShot. Most media file types are recognized, such as"
+" videos, images, and audio files. Files can be viewed and managed in the "
 "**Project Files** panel."
 msgstr ""
 "Để tạo video, chúng ta cần làm cho các tệp phương tiện có sẵn trong dự án "
@@ -38,7 +38,7 @@ msgstr ""
 "quản lý trong bảng **Tệp Dự Án**."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:29
+#: ../doc/files.rst:29
 msgid ""
 "Note that imported files are not copied anywhere, they remain in the "
 "physical location they were before and are simply being made available to "
@@ -49,19 +49,20 @@ msgid ""
 "and :guilabel:`thumbnails` view of your files."
 msgstr ""
 "Lưu ý rằng các tệp được nhập không bị sao chép đi đâu, chúng vẫn ở vị trí "
-"vật lý ban đầu và chỉ được làm cho có sẵn trong dự án video của bạn. Vì vậy, "
-"không được xóa, đổi tên hoặc di chuyển chúng sau khi thêm vào dự án. Các bộ "
-"lọc \"Hiển thị tất cả\", \"Video\", \"Âm thanh\", \"Hình ảnh\" phía trên các "
-"tệp cho phép bạn chỉ xem các loại tệp bạn quan tâm. Bạn cũng có thể chuyển "
-"đổi giữa chế độ xem :guilabel:`chi tiết` và :guilabel:`thu nhỏ` của các tệp."
+"vật lý ban đầu và chỉ được làm cho có sẵn trong dự án video của bạn. Vì vậy,"
+" không được xóa, đổi tên hoặc di chuyển chúng sau khi thêm vào dự án. Các bộ"
+" lọc \"Hiển thị tất cả\", \"Video\", \"Âm thanh\", \"Hình ảnh\" phía trên "
+"các tệp cho phép bạn chỉ xem các loại tệp bạn quan tâm. Bạn cũng có thể "
+"chuyển đổi giữa chế độ xem :guilabel:`chi tiết` và :guilabel:`thu nhỏ` của "
+"các tệp."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:39
+#: ../doc/files.rst:39
 msgid "Import Files"
 msgstr "Nhập Tệp"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:40
+#: ../doc/files.rst:40
 msgid ""
 "There are many different ways to import media files into an OpenShot "
 "project. When a file is imported successfully, it will be automatically "
@@ -75,81 +76,81 @@ msgstr ""
 "thị, OpenShot sẽ tự động mở bảng này."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:48
+#: ../doc/files.rst:48
 msgid "Import File Method"
 msgstr "Phương Pháp Nhập Tệp"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:48 ../files.rst:85 ../files.rst:142 ../files.rst:182
-#: ../files.rst:216 ../files.rst:240
+#: ../doc/files.rst:48 ../doc/files.rst:85 ../doc/files.rst:288
+#: ../doc/files.rst:362 ../doc/files.rst:386
 msgid "Description"
 msgstr "Mô Tả"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:50
+#: ../doc/files.rst:50
 msgid "Drag and Drop"
 msgstr "Kéo và Thả"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:50
+#: ../doc/files.rst:50
 msgid ""
 "Drag and drop the files from your file manager (file explorer, finder, "
 "etc...)."
 msgstr ""
-"Kéo và thả các tệp từ trình quản lý tệp của bạn (file explorer, finder, v."
-"v...)."
+"Kéo và thả các tệp từ trình quản lý tệp của bạn (file explorer, finder, "
+"v.v...)."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:51
+#: ../doc/files.rst:51
 msgid "Context menu (`File Menu`_)"
 msgstr "Menu ngữ cảnh (`File Menu`_)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:51
+#: ../doc/files.rst:51
 msgid ""
-"Right click anywhere in the **Project Files** panel and choose :guilabel:"
-"`Import Files`."
+"Right click anywhere in the **Project Files** panel and choose "
+":guilabel:`Import Files`."
 msgstr ""
-"Nhấp chuột phải ở bất kỳ đâu trong bảng **Tệp Dự Án** và chọn :guilabel:"
-"`Nhập Tệp`."
+"Nhấp chuột phải ở bất kỳ đâu trong bảng **Tệp Dự Án** và chọn "
+":guilabel:`Nhập Tệp`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:52
+#: ../doc/files.rst:52
 msgid "Main Menu"
 msgstr "Menu Chính"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:52
+#: ../doc/files.rst:52
 msgid "In the main menu choose: :guilabel:`File\\→Import Files`."
 msgstr "Trong menu chính chọn: :guilabel:`File\\→Nhập Tệp`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:53
+#: ../doc/files.rst:53
 msgid "Toolbar button"
 msgstr "Nút Thanh công cụ"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:53
+#: ../doc/files.rst:53
 msgid "Click the :guilabel:`+` toolbar button in the main toolbar."
 msgstr "Nhấn nút :guilabel:`+` trên thanh công cụ chính."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:54
+#: ../doc/files.rst:54
 msgid "Keyboard shortcut"
 msgstr "Phím tắt"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:54
+#: ../doc/files.rst:54
 msgid "Press :kbd:`Ctrl-F` (:kbd:`Cmd-F` on Mac)."
 msgstr "Nhấn :kbd:`Ctrl-F` (:kbd:`Cmd-F` trên Mac)."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:55 ../files.rst:63
+#: ../doc/files.rst:55 ../doc/files.rst:63
 msgid "Paste from Clipboard"
 msgstr "Dán từ Bộ nhớ tạm"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:55
+#: ../doc/files.rst:55
 msgid ""
 "Press :kbd:`Ctrl-V` (:kbd:`Cmd-V` on Mac) to paste copied files from your "
 "clipboard. See :ref:`paste_from_clipboard_ref`."
@@ -158,25 +159,27 @@ msgstr ""
 "nhớ tạm. Xem :ref:`paste_from_clipboard_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:64
+#: ../doc/files.rst:64
 msgid ""
 "You can paste files and clipboard media straight into OpenShot. If you "
-"copied one or more files in your file manager, switch to OpenShot and press :"
-"kbd:`Ctrl-V` in the **Project Files** panel to add them, just like importing."
+"copied one or more files in your file manager, switch to OpenShot and press "
+":kbd:`Ctrl-V` in the **Project Files** panel to add them, just like "
+"importing."
 msgstr ""
 "Bạn có thể dán tệp và phương tiện từ bộ nhớ tạm trực tiếp vào OpenShot. Nếu "
 "bạn đã sao chép một hoặc nhiều tệp trong trình quản lý tệp, chuyển sang "
-"OpenShot và nhấn :kbd:`Ctrl-V` trong bảng **Tệp Dự Án** để thêm chúng, giống "
-"như nhập tệp."
+"OpenShot và nhấn :kbd:`Ctrl-V` trong bảng **Tệp Dự Án** để thêm chúng, giống"
+" như nhập tệp."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:67
+#: ../doc/files.rst:67
 msgid ""
 "If you copied media **data** (for example, **Copy Image** in a web browser, "
-"a pasted frame from another app, or other image/audio/video clipboard data), "
-"press :kbd:`Ctrl-V` in OpenShot to create a file for that clipboard content. "
-"OpenShot saves a copy in a temporary folder: ``.openshot_qt/clipboard/``. "
-"The new file is then added to your project and appears in **Project Files**."
+"a pasted frame from another app, or other image/audio/video clipboard data),"
+" press :kbd:`Ctrl-V` in OpenShot to create a file for that clipboard "
+"content. OpenShot saves a copy in a temporary folder: "
+"``.openshot_qt/clipboard/``. The new file is then added to your project and "
+"appears in **Project Files**."
 msgstr ""
 "Nếu bạn sao chép dữ liệu phương tiện **(media data)** (ví dụ, **Sao chép "
 "Hình ảnh** trong trình duyệt web, một khung hình dán từ ứng dụng khác, hoặc "
@@ -186,12 +189,12 @@ msgstr ""
 "thêm vào dự án và xuất hiện trong **Tệp Dự Án**."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:74
+#: ../doc/files.rst:74
 msgid "File Menu"
 msgstr "Menu Tệp"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:75
+#: ../doc/files.rst:75
 msgid ""
 "To view the file menu, right click on a file (in the **Project Files** "
 "panel). Here are the actions you can use from the file menu."
@@ -200,63 +203,63 @@ msgstr ""
 "Dưới đây là các hành động bạn có thể sử dụng từ menu tệp."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:84
+#: ../doc/files.rst:84
 msgid "File Context Option"
 msgstr "Tùy chọn ngữ cảnh tệp"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:86
+#: ../doc/files.rst:86
 msgid "Import Files..."
 msgstr "Nhập Tệp..."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:87
+#: ../doc/files.rst:87
 msgid "Import files into your project"
 msgstr "Nhập tệp vào dự án của bạn"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:88
+#: ../doc/files.rst:88
 msgid "Create with AI / Enhance with AI (Optional)"
 msgstr "Tạo với AI / Nâng cao với AI (Tùy chọn)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:89
+#: ../doc/files.rst:89
 msgid ""
 "AI menu actions for generating or enhancing media files. These options are "
 "shown only when AI is enabled and the selected file type supports the "
 "workflow. See :ref:`ai_ref`."
 msgstr ""
-"Các hành động menu AI để tạo hoặc nâng cao tệp phương tiện. Các tùy chọn này "
-"chỉ hiển thị khi AI được bật và loại tệp được chọn hỗ trợ quy trình làm "
+"Các hành động menu AI để tạo hoặc nâng cao tệp phương tiện. Các tùy chọn này"
+" chỉ hiển thị khi AI được bật và loại tệp được chọn hỗ trợ quy trình làm "
 "việc. Xem :ref:`ai_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:90
+#: ../doc/files.rst:90
 msgid "Details View"
 msgstr "Chế Độ Xem Chi Tiết"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:91
+#: ../doc/files.rst:91
 msgid "Switch the Project Files panel to details view"
 msgstr "Chuyển bảng Tệp Dự Án sang chế độ xem chi tiết"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:92 ../files.rst:114
+#: ../doc/files.rst:92 ../doc/files.rst:116
 msgid "Preview File"
 msgstr "Xem trước Tệp"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:93
+#: ../doc/files.rst:93
 msgid "Preview a media file"
 msgstr "Xem trước tệp phương tiện"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:94 ../files.rst:170
+#: ../doc/files.rst:94 ../doc/files.rst:316
 msgid "Split File"
 msgstr "Chia Tệp"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:95
+#: ../doc/files.rst:95
 msgid ""
 "Split a file into many smaller files. The new trimmed files appear in the "
 "Project Files list."
@@ -265,22 +268,22 @@ msgstr ""
 "trong danh sách Tệp Dự Án."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:96 ../files.rst:193
+#: ../doc/files.rst:96 ../doc/files.rst:339
 msgid "Export Files"
 msgstr "Xuất Tập Tin"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:97
+#: ../doc/files.rst:97
 msgid "Export selected files (and split segments) to a destination folder"
 msgstr "Xuất các tệp đã chọn (và các đoạn đã chia) đến thư mục đích"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:98 ../files.rst:205
+#: ../doc/files.rst:98 ../doc/files.rst:351
 msgid "Add to Timeline"
 msgstr "Thêm vào Dòng thời gian"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:99
+#: ../doc/files.rst:99
 msgid ""
 "Add many files to the timeline in one step, including transitions or "
 "alternating tracks."
@@ -289,118 +292,265 @@ msgstr ""
 "các track xen kẽ."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:100
+#: ../doc/files.rst:100
 msgid "Choose Profile"
 msgstr "Chọn Hồ sơ"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:101
+#: ../doc/files.rst:101
 msgid ""
-"Change the current project profile to match the selected file. If the file's "
-"profile does not match a known profile, it will give you the option to "
+"Change the current project profile to match the selected file. If the file's"
+" profile does not match a known profile, it will give you the option to "
 "create a custom profile."
 msgstr ""
 "Thay đổi hồ sơ dự án hiện tại để phù hợp với tệp đã chọn. Nếu hồ sơ tệp "
 "không khớp với hồ sơ đã biết, bạn sẽ được tùy chọn tạo hồ sơ tùy chỉnh."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:102 ../files.rst:242
+#: ../doc/files.rst:102 ../doc/files.rst:388
 msgid "File Properties"
 msgstr "Thuộc tính Tệp"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:103
+#: ../doc/files.rst:103
 msgid "View the properties of a file, such as frame rate, size, etc..."
 msgstr "Xem thuộc tính của tệp, như tốc độ khung hình, kích thước, v.v..."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:104 ../files.rst:125
+#: ../doc/files.rst:104 ../doc/files.rst:184
 msgid "Optimize"
 msgstr "Tối ưu hóa"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:105
+#: ../doc/files.rst:105
 msgid ""
 "Create, link, unlink, or delete optimized preview files for the selected "
 "video files."
 msgstr ""
-"Tạo, liên kết, hủy liên kết hoặc xóa các tệp xem trước đã tối ưu hóa cho các "
-"tệp video được chọn."
+"Tạo, liên kết, hủy liên kết hoặc xóa các tệp xem trước đã tối ưu hóa cho các"
+" tệp video được chọn."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:106 ../files.rst:250
+#: ../doc/files.rst:106 ../doc/files.rst:396
 msgid "Remove from Project"
 msgstr "Xóa khỏi Dự án"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:107
+#: ../doc/files.rst:107
 msgid "Remove a file from the project"
 msgstr "Xóa một tệp khỏi dự án"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:108
+#: ../doc/files.rst:108
 msgid "Edit Title"
 msgstr "Chỉnh sửa Tiêu đề"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:109
+#: ../doc/files.rst:109
 msgid "Edit an existing title SVG file (shown when an SVG title is selected)"
-msgstr "Chỉnh sửa tệp tiêu đề SVG hiện có (hiển thị khi tiêu đề SVG được chọn)"
+msgstr ""
+"Chỉnh sửa tệp tiêu đề SVG hiện có (hiển thị khi tiêu đề SVG được chọn)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:110
+#: ../doc/files.rst:110
 msgid "Duplicate Title"
 msgstr "Nhân bản Tiêu đề"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:111
+#: ../doc/files.rst:111
 #, fuzzy
 msgid ""
 "Make a copy, and then edit the copied title SVG file (shown when an SVG "
 "title is selected)"
 msgstr "Tạo bản sao, sau đó chỉnh sửa tệp tiêu đề SVG đã sao chép"
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:115
+#: ../doc/files.rst:117
 msgid ""
 "The :guilabel:`Preview File` action opens the Preview dialog for the "
-"selected file from :guilabel:`Project Files`. Simply double check a file to "
-"open this dialog."
+"selected file from :guilabel:`Project Files`. Double-click a file, or press "
+":kbd:`Shift+2` or :kbd:`Alt+P` while the file list has focus. With the "
+"timeline focused, the same shortcut plays the selected clip from its Start "
+"point. You can also right-click a timeline clip and choose "
+":guilabel:`Preview Clip`. Double-clicking a saved split reopens its range "
+"editor instead of read-only preview."
 msgstr ""
-"Hành động :guilabel:`Xem Trước Tệp` mở hộp thoại Xem Trước cho tệp được chọn "
-"từ :guilabel:`Tệp Dự Án`. Chỉ cần nhấp đúp vào một tệp để mở hộp thoại này."
+"Hành động :guilabel:`Xem trước Tệp` mở hộp thoại Xem trước cho tệp đã chọn "
+"từ :guilabel:`Tệp Dự án`. Nhấp đúp vào một tệp, hoặc nhấn :kbd:`Shift+2` "
+"hoặc :kbd:`Alt+P` khi danh sách tệp được chọn. Khi timeline được chọn, phím "
+"tắt này phát clip đã chọn từ điểm Bắt đầu của nó. Bạn cũng có thể nhấp chuột"
+" phải vào một clip trên timeline và chọn :guilabel:`Xem trước Clip`. Nhấp "
+"đúp vào một phần tách đã lưu sẽ mở lại trình chỉnh sửa phạm vi của nó thay "
+"vì xem trước chỉ đọc."
+
+#: ../doc/files.rst:124
+msgid "Playback starts automatically when you open a preview or Split File."
+msgstr "Phát lại bắt đầu tự động khi bạn mở xem trước hoặc Tệp Tách."
+
+#: ../doc/files.rst:125
+msgid ""
+":guilabel:`Loop` repeats playback and is enabled by default in Preview."
+msgstr ""
+":guilabel:`Lặp lại` phát lại liên tục và được bật theo mặc định trong Xem "
+"trước."
+
+#: ../doc/files.rst:126
+msgid "Click the speaker to mute preview audio without changing the project."
+msgstr ""
+"Nhấp vào biểu tượng loa để tắt âm thanh xem trước mà không thay đổi dự án."
+
+#: ../doc/files.rst:127
+msgid ""
+"Click or drag the volume slider to adjust preview audio without affecting "
+"your exported video. Save the project to remember this volume for all its "
+"previews."
+msgstr ""
+"Nhấp hoặc kéo thanh trượt âm lượng để điều chỉnh âm thanh xem trước mà không"
+" ảnh hưởng đến video xuất của bạn. Lưu dự án để ghi nhớ âm lượng này cho tất"
+" cả các lần xem trước."
+
+#: ../doc/files.rst:129
+msgid ""
+"Use Fit Window to size the video area to the source aspect ratio. Black bars"
+" already encoded in the source remain visible."
+msgstr ""
+"Sử dụng Phù hợp Cửa sổ để điều chỉnh kích thước khu vực video theo tỷ lệ "
+"khung hình nguồn. Các thanh đen đã mã hóa trong nguồn vẫn hiển thị."
+
+#: ../doc/files.rst:131
+msgid ""
+"Seeking during playback keeps playback running. Dragging to resize, move, or"
+" draw a range pauses playback so its boundary frames can be inspected."
+msgstr ""
+"Tìm kiếm trong khi phát lại giữ cho phát lại tiếp tục. Kéo để thay đổi kích "
+"thước, di chuyển hoặc vẽ phạm vi sẽ tạm dừng phát lại để có thể kiểm tra các"
+" khung biên."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:118
-msgid "Playback starts automatically."
-msgstr "Phát lại bắt đầu tự động."
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:119
-msgid "Loop is enabled by default."
-msgstr "Vòng lặp được bật theo mặc định."
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:120
+#: ../doc/files.rst:133
 msgid "Press :kbd:`Space` to toggle play/pause."
 msgstr "Nhấn :kbd:`Space` để chuyển đổi phát/tạm dừng."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:121
+#: ../doc/files.rst:134
 msgid "Use the mouse scroll wheel to zoom in/out."
 msgstr "Sử dụng bánh xe cuộn chuột để phóng to/thu nhỏ."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:122
+#: ../doc/files.rst:135
 msgid ""
-"A :guilabel:`Reset Zoom` button appears when zoom is not 100%, and resets to "
-"100%."
+"A :guilabel:`Reset Zoom` button appears when zoom is not 100%, and resets to"
+" 100%."
 msgstr ""
 "Nút :guilabel:`Đặt Lại Thu Phóng` xuất hiện khi mức thu phóng không phải "
 "100%, và đặt lại về 100%."
 
+#: ../doc/files.rst:137
+msgid ""
+"Resize or maximize the window to suit your workspace. Preview and Split File"
+" remember your window size when you save the project."
+msgstr ""
+"Thay đổi kích thước hoặc phóng to cửa sổ để phù hợp với không gian làm việc "
+"của bạn. Xem trước và Tệp Tách ghi nhớ kích thước cửa sổ khi bạn lưu dự án."
+
+#: ../doc/files.rst:140
+msgid ""
+"The colored bar beneath the ruler shows sections already loaded for "
+"playback. If playback is choppy, try a smaller window or :ref:`optimize the "
+"file <optimize_ref>`."
+msgstr ""
+"Thanh màu bên dưới thước đo hiển thị các phần đã được tải cho phát lại. Nếu "
+"phát lại bị giật, hãy thử cửa sổ nhỏ hơn hoặc :ref:`tối ưu hóa tệp "
+"<optimize_ref>`."
+
+#: ../doc/files.rst:143
+msgid ""
+"Preview File shows playback and scrubbing controls only. Preview Clip and "
+"Split File add range editing below the shared preview. The source ruler and "
+"filmstrip show the full recording, with the selected range highlighted. Drag"
+" either grip to adjust the range and move the playhead with it. Drag on the "
+"ruler above the filmstrip to scrub without changing the range. Edit the "
+"Start and End timecodes for precise boundaries, or click the adjacent clock "
+"button to use the current playhead position (:kbd:`I` / :kbd:`O`). End is "
+"the last included frame; a one-frame range is valid. Duration shows the "
+"length of the selected range and can be edited to move End while keeping "
+"Start fixed. Duration is limited to at least one frame and at most the "
+"remaining source length. The buttons beside Play jump to Start and End."
+msgstr ""
+"Xem trước Tệp chỉ hiển thị các điều khiển phát lại và tua. Xem trước Clip và"
+" Tệp Tách thêm chỉnh sửa phạm vi bên dưới phần xem trước chung. Thước đo "
+"nguồn và dải phim hiển thị toàn bộ bản ghi, với phạm vi được chọn được tô "
+"sáng. Kéo bất kỳ tay cầm nào để điều chỉnh phạm vi và di chuyển đầu phát "
+"cùng với nó. Kéo trên thước đo phía trên dải phim để tua mà không thay đổi "
+"phạm vi. Chỉnh sửa mã thời gian Bắt đầu và Kết thúc để có ranh giới chính "
+"xác, hoặc nhấp vào nút đồng hồ bên cạnh để sử dụng vị trí đầu phát hiện tại "
+"(:kbd:`I` / :kbd:`O`). Kết thúc là khung cuối cùng được bao gồm; phạm vi một"
+" khung là hợp lệ. Thời lượng hiển thị độ dài của phạm vi đã chọn và có thể "
+"chỉnh sửa để di chuyển Kết thúc trong khi giữ Bắt đầu cố định. Thời lượng "
+"giới hạn ít nhất một khung và tối đa bằng độ dài nguồn còn lại. Các nút bên "
+"cạnh Phát nhảy đến Bắt đầu và Kết thúc."
+
+#: ../doc/files.rst:155
+msgid ""
+"When editing a timeline clip, :guilabel:`Update Clip` updates only that "
+"clip. Its position stays fixed and its duration changes; neighboring clips "
+"do not move. Locked or retimed clips can be previewed, but range application"
+" is disabled. :guilabel:`Reset` reloads the saved range. Each update is one "
+"undo step."
+msgstr ""
+"Khi chỉnh sửa một clip trên timeline, :guilabel:`Cập nhật Clip` chỉ cập nhật"
+" clip đó. Vị trí của nó giữ cố định và thời lượng thay đổi; các clip lân cận"
+" không di chuyển. Các clip bị khóa hoặc thay đổi thời gian có thể xem trước,"
+" nhưng việc áp dụng phạm vi bị vô hiệu hóa. :guilabel:`Đặt lại` tải lại phạm"
+" vi đã lưu. Mỗi lần cập nhật là một bước hoàn tác."
+
+#: ../doc/files.rst:160
+msgid ""
+"Split File provides Start, End, Duration, and an optional Name beside "
+":guilabel:`Create`. Each click creates one Project Files entry and leaves "
+"the window open to create another. Pressing :kbd:`Enter` in Name or outside "
+"the time fields saves and closes the editor. In Start, End, or Duration, "
+"Enter commits the value and keeps the editor open. Tab moves through Start, "
+"End, Duration, and Name; Shift+Tab reverses the order. Each creation is one "
+"undo step. Opening an existing split lets you update its range and name "
+"without changing existing timeline clips. :guilabel:`Update` saves the split"
+" and closes its editor, refreshing the file and dependent clip thumbnails. "
+":guilabel:`Update Clip` saves and closes clip preview. Use the window close "
+"control or :kbd:`Esc` to close without applying changes."
+msgstr ""
+"Tệp Tách cung cấp Bắt đầu, Kết thúc, Thời lượng và một Tên tùy chọn bên cạnh"
+" :guilabel:`Tạo`. Mỗi lần nhấp tạo một mục trong Tệp Dự án và giữ cửa sổ mở "
+"để tạo thêm. Nhấn :kbd:`Enter` trong Tên hoặc ngoài các trường thời gian sẽ "
+"lưu và đóng trình chỉnh sửa. Trong Bắt đầu, Kết thúc hoặc Thời lượng, Enter "
+"xác nhận giá trị và giữ trình chỉnh sửa mở. Tab di chuyển qua Bắt đầu, Kết "
+"thúc, Thời lượng và Tên; Shift+Tab đảo ngược thứ tự. Mỗi lần tạo là một bước"
+" hoàn tác. Mở một phần tách đã tồn tại cho phép bạn cập nhật phạm vi và tên "
+"mà không thay đổi các clip trên timeline hiện có. :guilabel:`Cập nhật` lưu "
+"phần tách và đóng trình chỉnh sửa, làm mới tệp và hình thu nhỏ clip phụ "
+"thuộc. :guilabel:`Cập nhật Clip` lưu và đóng xem trước clip. Sử dụng điều "
+"khiển đóng cửa sổ hoặc :kbd:`Esc` để đóng mà không áp dụng thay đổi."
+
+#: ../doc/files.rst:173
+msgid ""
+"Drag a filmstrip handle to trim, drag inside the selection to move it, or "
+"drag outside it to draw a new range. Click to seek, or drag on the ruler to "
+"scrub without changing the range."
+msgstr ""
+"Kéo tay cầm dải phim để cắt, kéo bên trong vùng chọn để di chuyển nó, hoặc "
+"kéo bên ngoài để vẽ phạm vi mới. Nhấp để tìm kiếm, hoặc kéo trên thước đo để"
+" tua mà không thay đổi phạm vi."
+
+#: ../doc/files.rst:177
+msgid ""
+"If a modified range changes elsewhere in the project, discard its local "
+"changes and reload it before saving. The dialog remains attached to its "
+"original source or timeline clip when the main-window selection changes."
+msgstr ""
+"Nếu phạm vi đã chỉnh sửa thay đổi ở nơi khác trong dự án, hãy bỏ các thay "
+"đổi cục bộ và tải lại trước khi lưu. Hộp thoại vẫn gắn với nguồn gốc hoặc "
+"clip timeline ban đầu khi lựa chọn cửa sổ chính thay đổi."
+
 # Translated with gpt-4.1-mini
-#: ../files.rst:126
+#: ../doc/files.rst:185
 msgid ""
 "Optimized preview files are lower-resolution copies of your source video "
 "files (sometimes referred to as proxy files), used to improve editing "
@@ -410,43 +560,294 @@ msgid ""
 msgstr ""
 "Các tệp xem trước đã tối ưu hóa là bản sao có độ phân giải thấp hơn của các "
 "tệp video gốc của bạn (đôi khi được gọi là tệp proxy), được sử dụng để cải "
-"thiện độ phản hồi khi chỉnh sửa mà không thay đổi phương tiện gốc. Chúng đặc "
-"biệt hữu ích với các định dạng lớn như 4K, tốc độ khung hình cao hoặc video "
-"có bitrate cao."
+"thiện độ phản hồi khi chỉnh sửa mà không thay đổi phương tiện gốc. Chúng đặc"
+" biệt hữu ích với các định dạng lớn như 4K, tốc độ khung hình cao hoặc video"
+" có bitrate cao."
+
+#: ../doc/files.rst:190
+msgid "Automatic optimization"
+msgstr "Tối ưu hóa tự động"
+
+#: ../doc/files.rst:191
+msgid ""
+"When OpenShot creates a video's first thumbnail, it records how long the "
+"first frame takes to produce. This uses work already needed to display the "
+"video in Project Files; there is no separate decoding test. Videos whose "
+"thumbnail frame takes longer than the :guilabel:`Auto-Optimize Threshold` "
+"may benefit from smaller preview copies."
+msgstr ""
+"Khi OpenShot tạo hình thu nhỏ đầu tiên của video, nó ghi lại thời gian tạo "
+"khung hình đầu tiên. Việc này sử dụng công việc đã cần thiết để hiển thị "
+"video trong Tệp Dự án; không có bài kiểm tra giải mã riêng biệt. Video có "
+"khung hình thu nhỏ mất nhiều thời gian hơn :guilabel:`Ngưỡng Tự động Tối ưu "
+"hóa` có thể được hưởng lợi từ các bản xem trước nhỏ hơn."
+
+#: ../doc/files.rst:196
+msgid ""
+"With the default :guilabel:`Ask` preference, a banner appears when OpenShot "
+"finds a qualifying video in a project that does not yet have a saved choice:"
+msgstr ""
+"Với tùy chọn mặc định :guilabel:`Hỏi`, một biểu ngữ xuất hiện khi OpenShot "
+"tìm thấy video đủ điều kiện trong dự án mà chưa có lựa chọn đã lưu:"
+
+#: ../doc/files.rst:199
+msgid ""
+"**Optimize videos for smoother playback?** Originals and export quality stay"
+" unchanged."
+msgstr ""
+"**Tối ưu hóa video để phát lại mượt mà hơn?** Bản gốc và chất lượng xuất giữ"
+" nguyên."
+
+#: ../doc/files.rst:201
+msgid ""
+"Click :guilabel:`Optimize Automatically` to enable automatic optimization "
+"for the current project. The banner disappears immediately, and qualifying "
+"videos are added to the optimization queue. Videos you import later also "
+"join the queue when they qualify, even if another video is already being "
+"optimized. You are not asked again for each file."
+msgstr ""
+"Nhấp :guilabel:`Tối ưu tự động` để bật tối ưu hóa tự động cho dự án hiện "
+"tại. Biểu ngữ biến mất ngay lập tức, và các video đủ điều kiện được thêm vào"
+" hàng đợi tối ưu hóa. Các video bạn nhập sau cũng sẽ tham gia hàng đợi khi "
+"đủ điều kiện, ngay cả khi có video khác đang được tối ưu. Bạn sẽ không bị "
+"hỏi lại cho từng tệp."
+
+#: ../doc/files.rst:206
+msgid ""
+"You can continue editing while optimization runs. There is no progress "
+"banner; progress appears on the files in Project Files instead."
+msgstr ""
+"Bạn có thể tiếp tục chỉnh sửa trong khi tối ưu hóa đang chạy. Không có biểu "
+"ngữ tiến trình; tiến trình hiển thị trên các tệp trong Tệp Dự án thay vào "
+"đó."
+
+#: ../doc/files.rst:209
+msgid ""
+"Click :guilabel:`Not Now` or close the banner to decline. OpenShot remembers"
+" your choice when you save the project, so reopening it or importing more "
+"videos does not repeat the suggestion. To change your choice, check or "
+"uncheck :menuselection:`File --> Auto-Optimize` or press :kbd:`Ctrl+Alt+O` "
+"(:kbd:`Command+Alt+O` on macOS). Customize this shortcut in "
+":menuselection:`Edit --> Preferences --> Keyboard`. Turning it off stops new"
+" automatic work; jobs already started can be canceled through the file's "
+":guilabel:`Optimize` submenu. Existing optimized copies remain available."
+msgstr ""
+"Nhấn :guilabel:`Không phải bây giờ` hoặc đóng biểu ngữ để từ chối. OpenShot "
+"sẽ ghi nhớ lựa chọn của bạn khi bạn lưu dự án, vì vậy việc mở lại hoặc nhập "
+"thêm video sẽ không lặp lại đề xuất này. Để thay đổi lựa chọn, hãy đánh dấu "
+"hoặc bỏ đánh dấu :menuselection:`Tệp --> Tự động tối ưu hóa` hoặc nhấn "
+":kbd:`Ctrl+Alt+O` (:kbd:`Command+Alt+O` trên macOS). Tùy chỉnh phím tắt này "
+"trong :menuselection:`Chỉnh sửa --> Tùy chọn --> Bàn phím`. Tắt nó sẽ ngăn "
+"công việc tự động mới; các công việc đã bắt đầu có thể bị hủy qua menu phụ "
+":guilabel:`Tối ưu hóa` của tệp. Các bản sao tối ưu hóa hiện có vẫn được giữ "
+"lại."
+
+#: ../doc/files.rst:217
+msgid ""
+"In :menuselection:`Edit --> Preferences`, open the :guilabel:`Optimize` tab "
+"(see :ref:`preferences_optimize_ref`):"
+msgstr ""
+"Trong :menuselection:`Chỉnh sửa --> Tùy chọn`, mở tab :guilabel:`Tối ưu hóa`"
+" (xem :ref:`preferences_optimize_ref`):"
+
+#: ../doc/files.rst:220
+msgid ""
+":guilabel:`Auto-Optimize`: :guilabel:`Ask` shows the banner and is the "
+"default. :guilabel:`Always` optimizes qualifying videos without a banner. "
+":guilabel:`Never` disables suggestions and automatic processing. These "
+"defaults apply to projects without a saved choice; a project's own setting "
+"takes precedence."
+msgstr ""
+":guilabel:`Tự động tối ưu hóa`: :guilabel:`Hỏi` hiển thị biểu ngữ và là mặc "
+"định. :guilabel:`Luôn luôn` tối ưu hóa các video đủ điều kiện mà không hiển "
+"thị biểu ngữ. :guilabel:`Không bao giờ` tắt các đề xuất và xử lý tự động. "
+"Các mặc định này áp dụng cho các dự án chưa có lựa chọn lưu; cài đặt riêng "
+"của dự án sẽ được ưu tiên."
+
+#: ../doc/files.rst:224
+msgid ""
+":guilabel:`Auto-Optimize Threshold`: defaults to **200 ms**. Lower values "
+"include more videos; higher values include fewer. This measures producing "
+"the first thumbnail frame, not opening the file, saving the thumbnail, or "
+"waiting in a queue."
+msgstr ""
+":guilabel:`Ngưỡng tự động tối ưu hóa`: mặc định là **200 ms**. Giá trị thấp "
+"hơn bao gồm nhiều video hơn; giá trị cao hơn bao gồm ít video hơn. Đây là "
+"thời gian đo để tạo khung hình thu nhỏ đầu tiên, không phải mở tệp, lưu thu "
+"nhỏ hoặc chờ trong hàng đợi."
+
+#: ../doc/files.rst:227
+msgid ""
+":guilabel:`Optimized Preview Resolution` and :guilabel:`Concurrent Optimize "
+"Jobs` control the preview copies and how many videos can be processed at "
+"once."
+msgstr ""
+":guilabel:`Độ phân giải xem trước tối ưu` và :guilabel:`Số công việc tối ưu "
+"đồng thời` điều khiển các bản sao xem trước và số lượng video có thể xử lý "
+"cùng lúc."
+
+#: ../doc/files.rst:230
+msgid ""
+"Thumbnail timing is saved with each file in the project. OpenShot reuses a "
+"valid timing when you reopen the project on the same computer. A changed "
+"source file or a different computer needs a new measurement. When opening "
+"older projects, OpenShot refreshes missing timings in the background, one "
+"small thumbnail at a time, checking videos used on the timeline first. New "
+"checks pause during playback. Slow videos trigger the same banner; accepting"
+" it also checks and queues the remaining videos. Enabling :guilabel:`File → "
+"Auto-Optimize` starts these checks too. Choosing :guilabel:`Never` or "
+"dismissing the banner stops further checks for that project. Save the "
+"project to keep its timings for next time. You can always optimize videos "
+"manually."
+msgstr ""
+"Thời gian thu nhỏ được lưu cùng với mỗi tệp trong dự án. OpenShot tái sử "
+"dụng thời gian hợp lệ khi bạn mở lại dự án trên cùng một máy tính. Tệp nguồn"
+" thay đổi hoặc máy tính khác cần đo lại. Khi mở các dự án cũ, OpenShot làm "
+"mới các thời gian thiếu trong nền, từng thu nhỏ nhỏ một, kiểm tra các video "
+"được sử dụng trên dòng thời gian trước. Việc kiểm tra mới tạm dừng khi phát "
+"lại. Video chậm sẽ kích hoạt cùng biểu ngữ; chấp nhận nó cũng kiểm tra và "
+"xếp hàng các video còn lại. Bật :guilabel:`Tệp → Tự động tối ưu hóa` cũng "
+"bắt đầu các kiểm tra này. Chọn :guilabel:`Không bao giờ` hoặc bỏ qua biểu "
+"ngữ sẽ dừng các kiểm tra tiếp theo cho dự án đó. Lưu dự án để giữ thời gian "
+"cho lần sau. Bạn luôn có thể tối ưu hóa video thủ công."
+
+#: ../doc/files.rst:240
+msgid ""
+"The threshold is a guide, not a guarantee of playback performance. Other "
+"applications can affect timing, and effects or overlapping clips can slow "
+"playback independently of the source video. Optimized copies use additional "
+"disk space in the project's assets folder; original files and export quality"
+" stay unchanged. Canceled or failed automatic jobs are not automatically "
+"retried during the current project session."
+msgstr ""
+"Ngưỡng chỉ là hướng dẫn, không đảm bảo hiệu suất phát lại. Các ứng dụng khác"
+" có thể ảnh hưởng đến thời gian, và hiệu ứng hoặc các đoạn chồng lên nhau có"
+" thể làm chậm phát lại độc lập với video gốc. Các bản sao tối ưu hóa sử dụng"
+" thêm dung lượng đĩa trong thư mục tài sản của dự án; tệp gốc và chất lượng "
+"xuất vẫn không thay đổi. Các công việc tự động bị hủy hoặc thất bại sẽ không"
+" được thử lại tự động trong phiên làm việc dự án hiện tại."
+
+#: ../doc/files.rst:246
+msgid ""
+"Closing OpenShot cancels queued and running optimization jobs. Active jobs "
+"finish their current processing step before closing, and unfinished preview "
+"files are removed."
+msgstr ""
+"Đóng OpenShot sẽ hủy các công việc tối ưu hóa đang chờ và đang chạy. Các "
+"công việc đang hoạt động hoàn thành bước xử lý hiện tại trước khi đóng, và "
+"các tệp xem trước chưa hoàn thành sẽ bị xóa."
+
+#: ../doc/files.rst:250
+msgid "Optimization status"
+msgstr "Trạng thái tối ưu hóa"
+
+#: ../doc/files.rst:251
+msgid ""
+"Hover over a file in Project Files to see its filename followed by a brief "
+"status:"
+msgstr ""
+"Di chuột qua một tệp trong Tệp Dự án để xem tên tệp kèm theo trạng thái ngắn"
+" gọn:"
+
+#: ../doc/files.rst:257
+msgid "Tooltip status"
+msgstr "Trạng thái chú giải công cụ"
+
+#: ../doc/files.rst:258
+msgid "Meaning"
+msgstr "Ý nghĩa"
+
+#: ../doc/files.rst:259
+msgid "Queued for optimization"
+msgstr "Đang chờ tối ưu hóa"
+
+#: ../doc/files.rst:260
+msgid "Waiting for an available optimization job slot."
+msgstr "Đang chờ vị trí công việc tối ưu hóa khả dụng."
+
+#: ../doc/files.rst:261
+msgid "Optimizing for smoother playback — 35%"
+msgstr "Đang tối ưu hóa để phát lại mượt mà hơn — 35%"
+
+#: ../doc/files.rst:262
+msgid "Creating a preview copy. The percentage shows progress."
+msgstr "Đang tạo bản sao xem trước. Phần trăm hiển thị tiến trình."
+
+#: ../doc/files.rst:263
+msgid "Optimized for smoother playback"
+msgstr "Đã tối ưu hóa để phát lại mượt mà hơn"
+
+#: ../doc/files.rst:264
+msgid "The preview copy is ready to use."
+msgstr "Bản sao xem trước đã sẵn sàng để sử dụng."
+
+#: ../doc/files.rst:265
+msgid "Canceling optimization"
+msgstr "Đang hủy tối ưu hóa"
+
+#: ../doc/files.rst:266
+msgid "Stopping the current job and cleaning up the unfinished copy."
+msgstr "Dừng công việc hiện tại và dọn dẹp bản sao chưa hoàn thành."
+
+#: ../doc/files.rst:267
+msgid "Optimized preview missing"
+msgstr "Bản xem trước tối ưu bị thiếu"
+
+#: ../doc/files.rst:268
+msgid ""
+"The linked preview copy cannot be found. Recreate it with Optimize Video or "
+"link an existing copy."
+msgstr ""
+"Không tìm thấy bản sao xem trước được liên kết. Tạo lại bằng cách Tối ưu hóa"
+" Video hoặc liên kết bản sao hiện có."
+
+#: ../doc/files.rst:270
+msgid ""
+"To stop a queued or running job, right-click the file and choose "
+":menuselection:`Optimize --> Cancel`. Canceling a job does not turn off "
+":menuselection:`File --> Auto-Optimize` for later imports."
+msgstr ""
+"Để dừng công việc đang chờ hoặc đang chạy, nhấp chuột phải vào tệp và chọn "
+":menuselection:`Tối ưu hóa --> Hủy`. Hủy công việc không tắt "
+":menuselection:`Tệp --> Tự động tối ưu hóa` cho các lần nhập sau."
+
+#: ../doc/files.rst:275
+msgid "Manual optimization"
+msgstr "Tối ưu hóa thủ công"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:130
+#: ../doc/files.rst:276
 msgid ""
 "For video files, the file context menu includes an :guilabel:`Optimize` "
-"submenu. This feature creates or links smaller preview copies of your source "
-"clips, which can improve playback and scrubbing on slower systems or with "
+"submenu. This feature creates or links smaller preview copies of your source"
+" clips, which can improve playback and scrubbing on slower systems or with "
 "high-resolution footage. Optimizing also pre-loads thumbnails to further "
 "improve the editing smoothness when zooming into the timeline."
 msgstr ""
-"Đối với các tệp video, menu ngữ cảnh tệp bao gồm một menu con :guilabel:"
-"`Optimize`. Tính năng này tạo hoặc liên kết các bản xem trước nhỏ hơn của "
-"các clip nguồn của bạn, giúp cải thiện phát lại và tua trên các hệ thống "
-"chậm hơn hoặc với video có độ phân giải cao. Tối ưu hóa cũng tải trước các "
-"hình thu nhỏ để cải thiện độ mượt khi chỉnh sửa khi phóng to vào dòng thời "
-"gian."
+"Đối với các tệp video, menu ngữ cảnh tệp bao gồm một menu con "
+":guilabel:`Optimize`. Tính năng này tạo hoặc liên kết các bản xem trước nhỏ "
+"hơn của các clip nguồn của bạn, giúp cải thiện phát lại và tua trên các hệ "
+"thống chậm hơn hoặc với video có độ phân giải cao. Tối ưu hóa cũng tải trước"
+" các hình thu nhỏ để cải thiện độ mượt khi chỉnh sửa khi phóng to vào dòng "
+"thời gian."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:135
+#: ../doc/files.rst:281
 msgid "The :guilabel:`Optimize` submenu contains these actions:"
 msgstr "Menu con :guilabel:`Optimize` chứa các hành động sau:"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:141
+#: ../doc/files.rst:287
 msgid "Action"
 msgstr "Hành động"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:143
+#: ../doc/files.rst:289
 msgid "Optimize Video"
 msgstr "Tối ưu hóa Video"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:144
+#: ../doc/files.rst:290
 msgid ""
 "Create an optimized preview file for each selected video file. OpenShot "
 "stores these files in the project's ``optimized`` assets folder."
@@ -455,42 +856,44 @@ msgstr ""
 "lưu các tệp này trong thư mục tài sản ``optimized`` của dự án."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:145
+#: ../doc/files.rst:291
 msgid "Link to Existing..."
 msgstr "Liên kết với Tệp hiện có..."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:146
+#: ../doc/files.rst:292
 msgid ""
-"Choose a folder containing already-created optimized files and link the best "
-"matching files to the selected source clips. This supports common proxy "
-"naming styles, known proxy suffixes, file ID suffixes, and extension changes."
+"Choose a folder containing already-created optimized files and link the best"
+" matching files to the selected source clips. This supports common proxy "
+"naming styles, known proxy suffixes, file ID suffixes, and extension "
+"changes."
 msgstr ""
 "Chọn một thư mục chứa các tệp tối ưu hóa đã tạo sẵn và liên kết các tệp phù "
-"hợp nhất với các clip nguồn được chọn. Tính năng này hỗ trợ các kiểu đặt tên "
-"proxy phổ biến, hậu tố proxy đã biết, hậu tố ID tệp và thay đổi phần mở rộng."
+"hợp nhất với các clip nguồn được chọn. Tính năng này hỗ trợ các kiểu đặt tên"
+" proxy phổ biến, hậu tố proxy đã biết, hậu tố ID tệp và thay đổi phần mở "
+"rộng."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:147
+#: ../doc/files.rst:293
 msgid "Unlink"
 msgstr "Hủy liên kết"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:148
+#: ../doc/files.rst:294
 msgid ""
 "Remove the optimized preview link from the selected file without deleting "
 "the optimized file from disk."
 msgstr ""
-"Xóa liên kết xem trước đã tối ưu hóa khỏi tệp được chọn mà không xóa tệp tối "
-"ưu hóa khỏi đĩa."
+"Xóa liên kết xem trước đã tối ưu hóa khỏi tệp được chọn mà không xóa tệp tối"
+" ưu hóa khỏi đĩa."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:149
+#: ../doc/files.rst:295
 msgid "Delete & Unlink"
 msgstr "Xóa & Hủy liên kết"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:150
+#: ../doc/files.rst:296
 msgid ""
 "Delete the linked optimized file from disk, then remove the link from the "
 "selected file."
@@ -499,151 +902,118 @@ msgstr ""
 "chọn."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:152
+#: ../doc/files.rst:298
 msgid ""
-"When optimization is in progress, the submenu changes to a single :guilabel:"
-"`Cancel` action for the selected file(s). Optimized preview files are used "
-"only for editing and preview playback. Your final export still uses the "
-"original source files."
+"When optimization is in progress, the submenu changes to a single "
+":guilabel:`Cancel` action for the selected file(s). Optimized preview files "
+"are used only for editing and preview playback. Your final export still uses"
+" the original source files."
 msgstr ""
 "Khi quá trình tối ưu hóa đang diễn ra, menu con sẽ chuyển thành một hành "
-"động duy nhất :guilabel:`Cancel` cho tệp được chọn. Các tệp xem trước đã tối "
-"ưu hóa chỉ được sử dụng để chỉnh sửa và phát xem trước. Xuất cuối cùng của "
+"động duy nhất :guilabel:`Cancel` cho tệp được chọn. Các tệp xem trước đã tối"
+" ưu hóa chỉ được sử dụng để chỉnh sửa và phát xem trước. Xuất cuối cùng của "
 "bạn vẫn sử dụng các tệp nguồn gốc."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:155
+#: ../doc/files.rst:301
 msgid ""
 "When you use :guilabel:`Link to Existing...`, OpenShot tries to match each "
-"selected source clip to an existing optimized file in a safe order. It first "
-"looks for the same base filename with a different video extension, then for "
-"common proxy-style names such as ``_proxy``, ``_preview``, ``_optimized``, "
-"``_lowres``, resolution tags such as ``_720p`` or ``_1080p``, and camera/"
-"editor-style variants such as ``_p``. It also supports names that add the "
-"OpenShot file ID after a known proxy suffix, such as ``clip001_proxy_F1."
-"mp4``, and it can still match files named only by file ID, such as ``F1."
-"mp4``."
+"selected source clip to an existing optimized file in a safe order. It first"
+" looks for the same base filename with a different video extension, then for"
+" common proxy-style names such as ``_proxy``, ``_preview``, ``_optimized``, "
+"``_lowres``, resolution tags such as ``_720p`` or ``_1080p``, and "
+"camera/editor-style variants such as ``_p``. It also supports names that add"
+" the OpenShot file ID after a known proxy suffix, such as "
+"``clip001_proxy_F1.mp4``, and it can still match files named only by file "
+"ID, such as ``F1.mp4``."
 msgstr ""
 "Khi bạn sử dụng :guilabel:`Link to Existing...`, OpenShot cố gắng khớp mỗi "
 "clip nguồn được chọn với một tệp tối ưu hóa hiện có theo thứ tự an toàn. Nó "
-"đầu tiên tìm kiếm cùng tên cơ sở với phần mở rộng video khác, sau đó tìm các "
-"tên kiểu proxy phổ biến như ``_proxy``, ``_preview``, ``_optimized``, "
-"``_lowres``, các thẻ độ phân giải như ``_720p`` hoặc ``_1080p``, và các biến "
-"thể kiểu máy quay/biên tập như ``_p``. Nó cũng hỗ trợ các tên thêm ID tệp "
+"đầu tiên tìm kiếm cùng tên cơ sở với phần mở rộng video khác, sau đó tìm các"
+" tên kiểu proxy phổ biến như ``_proxy``, ``_preview``, ``_optimized``, "
+"``_lowres``, các thẻ độ phân giải như ``_720p`` hoặc ``_1080p``, và các biến"
+" thể kiểu máy quay/biên tập như ``_p``. Nó cũng hỗ trợ các tên thêm ID tệp "
 "OpenShot sau hậu tố proxy đã biết, như ``clip001_proxy_F1.mp4``, và vẫn có "
 "thể khớp các tệp chỉ được đặt tên bằng ID tệp, như ``F1.mp4``."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:162
+#: ../doc/files.rst:308
 msgid ""
 "Best practice when bringing your own optimized files is to keep the same "
 "base filename as the source clip and add a clear proxy-style suffix, for "
-"example ``clip001_proxy.mp4`` or ``clip001_proxy.mov``. If you need to avoid "
-"filename collisions, append the OpenShot file ID after the proxy suffix, for "
-"example ``clip001_proxy_F1.mp4``. Avoid unrelated suffixes such as "
-"``_final`` or ``_reviewcopy``, because OpenShot does not treat those as safe "
-"proxy naming patterns."
+"example ``clip001_proxy.mp4`` or ``clip001_proxy.mov``. If you need to avoid"
+" filename collisions, append the OpenShot file ID after the proxy suffix, "
+"for example ``clip001_proxy_F1.mp4``. Avoid unrelated suffixes such as "
+"``_final`` or ``_reviewcopy``, because OpenShot does not treat those as safe"
+" proxy naming patterns."
 msgstr ""
-"Thực hành tốt nhất khi mang các tệp tối ưu hóa của riêng bạn là giữ cùng tên "
-"cơ sở với clip nguồn và thêm hậu tố kiểu proxy rõ ràng, ví dụ "
+"Thực hành tốt nhất khi mang các tệp tối ưu hóa của riêng bạn là giữ cùng tên"
+" cơ sở với clip nguồn và thêm hậu tố kiểu proxy rõ ràng, ví dụ "
 "``clip001_proxy.mp4`` hoặc ``clip001_proxy.mov``. Nếu bạn cần tránh trùng "
-"tên tệp, hãy thêm ID tệp OpenShot sau hậu tố proxy, ví dụ ``clip001_proxy_F1."
-"mp4``. Tránh các hậu tố không liên quan như ``_final`` hoặc ``_reviewcopy``, "
-"vì OpenShot không coi đó là các mẫu đặt tên proxy an toàn."
+"tên tệp, hãy thêm ID tệp OpenShot sau hậu tố proxy, ví dụ "
+"``clip001_proxy_F1.mp4``. Tránh các hậu tố không liên quan như ``_final`` "
+"hoặc ``_reviewcopy``, vì OpenShot không coi đó là các mẫu đặt tên proxy an "
+"toàn."
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:171
+#: ../doc/files.rst:317
 msgid ""
-"If you need to cut a large video file into many smaller files before "
-"editing, the **Split File** dialog is built exactly for this purpose. Right "
-"click on a file, and choose :guilabel:`Split File`. Use this dialog to "
-"quickly separate a large file into many smaller segments. For each segment, "
-"you can select the starting and ending frame, and a title. Each segment "
-"appears as a new file in the Project Files dialog."
+"Use **Split File** to choose the parts of a longer recording you want to "
+"work with. Right click a file in **Project Files** and choose "
+":guilabel:`Split File`. Select the start and end of a segment, give it an "
+"optional name, and click :guilabel:`Create`. Adjust the markers and repeat "
+"to prepare as many segments as you need."
 msgstr ""
-"Nếu bạn cần cắt một tệp video lớn thành nhiều tệp nhỏ hơn trước khi chỉnh "
-"sửa, hộp thoại **Chia Tệp** được thiết kế chính xác cho mục đích này. Nhấp "
-"chuột phải vào một tệp và chọn :guilabel:`Chia Tệp`. Sử dụng hộp thoại này "
-"để nhanh chóng tách một tệp lớn thành nhiều đoạn nhỏ hơn. Với mỗi đoạn, bạn "
-"có thể chọn khung bắt đầu và kết thúc, cùng một tiêu đề. Mỗi đoạn sẽ xuất "
-"hiện như một tệp mới trong hộp thoại Tệp Dự Án."
+"Sử dụng **Chia tệp** để chọn các phần của bản ghi dài hơn mà bạn muốn làm "
+"việc. Nhấp chuột phải vào một tệp trong **Tệp Dự án** và chọn "
+":guilabel:`Chia tệp`. Chọn điểm bắt đầu và kết thúc của một đoạn, đặt tên "
+"tùy chọn, và nhấn :guilabel:`Tạo`. Điều chỉnh các dấu và lặp lại để chuẩn bị"
+" nhiều đoạn như bạn cần."
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:182 ../files.rst:216 ../files.rst:240
-msgid "#"
-msgstr "#"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:182 ../files.rst:216 ../files.rst:240
-msgid "Name"
-msgstr "Tên"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:184 ../files.rst:218 ../files.rst:242
-msgid "1"
-msgstr "1"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:184
-msgid "Start of File"
-msgstr "Bắt đầu Tệp"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:184
-msgid "Choose the starting frame of your file by clicking this button"
-msgstr "Chọn khung bắt đầu của tệp bằng cách nhấn nút này"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:185 ../files.rst:219 ../files.rst:243
-msgid "2"
-msgstr "2"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:185
-msgid "End of File"
-msgstr "Cuối Tập Tin"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:185
-msgid "Choose the ending frame of your file by clicking this button"
-msgstr "Chọn khung hình kết thúc của tập tin bằng cách nhấn nút này"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:186 ../files.rst:220
-msgid "3"
-msgstr "3"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:186
-msgid "Name of File"
-msgstr "Tên Tập Tin"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:186
-msgid "Enter an optional name"
-msgstr "Nhập tên tùy chọn"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:187 ../files.rst:221
-msgid "4"
-msgstr "4"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:187
-msgid "Create Button"
-msgstr "Nút Tạo"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:187
+#: ../doc/files.rst:322
 msgid ""
-"Create the file (which resets this dialog, so you can repeat these steps for "
-"each segment)"
+"Each segment appears in Project Files and can be added to the timeline like "
+"any other file. The segments all use the original media on disk, so you can "
+"prepare them without making extra copies of the recording."
 msgstr ""
-"Tạo tập tin (điều này sẽ đặt lại hộp thoại, để bạn có thể lặp lại các bước "
-"cho mỗi đoạn)"
+"Mỗi đoạn xuất hiện trong Tệp Dự án và có thể được thêm vào dòng thời gian "
+"như bất kỳ tệp nào khác. Các đoạn đều sử dụng phương tiện gốc trên đĩa, vì "
+"vậy bạn có thể chuẩn bị chúng mà không cần tạo bản sao bổ sung của bản ghi."
+
+#: ../doc/files.rst:325
+msgid ""
+"When you add a segment to the timeline, OpenShot gives its properties "
+"starting keyframes at the segment's beginning. For example, with "
+":ref:`auto_keyframes_ref` on, you can move to the end and change the "
+"rotation to make it turn over the length of that segment. The animation "
+"starts from the part you chose to use."
+msgstr ""
+"Khi bạn thêm một đoạn vào dòng thời gian, OpenShot sẽ đặt các khung khóa bắt"
+" đầu tại đầu đoạn đó. Ví dụ, với :ref:`auto_keyframes_ref` bật, bạn có thể "
+"di chuyển đến cuối và thay đổi xoay để làm nó quay trong suốt độ dài của "
+"đoạn đó. Hoạt ảnh bắt đầu từ phần bạn chọn sử dụng."
+
+#: ../doc/files.rst:329
+msgid ""
+"If you have already animated a timeline clip, slicing it preserves that "
+"animation through the cut. Split File is useful for choosing your segments "
+"before you begin that work."
+msgstr ""
+"Nếu bạn đã tạo hoạt ảnh cho một đoạn trên dòng thời gian, việc cắt nó sẽ giữ"
+" nguyên hoạt ảnh đó qua phần cắt. Chia tệp hữu ích để chọn các đoạn của bạn "
+"trước khi bắt đầu công việc đó."
+
+#: ../doc/files.rst:332
+msgid ""
+"Preview an existing split-file entry to adjust its saved IN/OUT range. The "
+"ruler includes the surrounding footage, allowing you to extend the range "
+"again without reimporting the source."
+msgstr ""
+"Xem trước một mục tệp chia sẵn có để điều chỉnh phạm vi IN/OUT đã lưu. Thước"
+" đo bao gồm cảnh quay xung quanh, cho phép bạn mở rộng phạm vi mà không cần "
+"nhập lại nguồn."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:190
+#: ../doc/files.rst:336
 msgid ""
 "Please refer to the section :ref:`clips_cutting_slicing_ref` for more ways "
 "to cut and slice clips directly in the timeline."
@@ -652,70 +1022,90 @@ msgstr ""
 "cắt và chia đoạn clip trực tiếp trên timeline."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:194
+#: ../doc/files.rst:340
 msgid ""
 "If you want your split file segments available outside of your OpenShot "
-"project, or want to copy all your video assets to one place, you can do this "
-"with the **Export Files** dialog. Simply :kbd:`Ctrl+Click` to select all the "
-"files you like, then :kbd:`Right Click` and choose :guilabel:`Export Files`. "
-"In the dialog that appears, choose a destination folder, and click :guilabel:"
-"`Export`."
+"project, or want to copy all your video assets to one place, you can do this"
+" with the **Export Files** dialog. Simply :kbd:`Ctrl+Click` to select all "
+"the files you like, then :kbd:`Right Click` and choose :guilabel:`Export "
+"Files`. In the dialog that appears, choose a destination folder, and click "
+":guilabel:`Export`."
 msgstr ""
 "Nếu bạn muốn các đoạn tập tin đã chia có thể sử dụng ngoài dự án OpenShot "
 "của bạn, hoặc muốn sao chép tất cả tài nguyên video vào một nơi, bạn có thể "
 "làm điều này với hộp thoại **Xuất Tập Tin**. Chỉ cần :kbd:`Ctrl+Click` để "
-"chọn tất cả các tập tin bạn muốn, sau đó :kbd:`Nhấp phải` và chọn :guilabel:"
-"`Xuất Tập Tin`. Trong hộp thoại hiện ra, chọn thư mục đích và nhấn :guilabel:"
-"`Xuất`."
+"chọn tất cả các tập tin bạn muốn, sau đó :kbd:`Nhấp phải` và chọn "
+":guilabel:`Xuất Tập Tin`. Trong hộp thoại hiện ra, chọn thư mục đích và nhấn"
+" :guilabel:`Xuất`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:199
+#: ../doc/files.rst:345
 msgid ""
 "NOTE: This will export each file or file segment using its **original video "
-"profile** (width, height, framerate, aspect ratio, etc...). It also supports "
-"any :ref:`split_clip_ref` (described above). For example, if you have split "
-"a long video file into many different segments (and named them), you can now "
-"export all the segments as separate video files (using the original file's "
-"video profile)."
+"profile** (width, height, framerate, aspect ratio, etc...). It also supports"
+" any :ref:`split_clip_ref` (described above). For example, if you have split"
+" a long video file into many different segments (and named them), you can "
+"now export all the segments as separate video files (using the original "
+"file's video profile)."
 msgstr ""
 "LƯU Ý: Điều này sẽ xuất mỗi tập tin hoặc đoạn tập tin sử dụng **hồ sơ video "
 "gốc** (chiều rộng, chiều cao, tốc độ khung hình, tỷ lệ khung hình, v.v...). "
 "Nó cũng hỗ trợ bất kỳ :ref:`split_clip_ref` nào (đã mô tả ở trên). Ví dụ, "
-"nếu bạn đã chia một tập tin video dài thành nhiều đoạn khác nhau (và đặt tên "
-"cho chúng), bạn có thể xuất tất cả các đoạn dưới dạng các tập tin video "
+"nếu bạn đã chia một tập tin video dài thành nhiều đoạn khác nhau (và đặt tên"
+" cho chúng), bạn có thể xuất tất cả các đoạn dưới dạng các tập tin video "
 "riêng biệt (sử dụng hồ sơ video gốc của tập tin)."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:206
+#: ../doc/files.rst:352
 msgid ""
 "In certain cases, you might need to add many files to the timeline at the "
 "same time. For example, a photo slideshow, or a large number of short video "
-"clips. The **Add to Timeline** dialog can automate this task for you. First, "
-"select all files you need to add, right click, and choose Add to Timeline."
+"clips. The **Add to Timeline** dialog can automate this task for you. First,"
+" select all files you need to add, right click, and choose Add to Timeline."
 msgstr ""
-"Trong một số trường hợp, bạn có thể cần thêm nhiều tập tin vào timeline cùng "
-"lúc. Ví dụ, một trình chiếu ảnh, hoặc một số lượng lớn các đoạn video ngắn. "
-"Hộp thoại **Thêm vào Timeline** có thể tự động hóa công việc này cho bạn. "
-"Đầu tiên, chọn tất cả các tập tin bạn cần thêm, nhấp chuột phải và chọn Thêm "
-"vào Timeline."
+"Trong một số trường hợp, bạn có thể cần thêm nhiều tập tin vào timeline cùng"
+" lúc. Ví dụ, một trình chiếu ảnh, hoặc một số lượng lớn các đoạn video ngắn."
+" Hộp thoại **Thêm vào Timeline** có thể tự động hóa công việc này cho bạn. "
+"Đầu tiên, chọn tất cả các tập tin bạn cần thêm, nhấp chuột phải và chọn Thêm"
+" vào Timeline."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:218
+#: ../doc/files.rst:362 ../doc/files.rst:386
+msgid "#"
+msgstr "#"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:362 ../doc/files.rst:386
+msgid "Name"
+msgstr "Tên"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:364 ../doc/files.rst:388
+msgid "1"
+msgstr "1"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:364
 msgid "Selected Files"
 msgstr "Tập Tin Đã Chọn"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:218
+#: ../doc/files.rst:364
 msgid "The list of selected files that need to be added to the timeline"
 msgstr "Danh sách các tập tin đã chọn cần được thêm vào timeline"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:219
+#: ../doc/files.rst:365 ../doc/files.rst:389
+msgid "2"
+msgstr "2"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:365
 msgid "Order of Files"
 msgstr "Thứ Tự Tập Tin"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:219
+#: ../doc/files.rst:365
 msgid ""
 "Use these buttons to reorder the list of files (move up, move down, "
 "randomize, remove)"
@@ -724,25 +1114,35 @@ msgstr ""
 "chuyển xuống, ngẫu nhiên, xóa)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:220
+#: ../doc/files.rst:366
+msgid "3"
+msgstr "3"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:366
 msgid "Timeline Position"
 msgstr "Vị Trí Timeline"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:220
+#: ../doc/files.rst:366
 msgid ""
-"Choose the starting position and track where these files need to be inserted "
-"on the timeline"
+"Choose the starting position and track where these files need to be inserted"
+" on the timeline"
 msgstr ""
 "Chọn vị trí bắt đầu và track nơi các tập tin này cần được chèn vào timeline"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:221
+#: ../doc/files.rst:367
+msgid "4"
+msgstr "4"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:367
 msgid "Fade Options"
 msgstr "Tùy Chọn Mờ Dần"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:221
+#: ../doc/files.rst:367
 msgid ""
 "Fade in, fade out, both, or none (only affects the image, and not audio)"
 msgstr ""
@@ -750,32 +1150,32 @@ msgstr ""
 "hưởng đến âm thanh)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "5"
 msgstr "5"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "Zoom Options"
 msgstr "Tùy Chọn Thu Phóng"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "Zoom in, zoom out, or none"
 msgstr "Phóng to, thu nhỏ, hoặc không"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid "6"
 msgstr "6"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid "Transitions"
 msgstr "Chuyển Cảnh"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid ""
 "Choose a specific transition to use between files, random, or none (only "
 "affects the image, and not the audio)"
@@ -784,16 +1184,16 @@ msgstr ""
 "không (chỉ ảnh hưởng đến hình ảnh, không ảnh hưởng đến âm thanh)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:229
+#: ../doc/files.rst:375
 msgid "Properties"
 msgstr "Thuộc Tính"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:230
+#: ../doc/files.rst:376
 msgid ""
 "To view the properties of any imported file in your video project, right "
-"click on the file, and choose **File Properties**. This will launch the file "
-"properties dialog, which displays information about your media file. For "
+"click on the file, and choose **File Properties**. This will launch the file"
+" properties dialog, which displays information about your media file. For "
 "certain types of images (i.e. image sequences), you can adjust the frame "
 "rate on this dialog also."
 msgstr ""
@@ -804,7 +1204,7 @@ msgstr ""
 "chỉnh tốc độ khung hình trong hộp thoại này."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:242
+#: ../doc/files.rst:388
 msgid ""
 "Select an image sequence in the **Project Files** panel, right click and "
 "choose **File Properties**"
@@ -813,36 +1213,47 @@ msgstr ""
 "chọn **Thuộc Tính Tập Tin**"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:243
+#: ../doc/files.rst:389
 msgid "Frame Rate"
 msgstr "Tốc Độ Khung Hình"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:243
+#: ../doc/files.rst:389
 msgid ""
 "For image sequences, you can also adjust the frame rate of the animation"
 msgstr ""
 "Đối với chuỗi hình ảnh, bạn cũng có thể điều chỉnh tốc độ khung hình của "
 "hoạt hình"
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:252
+#: ../doc/files.rst:398
 msgid ""
-"This will remove a file from the project. It will not delete the underlying "
-"physical file though, so removing a file from the project merely makes it "
-"unavailable for this video project."
+"Removing an entry from **Project Files** does not delete the source media "
+"from disk."
 msgstr ""
-"Điều này sẽ xóa một tập tin khỏi dự án. Tuy nhiên, nó sẽ không xóa tập tin "
-"vật lý gốc, vì vậy việc xóa tập tin khỏi dự án chỉ làm cho tập tin không khả "
-"dụng cho dự án video này."
+"Xóa một mục khỏi **Project Files** không xóa phương tiện nguồn khỏi đĩa."
+
+#: ../doc/files.rst:400
+msgid ""
+"You can import the file again whenever you need it. For example, after "
+"preparing several :ref:`Split File segments <split_clip_ref>` and removing "
+"the original from Project Files, you might want to use a different part of "
+"the recording. Import it again to work with the whole recording; your "
+"existing segments stay as they are. If the original is already in Project "
+"Files, importing it again selects it."
+msgstr ""
+"Bạn có thể nhập lại tệp bất cứ khi nào bạn cần. Ví dụ, sau khi chuẩn bị một "
+"số :ref:`Split File segments <split_clip_ref>` và xóa bản gốc khỏi Project "
+"Files, bạn có thể muốn sử dụng một phần khác của bản ghi. Nhập lại để làm "
+"việc với toàn bộ bản ghi; các đoạn hiện có của bạn vẫn giữ nguyên. Nếu bản "
+"gốc đã có trong Project Files, việc nhập lại sẽ chọn nó."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:257
+#: ../doc/files.rst:408
 msgid "Project Assets Folder"
 msgstr "Thư Mục Tài Nguyên Dự Án"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:258
+#: ../doc/files.rst:409
 msgid ""
 "OpenShot creates and uses a few **temporary working folders** while you "
 "edit. These live under ``.openshot_qt/`` in your user profile and hold "
@@ -853,7 +1264,7 @@ msgstr ""
 "và chứa các tập tin riêng cho dự án mà OpenShot tạo ra cho bạn:"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:261
+#: ../doc/files.rst:412
 msgid ""
 "``.openshot_qt/blender/`` - Blender animation renders created by the "
 "Animated Title dialog"
@@ -862,14 +1273,14 @@ msgstr ""
 "hộp thoại Tiêu đề Hoạt hình"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:262
+#: ../doc/files.rst:413
 msgid "``.openshot_qt/title/`` - SVG title files created by the Title dialog"
 msgstr ""
 "``.openshot_qt/title/`` - Các tập tin tiêu đề SVG được tạo bởi hộp thoại "
 "Tiêu đề"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:263
+#: ../doc/files.rst:414
 msgid ""
 "``.openshot_qt/thumbnail/`` - Thumbnails generated for Project Files and "
 "Timeline"
@@ -878,7 +1289,7 @@ msgstr ""
 "Timeline"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:264
+#: ../doc/files.rst:415
 msgid ""
 "``.openshot_qt/clipboard/`` - Media created from clipboard pastes (images, "
 "audio, or video that must be saved to disk first)"
@@ -887,7 +1298,7 @@ msgstr ""
 "(hình ảnh, âm thanh hoặc video phải được lưu vào đĩa trước)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:265
+#: ../doc/files.rst:416
 msgid ""
 "``.openshot_qt/optimized/`` - Optimized preview files created for smoother "
 "editing"
@@ -896,13 +1307,13 @@ msgstr ""
 "chỉnh sửa mượt mà hơn"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:266
+#: ../doc/files.rst:417
 msgid "``.openshot_qt/protobuf_data`` - Tracking and object detection data"
 msgstr ""
 "``.openshot_qt/protobuf_data`` - Dữ liệu theo dõi và phát hiện đối tượng"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:268
+#: ../doc/files.rst:419
 msgid ""
 "When you choose **File→Save As**, OpenShot copies these folders into your "
 "project directory, inside a single folder named ``PROJECTNAME_Assets``. For "
@@ -910,37 +1321,37 @@ msgid ""
 "from the clipboard, and ``MyProject_Assets/optimized`` will contain any "
 "optimized preview files linked to the project."
 msgstr ""
-"Khi bạn chọn **File→Save As**, OpenShot sao chép các thư mục này vào thư mục "
-"dự án của bạn, bên trong một thư mục duy nhất có tên ``PROJECTNAME_Assets``. "
-"Ví dụ: ``MyProject_Assets/clipboard`` sẽ chứa bất kỳ phương tiện nào bạn đã "
-"dán từ clipboard, và ``MyProject_Assets/optimized`` sẽ chứa các tệp xem "
-"trước đã tối ưu hóa được liên kết với dự án."
+"Khi bạn chọn **File→Save As**, OpenShot sao chép các thư mục này vào thư mục"
+" dự án của bạn, bên trong một thư mục duy nhất có tên "
+"``PROJECTNAME_Assets``. Ví dụ: ``MyProject_Assets/clipboard`` sẽ chứa bất kỳ"
+" phương tiện nào bạn đã dán từ clipboard, và ``MyProject_Assets/optimized`` "
+"sẽ chứa các tệp xem trước đã tối ưu hóa được liên kết với dự án."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:272
+#: ../doc/files.rst:423
 #, fuzzy
 msgid ""
 "As part of this process, all paths inside your ``*.osp`` project file are "
 "updated to be **relative** to your project folder."
 msgstr ""
 "Trong quá trình này, tất cả các đường dẫn bên trong tập tin dự án ``*.osp`` "
-"của bạn được cập nhật để trở thành **đường dẫn tương đối** với thư mục dự án "
-"của bạn. Điều này giữ mọi thứ tự chứa và dễ dàng di chuyển hoặc sao lưu như "
-"một thư mục duy nhất."
+"của bạn được cập nhật để trở thành **đường dẫn tương đối** với thư mục dự án"
+" của bạn. Điều này giữ mọi thứ tự chứa và dễ dàng di chuyển hoặc sao lưu như"
+" một thư mục duy nhất."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:275
+#: ../doc/files.rst:426
 msgid "Missing Files"
 msgstr "Tập Tin Thiếu"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:277
+#: ../doc/files.rst:428
 msgid ""
 "When you create and save a project in OpenShot, any files imported into the "
 "software (such as videos, audio, and images) must remain accessible "
 "throughout the project's duration. This means that these imported files "
-"should not be renamed, deleted, or moved to different folders. Additionally, "
-"the full path where these files are located should not be renamed either. "
+"should not be renamed, deleted, or moved to different folders. Additionally,"
+" the full path where these files are located should not be renamed either. "
 "This principle applies to other video editing software as well."
 msgstr ""
 "Khi bạn tạo và lưu một dự án trong OpenShot, bất kỳ tệp nào được nhập vào "
@@ -951,13 +1362,14 @@ msgstr ""
 "dụng cho các phần mềm chỉnh sửa video khác."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:282
+#: ../doc/files.rst:433
 msgid ""
 "For example, users might move or delete folders, unplug their USB devices, "
-"or move or delete their project files. Any of these examples cause a :"
-"guilabel:`Missing File` message, in which OpenShot prompts you to locate the "
-"folder of the missing file(s). Depending on the number of files you added to "
-"your project, OpenShot could prompt you many times to find the missing files."
+"or move or delete their project files. Any of these examples cause a "
+":guilabel:`Missing File` message, in which OpenShot prompts you to locate "
+"the folder of the missing file(s). Depending on the number of files you "
+"added to your project, OpenShot could prompt you many times to find the "
+"missing files."
 msgstr ""
 "Ví dụ, người dùng có thể di chuyển hoặc xóa thư mục, rút thiết bị USB, hoặc "
 "di chuyển hoặc xóa các tệp dự án của họ. Bất kỳ trường hợp nào trong số này "
@@ -967,7 +1379,7 @@ msgstr ""
 "bị thiếu."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:286
+#: ../doc/files.rst:437
 msgid ""
 "When OpenShot saves a project, all file paths are converted to **relative** "
 "file paths. As long as you keep all assets organized in the same parent "
@@ -983,7 +1395,7 @@ msgstr ""
 "mà không gặp vấn đề gì."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:290
+#: ../doc/files.rst:441
 msgid ""
 "Everyone has their unique way of organizing files, and it's crucial to "
 "remember not to make changes to file paths, rename files, or delete files "
@@ -996,3 +1408,82 @@ msgstr ""
 "sửa video, vì điều này có thể dẫn đến các vấn đề về tệp bị thiếu. Để xem "
 "hướng dẫn chi tiết về tệp bị thiếu, hãy xem `The Case of “Missing Files”! "
 "<https://github.com/OpenShot/openshot-qt/wiki/Missing-File-Prompt>`_."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "The :guilabel:`Preview File` action opens the Preview dialog for the "
+#~ "selected file from :guilabel:`Project Files`. Simply double check a file to "
+#~ "open this dialog."
+#~ msgstr ""
+#~ "Hành động :guilabel:`Xem Trước Tệp` mở hộp thoại Xem Trước cho tệp được chọn"
+#~ " từ :guilabel:`Tệp Dự Án`. Chỉ cần nhấp đúp vào một tệp để mở hộp thoại này."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Playback starts automatically."
+#~ msgstr "Phát lại bắt đầu tự động."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Loop is enabled by default."
+#~ msgstr "Vòng lặp được bật theo mặc định."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "If you need to cut a large video file into many smaller files before "
+#~ "editing, the **Split File** dialog is built exactly for this purpose. Right "
+#~ "click on a file, and choose :guilabel:`Split File`. Use this dialog to "
+#~ "quickly separate a large file into many smaller segments. For each segment, "
+#~ "you can select the starting and ending frame, and a title. Each segment "
+#~ "appears as a new file in the Project Files dialog."
+#~ msgstr ""
+#~ "Nếu bạn cần cắt một tệp video lớn thành nhiều tệp nhỏ hơn trước khi chỉnh "
+#~ "sửa, hộp thoại **Chia Tệp** được thiết kế chính xác cho mục đích này. Nhấp "
+#~ "chuột phải vào một tệp và chọn :guilabel:`Chia Tệp`. Sử dụng hộp thoại này "
+#~ "để nhanh chóng tách một tệp lớn thành nhiều đoạn nhỏ hơn. Với mỗi đoạn, bạn "
+#~ "có thể chọn khung bắt đầu và kết thúc, cùng một tiêu đề. Mỗi đoạn sẽ xuất "
+#~ "hiện như một tệp mới trong hộp thoại Tệp Dự Án."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Start of File"
+#~ msgstr "Bắt đầu Tệp"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Choose the starting frame of your file by clicking this button"
+#~ msgstr "Chọn khung bắt đầu của tệp bằng cách nhấn nút này"
+
+# Translated with gpt-4.1-mini
+#~ msgid "End of File"
+#~ msgstr "Cuối Tập Tin"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Choose the ending frame of your file by clicking this button"
+#~ msgstr "Chọn khung hình kết thúc của tập tin bằng cách nhấn nút này"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Name of File"
+#~ msgstr "Tên Tập Tin"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Enter an optional name"
+#~ msgstr "Nhập tên tùy chọn"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Create Button"
+#~ msgstr "Nút Tạo"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Create the file (which resets this dialog, so you can repeat these steps for"
+#~ " each segment)"
+#~ msgstr ""
+#~ "Tạo tập tin (điều này sẽ đặt lại hộp thoại, để bạn có thể lặp lại các bước "
+#~ "cho mỗi đoạn)"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "This will remove a file from the project. It will not delete the underlying "
+#~ "physical file though, so removing a file from the project merely makes it "
+#~ "unavailable for this video project."
+#~ msgstr ""
+#~ "Điều này sẽ xóa một tập tin khỏi dự án. Tuy nhiên, nó sẽ không xóa tập tin "
+#~ "vật lý gốc, vì vậy việc xóa tập tin khỏi dự án chỉ làm cho tập tin không khả"
+#~ " dụng cho dự án video này."

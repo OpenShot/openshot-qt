@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,111 +20,116 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:21
+#: ../doc/main_window.rst:21
 msgid "Main Window"
 msgstr "主窗口"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:23
+#: ../doc/main_window.rst:23
 msgid ""
 "OpenShot Video Editor has one main window which contains most of the "
 "information, buttons, and menus needed to edit your video project."
 msgstr "OpenShot 视频编辑器有一个主窗口，包含编辑视频项目所需的大部分信息、按钮和菜单。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:27
+#: ../doc/main_window.rst:27
 msgid "Overview"
 msgstr "概览"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:35 ../main_window.rst:80 ../main_window.rst:101
+#: ../doc/main_window.rst:35 ../doc/main_window.rst:80
+#: ../doc/main_window.rst:101
 msgid "#"
 msgstr "编号"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:35 ../main_window.rst:80
+#: ../doc/main_window.rst:35 ../doc/main_window.rst:80
 msgid "Name"
 msgstr "名称"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:35 ../main_window.rst:80 ../main_window.rst:103
-#: ../main_window.rst:237 ../main_window.rst:367 ../main_window.rst:396
+#: ../doc/main_window.rst:35 ../doc/main_window.rst:80
+#: ../doc/main_window.rst:103 ../doc/main_window.rst:173
+#: ../doc/main_window.rst:303 ../doc/main_window.rst:332
 msgid "Description"
 msgstr "描述"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:37 ../main_window.rst:82 ../main_window.rst:104
+#: ../doc/main_window.rst:37 ../doc/main_window.rst:82
+#: ../doc/main_window.rst:104
 msgid "1"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:37
+#: ../doc/main_window.rst:37
 msgid "Main Toolbar"
 msgstr "主工具栏"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:37
+#: ../doc/main_window.rst:37
 msgid "Contains buttons to open, save, and export your video project."
 msgstr "包含打开、保存和导出视频项目的按钮。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:38 ../main_window.rst:83 ../main_window.rst:107
+#: ../doc/main_window.rst:38 ../doc/main_window.rst:83
+#: ../doc/main_window.rst:107
 msgid "2"
 msgstr "2"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:38
+#: ../doc/main_window.rst:38
 msgid "Function Tabs"
 msgstr "功能标签"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:38
+#: ../doc/main_window.rst:38
 msgid "Switch between Project Files, Transitions, Effects, and Emojis."
 msgstr "在项目文件、转场、特效和表情符号之间切换。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:39 ../main_window.rst:84 ../main_window.rst:110
+#: ../doc/main_window.rst:39 ../doc/main_window.rst:84
+#: ../doc/main_window.rst:110
 msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:39 ../main_window.rst:411
+#: ../doc/main_window.rst:39 ../doc/main_window.rst:347
 msgid "Project Files"
 msgstr "项目文件"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:39
+#: ../doc/main_window.rst:39
 msgid ""
 "All audio, video, and image files that have been imported into your project."
 msgstr "所有已导入项目的音频、视频和图像文件。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:40 ../main_window.rst:113
+#: ../doc/main_window.rst:40 ../doc/main_window.rst:113
 msgid "4"
 msgstr "4"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:40
+#: ../doc/main_window.rst:40
 msgid "Preview Window"
 msgstr "预览窗口"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:40
+#: ../doc/main_window.rst:40
 msgid "This is the area that the video will playback on the screen."
 msgstr "这是视频将在屏幕上播放的区域。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:41 ../main_window.rst:116
+#: ../doc/main_window.rst:41 ../doc/main_window.rst:116
 msgid "5"
 msgstr "5"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:41 ../main_window.rst:90
+#: ../doc/main_window.rst:41 ../doc/main_window.rst:90
 msgid "Timeline Toolbar"
 msgstr "时间轴工具栏"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:41
+#: ../doc/main_window.rst:41
 msgid ""
 "This toolbar contains buttons used for snapping, inserting markers, slicing "
 "razor, jumping between markers, and centering the timeline on the playhead. "
@@ -133,36 +138,38 @@ msgstr ""
 "此工具栏包含用于吸附、插入标记、切割刀片、在标记间跳转以及将时间轴居中于播放头的按钮。参见 :ref:`timeline_toolbar_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:42 ../main_window.rst:119
+#: ../doc/main_window.rst:42 ../doc/main_window.rst:119
 msgid "6"
 msgstr "6"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:42 ../main_window.rst:120
+#: ../doc/main_window.rst:42 ../doc/main_window.rst:120
 msgid "Zoom Slider"
 msgstr "缩放滑块"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:42
+#: ../doc/main_window.rst:42
 msgid ""
 "This slider will adjust the time-scale of your timeline. Drag the left or "
 "right edge to zoom in or out. Drag the blue area to scroll the timeline left"
-" or right. Clips and transitions are displayed as simple rectangles, to give"
-" you context for adjusting the zoom to specific clips."
+" or right without snapping. With snapping enabled, the left grip snaps to "
+"the earliest clip start and the right grip to the latest clip end. Double-"
+"click to fit the entire timeline or restore the previous zoom. Clips and "
+"transitions are displayed as simple rectangles, to give you context for "
+"adjusting the zoom to specific clips."
 msgstr ""
-"此滑块调整时间轴的时间比例。拖动左或右边缘可放大或缩小，拖动蓝色区域可左右滚动时间轴。剪辑和转场以简单矩形显示，方便调整缩放以定位特定剪辑。"
+"此滑块将调整时间线的时间比例。拖动左侧或右侧边缘以放大或缩小。拖动蓝色区域可在不吸附的情况下左右滚动时间线。启用吸附时，左侧握把会吸附到最早的剪辑开始位置，右侧握把会吸附到最晚的剪辑结束位置。双击可适应整个时间线或恢复之前的缩放。剪辑和转场以简单矩形显示，帮助您调整缩放以聚焦特定剪辑。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:43 ../main_window.rst:122
+#: ../doc/main_window.rst:43 ../doc/main_window.rst:122
 msgid "7"
 msgstr "7"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:43
+#: ../doc/main_window.rst:43
 msgid "Play-head / Ruler"
 msgstr "播放头 / 标尺"
 
-#: ../main_window.rst:43
+#: ../doc/main_window.rst:43
 msgid ""
 "The ruler shows the time-scale, and the line is the play-head. The play-head"
 " represents the current playback position. The current timecode can be "
@@ -173,17 +180,17 @@ msgstr ""
 "键可吸附到附近的剪辑。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:44
+#: ../doc/main_window.rst:44
 msgid "8"
 msgstr "8"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:44
+#: ../doc/main_window.rst:44
 msgid "Timeline"
 msgstr "时间轴"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:44
+#: ../doc/main_window.rst:44
 msgid ""
 "The timeline visualizes your video project, and each clip and transition in "
 "your project. You can drag the mouse to select, move, or delete multiple "
@@ -191,17 +198,17 @@ msgid ""
 msgstr "时间轴可视化您的视频项目及其中的每个剪辑和转场。您可以拖动鼠标选择、移动或删除多个项目。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:45
+#: ../doc/main_window.rst:45
 msgid "9"
 msgstr "9"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:45
+#: ../doc/main_window.rst:45
 msgid "Filter"
 msgstr "筛选"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:45
+#: ../doc/main_window.rst:45
 msgid ""
 "Filter the list of items shown (project files, transitions, effects, and "
 "emojis) by using these buttons and filter textbox. Enter a few letters of "
@@ -209,54 +216,54 @@ msgid ""
 msgstr "使用这些按钮和筛选文本框筛选显示的项目列表（项目文件、转场、特效和表情符号）。输入部分文字即可显示匹配结果。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:46
+#: ../doc/main_window.rst:46
 msgid "10"
 msgstr "10"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:46
+#: ../doc/main_window.rst:46
 msgid "Playback"
 msgstr "播放控制"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:46
+#: ../doc/main_window.rst:46
 msgid ""
 "Left to Right: Jump to Start, Rewind, Play/Pause, Fast Forward, and Jump to "
 "End"
 msgstr "从左到右：跳到开始、倒带、播放/暂停、快进和跳到结尾"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:47
+#: ../doc/main_window.rst:47
 #, fuzzy
 msgid "11"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:47
+#: ../doc/main_window.rst:47
 msgid "Track"
 msgstr "轨道"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:47
+#: ../doc/main_window.rst:47
 msgid ""
 "Track area containing the track name, track menu, and per-track controls "
 "such as lock and keyframe panel icons."
 msgstr "包含轨道名称、轨道菜单以及每个轨道控制（如锁定和关键帧面板图标）的轨道区域。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:50
+#: ../doc/main_window.rst:50
 msgid ""
 "For step-by-step instructions on the basic usage of OpenShot, be sure to "
 "read the :ref:`quick_tutorial_ref`."
 msgstr "有关 OpenShot 基本使用的逐步说明，请务必阅读 :ref:`quick_tutorial_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:54
+#: ../doc/main_window.rst:54
 msgid "Built-in Tutorial"
 msgstr "内置教程"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:55
+#: ../doc/main_window.rst:55
 msgid ""
 "When you first launch OpenShot, you will be presented with a friendly built-"
 "in tutorial. It will demonstrate and explain the basics. Clicking "
@@ -267,12 +274,12 @@ msgstr ""
 ":guilabel:` 帮助→教程` 菜单再次查看此教程。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:63
+#: ../doc/main_window.rst:63
 msgid "Tracks & Layers"
 msgstr "轨道与图层"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:65
+#: ../doc/main_window.rst:65
 msgid ""
 "OpenShot uses tracks to layer videos and images. The top most track is the "
 "top layer, and the bottom track is the bottom layer. If you are familiar "
@@ -287,1067 +294,255 @@ msgstr ""
 "会堆叠图层并混合它们，就像照片编辑软件一样。轨道数量不限，但简单的视频项目通常不超过 5 条轨道。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:72
+#: ../doc/main_window.rst:72
 msgid "For example, imagine a 3 track video project"
 msgstr "例如，想象一个三轨视频项目"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:82
+#: ../doc/main_window.rst:82
 msgid "Top Track"
 msgstr "顶层轨道"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:82
+#: ../doc/main_window.rst:82
 msgid ""
 "Clips on this track will always be on top and visible. Often watermarks and "
 "titles are placed on higher tracks."
 msgstr "此轨道上的剪辑始终位于最上方且可见。水印和标题通常放在较高的轨道上。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:83
+#: ../doc/main_window.rst:83
 msgid "Middle Track"
 msgstr "中间轨道"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:83
+#: ../doc/main_window.rst:83
 msgid ""
 "Clips in the middle (might or might not be visible, depending on what is "
 "above them)"
 msgstr "中间轨道的剪辑（是否可见取决于其上方的内容）"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:84
+#: ../doc/main_window.rst:84
 msgid "Bottom Track"
 msgstr "底层轨道"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:84
+#: ../doc/main_window.rst:84
 msgid ""
 "Clips on this track will always be on the bottom. Often audio clips are "
 "placed on lower tracks."
 msgstr "此轨道上的剪辑始终位于最底层。音频剪辑通常放在较低的轨道上。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:94
+#: ../doc/main_window.rst:94
 msgid ""
 "For a beginner-friendly overview of timeline editing (selection, tracks, "
 "keyframes, and common workflows), see :ref:`timeline_ref`."
-msgstr "有关时间线编辑（选择、轨道、关键帧和常见工作流程）的初学者友好概述，请参见 :ref:`timeline_ref`。"
+msgstr "有关时间线编辑（选择、轨道、关键帧和常见工作流程）的初学者友好概述，请参见 :ref:`timeline_ref`\\ 。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:102
+#: ../doc/main_window.rst:102
 msgid "Control Group"
 msgstr "控制组"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:105 ../main_window.rst:144
+#: ../doc/main_window.rst:105
 msgid "Add Track"
 msgstr "添加轨道"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:106
+#: ../doc/main_window.rst:106
 msgid ""
 "Add a new track to the timeline. New projects start with 5 tracks by "
 "default."
 msgstr "向时间轴添加新轨道。新项目默认有 5 条轨道。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:108
+#: ../doc/main_window.rst:108
 msgid "Undo / Redo"
 msgstr "撤销 / 重做"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:109
+#: ../doc/main_window.rst:109
 msgid "Undo or redo your latest timeline edits."
 msgstr "撤销或重做您最近的时间线编辑。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:111
+#: ../doc/main_window.rst:111
 msgid "Snap, Retime, Razor"
 msgstr "吸附、重定时、剃刀"
 
 # Main-window terminology review, 2026-09-26.
-#: ../main_window.rst:112
+#: ../doc/main_window.rst:112
 msgid ""
 "Snapping toggles magnetic alignment. Timing Tool enables retiming by "
 "dragging clip edges. The :ref:`razor_tool_ref` previews and cuts at the "
 "guide position; press :kbd:`Esc` to exit."
 msgstr ""
-"捕捉切换磁性对齐。变速工具通过拖动剪辑边缘实现重新定时。:ref:`razor_tool_ref` 在参考线位置预览并剪切；按 :kbd:`Esc` "
-"退出。"
+"捕捉切换磁性对齐。变速工具通过拖动剪辑边缘实现重新定时。\\ :ref:`razor_tool_ref` 在参考线位置预览并剪切；按 "
+":kbd:`Esc` 退出。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:114
+#: ../doc/main_window.rst:114
 msgid "Add Marker, Next/Prev Marker"
 msgstr "添加标记，前一个/下一个标记"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:115
+#: ../doc/main_window.rst:115
 msgid ""
 "Add a marker at the playhead and jump to previous or next marker/clip "
 "boundaries."
 msgstr "在播放头处添加标记，并跳转到前一个或下一个标记/剪辑边界。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:117 ../main_window.rst:148
+#: ../doc/main_window.rst:117
 msgid "Center on Playhead"
 msgstr "居中播放头"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:118
+#: ../doc/main_window.rst:118
 msgid "Center the visible timeline area around the current playhead position."
 msgstr "将可见时间线区域居中于当前播放头位置。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:121
+#: ../doc/main_window.rst:121
 msgid ""
 "Control the visible timeline range. Drag handles to zoom in/out, drag center"
 " to pan, and double-click to fit timeline. You can also use "
 ":kbd:`Ctrl+Scroll Wheel`, or on the QWidget timeline hold :kbd:`Ctrl` and "
 "drag with the middle mouse button for smooth zooming."
 msgstr ""
-"控制可见的时间线范围。拖动把手以放大/缩小，拖动中心以平移，双击以适应时间线。您还可以使用 :kbd:`Ctrl+滚轮`，或者在 QWidget "
+"控制可见的时间线范围。拖动把手以放大/缩小，拖动中心以平移，双击以适应时间线。您还可以使用 :kbd:`Ctrl+滚轮`\\ ，或者在 QWidget "
 "时间线上按住 :kbd:`Ctrl` 并用中键拖动以实现平滑缩放。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:123
+#: ../doc/main_window.rst:123
 msgid "Track toggles (Lock, Keyframe Panel)"
 msgstr "轨道切换（锁定，关键帧面板）"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:124
+#: ../doc/main_window.rst:124
 msgid "Per-track controls such as lock and keyframe panel visibility."
 msgstr "每个轨道的控制，如锁定和关键帧面板的可见性。"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:129
-msgid "Keyboard Shortcuts"
-msgstr "键盘快捷键"
+#: ../doc/main_window.rst:127
+msgid "Common Keyboard Shortcuts"
+msgstr "常用键盘快捷键"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:130
+#: ../doc/main_window.rst:128
 msgid ""
-"Here is a list of the default keyboard shortcuts supported by OpenShot. You "
-"can configure these shortcuts in the Preferences window, which is opened by "
-"selecting :guilabel:`Edit→Preferences` from the OpenShot menu bar. (On "
-"macOS, choose :guilabel:`OpenShot Video Editor→Preferences`.) Learning a few"
-" of these shortcuts can save you a bunch of time!"
+"A few shortcuts can help you get around OpenShot and make quick edits. "
+"Timeline selection and editing shortcuts apply when the timeline has "
+"keyboard focus. Use Tab / Shift+Tab to move between controls and dock tab "
+"titles. Press Space or Enter on a focused tab title to select its dock and "
+"enter the first control."
 msgstr ""
-"以下是 OpenShot 支持的默认键盘快捷键列表。您可以在“首选项”窗口中配置这些快捷键，该窗口可通过 OpenShot 菜单栏选择 "
-":guilabel:`编辑→首选项` 打开。（在 macOS 上，选择 :guilabel:`OpenShot Video Editor→首选项` "
-"。）掌握其中一些快捷键可以节省大量时间！"
+"一些快捷键可以帮助您更好地使用 OpenShot 并快速编辑。时间线选择和编辑快捷键仅在时间线获得键盘焦点时生效。使用 Tab / Shift+Tab "
+"在控件和停靠标签标题之间切换。按空格键或回车键可选择聚焦的标签标题的停靠区并进入第一个控件。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:140
+#: ../doc/main_window.rst:137
 msgid "Action"
 msgstr "操作"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:140
-msgid "Shortcut 1"
-msgstr "快捷键 1"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:140
-msgid "Shortcut 2"
-msgstr "快捷键 2"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:140
-msgid "Shortcut 3"
-msgstr "快捷键 3"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:142 ../main_window.rst:294
-msgid "About OpenShot"
-msgstr "关于 OpenShot"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:142
-msgid ":kbd:`Ctrl+H`"
-msgstr ":kbd:`Ctrl+H`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:143
-msgid "Add Marker"
-msgstr "添加标记"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:143
-msgid ":kbd:`M`"
-msgstr ":kbd:`M`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:144
-msgid ":kbd:`Ctrl+Y`"
-msgstr ":kbd:`Ctrl+Y`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:145
-msgid "Add to Timeline"
-msgstr "添加到时间轴"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:145
-msgid ":kbd:`Ctrl+Alt+A`"
-msgstr ":kbd:`Ctrl+Alt+A`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:146
-msgid "Animated Title"
-msgstr "动画标题"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:146
-msgid ":kbd:`Ctrl+Shift+T`"
-msgstr ":kbd:`Ctrl+Shift+T`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:147
-msgid "Ask a Question..."
-msgstr "提问..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:147
-msgid ":kbd:`F4`"
-msgstr ":kbd:`F4`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:148
-msgid ":kbd:`Shift+C`"
-msgstr ":kbd:`Shift+C`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:148
-msgid ":kbd:`Alt+Up`"
-msgstr ":kbd:`Alt+Up`"
-
-#: ../main_window.rst:149 ../main_window.rst:329
-msgid "Color View"
-msgstr "颜色视图"
-
-#: ../main_window.rst:149
-msgid ":kbd:`Alt+Shift+2`"
-msgstr ":kbd:`Alt+Shift+2`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:150
-msgid "Choose Profile"
-msgstr "选择配置文件"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:150
-msgid ":kbd:`Ctrl+Alt+P`"
-msgstr ":kbd:`Ctrl+Alt+P`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:151
-msgid "Clear All Cache"
-msgstr "清除所有缓存"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:151
-msgid ":kbd:`Ctrl+Shift+ESC`"
-msgstr ":kbd:`Ctrl+Shift+ESC`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:152
-msgid "Clear History"
-msgstr "清除历史记录"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:152
-msgid ":kbd:`Ctrl+Shift+H`"
-msgstr ":kbd:`Ctrl+Shift+H`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:153
-msgid "Delete Optimized Videos"
-msgstr "删除优化视频"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:153
-msgid ":kbd:`Ctrl+Shift+O`"
-msgstr ":kbd:`Ctrl+Shift+O`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:154
-msgid "Clear Waveform Display Data"
-msgstr "清除波形显示数据"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:154
-msgid ":kbd:`Ctrl+Shift+W`"
-msgstr ":kbd:`Ctrl+Shift+W`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:155
-msgid "Copy"
-msgstr "复制"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:155
-msgid ":kbd:`Ctrl+C`"
-msgstr ":kbd:`Ctrl+C`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:156
-msgid "Cut"
-msgstr "剪切"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:156
-msgid ":kbd:`Ctrl+X`"
-msgstr ":kbd:`Ctrl+X`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:157
-msgid "Delete Item"
-msgstr "删除项目"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:157
-msgid ":kbd:`Delete`"
-msgstr ":kbd:`Delete`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:157
-msgid ":kbd:`Backspace`"
-msgstr ":kbd:`Backspace`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:158
-msgid "Delete Item (Ripple)"
-msgstr "删除项目（波纹）"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:158
-msgid ":kbd:`Shift+Delete`"
-msgstr ":kbd:`Shift+Delete`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:159
-msgid "Details View"
-msgstr "详细视图"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:159
-msgid ":kbd:`Ctrl+Page Up`"
-msgstr ":kbd:`Ctrl+Page Up`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:160
-msgid "Donate"
-msgstr "捐赠"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:160
-msgid ":kbd:`F7`"
-msgstr ":kbd:`F7`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:161
-msgid "Duplicate"
-msgstr "复制"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:161
-msgid ":kbd:`Ctrl+Shift+/`"
-msgstr ":kbd:`Ctrl+Shift+/`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:162
-msgid "Edit Title"
-msgstr "编辑标题"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:162
-msgid ":kbd:`Alt+T`"
-msgstr ":kbd:`Alt+T`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:163
-msgid "Export Selected Files"
-msgstr "导出选中文件"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:163
-msgid ":kbd:`Ctrl+Shift+E`"
-msgstr ":kbd:`Ctrl+Shift+E`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:164
-msgid "Export Video / Media"
-msgstr "导出视频/媒体"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:164
-msgid ":kbd:`Ctrl+E`"
-msgstr ":kbd:`Ctrl+E`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:164
-msgid ":kbd:`Ctrl+M`"
-msgstr ":kbd:`Ctrl+M`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:165
-msgid "Fast Forward"
-msgstr "快进"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:165
-msgid ":kbd:`L`"
-msgstr ":kbd:`L`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:166
-msgid "File Properties"
-msgstr "文件属性"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:166
-msgid ":kbd:`Alt+I`"
-msgstr ":kbd:`Alt+I`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:166
-msgid ":kbd:`Ctrl+Double Click`"
-msgstr ":kbd:`Ctrl+Double Click`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:167
-msgid "Fullscreen"
-msgstr "全屏"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:167
-msgid ":kbd:`F11`"
-msgstr ":kbd:`F11`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:168
-msgid "Import Files..."
-msgstr "导入文件..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:168
-msgid ":kbd:`Ctrl+I`"
-msgstr ":kbd:`Ctrl+I`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:169
-msgid "Insert Keyframe"
-msgstr "插入关键帧"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:169
-msgid ":kbd:`Alt+Shift+K`"
-msgstr ":kbd:`Alt+Shift+K`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:170
-msgid "Join our Community..."
-msgstr "加入我们的社区..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:170
-msgid ":kbd:`F5`"
-msgstr ":kbd:`F5`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:171
-msgid "Jump To End"
-msgstr "跳转到结尾"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:171
-msgid ":kbd:`End`"
-msgstr ":kbd:`End`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:172
-msgid "Jump To Start"
-msgstr "跳转到开始"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:172
-msgid ":kbd:`Home`"
-msgstr ":kbd:`Home`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:173
-msgid "Launch Tutorial"
-msgstr "启动教程"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:173
-msgid ":kbd:`F2`"
-msgstr ":kbd:`F2`"
+#: ../doc/main_window.rst:138
+msgid "Shortcut"
+msgstr "快捷键"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:174
-msgid "New Project"
-msgstr "新建项目"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:174
-msgid ":kbd:`Ctrl+N`"
-msgstr ":kbd:`Ctrl+N`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:175
-msgid "Next Frame"
-msgstr "下一帧"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:175
-msgid ":kbd:`Right`"
-msgstr ":kbd:`Right`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:175
-msgid ":kbd:`.`"
-msgstr ":kbd:`.`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:176
-msgid "Next Marker"
-msgstr "下一个标记"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:176
-msgid ":kbd:`Shift+M`"
-msgstr ":kbd:`Shift+M`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:176
-msgid ":kbd:`Alt+Right`"
-msgstr ":kbd:`Alt+Right`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:177
-msgid "Nudge left (1 Frame)"
-msgstr "向左微调（1帧）"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:177
-msgid ":kbd:`Ctrl+Left`"
-msgstr ":kbd:`Ctrl+Left`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:178
-msgid "Nudge left (5 Frames)"
-msgstr "向左微调（5帧）"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:178
-msgid ":kbd:`Shift+Ctrl+Left`"
-msgstr ":kbd:`Shift+Ctrl+Left`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:179
-msgid "Nudge right (1 Frame)"
-msgstr "向右微调（1帧）"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:179
-msgid ":kbd:`Ctrl+Right`"
-msgstr ":kbd:`Ctrl+Right`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:180
-msgid "Nudge right (5 Frames)"
-msgstr "向右微调（5帧）"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:180
-msgid ":kbd:`Shift+Ctrl+Right`"
-msgstr ":kbd:`Shift+Ctrl+Right`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:181
-msgid "Open Help Contents"
-msgstr "打开帮助内容"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:181
-msgid ":kbd:`F1`"
-msgstr ":kbd:`F1`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:182
-msgid "Open Project..."
-msgstr "打开项目..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:182
-msgid ":kbd:`Ctrl+O`"
-msgstr ":kbd:`Ctrl+O`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:183
-msgid "Paste"
-msgstr "粘贴"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:183
-msgid ":kbd:`Ctrl+V`"
-msgstr ":kbd:`Ctrl+V`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:184
-msgid "Play/Pause Toggle"
-msgstr "播放/暂停切换"
+#: ../doc/main_window.rst:139
+msgid "Play / pause"
+msgstr "播放 / 暂停"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:184
+#: ../doc/main_window.rst:140
 msgid ":kbd:`Space`"
 msgstr ":kbd:`Space`"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:184
-msgid ":kbd:`Up`"
-msgstr ":kbd:`Up`"
+#: ../doc/main_window.rst:141
+msgid "Focus timeline"
+msgstr "聚焦时间线"
+
+#: ../doc/main_window.rst:142
+msgid ":kbd:`Shift+3`"
+msgstr ":kbd:`Shift+3`"
+
+#: ../doc/main_window.rst:143
+msgid "Previous / next frame"
+msgstr "上一帧 / 下一帧"
+
+#: ../doc/main_window.rst:144
+msgid ":kbd:`Left` / :kbd:`Right`"
+msgstr ":kbd:`Left` / :kbd:`Right`"
+
+#: ../doc/main_window.rst:145
+msgid "Focus Project Files / add selected assets at the playhead"
+msgstr "聚焦项目文件 / 在播放头处添加选中的素材"
+
+#: ../doc/main_window.rst:146
+msgid ":kbd:`Shift+1`, then :kbd:`Ctrl+Enter`"
+msgstr ":kbd:`Shift+1`\\ ，然后 :kbd:`Ctrl+Enter`"
+
+#: ../doc/main_window.rst:147
+msgid "Select previous / next clip or transition"
+msgstr "选择上一个 / 下一个剪辑或转场"
+
+#: ../doc/main_window.rst:148
+msgid ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+
+#: ../doc/main_window.rst:149
+msgid "Nudge selection one frame"
+msgstr "微调选中项一帧"
+
+#: ../doc/main_window.rst:150
+msgid ":kbd:`,` / :kbd:`.`"
+msgstr ":kbd:`,` / :kbd:`.`"
+
+#: ../doc/main_window.rst:151
+msgid "Split selected clips at playhead"
+msgstr "在播放头处拆分选中的剪辑"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:184
-msgid ":kbd:`Down`"
-msgstr ":kbd:`Down`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:185
-msgid "Preferences"
-msgstr "首选项"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:185
-msgid ":kbd:`Ctrl+P`"
-msgstr ":kbd:`Ctrl+P`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:186
-msgid "Preview File"
-msgstr "预览文件"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:186
-msgid ":kbd:`Alt+P`"
-msgstr ":kbd:`Alt+P`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:186 ../main_window.rst:223
-msgid ":kbd:`Double Click`"
-msgstr ":kbd:`双击`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:187
-msgid "Previous Frame"
-msgstr "上一帧"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:187
-msgid ":kbd:`Left`"
-msgstr ":kbd:`Left`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:187
-msgid ":kbd:`,`"
-msgstr ":kbd:`,`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:188
-msgid "Previous Marker"
-msgstr "上一个标记"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:188
-msgid ":kbd:`Ctrl+Shift+M`"
-msgstr ":kbd:`Ctrl+Shift+M`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:188
-msgid ":kbd:`Alt+Left`"
-msgstr ":kbd:`Alt+Left`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:189 ../main_window.rst:413
-msgid "Properties"
-msgstr "属性"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:189
-msgid ":kbd:`U`"
-msgstr ":kbd:`U`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:190
-msgid "Quit"
-msgstr "退出"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:190
-msgid ":kbd:`Ctrl+Q`"
-msgstr ":kbd:`Ctrl+Q`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:191
-msgid "Razor Toggle"
-msgstr "剃刀工具切换"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:191
-msgid ":kbd:`C`"
-msgstr ":kbd:`C`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:191
-msgid ":kbd:`B`"
-msgstr ":kbd:`B`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:191
-msgid ":kbd:`R`"
-msgstr ":kbd:`R`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:192
-msgid "Redo"
-msgstr "重做"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:192
-msgid ":kbd:`Ctrl+Shift+Z`"
-msgstr ":kbd:`Ctrl+Shift+Z`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:193
-msgid "Report a Bug..."
-msgstr "报告错误..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:193
-msgid ":kbd:`F3`"
-msgstr ":kbd:`F3`"
-
-# Main-window terminology review, 2026-09-26.
-#: ../main_window.rst:194
-msgid "Rewind"
-msgstr "快退"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:194
-msgid ":kbd:`J`"
-msgstr ":kbd:`J`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:195 ../main_window.rst:196
-msgid "Save Current Frame"
-msgstr "保存当前帧"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:195 ../main_window.rst:196
-msgid ":kbd:`Ctrl+Shift+Y`"
-msgstr ":kbd:`Ctrl+Shift+Y`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:197
-msgid "Save Project"
-msgstr "保存项目"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:197
-msgid ":kbd:`Ctrl+S`"
-msgstr ":kbd:`Ctrl+S`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:198
-msgid "Save Project As..."
-msgstr "项目另存为..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:198
-msgid ":kbd:`Ctrl+Shift+S`"
-msgstr ":kbd:`Ctrl+Shift+S`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:199
-msgid "Select All"
-msgstr "全选"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:199
-msgid ":kbd:`Ctrl+A`"
-msgstr ":kbd:`Ctrl+A`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:200
-msgid "Select Item (Ripple)"
-msgstr "选择项目（波纹）"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:200
-msgid ":kbd:`Alt+A`"
-msgstr ":kbd:`Alt+A`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:200
-msgid ":kbd:`Alt+Click`"
-msgstr ":kbd:`Alt+点击`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:201
-msgid "Select None"
-msgstr "取消选择"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:201
-msgid ":kbd:`Ctrl+Shift+A`"
-msgstr ":kbd:`Ctrl+Shift+A`"
-
-#: ../main_window.rst:202
-msgid "Share Feedback..."
-msgstr "分享反馈..."
-
-#: ../main_window.rst:202
-msgid ":kbd:`F8`"
-msgstr ":kbd:`F8`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:203 ../main_window.rst:322
-msgid "Simple View"
-msgstr "简易视图"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:203
-msgid ":kbd:`Alt+Shift+0`"
-msgstr ":kbd:`Alt+Shift+0`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:204
-msgid "Slice All: Keep Both Sides"
-msgstr "全部切片：保留两侧"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:204
-msgid ":kbd:`Ctrl+Shift+K`"
-msgstr ":kbd:`Ctrl+Shift+K`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:205
-msgid "Slice All: Keep Left Side"
-msgstr "全部切片：保留左侧"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:205
-msgid ":kbd:`Ctrl+Shift+J`"
-msgstr ":kbd:`Ctrl+Shift+J`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:206
-msgid "Slice All: Keep Right Side"
-msgstr "全部切片：保留右侧"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:206
-msgid ":kbd:`Ctrl+Shift+L`"
-msgstr ":kbd:`Ctrl+Shift+L`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:207
-msgid "Slice Selected: Keep Both Sides"
-msgstr "切片选中：保留两侧"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:207
+#: ../doc/main_window.rst:152
 msgid ":kbd:`Ctrl+K`"
 msgstr ":kbd:`Ctrl+K`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:208
-msgid "Slice Selected: Keep Left Side"
-msgstr "切片选中：保留左侧"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:208
-msgid ":kbd:`Ctrl+J`"
-msgstr ":kbd:`Ctrl+J`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:209
-msgid "Slice Selected: Keep Right Side"
-msgstr "切片选中：保留右侧"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:209
-msgid ":kbd:`Ctrl+L`"
-msgstr ":kbd:`Ctrl+L`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:210
-msgid "Slice Selected: Keep Left (Ripple)"
-msgstr "切片选中：保留左侧（波纹）"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:210
-msgid ":kbd:`W`"
-msgstr ":kbd:`W`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:211
-msgid "Slice Selected: Keep Right (Ripple)"
-msgstr "切片选中：保留右侧（波纹）"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:211
-msgid ":kbd:`Q`"
-msgstr ":kbd:`Q`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:212
-msgid "Snapping Toggle"
-msgstr "吸附切换"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:212
-msgid ":kbd:`S`"
-msgstr ":kbd:`S`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:213
-msgid "Split File"
-msgstr "拆分文件"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:213
-msgid ":kbd:`Alt+S`"
-msgstr ":kbd:`Alt+S`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:213
-msgid ":kbd:`Shift+Double Click`"
-msgstr ":kbd:`Shift+双击`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:214
-msgid "Thumbnail View"
-msgstr "缩略图视图"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:214
-msgid ":kbd:`Ctrl+Page Down`"
-msgstr ":kbd:`Ctrl+向下翻页`"
-
-# Main-window terminology review, 2026-09-26.
-#: ../main_window.rst:215
-msgid "Timing Toggle"
-msgstr "切换变速工具"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:215
-msgid ":kbd:`T`"
-msgstr ":kbd:`T`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:216 ../main_window.rst:257
-msgid "Title"
-msgstr "标题"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:216
-msgid ":kbd:`Ctrl+T`"
-msgstr ":kbd:`Ctrl+T`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:217
-msgid "Translate this Application..."
-msgstr "翻译此应用程序..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:217
-msgid ":kbd:`F6`"
-msgstr ":kbd:`F6`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:218
+#: ../doc/main_window.rst:153
 msgid "Undo"
 msgstr "撤销"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:218
+#: ../doc/main_window.rst:154
 msgid ":kbd:`Ctrl+Z`"
 msgstr ":kbd:`Ctrl+Z`"
 
-#: ../main_window.rst:219
-msgid "Update Available"
-msgstr "有可用更新"
-
-#: ../main_window.rst:219
-msgid ":kbd:`F9`"
-msgstr ":kbd:`F9`"
+#: ../doc/main_window.rst:155
+msgid "Save project"
+msgstr "保存项目"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:220
-msgid "View Toolbar"
-msgstr "查看工具栏"
+#: ../doc/main_window.rst:156
+msgid ":kbd:`Ctrl+S`"
+msgstr ":kbd:`Ctrl+S`"
+
+#: ../doc/main_window.rst:158
+msgid ""
+"See :ref:`keyboard_shortcut_ref` for the full reference, keyboard timeline "
+"editing, and a comparison of common shortcuts in other editors. Customize "
+"shortcuts in :guilabel:`Preferences → Keyboard`."
+msgstr ""
+"请参阅 :ref:`keyboard_shortcut_ref` 获取完整参考、键盘时间线编辑以及其他编辑器常用快捷键的比较。在 "
+":guilabel:`首选项 → 键盘` 中自定义快捷键。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:220
-msgid ":kbd:`Ctrl+Shift+B`"
-msgstr ":kbd:`Ctrl+Shift+B`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:221
-msgid "Zoom In"
-msgstr "放大"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:221
-msgid ":kbd:`=`"
-msgstr ":kbd:`=`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:221
-msgid ":kbd:`Ctrl+=`"
-msgstr ":kbd:`Ctrl+=`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:222
-msgid "Zoom Out"
-msgstr "缩小"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:222
-msgid ":kbd:`-`"
-msgstr ":kbd:`-`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:222
-msgid ":kbd:`Ctrl+-`"
-msgstr ":kbd:`Ctrl+-`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:223
-msgid "Zoom to Timeline"
-msgstr "缩放到时间线"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:223
-msgid ":kbd:`\\\\`"
-msgstr ":kbd:`\\\\`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:223
-msgid ":kbd:`Shift+\\\\`"
-msgstr ":kbd:`Shift+\\\\`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:227
+#: ../doc/main_window.rst:163
 msgid "Menu"
 msgstr "菜单"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:228
+#: ../doc/main_window.rst:164
 msgid ""
 "The following menu options are available on the main window on OpenShot. "
 "Most of these options can be accessed by the keyboard shortcuts mentioned "
@@ -1358,213 +553,218 @@ msgstr ""
 "macOS）中，部分选项名称可能被重命名和/或重新排列。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:236
+#: ../doc/main_window.rst:172
 msgid "Menu Name"
 msgstr "菜单名称"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:238
+#: ../doc/main_window.rst:174
 msgid "File"
 msgstr "文件"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:240
+#: ../doc/main_window.rst:176
 msgid ":guilabel:`New Project` Create a blank new project."
 msgstr ":guilabel:`新建项目` 创建一个空白新项目。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:241
+#: ../doc/main_window.rst:177
 msgid ":guilabel:`Open Project` Open an existing project."
 msgstr ":guilabel:`打开项目` 打开一个已有项目。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:242
+#: ../doc/main_window.rst:178
 msgid ":guilabel:`Recent Projects` Access recently opened projects."
 msgstr ":guilabel:`最近项目` 访问最近打开的项目。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:243
+#: ../doc/main_window.rst:179
 msgid ""
 ":guilabel:`Recovery` Restore a previously saved version of your current "
 "project."
 msgstr ":guilabel:`恢复` 恢复当前项目的先前保存版本。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:244
+#: ../doc/main_window.rst:180
 msgid ":guilabel:`Save Project` Save the current project."
 msgstr ":guilabel:`保存项目` 保存当前项目。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:245
+#: ../doc/main_window.rst:181
 msgid ":guilabel:`Import Files` Import media files into the project."
 msgstr ":guilabel:`导入文件` 将媒体文件导入项目。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:246
+#: ../doc/main_window.rst:182
 msgid ""
 ":guilabel:`Choose Profile` Select a project profile (*i.e. 1080p @ 30fps, "
 "720p @ 24fps, ...*)."
 msgstr ":guilabel:`选择配置` 选择项目配置（例如 1080p @ 30fps，720p @ 24fps 等）。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:247
+#: ../doc/main_window.rst:183
 msgid ""
 ":guilabel:`Save Current Frame` Save the current preview video frame as an "
 "image (sometimes represented with a camera icon)."
 msgstr ":guilabel:`保存当前帧` 将当前预览视频帧保存为图像（有时用相机图标表示）。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:248
+#: ../doc/main_window.rst:184
 msgid ""
 ":guilabel:`Import Project` Import another project into the current project "
 "(*Adobe and Final Cut Pro formats partially supported*)."
 msgstr ":guilabel:`导入项目` 将另一个项目导入当前项目（部分支持 Adobe 和 Final Cut Pro 格式）。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:249
+#: ../doc/main_window.rst:185
 msgid ""
 ":guilabel:`Export Project` Export the current project to a specified format "
 "(*EDL, Adobe, and Final Cut Pro formats partially supported*)."
 msgstr ":guilabel:`导出项目` 将当前项目导出为指定格式（部分支持 EDL、Adobe 和 Final Cut Pro 格式）。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:250
+#: ../doc/main_window.rst:186
 msgid ":guilabel:`Quit` Exit the application."
 msgstr ":guilabel:`退出` 退出应用程序。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:251
+#: ../doc/main_window.rst:187
 msgid "Edit"
 msgstr "编辑"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:253
+#: ../doc/main_window.rst:189
 msgid ":guilabel:`Undo` Undo the last action."
 msgstr ":guilabel:`撤销` 撤销上一步操作。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:254
+#: ../doc/main_window.rst:190
 msgid ":guilabel:`Redo` Redo the last undone action."
 msgstr ":guilabel:`重做` 重做上一步撤销的操作。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:255
+#: ../doc/main_window.rst:191
 msgid ""
 ":guilabel:`Clear` Clear the current history or waveform cached data. This "
 "makes the `.osp project` file a much smaller file size."
 msgstr ":guilabel:`清除` 清除当前历史记录或波形缓存数据，使 `.osp` 项目文件体积更小。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:256
+#: ../doc/main_window.rst:192
 msgid ""
 ":guilabel:`Preferences` Open the preferences dialog to customize settings."
 msgstr ":guilabel:`首选项` 打开首选项对话框以自定义设置。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:259
+#: ../doc/main_window.rst:193
+msgid "Title"
+msgstr "标题"
+
+# Translated with gpt-4.1-mini
+#: ../doc/main_window.rst:195
 msgid ""
 ":guilabel:`Title` Add a SVG vector title to the project. See "
 ":ref:`text_and_titles_ref`."
 msgstr ":guilabel:`标题` 向项目添加 SVG 矢量标题。参见 :ref:`text_and_titles_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:260
+#: ../doc/main_window.rst:196
 msgid ""
 ":guilabel:`Animated Title` Add an animated title to the project. See "
 ":ref:`animated_titles_ref`."
 msgstr ":guilabel:`动画标题` 向项目添加动画标题。参见 :ref:`animated_titles_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:261
+#: ../doc/main_window.rst:197
 msgid "View"
 msgstr "视图"
 
-#: ../main_window.rst:263
+#: ../doc/main_window.rst:199
 msgid ""
 ":guilabel:`Simple View` and :guilabel:`Color View` switch or reset the main "
 "window layout."
 msgstr ":guilabel:`简单视图` 和 :guilabel:`颜色视图` 切换或重置主窗口布局。"
 
-#: ../main_window.rst:264
+#: ../doc/main_window.rst:200
 msgid ""
 ":guilabel:`My Views` Save, load, update, and delete your own named layouts. "
 "See :ref:`my_views_ref`."
-msgstr ":guilabel:`我的视图` 保存、加载、更新和删除您自己的命名布局。参见 :ref:`my_views_ref`。"
+msgstr ":guilabel:`我的视图` 保存、加载、更新和删除您自己的命名布局。参见 :ref:`my_views_ref`\\ 。"
 
-#: ../main_window.rst:265
+#: ../doc/main_window.rst:201
 msgid ":guilabel:`Docks` Show or hide various dockable panels."
 msgstr ":guilabel:`停靠` 显示或隐藏各种可停靠面板。"
 
-#: ../main_window.rst:266
+#: ../doc/main_window.rst:202
 msgid ""
 ":guilabel:`Scopes` Show or hide scope docks, or open all scopes at once."
 msgstr ":guilabel:`示波器` 显示或隐藏示波器停靠，或一次打开所有示波器。"
 
-#: ../main_window.rst:267
+#: ../doc/main_window.rst:203
 msgid ""
 ":guilabel:`Window` Show or hide the main window toolbar, or toggle "
 "fullscreen mode."
 msgstr ":guilabel:`窗口` 显示或隐藏主窗口工具栏，或切换全屏模式。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:268
+#: ../doc/main_window.rst:204
 msgid "Help"
 msgstr "帮助"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:270
+#: ../doc/main_window.rst:206
 msgid ":guilabel:`Contents` Open the user guide online."
 msgstr ":guilabel:`内容` 在线打开用户指南。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:271
+#: ../doc/main_window.rst:207
 msgid ":guilabel:`Tutorial` Access the built-in tutorial for new users."
 msgstr ":guilabel:`教程` 访问内置新手教程。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:272
+#: ../doc/main_window.rst:208
 msgid ":guilabel:`Report a Bug` Report a bug or issue."
 msgstr ":guilabel:`报告错误` 报告错误或问题。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:273
+#: ../doc/main_window.rst:209
 msgid ":guilabel:`Ask a Question` Ask a question about the software."
 msgstr ":guilabel:`提问` 提出关于软件的问题。"
 
-#: ../main_window.rst:274
+#: ../doc/main_window.rst:210
 msgid ""
 ":guilabel:`Share Feedback` Open a survey about your experience with "
 "OpenShot."
 msgstr ":guilabel:`分享反馈` 打开关于您使用 OpenShot 体验的调查问卷。"
 
-#: ../main_window.rst:275
+#: ../doc/main_window.rst:211
 msgid ""
 ":guilabel:`Update Available` Open the download page when a newer version is "
 "available."
 msgstr ":guilabel:`有可用更新` 当有新版本时打开下载页面。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:276
+#: ../doc/main_window.rst:212
 msgid ":guilabel:`Translate` Contribute to translations of the software."
 msgstr ":guilabel:`翻译` 参与软件翻译。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:277
+#: ../doc/main_window.rst:213
 msgid ":guilabel:`Donate` Make a donation to support the project."
 msgstr ":guilabel:`捐赠` 进行捐赠以支持项目。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:278
+#: ../doc/main_window.rst:214
 msgid ""
 ":guilabel:`About` View information about the software (version, "
 "contributors, translators, changelog, and supporters)."
 msgstr ":guilabel:`关于` 查看软件信息（版本，贡献者，翻译者，更新日志和支持者）。"
 
-#: ../main_window.rst:281
+#: ../doc/main_window.rst:217
 msgid "Notifications"
 msgstr "通知"
 
-#: ../main_window.rst:283
+#: ../doc/main_window.rst:219
 msgid ""
 "OpenShot may show a notice near the top of the window when a newer version "
 "is available. Choose :guilabel:`Upgrade` to open the download page, or close"
@@ -1574,38 +774,44 @@ msgid ""
 msgstr ""
 "当有新版本可用时，OpenShot 可能会在窗口顶部附近显示通知。选择 :guilabel:`升级` "
 "打开下载页面，或关闭通知以隐藏该版本的提示。您仍然可以通过 :guilabel:`帮助 → 有可用更新` 打开下载页面，或在有更新时按 "
-":kbd:`F9`。"
+":kbd:`F9`\\ 。"
 
-#: ../main_window.rst:288
+#: ../doc/main_window.rst:224
 msgid ""
-"After you have spent some time editing, OpenShot may also invite you to "
-"share feedback. The survey is optional. You can open it from the notice or "
-"dismiss the invitation. At any time, choose :guilabel:`Help → Share "
-"Feedback` or press :kbd:`F8` to share your thoughts."
+"After your first successful export of each OpenShot release, a notice "
+"invites you to share feedback once you close the Export window. The survey "
+"is optional. You can open it from the notice or dismiss the invitation. At "
+"any time, choose :guilabel:`Help → Share Feedback` or press :kbd:`F8` to "
+"share your thoughts."
 msgstr ""
-"编辑一段时间后，OpenShot 可能会邀请您分享反馈。调查是可选的。您可以从通知中打开或忽略邀请。您也可以随时选择 :guilabel:`帮助 → "
-"分享反馈` 或按 :kbd:`F8` 分享您的想法。"
+"每次成功导出 OpenShot 新版本后，关闭导出窗口时会弹出通知邀请您分享反馈。调查为可选项，您可以从通知中打开或关闭邀请。您也可以随时选择 "
+":guilabel:`帮助 → 分享反馈` 或按 :kbd:`F8` 来表达您的意见。"
 
-#: ../main_window.rst:295
+# Translated with gpt-4.1-mini
+#: ../doc/main_window.rst:230
+msgid "About OpenShot"
+msgstr "关于 OpenShot"
+
+#: ../doc/main_window.rst:231
 msgid ""
 "Use :guilabel:`Help→About OpenShot` to check your OpenShot version. Click "
 ":guilabel:`Copy` next to the version number to copy a short version and "
 "system details report, including how OpenShot was installed. This is a "
 "useful way to share the information when reporting a bug or asking for help."
 msgstr ""
-"使用 :guilabel:`帮助→关于 OpenShot` 查看您的 OpenShot 版本。点击版本号旁的 "
-":guilabel:`复制`，复制简短的版本和系统详细信息报告，包括 OpenShot 的安装方式。这是在报告错误或寻求帮助时分享信息的有效方式。"
+"使用 :guilabel:`帮助→关于 OpenShot` 查看您的 OpenShot 版本。点击版本号旁的 :guilabel:`复制`\\ "
+"，复制简短的版本和系统详细信息报告，包括 OpenShot 的安装方式。这是在报告错误或寻求帮助时分享信息的有效方式。"
 
-#: ../main_window.rst:300
+#: ../doc/main_window.rst:236
 msgid "Example output:"
 msgstr "示例输出："
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:315
+#: ../doc/main_window.rst:251
 msgid "Views"
 msgstr "视图"
 
-#: ../main_window.rst:317
+#: ../doc/main_window.rst:253
 msgid ""
 "The OpenShot main window is composed of multiple **docks**. These **docks** "
 "are arranged and snapped together into a grouping that we call a **View**. "
@@ -1613,9 +819,14 @@ msgid ""
 ":guilabel:`My Views` (user-defined layouts)."
 msgstr ""
 "OpenShot 主窗口由多个 **停靠** 组成。这些 **停靠** 被排列并吸附在一起形成一个我们称之为 **视图** 的分组。OpenShot "
-"包含 :guilabel:`简单视图`、:guilabel:`颜色视图` 和 :guilabel:`我的视图`（用户定义的布局）。"
+"包含 :guilabel:`简单视图`\\ 、\\ :guilabel:`颜色视图` 和 :guilabel:`我的视图`\\ （用户定义的布局）。"
 
-#: ../main_window.rst:323
+# Translated with gpt-4.1-mini
+#: ../doc/main_window.rst:258
+msgid "Simple View"
+msgstr "简易视图"
+
+#: ../doc/main_window.rst:259
 msgid ""
 "This is the **default** view, and is designed to be easy-to-use, especially "
 "for first-time users. It contains :guilabel:`Project Files` on the top left,"
@@ -1624,11 +835,15 @@ msgid ""
 "all the docks back to their default location using the "
 ":guilabel:`View->Simple View` menu at the top of the screen."
 msgstr ""
-"这是 **默认** 视图，设计为易于使用，特别适合首次使用者。它包含左上角的 :guilabel:`项目文件`，右上角的 "
-":guilabel:`预览窗口`，以及底部的 :guilabel:`时间线`。如果您不小心关闭或移动了停靠，可以使用屏幕顶部的 "
+"这是 **默认** 视图，设计为易于使用，特别适合首次使用者。它包含左上角的 :guilabel:`项目文件`\\ ，右上角的 "
+":guilabel:`预览窗口`\\ ，以及底部的 :guilabel:`时间线`\\ 。如果您不小心关闭或移动了停靠，可以使用屏幕顶部的 "
 ":guilabel:`视图->简单视图` 菜单快速将所有停靠重置回默认位置。"
 
-#: ../main_window.rst:330
+#: ../doc/main_window.rst:265
+msgid "Color View"
+msgstr "颜色视图"
+
+#: ../doc/main_window.rst:266
 msgid ""
 "This view is focused on color correction and scopes. It enlarges the video "
 "preview, hides file-management docks, keeps the timeline and properties "
@@ -1639,11 +854,11 @@ msgstr ""
 "此视图专注于颜色校正和示波器。它放大视频预览，隐藏文件管理停靠，保持时间线和属性可见，将 :guilabel:`色轮` 停靠放置在右侧，并将 "
 ":guilabel:`亮度波形` 和 :guilabel:`直方图` 停靠合并为标签，置于其下方。"
 
-#: ../main_window.rst:335
+#: ../doc/main_window.rst:271
 msgid "Recording View"
 msgstr "录制视图"
 
-#: ../main_window.rst:336
+#: ../doc/main_window.rst:272
 msgid ""
 "This view is focused on creating new recordings inside OpenShot. It shows "
 ":guilabel:`Project Files`, :guilabel:`Video Preview`, :guilabel:`Timeline`, "
@@ -1651,12 +866,11 @@ msgid ""
 "grouped with :guilabel:`Project Files` as a tab, so you can show it from "
 ":guilabel:`View->Docks->Properties` without disrupting the recording layout."
 msgstr ""
-"此视图专注于在 OpenShot 内创建新录制。它显示 "
-":guilabel:`项目文件`、:guilabel:`视频预览`、:guilabel:`时间线` 和 :guilabel:`录制` "
-"停靠。:guilabel:`属性` 停靠与 :guilabel:`项目文件` 作为标签分组，因此您可以通过 :guilabel:`视图->停靠->属性`"
-" 显示它，而不会破坏录制布局。"
+"此视图专注于在 OpenShot 内创建新录制。它显示 :guilabel:`项目文件`\\ 、\\ :guilabel:`视频预览`\\ 、\\ "
+":guilabel:`时间线` 和 :guilabel:`录制` 停靠。\\ :guilabel:`属性` 停靠与 :guilabel:`项目文件` "
+"作为标签分组，因此您可以通过 :guilabel:`视图->停靠->属性` 显示它，而不会破坏录制布局。"
 
-#: ../main_window.rst:341
+#: ../doc/main_window.rst:277
 msgid ""
 "The :guilabel:`Recording` dock can record microphone audio, screen capture, "
 "webcam video, or combinations of those sources. When screen and webcam are "
@@ -1671,16 +885,16 @@ msgid ""
 "all source options."
 msgstr ""
 ":guilabel:`录制` 停靠可以录制麦克风音频、屏幕捕获、网络摄像头视频，或这些来源的组合。当屏幕和摄像头同时录制时，OpenShot "
-"可以将摄像头作为画中画角落剪辑放置。这些角落摄像头剪辑在添加到时间线后使用普通剪辑属性：:guilabel:`重力` "
-"选择角落，:guilabel:`缩放 X` 和 :guilabel:`缩放 Y` 设置角落大小，:guilabel:`边距` "
-"创建内嵌布局区域，使摄像头远离屏幕边缘，:guilabel:`圆角半径` 使摄像头剪辑圆角而无需添加单独的遮罩效果。详情见 "
-":ref:`clip_properties_ref`。完整录制工作流程和所有来源选项见 :ref:`recording_ref`。"
+"可以将摄像头作为画中画角落剪辑放置。这些角落摄像头剪辑在添加到时间线后使用普通剪辑属性：\\ :guilabel:`重力` 选择角落，\\ "
+":guilabel:`缩放 X` 和 :guilabel:`缩放 Y` 设置角落大小，\\ :guilabel:`边距` "
+"创建内嵌布局区域，使摄像头远离屏幕边缘，\\ :guilabel:`圆角半径` 使摄像头剪辑圆角而无需添加单独的遮罩效果。详情见 "
+":ref:`clip_properties_ref`\\ 。完整录制工作流程和所有来源选项见 :ref:`recording_ref`\\ 。"
 
-#: ../main_window.rst:352
+#: ../doc/main_window.rst:288
 msgid "My Views"
 msgstr "我的视图"
 
-#: ../main_window.rst:353
+#: ../doc/main_window.rst:289
 msgid ""
 "**My Views** lets you save any dock arrangement as a named layout and recall"
 " it instantly. This is ideal for workflows that require switching between "
@@ -1691,86 +905,86 @@ msgstr ""
 "**我的视图** "
 "允许您将任何停靠排列保存为命名布局并即时调用。对于需要在不同编辑模式之间切换的工作流程非常理想——例如，详细的音频混合布局和专注的颜色分级布局——无需每次手动重新定位停靠。"
 
-#: ../main_window.rst:357
+#: ../doc/main_window.rst:293
 msgid ""
 "Each saved view captures the position, size, and visibility of every dock, "
 "as well as the timeline height. Saved views are stored in your project "
 "settings and persist across sessions."
 msgstr "每个保存的视图都会捕获每个停靠的位置、大小和可见性，以及时间线高度。保存的视图存储在您的项目设置中，并在会话间保持。"
 
-#: ../main_window.rst:360
+#: ../doc/main_window.rst:296
 msgid "**View → My Views** menu options:"
 msgstr "**视图 → 我的视图** 菜单选项："
 
-#: ../main_window.rst:366
+#: ../doc/main_window.rst:302
 msgid "Menu Item"
 msgstr "菜单项"
 
-#: ../main_window.rst:368
+#: ../doc/main_window.rst:304
 msgid "List of user-defined views"
 msgstr "用户定义视图列表"
 
-#: ../main_window.rst:369
+#: ../doc/main_window.rst:305
 msgid ""
 "Click to restore that layout. The currently active view shows a checkmark."
 msgstr "点击以恢复该布局。当前激活的视图显示勾选标记。"
 
-#: ../main_window.rst:370
+#: ../doc/main_window.rst:306
 msgid "Update \"*[name]*\""
 msgstr "更新“*[name]*”"
 
-#: ../main_window.rst:371
+#: ../doc/main_window.rst:307
 msgid "Save your current dock arrangement over the active view, replacing it."
 msgstr "将当前停靠排列保存覆盖到激活视图，替换它。"
 
-#: ../main_window.rst:372
+#: ../doc/main_window.rst:308
 msgid "Delete \"*[name]*\""
 msgstr "删除“*[name]*”"
 
-#: ../main_window.rst:373
+#: ../doc/main_window.rst:309
 msgid "Remove the active view (asks for confirmation first)."
 msgstr "移除激活视图（会先询问确认）。"
 
-#: ../main_window.rst:374
+#: ../doc/main_window.rst:310
 msgid "Save Current View As..."
 msgstr "另存当前视图为..."
 
-#: ../main_window.rst:375
+#: ../doc/main_window.rst:311
 msgid "Name and save your current dock arrangement as a new view."
 msgstr "为当前停靠排列命名并保存为新视图。"
 
-#: ../main_window.rst:377
+#: ../doc/main_window.rst:313
 msgid "**Typical workflow:**"
 msgstr "**典型工作流程：**"
 
-#: ../main_window.rst:379
+#: ../doc/main_window.rst:315
 msgid "Arrange your docks exactly how you like them."
 msgstr "将停靠面板按您喜欢的方式排列。"
 
-#: ../main_window.rst:380
+#: ../doc/main_window.rst:316
 msgid ""
 "Open :guilabel:`View → My Views → Save Current View As...` and enter a name "
 "(e.g. *\"Audio Mix\"*)."
 msgstr "打开 :guilabel:`视图 → 我的视图 → 另存当前视图为...` 并输入名称（例如 *“音频混合”*）。"
 
-#: ../main_window.rst:381
+#: ../doc/main_window.rst:317
 msgid ""
 "Later, open :guilabel:`View → My Views` and click the view name to restore "
 "that layout instantly."
 msgstr "之后，打开 :guilabel:`视图 → 我的视图` 并点击视图名称即可立即恢复该布局。"
 
-#: ../main_window.rst:382
+#: ../doc/main_window.rst:318
 msgid ""
 "If you adjust the layout and want to keep the changes, choose "
 ":guilabel:`Update \"Audio Mix\"` to overwrite it."
 msgstr "如果您调整了布局并想保留更改，选择 :guilabel:`更新“音频混合”` 来覆盖它。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:385
+#: ../doc/main_window.rst:321
 msgid "Docks"
 msgstr "停靠窗口"
 
-#: ../main_window.rst:386
+#: ../doc/main_window.rst:322
 msgid ""
 "Each widget on the OpenShot main window is contained in a **dock**. These "
 "docks can be dragged and snapped around the main window, and even grouped "
@@ -1779,119 +993,123 @@ msgid ""
 "dock layout automatically. Scope docks are grouped under "
 ":guilabel:`View->Scopes`."
 msgstr ""
-"OpenShot "
-"主窗口上的每个小部件都包含在一个**停靠区**中。这些停靠区可以被拖动并固定在主窗口周围，甚至可以组合在一起（形成标签页）。当您退出程序时，OpenShot"
-" 会自动保存您的主窗口停靠区布局。重新启动 OpenShot 会自动恢复您的自定义停靠区布局。范围停靠区归类在 "
-":guilabel:`View->Scopes` 下。"
+"OpenShot 主窗口上的每个小部件都包含在一个\\ **停靠区**\\ "
+"中。这些停靠区可以被拖动并固定在主窗口周围，甚至可以组合在一起（形成标签页）。当您退出程序时，OpenShot 会自动保存您的主窗口停靠区布局。重新启动"
+" OpenShot 会自动恢复您的自定义停靠区布局。范围停靠区归类在 :guilabel:`View->Scopes` 下。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:395
+#: ../doc/main_window.rst:331
 msgid "Dock Name"
 msgstr "停靠窗口名称"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:397
+#: ../doc/main_window.rst:333
 msgid "Captions"
 msgstr "字幕"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:398
+#: ../doc/main_window.rst:334
 msgid ""
 "Manage and add captions or subtitles to your video project. Allows you to "
 "create, edit, and manage caption data. See :ref:`caption_effect_ref` effect."
 msgstr "管理并添加字幕或字幕到您的视频项目。允许您创建、编辑和管理字幕数据。参见 :ref:`caption_effect_ref` 效果。"
 
 # Main-window terminology review, 2026-09-26.
-#: ../main_window.rst:399
+#: ../doc/main_window.rst:335
 msgid "Effects"
 msgstr "特效"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:400
+#: ../doc/main_window.rst:336
 msgid ""
 "Browse and apply video and audio effects to your video clips. Includes "
 "filters, color adjustments, and special effects. See :ref:`effects_ref`."
 msgstr "浏览并应用视频和音频效果到您的视频剪辑。包括滤镜、色彩调整和特殊效果。参见 :ref:`effects_ref` 。"
 
-#: ../main_window.rst:401
+#: ../doc/main_window.rst:337
 msgid "Color Wheels"
 msgstr "色轮"
 
-#: ../main_window.rst:402
+#: ../doc/main_window.rst:338
 msgid ""
 "Edit Color Grade wheel controls for global, shadows, midtones, and "
 "highlights from a dedicated right-side dock."
 msgstr "从专用的右侧停靠区编辑全局、阴影、中间调和高光的色彩分级轮控件。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:403
+#: ../doc/main_window.rst:339
 msgid "Emojis"
 msgstr "表情符号"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:404
+#: ../doc/main_window.rst:340
 msgid ""
 "Add emoji graphics to your video project. Choose from a variety of emojis to"
 " enhance your video content."
 msgstr "向您的视频项目添加表情符号图形。从各种表情符号中选择，增强您的视频内容。"
 
-#: ../main_window.rst:405
+#: ../doc/main_window.rst:341
 msgid "Histogram"
 msgstr "直方图"
 
-#: ../main_window.rst:406
+#: ../doc/main_window.rst:342
 msgid ""
 "Analyze the tonal and channel distribution of the current preview frame."
 msgstr "分析当前预览帧的色调和通道分布。"
 
-#: ../main_window.rst:407
+#: ../doc/main_window.rst:343
 msgid "Luma Waveform"
 msgstr "亮度波形"
 
-#: ../main_window.rst:408
+#: ../doc/main_window.rst:344
 msgid "Analyze brightness distribution across the current preview frame."
 msgstr "分析当前预览帧的亮度分布。"
 
-#: ../main_window.rst:409
+#: ../doc/main_window.rst:345
 msgid "Audio Levels"
 msgstr "音频电平"
 
-#: ../main_window.rst:410
+#: ../doc/main_window.rst:346
 msgid "Monitor audio level scope data for the current preview frame."
 msgstr "监控当前预览帧的音频电平范围数据。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:412
+#: ../doc/main_window.rst:348
 msgid ""
 "View and manage all the media files imported into your project. Organize, "
 "filter, and tag video, audio, and image files. See :ref:`files_ref`."
 msgstr "查看并管理导入到项目中的所有媒体文件。组织、筛选和标记视频、音频和图像文件。参见 :ref:`files_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:414
+#: ../doc/main_window.rst:349
+msgid "Properties"
+msgstr "属性"
+
+# Translated with gpt-4.1-mini
+#: ../doc/main_window.rst:350
 msgid ""
 "View and edit the properties of a selected effect, transition, or clip. "
 "Adjust settings such as duration, size, position, etc... See "
 ":ref:`clip_properties_ref`."
 msgstr "查看并编辑所选效果、转场或剪辑的属性。调整持续时间、大小、位置等设置。参见 :ref:`clip_properties_ref` 。"
 
-#: ../main_window.rst:415
+#: ../doc/main_window.rst:351
 msgid "Recording"
 msgstr "录制"
 
-#: ../main_window.rst:416
+#: ../doc/main_window.rst:352
 msgid ""
 "Record microphone audio, screen video, webcam video, or combined recordings."
 " See :ref:`recording_ref`."
-msgstr "录制麦克风音频、屏幕视频、摄像头视频或组合录制。参见 :ref:`recording_ref`。"
+msgstr "录制麦克风音频、屏幕视频、摄像头视频或组合录制。参见 :ref:`recording_ref`\\ 。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:417
+#: ../doc/main_window.rst:353
 msgid "Transitions"
 msgstr "转场"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:418
+#: ../doc/main_window.rst:354
 msgid ""
 "Browse and apply transitions between video clips. Choose from a variety of "
 "transition wipes to create smooth changes between scenes. See "
@@ -1899,18 +1117,18 @@ msgid ""
 msgstr "浏览并应用视频剪辑之间的转场。选择各种转场擦除效果，创建场景间的平滑过渡。参见 :ref:`transitions_ref` 。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:419
+#: ../doc/main_window.rst:355
 msgid "Video Preview"
 msgstr "视频预览"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:420
+#: ../doc/main_window.rst:356
 msgid ""
 "Preview the current state of your video project. Allows you to play back and"
 " review your edits in real-time. See :ref:`playback_ref`."
 msgstr "预览视频项目的当前状态。允许您实时播放和回顾编辑内容。参见 :ref:`playback_ref` 。"
 
-#: ../main_window.rst:422
+#: ../doc/main_window.rst:358
 msgid ""
 "If you have accidentally closed or moved a dock and can no longer find it, "
 "there are a couple easy solutions. First, you can use the "
@@ -1925,6 +1143,719 @@ msgstr ""
 
 # Translated with gpt-4.1-mini
 #~ msgid ""
+#~ "This slider will adjust the time-scale of your timeline. Drag the left or "
+#~ "right edge to zoom in or out. Drag the blue area to scroll the timeline left"
+#~ " or right. Clips and transitions are displayed as simple rectangles, to give"
+#~ " you context for adjusting the zoom to specific clips."
+#~ msgstr ""
+#~ "此滑块调整时间轴的时间比例。拖动左或右边缘可放大或缩小，拖动蓝色区域可左右滚动时间轴。剪辑和转场以简单矩形显示，方便调整缩放以定位特定剪辑。"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "键盘快捷键"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Here is a list of the default keyboard shortcuts supported by OpenShot. You "
+#~ "can configure these shortcuts in the Preferences window, which is opened by "
+#~ "selecting :guilabel:`Edit→Preferences` from the OpenShot menu bar. (On "
+#~ "macOS, choose :guilabel:`OpenShot Video Editor→Preferences`.) Learning a few"
+#~ " of these shortcuts can save you a bunch of time!"
+#~ msgstr ""
+#~ "以下是 OpenShot 支持的默认键盘快捷键列表。您可以在“首选项”窗口中配置这些快捷键，该窗口可通过 OpenShot 菜单栏选择 "
+#~ ":guilabel:`编辑→首选项` 打开。（在 macOS 上，选择 :guilabel:`OpenShot Video Editor→首选项` "
+#~ "。）掌握其中一些快捷键可以节省大量时间！"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Shortcut 1"
+#~ msgstr "快捷键 1"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Shortcut 2"
+#~ msgstr "快捷键 2"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Shortcut 3"
+#~ msgstr "快捷键 3"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+H`"
+#~ msgstr ":kbd:`Ctrl+H`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Add Marker"
+#~ msgstr "添加标记"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`M`"
+#~ msgstr ":kbd:`M`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Y`"
+#~ msgstr ":kbd:`Ctrl+Y`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Add to Timeline"
+#~ msgstr "添加到时间轴"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Alt+A`"
+#~ msgstr ":kbd:`Ctrl+Alt+A`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Animated Title"
+#~ msgstr "动画标题"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+T`"
+#~ msgstr ":kbd:`Ctrl+Shift+T`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Ask a Question..."
+#~ msgstr "提问..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F4`"
+#~ msgstr ":kbd:`F4`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+C`"
+#~ msgstr ":kbd:`Shift+C`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Up`"
+#~ msgstr ":kbd:`Alt+Up`"
+
+#~ msgid ":kbd:`Alt+Shift+2`"
+#~ msgstr ":kbd:`Alt+Shift+2`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Choose Profile"
+#~ msgstr "选择配置文件"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Alt+P`"
+#~ msgstr ":kbd:`Ctrl+Alt+P`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Clear All Cache"
+#~ msgstr "清除所有缓存"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+ESC`"
+#~ msgstr ":kbd:`Ctrl+Shift+ESC`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Clear History"
+#~ msgstr "清除历史记录"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+H`"
+#~ msgstr ":kbd:`Ctrl+Shift+H`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Delete Optimized Videos"
+#~ msgstr "删除优化视频"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+O`"
+#~ msgstr ":kbd:`Ctrl+Shift+O`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Clear Waveform Display Data"
+#~ msgstr "清除波形显示数据"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+W`"
+#~ msgstr ":kbd:`Ctrl+Shift+W`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Copy"
+#~ msgstr "复制"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+C`"
+#~ msgstr ":kbd:`Ctrl+C`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Cut"
+#~ msgstr "剪切"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+X`"
+#~ msgstr ":kbd:`Ctrl+X`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Delete Item"
+#~ msgstr "删除项目"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Delete`"
+#~ msgstr ":kbd:`Delete`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Backspace`"
+#~ msgstr ":kbd:`Backspace`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Delete Item (Ripple)"
+#~ msgstr "删除项目（波纹）"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+Delete`"
+#~ msgstr ":kbd:`Shift+Delete`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Details View"
+#~ msgstr "详细视图"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Page Up`"
+#~ msgstr ":kbd:`Ctrl+Page Up`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Donate"
+#~ msgstr "捐赠"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F7`"
+#~ msgstr ":kbd:`F7`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Duplicate"
+#~ msgstr "复制"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+/`"
+#~ msgstr ":kbd:`Ctrl+Shift+/`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Edit Title"
+#~ msgstr "编辑标题"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+T`"
+#~ msgstr ":kbd:`Alt+T`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Export Selected Files"
+#~ msgstr "导出选中文件"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+E`"
+#~ msgstr ":kbd:`Ctrl+Shift+E`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Export Video / Media"
+#~ msgstr "导出视频/媒体"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+E`"
+#~ msgstr ":kbd:`Ctrl+E`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+M`"
+#~ msgstr ":kbd:`Ctrl+M`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Fast Forward"
+#~ msgstr "快进"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`L`"
+#~ msgstr ":kbd:`L`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "File Properties"
+#~ msgstr "文件属性"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+I`"
+#~ msgstr ":kbd:`Alt+I`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Double Click`"
+#~ msgstr ":kbd:`Ctrl+Double Click`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Fullscreen"
+#~ msgstr "全屏"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F11`"
+#~ msgstr ":kbd:`F11`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Import Files..."
+#~ msgstr "导入文件..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+I`"
+#~ msgstr ":kbd:`Ctrl+I`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Insert Keyframe"
+#~ msgstr "插入关键帧"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Shift+K`"
+#~ msgstr ":kbd:`Alt+Shift+K`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Join our Community..."
+#~ msgstr "加入我们的社区..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F5`"
+#~ msgstr ":kbd:`F5`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Jump To End"
+#~ msgstr "跳转到结尾"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`End`"
+#~ msgstr ":kbd:`End`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Jump To Start"
+#~ msgstr "跳转到开始"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Home`"
+#~ msgstr ":kbd:`Home`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Launch Tutorial"
+#~ msgstr "启动教程"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F2`"
+#~ msgstr ":kbd:`F2`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "New Project"
+#~ msgstr "新建项目"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+N`"
+#~ msgstr ":kbd:`Ctrl+N`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Next Frame"
+#~ msgstr "下一帧"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Right`"
+#~ msgstr ":kbd:`Right`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`.`"
+#~ msgstr ":kbd:`.`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Next Marker"
+#~ msgstr "下一个标记"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+M`"
+#~ msgstr ":kbd:`Shift+M`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Right`"
+#~ msgstr ":kbd:`Alt+Right`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Nudge left (1 Frame)"
+#~ msgstr "向左微调（1帧）"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Left`"
+#~ msgstr ":kbd:`Ctrl+Left`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Nudge left (5 Frames)"
+#~ msgstr "向左微调（5帧）"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+Ctrl+Left`"
+#~ msgstr ":kbd:`Shift+Ctrl+Left`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Nudge right (1 Frame)"
+#~ msgstr "向右微调（1帧）"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Right`"
+#~ msgstr ":kbd:`Ctrl+Right`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Nudge right (5 Frames)"
+#~ msgstr "向右微调（5帧）"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+Ctrl+Right`"
+#~ msgstr ":kbd:`Shift+Ctrl+Right`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Open Help Contents"
+#~ msgstr "打开帮助内容"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F1`"
+#~ msgstr ":kbd:`F1`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Open Project..."
+#~ msgstr "打开项目..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+O`"
+#~ msgstr ":kbd:`Ctrl+O`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Paste"
+#~ msgstr "粘贴"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+V`"
+#~ msgstr ":kbd:`Ctrl+V`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Play/Pause Toggle"
+#~ msgstr "播放/暂停切换"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Up`"
+#~ msgstr ":kbd:`Up`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Down`"
+#~ msgstr ":kbd:`Down`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Preferences"
+#~ msgstr "首选项"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+P`"
+#~ msgstr ":kbd:`Ctrl+P`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Preview File"
+#~ msgstr "预览文件"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+P`"
+#~ msgstr ":kbd:`Alt+P`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Double Click`"
+#~ msgstr ":kbd:`双击`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Previous Frame"
+#~ msgstr "上一帧"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Left`"
+#~ msgstr ":kbd:`Left`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`,`"
+#~ msgstr ":kbd:`,`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Previous Marker"
+#~ msgstr "上一个标记"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+M`"
+#~ msgstr ":kbd:`Ctrl+Shift+M`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Left`"
+#~ msgstr ":kbd:`Alt+Left`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`U`"
+#~ msgstr ":kbd:`U`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Quit"
+#~ msgstr "退出"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Q`"
+#~ msgstr ":kbd:`Ctrl+Q`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Razor Toggle"
+#~ msgstr "剃刀工具切换"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`C`"
+#~ msgstr ":kbd:`C`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`B`"
+#~ msgstr ":kbd:`B`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`R`"
+#~ msgstr ":kbd:`R`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Redo"
+#~ msgstr "重做"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+Z`"
+#~ msgstr ":kbd:`Ctrl+Shift+Z`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Report a Bug..."
+#~ msgstr "报告错误..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F3`"
+#~ msgstr ":kbd:`F3`"
+
+# Main-window terminology review, 2026-09-26.
+#~ msgid "Rewind"
+#~ msgstr "快退"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`J`"
+#~ msgstr ":kbd:`J`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Save Current Frame"
+#~ msgstr "保存当前帧"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+Y`"
+#~ msgstr ":kbd:`Ctrl+Shift+Y`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Save Project"
+#~ msgstr "保存项目"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Save Project As..."
+#~ msgstr "项目另存为..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+S`"
+#~ msgstr ":kbd:`Ctrl+Shift+S`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Select All"
+#~ msgstr "全选"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+A`"
+#~ msgstr ":kbd:`Ctrl+A`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Select Item (Ripple)"
+#~ msgstr "选择项目（波纹）"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+A`"
+#~ msgstr ":kbd:`Alt+A`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Click`"
+#~ msgstr ":kbd:`Alt+点击`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Select None"
+#~ msgstr "取消选择"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+A`"
+#~ msgstr ":kbd:`Ctrl+Shift+A`"
+
+#~ msgid "Share Feedback..."
+#~ msgstr "分享反馈..."
+
+#~ msgid ":kbd:`F8`"
+#~ msgstr ":kbd:`F8`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Shift+0`"
+#~ msgstr ":kbd:`Alt+Shift+0`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice All: Keep Both Sides"
+#~ msgstr "全部切片：保留两侧"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+K`"
+#~ msgstr ":kbd:`Ctrl+Shift+K`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice All: Keep Left Side"
+#~ msgstr "全部切片：保留左侧"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+J`"
+#~ msgstr ":kbd:`Ctrl+Shift+J`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice All: Keep Right Side"
+#~ msgstr "全部切片：保留右侧"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+L`"
+#~ msgstr ":kbd:`Ctrl+Shift+L`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Both Sides"
+#~ msgstr "切片选中：保留两侧"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Left Side"
+#~ msgstr "切片选中：保留左侧"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+J`"
+#~ msgstr ":kbd:`Ctrl+J`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Right Side"
+#~ msgstr "切片选中：保留右侧"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+L`"
+#~ msgstr ":kbd:`Ctrl+L`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Left (Ripple)"
+#~ msgstr "切片选中：保留左侧（波纹）"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`W`"
+#~ msgstr ":kbd:`W`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Right (Ripple)"
+#~ msgstr "切片选中：保留右侧（波纹）"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Q`"
+#~ msgstr ":kbd:`Q`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Snapping Toggle"
+#~ msgstr "吸附切换"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`S`"
+#~ msgstr ":kbd:`S`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Split File"
+#~ msgstr "拆分文件"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+S`"
+#~ msgstr ":kbd:`Alt+S`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+Double Click`"
+#~ msgstr ":kbd:`Shift+双击`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Thumbnail View"
+#~ msgstr "缩略图视图"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Page Down`"
+#~ msgstr ":kbd:`Ctrl+向下翻页`"
+
+# Main-window terminology review, 2026-09-26.
+#~ msgid "Timing Toggle"
+#~ msgstr "切换变速工具"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`T`"
+#~ msgstr ":kbd:`T`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+T`"
+#~ msgstr ":kbd:`Ctrl+T`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Translate this Application..."
+#~ msgstr "翻译此应用程序..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F6`"
+#~ msgstr ":kbd:`F6`"
+
+#~ msgid "Update Available"
+#~ msgstr "有可用更新"
+
+#~ msgid ":kbd:`F9`"
+#~ msgstr ":kbd:`F9`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "View Toolbar"
+#~ msgstr "查看工具栏"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+B`"
+#~ msgstr ":kbd:`Ctrl+Shift+B`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Zoom In"
+#~ msgstr "放大"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`=`"
+#~ msgstr ":kbd:`=`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+=`"
+#~ msgstr ":kbd:`Ctrl+=`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Zoom Out"
+#~ msgstr "缩小"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`-`"
+#~ msgstr ":kbd:`-`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+-`"
+#~ msgstr ":kbd:`Ctrl+-`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Zoom to Timeline"
+#~ msgstr "缩放到时间线"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`\\\\`"
+#~ msgstr ":kbd:`\\\\`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+\\\\`"
+#~ msgstr ":kbd:`Shift+\\\\`"
+
+#~ msgid ""
+#~ "After you have spent some time editing, OpenShot may also invite you to "
+#~ "share feedback. The survey is optional. You can open it from the notice or "
+#~ "dismiss the invitation. At any time, choose :guilabel:`Help → Share "
+#~ "Feedback` or press :kbd:`F8` to share your thoughts."
+#~ msgstr ""
+#~ "编辑一段时间后，OpenShot 可能会邀请您分享反馈。调查是可选的。您可以从通知中打开或忽略邀请。您也可以随时选择 :guilabel:`帮助 → "
+#~ "分享反馈` 或按 :kbd:`F8` 分享您的想法。"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
 #~ "Snapping toggles magnetic alignment. Timing Tool enables retiming by "
 #~ "dragging clip edges. Razor Tool cuts clips at the clicked position."
 #~ msgstr "吸附切换磁性对齐。时间工具通过拖动剪辑边缘实现重定时。剃刀工具在点击位置剪切剪辑。"
@@ -1935,8 +1866,8 @@ msgstr ""
 #~ "system details report, which is the preferred way to share this information "
 #~ "when reporting a bug or asking for help."
 #~ msgstr ""
-#~ "使用 :guilabel:`帮助→关于 OpenShot` 来检查您的 OpenShot 版本。点击版本号旁的 "
-#~ ":guilabel:`复制`，复制简短的版本和系统详细信息报告，这是报告错误或寻求帮助时推荐的分享方式。"
+#~ "使用 :guilabel:`帮助→关于 OpenShot` 来检查您的 OpenShot 版本。点击版本号旁的 :guilabel:`复制`\\ "
+#~ "，复制简短的版本和系统详细信息报告，这是报告错误或寻求帮助时推荐的分享方式。"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""
@@ -1998,7 +1929,7 @@ msgstr ""
 #~ "all the docks back to their default location using the "
 #~ ":guilabel:`View->Views->Simple View` menu at the top of the screen."
 #~ msgstr ""
-#~ "这是**默认** 视图，设计为易于使用，特别适合首次使用者。它包含左上角的 :guilabel:`项目文件` 、右上角的 :guilabel:` "
+#~ "这是\\ **默认** 视图，设计为易于使用，特别适合首次使用者。它包含左上角的 :guilabel:`项目文件` 、右上角的 :guilabel:` "
 #~ "预览窗口` 和底部的 :guilabel:` 时间线` 。如果您不小心关闭或移动了停靠窗口，可以使用屏幕顶部的 :guilabel:` "
 #~ "视图->视图->简单视图` 菜单快速将所有停靠窗口重置回默认位置。"
 
@@ -2010,7 +1941,7 @@ msgstr ""
 #~ " when you exit the program. Re-launching OpenShot will restore your custom "
 #~ "dock layout automatically."
 #~ msgstr ""
-#~ "OpenShot 主窗口上的每个控件都包含在一个**停靠窗口** "
+#~ "OpenShot 主窗口上的每个控件都包含在一个\\ **停靠窗口** "
 #~ "中。这些停靠窗口可以拖动并吸附到主窗口周围，甚至可以组合成标签页。退出程序时，OpenShot 会自动保存您的主窗口停靠布局。重新启动 OpenShot"
 #~ " 时会自动恢复您的自定义停靠布局。"
 

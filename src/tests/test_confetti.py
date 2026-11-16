@@ -11,7 +11,8 @@ PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 if PATH not in sys.path:
     sys.path.append(PATH)
 
-from qt_api import QApplication, QDialog, QImage, QPainter, QWidget, Qt, isdeleted
+from qt_api import (QApplication, QDialog, QDialogButtonBox, QPushButton,
+                    QVBoxLayout, QImage, QPainter, QWidget, Qt, isdeleted)
 from windows import confetti
 from windows.confetti import ConfettiCannon, celebrate_export, should_celebrate
 
@@ -109,16 +110,23 @@ class ConfettiTests(unittest.TestCase):
     def test_export_celebrates_and_invites_only_after_writer_success_and_close(self):
         from windows.export import Export
         for outcome in ("success", "cancel", "write-error"):
-            for finished_window in (True, False):
-                with self.subTest(outcome=outcome, finished_window=finished_window), \
+            for finished_window, measured in ((True, False), (True, True), (False, False), (False, True)):
+                with self.subTest(outcome=outcome, finished_window=finished_window, measured=measured), \
                         tempfile.TemporaryDirectory() as folder:
                     dialog = Export.__new__(Export)
                     QDialog.__init__(dialog)
                     self.addCleanup(dialog.deleteLater)
                     for name in ("save_settings", "enableControls", "disableControls", "updateFrameRate",
                                  "progressExportVideo", "timeline", "cache_thread",
-                                 "cancel_button", "export_button", "close_button", "prepare_next_export"):
+                                 "export_button", "prepare_next_export", "claim_export_resources",
+                                 "release_export_resources", "load_export_timeline", "encoder_probe_timer"):
                         setattr(dialog, name, Mock())
+                    dialog.load_export_timeline.return_value = True
+                    dialog.cancel_button = QPushButton("Cancel", dialog)
+                    dialog.buttonBox = QDialogButtonBox(dialog)
+                    dialog.buttonBox.addButton(dialog.cancel_button, QDialogButtonBox.RejectRole)
+                    dialog.buttonBox.rejected.connect(dialog.reject)
+                    QVBoxLayout(dialog).addWidget(dialog.buttonBox)
                     for name, value in {"txtStartFrame": 1, "txtEndFrame": 3,
                             "txtFrameRateNum": 24, "txtFrameRateDen": 1, "txtWidth": 16, "txtHeight": 16,
                             "txtPixelRatioNum": 1, "txtPixelRatioDen": 1,
@@ -140,7 +148,17 @@ class ConfettiTests(unittest.TestCase):
                     window = SimpleNamespace(timeline_sync=Mock(), feedback_controller=controller)
                     app = SimpleNamespace(_tr=lambda text: text, get_settings=Mock,
                         project=SimpleNamespace(), window=window)
-                    writer = Mock()
+                    writer_methods = ['Open', 'Close', 'SetVideoOptions', 'SetAudioOptions',
+                                      'PrepareStreams', 'AddSphericalMetadata', 'SetOption', 'WriteFrame', 'info']
+                    if measured:
+                        writer_methods.append('WriteMeasuredFrame')
+                    writer = Mock(spec_set=writer_methods)
+                    # The writer reports the actual encoder after Open(), which may
+                    # differ from the selected codec when software fallback is used.
+                    writer.info = SimpleNamespace(vcodec='libx264')
+                    if measured:
+                        writer.WriteMeasuredFrame.side_effect = (
+                            lambda reader, number: writer.WriteFrame(reader.GetFrame(number)))
                     if outcome == "cancel":
                         writer.WriteFrame.side_effect = lambda frame: setattr(dialog, "exporting", False)
                     elif outcome == "write-error":
@@ -156,14 +174,28 @@ class ConfettiTests(unittest.TestCase):
                             patch.object(Export, "show_export_result") as summary, \
                             patch("windows.export.celebrate_export") as celebrate:
                         dialog.accept()
+                    dialog.claim_export_resources.assert_called_once_with()
+                    dialog.load_export_timeline.assert_called_once_with()
+                    dialog.release_export_resources.assert_called_once_with()
                     succeeded = outcome == "success"
+                    self.assertEqual(dialog.export_encoder, 'libx264')
+                    self.assertEqual(writer.WriteFrame.call_count, 3 if succeeded else 1)
+                    if measured:
+                        self.assertEqual(writer.WriteMeasuredFrame.call_count, writer.WriteFrame.call_count)
                     self.assertEqual(celebrate.call_count, int(succeeded))
                     # The finished dialog holds the banner until it closes.
                     self.assertEqual(controller.record_export.call_count, int(succeeded and not finished_window))
                     if finished_window:
+                        if outcome != "cancel":
+                            self.assertEqual(dialog.cancel_button.text(), "Done")
+                            self.assertFalse(dialog.cancel_button.isHidden())
+                            self.assertGreaterEqual(dialog.buttonBox.layout().indexOf(dialog.cancel_button), 0)
+                            self.assertFalse(dialog.exporting)
                         with patch("windows.export.get_app", return_value=app), \
-                                patch("windows.export.openshot.Settings"):
-                            dialog.reject()
+                                patch("windows.export.openshot.Settings"), \
+                                patch("windows.export.QMessageBox.question") as confirm:
+                            dialog.cancel_button.click()
+                            confirm.assert_not_called()
                         self.assertEqual(controller.record_export.call_count, int(succeeded))
                         with patch("windows.export.get_app", return_value=app), \
                                 patch("windows.export.openshot.Settings"):

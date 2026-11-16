@@ -107,6 +107,7 @@ class CreditsModel():
 
             for field in ["name", "email", "website"]:
                 item = QStandardItem(person.get(field, ""))
+                item.setToolTip(person.get(field, ""))
                 item.setFlags(flags)
                 row.append(item)
 

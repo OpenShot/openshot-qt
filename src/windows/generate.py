@@ -465,7 +465,10 @@ class GenerateMediaDialog(QDialog):
             return
 
         win = SelectRegion(file=self.source_file, clip=None, selection_mode="annotate")
-        if win.exec_() != QDialog.Accepted:
+        result = win.exec_()
+        # Qt destroys the dialog (and its GL contexts) once this handler returns.
+        win.deleteLater()
+        if result != QDialog.Accepted:
             return
 
         selection_payload = win.selection_payload()

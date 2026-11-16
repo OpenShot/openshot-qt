@@ -174,14 +174,18 @@ def timeline_view(service, p, output):
 
 
 def export_command(service, operation, p):
-    from .exporting import resolve, catalogue
+    from .exporting import resolve, catalogue, select_encoder
     if operation in ('preset.list', 'preset.get', 'capabilities'):
         return catalogue('export.'+operation, p)
     if operation == 'list':
         return [export_command(service, 'status', {'job_id': job_id}) for job_id in reversed(list(service.jobs))]
     if operation in ('start', 'validate'):
         spec = resolve(service, p)
+        select_encoder(spec, check_export)
         if operation == 'validate':
+            if spec['validation'].get('runtime_checked'):
+                from .exporting import public
+                return public(spec)
             return check_export(spec)
         output = spec['output']
         job_id = uuid.uuid4().hex
@@ -189,7 +193,7 @@ def export_command(service, operation, p):
         directory.mkdir(parents=True, mode=0o700)
         spec.update(job_id=job_id, revision=service.app.updates.data_version)
         (directory/'spec.json').write_text(json.dumps(spec))
-        status = {'job_id': job_id, 'state': 'queued', 'progress': 0, 'output': output, 'revision': spec['revision'], 'mode': spec['config']['mode'], 'profile': spec['profile'], 'config': spec['config']}
+        status = {'job_id': job_id, 'state': 'queued', 'progress': 0, 'output': output, 'revision': spec['revision'], 'mode': spec['config']['mode'], 'profile': spec['profile'], 'config': spec['config'], 'encoder_selection': spec['encoder_selection']}
         (directory/'status.json').write_text(json.dumps(status))
         # Reserve the output before starting a worker; never overwrite someone else's file.
         if spec['config']['mode'] == 'image_sequence':

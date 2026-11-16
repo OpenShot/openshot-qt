@@ -1,0 +1,1842 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../doc/keyboard.rst:4
+msgid "Keyboard Shortcuts"
+msgstr "키보드 단축키"
+
+#: ../doc/keyboard.rst:5
+msgid ""
+"Find shortcuts by task below, or jump to the full reference. These are the "
+"default assignments; customize them in :guilabel:`Edit → Preferences → "
+"Keyboard` (:guilabel:`OpenShot Video Editor → Preferences` on macOS). See "
+":ref:`preferences_keyboard_ref` for details."
+msgstr ""
+"아래 작업별 단축키를 찾거나 전체 참조로 이동하세요. 이것들은 기본 할당이며, :guilabel:`편집 → 환경설정 → 키보드` "
+"(:guilabel:`OpenShot Video Editor → 환경설정` macOS에서)에서 사용자 지정할 수 있습니다. 자세한 내용은"
+" :ref:`preferences_keyboard_ref`\\ 를 참조하세요."
+
+#: ../doc/keyboard.rst:10
+msgid "On macOS, use Command for shortcuts shown with Ctrl."
+msgstr "macOS에서는 Ctrl로 표시된 단축키에 Command 키를 사용하세요."
+
+#: ../doc/keyboard.rst:14
+msgid "On this page"
+msgstr "이 페이지에서"
+
+#: ../doc/keyboard.rst:19
+msgid "Using the timeline with a keyboard"
+msgstr "키보드로 타임라인 사용하기"
+
+#: ../doc/keyboard.rst:20
+msgid ""
+"Focus the timeline before selecting, moving, or trimming clips and "
+"transitions with these shortcuts."
+msgstr "이 단축키로 클립과 전환을 선택, 이동 또는 다듬기 전에 타임라인에 포커스를 맞추세요."
+
+#: ../doc/keyboard.rst:23
+msgid "Moving between panels"
+msgstr "패널 간 이동"
+
+#: ../doc/keyboard.rst:29 ../doc/keyboard.rst:153 ../doc/keyboard.rst:186
+#: ../doc/keyboard.rst:224 ../doc/keyboard.rst:250 ../doc/keyboard.rst:389
+#: ../doc/keyboard.rst:420
+msgid "Action"
+msgstr "동작"
+
+#: ../doc/keyboard.rst:30 ../doc/keyboard.rst:111 ../doc/keyboard.rst:154
+#: ../doc/keyboard.rst:187 ../doc/keyboard.rst:225 ../doc/keyboard.rst:251
+msgid "Shortcut"
+msgstr "단축키"
+
+#: ../doc/keyboard.rst:31 ../doc/keyboard.rst:522
+msgid "Focus Project Files"
+msgstr "프로젝트 파일에 포커스 맞추기"
+
+#: ../doc/keyboard.rst:32 ../doc/keyboard.rst:523
+msgid ":kbd:`Shift+1`"
+msgstr ":kbd:`Shift+1`"
+
+#: ../doc/keyboard.rst:33
+msgid "Preview the selected file or timeline clip's source"
+msgstr "선택한 파일 또는 타임라인 클립의 소스를 미리보기"
+
+#: ../doc/keyboard.rst:34 ../doc/keyboard.rst:394 ../doc/keyboard.rst:601
+msgid ":kbd:`Shift+2` or :kbd:`Alt+P`"
+msgstr ":kbd:`Shift+2` 또는 :kbd:`Alt+P`"
+
+#: ../doc/keyboard.rst:35
+msgid "Focus the timeline"
+msgstr "타임라인에 포커스 맞추기"
+
+#: ../doc/keyboard.rst:36 ../doc/keyboard.rst:526
+msgid ":kbd:`Shift+3`"
+msgstr ":kbd:`Shift+3`"
+
+#: ../doc/keyboard.rst:37 ../doc/keyboard.rst:528
+msgid "Focus Transitions"
+msgstr "전환에 포커스 맞추기"
+
+#: ../doc/keyboard.rst:38 ../doc/keyboard.rst:529
+msgid ":kbd:`Shift+7`"
+msgstr ":kbd:`Shift+7`"
+
+#: ../doc/keyboard.rst:39 ../doc/keyboard.rst:516
+msgid "Focus Effects"
+msgstr "효과에 포커스 맞추기"
+
+#: ../doc/keyboard.rst:40 ../doc/keyboard.rst:517
+msgid ":kbd:`Shift+8`"
+msgstr ":kbd:`Shift+8`"
+
+#: ../doc/keyboard.rst:41 ../doc/keyboard.rst:519
+msgid "Focus Emojis"
+msgstr "이모지에 포커스 맞추기"
+
+#: ../doc/keyboard.rst:42 ../doc/keyboard.rst:520
+msgid ":kbd:`Shift+9`"
+msgstr ":kbd:`Shift+9`"
+
+#: ../doc/keyboard.rst:43
+msgid "Move to the next / previous control"
+msgstr "다음 / 이전 컨트롤로 이동"
+
+#: ../doc/keyboard.rst:44 ../doc/keyboard.rst:46
+msgid ":kbd:`Tab` / :kbd:`Shift+Tab`"
+msgstr ":kbd:`Tab` / :kbd:`Shift+Tab`"
+
+#: ../doc/keyboard.rst:45
+msgid "Focus the next / previous dock tab title without selecting it"
+msgstr "선택하지 않고 다음 / 이전 도크 탭 제목에 포커스 맞추기"
+
+#: ../doc/keyboard.rst:47
+msgid "Move focus between dock tab titles"
+msgstr "도크 탭 제목 간 포커스 이동"
+
+#: ../doc/keyboard.rst:48
+msgid ":kbd:`Left` / :kbd:`Right` while a title has focus"
+msgstr "제목에 포커스가 있을 때 :kbd:`Left` / :kbd:`Right`"
+
+#: ../doc/keyboard.rst:49
+msgid "Activate the focused dock tab and enter its first control"
+msgstr "포커스된 도크 탭을 활성화하고 첫 번째 컨트롤로 진입"
+
+#: ../doc/keyboard.rst:50
+msgid ":kbd:`Space` or :kbd:`Enter`"
+msgstr ":kbd:`Space` 또는 :kbd:`Enter`"
+
+#: ../doc/keyboard.rst:51
+msgid "Browse Project Files, transitions, effects, or emojis"
+msgstr "프로젝트 파일, 전환, 효과 또는 이모지 탐색"
+
+#: ../doc/keyboard.rst:52
+msgid "Arrow keys while the list has focus"
+msgstr "목록에 포커스가 있을 때 화살표 키"
+
+#: ../doc/keyboard.rst:54
+msgid ""
+"Each grouped dock title is a separate Tab stop. Its normal focus style marks"
+" the focused title (an underline in Cosmic Dusk); moving focus does not "
+"change the selected dock. Activate a title to switch docks and focus its "
+"first control. Clicking a dock tab also focuses its first control, even if "
+"that tab is already selected. Only the active dock's visible controls "
+"participate in the Tab sequence; hidden dock controls are skipped."
+msgstr ""
+"각 그룹화된 도크 제목은 별도의 탭 정지점입니다. 일반 포커스 스타일은 포커스된 제목을 표시합니다(Cosmic Dusk에서는 밑줄); "
+"포커스 이동은 선택된 도크를 변경하지 않습니다. 제목을 활성화하면 도크가 전환되고 첫 번째 컨트롤에 포커스가 맞춰집니다. 도크 탭을 "
+"클릭해도 해당 탭이 이미 선택되어 있어도 첫 번째 컨트롤에 포커스가 맞춰집니다. 활성 도크의 보이는 컨트롤만 탭 순서에 참여하며, 숨겨진"
+" 도크 컨트롤은 건너뜁니다."
+
+#: ../doc/keyboard.rst:61
+msgid ""
+"When focus is inside a dock, the underline stays beneath its active tab. "
+"When you Tab between titles, the underline follows the focused title. The "
+"timeline itself is one Tab stop; Tab does not visit each clip or transition."
+msgstr ""
+"포커스가 도크 내부에 있을 때 밑줄은 활성 탭 아래에 유지됩니다. 제목 간에 탭할 때 밑줄은 포커스된 제목을 따라갑니다. 타임라인 자체는"
+" 하나의 탭 정지점이며, 탭은 각 클립이나 전환을 방문하지 않습니다."
+
+#: ../doc/keyboard.rst:65
+msgid ""
+"The timeline's ruler and track headers, including their labels, dim when "
+"unfocused. The clip area stays the same. In Cosmic Dusk, a blue underline "
+"marks the focused dock's title text or active tab, and buttons show a blue "
+"focus border. The untitled timeline dock has no underline."
+msgstr ""
+"타임라인의 눈금자와 트랙 헤더(레이블 포함)는 포커스가 없으면 흐려집니다. 클립 영역은 동일하게 유지됩니다. Cosmic Dusk에서는 "
+"파란색 밑줄이 포커스된 도크의 제목 텍스트 또는 활성 탭을 표시하며, 버튼은 파란색 포커스 테두리를 보여줍니다. 제목 없는 타임라인 "
+"도크에는 밑줄이 없습니다."
+
+#: ../doc/keyboard.rst:71
+msgid "Previewing a source"
+msgstr "소스 미리보기"
+
+#: ../doc/keyboard.rst:72
+msgid ""
+"Press :kbd:`Shift+2` or :kbd:`Alt+P` with focus in Project Files to preview "
+"the selected file. With focus on the timeline, the same command previews the"
+" active selected clip from its Start point. With multiple items selected, "
+"the active selection anchor determines the source. Transitions and clips "
+"without an available project file do not open a source preview."
+msgstr ""
+"프로젝트 파일에 포커스가 있을 때 :kbd:`Shift+2` 또는 :kbd:`Alt+P`\\ 를 눌러 선택한 파일을 미리보기하세요. "
+"타임라인에 포커스가 있을 때 동일한 명령은 활성 선택 클립을 시작 지점부터 미리봅니다. 여러 항목이 선택된 경우 활성 선택 앵커가 소스를"
+" 결정합니다. 사용 가능한 프로젝트 파일이 없는 전환 및 클립은 소스 미리보기를 열지 않습니다."
+
+#: ../doc/keyboard.rst:78
+msgid ""
+"An existing preview for the same file or the same timeline clip is reused. "
+"Different timeline clips have separate range-editing targets, even if they "
+"use the same source. When neither the file list nor the timeline has focus, "
+"the command does nothing."
+msgstr ""
+"같은 파일 또는 같은 타임라인 클립에 대한 기존 미리보기가 재사용됩니다. 서로 다른 타임라인 클립은 같은 소스를 사용해도 별도의 범위 "
+"편집 대상이 있습니다. 파일 목록과 타임라인 모두에 포커스가 없으면 명령은 아무 작업도 하지 않습니다."
+
+#: ../doc/keyboard.rst:83
+msgid ""
+"In Preview File, click or drag the source ruler to scrub. Preview Clip and "
+"Split File also provide range editing: drag the Start/End grips, move the "
+"selected filmstrip range, draw a new range outside it, or edit their "
+"timecodes, or press :kbd:`I` / :kbd:`O` to set a marker at the playhead. End"
+" is the last included frame. :guilabel:`Loop` repeats the marked range. The "
+"preview uses your configured timeline playback and range-editing shortcuts: "
+":kbd:`,` / :kbd:`.` move the range one frame (:kbd:`Shift` moves five). "
+":kbd:`[` selects Start for trimming, :kbd:`]` selects End; comma and period "
+"then trim that edge. :kbd:`Esc` leaves trim mode before closing the dialog. "
+":kbd:`Left` / :kbd:`Right` scrub frames without changing the range. "
+":kbd:`Space` toggles playback, :kbd:`J` / :kbd:`L` change playback speed and"
+" :kbd:`K` pauses. These shortcuts leave text entry alone in Name and "
+"timecodes."
+msgstr ""
+"미리보기 파일에서 소스 눈금자를 클릭하거나 드래그하여 스크럽하세요. 미리보기 클립과 분할 파일도 범위 편집을 제공합니다: 시작/끝 그립을"
+" 드래그하거나 선택된 필름스트립 범위를 이동하거나 그 밖에 새 범위를 그리거나 타임코드를 편집하거나 :kbd:`I` / "
+":kbd:`O`\\ 를 눌러 재생 헤드에 마커를 설정하세요. 끝은 포함된 마지막 프레임입니다. :guilabel:`루프`\\ 는 표시된 "
+"범위를 반복합니다. 미리보기는 구성된 타임라인 재생 및 범위 편집 단축키를 사용합니다: :kbd:`,` / :kbd:`.`\\ 는 범위를"
+" 한 프레임 이동합니다(:kbd:`Shift`\\ 는 다섯 프레임 이동). :kbd:`[`\\ 는 다듬기 시작을 선택하고, "
+":kbd:`]`\\ 는 끝을 선택합니다; 쉼표와 마침표로 해당 가장자리를 다듬습니다. :kbd:`Esc`\\ 는 대화상자를 닫기 전에 "
+"다듬기 모드를 종료합니다. :kbd:`Left` / :kbd:`Right`\\ 는 범위를 변경하지 않고 프레임을 스크럽합니다. "
+":kbd:`Space`\\ 는 재생을 전환하고, :kbd:`J` / :kbd:`L`\\ 은 재생 속도를 변경하며 :kbd:`K`\\ 는 "
+"일시정지합니다. 이 단축키들은 이름과 타임코드의 텍스트 입력에는 영향을 주지 않습니다."
+
+#: ../doc/keyboard.rst:96
+msgid ""
+"Scrubbing and moving markers do not edit the project until you click the "
+"dialog's Create, Update, or Update Clip button. See :ref:`split_clip_ref`."
+msgstr ""
+"스크러빙 및 마커 이동은 대화 상자의 생성, 업데이트 또는 클립 업데이트 버튼을 클릭할 때까지 프로젝트를 편집하지 않습니다. 자세한 "
+"내용은 :ref:`split_clip_ref` 를 참조하세요."
+
+#: ../doc/keyboard.rst:100
+msgid "Adding and applying assets"
+msgstr "에셋 추가 및 적용"
+
+#: ../doc/keyboard.rst:101
+msgid ""
+"The panel shortcuts above open the dock and focus its asset list directly. "
+"Use the arrow keys to choose an asset, then :kbd:`Ctrl+Enter` to add or "
+"apply it. Your existing browser selection is preserved; if nothing is "
+"selected, focusing the browser selects its current item or the first "
+"available item."
+msgstr ""
+"위의 패널 단축키는 도크를 열고 에셋 목록에 직접 포커스를 맞춥니다. 화살표 키로 에셋을 선택한 후 :kbd:`Ctrl+Enter` 를 "
+"눌러 추가하거나 적용하세요. 기존 브라우저 선택은 유지되며, 선택된 항목이 없으면 브라우저에 포커스할 때 현재 항목 또는 첫 번째 사용 "
+"가능한 항목이 선택됩니다."
+
+#: ../doc/keyboard.rst:110
+msgid "Panel / action"
+msgstr "패널 / 동작"
+
+#: ../doc/keyboard.rst:112
+msgid "Result"
+msgstr "결과"
+
+#: ../doc/keyboard.rst:113
+msgid "Project Files: add selected files"
+msgstr "프로젝트 파일: 선택한 파일 추가"
+
+#: ../doc/keyboard.rst:114 ../doc/keyboard.rst:117 ../doc/keyboard.rst:120
+#: ../doc/keyboard.rst:123 ../doc/keyboard.rst:430
+msgid ":kbd:`Ctrl+Enter`"
+msgstr ":kbd:`Ctrl+Enter`"
+
+#: ../doc/keyboard.rst:115
+msgid ""
+"Place files sequentially at the playhead, in browser order, on the target "
+"track."
+msgstr "파일을 브라우저 순서대로 대상 트랙의 재생 헤드 위치에 순차적으로 배치합니다."
+
+#: ../doc/keyboard.rst:116
+msgid "Effects: apply selected effects"
+msgstr "효과: 선택한 효과 적용"
+
+#: ../doc/keyboard.rst:118
+msgid ""
+"Apply to the selected timeline clips. Browsing effects keeps that clip "
+"selection."
+msgstr "선택한 타임라인 클립에 적용합니다. 효과를 탐색해도 클립 선택은 유지됩니다."
+
+#: ../doc/keyboard.rst:119
+msgid "Transitions: add selected transitions"
+msgstr "전환: 선택한 전환 추가"
+
+#: ../doc/keyboard.rst:121
+msgid ""
+"Place at the playhead on the target track, using the default transition "
+"length."
+msgstr "기본 전환 길이를 사용하여 대상 트랙의 재생 헤드 위치에 배치합니다."
+
+#: ../doc/keyboard.rst:122
+msgid "Emojis: add selected emoji"
+msgstr "이모지: 선택한 이모지 추가"
+
+#: ../doc/keyboard.rst:124
+msgid ""
+"Place at the playhead on the target track, using the default image length."
+msgstr "기본 이미지 길이를 사용하여 대상 트랙의 재생 헤드 위치에 배치합니다."
+
+#: ../doc/keyboard.rst:125
+msgid "Open the Add to Timeline dialog for selected files"
+msgstr "선택한 파일에 대해 타임라인에 추가 대화 상자를 엽니다."
+
+#: ../doc/keyboard.rst:126 ../doc/keyboard.rst:436
+msgid ":kbd:`Ctrl+Alt+A`"
+msgstr ":kbd:`Ctrl+Alt+A`"
+
+#: ../doc/keyboard.rst:127
+msgid "Choose placement and other options before adding the files."
+msgstr "파일을 추가하기 전에 배치 및 기타 옵션을 선택하세요."
+
+#: ../doc/keyboard.rst:129
+msgid ""
+"The target is the selected timeline item's track, or the remembered track if"
+" nothing is selected. With neither available, OpenShot uses the highest "
+"unlocked track. The target track label appears **bold** while browsing "
+"assets. To change it, select an item on the desired track or clear the "
+"timeline selection and click the desired track before returning to the "
+"browser. A locked target blocks the operation; effects also require selected"
+" clips on unlocked tracks."
+msgstr ""
+"대상은 선택된 타임라인 항목의 트랙이거나 선택된 항목이 없으면 기억된 트랙입니다. 둘 다 없으면 OpenShot은 가장 높은 잠금 해제된"
+" 트랙을 사용합니다. 에셋을 탐색하는 동안 대상 트랙 레이블은 **굵게** 표시됩니다. 변경하려면 원하는 트랙의 항목을 선택하거나 "
+"타임라인 선택을 해제하고 원하는 트랙을 클릭한 후 브라우저로 돌아가세요. 잠긴 대상은 작업을 차단하며, 효과는 잠금 해제된 트랙의 선택된"
+" 클립도 필요합니다."
+
+#: ../doc/keyboard.rst:136
+msgid ""
+"Adding at the playhead uses normal OpenShot placement: it does not make room"
+" by shifting later clips or overwrite their content. As with dragging a "
+"single clip, an overlap can create an automatic transition. The playhead "
+"stays in place and focus stays in the browser, so you can continue choosing "
+"assets. Press :kbd:`Shift+3` to edit the newly added timeline items."
+msgstr ""
+"재생 헤드에 추가하면 일반 OpenShot 배치가 사용됩니다: 이후 클립을 이동하여 공간을 만들거나 내용을 덮어쓰지 않습니다. 단일 "
+"클립을 드래그할 때처럼 겹침이 자동 전환을 생성할 수 있습니다. 재생 헤드는 제자리에 있고 포커스는 브라우저에 유지되어 계속 에셋을 "
+"선택할 수 있습니다. 새로 추가된 타임라인 항목을 편집하려면 :kbd:`Shift+3` 을 누르세요."
+
+#: ../doc/keyboard.rst:142
+msgid ""
+"For example: :kbd:`Shift+1` → arrow keys → :kbd:`Ctrl+Enter` → "
+":kbd:`Shift+3`. The add/apply shortcut works in the asset list, not while "
+"typing in a filter or renaming an item."
+msgstr ""
+"예: :kbd:`Shift+1` → 화살표 키 → :kbd:`Ctrl+Enter` → :kbd:`Shift+3`. 추가/적용 단축키는 "
+"필터 입력이나 항목 이름 변경 중이 아닌 에셋 목록에서 작동합니다."
+
+#: ../doc/keyboard.rst:147
+msgid "Moving the playhead"
+msgstr "재생 헤드 이동"
+
+#: ../doc/keyboard.rst:155
+msgid "Step backward / forward one frame"
+msgstr "한 프레임씩 뒤로 / 앞으로 이동"
+
+#: ../doc/keyboard.rst:156
+msgid ":kbd:`Left` / :kbd:`Right`"
+msgstr ":kbd:`Left` / :kbd:`Right`"
+
+#: ../doc/keyboard.rst:157
+msgid "Step backward / forward five frames"
+msgstr "다섯 프레임씩 뒤로 / 앞으로 이동"
+
+#: ../doc/keyboard.rst:158
+msgid ":kbd:`Shift+Left` / :kbd:`Shift+Right`"
+msgstr ":kbd:`Shift+Left` / :kbd:`Shift+Right`"
+
+#: ../doc/keyboard.rst:159
+msgid "Go to the previous / next edit"
+msgstr "이전 / 다음 편집 위치로 이동"
+
+#: ../doc/keyboard.rst:160
+msgid ":kbd:`Up` / :kbd:`Down`"
+msgstr ":kbd:`Up` / :kbd:`Down`"
+
+#: ../doc/keyboard.rst:161
+msgid "Jump to the start / end"
+msgstr "시작 / 끝으로 점프"
+
+#: ../doc/keyboard.rst:162
+msgid ":kbd:`Home` / :kbd:`End`"
+msgstr ":kbd:`Home` / :kbd:`End`"
+
+#: ../doc/keyboard.rst:163
+msgid "Center the timeline on the playhead"
+msgstr "재생 헤드를 중심으로 타임라인 중앙 정렬"
+
+#: ../doc/keyboard.rst:164 ../doc/keyboard.rst:451
+msgid ":kbd:`Shift+C`"
+msgstr ":kbd:`Shift+C`"
+
+#: ../doc/keyboard.rst:165 ../doc/keyboard.rst:292
+msgid "Play / pause"
+msgstr "재생 / 일시정지"
+
+#: ../doc/keyboard.rst:166 ../doc/keyboard.rst:595
+msgid ":kbd:`Space`"
+msgstr ":kbd:`Space`"
+
+#: ../doc/keyboard.rst:167
+msgid "Play in reverse"
+msgstr "역방향 재생"
+
+#: ../doc/keyboard.rst:168 ../doc/keyboard.rst:634
+msgid ":kbd:`J`"
+msgstr ":kbd:`J`"
+
+#: ../doc/keyboard.rst:169
+msgid "Stop playback"
+msgstr "재생 중지"
+
+#: ../doc/keyboard.rst:170 ../doc/keyboard.rst:712
+msgid ":kbd:`K`"
+msgstr ":kbd:`K`"
+
+#: ../doc/keyboard.rst:171
+msgid "Play forward"
+msgstr "정방향 재생"
+
+#: ../doc/keyboard.rst:172 ../doc/keyboard.rst:511
+msgid ":kbd:`L`"
+msgstr ":kbd:`L`"
+
+#: ../doc/keyboard.rst:174
+msgid ""
+"Edit navigation uses the selected item's track, or the last clicked track if"
+" nothing is selected. With no active track, it starts on the highest track "
+"containing a clip or transition at the playhead, or the highest populated "
+"track in a gap."
+msgstr ""
+"편집 탐색은 선택된 항목의 트랙을 사용하거나 선택된 항목이 없으면 마지막으로 클릭한 트랙을 사용합니다. 활성 트랙이 없으면 재생 헤드에 "
+"클립 또는 전환이 있는 가장 높은 트랙이나 빈 공간에서 가장 높은 채워진 트랙에서 시작합니다."
+
+#: ../doc/keyboard.rst:179
+msgid "Selecting clips and transitions"
+msgstr "클립 및 전환 선택"
+
+#: ../doc/keyboard.rst:180
+msgid ""
+"These shortcuts select both clips and transitions. Selection brings an item "
+"into view without changing the zoom or playhead."
+msgstr "이 단축키는 클립과 전환을 모두 선택합니다. 선택하면 줌이나 재생 헤드를 변경하지 않고 항목이 화면에 표시됩니다."
+
+#: ../doc/keyboard.rst:188
+msgid "Select the previous / next item"
+msgstr "이전 / 다음 항목 선택"
+
+#: ../doc/keyboard.rst:189
+msgid ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+
+#: ../doc/keyboard.rst:190
+msgid "Select an item above / below"
+msgstr "위 / 아래 항목 선택"
+
+#: ../doc/keyboard.rst:191
+msgid ":kbd:`Ctrl+Up` / :kbd:`Ctrl+Down`"
+msgstr ":kbd:`Ctrl+Up` / :kbd:`Ctrl+Down`"
+
+#: ../doc/keyboard.rst:192
+msgid "Extend selection to the previous / next item"
+msgstr "이전 / 다음 항목까지 선택 확장"
+
+#: ../doc/keyboard.rst:193
+msgid ":kbd:`Ctrl+Shift+Left` / :kbd:`Ctrl+Shift+Right`"
+msgstr ":kbd:`Ctrl+Shift+Left` / :kbd:`Ctrl+Shift+Right`"
+
+#: ../doc/keyboard.rst:194
+msgid "Cycle through items under the playhead"
+msgstr "재생 헤드 아래 항목 순환 선택"
+
+#: ../doc/keyboard.rst:195 ../doc/keyboard.rst:652
+msgid ":kbd:`D`"
+msgstr ":kbd:`D`"
+
+#: ../doc/keyboard.rst:196
+msgid "Extend selection through items under the playhead"
+msgstr "재생 헤드 아래 항목까지 선택 확장"
+
+#: ../doc/keyboard.rst:197 ../doc/keyboard.rst:502
+msgid ":kbd:`Ctrl+Shift+D`"
+msgstr ":kbd:`Ctrl+Shift+D`"
+
+#: ../doc/keyboard.rst:198
+msgid "Select all / clear selection"
+msgstr "모두 선택 / 선택 해제"
+
+#: ../doc/keyboard.rst:199
+msgid ":kbd:`Ctrl+A` / :kbd:`Ctrl+Shift+A`"
+msgstr ":kbd:`Ctrl+A` / :kbd:`Ctrl+Shift+A`"
+
+#: ../doc/keyboard.rst:201
+msgid ""
+"**Left/right** follows the current track first. When no item remains in that"
+" direction, it continues to the closest item start on another track."
+msgstr ""
+"**왼쪽/오른쪽** 은 먼저 현재 트랙을 따라갑니다. 해당 방향에 항목이 더 이상 없으면 다른 트랙에서 가장 가까운 항목 시작점으로 "
+"이동합니다."
+
+#: ../doc/keyboard.rst:204
+msgid ""
+"**Up/down** looks above or below the selected item, preferring items that "
+"overlap it in time. The nearest overlapping track wins. If nothing overlaps,"
+" the smallest horizontal gap wins, then the nearest track. Ties on a track "
+"favor the closest item center. Empty tracks and unrelated items farther to "
+"the side do not block navigation. With no selection, the playhead supplies "
+"the starting position."
+msgstr ""
+"**위/아래** 는 선택된 항목 위 또는 아래를 살펴보며, 시간상 겹치는 항목을 우선합니다. 가장 가까운 겹치는 트랙이 선택됩니다. "
+"겹치는 항목이 없으면 가장 작은 수평 간격이 선택되고, 그 다음 가장 가까운 트랙이 선택됩니다. 트랙 내 동점은 가장 가까운 항목 중심을"
+" 우선합니다. 빈 트랙과 관련 없는 항목은 탐색을 방해하지 않습니다. 선택이 없으면 재생 헤드가 시작 위치를 제공합니다."
+
+#: ../doc/keyboard.rst:210
+msgid ""
+"**Selection at the playhead** cycles from the highest track to the lowest, "
+"then wraps to the top. Moving the playhead restarts the cycle. If no item is"
+" under it, the selection stays unchanged. Extending selection keeps items "
+"already selected."
+msgstr ""
+"**재생 헤드 위치의 선택** 은 가장 높은 트랙에서 가장 낮은 트랙까지 순환하며, 다시 위로 돌아갑니다. 재생 헤드를 이동하면 순환이 "
+"다시 시작됩니다. 재생 헤드 아래에 항목이 없으면 선택은 변경되지 않습니다. 선택 확장은 이미 선택된 항목을 유지합니다."
+
+#: ../doc/keyboard.rst:217
+msgid "Moving clips and transitions"
+msgstr "클립 및 전환 이동"
+
+#: ../doc/keyboard.rst:218
+msgid ""
+"These shortcuts move the selected clips and transitions when no trim edge is"
+" selected."
+msgstr "이 단축키들은 트림 가장자리가 선택되지 않은 경우 선택된 클립과 전환을 이동합니다."
+
+#: ../doc/keyboard.rst:226
+msgid "Move left / right one frame"
+msgstr "왼쪽 / 오른쪽으로 한 프레임 이동"
+
+#: ../doc/keyboard.rst:227 ../doc/keyboard.rst:257
+msgid ":kbd:`,` / :kbd:`.`"
+msgstr ":kbd:`,` / :kbd:`.`"
+
+#: ../doc/keyboard.rst:228
+msgid "Move left / right five frames"
+msgstr "왼쪽 / 오른쪽으로 다섯 프레임 이동"
+
+#: ../doc/keyboard.rst:229 ../doc/keyboard.rst:259
+msgid ":kbd:`Shift+,` / :kbd:`Shift+.`"
+msgstr ":kbd:`Shift+,` / :kbd:`Shift+.`"
+
+#: ../doc/keyboard.rst:230
+msgid "Move up / down one track"
+msgstr "위 / 아래로 한 트랙 이동"
+
+#: ../doc/keyboard.rst:231
+msgid ":kbd:`Alt+Up` / :kbd:`Alt+Down`"
+msgstr ":kbd:`Alt+위쪽` / :kbd:`Alt+아래쪽`"
+
+#: ../doc/keyboard.rst:233
+msgid ""
+"Track moves keep the selection's timing and can use empty tracks. A locked "
+"track or the edge of the track list blocks the whole track move."
+msgstr ""
+"트랙 이동은 선택된 항목의 타이밍을 유지하며 빈 트랙도 사용할 수 있습니다. 잠긴 트랙이나 트랙 목록의 끝은 전체 트랙 이동을 "
+"차단합니다."
+
+#: ../doc/keyboard.rst:236
+msgid ""
+"Hold a comma/period shortcut to move continuously. OpenShot previews the "
+"movement while the key repeats, then saves the final positions when you "
+"release it. One Undo reverses the entire hold, including all selected items."
+" Separate key taps remain separate undo steps. Leaving the timeline or "
+"starting another keyboard command also finishes the current movement."
+msgstr ""
+"쉼표/마침표 단축키를 누르고 있으면 연속 이동합니다. 키가 반복되는 동안 OpenShot이 이동을 미리 보여주고, 키를 놓으면 최종 "
+"위치를 저장합니다. 한 번의 실행 취소로 전체 연속 이동과 선택된 모든 항목을 되돌립니다. 개별 키 입력은 별도의 실행 취소 단계로 "
+"남습니다. 타임라인을 벗어나거나 다른 키보드 명령을 시작해도 현재 이동이 종료됩니다."
+
+#: ../doc/keyboard.rst:243
+msgid "Trimming clips and transitions"
+msgstr "클립 및 전환 트리밍"
+
+#: ../doc/keyboard.rst:244
+msgid ""
+"Select a clip or transition, choose its left or right edge, then adjust that"
+" edge."
+msgstr "클립 또는 전환을 선택하고, 왼쪽 또는 오른쪽 가장자리를 선택한 후 해당 가장자리를 조정합니다."
+
+#: ../doc/keyboard.rst:252
+msgid "Select the left trim edge"
+msgstr "왼쪽 트림 가장자리 선택"
+
+#: ../doc/keyboard.rst:253 ../doc/keyboard.rst:661
+msgid ":kbd:`[`"
+msgstr ":kbd:`[`"
+
+#: ../doc/keyboard.rst:254
+msgid "Select the right trim edge"
+msgstr "오른쪽 트림 가장자리 선택"
+
+#: ../doc/keyboard.rst:255 ../doc/keyboard.rst:673
+msgid ":kbd:`]`"
+msgstr ":kbd:`]`"
+
+#: ../doc/keyboard.rst:256
+msgid "Move the selected edge left / right one frame"
+msgstr "선택한 가장자리를 왼쪽 / 오른쪽으로 한 프레임 이동"
+
+#: ../doc/keyboard.rst:258
+msgid "Move the selected edge left / right five frames"
+msgstr "선택한 가장자리를 왼쪽 / 오른쪽으로 다섯 프레임 이동"
+
+#: ../doc/keyboard.rst:260
+msgid "Leave trim mode and restore the timeline preview"
+msgstr "트림 모드를 종료하고 타임라인 미리보기를 복원"
+
+#: ../doc/keyboard.rst:261
+msgid ":kbd:`Esc`"
+msgstr ":kbd:`Esc`"
+
+#: ../doc/keyboard.rst:263
+msgid ""
+"The selected edge has a fading highlight. Video Preview shows the first "
+"included frame for the left edge or the last included frame for the right "
+"edge, updating after each trim without moving the playhead. For transitions,"
+" the preview shows the transition mask. Trims respect the available source "
+"media and do not ripple other clips."
+msgstr ""
+"선택된 가장자리는 점점 사라지는 하이라이트가 표시됩니다. 비디오 미리보기는 왼쪽 가장자리의 경우 포함된 첫 번째 프레임을, 오른쪽 "
+"가장자리의 경우 마지막 포함 프레임을 보여주며, 트림 후 재생 헤드를 이동하지 않고 업데이트됩니다. 전환의 경우 미리보기는 전환 마스크를"
+" 표시합니다. 트림은 사용 가능한 소스 미디어를 존중하며 다른 클립에 영향을 주지 않습니다."
+
+#: ../doc/keyboard.rst:269
+msgid ""
+"Holding a trim shortcut also groups its repeated adjustments into one undo "
+"step."
+msgstr "트림 단축키를 누르고 있으면 반복된 조정이 하나의 실행 취소 단계로 그룹화됩니다."
+
+#: ../doc/keyboard.rst:271
+msgid ""
+"After leaving trim mode, comma/period move whole clips and transitions "
+"again."
+msgstr "트림 모드를 종료한 후에는 쉼표/마침표가 전체 클립과 전환을 다시 이동합니다."
+
+#: ../doc/keyboard.rst:274
+msgid "Coming from another editor?"
+msgstr "다른 편집기에서 오셨나요?"
+
+#: ../doc/keyboard.rst:275
+msgid ""
+"Compare a few everyday editing tasks with shortcuts you may already know."
+msgstr "이미 알고 있을 수 있는 단축키와 일상적인 편집 작업 몇 가지를 비교해 보세요."
+
+#: ../doc/keyboard.rst:277
+msgid ""
+"The table shows OpenShot's Windows/Linux defaults, Adobe Premiere Pro and "
+"DaVinci Resolve Windows defaults, and Final Cut Pro Mac defaults. On macOS, "
+"OpenShot uses Command for shortcuts shown with Ctrl. Shortcuts in other "
+"editors can vary with the version, keyboard layout, selected preset, and "
+"active panel. Similar shortcuts can also behave differently on stacked or "
+"connected clips."
+msgstr ""
+"이 표는 OpenShot의 Windows/Linux 기본값, Adobe Premiere Pro 및 DaVinci Resolve "
+"Windows 기본값, Final Cut Pro Mac 기본값을 보여줍니다. macOS에서는 OpenShot이 Ctrl로 표시된 단축키에"
+" Command를 사용합니다. 다른 편집기의 단축키는 버전, 키보드 레이아웃, 선택된 프리셋 및 활성 패널에 따라 다를 수 있습니다. "
+"유사한 단축키도 쌓이거나 연결된 클립에서 다르게 작동할 수 있습니다."
+
+#: ../doc/keyboard.rst:283
+msgid "Everyday editing shortcuts"
+msgstr "일상적인 편집 단축키"
+
+#: ../doc/keyboard.rst:287
+msgid "Task"
+msgstr "작업"
+
+#: ../doc/keyboard.rst:288
+msgid "OpenShot"
+msgstr "OpenShot"
+
+#: ../doc/keyboard.rst:289
+msgid "Premiere Pro"
+msgstr "Premiere Pro"
+
+#: ../doc/keyboard.rst:290
+msgid "DaVinci Resolve"
+msgstr "DaVinci Resolve"
+
+#: ../doc/keyboard.rst:291
+msgid "Final Cut Pro"
+msgstr "Final Cut Pro"
+
+#: ../doc/keyboard.rst:293 ../doc/keyboard.rst:294 ../doc/keyboard.rst:295
+#: ../doc/keyboard.rst:296
+msgid "Space"
+msgstr "스페이스"
+
+#: ../doc/keyboard.rst:297
+msgid "Reverse / stop / forward"
+msgstr "역방향 / 정지 / 정방향"
+
+#: ../doc/keyboard.rst:298 ../doc/keyboard.rst:299 ../doc/keyboard.rst:300
+#: ../doc/keyboard.rst:301
+msgid "J / K / L"
+msgstr "J / K / L"
+
+#: ../doc/keyboard.rst:302
+msgid "Previous / next frame"
+msgstr "이전 / 다음 프레임"
+
+#: ../doc/keyboard.rst:303 ../doc/keyboard.rst:304 ../doc/keyboard.rst:305
+#: ../doc/keyboard.rst:306
+msgid "Left / Right"
+msgstr "왼쪽 / 오른쪽"
+
+#: ../doc/keyboard.rst:307
+msgid "Previous / next edit"
+msgstr "이전 / 다음 편집"
+
+#: ../doc/keyboard.rst:308
+msgid "Up / Down (active track)"
+msgstr "위 / 아래 (활성 트랙)"
+
+#: ../doc/keyboard.rst:309 ../doc/keyboard.rst:310 ../doc/keyboard.rst:311
+msgid "Up / Down"
+msgstr "위 / 아래"
+
+#: ../doc/keyboard.rst:312
+msgid "Focus media browser / project assets"
+msgstr "미디어 브라우저 / 프로젝트 자산에 포커스"
+
+#: ../doc/keyboard.rst:313
+msgid "Shift+1"
+msgstr "Shift+1"
+
+#: ../doc/keyboard.rst:314
+msgid "Shift+1 (Project panel)"
+msgstr "Shift+1 (프로젝트 패널)"
+
+#: ../doc/keyboard.rst:315 ../doc/keyboard.rst:320
+msgid "Not listed here"
+msgstr "여기에 나열되지 않음"
+
+#: ../doc/keyboard.rst:316
+msgid "Cmd+1 (Browser)"
+msgstr "Cmd+1 (브라우저)"
+
+#: ../doc/keyboard.rst:317
+msgid "Focus timeline"
+msgstr "타임라인에 포커스 맞추기"
+
+#: ../doc/keyboard.rst:318 ../doc/keyboard.rst:319
+msgid "Shift+3"
+msgstr "Shift+3"
+
+#: ../doc/keyboard.rst:321
+msgid "Cmd+2"
+msgstr "Cmd+2"
+
+#: ../doc/keyboard.rst:322
+msgid "Add source media at the playhead"
+msgstr "플레이헤드 위치에 소스 미디어 추가"
+
+#: ../doc/keyboard.rst:323
+msgid "Ctrl+Enter (place on target track)"
+msgstr "Ctrl+Enter (대상 트랙에 배치)"
+
+#: ../doc/keyboard.rst:324
+msgid "Comma (insert); period (overwrite)"
+msgstr "쉼표 (삽입); 마침표 (덮어쓰기)"
+
+#: ../doc/keyboard.rst:325
+msgid "F9 (insert); F10 (overwrite)"
+msgstr "F9 (삽입); F10 (덮어쓰기)"
+
+#: ../doc/keyboard.rst:326
+msgid "W (insert); D (overwrite); Q (connect)"
+msgstr "W (삽입); D (덮어쓰기); Q (연결)"
+
+#: ../doc/keyboard.rst:327
+msgid "Select previous / next clip"
+msgstr "이전 / 다음 클립 선택"
+
+#: ../doc/keyboard.rst:328 ../doc/keyboard.rst:330
+msgid "Ctrl+Left / Right"
+msgstr "Ctrl+왼쪽 / 오른쪽"
+
+#: ../doc/keyboard.rst:329 ../doc/keyboard.rst:333 ../doc/keyboard.rst:335
+msgid "Ctrl+Up / Down"
+msgstr "Ctrl+위 / 아래"
+
+#: ../doc/keyboard.rst:331
+msgid "Cmd+Left / Right (same role; also moves playhead)"
+msgstr "Cmd+왼쪽 / 오른쪽 (동일 역할; 플레이헤드도 이동)"
+
+#: ../doc/keyboard.rst:332
+msgid "Select clip above / below"
+msgstr "위 / 아래 클립 선택"
+
+#: ../doc/keyboard.rst:334
+msgid "No default listed here"
+msgstr "여기에 기본값이 없습니다"
+
+#: ../doc/keyboard.rst:336
+msgid "Cmd+Up / Down"
+msgstr "Cmd+위 / 아래"
+
+#: ../doc/keyboard.rst:337
+msgid "Move selection up / down"
+msgstr "선택 항목을 위 / 아래로 이동"
+
+#: ../doc/keyboard.rst:338 ../doc/keyboard.rst:339 ../doc/keyboard.rst:340
+msgid "Alt+Up / Down"
+msgstr "Alt+위 / 아래"
+
+#: ../doc/keyboard.rst:341
+msgid "Option+Up / Down (connected clips)"
+msgstr "Option+위 / 아래 (연결된 클립)"
+
+#: ../doc/keyboard.rst:342
+msgid "Nudge left / right one frame"
+msgstr "한 프레임 왼쪽 / 오른쪽으로 이동"
+
+#: ../doc/keyboard.rst:343 ../doc/keyboard.rst:345 ../doc/keyboard.rst:346
+msgid "Comma / period"
+msgstr "쉼표 / 마침표"
+
+#: ../doc/keyboard.rst:344
+msgid "Alt+Left / Right"
+msgstr "Alt+왼쪽 / 오른쪽"
+
+#: ../doc/keyboard.rst:347
+msgid "Nudge by several frames"
+msgstr "여러 프레임 단위로 이동"
+
+#: ../doc/keyboard.rst:348
+msgid "Shift+comma / period (5)"
+msgstr "Shift+쉼표 / 마침표 (5)"
+
+#: ../doc/keyboard.rst:349
+msgid "Alt+Shift+Left / Right (5)"
+msgstr "Alt+Shift+왼쪽 / 오른쪽 (5)"
+
+#: ../doc/keyboard.rst:350
+msgid "Shift+comma / period (configurable; default 5)"
+msgstr "Shift+쉼표 / 마침표 (설정 가능; 기본값 5)"
+
+#: ../doc/keyboard.rst:351
+msgid "Shift+comma / period (10)"
+msgstr "Shift+쉼표 / 마침표 (10)"
+
+#: ../doc/keyboard.rst:352
+msgid "Select at playhead"
+msgstr "플레이헤드 위치 선택"
+
+#: ../doc/keyboard.rst:353
+msgid "D (cycles through stacked clips)"
+msgstr "D (겹친 클립 순환 선택)"
+
+#: ../doc/keyboard.rst:354
+msgid "D"
+msgstr "D"
+
+#: ../doc/keyboard.rst:355
+msgid "Shift+V (nearest clip/gap)"
+msgstr "Shift+V (가장 가까운 클립/간격)"
+
+#: ../doc/keyboard.rst:356
+msgid "X selects a range; C selects under the pointer"
+msgstr "X는 범위 선택; C는 포인터 아래 선택"
+
+#: ../doc/keyboard.rst:357
+msgid "Split at playhead"
+msgstr "플레이헤드 위치에서 분할"
+
+#: ../doc/keyboard.rst:358
+msgid "Ctrl+K (selected clips)"
+msgstr "Ctrl+K (선택된 클립)"
+
+#: ../doc/keyboard.rst:359
+msgid "Ctrl+K (targeted tracks)"
+msgstr "Ctrl+K (대상 트랙)"
+
+#: ../doc/keyboard.rst:360
+msgid "Ctrl+B"
+msgstr "Ctrl+B"
+
+#: ../doc/keyboard.rst:361
+msgid "Cmd+B"
+msgstr "Cmd+B"
+
+#: ../doc/keyboard.rst:362 ../doc/keyboard.rst:726
+msgid "Undo"
+msgstr "실행 취소"
+
+#: ../doc/keyboard.rst:363 ../doc/keyboard.rst:364 ../doc/keyboard.rst:365
+msgid "Ctrl+Z"
+msgstr "Ctrl+Z"
+
+#: ../doc/keyboard.rst:366
+msgid "Cmd+Z"
+msgstr "Cmd+Z"
+
+#: ../doc/keyboard.rst:367
+msgid "Save project"
+msgstr "프로젝트 저장"
+
+#: ../doc/keyboard.rst:368 ../doc/keyboard.rst:369 ../doc/keyboard.rst:370
+msgid "Ctrl+S"
+msgstr "Ctrl+S"
+
+#: ../doc/keyboard.rst:371
+msgid "Saves automatically"
+msgstr "자동 저장"
+
+#: ../doc/keyboard.rst:373
+msgid ""
+"For complete shortcut lists and customization options, see the `Premiere Pro"
+" keyboard reference <https://helpx.adobe.com/premiere/desktop/get-"
+"started/keyboard-shortcuts/default-keyboard-shortcuts.html>`_, `DaVinci "
+"Resolve training guides "
+"<https://www.blackmagicdesign.com/products/davinciresolve/training>`_, and "
+"`Final Cut Pro keyboard reference <https://support.apple.com/guide/final-"
+"cut-pro/ver90ba5929/mac>`_."
+msgstr ""
+"전체 단축키 목록과 사용자 지정 옵션은 `Premiere Pro 키보드 참조 "
+"<https://helpx.adobe.com/premiere/desktop/get-started/keyboard-"
+"shortcuts/default-keyboard-shortcuts.html>`_\\ , `DaVinci Resolve 교육 가이드 "
+"<https://www.blackmagicdesign.com/products/davinciresolve/training>`_\\ , "
+"그리고 `Final Cut Pro 키보드 참조 <https://support.apple.com/guide/final-cut-"
+"pro/ver90ba5929/mac>`_\\ 를 참조하세요."
+
+#: ../doc/keyboard.rst:381
+msgid "Mouse shortcuts"
+msgstr "마우스 단축키"
+
+#: ../doc/keyboard.rst:382
+msgid ""
+"These gestures complement the keyboard shortcuts. In Project Files' Details "
+"view, double-click the thumbnail column for the file actions below."
+msgstr ""
+"이 제스처들은 키보드 단축키를 보완합니다. 프로젝트 파일의 세부 정보 보기에서 아래 파일 작업을 위해 썸네일 열을 더블 클릭하세요."
+
+#: ../doc/keyboard.rst:390
+msgid "Mouse gesture"
+msgstr "마우스 제스처"
+
+#: ../doc/keyboard.rst:391
+msgid "Keyboard alternative"
+msgstr "키보드 대체키"
+
+#: ../doc/keyboard.rst:392
+msgid "Preview a file in Project Files"
+msgstr "프로젝트 파일에서 파일 미리보기"
+
+#: ../doc/keyboard.rst:393
+msgid "Double-click the file"
+msgstr "파일을 더블 클릭"
+
+#: ../doc/keyboard.rst:395
+msgid "Open file properties in Project Files"
+msgstr "프로젝트 파일에서 파일 속성 열기"
+
+#: ../doc/keyboard.rst:396
+msgid ":kbd:`Ctrl` + double-click the file"
+msgstr ":kbd:`Ctrl` + 파일 더블 클릭"
+
+#: ../doc/keyboard.rst:397 ../doc/keyboard.rst:514
+msgid ":kbd:`Alt+I`"
+msgstr ":kbd:`Alt+I`"
+
+#: ../doc/keyboard.rst:398
+msgid "Split a file in Project Files"
+msgstr "프로젝트 파일에서 파일 분할"
+
+#: ../doc/keyboard.rst:399
+msgid ":kbd:`Shift` + double-click the file"
+msgstr ":kbd:`Shift` + 파일 더블 클릭"
+
+#: ../doc/keyboard.rst:400 ../doc/keyboard.rst:709
+msgid ":kbd:`Alt+S`"
+msgstr ":kbd:`Alt+S`"
+
+#: ../doc/keyboard.rst:401
+msgid "Select an item and everything to its right on the same track"
+msgstr "항목과 같은 트랙 오른쪽의 모든 항목 선택"
+
+#: ../doc/keyboard.rst:402
+msgid ":kbd:`Alt` + click the clip or transition"
+msgstr ":kbd:`Alt` + 클립 또는 전환 클릭"
+
+#: ../doc/keyboard.rst:403
+msgid ":kbd:`Alt+A` with an item selected"
+msgstr "항목 선택 상태에서 :kbd:`Alt+A`"
+
+#: ../doc/keyboard.rst:404
+msgid "Open properties for a timeline clip or transition"
+msgstr "타임라인 클립 또는 전환 속성 열기"
+
+#: ../doc/keyboard.rst:405
+msgid "Double-click the item"
+msgstr "항목을 더블 클릭"
+
+#: ../doc/keyboard.rst:406 ../doc/keyboard.rst:616
+msgid ":kbd:`U`"
+msgstr ":kbd:`U`"
+
+#: ../doc/keyboard.rst:407
+msgid "Fit the whole timeline in view"
+msgstr "전체 타임라인 보기 맞춤"
+
+#: ../doc/keyboard.rst:408
+msgid "Double-click the zoom slider"
+msgstr "줌 슬라이더 더블 클릭"
+
+#: ../doc/keyboard.rst:409
+msgid ":kbd:`\\\\` or :kbd:`Shift+\\\\`"
+msgstr ":kbd:`\\\\` 또는 :kbd:`Shift+\\\\`"
+
+#: ../doc/keyboard.rst:412
+msgid "Full shortcut reference"
+msgstr "전체 단축키 참조"
+
+#: ../doc/keyboard.rst:413
+msgid ""
+"These are the default shortcuts, including view shortcuts supplied by the "
+"menus. Your assignments in Preferences may differ. On macOS, Command is used"
+" for shortcuts shown with Ctrl."
+msgstr ""
+"이들은 메뉴에서 제공하는 보기 단축키를 포함한 기본 단축키입니다. 환경 설정에서 할당한 단축키는 다를 수 있습니다. macOS에서는 "
+"Ctrl로 표시된 단축키에 Command를 사용합니다."
+
+#: ../doc/keyboard.rst:416
+msgid "Default keyboard shortcuts"
+msgstr "기본 키보드 단축키"
+
+#: ../doc/keyboard.rst:421
+msgid "Primary shortcut"
+msgstr "기본 단축키"
+
+#: ../doc/keyboard.rst:422
+msgid "Alternatives"
+msgstr "대체 단축키"
+
+#: ../doc/keyboard.rst:423
+msgid "About OpenShot"
+msgstr "OpenShot 정보"
+
+#: ../doc/keyboard.rst:424
+msgid ":kbd:`Ctrl+H`"
+msgstr ":kbd:`Ctrl+H`"
+
+#: ../doc/keyboard.rst:426
+msgid "Add Marker"
+msgstr "마커 추가"
+
+#: ../doc/keyboard.rst:427
+msgid ":kbd:`M`"
+msgstr ":kbd:`M`"
+
+#: ../doc/keyboard.rst:429
+msgid "Add or Apply Selected Asset"
+msgstr "선택한 자산 추가 또는 적용"
+
+#: ../doc/keyboard.rst:432
+msgid "Add Text"
+msgstr "텍스트 추가"
+
+#: ../doc/keyboard.rst:433
+msgid ":kbd:`Shift+T`"
+msgstr ":kbd:`Shift+T`"
+
+#: ../doc/keyboard.rst:435
+msgid "Add to Timeline"
+msgstr "타임라인에 추가"
+
+#: ../doc/keyboard.rst:438
+msgid "Add Track"
+msgstr "트랙 추가"
+
+#: ../doc/keyboard.rst:439
+msgid ":kbd:`Ctrl+Y`"
+msgstr ":kbd:`Ctrl+Y`"
+
+#: ../doc/keyboard.rst:441
+msgid "Animated Title"
+msgstr "애니메이션 제목"
+
+#: ../doc/keyboard.rst:442
+msgid ":kbd:`Ctrl+Shift+T`"
+msgstr ":kbd:`Ctrl+Shift+T`"
+
+#: ../doc/keyboard.rst:444
+msgid "Ask a Question..."
+msgstr "질문하기..."
+
+#: ../doc/keyboard.rst:445
+msgid ":kbd:`F4`"
+msgstr ":kbd:`F4`"
+
+#: ../doc/keyboard.rst:447
+msgid "Auto-Optimize"
+msgstr "자동 최적화"
+
+#: ../doc/keyboard.rst:448
+msgid ":kbd:`Ctrl+Alt+O`"
+msgstr ":kbd:`Ctrl+Alt+O`"
+
+#: ../doc/keyboard.rst:450
+msgid "Center on Playhead"
+msgstr "플레이헤드 중심으로"
+
+#: ../doc/keyboard.rst:453
+msgid "Choose Profile"
+msgstr "프로필 선택"
+
+#: ../doc/keyboard.rst:454
+msgid ":kbd:`Ctrl+Alt+P`"
+msgstr ":kbd:`Ctrl+Alt+P`"
+
+#: ../doc/keyboard.rst:456
+msgid "Clear All Cache"
+msgstr "모든 캐시 지우기"
+
+#: ../doc/keyboard.rst:457
+msgid ":kbd:`Ctrl+Shift+ESC`"
+msgstr ":kbd:`Ctrl+Shift+ESC`"
+
+#: ../doc/keyboard.rst:459
+msgid "Clear History"
+msgstr "기록 지우기"
+
+#: ../doc/keyboard.rst:460
+msgid ":kbd:`Ctrl+Shift+H`"
+msgstr ":kbd:`Ctrl+Shift+H`"
+
+#: ../doc/keyboard.rst:462
+msgid "Clear Waveform Display Data"
+msgstr "파형 표시 데이터 지우기"
+
+#: ../doc/keyboard.rst:463
+msgid ":kbd:`Ctrl+Shift+W`"
+msgstr ":kbd:`Ctrl+Shift+W`"
+
+#: ../doc/keyboard.rst:465
+msgid "Color View"
+msgstr "컬러 뷰"
+
+#: ../doc/keyboard.rst:466
+msgid ":kbd:`Alt+Shift+2`"
+msgstr ":kbd:`Alt+Shift+2`"
+
+#: ../doc/keyboard.rst:468
+msgid "Copy"
+msgstr "복사"
+
+#: ../doc/keyboard.rst:469
+msgid ":kbd:`Ctrl+C`"
+msgstr ":kbd:`Ctrl+C`"
+
+#: ../doc/keyboard.rst:471
+msgid "Cut"
+msgstr "잘라내기"
+
+#: ../doc/keyboard.rst:472
+msgid ":kbd:`Ctrl+X`"
+msgstr ":kbd:`Ctrl+X`"
+
+#: ../doc/keyboard.rst:474
+msgid "Delete Item"
+msgstr "항목 삭제"
+
+#: ../doc/keyboard.rst:475
+msgid ":kbd:`Delete`"
+msgstr ":kbd:`Delete`"
+
+#: ../doc/keyboard.rst:476
+msgid ":kbd:`Backspace`"
+msgstr ":kbd:`Backspace`"
+
+#: ../doc/keyboard.rst:477
+msgid "Delete Item (Ripple)"
+msgstr "항목 삭제 (리플)"
+
+#: ../doc/keyboard.rst:478
+msgid ":kbd:`Shift+Delete`"
+msgstr ":kbd:`Shift+Delete`"
+
+#: ../doc/keyboard.rst:480
+msgid "Delete Optimized Videos"
+msgstr "최적화된 비디오 삭제"
+
+#: ../doc/keyboard.rst:481
+msgid ":kbd:`Ctrl+Shift+O`"
+msgstr ":kbd:`Ctrl+Shift+O`"
+
+#: ../doc/keyboard.rst:483
+msgid "Details View"
+msgstr "세부 정보 보기"
+
+#: ../doc/keyboard.rst:484
+msgid ":kbd:`Ctrl+Page Up`"
+msgstr ":kbd:`Ctrl+Page Up`"
+
+#: ../doc/keyboard.rst:486
+msgid "Donate"
+msgstr "기부하기"
+
+#: ../doc/keyboard.rst:487
+msgid ":kbd:`F7`"
+msgstr ":kbd:`F7`"
+
+#: ../doc/keyboard.rst:489
+msgid "Duplicate"
+msgstr "복제"
+
+#: ../doc/keyboard.rst:490
+msgid ":kbd:`Ctrl+Shift+/`"
+msgstr ":kbd:`Ctrl+Shift+/`"
+
+#: ../doc/keyboard.rst:492
+msgid "Edit Title"
+msgstr "제목 편집"
+
+#: ../doc/keyboard.rst:493
+msgid ":kbd:`Alt+T`"
+msgstr ":kbd:`Alt+T`"
+
+#: ../doc/keyboard.rst:495
+msgid "Export Files"
+msgstr "파일 내보내기"
+
+#: ../doc/keyboard.rst:496
+msgid ":kbd:`Ctrl+Shift+E`"
+msgstr ":kbd:`Ctrl+Shift+E`"
+
+#: ../doc/keyboard.rst:498
+msgid "Export Video"
+msgstr "비디오 내보내기"
+
+#: ../doc/keyboard.rst:499
+msgid ":kbd:`Ctrl+E`"
+msgstr ":kbd:`Ctrl+E`"
+
+#: ../doc/keyboard.rst:500
+msgid ":kbd:`Ctrl+M`"
+msgstr ":kbd:`Ctrl+M`"
+
+#: ../doc/keyboard.rst:501
+msgid "Extend Selection at Playhead"
+msgstr "플레이헤드에서 선택 확장"
+
+#: ../doc/keyboard.rst:504
+msgid "Extend Selection to Next Item"
+msgstr "다음 항목까지 선택 확장"
+
+#: ../doc/keyboard.rst:505
+msgid ":kbd:`Ctrl+Shift+Right`"
+msgstr ":kbd:`Ctrl+Shift+Right`"
+
+#: ../doc/keyboard.rst:507
+msgid "Extend Selection to Previous Item"
+msgstr "이전 항목까지 선택 확장"
+
+#: ../doc/keyboard.rst:508
+msgid ":kbd:`Ctrl+Shift+Left`"
+msgstr ":kbd:`Ctrl+Shift+Left`"
+
+#: ../doc/keyboard.rst:510
+msgid "Fast Forward"
+msgstr "빨리 감기"
+
+#: ../doc/keyboard.rst:513
+msgid "File Properties"
+msgstr "파일 속성"
+
+#: ../doc/keyboard.rst:525
+msgid "Focus Timeline"
+msgstr "타임라인에 포커스"
+
+#: ../doc/keyboard.rst:531
+msgid "Fullscreen"
+msgstr "전체 화면"
+
+#: ../doc/keyboard.rst:532
+msgid ":kbd:`F11`"
+msgstr ":kbd:`F11`"
+
+#: ../doc/keyboard.rst:534
+msgid "Import Files..."
+msgstr "파일 가져오기..."
+
+#: ../doc/keyboard.rst:535
+msgid ":kbd:`Ctrl+I`"
+msgstr ":kbd:`Ctrl+I`"
+
+#: ../doc/keyboard.rst:537
+msgid "Insert Keyframe"
+msgstr "키프레임 삽입"
+
+#: ../doc/keyboard.rst:538
+msgid ":kbd:`Alt+Shift+K`"
+msgstr ":kbd:`Alt+Shift+K`"
+
+#: ../doc/keyboard.rst:540
+msgid "Join our Community..."
+msgstr "커뮤니티 참여하기..."
+
+#: ../doc/keyboard.rst:541
+msgid ":kbd:`F5`"
+msgstr ":kbd:`F5`"
+
+#: ../doc/keyboard.rst:543
+msgid "Jump To End"
+msgstr "끝으로 이동"
+
+#: ../doc/keyboard.rst:544
+msgid ":kbd:`End`"
+msgstr ":kbd:`End`"
+
+#: ../doc/keyboard.rst:546
+msgid "Jump To Start"
+msgstr "처음으로 이동"
+
+#: ../doc/keyboard.rst:547
+msgid ":kbd:`Home`"
+msgstr ":kbd:`Home`"
+
+#: ../doc/keyboard.rst:549
+msgid "Launch Tutorial"
+msgstr "튜토리얼 시작"
+
+#: ../doc/keyboard.rst:550
+msgid ":kbd:`F2`"
+msgstr ":kbd:`F2`"
+
+#: ../doc/keyboard.rst:552
+msgid "Move Selection Down One Track"
+msgstr "선택 항목을 한 트랙 아래로 이동"
+
+#: ../doc/keyboard.rst:553
+msgid ":kbd:`Alt+Down`"
+msgstr ":kbd:`Alt+Down`"
+
+#: ../doc/keyboard.rst:555
+msgid "Move Selection Up One Track"
+msgstr "선택 항목을 한 트랙 위로 이동"
+
+#: ../doc/keyboard.rst:556
+msgid ":kbd:`Alt+Up`"
+msgstr ":kbd:`Alt+Up`"
+
+#: ../doc/keyboard.rst:558
+msgid "New Project"
+msgstr "새 프로젝트"
+
+#: ../doc/keyboard.rst:559
+msgid ":kbd:`Ctrl+N`"
+msgstr ":kbd:`Ctrl+N`"
+
+#: ../doc/keyboard.rst:561
+msgid "Next Edit Point"
+msgstr "다음 편집 지점"
+
+#: ../doc/keyboard.rst:562
+msgid ":kbd:`Down`"
+msgstr ":kbd:`Down`"
+
+#: ../doc/keyboard.rst:564
+msgid "Next Five Frames"
+msgstr "다음 5프레임"
+
+#: ../doc/keyboard.rst:565
+msgid ":kbd:`Shift+Right`"
+msgstr ":kbd:`Shift+Right`"
+
+#: ../doc/keyboard.rst:567
+msgid "Next Frame"
+msgstr "다음 프레임"
+
+#: ../doc/keyboard.rst:568
+msgid ":kbd:`Right`"
+msgstr ":kbd:`Right`"
+
+#: ../doc/keyboard.rst:570
+msgid "Next Marker"
+msgstr "다음 마커"
+
+#: ../doc/keyboard.rst:571
+msgid ":kbd:`Shift+M`"
+msgstr ":kbd:`Shift+M`"
+
+#: ../doc/keyboard.rst:572
+msgid ":kbd:`Alt+Right`"
+msgstr ":kbd:`Alt+Right`"
+
+#: ../doc/keyboard.rst:573
+msgid "Nudge left (1 Frame)"
+msgstr "왼쪽으로 살짝 이동 (1프레임)"
+
+#: ../doc/keyboard.rst:574
+msgid ":kbd:`,`"
+msgstr ":kbd:`,`"
+
+#: ../doc/keyboard.rst:576
+msgid "Nudge left (5 Frames)"
+msgstr "왼쪽으로 살짝 이동 (5프레임)"
+
+#: ../doc/keyboard.rst:577
+msgid ":kbd:`Shift+,`"
+msgstr ":kbd:`Shift+,`"
+
+#: ../doc/keyboard.rst:579
+msgid "Nudge right (1 Frame)"
+msgstr "오른쪽으로 살짝 이동 (1프레임)"
+
+#: ../doc/keyboard.rst:580
+msgid ":kbd:`.`"
+msgstr ":kbd:`.`"
+
+#: ../doc/keyboard.rst:582
+msgid "Nudge right (5 Frames)"
+msgstr "오른쪽으로 살짝 이동 (5프레임)"
+
+#: ../doc/keyboard.rst:583
+msgid ":kbd:`Shift+.`"
+msgstr ":kbd:`Shift+.`"
+
+#: ../doc/keyboard.rst:585
+msgid "Open Help Contents"
+msgstr "도움말 내용 열기"
+
+#: ../doc/keyboard.rst:586
+msgid ":kbd:`F1`"
+msgstr ":kbd:`F1`"
+
+#: ../doc/keyboard.rst:588
+msgid "Open Project..."
+msgstr "프로젝트 열기..."
+
+#: ../doc/keyboard.rst:589
+msgid ":kbd:`Ctrl+O`"
+msgstr ":kbd:`Ctrl+O`"
+
+#: ../doc/keyboard.rst:591
+msgid "Paste"
+msgstr "붙여넣기"
+
+#: ../doc/keyboard.rst:592
+msgid ":kbd:`Ctrl+V`"
+msgstr ":kbd:`Ctrl+V`"
+
+#: ../doc/keyboard.rst:594
+msgid "Play/Pause Toggle"
+msgstr "재생/일시정지 전환"
+
+#: ../doc/keyboard.rst:597
+msgid "Preferences"
+msgstr "환경설정"
+
+#: ../doc/keyboard.rst:598
+msgid ":kbd:`Ctrl+P`"
+msgstr ":kbd:`Ctrl+P`"
+
+#: ../doc/keyboard.rst:600
+msgid "Preview File"
+msgstr "파일 미리보기"
+
+#: ../doc/keyboard.rst:603
+msgid "Previous Edit Point"
+msgstr "이전 편집 지점"
+
+#: ../doc/keyboard.rst:604
+msgid ":kbd:`Up`"
+msgstr ":kbd:`위쪽 화살표`"
+
+#: ../doc/keyboard.rst:606
+msgid "Previous Five Frames"
+msgstr "이전 5프레임"
+
+#: ../doc/keyboard.rst:607
+msgid ":kbd:`Shift+Left`"
+msgstr ":kbd:`Shift+왼쪽 화살표`"
+
+#: ../doc/keyboard.rst:609
+msgid "Previous Frame"
+msgstr "이전 프레임"
+
+#: ../doc/keyboard.rst:610
+msgid ":kbd:`Left`"
+msgstr ":kbd:`왼쪽 화살표`"
+
+#: ../doc/keyboard.rst:612
+msgid "Previous Marker"
+msgstr "이전 마커"
+
+#: ../doc/keyboard.rst:613
+msgid ":kbd:`Ctrl+Shift+M`"
+msgstr ":kbd:`Ctrl+Shift+M`"
+
+#: ../doc/keyboard.rst:614
+msgid ":kbd:`Alt+Left`"
+msgstr ":kbd:`Alt+왼쪽 화살표`"
+
+#: ../doc/keyboard.rst:615
+msgid "Properties"
+msgstr "속성"
+
+#: ../doc/keyboard.rst:618
+msgid "Quit"
+msgstr "종료"
+
+#: ../doc/keyboard.rst:619
+msgid ":kbd:`Ctrl+Q`"
+msgstr ":kbd:`Ctrl+Q`"
+
+#: ../doc/keyboard.rst:621
+msgid "Razor Toggle"
+msgstr "레이저 토글"
+
+#: ../doc/keyboard.rst:622
+msgid ":kbd:`C`"
+msgstr ":kbd:`C`"
+
+#: ../doc/keyboard.rst:623
+msgid ":kbd:`B` or :kbd:`R`"
+msgstr ":kbd:`B` 또는 :kbd:`R`"
+
+#: ../doc/keyboard.rst:624
+msgid "Recording View"
+msgstr "녹화 보기"
+
+#: ../doc/keyboard.rst:625
+msgid ":kbd:`Alt+Shift+3`"
+msgstr ":kbd:`Alt+Shift+3`"
+
+#: ../doc/keyboard.rst:627
+msgid "Redo"
+msgstr "다시 실행"
+
+#: ../doc/keyboard.rst:628
+msgid ":kbd:`Ctrl+Shift+Z`"
+msgstr ":kbd:`Ctrl+Shift+Z`"
+
+#: ../doc/keyboard.rst:630
+msgid "Report a Bug..."
+msgstr "버그 신고..."
+
+#: ../doc/keyboard.rst:631
+msgid ":kbd:`F3`"
+msgstr ":kbd:`F3`"
+
+#: ../doc/keyboard.rst:633
+msgid "Rewind"
+msgstr "되감기"
+
+#: ../doc/keyboard.rst:636
+msgid "Save Current Frame"
+msgstr "현재 프레임 저장"
+
+#: ../doc/keyboard.rst:637
+msgid ":kbd:`Shift+E`"
+msgstr ":kbd:`Shift+E`"
+
+#: ../doc/keyboard.rst:639
+msgid "Save Project"
+msgstr "프로젝트 저장"
+
+#: ../doc/keyboard.rst:640
+msgid ":kbd:`Ctrl+S`"
+msgstr ":kbd:`Ctrl+S`"
+
+#: ../doc/keyboard.rst:642
+msgid "Save Project As..."
+msgstr "다른 이름으로 프로젝트 저장..."
+
+#: ../doc/keyboard.rst:643
+msgid ":kbd:`Ctrl+Shift+S`"
+msgstr ":kbd:`Ctrl+Shift+S`"
+
+#: ../doc/keyboard.rst:645
+msgid "Select All"
+msgstr "모두 선택"
+
+#: ../doc/keyboard.rst:646
+msgid ":kbd:`Ctrl+A`"
+msgstr ":kbd:`Ctrl+A`"
+
+#: ../doc/keyboard.rst:648
+msgid "Select Item Above"
+msgstr "위 항목 선택"
+
+#: ../doc/keyboard.rst:649
+msgid ":kbd:`Ctrl+Up`"
+msgstr ":kbd:`Ctrl+위쪽 화살표`"
+
+#: ../doc/keyboard.rst:651
+msgid "Select Item at Playhead"
+msgstr "재생 헤드 위치 항목 선택"
+
+#: ../doc/keyboard.rst:654
+msgid "Select Item Below"
+msgstr "아래 항목 선택"
+
+#: ../doc/keyboard.rst:655
+msgid ":kbd:`Ctrl+Down`"
+msgstr ":kbd:`Ctrl+아래쪽 화살표`"
+
+#: ../doc/keyboard.rst:657
+msgid "Select Item (Ripple)"
+msgstr "항목 선택 (리플)"
+
+#: ../doc/keyboard.rst:658
+msgid ":kbd:`Alt+A`"
+msgstr ":kbd:`Alt+A`"
+
+#: ../doc/keyboard.rst:660
+msgid "Select Left Item Edge"
+msgstr "왼쪽 항목 가장자리 선택"
+
+#: ../doc/keyboard.rst:663
+msgid "Select Next Item"
+msgstr "다음 항목 선택"
+
+#: ../doc/keyboard.rst:664
+msgid ":kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+오른쪽 화살표`"
+
+#: ../doc/keyboard.rst:666
+msgid "Select None"
+msgstr "선택 해제"
+
+#: ../doc/keyboard.rst:667
+msgid ":kbd:`Ctrl+Shift+A`"
+msgstr ":kbd:`Ctrl+Shift+A`"
+
+#: ../doc/keyboard.rst:669
+msgid "Select Previous Item"
+msgstr "이전 항목 선택"
+
+#: ../doc/keyboard.rst:670
+msgid ":kbd:`Ctrl+Left`"
+msgstr ":kbd:`Ctrl+왼쪽 화살표`"
+
+#: ../doc/keyboard.rst:672
+msgid "Select Right Item Edge"
+msgstr "오른쪽 항목 가장자리 선택"
+
+#: ../doc/keyboard.rst:675
+msgid "Share Feedback..."
+msgstr "피드백 공유..."
+
+#: ../doc/keyboard.rst:676
+msgid ":kbd:`F8`"
+msgstr ":kbd:`F8`"
+
+#: ../doc/keyboard.rst:678
+msgid "Simple View"
+msgstr "간단한 보기"
+
+#: ../doc/keyboard.rst:679
+msgid ":kbd:`Alt+Shift+0`"
+msgstr ":kbd:`Alt+Shift+0`"
+
+#: ../doc/keyboard.rst:681
+msgid "Slice All: Keep Both Sides"
+msgstr "전체 자르기: 양쪽 모두 유지"
+
+#: ../doc/keyboard.rst:682
+msgid ":kbd:`Ctrl+Shift+K`"
+msgstr ":kbd:`Ctrl+Shift+K`"
+
+#: ../doc/keyboard.rst:684
+msgid "Slice All: Keep Left Side"
+msgstr "전체 자르기: 왼쪽만 유지"
+
+#: ../doc/keyboard.rst:685
+msgid ":kbd:`Ctrl+Shift+J`"
+msgstr ":kbd:`Ctrl+Shift+J`"
+
+#: ../doc/keyboard.rst:687
+msgid "Slice All: Keep Right Side"
+msgstr "전체 자르기: 오른쪽만 유지"
+
+#: ../doc/keyboard.rst:688
+msgid ":kbd:`Ctrl+Shift+L`"
+msgstr ":kbd:`Ctrl+Shift+L`"
+
+#: ../doc/keyboard.rst:690
+msgid "Slice Selected: Keep Both Sides"
+msgstr "선택 자르기: 양쪽 모두 유지"
+
+#: ../doc/keyboard.rst:691
+msgid ":kbd:`Ctrl+K`"
+msgstr ":kbd:`Ctrl+K`"
+
+#: ../doc/keyboard.rst:693
+msgid "Slice Selected: Keep Left (Ripple)"
+msgstr "선택 자르기: 왼쪽 유지 (리플)"
+
+#: ../doc/keyboard.rst:694
+msgid ":kbd:`W`"
+msgstr ":kbd:`W`"
+
+#: ../doc/keyboard.rst:696
+msgid "Slice Selected: Keep Left Side"
+msgstr "선택 자르기: 왼쪽만 유지"
+
+#: ../doc/keyboard.rst:697
+msgid ":kbd:`Ctrl+J`"
+msgstr ":kbd:`Ctrl+J`"
+
+#: ../doc/keyboard.rst:699
+msgid "Slice Selected: Keep Right (Ripple)"
+msgstr "선택 자르기: 오른쪽 유지 (리플)"
+
+#: ../doc/keyboard.rst:700
+msgid ":kbd:`Q`"
+msgstr ":kbd:`Q`"
+
+#: ../doc/keyboard.rst:702
+msgid "Slice Selected: Keep Right Side"
+msgstr "선택 자르기: 오른쪽만 유지"
+
+#: ../doc/keyboard.rst:703
+msgid ":kbd:`Ctrl+L`"
+msgstr ":kbd:`Ctrl+L`"
+
+#: ../doc/keyboard.rst:705
+msgid "Snapping Toggle"
+msgstr "스냅 토글"
+
+#: ../doc/keyboard.rst:706
+msgid ":kbd:`S`"
+msgstr ":kbd:`S`"
+
+#: ../doc/keyboard.rst:708
+msgid "Split File"
+msgstr "파일 분할"
+
+#: ../doc/keyboard.rst:711
+msgid "Stop Playback"
+msgstr "재생 중지"
+
+#: ../doc/keyboard.rst:714
+msgid "Thumbnail View"
+msgstr "썸네일 보기"
+
+#: ../doc/keyboard.rst:715
+msgid ":kbd:`Ctrl+Page Down`"
+msgstr ":kbd:`Ctrl+Page Down`"
+
+#: ../doc/keyboard.rst:717
+msgid "Timing Toggle"
+msgstr "타이밍 토글"
+
+#: ../doc/keyboard.rst:718
+msgid ":kbd:`T`"
+msgstr ":kbd:`T`"
+
+#: ../doc/keyboard.rst:720
+msgid "Title"
+msgstr "제목"
+
+#: ../doc/keyboard.rst:721
+msgid ":kbd:`Ctrl+T`"
+msgstr ":kbd:`Ctrl+T`"
+
+#: ../doc/keyboard.rst:723
+msgid "Translate this Application..."
+msgstr "이 응용 프로그램 번역..."
+
+#: ../doc/keyboard.rst:724
+msgid ":kbd:`F6`"
+msgstr ":kbd:`F6`"
+
+#: ../doc/keyboard.rst:727
+msgid ":kbd:`Ctrl+Z`"
+msgstr ":kbd:`Ctrl+Z`"
+
+#: ../doc/keyboard.rst:729
+msgid "Update Available"
+msgstr "업데이트 가능"
+
+#: ../doc/keyboard.rst:730
+msgid ":kbd:`F9`"
+msgstr ":kbd:`F9`"
+
+#: ../doc/keyboard.rst:732
+msgid "View Toolbar"
+msgstr "도구 모음 보기"
+
+#: ../doc/keyboard.rst:733
+msgid ":kbd:`Ctrl+Shift+B`"
+msgstr ":kbd:`Ctrl+Shift+B`"
+
+#: ../doc/keyboard.rst:735
+msgid "Zoom In"
+msgstr "확대"
+
+#: ../doc/keyboard.rst:736
+msgid ":kbd:`=`"
+msgstr ":kbd:`=`"
+
+#: ../doc/keyboard.rst:737
+msgid ":kbd:`Ctrl+=`"
+msgstr ":kbd:`Ctrl+=`"
+
+#: ../doc/keyboard.rst:738
+msgid "Zoom Out"
+msgstr "축소"
+
+#: ../doc/keyboard.rst:739
+msgid ":kbd:`-`"
+msgstr ":kbd:`-`"
+
+#: ../doc/keyboard.rst:740
+msgid ":kbd:`Ctrl+-`"
+msgstr ":kbd:`Ctrl+-`"
+
+#: ../doc/keyboard.rst:741
+msgid "Zoom to Timeline"
+msgstr "타임라인으로 확대"
+
+#: ../doc/keyboard.rst:742
+msgid ":kbd:`\\\\`"
+msgstr ":kbd:`\\\\`"
+
+#: ../doc/keyboard.rst:743
+msgid ":kbd:`Shift+\\\\`"
+msgstr ":kbd:`Shift+\\\\`"

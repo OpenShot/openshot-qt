@@ -1,0 +1,1782 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../doc/agent_cli.rst:6
+msgid "Command Line Interface"
+msgstr "Komut Satırı Arayüzü"
+
+#: ../doc/agent_cli.rst:8
+msgid ""
+"Bring OpenShot into your command-line workflow. Import footage, trim and "
+"arrange clips, apply effects, animate properties with keyframes, and export "
+"videos from your terminal. Use a few commands to automate repetitive edits, "
+"write a script for a recurring project, or let an AI agent help assemble and"
+" refine a video."
+msgstr ""
+"OpenShot'u komut satırı iş akışınıza dahil edin. Görüntüleri içe aktarın, "
+"klipleri kırpın ve düzenleyin, efektler uygulayın, özellikleri anahtar "
+"karelerle canlandırın ve videoları terminalinizden dışa aktarın. Tekrarlayan"
+" düzenlemeleri otomatikleştirmek, tekrar eden bir proje için bir betik "
+"yazmak veya bir yapay zeka ajanının bir video oluşturup geliştirmesine "
+"yardımcı olmasını sağlamak için birkaç komut kullanın."
+
+#: ../doc/agent_cli.rst:13
+msgid ""
+"The command line works with the same projects as the editor. You can control"
+" an open editor and review changes as you go, or work in a **headless "
+"session** without opening a window. A session keeps your project open "
+"between commands, including its edits, undo history, and export jobs. Save "
+"it as an ``.osp`` project whenever you want to continue editing later."
+msgstr ""
+"Komut satırı, editörle aynı projelerle çalışır. Açık bir editörü kontrol "
+"edebilir ve ilerlerken değişiklikleri gözden geçirebilir veya bir pencere "
+"açmadan **başsız oturumda** çalışabilirsiniz. Bir oturum, düzenlemeleriniz, "
+"geri alma geçmişiniz ve dışa aktarma işleri dahil olmak üzere komutlar "
+"arasında projenizi açık tutar. Daha sonra düzenlemeye devam etmek "
+"istediğinizde bunu ``.osp`` projesi olarak kaydedin."
+
+#: ../doc/agent_cli.rst:20
+msgid "Getting started"
+msgstr "Başlarken"
+
+#: ../doc/agent_cli.rst:22
+msgid ""
+"Use your installed OpenShot executable followed by ``--cli``. Start with "
+"``intro`` for a short guide to sessions, editing, animation, and saving, or "
+"``help`` for the command overview. These commands do not need an active "
+"session. The examples below require an OpenShot build that includes command-"
+"line editing."
+msgstr ""
+"Yüklü OpenShot çalıştırılabilir dosyanızı ``--cli`` ile birlikte kullanın. "
+"Oturumlar, düzenleme, animasyon ve kaydetme hakkında kısa bir rehber için "
+"``intro`` ile başlayın veya komut genel bakışı için ``help`` kullanın. Bu "
+"komutlar aktif bir oturum gerektirmez. Aşağıdaki örnekler, komut satırı "
+"düzenlemeyi içeren bir OpenShot sürümü gerektirir."
+
+#: ../doc/agent_cli.rst:30
+msgid "Linux AppImage"
+msgstr "Linux AppImage"
+
+#: ../doc/agent_cli.rst:32
+msgid "From the directory containing your downloaded AppImage::"
+msgstr "İndirilen AppImage dosyanızın bulunduğu dizinden::"
+
+#: ../doc/agent_cli.rst:37
+msgid ""
+"Replace ``OpenShot.AppImage`` with your downloaded filename. If "
+"**AppImageLauncher** shows desktop integration dialogs, set "
+"``APPIMAGELAUNCHER_DISABLE=1`` before launching the command::"
+msgstr ""
+"``OpenShot.AppImage`` dosyasını indirdiğiniz dosya adıyla değiştirin. Eğer "
+"**AppImageLauncher** masaüstü entegrasyon diyalogları gösteriyorsa, komutu "
+"çalıştırmadan önce ``APPIMAGELAUNCHER_DISABLE=1`` olarak ayarlayın::"
+
+#: ../doc/agent_cli.rst:43
+msgid "For scripts or repeated commands, set it once in your current shell::"
+msgstr ""
+"Betikler veya tekrar eden komutlar için, mevcut kabuğunuzda bir kez "
+"ayarlayın::"
+
+#: ../doc/agent_cli.rst:48
+msgid ""
+"The variable must be set before launching the AppImage: AppImageLauncher can"
+" intercept it before OpenShot receives ``--cli``. Relative media paths and "
+"``@batch.json`` files are resolved from your working directory. Keep the "
+"AppImage file available while its sessions or exports are running."
+msgstr ""
+"Değişken, AppImage başlatılmadan önce ayarlanmalıdır: AppImageLauncher, "
+"OpenShot ``--cli`` komutunu almadan önce bunu engelleyebilir. Göreli medya "
+"yolları ve ``@batch.json`` dosyaları çalışma dizininizden çözülür. Oturumlar"
+" veya dışa aktarmalar çalışırken AppImage dosyasını erişilebilir tutun."
+
+#: ../doc/agent_cli.rst:54
+msgid "Linux Snap"
+msgstr "Linux Snap"
+
+#: ../doc/agent_cli.rst:56
+msgid "For the `OpenShot Snap <https://snapcraft.io/openshot-qt>`_, use::"
+msgstr "`OpenShot Snap <https://snapcraft.io/openshot-qt>`_ için kullanın::"
+
+#: ../doc/agent_cli.rst:62
+msgid ""
+"Snap's file permissions apply to command-line editing too. Keep media, "
+"projects, and exports in locations the Snap can access, such as your home "
+"folder. To allow access to external drives, connect the removable-media "
+"permission::"
+msgstr ""
+"Snap'in dosya izinleri komut satırı düzenlemesi için de geçerlidir. Medya, "
+"projeler ve dışa aktarmaları Snap'in erişebileceği yerlerde, örneğin ev "
+"klasörünüzde tutun. Harici sürücülere erişim izni vermek için removable-"
+"media iznini bağlayın::"
+
+#: ../doc/agent_cli.rst:69
+msgid "Windows"
+msgstr "Windows"
+
+#: ../doc/agent_cli.rst:73
+msgid ""
+"**Use openshot-qt-cmd.exe for command-line editing on Windows.** This "
+"console executable displays command results, help, and errors in your "
+"terminal. The desktop executable, ``openshot-qt.exe``, does not display "
+"standard output in an interactive terminal, leaving commands without visible"
+" feedback and making the CLI difficult to use."
+msgstr ""
+"**Windows'ta komut satırı düzenlemesi için openshot-qt-cmd.exe kullanın.** "
+"Bu konsol çalıştırılabilir dosyası, komut sonuçlarını, yardım ve hataları "
+"terminalinizde gösterir. Masaüstü çalıştırılabilir dosyası ``openshot-"
+"qt.exe`` ise etkileşimli terminalde standart çıktıyı göstermez, komutları "
+"görünür geri bildirim olmadan bırakır ve CLI kullanımını zorlaştırır."
+
+#: ../doc/agent_cli.rst:79
+msgid "In PowerShell, from the OpenShot installation directory::"
+msgstr "PowerShell'de, OpenShot kurulum dizininden::"
+
+#: ../doc/agent_cli.rst:85
+msgid ""
+"If you are in a different directory, use the full path to ``openshot-qt-"
+"cmd.exe``. Keep ``--cli`` after the executable name."
+msgstr ""
+"Farklı bir dizindeyseniz, ``openshot-qt-cmd.exe`` için tam yolu kullanın. "
+"Çalıştırılabilir dosya adından sonra ``--cli`` bırakın."
+
+#: ../doc/agent_cli.rst:89
+msgid "macOS"
+msgstr "macOS"
+
+#: ../doc/agent_cli.rst:91
+msgid "For an installation in Applications::"
+msgstr "Applications içindeki bir kurulum için::"
+
+#: ../doc/agent_cli.rst:97
+msgid "Finding commands"
+msgstr "Komutları Bulma"
+
+#: ../doc/agent_cli.rst:99
+msgid ""
+"Throughout this guide, ``openshot-cli`` is shorthand for your installation's"
+" command above, such as ``snap run openshot-qt --cli`` or "
+"``./OpenShot.AppImage --cli``. Some installations also provide an "
+"``openshot-cli`` command directly. When running from source, use ``python3 "
+"src/launch.py --cli`` in OpenShot's Python environment."
+msgstr ""
+"Bu rehber boyunca, ``openshot-cli`` yukarıdaki kurulum komutunuzun "
+"kısaltmasıdır; örneğin ``snap run openshot-qt --cli`` veya "
+"``./OpenShot.AppImage --cli``. Bazı kurulumlar doğrudan bir ``openshot-cli``"
+" komutu da sağlar. Kaynaktan çalıştırırken, OpenShot'un Python ortamında "
+"``python3 src/launch.py --cli`` kullanın."
+
+#: ../doc/agent_cli.rst:105
+msgid ""
+"Bare ``--cli``, ``--cli help``, and ``--cli --help`` show the same overview."
+" Help becomes more specific as you navigate commands::"
+msgstr ""
+"Sadece ``--cli``, ``--cli help`` ve ``--cli --help`` aynı genel bakışı "
+"gösterir. Komutlarda ilerledikçe yardım daha spesifik hale gelir::"
+
+#: ../doc/agent_cli.rst:117
+msgid ""
+"Group help explains workflows with examples; operation help describes "
+"arguments and behavior. ``--help`` is equivalent to trailing ``help``. All "
+"help commands work without an editing session."
+msgstr ""
+"Grup yardımı, iş akışlarını örneklerle açıklar; işlem yardımı ise "
+"argümanları ve davranışı tanımlar. ``--help``, sonundaki ``help`` ile "
+"eşdeğerdir. Tüm yardım komutları düzenleme oturumu olmadan çalışır."
+
+#: ../doc/agent_cli.rst:121
+msgid ""
+"``effects list`` shows the available effects with short descriptions. Effect"
+" help explains their properties, defaults, choices, and ranges. ``effects "
+"instances`` lists effects already attached to clips, with parent clip IDs. "
+"Class names, display names, and underscore aliases identify the same effect."
+msgstr ""
+"``effects list`` mevcut efektleri kısa açıklamalarla gösterir. Efekt "
+"yardımı, özelliklerini, varsayılanları, seçenekleri ve aralıkları açıklar. "
+"``effects instances`` kliplere zaten eklenmiş efektleri, üst klip "
+"kimlikleriyle listeler. Sınıf adları, görüntü adları ve alt çizgi takma "
+"adları aynı efekti tanımlar."
+
+#: ../doc/agent_cli.rst:127
+msgid "Working with scripts and AI agents"
+msgstr "Betikler ve Yapay Zeka Ajanları ile Çalışma"
+
+#: ../doc/agent_cli.rst:129
+msgid ""
+"AI coding agents such as **Codex** and **Claude Code** can use the CLI to "
+"inspect and edit OpenShot projects through terminal commands. Give your "
+"agent the path to your OpenShot executable, the media or project to work "
+"with, and the desired result: duration, dimensions, animation style, and "
+"output location. Ask it to read ``--cli intro`` before starting. The same "
+"commands work when you type them yourself or run them from a script."
+msgstr ""
+"**Codex** ve **Claude Code** gibi yapay zeka kodlama ajanları, terminal "
+"komutları aracılığıyla OpenShot projelerini incelemek ve düzenlemek için "
+"CLI'yi kullanabilir. Ajanınıza OpenShot çalıştırılabilir dosyanızın yolunu, "
+"çalışılacak medya veya projeyi ve istenen sonucu verin: süre, boyutlar, "
+"animasyon stili ve çıktı konumu. Başlamadan önce ``--cli intro`` komutunu "
+"okumasını isteyin. Aynı komutlar kendiniz yazdığınızda veya bir betikten "
+"çalıştırdığınızda da geçerlidir."
+
+#: ../doc/agent_cli.rst:136
+msgid ""
+"Start with ``intro``, then use command-specific help as needed. A useful "
+"workflow is to select a session, inspect the project, make a small set of "
+"changes, review the result, and save. Commands return structured JSON so "
+"scripts and agents can use object IDs and results directly instead of "
+"interpreting screen output."
+msgstr ""
+"``intro`` ile başlayın, ardından gerektiğinde komutlara özgü yardımı "
+"kullanın. Faydalı bir iş akışı, bir oturum seçmek, projeyi incelemek, küçük "
+"bir değişiklik seti yapmak, sonucu gözden geçirmek ve kaydetmektir. Komutlar"
+" yapılandırılmış JSON döndürür, böylece betikler ve ajanlar ekran çıktısını "
+"yorumlamak yerine nesne kimliklerini ve sonuçları doğrudan kullanabilir."
+
+#: ../doc/agent_cli.rst:141
+msgid ""
+"**Inspect before editing.** Use returned IDs and property information "
+"instead of guessing names, track numbers, or timing. Select a session "
+"explicitly when more than one project is open."
+msgstr ""
+"**Düzenlemeden önce inceleyin.** İsimleri, parça numaralarını veya "
+"zamanlamayı tahmin etmek yerine dönen kimlikleri ve özellik bilgilerini "
+"kullanın. Birden fazla proje açık olduğunda bir oturumu açıkça seçin."
+
+#: ../doc/agent_cli.rst:144
+msgid ""
+"**Group repeated edits.** Use ``edit apply`` for a sequence of changes or "
+"``edit bulk`` to apply a template to selected clips. Validate with ``--dry-"
+"run`` before applying a batch."
+msgstr ""
+"**Tekrarlanan düzenlemeleri gruplayın.** Bir dizi değişiklik için ``edit "
+"apply`` veya seçili kliplere bir şablon uygulamak için ``edit bulk`` "
+"kullanın. Bir toplu işlemi uygulamadan önce ``--dry-run`` ile doğrulayın."
+
+#: ../doc/agent_cli.rst:147
+msgid ""
+"**Check animation.** Choose a coordinate space, start with a few keyframes, "
+"and use easing presets for familiar motion. ``keyframe preview`` samples the"
+" curve so you can spot pauses or jumps before exporting. Review rendered "
+"motion as well; a contact sheet alone cannot show how an animation feels."
+msgstr ""
+"**Animasyonu Kontrol Et.** Bir koordinat alanı seçin, birkaç ana kare ile "
+"başlayın ve tanıdık hareketler için kolaylaştırma ön ayarlarını kullanın. "
+"``keyframe preview`` eğriyi örnekler, böylece dışa aktarmadan önce "
+"duraklamaları veya sıçramaları fark edebilirsiniz. Ayrıca işlenmiş hareketi "
+"gözden geçirin; sadece bir iletişim sayfası animasyonun nasıl "
+"hissettirdiğini gösteremez."
+
+#: ../doc/agent_cli.rst:151
+msgid ""
+"**Save and follow exports.** Save the project explicitly and check the "
+"export job's status before treating an output as complete. If a request "
+"times out, inspect its status before repeating an edit."
+msgstr ""
+"**Dışa Aktarımları Kaydedin ve Takip Edin.** Projeyi açıkça kaydedin ve bir "
+"çıktıyı tamamlanmış olarak kabul etmeden önce dışa aktarma işinin durumunu "
+"kontrol edin. Bir istek zaman aşımına uğrarsa, düzenlemeyi tekrarlamadan "
+"önce durumunu inceleyin."
+
+#: ../doc/agent_cli.rst:155
+msgid ""
+"The sections below explain these workflows and their timing conventions."
+msgstr "Aşağıdaki bölümler bu iş akışlarını ve zamanlama kurallarını açıklar."
+
+#: ../doc/agent_cli.rst:158
+msgid "Sessions and outputs"
+msgstr "Oturumlar ve çıktılar"
+
+#: ../doc/agent_cli.rst:161
+msgid "Starting or finding a session"
+msgstr "Bir oturum başlatma veya bulma"
+
+#: ../doc/agent_cli.rst:163
+msgid "Start one headless session (without an editor window)::"
+msgstr "Bir başsız oturum başlatın (düzenleyici penceresi olmadan)::"
+
+#: ../doc/agent_cli.rst:167
+msgid ""
+"To open an existing project at startup, add ``--project "
+"\"/path/project.osp\"``. The successful JSON response contains "
+"``result.session_id``. Copy that value. If OpenShot is already running, or "
+"you have forgotten the ID, find available sessions with::"
+msgstr ""
+"Başlangıçta mevcut bir projeyi açmak için ``--project "
+"\"/path/project.osp\"`` ekleyin. Başarılı JSON yanıtı ``result.session_id`` "
+"içerir. Bu değeri kopyalayın. Eğer OpenShot zaten çalışıyorsa veya ID'yi "
+"unuttuysanız, mevcut oturumları şu komutla bulun::"
+
+#: ../doc/agent_cli.rst:174
+msgid ""
+"Choose the session for the project you intend to edit. You do not need to "
+"start a new session for each command."
+msgstr ""
+"Düzenlemeyi planladığınız proje için oturumu seçin. Her komut için yeni bir "
+"oturum başlatmanız gerekmez."
+
+#: ../doc/agent_cli.rst:180
+msgid "Selecting a session"
+msgstr "Bir oturum seçme"
+
+#: ../doc/agent_cli.rst:184
+msgid ""
+"**Set OPENSHOT_SESSION once, then run commands normally.** Your terminal "
+"remembers the selected session, so you do not need to pass ``--session`` "
+"with every command. Use the PowerShell or Bash example below."
+msgstr ""
+"**OPENSHOT_SESSION değişkenini bir kez ayarlayın, sonra komutları normal "
+"şekilde çalıştırın.** Terminaliniz seçilen oturumu hatırlar, bu yüzden her "
+"komutta ``--session`` parametresini vermenize gerek yoktur. Aşağıdaki "
+"PowerShell veya Bash örneğini kullanın."
+
+#: ../doc/agent_cli.rst:188
+msgid ""
+"Replace ``SESSION_ID`` below with the ``session_id`` returned by ``session "
+"start`` or ``session list``."
+msgstr ""
+"Aşağıdaki ``SESSION_ID`` değerini ``session start`` veya ``session list`` "
+"tarafından döndürülen ``session_id`` ile değiştirin."
+
+#: ../doc/agent_cli.rst:191 ../doc/agent_cli.rst:422
+msgid "Windows PowerShell::"
+msgstr "Windows PowerShell::"
+
+#: ../doc/agent_cli.rst:197
+msgid "Linux Bash::"
+msgstr "Linux Bash::"
+
+#: ../doc/agent_cli.rst:203
+msgid ""
+"On macOS, use the same ``export`` syntax. For macOS or Snap commands, "
+"substitute your installation's executable from Getting started. The "
+"selection lasts for this terminal and commands launched from it. Set it "
+"again in a new terminal, or update it when switching to a different session."
+msgstr ""
+"macOS'ta aynı ``export`` sözdizimini kullanın. macOS veya Snap komutları "
+"için, Kurulum bölümünden yüklemenizin çalıştırılabilir dosyasını değiştirin."
+" Seçim bu terminal ve buradan başlatılan komutlar için geçerlidir. Yeni bir "
+"terminalde tekrar ayarlayın veya farklı bir oturuma geçerken güncelleyin."
+
+#: ../doc/agent_cli.rst:208
+msgid ""
+"**The remaining editing and export examples assume OPENSHOT_SESSION is "
+"set.** The next subsection shows how to capture the ID automatically for "
+"scripts."
+msgstr ""
+"**Kalan düzenleme ve dışa aktarma örnekleri OPENSHOT_SESSION ayarlandığını "
+"varsayar.** Sonraki alt bölüm, betikler için ID'nin otomatik olarak nasıl "
+"yakalanacağını gösterir."
+
+#: ../doc/agent_cli.rst:211
+msgid ""
+"To target a different session for just one command, use ``--session``. It "
+"overrides ``OPENSHOT_SESSION`` without changing your terminal's selection::"
+msgstr ""
+"Sadece bir komut için farklı bir oturumu hedeflemek için ``--session`` "
+"kullanın. Bu, terminalinizin seçimini değiştirmeden ``OPENSHOT_SESSION`` "
+"değerini geçersiz kılar::"
+
+#: ../doc/agent_cli.rst:216
+msgid ""
+"With a packaged executable, put this override after ``--cli`` and before the"
+" command group: ``--cli --session OTHER_SESSION_ID project get``."
+msgstr ""
+"Paketlenmiş bir çalıştırılabilir dosyada, bu geçersiz kılmayı ``--cli``'den "
+"sonra ve komut grubundan önce koyun: ``--cli --session OTHER_SESSION_ID "
+"project get``."
+
+#: ../doc/agent_cli.rst:219
+msgid ""
+"Automatic selection only works when exactly one reachable session exists. If"
+" you see ``session_required``, run ``session list`` and explicitly select "
+"the intended session. If it is no longer listed, start it again and use the "
+"new ID. Help, ``intro``, and session discovery do not require a selected "
+"session."
+msgstr ""
+"Otomatik seçim yalnızca tam olarak bir erişilebilir oturum olduğunda "
+"çalışır. ``session_required`` görürseniz, ``session list`` çalıştırın ve "
+"hedef oturumu açıkça seçin. Artık listelenmiyorsa, tekrar başlatın ve yeni "
+"ID'yi kullanın. Yardım, ``intro`` ve oturum keşfi seçilmiş bir oturum "
+"gerektirmez."
+
+#: ../doc/agent_cli.rst:225
+msgid "Capturing the session ID automatically"
+msgstr "Oturum ID'sini otomatik olarak yakalama"
+
+#: ../doc/agent_cli.rst:227
+msgid ""
+"Scripts can read ``result.session_id`` directly from the JSON returned by "
+"``session start`` and set ``OPENSHOT_SESSION`` for subsequent commands. "
+"There is no need to copy the ID manually or read a log file. Check that "
+"startup succeeded before using the returned ID."
+msgstr ""
+"Betikler, ``session start`` tarafından döndürülen JSON'dan doğrudan "
+"``result.session_id`` okuyabilir ve sonraki komutlar için "
+"``OPENSHOT_SESSION`` ayarlayabilir. ID'yi manuel olarak kopyalamaya veya bir"
+" günlük dosyası okumaya gerek yoktur. Döndürülen ID'yi kullanmadan önce "
+"başlangıcın başarılı olduğunu kontrol edin."
+
+#: ../doc/agent_cli.rst:232
+msgid "Windows PowerShell (set the executable path for your installation)::"
+msgstr ""
+"Windows PowerShell (yüklemeniz için çalıştırılabilir dosya yolunu "
+"ayarlayın)::"
+
+#: ../doc/agent_cli.rst:244
+msgid "Linux Bash (requires ``jq`` to read JSON)::"
+msgstr "Linux Bash (JSON okumak için ``jq`` gerektirir)::"
+
+#: ../doc/agent_cli.rst:256
+msgid ""
+"The environment variable selects a session for commands launched from this "
+"terminal; it does not change a system-wide setting. Starting a session does "
+"not set the variable automatically. After stopping the session, clear the "
+"selection with ``Remove-Item Env:OPENSHOT_SESSION`` in PowerShell or ``unset"
+" OPENSHOT_SESSION`` in Bash."
+msgstr ""
+"Ortam değişkeni, bu terminalden başlatılan komutlar için bir oturum seçer; "
+"sistem genelinde bir ayarı değiştirmez. Bir oturum başlatmak değişkeni "
+"otomatik olarak ayarlamaz. Oturumu durdurduktan sonra, PowerShell'de "
+"``Remove-Item Env:OPENSHOT_SESSION`` veya Bash'te ``unset OPENSHOT_SESSION``"
+" ile seçimi temizleyin."
+
+#: ../doc/agent_cli.rst:263
+msgid "Showing and stopping a session"
+msgstr "Bir oturumu gösterme ve durdurma"
+
+#: ../doc/agent_cli.rst:265
+msgid "To show the selected session in the editor::"
+msgstr "Seçilen oturumu düzenleyicide göstermek için::"
+
+#: ../doc/agent_cli.rst:269
+msgid ""
+"On a desktop, ``session show`` creates the editor in the same process and "
+"keeps the live project, IDs, history, export jobs, and connection. Repeated "
+"calls raise the existing window. ``session start --show`` opens it "
+"immediately. Sessions started without a display, or with "
+"``QT_QPA_PLATFORM=offscreen``/``minimal``, cannot later show a desktop "
+"window. For those sessions, save and open the project in a new desktop "
+"session. Once shown, close the session through the editor window."
+msgstr ""
+"Bir masaüstünde, ``session show`` düzenleyiciyi aynı işlemde oluşturur ve "
+"canlı projeyi, ID'leri, geçmişi, dışa aktarma işlerini ve bağlantıyı korur. "
+"Tekrarlanan çağrılar mevcut pencereyi öne getirir. ``session start --show`` "
+"hemen açar. Görüntü olmadan veya ``QT_QPA_PLATFORM=offscreen``/``minimal`` "
+"ile başlatılan oturumlar daha sonra masaüstü penceresi gösteremez. Bu "
+"oturumlar için projeyi kaydedin ve yeni bir masaüstü oturumunda açın. "
+"Gösterildikten sonra, oturumu düzenleyici penceresinden kapatın."
+
+#: ../doc/agent_cli.rst:277
+msgid ""
+"Global options (``--session``, ``--timeout``) go before the command. "
+"``session serve`` stays in the foreground for supervisors; ``session start``"
+" returns after a background host registers. ``session stop`` refuses unsaved"
+" changes and active exports. Use ``--discard`` only to intentionally discard"
+" unsaved edits."
+msgstr ""
+"Genel seçenekler (``--session``, ``--timeout``) komuttan önce gelir. "
+"``session serve`` denetleyiciler için ön planda kalır; ``session start`` "
+"arka plan sunucusu kaydolduktan sonra döner. ``session stop`` kaydedilmemiş "
+"değişiklikleri ve aktif dışa aktarımları reddeder. Kaydedilmemiş "
+"düzenlemeleri kasıtlı olarak atmak için yalnızca ``--discard`` kullanın."
+
+#: ../doc/agent_cli.rst:283
+msgid "Command output"
+msgstr "Komut çıktısı"
+
+#: ../doc/agent_cli.rst:285
+msgid ""
+"Results are JSON on stdout, except the default text timeline view. Errors "
+"are JSON on stderr with exit status 1; argument-parser errors exit 2. "
+"Mutations return compact summaries with an ``inspect`` command. ``get`` "
+"returns native object JSON. Project replies include a revision; effect "
+"catalog replies do not require a session. Logs from headless sessions live "
+"beside their registry records. ``OPENSHOT_SESSION_DIR`` overrides the "
+"default ``~/.openshot_qt/sessions`` directory."
+msgstr ""
+"Sonuçlar, varsayılan metin zaman çizelgesi görünümü hariç stdout üzerinde "
+"JSON'dur. Hatalar stderr üzerinde JSON olarak ve çıkış durumu 1 ile döner; "
+"argüman ayrıştırıcı hataları çıkış durumu 2 ile döner. Değişiklikler "
+"``inspect`` komutuyla kompakt özetler döner. ``get`` yerel nesne JSON'u "
+"döner. Proje yanıtları bir revizyon içerir; efekt kataloğu yanıtları oturum "
+"gerektirmez. Başsız oturumlardan gelen günlükler kayıt defteri kayıtlarının "
+"yanında bulunur. ``OPENSHOT_SESSION_DIR`` varsayılan "
+"``~/.openshot_qt/sessions`` dizinini geçersiz kılar."
+
+#: ../doc/agent_cli.rst:292
+msgid ""
+"Sessions accept commands locally on your computer. Keep the session registry"
+" private, since it contains the credentials used to access your editing "
+"sessions. Exports work from a snapshot, so you can continue editing while a "
+"job runs."
+msgstr ""
+"Oturumlar bilgisayarınızda yerel olarak komutları kabul eder. Oturum kayıt "
+"defterini gizli tutun, çünkü düzenleme oturumlarınıza erişmek için "
+"kullanılan kimlik bilgilerini içerir. Dışa aktarmalar bir anlık görüntüden "
+"çalışır, böylece bir iş çalışırken düzenlemeye devam edebilirsiniz."
+
+#: ../doc/agent_cli.rst:297
+msgid "Opening and saving projects"
+msgstr "Projeleri açma ve kaydetme"
+
+#: ../doc/agent_cli.rst:299
+msgid ""
+"An OpenShot project (``.osp``) stores your editable timeline. Exporting "
+"creates a finished video; saving the project lets you return to its clips, "
+"effects, and keyframes later. Save your project separately even when you "
+"also export a video."
+msgstr ""
+"Bir OpenShot projesi (``.osp``) düzenlenebilir zaman çizelgenizi saklar. "
+"Dışa aktarma tamamlanmış bir video oluşturur; projeyi kaydetmek, daha sonra "
+"kliplerine, efektlerine ve anahtar karelerine dönmenizi sağlar. Bir video "
+"dışa aktarsanız bile projenizi ayrı olarak kaydedin."
+
+#: ../doc/agent_cli.rst:304
+msgid "Opening a project"
+msgstr "Bir projeyi açma"
+
+#: ../doc/agent_cli.rst:306
+msgid "Start a session with an existing project::"
+msgstr "Mevcut bir projeyle oturum başlatın::"
+
+#: ../doc/agent_cli.rst:310
+msgid ""
+"Add ``--show`` to open its editor window too. To use an editor that is "
+"already running, find it with ``session list``. Set ``OPENSHOT_SESSION`` to "
+"its returned session ID, then open or inspect a project::"
+msgstr ""
+"Düzenleyici penceresini de açmak için ``--show`` ekleyin. Zaten çalışan bir "
+"düzenleyiciyi kullanmak için ``session list`` ile bulun. "
+"``OPENSHOT_SESSION`` değerini dönen oturum kimliğine ayarlayın, ardından bir"
+" projeyi açın veya inceleyin::"
+
+#: ../doc/agent_cli.rst:317
+msgid ""
+"Replace the example path with your own, and quote paths containing spaces. "
+"``project open`` replaces the selected session's current project. It refuses"
+" to discard unsaved edits unless you explicitly add ``--discard``; save "
+"those edits first if you want to keep them. Opening through the CLI does not"
+" show interactive missing-media dialogs, so keep the project's source media "
+"available."
+msgstr ""
+"Örnek yolu kendi yolunuzla değiştirin ve boşluk içeren yolları tırnak içine "
+"alın. ``project open`` seçili oturumun mevcut projesini değiştirir. Açıkça "
+"``--discard`` eklemediğiniz sürece kaydedilmemiş düzenlemeleri atmayı "
+"reddeder; saklamak istiyorsanız önce bu düzenlemeleri kaydedin. CLI "
+"üzerinden açmak etkileşimli eksik medya diyaloglarını göstermez, bu yüzden "
+"projenin kaynak medyasını erişilebilir tutun."
+
+#: ../doc/agent_cli.rst:323
+msgid ""
+"For a new, empty project, use ``session start`` without ``--project``, then "
+"import media and add clips as described under Editing."
+msgstr ""
+"Yeni, boş bir proje için ``--project`` olmadan ``session start`` kullanın, "
+"ardından Medya İçe Aktarma ve Klip Ekleme bölümünde açıklandığı gibi medyayı"
+" içe aktarın ve klipler ekleyin."
+
+#: ../doc/agent_cli.rst:327
+msgid "Saving a project or a copy"
+msgstr "Bir projeyi veya kopyasını kaydetme"
+
+#: ../doc/agent_cli.rst:329
+msgid ""
+"Save to a new file, or create a separate version before making more "
+"changes::"
+msgstr ""
+"Yeni bir dosyaya kaydedin veya daha fazla değişiklik yapmadan önce ayrı bir "
+"sürüm oluşturun::"
+
+#: ../doc/agent_cli.rst:333
+msgid "To update an existing file, explicitly allow replacement::"
+msgstr "Mevcut bir dosyayı güncellemek için açıkça değiştirmeye izin verin::"
+
+#: ../doc/agent_cli.rst:337
+msgid ""
+"Always supply the destination path. Saving an ``.osp`` does not package all "
+"your source footage into that file; keep the referenced media available when"
+" moving or reopening the project."
+msgstr ""
+"Her zaman hedef yolu belirtin. Bir ``.osp`` dosyasını kaydetmek, tüm kaynak "
+"görüntülerinizi o dosyaya paketlemez; projeyi taşırken veya yeniden açarken "
+"referans verilen medyayı erişilebilir tutun."
+
+#: ../doc/agent_cli.rst:342
+msgid "Exporting a video"
+msgstr "Bir video dışa aktarma"
+
+#: ../doc/agent_cli.rst:344
+msgid ""
+"Automate rendering and exporting from scripts or AI agents, using the "
+"project's settings or choosing a different output profile for each render. "
+"Export jobs can run in the background or wait for completion before your "
+"script continues. To render an MP4 using the project's resolution and frame "
+"rate::"
+msgstr ""
+"Projeye ait ayarları kullanarak veya her render için farklı bir çıktı "
+"profili seçerek, betiklerden veya yapay zeka ajanlarından render ve dışa "
+"aktarmayı otomatikleştirin. Dışa aktarma işleri arka planda çalışabilir veya"
+" betiğiniz devam etmeden önce tamamlanmasını bekleyebilir. Projenin "
+"çözünürlüğü ve kare hızıyla MP4 render etmek için::"
+
+#: ../doc/agent_cli.rst:351
+msgid ""
+"By default, OpenShot uses H.264 video and AAC audio. Replace the example "
+"path with your destination, using an existing folder and a new filename. "
+"Existing outputs are never overwritten. Exporting does not save your "
+"editable ``.osp`` project; use ``project save`` separately to keep your "
+"editing work."
+msgstr ""
+"Varsayılan olarak, OpenShot H.264 video ve AAC ses kullanır. Örnek yolu, "
+"mevcut bir klasör ve yeni bir dosya adı kullanarak hedefinizle değiştirin. "
+"Mevcut çıktılar asla üzerine yazılmaz. Dışa aktarma, düzenlenebilir ``.osp``"
+" projenizi kaydetmez; düzenleme çalışmalarınızı korumak için ayrı olarak "
+"``project save`` kullanın."
+
+#: ../doc/agent_cli.rst:356
+msgid ""
+"The ``--wait`` option keeps the command running until the export completes "
+"or reports a failure. Review the finished video before sharing it."
+msgstr ""
+"``--wait`` seçeneği, dışa aktarma tamamlanana veya hata bildirene kadar "
+"komutun çalışmasını sürdürür. Paylaşmadan önce tamamlanan videoyu inceleyin."
+
+#: ../doc/agent_cli.rst:360
+msgid "Checking export progress"
+msgstr "Dışa aktarma ilerlemesini kontrol etme"
+
+#: ../doc/agent_cli.rst:362
+msgid ""
+"Leave off ``--wait`` to start an export in the background. The response "
+"includes a job ID you can use to check its progress::"
+msgstr ""
+"Arka planda dışa aktarmayı başlatmak için ``--wait`` eklemeyin. Yanıt, "
+"ilerlemeyi kontrol etmek için kullanabileceğiniz bir iş kimliği içerir::"
+
+#: ../doc/agent_cli.rst:370
+msgid ""
+"Replace ``JOB_ID`` with the returned ID. If waiting times out, the export "
+"keeps running; check the same job instead of starting another export. To "
+"stop a job, use ``export cancel JOB_ID``. Each job captures the timeline "
+"when it starts, so later edits do not change an export already in progress."
+msgstr ""
+"``JOB_ID`` değerini dönen kimlikle değiştirin. Bekleme süresi dolarsa, dışa "
+"aktarma çalışmaya devam eder; başka bir dışa aktarma başlatmak yerine aynı "
+"işi kontrol edin. Bir işi durdurmak için ``export cancel JOB_ID`` kullanın. "
+"Her iş başladığında zaman çizelgesini yakalar, böylece sonraki düzenlemeler "
+"zaten devam eden dışa aktarmayı değiştirmez."
+
+#: ../doc/agent_cli.rst:375
+msgid ""
+"Waiting defaults to 600 seconds; adjust this with ``--wait-timeout``. This "
+"is separate from the global per-request ``--timeout``. Export failures, "
+"cancellation, and wait timeouts exit with status 1 and include job details."
+msgstr ""
+"Bekleme süresi varsayılan olarak 600 saniyedir; bunu ``--wait-timeout`` ile "
+"ayarlayın. Bu, genel istek başına ``--timeout`` ayarından ayrıdır. Dışa "
+"aktarma hataları, iptaller ve bekleme zaman aşımı durumlarında durum 1 ile "
+"çıkılır ve iş detayları dahil edilir."
+
+#: ../doc/agent_cli.rst:380
+msgid "Exporting in multiple profiles"
+msgstr "Birden çok profilde dışa aktarma"
+
+#: ../doc/agent_cli.rst:382
+msgid ""
+"Export the same timeline at different resolutions or aspect ratios by "
+"choosing an export profile for each output. **An export profile applies only"
+" to that job**; it does not change the editing project's profile. A profile "
+"sets dimensions, frame rate, and aspect ratio; an export preset selects "
+"encoding settings such as MP4/H.264."
+msgstr ""
+"Her çıktı için bir dışa aktarma profili seçerek aynı zaman çizelgesini "
+"farklı çözünürlüklerde veya en boy oranlarında dışa aktarın. **Bir dışa "
+"aktarma profili yalnızca o işe uygulanır**; düzenleme projesinin profilini "
+"değiştirmez. Bir profil boyutları, kare hızını ve en boy oranını belirler; "
+"bir dışa aktarma ön ayarı MP4/H.264 gibi kodlama ayarlarını seçer."
+
+#: ../doc/agent_cli.rst:388
+msgid "Find the available profiles and inspect their settings::"
+msgstr "Mevcut profilleri bulun ve ayarlarını inceleyin::"
+
+#: ../doc/agent_cli.rst:394
+msgid ""
+"For example, export landscape versions at 720p and 1080p, then a square "
+"version at 1080 by 1080. These profiles all use 30 fps::"
+msgstr ""
+"Örneğin, 720p ve 1080p çözünürlüklerinde yatay versiyonları, ardından "
+"1080x1080 karede kare bir versiyonu dışa aktarın. Bu profillerin hepsi 30 "
+"fps kullanır::"
+
+#: ../doc/agent_cli.rst:401
+msgid ""
+"Use a different output filename for each version. Keep edits unchanged "
+"between jobs when you want matching versions. Changing aspect ratio can "
+"change framing: review each output, especially titles and animated subjects."
+" For a separately composed square or portrait version, save a project copy, "
+"change its project profile, and adjust the clips before exporting. See "
+"Profiles and the export settings below for custom profiles and encoding "
+"options."
+msgstr ""
+"Her versiyon için farklı bir çıktı dosya adı kullanın. Eşleşen versiyonlar "
+"istediğinizde işler arasında düzenlemeleri değiştirmeden tutun. En boy "
+"oranını değiştirmek çerçeveyi değiştirebilir: her çıktıyı, özellikle "
+"başlıkları ve animasyonlu nesneleri inceleyin. Ayrı olarak oluşturulmuş kare"
+" veya portre versiyonu için proje kopyası kaydedin, proje profilini "
+"değiştirin ve dışa aktarmadan önce klipleri ayarlayın. Özel profiller ve "
+"kodlama seçenekleri için aşağıdaki Profiller ve dışa aktarma ayarlarına "
+"bakın."
+
+#: ../doc/agent_cli.rst:409
+msgid "Batch exporting multiple projects"
+msgstr "Birden çok projeyi toplu dışa aktarma"
+
+#: ../doc/agent_cli.rst:411
+msgid ""
+"Reuse one headless session to render several saved projects in sequence. "
+"Open a project, export it with ``--wait``, then open the next project. The "
+"examples below use each project's own resolution and frame rate and create "
+"MP4 files beside the ``.osp`` files. Add ``--profile PROFILE_ID`` to the "
+"export command to use one output profile for every project."
+msgstr ""
+"Birden çok kaydedilmiş projeyi sırayla render etmek için tek bir başsız "
+"oturumu yeniden kullanın. Bir projeyi açın, ``--wait`` ile dışa aktarın, "
+"sonra sonraki projeyi açın. Aşağıdaki örnekler her projenin kendi "
+"çözünürlüğü ve kare hızını kullanır ve ``.osp`` dosyalarının yanında MP4 "
+"dosyaları oluşturur. Her proje için tek bir çıktı profili kullanmak üzere "
+"dışa aktarma komutuna ``--profile PROFILE_ID`` ekleyin."
+
+#: ../doc/agent_cli.rst:417
+msgid ""
+"First run the matching automatic session-ID example above successfully, in "
+"the same terminal. It defines ``openshot`` and selects the new session. "
+"Replace the project paths below with your own. Use distinct output names "
+"that do not already exist; the examples check all destinations before "
+"starting the batch."
+msgstr ""
+"İlk olarak yukarıdaki eşleşen otomatik oturum kimliği örneğini aynı "
+"terminalde başarıyla çalıştırın. Bu, ``openshot``'u tanımlar ve yeni oturumu"
+" seçer. Aşağıdaki proje yollarını kendi yollarınızla değiştirin. Zaten var "
+"olmayan farklı çıktı isimleri kullanın; örnekler toplu işlem başlamadan önce"
+" tüm hedefleri kontrol eder."
+
+#: ../doc/agent_cli.rst:446
+msgid "Linux Bash (the parentheses keep error handling local to the batch)::"
+msgstr "Linux Bash (parantezler hata yönetimini toplu işlem içinde tutar)::"
+
+#: ../doc/agent_cli.rst:467
+msgid ""
+"Both recipes stop the batch on a command failure and leave the session "
+"available for inspection. The wait limit here is 24 hours per export. A wait"
+" timeout leaves the render running: use ``export list`` and ``export status "
+"JOB_ID --wait`` before retrying. Completed videos remain on disk; remove "
+"completed projects from the batch before resuming. After resolving a "
+"failure, stop the session and clear its environment variable when you are "
+"finished."
+msgstr ""
+"Her iki yöntem de bir komut hatasında toplu işlemi durdurur ve oturumu "
+"inceleme için kullanılabilir bırakır. Buradaki bekleme sınırı ihracat başına"
+" 24 saattir. Bekleme zaman aşımı render işlemini çalışır durumda bırakır: "
+"yeniden denemeden önce ``export list`` ve ``export status JOB_ID --wait`` "
+"kullanın. Tamamlanan videolar diskte kalır; devam etmeden önce tamamlanan "
+"projeleri toplu işlemden kaldırın. Bir hatayı çözdükten sonra oturumu "
+"durdurun ve işiniz bittiğinde ortam değişkenini temizleyin."
+
+#: ../doc/agent_cli.rst:475
+msgid "Choosing presets and encoding settings"
+msgstr "Ön ayarları ve kodlama ayarlarını seçme"
+
+#: ../doc/agent_cli.rst:477
+msgid "Discover the installed export presets and supported settings::"
+msgstr "Yüklü ihracat ön ayarlarını ve desteklenen ayarları keşfedin::"
+
+#: ../doc/agent_cli.rst:484
+msgid ""
+"Export also accepts ``--from-file FILE_ID`` with optional ``--create-"
+"custom``. Settings resolve in this order: project defaults, preset, advanced"
+" JSON, explicit profile/quality/range flags. Advanced JSON exposes "
+"video/audio codecs and bitrate, audio layout/rate/channels, native codec "
+"options, hardware device settings, and thread counts."
+msgstr ""
+"Export ayrıca isteğe bağlı ``--create-custom`` ile birlikte ``--from-file "
+"FILE_ID`` kabul eder. Ayarlar şu sırayla çözülür: proje varsayılanları, ön "
+"ayar, gelişmiş JSON, açık profil/kalite/aralık bayrakları. Gelişmiş JSON "
+"video/ses kodekleri ve bit hızı, ses düzeni/hızı/kanalları, yerel kodek "
+"seçenekleri, donanım aygıt ayarları ve iş parçacığı sayıları gibi "
+"özellikleri açığa çıkarır."
+
+#: ../doc/agent_cli.rst:490
+msgid "For example, select an encoder option through advanced JSON::"
+msgstr "Örneğin, gelişmiş JSON aracılığıyla bir kodlayıcı seçeneği seçin::"
+
+#: ../doc/agent_cli.rst:495
+msgid "Validating export settings"
+msgstr "İhracat ayarlarını doğrulama"
+
+#: ../doc/agent_cli.rst:497
+msgid "Check settings before starting a render::"
+msgstr "Render işlemine başlamadan önce ayarları kontrol edin::"
+
+#: ../doc/agent_cli.rst:501
+msgid ""
+"Capabilities report compiled codec availability, not physical GPU "
+"availability. Validation goes further: it opens the encoders (including "
+"hardware encoders) and the container with the exact settings, in a separate "
+"process, without writing a file. A combination the container can't hold "
+"fails with ``incompatible_export``, FFmpeg's own explanation, and the "
+"setting to change (``details.cause.path``)::"
+msgstr ""
+"Yetenekler raporu derlenmiş kodek kullanılabilirliğini bildirir, fiziksel "
+"GPU kullanılabilirliğini değil. Doğrulama daha ileri gider: kodlayıcıları "
+"(donanım kodlayıcılar dahil) ve konteyneri tam ayarlarla, ayrı bir süreçte, "
+"dosya yazmadan açar. Konteynerin tutamadığı bir kombinasyon "
+"``incompatible_export`` hatası verir, FFmpeg'in kendi açıklaması ve "
+"değiştirilmesi gereken ayar (``details.cause.path``) ile birlikte::"
+
+#: ../doc/agent_cli.rst:509
+msgid "The export worker runs the same check before rendering."
+msgstr "İhracat çalışanı render işleminden önce aynı kontrolü yapar."
+
+#: ../doc/agent_cli.rst:512
+msgid "Rendering a frame range"
+msgstr "Bir kare aralığını render etme"
+
+#: ../doc/agent_cli.rst:514
+msgid ""
+"Use ``--start-frame`` and ``--end-frame`` to render part of the timeline. "
+"Ranges are inclusive and one-based at the **export profile's FPS**. For "
+"example, render the first 90 frames at 30 fps (three seconds)::"
+msgstr ""
+"Zaman çizelgesinin bir bölümünü render etmek için ``--start-frame`` ve "
+"``--end-frame`` kullanın. Aralıklar dahilidir ve **ihracat profilinin "
+"FPS**'ine göre 1 tabanlıdır. Örneğin, ilk 90 kareyi 30 fps (üç saniye) "
+"olarak render edin::"
+
+#: ../doc/agent_cli.rst:521
+msgid "Audio-only exports and image sequences"
+msgstr "Yalnızca ses ihracatları ve görüntü dizileri"
+
+#: ../doc/agent_cli.rst:523
+msgid "Choose an output mode with advanced JSON::"
+msgstr "Gelişmiş JSON ile bir çıktı modu seçin::"
+
+#: ../doc/agent_cli.rst:528
+msgid ""
+"Image sequences require a new output directory. Existing outputs are never "
+"overwritten."
+msgstr ""
+"Görüntü dizileri yeni bir çıktı dizini gerektirir. Mevcut çıktılar asla "
+"üzerine yazılmaz."
+
+#: ../doc/agent_cli.rst:532
+msgid "Editing"
+msgstr "Düzenleme"
+
+#: ../doc/agent_cli.rst:535
+msgid "Adding clips and effects"
+msgstr "Klipler ve efektler ekleme"
+
+#: ../doc/agent_cli.rst:537
+msgid ""
+"Use the IDs returned by import/add/list, and discover layer numbers with "
+"``project get``::"
+msgstr ""
+"import/add/list tarafından döndürülen kimlikleri kullanın ve katman "
+"numaralarını ``project get`` ile keşfedin::"
+
+#: ../doc/agent_cli.rst:549
+msgid ""
+"Choose the project profile early when possible; populated projects also "
+"support profile changes through the existing FPS conversion and undo system."
+" ``--audio-only`` on clip creation suppresses video, including embedded "
+"cover art in music files. To use that clip for Audio Visualization instead, "
+"enable its video and audio, and follow the effect's help for transparent "
+"overlays and layer placement."
+msgstr ""
+"Mümkün olduğunda proje profilini erken seçin; dolu projeler ayrıca mevcut "
+"FPS dönüşümü ve geri alma sistemi aracılığıyla profil değişikliklerini "
+"destekler. Klip oluştururken ``--audio-only`` video görüntüsünü, müzik "
+"dosyalarındaki gömülü kapak resmi dahil, engeller. Bu klibi Ses "
+"Görselleştirme için kullanmak istiyorsanız, video ve sesini etkinleştirin ve"
+" efektin şeffaf bindirmeler ve katman yerleşimi için yardımını izleyin."
+
+#: ../doc/agent_cli.rst:556
+msgid "Understanding clip timing"
+msgstr "Klip zamanlamasını anlama"
+
+#: ../doc/agent_cli.rst:558
+msgid ""
+"The example keyframes assume a 30fps project and a clip trimmed at source "
+"10s. Position is in timeline seconds; start/end are source seconds, with end"
+" exclusive. Frames start at 1. File thumbnail frames use source FPS. "
+"Timeline frames use project FPS. Clip keyframes use source coordinates at "
+"project FPS, so trimming the clip does not move its first visible keyframe "
+"to frame 1."
+msgstr ""
+"Örnek anahtar kareler 30 fps projeyi ve kaynakta 10 saniyede kırpılmış bir "
+"klibi varsayar. Pozisyon zaman çizelgesi saniyesindedir; başlangıç/bitiş "
+"kaynak saniyesidir, bitiş hariçtir. Kareler 1'den başlar. Dosya küçük resim "
+"kareleri kaynak FPS kullanır. Zaman çizelgesi kareleri proje FPS kullanır. "
+"Klip anahtar kareleri proje FPS'de kaynak koordinatlarını kullanır, bu "
+"yüzden klip kırpılması ilk görünür anahtar kareyi kare 1'e taşımaz."
+
+#: ../doc/agent_cli.rst:565
+msgid "Changing properties"
+msgstr "Özellikleri değiştirme"
+
+#: ../doc/agent_cli.rst:567
+msgid ""
+"``set`` merges top-level properties. Scalars turn keyframed properties into "
+"constants. A supplied nested curve replaces that curve; use ``keyframe set``"
+" to change just one point. JSON arguments accept inline JSON, "
+"``@file.json``, or ``-`` for stdin. Property names, types, enums, keyframes,"
+" references, and timing are validated before editing the project. Errors "
+"identify the field, expected value, received value, and a correction where "
+"possible. GUI slider ranges are advisory where the engine supports values "
+"beyond them."
+msgstr ""
+"``set`` üst düzey özellikleri birleştirir. Skalarlar anahtar kareli "
+"özellikleri sabitlere dönüştürür. Sağlanan iç içe eğri o eğrinin yerine "
+"geçer; sadece bir noktayı değiştirmek için ``keyframe set`` kullanın. JSON "
+"argümanları satır içi JSON, ``@file.json`` veya stdin için ``-`` kabul eder."
+" Özellik adları, türleri, enumlar, anahtar kareler, referanslar ve zamanlama"
+" proje düzenlenmeden önce doğrulanır. Hatalar alanı, beklenen değeri, alınan"
+" değeri ve mümkünse düzeltmeyi belirtir. Motorun desteklediği durumlarda GUI"
+" kaydırıcı aralıkları öneri niteliğindedir."
+
+#: ../doc/agent_cli.rst:576
+msgid "Adding fades"
+msgstr "Geçişler ekleme"
+
+#: ../doc/agent_cli.rst:578
+msgid ""
+"``clip fade ID --in 0.5 --out 0.5`` calculates source-trim keyframe "
+"coordinates automatically. It replaces the alpha curve; ``--property volume "
+"--value 0.25`` instead creates an audio fade with a 0.25 peak gain. "
+"Durations must fit between the first and last visible frames; fade-out "
+"reaches zero on the last frame."
+msgstr ""
+"``clip fade ID --in 0.5 --out 0.5`` kaynak kırpma anahtar kare "
+"koordinatlarını otomatik olarak hesaplar. Alfa eğrisinin yerine geçer; bunun"
+" yerine ``--property volume --value 0.25`` 0.25 tepe kazançlı bir ses geçişi"
+" oluşturur. Süreler ilk ve son görünür kareler arasında olmalıdır; geçiş "
+"çıkışı son karede sıfıra ulaşır."
+
+#: ../doc/agent_cli.rst:584
+msgid "Splitting clips"
+msgstr "Klipleri bölme"
+
+#: ../doc/agent_cli.rst:586
+msgid ""
+"``clip split ID --at 6.5`` uses timeline seconds, snaps to the nearest "
+"project frame, and keeps both halves. It retains source-coordinate curves "
+"and duplicates effects with fresh IDs on the right half, following the "
+"editor's slicing behavior. The left half retains its ID. The response "
+"reports requested/actual split times and both summaries; a named batch "
+"result supports ``{\"$ref\":\"cut.right.id\"}``. Splits reject endpoints and"
+" locked tracks. Undo restores the original clip in one transaction."
+msgstr ""
+"``clip split ID --at 6.5`` zaman çizelgesi saniyelerini kullanır, en yakın "
+"proje karesine yapışır ve her iki yarıyı da korur. Kaynak koordinat "
+"eğrilerini tutar ve sağ yarıda yeni kimliklerle efektleri çoğaltır, editörün"
+" dilimleme davranışını takip eder. Sol yarı kimliğini korur. Yanıt "
+"istenen/gerçek bölme zamanlarını ve her iki özetini rapor eder; "
+"adlandırılmış toplu sonuç ``{\"$ref\":\"cut.right.id\"}`` destekler. "
+"Bölmeler uç noktaları ve kilitli parçaları reddeder. Geri al işlemi orijinal"
+" klibi tek bir işlemde geri yükler."
+
+#: ../doc/agent_cli.rst:595
+msgid "Clip menu presets"
+msgstr "Klip menüsü ön ayarları"
+
+#: ../doc/agent_cli.rst:597
+msgid ""
+"The editor's clip menu presets use the same code from the command line. Each"
+" command lists its presets in its help, and each one is a single undo step:"
+msgstr ""
+"Editörün klip menüsü ön ayarları, komut satırından aynı kodu kullanır. Her "
+"komut, yardımında ön ayarlarını listeler ve her biri tek bir geri alma "
+"adımıdır:"
+
+#: ../doc/agent_cli.rst:611
+msgid ""
+"Motion presets are relative to the clip's current transform. Look presets "
+"add or replace one effect, and ``none`` removes it. Speed and repeat retime "
+"every keyframe and change the clip's length; ``clip speed --mode reset`` "
+"restores normal speed. Other menu actions are plain edits: rotate and layout"
+" with ``clip set``, crop with ``effects add Crop``. The commands also work "
+"in ``edit apply`` and ``edit bulk``."
+msgstr ""
+"Hareket ön ayarları, klibin mevcut dönüşümüne göre görecelidir. Görünüm ön "
+"ayarları bir efekti ekler veya değiştirir, ``none`` ise kaldırır. Hız ve "
+"tekrar her ana kareyi yeniden zamanlar ve klibin uzunluğunu değiştirir; "
+"``clip speed --mode reset`` normal hızı geri getirir. Diğer menü işlemleri "
+"basit düzenlemelerdir: döndürme ve düzenleme ``clip set`` ile, kırpma "
+"``effects add Crop`` ile yapılır. Komutlar ayrıca ``edit apply`` ve ``edit "
+"bulk`` içinde de çalışır."
+
+#: ../doc/agent_cli.rst:621
+msgid "Adding and styling text"
+msgstr "Metin ekleme ve stil verme"
+
+#: ../doc/agent_cli.rst:623
+msgid ""
+"``text add`` creates a text and places it as a clip, using the same text as "
+"the editor's **Text** tool. Options you leave out use the editor's default "
+"style:"
+msgstr ""
+"``text add`` bir metin oluşturur ve bunu klip olarak yerleştirir, editörün "
+"**Metin** aracındaki aynı metni kullanır. Atladığınız seçenekler editörün "
+"varsayılan stilini kullanır:"
+
+#: ../doc/agent_cli.rst:637
+msgid ""
+"The words, font, size, alignment, box width and default colors belong to the"
+" text in Project Files and are shared by every clip that uses it, just like "
+"in the editor. ``text set`` on one clip changes all of them and lists them "
+"in ``changed_clip_ids``; ``--this-clip-only`` gives that clip its own copy "
+"first. ``clip add FILE_ID`` places another clip of a text from ``text "
+"list``. Sizes are in pixels at the project resolution, and colors are "
+"``#RRGGBB``, ``#AARRGGBB`` (with alpha), a CSS name, or ``transparent``. "
+"``--place`` puts the box at the center, an edge or corner, or a lower third."
+" ``--line-spacing`` is a multiple of the normal distance between lines (1 is"
+" normal), and ``--background-corner`` rounds the background and border "
+"corners by that many pixels."
+msgstr ""
+"Kelime, yazı tipi, boyut, hizalama, kutu genişliği ve varsayılan renkler "
+"Proje Dosyalarındaki metne aittir ve editörde olduğu gibi onu kullanan her "
+"klip tarafından paylaşılır. Bir klipte ``text set`` bunların hepsini "
+"değiştirir ve ``changed_clip_ids`` içinde listeler; ``--this-clip-only`` "
+"önce o klibe kendi kopyasını verir. ``clip add FILE_ID`` ``text list`` den "
+"başka bir metin klibi yerleştirir. Boyutlar proje çözünürlüğünde pikseldir "
+"ve renkler ``#RRGGBB``, ``#AARRGGBB`` (alfa ile), bir CSS adı veya "
+"``transparent`` olabilir. ``--place`` kutuyu ortaya, bir kenara veya köşeye "
+"ya da alt üçte birine yerleştirir. ``--line-spacing`` satırlar arasındaki "
+"normal mesafenin katıdır (1 normaldir) ve ``--background-corner`` arka plan "
+"ve kenar köşelerini o kadar piksel yuvarlar."
+
+#: ../doc/agent_cli.rst:647
+msgid ""
+"A text clip is an ordinary clip. Position, scale, rotation, opacity, timing,"
+" fades, motion presets and effects all use the normal ``clip`` commands. "
+"Font size, padding, box width, and letter and line spacing set the size of "
+"the text box, so they cannot be keyframed; to animate the size of text, "
+"keyframe the clip's scale. Each clip can animate its own text colors and "
+"outline and border widths with the same keyframe commands as any other "
+"property:"
+msgstr ""
+"Bir metin klibi sıradan bir kliptir. Konum, ölçek, döndürme, opaklık, "
+"zamanlama, geçişler, hareket ön ayarları ve efektler tümü normal ``clip`` "
+"komutlarını kullanır. Yazı tipi boyutu, dolgu, kutu genişliği ve harf ile "
+"satır aralığı metin kutusunun boyutunu belirler, bu yüzden ana "
+"karelenemezler; metin boyutunu canlandırmak için klibin ölçeğini ana "
+"kareleyin. Her klip, kendi metin renklerini, dış hat ve kenar genişliklerini"
+" diğer özelliklerdeki ana kare komutlarıyla canlandırabilir:"
+
+#: ../doc/agent_cli.rst:659
+msgid ""
+"The animated properties are ``text_color``, ``text_background``, "
+"``text_stroke`` and ``text_border`` (colors, with ``.red``, ``.green``, "
+"``.blue`` and ``.alpha`` from 0 to 255), plus ``text_stroke_width``, "
+"``text_border_width`` and ``text_background_corner``. A clip's own animation"
+" wins over the shared style, and ``text get`` lists which styles a clip "
+"animates. ``text reset CLIP_ID`` returns a clip to the default style, like "
+"**Text → Reset Style**; ``--keyframes-only`` just removes the clip's own "
+"animation. To style many texts at once, select them with "
+"``{\"text\":true}``:"
+msgstr ""
+"Canlandırılan özellikler ``text_color``, ``text_background``, "
+"``text_stroke`` ve ``text_border`` (renkler, ``.red``, ``.green``, ``.blue``"
+" ve 0 ile 255 arasında ``.alpha`` ile), ayrıca ``text_stroke_width``, "
+"``text_border_width`` ve ``text_background_corner`` dir. Bir klibin kendi "
+"animasyonu paylaşılan stilden üstün gelir ve ``text get`` bir klibin hangi "
+"stilleri canlandırdığını listeler. ``text reset CLIP_ID`` bir klibi "
+"varsayılan stile döndürür, tıpkı **Metin → Stili Sıfırla** gibi; "
+"``--keyframes-only`` sadece klibin kendi animasyonunu kaldırır. Birden çok "
+"metni aynı anda stil vermek için ``{\"text\":true}`` ile seçin:"
+
+#: ../doc/agent_cli.rst:672
+msgid "Applying a batch of edits"
+msgstr "Bir dizi düzenlemeyi uygulama"
+
+#: ../doc/agent_cli.rst:674
+msgid ""
+"``edit apply --json @edits.json --expect-revision 12`` accepts up to 256 "
+"ordered mutation commands, using dotted command names such as ``clip.set`` "
+"and ``effects.add`` (the older ``effect.add`` spelling also works)::"
+msgstr ""
+"``edit apply --json @edits.json --expect-revision 12`` noktalı komut "
+"isimleri kullanarak (örneğin ``clip.set`` ve ``effects.add``; eski "
+"``effect.add`` yazımı da çalışır) 256'ya kadar sıralı değişiklik komutunu "
+"kabul eder::"
+
+#: ../doc/agent_cli.rst:685
+msgid ""
+"The optional ``as`` binds a result for later commands in the same batch. A "
+"``{\"$ref\":\"shot.id\"}`` object substitutes that result's field. "
+"References only resolve earlier names; misspellings, forward references, and"
+" duplicate names fail before live updates. The response includes ordered "
+"compact results and a ``refs`` map of actual IDs. All changes in a "
+"successful batch form one undo/redo step. ``project.profile.set`` also "
+"supports populated timelines. Opening, saving, exporting, and inspection "
+"commands stay outside edit batches. Each command's help lists its JSON "
+"parameter names, including the underscore spelling of shell flags (for "
+"example, ``--fps-num`` becomes ``fps_num``)."
+msgstr ""
+"İsteğe bağlı ``as`` aynı partide sonraki komutlar için bir sonucu bağlar. "
+"``{\"$ref\":\"shot.id\"}`` nesnesi o sonucun alanını yerine koyar. "
+"Referanslar yalnızca önceki isimleri çözer; yazım hataları, ileri "
+"referanslar ve yinelenen isimler canlı güncellemelerden önce başarısız olur."
+" Yanıt sıralı sıkıştırılmış sonuçları ve gerçek kimliklerin ``refs`` "
+"haritasını içerir. Başarılı bir partideki tüm değişiklikler tek bir geri "
+"al/ileri adımı oluşturur. ``project.profile.set`` ayrıca dolu zaman "
+"çizelgelerini destekler. Açma, kaydetme, dışa aktarma ve inceleme komutları "
+"düzenleme partilerinin dışında kalır. Her komutun yardımında JSON parametre "
+"isimleri listelenir, kabuk bayraklarının alt çizgi yazımı dahil (örneğin, "
+"``--fps-num`` ``fps_num`` olur)."
+
+#: ../doc/agent_cli.rst:696
+msgid "Validating batches and handling errors"
+msgstr "Partileri doğrulama ve hataları yönetme"
+
+#: ../doc/agent_cli.rst:698
+msgid ""
+"All commands in edit batches preflight against a detached project before any"
+" live updates. Invalid input leaves the live project and revision unchanged."
+" Valid batches form one undo group. Unexpected runtime failures can still "
+"produce partial changes; errors report completed operations. A timeout does "
+"not imply cancellation, so inspect state before retrying mutations."
+msgstr ""
+"Düzenleme partilerindeki tüm komutlar, canlı güncellemelerden önce ayrılmış "
+"bir projeye karşı ön kontrol yapar. Geçersiz giriş, canlı proje ve revizyonu"
+" değiştirmez. Geçerli partiler tek bir geri alma grubu oluşturur. "
+"Beklenmeyen çalışma zamanı hataları yine de kısmi değişiklikler yapabilir; "
+"hatalar tamamlanan işlemleri bildirir. Zaman aşımı iptal anlamına gelmez, bu"
+" yüzden değişiklikleri yeniden denemeden önce durumu kontrol edin."
+
+#: ../doc/agent_cli.rst:705
+msgid "Precise keyframe editing"
+msgstr "Hassas ana kare düzenleme"
+
+#: ../doc/agent_cli.rst:707
+msgid ""
+"``clip``, ``transition``, and ``effects`` support ``keyframe list``, "
+"``set``, ``remove``, ``clear``, ``transform``, ``copy``, and ``paste``. "
+"Property paths can address nested curves, such as ``color.red`` on a Chroma "
+"Key effect. Editing a nested curve preserves sibling channels. Run "
+"``keyframe list ID`` without a property to discover curve paths and point "
+"counts. Discovery and point listings include trim/position timing context; "
+"point listings also report native frame coordinates. ``get`` and "
+"``properties`` expose the complete native object and property metadata. "
+"Errors identify invalid fields, suggest close property names, and explain "
+"coordinate corrections."
+msgstr ""
+"``clip``, ``transition`` ve ``effects`` ``keyframe list``, ``set``, "
+"``remove``, ``clear``, ``transform``, ``copy`` ve ``paste`` komutlarını "
+"destekler. Özellik yolları, Chroma Key efektindeki ``color.red`` gibi iç içe"
+" eğrilere erişebilir. İç içe eğri düzenleme kardeş kanalları korur. Eğri "
+"yollarını ve nokta sayılarını keşfetmek için bir özellik olmadan ``keyframe "
+"list ID`` çalıştırın. Keşif ve nokta listeleri kırpma/konum zamanlama "
+"bağlamını içerir; nokta listeleri ayrıca yerel kare koordinatlarını "
+"bildirir. ``get`` ve ``properties`` tam yerel nesne ve özellik meta "
+"verilerini açığa çıkarır. Hatalar geçersiz alanları tanımlar, yakın özellik "
+"isimleri önerir ve koordinat düzeltmelerini açıklar."
+
+#: ../doc/agent_cli.rst:717
+msgid ""
+"Choose coordinates explicitly with ``--space native|clip|timeline`` and "
+"``--unit frames|seconds``. All frames use project FPS and are 1-based; "
+"seconds start at zero and snap to the nearest frame. Native is the existing "
+"engine keyframe coordinate (including source trim). Clip coordinates start "
+"at the visible clip in-point; timeline coordinates start at project time "
+"zero. Attached effects use their parent clip's timing. These coordinates "
+"address animation time, not the media frames selected by a time-remapping "
+"curve."
+msgstr ""
+"Koordinatları açıkça seçmek için ``--space native|clip|timeline`` ve "
+"``--unit frames|seconds`` kullanın. Tüm kareler proje FPS'sini kullanır ve 1"
+" tabanlıdır; saniyeler sıfırdan başlar ve en yakın kareye yapışır. Native "
+"mevcut motor ana kare koordinatıdır (kaynak kırpma dahil). Klip "
+"koordinatları görünür klibin başlangıç noktasından başlar; zaman çizelgesi "
+"koordinatları proje zaman sıfırından başlar. Ekli efektler ebeveyn klibin "
+"zamanlamasını kullanır. Bu koordinatlar animasyon zamanını adresler, zaman "
+"yeniden eşleme eğrisiyle seçilen medya karelerini değil."
+
+#: ../doc/agent_cli.rst:725
+msgid ""
+"For a clip positioned at 5 seconds, trimmed at 2 seconds, in a 30 fps "
+"project, clip frame 1, timeline frame 151, and native frame 61 address the "
+"same point. Position and trim snap independently to the project frame grid. "
+"Listing an entire curve can include hidden points with nonpositive "
+"clip/timeline coordinates. Legacy ``--frame`` still means a native frame and"
+" cannot combine with ``--at``."
+msgstr ""
+"30 fps projede 5 saniyede konumlandırılmış, 2 saniye kırpılmış bir klip "
+"için, klip karesi 1, zaman çizelgesi karesi 151 ve yerel kare 61 aynı "
+"noktaya işaret eder. Konum ve kırpma, proje kare ızgarasına bağımsız olarak "
+"yapışır. Tüm eğriyi listelemek, pozitif olmayan klip/zaman çizelgesi "
+"koordinatlarına sahip gizli noktaları içerebilir. Eski ``--frame`` hâlâ "
+"yerel kare anlamına gelir ve ``--at`` ile birleştirilemez."
+
+#: ../doc/agent_cli.rst:731
+msgid "Examples::"
+msgstr "Örnekler::"
+
+#: ../doc/agent_cli.rst:743
+msgid "Interpolation, easing, and preview"
+msgstr "Enterpolasyon, kolaylaştırma ve önizleme"
+
+#: ../doc/agent_cli.rst:745
+msgid ""
+"Interpolation describes the segment **into the destination point**. Linear "
+"gives a steady rate between points. Constant holds the preceding value until"
+" the destination, then jumps. Native default Bezier handles ease at both "
+"ends of each segment. Adding an intermediate point can therefore introduce "
+"an unintended slowdown; for one eased move, start with two endpoints. "
+"Normally leave handles alone and choose a named preset for a specific style."
+msgstr ""
+"Enterpolasyon, **hedef noktaya doğru** olan segmenti tanımlar. Doğrusal, "
+"noktalar arasında sabit bir hız sağlar. Sabit, hedefe kadar önceki değeri "
+"tutar, sonra atlar. Yerel varsayılan Bezier tutamaçları her segmentin her "
+"iki ucunda kolaylaştırma yapar. Ara bir nokta eklemek istenmeyen bir "
+"yavaşlamaya neden olabilir; tek bir kolaylaştırılmış hareket için iki uç "
+"noktadan başlayın. Normalde tutamaçları değiştirmeyin ve belirli bir stil "
+"için isimlendirilmiş bir ön ayar seçin."
+
+#: ../doc/agent_cli.rst:752
+msgid ""
+"Discover the same easing presets used by the editor's menus, without a "
+"session::"
+msgstr ""
+"Oturum olmadan editörün menülerinde kullanılan aynı kolaylaştırma "
+"önayarlarını keşfedin::"
+
+#: ../doc/agent_cli.rst:756
+msgid "Apply a preset to the incoming segment by setting its destination::"
+msgstr "Hedefini ayarlayarak gelen segmente bir önayar uygulayın::"
+
+#: ../doc/agent_cli.rst:761
+msgid ""
+"The easing option implies Bezier. It sets the previous point's outgoing "
+"handle and the destination's incoming handle together, preserving other "
+"handles and point values. An earlier point must exist. Do not combine it "
+"with custom handles or a different interpolation. Presets work in batches "
+"and bulk templates. The GUI preset **ease** (\"Ease (Default)\") differs "
+"from the native handles used by plain Bezier interpolation. Back presets can"
+" overshoot endpoint values."
+msgstr ""
+"Kolaylaştırma seçeneği Bezier anlamına gelir. Önceki noktanın çıkan "
+"tutamağını ve hedefin gelen tutamağını birlikte ayarlar, diğer tutamaçları "
+"ve nokta değerlerini korur. Önceki bir nokta olmalıdır. Bunu özel "
+"tutamaçlarla veya farklı bir enterpolasyonla birleştirmeyin. Önayarlar toplu"
+" ve toplu şablonlarda çalışır. GUI önayarı **ease** (\"Ease (Default)\") "
+"sade Bezier enterpolasyonunda kullanılan yerel tutamaçlardan farklıdır. Geri"
+" önayarlar uç nokta değerlerini aşabilir."
+
+#: ../doc/agent_cli.rst:768
+msgid ""
+"Inspect motion **before rendering**, using the native curve evaluator::"
+msgstr ""
+"Yerel eğri değerlendiricisini kullanarak **render almadan önce** hareketi "
+"inceleyin::"
+
+#: ../doc/agent_cli.rst:773
+msgid ""
+"Preview is read-only and works identically for effects and transitions. It "
+"returns values and signed incoming_rate / outgoing_rate in property units "
+"per second, calculated from immediately adjacent frames. These are finite "
+"differences, not analytic derivatives. At native frame 1 the incoming rate "
+"is null. Adjacent-frame rates can inspect outside the requested range. Near-"
+"zero rates around an interior point reveal a pause; differing rates reveal a"
+" speed change. Constant interpolation reveals a jump at the destination."
+msgstr ""
+"Önizleme salt okunurdur ve efektler ile geçişler için aynı şekilde çalışır. "
+"Hemen bitişik karelerden hesaplanan, özellik birimi/saniye cinsinden "
+"değerler ve işaretli gelen_hız / giden_hız döner. Bunlar sonlu farklardır, "
+"analitik türevler değildir. Yerel kare 1'de gelen hız sıfırdır. Bitişik kare"
+" hızları istenen aralığın dışını inceleyebilir. İç noktadaki sıfıra yakın "
+"hızlar duraklamayı gösterir; farklı hızlar hız değişimini gösterir. Sabit "
+"enterpolasyon hedefte bir atlamayı gösterir."
+
+#: ../doc/agent_cli.rst:781
+msgid ""
+"Without a range, preview spans the curve's first and last points. Ranges are"
+" inclusive, with 17 evenly spaced samples by default (--count: 2–256). "
+"Keyframes and their immediate neighbors inside the range are also included, "
+"so a sparse sample count will not hide a keyframe stall. The maximum is 1024"
+" samples; larger requests require a narrower range. --at samples one frame. "
+"Preview reports requested-space coordinates and actual native frames; "
+"seconds snap to project frames as they do for editing."
+msgstr ""
+"Bir aralık olmadan, önizleme eğrinin ilk ve son noktalarını kapsar. "
+"Aralıklar kapsayıcıdır, varsayılan olarak 17 eşit aralıklı örnek (--count: "
+"2–256). Aralıktaki anahtar kareler ve hemen yanlarındaki komşular da dahil "
+"edilir, böylece seyrek örnek sayısı bir anahtar kare duraklamasını gizlemez."
+" Maksimum 1024 örnektir; daha büyük istekler daha dar bir aralık gerektirir."
+" --at bir kare örnekler. Önizleme istenen alan koordinatlarını ve gerçek "
+"yerel kareleri raporlar; saniyeler düzenlemede olduğu gibi proje karelerine "
+"yapışır."
+
+#: ../doc/agent_cli.rst:789
+msgid ""
+"For advanced custom handles, both X and Y are normalized to the segment: X "
+"is a fraction of its frame span; Y is a fraction of its value change. The "
+"first control comes from the previous point's handle_right, the second from "
+"the destination's handle_left. Native defaults are right=(0.5, 0), "
+"left=(0.5, 1), with flat endpoint tangents. Changing handle_type alone does "
+"not recalculate a continuous tangent through surrounding points. Existing "
+"handles are preserved when moving a point."
+msgstr ""
+"Gelişmiş özel tutamaçlar için, hem X hem Y segment için normalize edilir: X "
+"kare aralığının bir kesri; Y değer değişiminin bir kesri. İlk kontrol önceki"
+" noktanın handle_right'ından, ikincisi hedefin handle_left'inden gelir. "
+"Yerel varsayılanlar right=(0.5, 0), left=(0.5, 1) ve düz uç noktası "
+"teğetleridir. Sadece handle_type değiştirmek çevredeki noktalar boyunca "
+"sürekli bir teğeti yeniden hesaplamaz. Bir nokta taşınırken mevcut "
+"tutamaçlar korunur."
+
+#: ../doc/agent_cli.rst:797
+msgid ""
+"Keyframe ranges are **inclusive**, unlike clip-selection time ranges. List "
+"emits ``points`` whose ``co.X`` values use the requested coordinate "
+"space/unit. Pass that array to ``keyframe paste --json @points.json`` with "
+"the same space/unit, choosing ``--mode merge`` (replace matching frames, "
+"retain others) or ``--mode replace`` (replace the entire curve). ``copy`` "
+"accepts a source of the same object kind, an optional ``--source-property``,"
+" and anchors the first selected source point at ``--at`` on the target. "
+"Other curves and source objects remain unchanged."
+msgstr ""
+"Anahtar kare aralıkları klip seçimi zaman aralıklarının aksine "
+"**kapsayıcıdır**. Liste, istenen koordinat alanı/birimini kullanan ``co.X`` "
+"değerlerine sahip ``points`` yayınlar. Bu diziyi aynı alan/birim ile "
+"``keyframe paste --json @points.json`` komutuna geçin, ``--mode merge`` "
+"(eşleşen kareleri değiştir, diğerlerini koru) veya ``--mode replace`` (tüm "
+"eğriyi değiştir) seçin. ``copy`` aynı türden bir kaynak kabul eder, isteğe "
+"bağlı ``--source-property`` ve ilk seçilen kaynak noktasını hedefte ``--at``"
+" ile sabitler. Diğer eğriler ve kaynak nesneler değişmeden kalır."
+
+#: ../doc/agent_cli.rst:805
+msgid ""
+"``transform`` applies a positive time scale around the first selected point,"
+" or ``--pivot``, followed by a signed ``--offset`` in the chosen unit. Frame"
+" snapping that creates duplicate coordinates is rejected, including "
+"collisions with points outside the selected range. Native coordinates must "
+"remain at least 1. Native normalized Bézier handles and interpolation travel"
+" with each point; handles are not absolute frame coordinates. ``set "
+"--handles`` changes only supplied handles. Interpolation belongs to the "
+"destination point."
+msgstr ""
+"``transform`` ilk seçilen nokta veya ``--pivot`` etrafında pozitif bir zaman"
+" ölçeği uygular, ardından seçilen birimde işaretli ``--offset`` gelir. "
+"Çoğaltılmış koordinatlar oluşturan kare yapışmaları reddedilir, seçilen "
+"aralık dışındaki noktalarla çakışmalar dahil. Yerel koordinatlar en az 1 "
+"olmalıdır. Yerel normalize edilmiş Bézier tutamaçları ve enterpolasyon her "
+"noktayla birlikte hareket eder; tutamaçlar mutlak kare koordinatları "
+"değildir. ``set --handles`` yalnızca sağlanan tutamaçları değiştirir. "
+"Enterpolasyon hedef noktaya aittir."
+
+#: ../doc/agent_cli.rst:813
+msgid ""
+"``clear`` retains a constant base point at native frame 1: specify "
+"``--value`` or sample the existing curve with ``--at`` (default native frame"
+" 1). Removing the last point also retains a constant base, so subsequent "
+"keyframe additions remain valid."
+msgstr ""
+"``clear`` yerel kare 1'de sabit bir temel nokta tutar: ``--value`` belirtin "
+"veya mevcut eğriyi ``--at`` ile örnekleyin (varsayılan yerel kare 1). Son "
+"noktayı kaldırmak da sabit bir temel tutar, böylece sonraki anahtar kare "
+"eklemeleri geçerli kalır."
+
+#: ../doc/agent_cli.rst:818
+msgid "Selecting and editing many clips"
+msgstr "Birçok klibi seçme ve düzenleme"
+
+#: ../doc/agent_cli.rst:820
+msgid ""
+"Use ``edit apply --dry-run`` to validate a batch without changing the "
+"project. Use ``edit bulk`` to repeat a small command template for each "
+"selected clip, with all changes grouped into one undo step."
+msgstr ""
+"Projeyi değiştirmeden bir topluluğu doğrulamak için ``edit apply --dry-run``"
+" kullanın. Seçilen her klip için küçük bir komut şablonunu tekrarlamak ve "
+"tüm değişiklikleri tek bir geri alma adımında gruplayarak uygulamak için "
+"``edit bulk`` kullanın."
+
+#: ../doc/agent_cli.rst:824
+msgid "First preview a selection::"
+msgstr "Önce bir seçimi önizleyin::"
+
+#: ../doc/agent_cli.rst:828
+msgid ""
+"Selectors support ``ids`` (unique clip ID array), ``layer``, "
+"``start``/``end`` (timeline seconds), ``file_id``, ``effect`` (class name or"
+" alias), and ``text`` (``true`` selects text clips). Filters combine with "
+"AND. Time ranges select clips overlapping ``[start, end)``; they do not trim"
+" those clips. Results are ordered by position, layer, then ID, and include "
+"IDs, summaries, lock state, and the current revision. Unknown IDs are "
+"errors. An empty selector is rejected; use ``{\"all\":true}`` explicitly for"
+" every clip. Selections are bounded to 256 clips and are never silently "
+"truncated."
+msgstr ""
+"Seçiciler ``ids`` (benzersiz klip ID dizisi), ``layer``, ``start``/``end`` "
+"(zaman çizelgesi saniyeleri), ``file_id``, ``effect`` (sınıf adı veya takma "
+"ad) ve ``text`` (``true`` metin kliplerini seçer) destekler. Filtreler VE "
+"ile birleştirilir. Zaman aralıkları ``[start, end)`` ile örtüşen klipleri "
+"seçer; bu klipleri kırpmaz. Sonuçlar pozisyona, katmana, sonra ID'ye göre "
+"sıralanır ve ID'ler, özetler, kilit durumu ve mevcut revizyonu içerir. "
+"Bilinmeyen ID'ler hata verir. Boş bir seçici reddedilir; her klip için "
+"açıkça ``{\"all\":true}`` kullanın. Seçimler 256 kliple sınırlandırılmıştır "
+"ve asla sessizce kısaltılmaz."
+
+#: ../doc/agent_cli.rst:837
+msgid "For example, save this array as ``templates.json``::"
+msgstr "Örneğin, bu diziyi ``templates.json`` olarak kaydedin::"
+
+#: ../doc/agent_cli.rst:846
+msgid "Validate it, then apply against the revision returned by selection::"
+msgstr "Doğrulayın, ardından seçimin döndürdüğü revizyona uygulayın::"
+
+#: ../doc/agent_cli.rst:851
+msgid ""
+"Existing-clip commands inherit ``id``; ``effects.add`` inherits ``clip_id``."
+" Omit these target parameters in templates. Effect edits must reference an "
+"earlier named result. Names are local to each selected clip, so ``look.id`` "
+"refers to a different effect for each clip. To change existing effect "
+"instances by explicit ID, continue using ``edit apply``. The selected ID set"
+" is fixed before expansion; changes to position or effects do not change the"
+" remaining targets."
+msgstr ""
+"Mevcut klip komutları ``id`` miras alır; ``effects.add`` ``clip_id`` miras "
+"alır. Şablonlarda bu hedef parametreleri atlayın. Efekt düzenlemeleri önceki"
+" adlandırılmış bir sonuca referans vermelidir. İsimler her seçili klibe "
+"özgüdür, bu yüzden ``look.id`` her klip için farklı bir efekti ifade eder. "
+"Mevcut efekt örneklerini açık ID ile değiştirmek için ``edit apply`` "
+"kullanmaya devam edin. Seçilen ID seti genişletmeden önce sabittir; pozisyon"
+" veya efekt değişiklikleri kalan hedefleri değiştirmez."
+
+#: ../doc/agent_cli.rst:858
+msgid ""
+"``clip set`` applies absolute properties; ``clip adjust`` applies "
+"``multiply`` then ``add`` to a numeric property or every value in a curve, "
+"preserving point timing, interpolation, and normalized handles. It validates"
+" resulting values, including nonnegative positions and volume. Structural "
+"fields remain protected."
+msgstr ""
+"``clip set`` mutlak özellikleri uygular; ``clip adjust`` sayısal bir "
+"özelliğe veya bir eğrideki her değere önce ``multiply`` sonra ``add`` "
+"uygular, nokta zamanlaması, enterpolasyon ve normalize edilmiş tutamaçları "
+"korur. Sonuç değerleri, negatif olmayan pozisyonlar ve ses seviyesi dahil "
+"olmak üzere doğrular. Yapısal alanlar korunmaya devam eder."
+
+#: ../doc/agent_cli.rst:863
+msgid ""
+"Bulk operations reject empty selections, locked target tracks, and more than"
+" 256 expanded commands. Every expanded operation passes detached preflight "
+"before any live edit. Dry runs do not reserve generated IDs. Use ``--expect-"
+"revision`` to reject stale selections. Successful batches are one undo step,"
+" including after save/reopen. GUI refreshes are batched. Unexpected "
+"runtime/listener errors can still leave a partial transaction; the error "
+"reports completed operations and undo reverts that group, as with ``edit "
+"apply``."
+msgstr ""
+"Toplu işlemler boş seçimleri, kilitli hedef parçaları ve 256'dan fazla "
+"genişletilmiş komutu reddeder. Her genişletilmiş işlem, canlı düzenlemeden "
+"önce bağımsız ön kontrolü geçer. Kuru çalıştırmalar oluşturulan ID'leri "
+"ayırmaz. Bayat seçimleri reddetmek için ``--expect-revision`` kullanın. "
+"Başarılı partiler, kaydetme/yeniden açma sonrası dahil olmak üzere tek bir "
+"geri alma adımıdır. GUI yenilemeleri toplu yapılır. Beklenmeyen çalışma "
+"zamanı/dinleyici hataları yine de kısmi bir işlem bırakabilir; hata "
+"tamamlanan işlemleri raporlar ve geri alma, ``edit apply`` ile olduğu gibi o"
+" grubu geri alır."
+
+#: ../doc/agent_cli.rst:872
+msgid "Profiles"
+msgstr "Profiller"
+
+#: ../doc/agent_cli.rst:874
+msgid "Discover profiles and match imported video without guessing IDs::"
+msgstr ""
+"Profilleri keşfedin ve ID tahmini yapmadan içe aktarılan videoyu "
+"eşleştirin::"
+
+#: ../doc/agent_cli.rst:884
+msgid ""
+"Catalog entries include stable IDs, descriptions, dimensions, rational FPS, "
+"aspect ratios, and scan settings. List/search is paginated. Source matching "
+"returns exact IDs and ranked alternatives with explicit differences. Setting"
+" from a file requires an exact match unless ``--create-custom`` is "
+"specified; it never silently chooses a nearby profile. Still images and "
+"audio-only sources cannot define a video profile. Matching uses declared "
+"source FPS."
+msgstr ""
+"Katalog girdileri sabit ID'ler, açıklamalar, boyutlar, rasyonel FPS, en boy "
+"oranları ve tarama ayarlarını içerir. Listeleme/arama sayfalıdır. Kaynak "
+"eşleştirme tam ID'ler ve açık farklarla sıralanmış alternatifler döndürür. "
+"Dosyadan ayarlama, ``--create-custom`` belirtilmedikçe tam eşleşme "
+"gerektirir; asla yakın bir profili sessizce seçmez. Sabit görüntüler ve "
+"sadece ses kaynakları video profili tanımlayamaz. Eşleştirme bildirilen "
+"kaynak FPS'sini kullanır."
+
+#: ../doc/agent_cli.rst:891
+msgid ""
+"Custom settings are embedded in the saved project, including rational rates,"
+" so reopening does not require installing a separate profile file. Project "
+"profile changes use existing frame-rate conversion and one undo transaction."
+" Undo/redo restores clip timing and keyframes, including rounding-sensitive "
+"positions. Export can independently select a profile without changing the "
+"project."
+msgstr ""
+"Özel ayarlar, rasyonel oranlar dahil olmak üzere kaydedilen projeye "
+"gömülüdür, böylece yeniden açmak ayrı bir profil dosyası yüklemeyi "
+"gerektirmez. Proje profil değişiklikleri mevcut kare hızı dönüşümünü ve tek "
+"bir geri alma işlemini kullanır. Geri al/yinele, yuvarlamaya duyarlı "
+"pozisyonlar dahil olmak üzere klip zamanlamasını ve anahtar kareleri geri "
+"yükler. Dışa aktarma, projeyi değiştirmeden bağımsız olarak bir profil "
+"seçebilir."
+
+#: ../doc/agent_cli.rst:897
+msgid ""
+"Saved undo history follows the editor's history-limit preference. The limit "
+"is a soft action budget: all records belonging to retained transactions are "
+"kept, so saving cannot truncate a large batch into a partial undo action. "
+"Zero disables saved history. The separate 256-command batch request bound "
+"still applies."
+msgstr ""
+"Kaydedilen geri alma geçmişi, editörün geçmiş sınırı tercihini takip eder. "
+"Bu sınır yumuşak bir işlem bütçesidir: tutulan işlemlere ait tüm kayıtlar "
+"saklanır, böylece kaydetme büyük bir partiyi kısmi geri alma işlemine "
+"kısaltamaz. Sıfır, kaydedilen geçmişi devre dışı bırakır. Ayrı 256 komutluk "
+"toplu istek sınırı hala geçerlidir."
+
+#: ../doc/agent_cli.rst:903
+msgid "Inspecting media and timelines"
+msgstr "Medya ve zaman çizelgelerini inceleme"
+
+#: ../doc/agent_cli.rst:905
+msgid ""
+"Inspect clip timing and track layout as text or JSON, or render images to "
+"review composition and framing before exporting."
+msgstr ""
+"Klip zamanlamasını ve parça düzenini metin veya JSON olarak inceleyin veya "
+"dışa aktarmadan önce kompozisyon ve çerçevelemeyi gözden geçirmek için "
+"görüntüler oluşturun."
+
+#: ../doc/agent_cli.rst:909
+msgid "Timeline summaries"
+msgstr "Zaman çizelgesi özetleri"
+
+#: ../doc/agent_cli.rst:911
+msgid ""
+"Use a text view for a quick overview, or structured JSON for scripts and "
+"agents::"
+msgstr ""
+"Hızlı genel bakış için metin görünümü veya betikler ve ajanlar için "
+"yapılandırılmış JSON kullanın::"
+
+#: ../doc/agent_cli.rst:917
+msgid ""
+"``timeline view`` defaults to compact text with used tracks, object IDs, "
+"timeline/source intervals, stream state, gain, and gaps/overlaps. Use "
+"``--detail summary|clips|full`` to choose detail, ``--format json`` for "
+"structured context, and ``--start/--end``, ``--layer``, and pagination to "
+"focus the result."
+msgstr ""
+"``timeline view`` varsayılan olarak kullanılan parçalar, nesne ID'leri, "
+"zaman çizelgesi/kaynak aralıkları, akış durumu, kazanç ve "
+"boşluk/örtüşmelerle kompakt metin gösterir. Ayrıntı seçmek için ``--detail "
+"summary|clips|full``, yapılandırılmış bağlam için ``--format json``, ve "
+"sonucu odaklamak için ``--start/--end``, ``--layer`` ve sayfalama kullanın."
+
+#: ../doc/agent_cli.rst:922
+msgid ""
+"``timeline overview`` supplies compact structured context without image "
+"bytes: ordered IDs, sequence per track, timeline/source intervals, visible "
+"trim ranges, frame coordinates, audio/video state, effects, and neighboring "
+"gaps or overlaps. Intervals and frame spans are end-exclusive; frame numbers"
+" are one-based. Source frames use source FPS; timeline and keyframe "
+"coordinates use project FPS. Use ``--layer`` and ``--start/--end`` to focus,"
+" and ``--limit/--offset`` to paginate (default 100, maximum 500 items). "
+"Time-remapped clips explicitly withhold inferred source mappings. Use the "
+"returned revision with ``edit apply --expect-revision``."
+msgstr ""
+"``timeline overview`` görüntü baytları olmadan kompakt yapılandırılmış "
+"bağlam sağlar: sıralı ID'ler, parça başına sıra, zaman çizelgesi/kaynak "
+"aralıkları, görünür kırpma aralıkları, kare koordinatları, ses/görüntü "
+"durumu, efektler ve komşu boşluklar veya örtüşmeler. Aralıklar ve kare "
+"aralıkları son hariçtir; kare numaraları bir tabanlıdır. Kaynak kareler "
+"kaynak FPS'sini kullanır; zaman çizelgesi ve anahtar kare koordinatları "
+"proje FPS'sini kullanır. Odaklamak için ``--layer`` ve ``--start/--end``, "
+"sayfalama için ``--limit/--offset`` kullanın (varsayılan 100, maksimum 500 "
+"öğe). Zaman yeniden eşlenen klipler açıkça çıkarılan kaynak eşlemelerini "
+"tutmaz. Döndürülen revizyonu ``edit apply --expect-revision`` ile kullanın."
+
+#: ../doc/agent_cli.rst:932
+msgid "Frame previews and contact sheets"
+msgstr "Kare önizlemeleri ve iletişim sayfaları"
+
+#: ../doc/agent_cli.rst:934
+msgid ""
+"Render a single frame with ``thumbnail`` or sample a range with ``strip``. "
+"Use ``file`` to inspect source media and ``timeline`` to inspect the "
+"composed video, including effects and layered clips::"
+msgstr ""
+"Tek bir kareyi ``thumbnail`` ile oluşturun veya bir aralığı ``strip`` ile "
+"örnekleyin. Kaynak medyayı incelemek için ``file``, efektler ve katmanlı "
+"klipler dahil oluşturulmuş videoyu incelemek için ``timeline`` kullanın::"
+
+#: ../doc/agent_cli.rst:943
+msgid ""
+"Frame images default to 320x180 pixels; contact sheets default to 160x90 per"
+" tile, plus timecode labels. Use ``--width`` and ``--height`` to choose "
+"output pixels. Responses include exact sample/frame metadata. Contact sheets"
+" help review composition across a sequence; use keyframe previews and "
+"rendered video to assess motion between those samples."
+msgstr ""
+"Kare görüntüleri varsayılan olarak 320x180 pikseldir; iletişim sayfaları "
+"varsayılan olarak her karo için 160x90 ve zaman kodu etiketleri içerir. "
+"Çıktı pikselini seçmek için ``--width`` ve ``--height`` kullanın. Yanıtlar "
+"tam örnek/kare meta verilerini içerir. İletişim sayfaları, bir dizi boyunca "
+"kompozisyonu gözden geçirmeye yardımcı olur; bu örnekler arasındaki hareketi"
+" değerlendirmek için anahtar kare önizlemeleri ve oluşturulmuş videoyu "
+"kullanın."
+
+#: ../doc/agent_cli.rst:950
+msgid "Timeline images"
+msgstr "Zaman Çizgisi Görüntüleri"
+
+#: ../doc/agent_cli.rst:952
+msgid ""
+"Capture the editor's track layout, including its ruler, thumbnails, effects,"
+" transitions, and waveforms::"
+msgstr ""
+"Düzenleyicinin cetveli, küçük resimleri, efektleri, geçişleri ve dalga "
+"formları dahil olmak üzere parça düzenini yakalayın::"
+
+#: ../doc/agent_cli.rst:957
+msgid ""
+"Specifying ``--output`` selects image format; ``--format image`` also "
+"selects it explicitly. The capture does not change the editor's viewport or "
+"project. Responses include clip IDs and timing alongside pixel bounds."
+msgstr ""
+"``--output`` belirtmek görüntü formatını seçer; ``--format image`` de bunu "
+"açıkça seçer. Yakalama, düzenleyicinin görünüm alanını veya projesini "
+"değiştirmez. Yanıtlar, piksel sınırlarıyla birlikte klip kimlikleri ve "
+"zamanlamayı içerir."
+
+#: ../doc/agent_cli.rst:961
+msgid ""
+"Images default to 1280 pixels wide, with height fitted to used tracks. Use "
+"``--width``, ``--height``, or ``--all-tracks`` to adjust the layout, and "
+"``--track-size`` or ``--track-label-width`` to adjust tracks and labels. The"
+" start/end range determines zoom; ``--pixels-per-second`` instead derives "
+"the width from the time range."
+msgstr ""
+"Görüntüler varsayılan olarak 1280 piksel genişliğindedir ve yükseklik "
+"kullanılan parçalara göre ayarlanır. Düzeni ayarlamak için ``--width``, "
+"``--height`` veya ``--all-tracks`` kullanın; parçalar ve etiketler için "
+"``--track-size`` veya ``--track-label-width`` kullanın. Başlangıç/bitiş "
+"aralığı yakınlaştırmayı belirler; ``--pixels-per-second`` ise genişliği "
+"zaman aralığından türetir."
+
+#: ../doc/agent_cli.rst:968
+msgid "Audio waveform views"
+msgstr "Ses dalga formu görünümleri"
+
+#: ../doc/agent_cli.rst:970
+msgid ""
+"Choose ``--mode waveforms`` to inspect audio envelopes on the timeline::"
+msgstr ""
+"Zaman çizgisinde ses zarfını incelemek için ``--mode waveforms`` seçin::"
+
+#: ../doc/agent_cli.rst:974
+msgid ""
+"``--mode auto`` uses the existing cached waveform display; ``--mode "
+"thumbnails`` shows thumbnails instead. Waveforms represent source peak/RMS "
+"levels with clip volume and timing adjustments, before audio effects or "
+"mixing."
+msgstr ""
+"``--mode auto`` mevcut önbelleğe alınmış dalga formu görüntüsünü kullanır; "
+"``--mode thumbnails`` ise küçük resimleri gösterir. Dalga formları, ses "
+"efektleri veya miksajdan önce klip ses seviyesi ve zamanlama ayarlarıyla "
+"kaynak tepe/RMS seviyelerini temsil eder."
+
+#: ../doc/agent_cli.rst:978
+msgid ""
+"Uncached waveform extraction decodes whole sources, limited to 600 seconds "
+"per source and 1200 source-seconds per request. Narrowing the visible range "
+"does not reduce that decoding work. For longer sources, generate waveforms "
+"in the editor first or use thumbnail mode. Subsequent requests can reuse "
+"cached waveforms."
+msgstr ""
+"Önbelleğe alınmamış dalga formu çıkarımı tüm kaynakları çözer, kaynak başına"
+" 600 saniye ve istek başına 1200 kaynak-saniye ile sınırlıdır. Görünen "
+"aralığı daraltmak bu çözümleme işini azaltmaz. Daha uzun kaynaklar için önce"
+" düzenleyicide dalga formları oluşturun veya küçük resim modunu kullanın. "
+"Sonraki istekler önbelleğe alınmış dalga formlarını yeniden kullanabilir."
+
+#: ../doc/agent_cli.rst:984
+msgid "Image output and limits"
+msgstr "Görüntü çıktısı ve sınırlar"
+
+#: ../doc/agent_cli.rst:986
+msgid ""
+"Image paths must be new PNG files in existing directories. Images are "
+"limited to 4096 pixels per axis, 8,388,608 total pixels, and 64 contact-"
+"sheet samples. Requests beyond these limits fail before rendering."
+msgstr ""
+"Görüntü yolları mevcut dizinlerde yeni PNG dosyaları olmalıdır. Görüntüler "
+"eksen başına 4096 piksel, toplamda 8.388.608 piksel ve 64 kontak sayfası "
+"örneği ile sınırlıdır. Bu sınırların üzerindeki istekler render öncesi "
+"başarısız olur."
+
+#: ../doc/agent_cli.rst:990
+msgid ""
+"Images are written to files; JSON responses include their paths and "
+"``image_bytes`` sizes. Inspection waits for the image to finish, and large "
+"requests can briefly occupy the editor."
+msgstr ""
+"Görüntüler dosyalara yazılır; JSON yanıtları yollarını ve ``image_bytes`` "
+"boyutlarını içerir. İnceleme görüntünün bitmesini bekler ve büyük istekler "
+"düzenleyiciyi kısa süreliğine meşgul edebilir."
+
+#: ../doc/agent_cli.rst:995
+msgid "Handling command timeouts"
+msgstr "Komut zaman aşımı yönetimi"
+
+#: ../doc/agent_cli.rst:997
+msgid ""
+"A request timeout does not mean a mutation failed. Use the operation ID in "
+"the error with ``operation get ID`` before retrying. ``operation list`` "
+"discovers recent mutations and their states, revisions, and outcomes. "
+"Completed operations retain their results when small enough, including "
+"returned object IDs. Storage is bounded to 100 operations and 4 MiB, with "
+"individual result bodies omitted above 256 KiB. These records last only for "
+"the running session. They do not restore projects after a crash or prevent a"
+" repeated command from applying the same edit again. Export jobs have their "
+"own status/list commands."
+msgstr ""
+"Bir istek zaman aşımı, bir değişikliğin başarısız olduğu anlamına gelmez. "
+"Yeniden denemeden önce hatadaki işlem kimliğini ``operation get ID`` ile "
+"kullanın. ``operation list`` son değişiklikleri, durumlarını, revizyonlarını"
+" ve sonuçlarını keşfeder. Tamamlanan işlemler, döndürülen nesne kimlikleri "
+"dahil olmak üzere yeterince küçük olduklarında sonuçlarını korur. Depolama "
+"100 işlem ve 4 MiB ile sınırlıdır, 256 KiB üzerindeki bireysel sonuç "
+"gövdeleri atlanır. Bu kayıtlar yalnızca çalışan oturum için geçerlidir. "
+"Çökme sonrası projeleri geri yüklemez veya tekrarlanan bir komutun aynı "
+"düzenlemeyi tekrar uygulamasını engellemez. Dışa aktarma işleri kendi "
+"durum/liste komutlarına sahiptir."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-22 12:37-0600\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:21
+#: ../doc/import_export.rst:21
 msgid "Import & Export"
 msgstr "匯入與匯出"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:23
+#: ../doc/import_export.rst:23
 msgid ""
 "Video editing projects (including tracks, clips, and keyframes) can be "
 "**imported** and **exported** from OpenShot Video Editor in widely supported"
@@ -32,101 +32,101 @@ msgid ""
 "Premier, Final Cut Pro, etc...), but later need to move all your edits to "
 "OpenShot (or vice versa)."
 msgstr ""
-"影片編輯專案（包括軌道、剪輯和關鍵影格）可以從 OpenShot Video Editor 以廣泛支援的格式（**EDL** ：編輯決策清單，和 "
-"**XML** ：Final Cut Pro 格式）**匯入** 和**匯出** 。例如，如果您在其他程式（Adobe Premiere、Final "
-"Cut Pro 等）開始編輯影片，但後來需要將所有編輯移至 OpenShot（或反之）。"
+"影片編輯專案（包括軌道、剪輯和關鍵影格）可以從 OpenShot Video Editor 以廣泛支援的格式（\\ **EDL** ：編輯決策清單，和 "
+"**XML** ：Final Cut Pro 格式）\\ **匯入** 和\\ **匯出** 。例如，如果您在其他程式（Adobe "
+"Premiere、Final Cut Pro 等）開始編輯影片，但後來需要將所有編輯移至 OpenShot（或反之）。"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:29
+#: ../doc/import_export.rst:29
 msgid "EDL (Edit Decision Lists)"
 msgstr "EDL（編輯決策清單）"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:30
+#: ../doc/import_export.rst:30
 msgid ""
 "The following features are supported when importing and exporting an EDL "
 "file with OpenShot."
 msgstr "使用 OpenShot 匯入和匯出 EDL 檔案時，支援以下功能。"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:36
+#: ../doc/import_export.rst:36
 msgid "EDL Option Name"
 msgstr "EDL 選項名稱"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:36 ../import_export.rst:122
+#: ../doc/import_export.rst:36 ../doc/import_export.rst:122
 msgid "Description"
 msgstr "說明"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:38
+#: ../doc/import_export.rst:38
 msgid "EDL Format"
 msgstr "EDL 格式"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:38
+#: ../doc/import_export.rst:38
 msgid "CMX-3600 (a very widely supported variation)"
 msgstr "CMX-3600（非常廣泛支援的變體）"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:39
+#: ../doc/import_export.rst:39
 msgid "Single Track"
 msgstr "單一軌道"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:39
+#: ../doc/import_export.rst:39
 msgid ""
 "Only a single track can be imported at a time (this is a limitation of the "
 "EDL format)"
 msgstr "一次只能匯入單一軌道（這是 EDL 格式的限制）"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:40
+#: ../doc/import_export.rst:40
 msgid "Tape Name"
 msgstr "磁帶名稱"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:40
+#: ../doc/import_export.rst:40
 msgid "Only **AX** and **BL** tape names are currently supported in OpenShot"
 msgstr "OpenShot 目前僅支援 **AX** 和 **BL** 磁帶名稱"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:41
+#: ../doc/import_export.rst:41
 msgid "Edits (V and A)"
 msgstr "編輯（視訊與音訊）"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:41
+#: ../doc/import_export.rst:41
 msgid "Only edits are currently supported (transitions are not yet supported)"
 msgstr "目前僅支援編輯（尚不支援轉場）"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:42 ../import_export.rst:127
+#: ../doc/import_export.rst:42 ../doc/import_export.rst:127
 msgid "Opacity"
 msgstr "不透明度"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:42 ../import_export.rst:127
+#: ../doc/import_export.rst:42 ../doc/import_export.rst:127
 msgid "Opacity keyframes are supported"
 msgstr "支援不透明度關鍵影格"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:43 ../import_export.rst:128
+#: ../doc/import_export.rst:43 ../doc/import_export.rst:128
 msgid "Audio Levels"
 msgstr "音訊音量"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:43 ../import_export.rst:128
+#: ../doc/import_export.rst:43 ../doc/import_export.rst:128
 msgid "Volume keyframes are supported"
 msgstr "支援音量關鍵影格"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:47
+#: ../doc/import_export.rst:47
 msgid "Example EDL Output"
 msgstr "EDL 輸出範例"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:49
+#: ../doc/import_export.rst:49
 msgid ""
 "OpenShot follows the CMX 3600 layout for event lines and uses comment lines "
 "(`* ...`) to carry keyframes. CMX 3600 does not define units or "
@@ -139,12 +139,12 @@ msgstr ""
 "在註解中未定義單位或插值，因此我們的匯出器會添加可讀的數值和插值名稱，而匯入器則非常寬容：接受有無空格的單位、大小寫混合、可選的插值標記，並忽略未知的尾隨文字/卷軸標籤，以最大化相容性。"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:109
+#: ../doc/import_export.rst:109
 msgid "XML (Final Cut Pro format)"
 msgstr "XML（Final Cut Pro 格式）"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:110
+#: ../doc/import_export.rst:110
 msgid ""
 "The following features are supported when importing and exporting an XML "
 "file with OpenShot. This XML format is supported in many video editors (not "
@@ -155,7 +155,7 @@ msgstr ""
 "Pro）。事實上，大多數商業影片編輯器都支援匯入和匯出相同的 XML 格式。"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:114
+#: ../doc/import_export.rst:114
 msgid ""
 "OpenShot uses the legacy Final Cut Pro XML Interchange Format (**xmeml**) "
 "from Final Cut Pro 7. Our exporter writes `<!DOCTYPE xmeml>` projects that "
@@ -163,50 +163,50 @@ msgid ""
 "schema versions of that interchange format (the DTDs shipped with Final Cut "
 "Pro 7)."
 msgstr ""
-"OpenShot 使用來自 Final Cut Pro 7 的舊版 Final Cut Pro XML 交換格式（**xmeml** "
+"OpenShot 使用來自 Final Cut Pro 7 的舊版 Final Cut Pro XML 交換格式（\\ **xmeml** "
 "）。我們的匯出器會寫入符合 Final Cut Pro XML DTD v1.0 的 `<!DOCTYPE xmeml>` 專案，並與該交換格式的 v4"
 " 和 v5 架構版本相容（隨 Final Cut Pro 7 附帶的 DTD）。"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:122
+#: ../doc/import_export.rst:122
 msgid "XML Option Name"
 msgstr "XML 選項名稱"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:124
+#: ../doc/import_export.rst:124
 msgid "XML Format"
 msgstr "XML 格式"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:124
+#: ../doc/import_export.rst:124
 msgid ""
 "Final Cut Pro format (but most commercial video editors also support this "
 "format)"
 msgstr "Final Cut Pro 格式（但大多數商業影片編輯器也支援此格式）"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:125
+#: ../doc/import_export.rst:125
 msgid "All Tracks"
 msgstr "所有軌道"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:125
+#: ../doc/import_export.rst:125
 msgid "All video and audio tracks are supported"
 msgstr "支援所有視訊和音訊軌道"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:126
+#: ../doc/import_export.rst:126
 msgid "Edits"
 msgstr "編輯"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:126
+#: ../doc/import_export.rst:126
 msgid ""
 "All clips on all tracks are supported (video, image, and audio files). "
 "Transitions are not yet supported."
 msgstr "支援所有軌道上的所有剪輯（視訊、圖片和音訊檔案）。尚不支援轉場。"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:132
+#: ../doc/import_export.rst:132
 msgid "Example XML Output (tree view)"
 msgstr "XML 輸出範例（樹狀檢視）"

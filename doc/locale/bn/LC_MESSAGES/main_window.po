@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:21
+#: ../doc/main_window.rst:21
 msgid "Main Window"
 msgstr "প্রধান উইন্ডো"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:23
+#: ../doc/main_window.rst:23
 msgid ""
 "OpenShot Video Editor has one main window which contains most of the "
 "information, buttons, and menus needed to edit your video project."
@@ -34,100 +34,105 @@ msgstr ""
 "সম্পাদনার জন্য প্রয়োজনীয় অধিকাংশ তথ্য, বোতাম এবং মেনু ধারণ করে।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:27
+#: ../doc/main_window.rst:27
 msgid "Overview"
 msgstr "সংক্ষিপ্ত বিবরণ"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:35 ../main_window.rst:80 ../main_window.rst:101
+#: ../doc/main_window.rst:35 ../doc/main_window.rst:80
+#: ../doc/main_window.rst:101
 msgid "#"
 msgstr "#"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:35 ../main_window.rst:80
+#: ../doc/main_window.rst:35 ../doc/main_window.rst:80
 msgid "Name"
 msgstr "নাম"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:35 ../main_window.rst:80 ../main_window.rst:103
-#: ../main_window.rst:237 ../main_window.rst:367 ../main_window.rst:396
+#: ../doc/main_window.rst:35 ../doc/main_window.rst:80
+#: ../doc/main_window.rst:103 ../doc/main_window.rst:173
+#: ../doc/main_window.rst:303 ../doc/main_window.rst:332
 msgid "Description"
 msgstr "বর্ণনা"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:37 ../main_window.rst:82 ../main_window.rst:104
+#: ../doc/main_window.rst:37 ../doc/main_window.rst:82
+#: ../doc/main_window.rst:104
 msgid "1"
 msgstr "১"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:37
+#: ../doc/main_window.rst:37
 msgid "Main Toolbar"
 msgstr "প্রধান টুলবার"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:37
+#: ../doc/main_window.rst:37
 msgid "Contains buttons to open, save, and export your video project."
 msgstr ""
 "আপনার ভিডিও প্রকল্প খুলতে, সংরক্ষণ করতে এবং রপ্তানি করতে বোতামগুলি রয়েছে।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:38 ../main_window.rst:83 ../main_window.rst:107
+#: ../doc/main_window.rst:38 ../doc/main_window.rst:83
+#: ../doc/main_window.rst:107
 msgid "2"
 msgstr "২"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:38
+#: ../doc/main_window.rst:38
 msgid "Function Tabs"
 msgstr "ফাংশন ট্যাব"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:38
+#: ../doc/main_window.rst:38
 msgid "Switch between Project Files, Transitions, Effects, and Emojis."
 msgstr "প্রকল্প ফাইল, ট্রানজিশন, ইফেক্ট এবং ইমোজির মধ্যে পরিবর্তন করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:39 ../main_window.rst:84 ../main_window.rst:110
+#: ../doc/main_window.rst:39 ../doc/main_window.rst:84
+#: ../doc/main_window.rst:110
 msgid "3"
 msgstr "৩"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:39 ../main_window.rst:411
+#: ../doc/main_window.rst:39 ../doc/main_window.rst:347
 msgid "Project Files"
 msgstr "প্রকল্প ফাইল"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:39
+#: ../doc/main_window.rst:39
 msgid ""
 "All audio, video, and image files that have been imported into your project."
 msgstr "আপনার প্রকল্পে আমদানি করা সমস্ত অডিও, ভিডিও এবং ইমেজ ফাইল।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:40 ../main_window.rst:113
+#: ../doc/main_window.rst:40 ../doc/main_window.rst:113
 msgid "4"
 msgstr "৪"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:40
+#: ../doc/main_window.rst:40
 msgid "Preview Window"
 msgstr "প্রিভিউ উইন্ডো"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:40
+#: ../doc/main_window.rst:40
 msgid "This is the area that the video will playback on the screen."
 msgstr "এটি সেই এলাকা যেখানে ভিডিওটি স্ক্রিনে প্লেব্যাক হবে।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:41 ../main_window.rst:116
+#: ../doc/main_window.rst:41 ../doc/main_window.rst:116
 msgid "5"
 msgstr "৫"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:41 ../main_window.rst:90
+#: ../doc/main_window.rst:41 ../doc/main_window.rst:90
 msgid "Timeline Toolbar"
 msgstr "টাইমলাইন টুলবার"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:41
+#: ../doc/main_window.rst:41
 msgid ""
 "This toolbar contains buttons used for snapping, inserting markers, slicing "
 "razor, jumping between markers, and centering the timeline on the playhead. "
@@ -138,39 +143,44 @@ msgstr ""
 ":ref:`timeline_toolbar_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:42 ../main_window.rst:119
+#: ../doc/main_window.rst:42 ../doc/main_window.rst:119
 msgid "6"
 msgstr "৬"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:42 ../main_window.rst:120
+#: ../doc/main_window.rst:42 ../doc/main_window.rst:120
 msgid "Zoom Slider"
 msgstr "জুম স্লাইডার"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:42
+#: ../doc/main_window.rst:42
 msgid ""
 "This slider will adjust the time-scale of your timeline. Drag the left or "
 "right edge to zoom in or out. Drag the blue area to scroll the timeline left"
-" or right. Clips and transitions are displayed as simple rectangles, to give"
-" you context for adjusting the zoom to specific clips."
+" or right without snapping. With snapping enabled, the left grip snaps to "
+"the earliest clip start and the right grip to the latest clip end. Double-"
+"click to fit the entire timeline or restore the previous zoom. Clips and "
+"transitions are displayed as simple rectangles, to give you context for "
+"adjusting the zoom to specific clips."
 msgstr ""
 "এই স্লাইডারটি আপনার টাইমলাইনের সময়-স্কেল সামঞ্জস্য করবে। জুম ইন বা আউট করতে"
 " বাম বা ডান প্রান্ত টেনে আনুন। টাইমলাইন বাম বা ডানে স্ক্রোল করতে নীল অংশ "
-"টেনে আনুন। ক্লিপ এবং ট্রানজিশনগুলি সহজ আয়তক্ষেত্র হিসেবে প্রদর্শিত হয়, যা "
-"নির্দিষ্ট ক্লিপের জন্য জুম সামঞ্জস্য করার প্রেক্ষাপট দেয়।"
+"টেনে আনুন, স্ন্যাপিং ছাড়া। স্ন্যাপিং সক্রিয় থাকলে, বাম গ্রিপটি সবচেয়ে "
+"প্রাথমিক ক্লিপ শুরুতে এবং ডান গ্রিপটি সর্বশেষ ক্লিপ শেষের সাথে স্ন্যাপ করে। "
+"সম্পূর্ণ টাইমলাইন ফিট করতে বা পূর্বের জুম পুনরুদ্ধার করতে ডাবল-ক্লিক করুন। "
+"ক্লিপ এবং ট্রানজিশনগুলি সহজ আয়তক্ষেত্র হিসাবে প্রদর্শিত হয়, যাতে নির্দিষ্ট"
+" ক্লিপের জন্য জুম সামঞ্জস্য করার প্রেক্ষাপট পাওয়া যায়।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:43 ../main_window.rst:122
+#: ../doc/main_window.rst:43 ../doc/main_window.rst:122
 msgid "7"
 msgstr "৭"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:43
+#: ../doc/main_window.rst:43
 msgid "Play-head / Ruler"
 msgstr "প্লে-হেড / রুলার"
 
-#: ../main_window.rst:43
+#: ../doc/main_window.rst:43
 msgid ""
 "The ruler shows the time-scale, and the line is the play-head. The play-head"
 " represents the current playback position. The current timecode can be "
@@ -183,17 +193,17 @@ msgstr ""
 "ক্লিপগুলিতে স্ন্যাপ হবে।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:44
+#: ../doc/main_window.rst:44
 msgid "8"
 msgstr "৮"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:44
+#: ../doc/main_window.rst:44
 msgid "Timeline"
 msgstr "টাইমলাইন"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:44
+#: ../doc/main_window.rst:44
 msgid ""
 "The timeline visualizes your video project, and each clip and transition in "
 "your project. You can drag the mouse to select, move, or delete multiple "
@@ -204,17 +214,17 @@ msgstr ""
 "পারেন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:45
+#: ../doc/main_window.rst:45
 msgid "9"
 msgstr "৯"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:45
+#: ../doc/main_window.rst:45
 msgid "Filter"
 msgstr "ফিল্টার"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:45
+#: ../doc/main_window.rst:45
 msgid ""
 "Filter the list of items shown (project files, transitions, effects, and "
 "emojis) by using these buttons and filter textbox. Enter a few letters of "
@@ -225,17 +235,17 @@ msgstr ""
 "তার কয়েকটি অক্ষর লিখুন, ফলাফল দেখানো হবে।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:46
+#: ../doc/main_window.rst:46
 msgid "10"
 msgstr "১০"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:46
+#: ../doc/main_window.rst:46
 msgid "Playback"
 msgstr "প্লেব্যাক"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:46
+#: ../doc/main_window.rst:46
 msgid ""
 "Left to Right: Jump to Start, Rewind, Play/Pause, Fast Forward, and Jump to "
 "End"
@@ -244,18 +254,18 @@ msgstr ""
 "ঝাঁপ"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:47
+#: ../doc/main_window.rst:47
 #, fuzzy
 msgid "11"
 msgstr "১"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:47
+#: ../doc/main_window.rst:47
 msgid "Track"
 msgstr "ট্র্যাক"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:47
+#: ../doc/main_window.rst:47
 msgid ""
 "Track area containing the track name, track menu, and per-track controls "
 "such as lock and keyframe panel icons."
@@ -264,7 +274,7 @@ msgstr ""
 "কীফ্রেম প্যানেল আইকনসহ ট্র্যাক এলাকা।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:50
+#: ../doc/main_window.rst:50
 msgid ""
 "For step-by-step instructions on the basic usage of OpenShot, be sure to "
 "read the :ref:`quick_tutorial_ref`."
@@ -273,12 +283,12 @@ msgstr ""
 ":ref:`quick_tutorial_ref` পড়ুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:54
+#: ../doc/main_window.rst:54
 msgid "Built-in Tutorial"
 msgstr "অন্তর্নির্মিত টিউটোরিয়াল"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:55
+#: ../doc/main_window.rst:55
 msgid ""
 "When you first launch OpenShot, you will be presented with a friendly built-"
 "in tutorial. It will demonstrate and explain the basics. Clicking "
@@ -291,12 +301,12 @@ msgstr ""
 ":guilabel:`Help→Tutorial` মেনু থেকে এই টিউটোরিয়াল আবার দেখতে পারেন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:63
+#: ../doc/main_window.rst:63
 msgid "Tracks & Layers"
 msgstr "ট্র্যাক ও লেয়ার"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:65
+#: ../doc/main_window.rst:65
 msgid ""
 "OpenShot uses tracks to layer videos and images. The top most track is the "
 "top layer, and the bottom track is the bottom layer. If you are familiar "
@@ -314,17 +324,17 @@ msgstr ""
 "তবে সাধারণত একটি সহজ ভিডিও প্রকল্পে ৫টির বেশি ট্র্যাকের প্রয়োজন হয় না।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:72
+#: ../doc/main_window.rst:72
 msgid "For example, imagine a 3 track video project"
 msgstr "উদাহরণস্বরূপ, একটি ৩ ট্র্যাক ভিডিও প্রকল্প কল্পনা করুন"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:82
+#: ../doc/main_window.rst:82
 msgid "Top Track"
 msgstr "শীর্ষ ট্র্যাক"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:82
+#: ../doc/main_window.rst:82
 msgid ""
 "Clips on this track will always be on top and visible. Often watermarks and "
 "titles are placed on higher tracks."
@@ -333,12 +343,12 @@ msgstr ""
 "ওয়াটারমার্ক এবং শিরোনাম উচ্চতর ট্র্যাকে রাখা হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:83
+#: ../doc/main_window.rst:83
 msgid "Middle Track"
 msgstr "মধ্যবর্তী ট্র্যাক"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:83
+#: ../doc/main_window.rst:83
 msgid ""
 "Clips in the middle (might or might not be visible, depending on what is "
 "above them)"
@@ -347,12 +357,12 @@ msgstr ""
 "হতে পারে)"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:84
+#: ../doc/main_window.rst:84
 msgid "Bottom Track"
 msgstr "নিচের ট্র্যাক"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:84
+#: ../doc/main_window.rst:84
 msgid ""
 "Clips on this track will always be on the bottom. Often audio clips are "
 "placed on lower tracks."
@@ -361,7 +371,7 @@ msgstr ""
 "ট্র্যাকে রাখা হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:94
+#: ../doc/main_window.rst:94
 msgid ""
 "For a beginner-friendly overview of timeline editing (selection, tracks, "
 "keyframes, and common workflows), see :ref:`timeline_ref`."
@@ -370,17 +380,17 @@ msgstr ""
 "কীফ্রেম, এবং সাধারণ ওয়ার্কফ্লো) দেখতে :ref:`timeline_ref` দেখুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:102
+#: ../doc/main_window.rst:102
 msgid "Control Group"
 msgstr "নিয়ন্ত্রণ গ্রুপ"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:105 ../main_window.rst:144
+#: ../doc/main_window.rst:105
 msgid "Add Track"
 msgstr "ট্র্যাক যোগ করুন"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:106
+#: ../doc/main_window.rst:106
 msgid ""
 "Add a new track to the timeline. New projects start with 5 tracks by "
 "default."
@@ -389,21 +399,21 @@ msgstr ""
 "ট্র্যাক দিয়ে শুরু হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:108
+#: ../doc/main_window.rst:108
 msgid "Undo / Redo"
 msgstr "পূর্বাবস্থা / পুনরায় করা"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:109
+#: ../doc/main_window.rst:109
 msgid "Undo or redo your latest timeline edits."
 msgstr "আপনার সর্বশেষ টাইমলাইন সম্পাদনাগুলো পূর্বাবস্থা বা পুনরায় করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:111
+#: ../doc/main_window.rst:111
 msgid "Snap, Retime, Razor"
 msgstr "স্ন্যাপ, রিটাইম, রেজর"
 
-#: ../main_window.rst:112
+#: ../doc/main_window.rst:112
 msgid ""
 "Snapping toggles magnetic alignment. Timing Tool enables retiming by "
 "dragging clip edges. The :ref:`razor_tool_ref` previews and cuts at the "
@@ -414,12 +424,12 @@ msgstr ""
 " এবং কাটিং করে; বের হতে :kbd:`Esc` চাপুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:114
+#: ../doc/main_window.rst:114
 msgid "Add Marker, Next/Prev Marker"
 msgstr "মার্কার যোগ করুন, পরবর্তী/পূর্ববর্তী মার্কার"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:115
+#: ../doc/main_window.rst:115
 msgid ""
 "Add a marker at the playhead and jump to previous or next marker/clip "
 "boundaries."
@@ -428,18 +438,18 @@ msgstr ""
 "সীমানায় যান।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:117 ../main_window.rst:148
+#: ../doc/main_window.rst:117
 msgid "Center on Playhead"
 msgstr "প্লেহেডে কেন্দ্র করুন"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:118
+#: ../doc/main_window.rst:118
 msgid "Center the visible timeline area around the current playhead position."
 msgstr ""
 "বর্তমান প্লেহেড অবস্থানের চারপাশে দৃশ্যমান টাইমলাইন এলাকা কেন্দ্র করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:121
+#: ../doc/main_window.rst:121
 msgid ""
 "Control the visible timeline range. Drag handles to zoom in/out, drag center"
 " to pan, and double-click to fit timeline. You can also use "
@@ -452,947 +462,137 @@ msgstr ""
 ":kbd:`Ctrl` ধরে মাঝের মাউস বোতাম দিয়ে টেনে মসৃণ জুমিং করতে পারেন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:123
+#: ../doc/main_window.rst:123
 msgid "Track toggles (Lock, Keyframe Panel)"
 msgstr "ট্র্যাক টগলসমূহ (লক, কীফ্রেম প্যানেল)"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:124
+#: ../doc/main_window.rst:124
 msgid "Per-track controls such as lock and keyframe panel visibility."
 msgstr ""
 "প্রতিটি ট্র্যাকের নিয়ন্ত্রণ যেমন লক এবং কীফ্রেম প্যানেলের দৃশ্যমানতা।"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:129
-msgid "Keyboard Shortcuts"
-msgstr "কীবোর্ড শর্টকাট"
+#: ../doc/main_window.rst:127
+msgid "Common Keyboard Shortcuts"
+msgstr "সাধারণ কীবোর্ড শর্টকাট"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:130
+#: ../doc/main_window.rst:128
 msgid ""
-"Here is a list of the default keyboard shortcuts supported by OpenShot. You "
-"can configure these shortcuts in the Preferences window, which is opened by "
-"selecting :guilabel:`Edit→Preferences` from the OpenShot menu bar. (On "
-"macOS, choose :guilabel:`OpenShot Video Editor→Preferences`.) Learning a few"
-" of these shortcuts can save you a bunch of time!"
+"A few shortcuts can help you get around OpenShot and make quick edits. "
+"Timeline selection and editing shortcuts apply when the timeline has "
+"keyboard focus. Use Tab / Shift+Tab to move between controls and dock tab "
+"titles. Press Space or Enter on a focused tab title to select its dock and "
+"enter the first control."
 msgstr ""
-"এখানে OpenShot দ্বারা সমর্থিত ডিফল্ট কীবোর্ড শর্টকাটগুলোর একটি তালিকা "
-"রয়েছে। আপনি OpenShot মেনুবার থেকে :guilabel:`Edit→Preferences` নির্বাচন করে"
-" প্রেফারেন্স উইন্ডোতে এই শর্টকাটগুলি কনফিগার করতে পারেন। (macOS-এ, "
-":guilabel:`OpenShot Video Editor→Preferences` নির্বাচন করুন।) এই "
-"শর্টকাটগুলোর কিছু শেখা আপনার অনেক সময় বাঁচাতে পারে!"
+"কিছু শর্টকাট OpenShot-এ নেভিগেট করতে এবং দ্রুত সম্পাদনা করতে সাহায্য করে। "
+"টাইমলাইনে কীবোর্ড ফোকাস থাকলে টাইমলাইন নির্বাচন এবং সম্পাদনার শর্টকাট "
+"প্রযোজ্য হয়। নিয়ন্ত্রণ এবং ডক ট্যাব শিরোনামের মধ্যে যেতে Tab / Shift+Tab "
+"ব্যবহার করুন। ফোকাস করা ট্যাব শিরোনামে Space বা Enter চাপলে তার ডক নির্বাচন "
+"হয় এবং প্রথম নিয়ন্ত্রণে প্রবেশ করা যায়।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:140
+#: ../doc/main_window.rst:137
 msgid "Action"
 msgstr "কর্ম"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:140
-msgid "Shortcut 1"
-msgstr "শর্টকাট ১"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:140
-msgid "Shortcut 2"
-msgstr "শর্টকাট ২"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:140
-msgid "Shortcut 3"
-msgstr "শর্টকাট ৩"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:142 ../main_window.rst:294
-msgid "About OpenShot"
-msgstr "OpenShot সম্পর্কে"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:142
-msgid ":kbd:`Ctrl+H`"
-msgstr ":kbd:`Ctrl+H`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:143
-msgid "Add Marker"
-msgstr "মার্কার যোগ করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:143
-msgid ":kbd:`M`"
-msgstr ":kbd:`M`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:144
-msgid ":kbd:`Ctrl+Y`"
-msgstr ":kbd:`Ctrl+Y`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:145
-msgid "Add to Timeline"
-msgstr "টাইমলাইনে যোগ করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:145
-msgid ":kbd:`Ctrl+Alt+A`"
-msgstr ":kbd:`Ctrl+Alt+A`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:146
-msgid "Animated Title"
-msgstr "অ্যানিমেটেড শিরোনাম"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:146
-msgid ":kbd:`Ctrl+Shift+T`"
-msgstr ":kbd:`Ctrl+Shift+T`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:147
-msgid "Ask a Question..."
-msgstr "একটি প্রশ্ন করুন..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:147
-msgid ":kbd:`F4`"
-msgstr ":kbd:`F4`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:148
-msgid ":kbd:`Shift+C`"
-msgstr ":kbd:`Shift+C`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:148
-msgid ":kbd:`Alt+Up`"
-msgstr ":kbd:`Alt+Up`"
-
-#: ../main_window.rst:149 ../main_window.rst:329
-msgid "Color View"
-msgstr "রঙের দৃশ্য"
-
-#: ../main_window.rst:149
-msgid ":kbd:`Alt+Shift+2`"
-msgstr ":kbd:`Alt+Shift+2`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:150
-msgid "Choose Profile"
-msgstr "প্রোফাইল নির্বাচন করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:150
-msgid ":kbd:`Ctrl+Alt+P`"
-msgstr ":kbd:`Ctrl+Alt+P`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:151
-msgid "Clear All Cache"
-msgstr "সমস্ত ক্যাশে পরিষ্কার করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:151
-msgid ":kbd:`Ctrl+Shift+ESC`"
-msgstr ":kbd:`Ctrl+Shift+ESC`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:152
-msgid "Clear History"
-msgstr "ইতিহাস পরিষ্কার করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:152
-msgid ":kbd:`Ctrl+Shift+H`"
-msgstr ":kbd:`Ctrl+Shift+H`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:153
-msgid "Delete Optimized Videos"
-msgstr "অপ্টিমাইজড ভিডিও মুছুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:153
-msgid ":kbd:`Ctrl+Shift+O`"
-msgstr ":kbd:`Ctrl+Shift+O`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:154
-msgid "Clear Waveform Display Data"
-msgstr "ওয়েভফর্ম প্রদর্শন ডেটা পরিষ্কার করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:154
-msgid ":kbd:`Ctrl+Shift+W`"
-msgstr ":kbd:`Ctrl+Shift+W`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:155
-msgid "Copy"
-msgstr "কপি"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:155
-msgid ":kbd:`Ctrl+C`"
-msgstr ":kbd:`Ctrl+C`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:156
-msgid "Cut"
-msgstr "কাট"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:156
-msgid ":kbd:`Ctrl+X`"
-msgstr ":kbd:`Ctrl+X`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:157
-msgid "Delete Item"
-msgstr "আইটেম মুছুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:157
-msgid ":kbd:`Delete`"
-msgstr ":kbd:`Delete`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:157
-msgid ":kbd:`Backspace`"
-msgstr ":kbd:`Backspace`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:158
-msgid "Delete Item (Ripple)"
-msgstr "আইটেম মুছুন (রিপল)"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:158
-msgid ":kbd:`Shift+Delete`"
-msgstr ":kbd:`Shift+Delete`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:159
-msgid "Details View"
-msgstr "বিস্তারিত ভিউ"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:159
-msgid ":kbd:`Ctrl+Page Up`"
-msgstr ":kbd:`Ctrl+Page Up`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:160
-msgid "Donate"
-msgstr "দান করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:160
-msgid ":kbd:`F7`"
-msgstr ":kbd:`F7`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:161
-msgid "Duplicate"
-msgstr "ডুপ্লিকেট করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:161
-msgid ":kbd:`Ctrl+Shift+/`"
-msgstr ":kbd:`Ctrl+Shift+/`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:162
-msgid "Edit Title"
-msgstr "শিরোনাম সম্পাদনা করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:162
-msgid ":kbd:`Alt+T`"
-msgstr ":kbd:`Alt+T`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:163
-msgid "Export Selected Files"
-msgstr "নির্বাচিত ফাইল রপ্তানি করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:163
-msgid ":kbd:`Ctrl+Shift+E`"
-msgstr ":kbd:`Ctrl+Shift+E`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:164
-msgid "Export Video / Media"
-msgstr "ভিডিও / মিডিয়া রপ্তানি করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:164
-msgid ":kbd:`Ctrl+E`"
-msgstr ":kbd:`Ctrl+E`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:164
-msgid ":kbd:`Ctrl+M`"
-msgstr ":kbd:`Ctrl+M`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:165
-msgid "Fast Forward"
-msgstr "দ্রুত অগ্রসর"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:165
-msgid ":kbd:`L`"
-msgstr ":kbd:`L`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:166
-msgid "File Properties"
-msgstr "ফাইল বৈশিষ্ট্য"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:166
-msgid ":kbd:`Alt+I`"
-msgstr ":kbd:`Alt+I`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:166
-msgid ":kbd:`Ctrl+Double Click`"
-msgstr ":kbd:`Ctrl+Double Click`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:167
-msgid "Fullscreen"
-msgstr "পূর্ণ পর্দা"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:167
-msgid ":kbd:`F11`"
-msgstr ":kbd:`F11`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:168
-msgid "Import Files..."
-msgstr "ফাইল আমদানি করুন..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:168
-msgid ":kbd:`Ctrl+I`"
-msgstr ":kbd:`Ctrl+I`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:169
-msgid "Insert Keyframe"
-msgstr "কীফ্রেম সন্নিবেশ করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:169
-msgid ":kbd:`Alt+Shift+K`"
-msgstr ":kbd:`Alt+Shift+K`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:170
-msgid "Join our Community..."
-msgstr "আমাদের কমিউনিটিতে যোগ দিন..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:170
-msgid ":kbd:`F5`"
-msgstr ":kbd:`F5`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:171
-msgid "Jump To End"
-msgstr "শেষে যান"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:171
-msgid ":kbd:`End`"
-msgstr ":kbd:`End`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:172
-msgid "Jump To Start"
-msgstr "শুরুতে যান"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:172
-msgid ":kbd:`Home`"
-msgstr ":kbd:`Home`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:173
-msgid "Launch Tutorial"
-msgstr "টিউটোরিয়াল শুরু করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:173
-msgid ":kbd:`F2`"
-msgstr ":kbd:`F2`"
+#: ../doc/main_window.rst:138
+msgid "Shortcut"
+msgstr "শর্টকাট"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:174
-msgid "New Project"
-msgstr "নতুন প্রকল্প"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:174
-msgid ":kbd:`Ctrl+N`"
-msgstr ":kbd:`Ctrl+N`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:175
-msgid "Next Frame"
-msgstr "পরবর্তী ফ্রেম"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:175
-msgid ":kbd:`Right`"
-msgstr ":kbd:`Right`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:175
-msgid ":kbd:`.`"
-msgstr ":kbd:`.`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:176
-msgid "Next Marker"
-msgstr "পরবর্তী মার্কার"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:176
-msgid ":kbd:`Shift+M`"
-msgstr ":kbd:`Shift+M`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:176
-msgid ":kbd:`Alt+Right`"
-msgstr ":kbd:`Alt+Right`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:177
-msgid "Nudge left (1 Frame)"
-msgstr "এক ফ্রেম বামে সরান"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:177
-msgid ":kbd:`Ctrl+Left`"
-msgstr ":kbd:`Ctrl+Left`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:178
-msgid "Nudge left (5 Frames)"
-msgstr "পাঁচ ফ্রেম বামে সরান"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:178
-msgid ":kbd:`Shift+Ctrl+Left`"
-msgstr ":kbd:`Shift+Ctrl+Left`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:179
-msgid "Nudge right (1 Frame)"
-msgstr "এক ফ্রেম ডানে সরান"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:179
-msgid ":kbd:`Ctrl+Right`"
-msgstr ":kbd:`Ctrl+Right`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:180
-msgid "Nudge right (5 Frames)"
-msgstr "পাঁচ ফ্রেম ডানে সরান"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:180
-msgid ":kbd:`Shift+Ctrl+Right`"
-msgstr ":kbd:`Shift+Ctrl+Right`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:181
-msgid "Open Help Contents"
-msgstr "সহায়তা বিষয়বস্তু খুলুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:181
-msgid ":kbd:`F1`"
-msgstr ":kbd:`F1`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:182
-msgid "Open Project..."
-msgstr "প্রকল্প খুলুন..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:182
-msgid ":kbd:`Ctrl+O`"
-msgstr ":kbd:`Ctrl+O`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:183
-msgid "Paste"
-msgstr "পেস্ট করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:183
-msgid ":kbd:`Ctrl+V`"
-msgstr ":kbd:`Ctrl+V`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:184
-msgid "Play/Pause Toggle"
-msgstr "প্লে/পজ টগল"
+#: ../doc/main_window.rst:139
+msgid "Play / pause"
+msgstr "চালান / বিরতি"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:184
+#: ../doc/main_window.rst:140
 msgid ":kbd:`Space`"
 msgstr ":kbd:`Space`"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:184
-msgid ":kbd:`Up`"
-msgstr ":kbd:`Up`"
+#: ../doc/main_window.rst:141
+msgid "Focus timeline"
+msgstr "টাইমলাইনে ফোকাস করুন"
+
+#: ../doc/main_window.rst:142
+msgid ":kbd:`Shift+3`"
+msgstr ":kbd:`Shift+3`"
+
+#: ../doc/main_window.rst:143
+msgid "Previous / next frame"
+msgstr "পূর্ববর্তী / পরবর্তী ফ্রেম"
+
+#: ../doc/main_window.rst:144
+msgid ":kbd:`Left` / :kbd:`Right`"
+msgstr ":kbd:`Left` / :kbd:`Right`"
+
+#: ../doc/main_window.rst:145
+msgid "Focus Project Files / add selected assets at the playhead"
+msgstr "প্রকল্প ফাইলগুলিতে ফোকাস করুন / প্লেহেডে নির্বাচিত সম্পদ যোগ করুন"
+
+#: ../doc/main_window.rst:146
+msgid ":kbd:`Shift+1`, then :kbd:`Ctrl+Enter`"
+msgstr ":kbd:`Shift+1`, তারপর :kbd:`Ctrl+Enter`"
+
+#: ../doc/main_window.rst:147
+msgid "Select previous / next clip or transition"
+msgstr "পূর্ববর্তী / পরবর্তী ক্লিপ বা ট্রানজিশন নির্বাচন করুন"
+
+#: ../doc/main_window.rst:148
+msgid ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+
+#: ../doc/main_window.rst:149
+msgid "Nudge selection one frame"
+msgstr "নির্বাচন এক ফ্রেম এগিয়ে নিন"
+
+#: ../doc/main_window.rst:150
+msgid ":kbd:`,` / :kbd:`.`"
+msgstr ":kbd:`,` / :kbd:`.`"
+
+#: ../doc/main_window.rst:151
+msgid "Split selected clips at playhead"
+msgstr "প্লেহেডে নির্বাচিত ক্লিপগুলি ভাগ করুন"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:184
-msgid ":kbd:`Down`"
-msgstr ":kbd:`Down`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:185
-msgid "Preferences"
-msgstr "পছন্দসমূহ"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:185
-msgid ":kbd:`Ctrl+P`"
-msgstr ":kbd:`Ctrl+P`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:186
-msgid "Preview File"
-msgstr "ফাইল প্রিভিউ করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:186
-msgid ":kbd:`Alt+P`"
-msgstr ":kbd:`Alt+P`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:186 ../main_window.rst:223
-msgid ":kbd:`Double Click`"
-msgstr ":kbd:`ডাবল ক্লিক`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:187
-msgid "Previous Frame"
-msgstr "পূর্ববর্তী ফ্রেম"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:187
-msgid ":kbd:`Left`"
-msgstr ":kbd:`Left`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:187
-msgid ":kbd:`,`"
-msgstr ":kbd:`,`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:188
-msgid "Previous Marker"
-msgstr "পূর্ববর্তী মার্কার"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:188
-msgid ":kbd:`Ctrl+Shift+M`"
-msgstr ":kbd:`Ctrl+Shift+M`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:188
-msgid ":kbd:`Alt+Left`"
-msgstr ":kbd:`Alt+Left`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:189 ../main_window.rst:413
-msgid "Properties"
-msgstr "গুণাবলী"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:189
-msgid ":kbd:`U`"
-msgstr ":kbd:`U`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:190
-msgid "Quit"
-msgstr "প্রস্থান করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:190
-msgid ":kbd:`Ctrl+Q`"
-msgstr ":kbd:`Ctrl+Q`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:191
-msgid "Razor Toggle"
-msgstr "রেজার টগল"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:191
-msgid ":kbd:`C`"
-msgstr ":kbd:`C`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:191
-msgid ":kbd:`B`"
-msgstr ":kbd:`B`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:191
-msgid ":kbd:`R`"
-msgstr ":kbd:`R`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:192
-msgid "Redo"
-msgstr "পুনরায় করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:192
-msgid ":kbd:`Ctrl+Shift+Z`"
-msgstr ":kbd:`Ctrl+Shift+Z`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:193
-msgid "Report a Bug..."
-msgstr "বাগ রিপোর্ট করুন..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:193
-msgid ":kbd:`F3`"
-msgstr ":kbd:`F3`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:194
-msgid "Rewind"
-msgstr "পিছনে নাড়ান"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:194
-msgid ":kbd:`J`"
-msgstr ":kbd:`J`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:195 ../main_window.rst:196
-msgid "Save Current Frame"
-msgstr "বর্তমান ফ্রেম সংরক্ষণ করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:195 ../main_window.rst:196
-msgid ":kbd:`Ctrl+Shift+Y`"
-msgstr ":kbd:`Ctrl+Shift+Y`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:197
-msgid "Save Project"
-msgstr "প্রকল্প সংরক্ষণ করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:197
-msgid ":kbd:`Ctrl+S`"
-msgstr ":kbd:`Ctrl+S`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:198
-msgid "Save Project As..."
-msgstr "প্রকল্প অন্য নামে সংরক্ষণ করুন..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:198
-msgid ":kbd:`Ctrl+Shift+S`"
-msgstr ":kbd:`Ctrl+Shift+S`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:199
-msgid "Select All"
-msgstr "সব নির্বাচন করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:199
-msgid ":kbd:`Ctrl+A`"
-msgstr ":kbd:`Ctrl+A`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:200
-msgid "Select Item (Ripple)"
-msgstr "আইটেম নির্বাচন করুন (রিপল)"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:200
-msgid ":kbd:`Alt+A`"
-msgstr ":kbd:`Alt+A`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:200
-msgid ":kbd:`Alt+Click`"
-msgstr ":kbd:`Alt+ক্লিক`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:201
-msgid "Select None"
-msgstr "কিছুই নির্বাচন করবেন না"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:201
-msgid ":kbd:`Ctrl+Shift+A`"
-msgstr ":kbd:`Ctrl+Shift+A`"
-
-#: ../main_window.rst:202
-msgid "Share Feedback..."
-msgstr "প্রতিক্রিয়া শেয়ার করুন..."
-
-#: ../main_window.rst:202
-msgid ":kbd:`F8`"
-msgstr ":kbd:`F8`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:203 ../main_window.rst:322
-msgid "Simple View"
-msgstr "সরল দৃশ্য"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:203
-msgid ":kbd:`Alt+Shift+0`"
-msgstr ":kbd:`Alt+Shift+0`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:204
-msgid "Slice All: Keep Both Sides"
-msgstr "সব কাটা: দুই পাশই রাখুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:204
-msgid ":kbd:`Ctrl+Shift+K`"
-msgstr ":kbd:`Ctrl+Shift+K`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:205
-msgid "Slice All: Keep Left Side"
-msgstr "সব কাটা: বাম পাশ রাখুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:205
-msgid ":kbd:`Ctrl+Shift+J`"
-msgstr ":kbd:`Ctrl+Shift+J`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:206
-msgid "Slice All: Keep Right Side"
-msgstr "সব কাটা: ডান পাশ রাখুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:206
-msgid ":kbd:`Ctrl+Shift+L`"
-msgstr ":kbd:`Ctrl+Shift+L`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:207
-msgid "Slice Selected: Keep Both Sides"
-msgstr "নির্বাচিত কাটা: দুই পাশই রাখুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:207
+#: ../doc/main_window.rst:152
 msgid ":kbd:`Ctrl+K`"
 msgstr ":kbd:`Ctrl+K`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:208
-msgid "Slice Selected: Keep Left Side"
-msgstr "নির্বাচিত কাটা: বাম পাশ রাখুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:208
-msgid ":kbd:`Ctrl+J`"
-msgstr ":kbd:`Ctrl+J`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:209
-msgid "Slice Selected: Keep Right Side"
-msgstr "নির্বাচিত কাটা: ডান পাশ রাখুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:209
-msgid ":kbd:`Ctrl+L`"
-msgstr ":kbd:`Ctrl+L`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:210
-msgid "Slice Selected: Keep Left (Ripple)"
-msgstr "নির্বাচিত কাটা: বাম (রিপল) রাখুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:210
-msgid ":kbd:`W`"
-msgstr ":kbd:`W`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:211
-msgid "Slice Selected: Keep Right (Ripple)"
-msgstr "নির্বাচিত কাটা: ডান (রিপল) রাখুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:211
-msgid ":kbd:`Q`"
-msgstr ":kbd:`Q`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:212
-msgid "Snapping Toggle"
-msgstr "স্ন্যাপিং টগল"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:212
-msgid ":kbd:`S`"
-msgstr ":kbd:`S`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:213
-msgid "Split File"
-msgstr "ফাইল ভাগ করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:213
-msgid ":kbd:`Alt+S`"
-msgstr ":kbd:`Alt+S`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:213
-msgid ":kbd:`Shift+Double Click`"
-msgstr ":kbd:`Shift+ডাবল ক্লিক`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:214
-msgid "Thumbnail View"
-msgstr "থাম্বনেইল দৃশ্য"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:214
-msgid ":kbd:`Ctrl+Page Down`"
-msgstr ":kbd:`Ctrl+Page Down`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:215
-msgid "Timing Toggle"
-msgstr "টাইমিং টগল"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:215
-msgid ":kbd:`T`"
-msgstr ":kbd:`T`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:216 ../main_window.rst:257
-msgid "Title"
-msgstr "শিরোনাম"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:216
-msgid ":kbd:`Ctrl+T`"
-msgstr ":kbd:`Ctrl+T`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:217
-msgid "Translate this Application..."
-msgstr "এই অ্যাপ্লিকেশন অনুবাদ করুন..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:217
-msgid ":kbd:`F6`"
-msgstr ":kbd:`F6`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:218
+#: ../doc/main_window.rst:153
 msgid "Undo"
 msgstr "পূর্বাবস্থা"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:218
+#: ../doc/main_window.rst:154
 msgid ":kbd:`Ctrl+Z`"
 msgstr ":kbd:`Ctrl+Z`"
 
-#: ../main_window.rst:219
-msgid "Update Available"
-msgstr "আপডেট উপলব্ধ"
-
-#: ../main_window.rst:219
-msgid ":kbd:`F9`"
-msgstr ":kbd:`F9`"
+#: ../doc/main_window.rst:155
+msgid "Save project"
+msgstr "প্রকল্প সংরক্ষণ করুন"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:220
-msgid "View Toolbar"
-msgstr "টুলবার দেখুন"
+#: ../doc/main_window.rst:156
+msgid ":kbd:`Ctrl+S`"
+msgstr ":kbd:`Ctrl+S`"
+
+#: ../doc/main_window.rst:158
+msgid ""
+"See :ref:`keyboard_shortcut_ref` for the full reference, keyboard timeline "
+"editing, and a comparison of common shortcuts in other editors. Customize "
+"shortcuts in :guilabel:`Preferences → Keyboard`."
+msgstr ""
+"সম্পূর্ণ রেফারেন্স, কীবোর্ড টাইমলাইন সম্পাদনা এবং অন্যান্য সম্পাদকদের সাধারণ"
+" শর্টকাটের তুলনা দেখতে :ref:`keyboard_shortcut_ref` দেখুন। শর্টকাট কাস্টমাইজ"
+" করতে :guilabel:`Preferences → Keyboard` যান।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:220
-msgid ":kbd:`Ctrl+Shift+B`"
-msgstr ":kbd:`Ctrl+Shift+B`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:221
-msgid "Zoom In"
-msgstr "জুম ইন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:221
-msgid ":kbd:`=`"
-msgstr ":kbd:`=`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:221
-msgid ":kbd:`Ctrl+=`"
-msgstr ":kbd:`Ctrl+=`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:222
-msgid "Zoom Out"
-msgstr "জুম আউট"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:222
-msgid ":kbd:`-`"
-msgstr ":kbd:`-`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:222
-msgid ":kbd:`Ctrl+-`"
-msgstr ":kbd:`Ctrl+-`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:223
-msgid "Zoom to Timeline"
-msgstr "টাইমলাইন-এ জুম করুন"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:223
-msgid ":kbd:`\\\\`"
-msgstr ":kbd:`\\\\`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:223
-msgid ":kbd:`Shift+\\\\`"
-msgstr ":kbd:`Shift+\\\\`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:227
+#: ../doc/main_window.rst:163
 msgid "Menu"
 msgstr "মেনু"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:228
+#: ../doc/main_window.rst:164
 msgid ""
 "The following menu options are available on the main window on OpenShot. "
 "Most of these options can be accessed by the keyboard shortcuts mentioned "
@@ -1404,33 +604,33 @@ msgstr ""
 "(যেমন macOS) কিছু অপশন পুনঃনামকরণ বা পুনর্বিন্যাস করা হয়েছে।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:236
+#: ../doc/main_window.rst:172
 msgid "Menu Name"
 msgstr "মেনুর নাম"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:238
+#: ../doc/main_window.rst:174
 msgid "File"
 msgstr "ফাইল"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:240
+#: ../doc/main_window.rst:176
 msgid ":guilabel:`New Project` Create a blank new project."
 msgstr ":guilabel:`নতুন প্রকল্প` একটি নতুন খালি প্রকল্প তৈরি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:241
+#: ../doc/main_window.rst:177
 msgid ":guilabel:`Open Project` Open an existing project."
 msgstr ":guilabel:`প্রকল্প খুলুন` একটি বিদ্যমান প্রকল্প খুলুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:242
+#: ../doc/main_window.rst:178
 msgid ":guilabel:`Recent Projects` Access recently opened projects."
 msgstr ""
 ":guilabel:`সাম্প্রতিক প্রকল্প` সম্প্রতি খোলা প্রকল্পগুলোতে প্রবেশ করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:243
+#: ../doc/main_window.rst:179
 msgid ""
 ":guilabel:`Recovery` Restore a previously saved version of your current "
 "project."
@@ -1439,17 +639,17 @@ msgstr ""
 "পুনরুদ্ধার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:244
+#: ../doc/main_window.rst:180
 msgid ":guilabel:`Save Project` Save the current project."
 msgstr ":guilabel:`প্রকল্প সংরক্ষণ` বর্তমান প্রকল্প সংরক্ষণ করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:245
+#: ../doc/main_window.rst:181
 msgid ":guilabel:`Import Files` Import media files into the project."
 msgstr ":guilabel:`ফাইল আমদানি` প্রকল্পে মিডিয়া ফাইল আমদানি করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:246
+#: ../doc/main_window.rst:182
 msgid ""
 ":guilabel:`Choose Profile` Select a project profile (*i.e. 1080p @ 30fps, "
 "720p @ 24fps, ...*)."
@@ -1458,7 +658,7 @@ msgstr ""
 "(*যেমন 1080p @ 30fps, 720p @ 24fps, ...*)."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:247
+#: ../doc/main_window.rst:183
 msgid ""
 ":guilabel:`Save Current Frame` Save the current preview video frame as an "
 "image (sometimes represented with a camera icon)."
@@ -1467,7 +667,7 @@ msgstr ""
 "হিসেবে সংরক্ষণ করুন (কখনও কখনও ক্যামেরা আইকন দ্বারা চিহ্নিত)।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:248
+#: ../doc/main_window.rst:184
 msgid ""
 ":guilabel:`Import Project` Import another project into the current project "
 "(*Adobe and Final Cut Pro formats partially supported*)."
@@ -1476,7 +676,7 @@ msgstr ""
 "(*Adobe এবং Final Cut Pro ফরম্যাট আংশিকভাবে সমর্থিত*)."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:249
+#: ../doc/main_window.rst:185
 msgid ""
 ":guilabel:`Export Project` Export the current project to a specified format "
 "(*EDL, Adobe, and Final Cut Pro formats partially supported*)."
@@ -1485,28 +685,28 @@ msgstr ""
 "করুন (*EDL, Adobe, এবং Final Cut Pro ফরম্যাট আংশিকভাবে সমর্থিত*)."
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:250
+#: ../doc/main_window.rst:186
 msgid ":guilabel:`Quit` Exit the application."
 msgstr ":guilabel:`প্রস্থান` অ্যাপ্লিকেশন থেকে বেরিয়ে যান।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:251
+#: ../doc/main_window.rst:187
 msgid "Edit"
 msgstr "সম্পাদনা"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:253
+#: ../doc/main_window.rst:189
 msgid ":guilabel:`Undo` Undo the last action."
 msgstr ":guilabel:`পূর্বাবস্থা` শেষ কাজ পূর্বাবস্থায় ফিরিয়ে আনুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:254
+#: ../doc/main_window.rst:190
 msgid ":guilabel:`Redo` Redo the last undone action."
 msgstr ""
 ":guilabel:`পুনরায় করুন` শেষ পূর্বাবস্থায় ফিরিয়ে আনা কাজ পুনরায় করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:255
+#: ../doc/main_window.rst:191
 msgid ""
 ":guilabel:`Clear` Clear the current history or waveform cached data. This "
 "makes the `.osp project` file a much smaller file size."
@@ -1515,14 +715,19 @@ msgstr ""
 "এটি `.osp প্রকল্প` ফাইলের আকার অনেক ছোট করে।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:256
+#: ../doc/main_window.rst:192
 msgid ""
 ":guilabel:`Preferences` Open the preferences dialog to customize settings."
 msgstr ""
 ":guilabel:`পছন্দসমূহ` সেটিংস কাস্টমাইজ করার জন্য পছন্দসমূহ ডায়ালগ খুলুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:259
+#: ../doc/main_window.rst:193
+msgid "Title"
+msgstr "শিরোনাম"
+
+# Translated with gpt-4.1-mini
+#: ../doc/main_window.rst:195
 msgid ""
 ":guilabel:`Title` Add a SVG vector title to the project. See "
 ":ref:`text_and_titles_ref`."
@@ -1531,7 +736,7 @@ msgstr ""
 ":ref:`text_and_titles_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:260
+#: ../doc/main_window.rst:196
 msgid ""
 ":guilabel:`Animated Title` Add an animated title to the project. See "
 ":ref:`animated_titles_ref`."
@@ -1540,11 +745,11 @@ msgstr ""
 "দেখুন :ref:`animated_titles_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:261
+#: ../doc/main_window.rst:197
 msgid "View"
 msgstr "দৃশ্য"
 
-#: ../main_window.rst:263
+#: ../doc/main_window.rst:199
 msgid ""
 ":guilabel:`Simple View` and :guilabel:`Color View` switch or reset the main "
 "window layout."
@@ -1552,7 +757,7 @@ msgstr ""
 ":guilabel:`Simple View` এবং :guilabel:`Color View` প্রধান উইন্ডোর বিন্যাস "
 "পরিবর্তন বা রিসেট করে।"
 
-#: ../main_window.rst:264
+#: ../doc/main_window.rst:200
 msgid ""
 ":guilabel:`My Views` Save, load, update, and delete your own named layouts. "
 "See :ref:`my_views_ref`."
@@ -1560,17 +765,17 @@ msgstr ""
 ":guilabel:`My Views` আপনার নিজস্ব নামকৃত বিন্যাস সংরক্ষণ, লোড, আপডেট এবং "
 "মুছে ফেলার জন্য। দেখুন :ref:`my_views_ref`।"
 
-#: ../main_window.rst:265
+#: ../doc/main_window.rst:201
 msgid ":guilabel:`Docks` Show or hide various dockable panels."
 msgstr ":guilabel:`Docks` বিভিন্ন ডকযোগ্য প্যানেল দেখান বা লুকান।"
 
-#: ../main_window.rst:266
+#: ../doc/main_window.rst:202
 msgid ""
 ":guilabel:`Scopes` Show or hide scope docks, or open all scopes at once."
 msgstr ""
 ":guilabel:`Scopes` স্কোপ ডক দেখান বা লুকান, অথবা একসাথে সব স্কোপ খুলুন।"
 
-#: ../main_window.rst:267
+#: ../doc/main_window.rst:203
 msgid ""
 ":guilabel:`Window` Show or hide the main window toolbar, or toggle "
 "fullscreen mode."
@@ -1579,33 +784,33 @@ msgstr ""
 " চালু/বন্ধ করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:268
+#: ../doc/main_window.rst:204
 msgid "Help"
 msgstr "সাহায্য"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:270
+#: ../doc/main_window.rst:206
 msgid ":guilabel:`Contents` Open the user guide online."
 msgstr ":guilabel:`বিষয়বস্তু` অনলাইনে ব্যবহারকারী গাইড খুলুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:271
+#: ../doc/main_window.rst:207
 msgid ":guilabel:`Tutorial` Access the built-in tutorial for new users."
 msgstr ""
 ":guilabel:`টিউটোরিয়াল` নতুন ব্যবহারকারীদের জন্য অন্তর্নির্মিত টিউটোরিয়ালে "
 "প্রবেশ করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:272
+#: ../doc/main_window.rst:208
 msgid ":guilabel:`Report a Bug` Report a bug or issue."
 msgstr ":guilabel:`বাগ রিপোর্ট করুন` একটি বাগ বা সমস্যা রিপোর্ট করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:273
+#: ../doc/main_window.rst:209
 msgid ":guilabel:`Ask a Question` Ask a question about the software."
 msgstr ":guilabel:`প্রশ্ন করুন` সফটওয়্যার সম্পর্কে একটি প্রশ্ন করুন।"
 
-#: ../main_window.rst:274
+#: ../doc/main_window.rst:210
 msgid ""
 ":guilabel:`Share Feedback` Open a survey about your experience with "
 "OpenShot."
@@ -1613,7 +818,7 @@ msgstr ""
 ":guilabel:`প্রতিক্রিয়া শেয়ার করুন` OpenShot ব্যবহারের অভিজ্ঞতা সম্পর্কে "
 "একটি জরিপ খুলুন।"
 
-#: ../main_window.rst:275
+#: ../doc/main_window.rst:211
 msgid ""
 ":guilabel:`Update Available` Open the download page when a newer version is "
 "available."
@@ -1621,17 +826,17 @@ msgstr ""
 ":guilabel:`আপডেট উপলব্ধ` নতুন সংস্করণ উপলব্ধ হলে ডাউনলোড পৃষ্ঠা খুলুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:276
+#: ../doc/main_window.rst:212
 msgid ":guilabel:`Translate` Contribute to translations of the software."
 msgstr ":guilabel:`অনুবাদ করুন` সফটওয়্যারের অনুবাদে অবদান রাখুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:277
+#: ../doc/main_window.rst:213
 msgid ":guilabel:`Donate` Make a donation to support the project."
 msgstr ":guilabel:`দান করুন` প্রকল্পকে সমর্থন করার জন্য দান করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:278
+#: ../doc/main_window.rst:214
 msgid ""
 ":guilabel:`About` View information about the software (version, "
 "contributors, translators, changelog, and supporters)."
@@ -1639,11 +844,11 @@ msgstr ""
 ":guilabel:`সম্পর্কে` সফটওয়্যার সম্পর্কে তথ্য দেখুন (সংস্করণ, অবদানকারীরা, "
 "অনুবাদকরা, পরিবর্তনলিপি, এবং সমর্থকরা)।"
 
-#: ../main_window.rst:281
+#: ../doc/main_window.rst:217
 msgid "Notifications"
 msgstr "বিজ্ঞপ্তি"
 
-#: ../main_window.rst:283
+#: ../doc/main_window.rst:219
 msgid ""
 "OpenShot may show a notice near the top of the window when a newer version "
 "is available. Choose :guilabel:`Upgrade` to open the download page, or close"
@@ -1657,20 +862,26 @@ msgstr ""
 " এখনও :guilabel:`সাহায্য → আপডেট উপলব্ধ` থেকে ডাউনলোড পৃষ্ঠা খুলতে পারেন "
 "অথবা :kbd:`F9` চাপতে পারেন।"
 
-#: ../main_window.rst:288
+#: ../doc/main_window.rst:224
 msgid ""
-"After you have spent some time editing, OpenShot may also invite you to "
-"share feedback. The survey is optional. You can open it from the notice or "
-"dismiss the invitation. At any time, choose :guilabel:`Help → Share "
-"Feedback` or press :kbd:`F8` to share your thoughts."
+"After your first successful export of each OpenShot release, a notice "
+"invites you to share feedback once you close the Export window. The survey "
+"is optional. You can open it from the notice or dismiss the invitation. At "
+"any time, choose :guilabel:`Help → Share Feedback` or press :kbd:`F8` to "
+"share your thoughts."
 msgstr ""
-"সম্পাদনায় কিছু সময় ব্যয় করার পর, OpenShot আপনাকে প্রতিক্রিয়া শেয়ার করার"
-" জন্য আমন্ত্রণ জানাতে পারে। জরিপটি ঐচ্ছিক। আপনি এটি বিজ্ঞপ্তি থেকে খুলতে "
-"পারেন অথবা আমন্ত্রণটি বাতিল করতে পারেন। যেকোনো সময়, আপনার মতামত শেয়ার করতে"
-" :guilabel:`সাহায্য → প্রতিক্রিয়া শেয়ার করুন` নির্বাচন করুন অথবা :kbd:`F8`"
-" চাপুন।"
+"প্রতিটি OpenShot রিলিজের প্রথম সফল রপ্তানির পরে, একটি বিজ্ঞপ্তি আপনাকে "
+"Export উইন্ডো বন্ধ করার পর প্রতিক্রিয়া শেয়ার করার জন্য আমন্ত্রণ জানায়। "
+"জরিপটি ঐচ্ছিক। আপনি বিজ্ঞপ্তি থেকে এটি খুলতে পারেন অথবা আমন্ত্রণ "
+"প্রত্যাখ্যান করতে পারেন। যেকোনো সময়, আপনার মতামত শেয়ার করতে "
+":guilabel:`Help → Share Feedback` নির্বাচন করুন অথবা :kbd:`F8` চাপুন।"
 
-#: ../main_window.rst:295
+# Translated with gpt-4.1-mini
+#: ../doc/main_window.rst:230
+msgid "About OpenShot"
+msgstr "OpenShot সম্পর্কে"
+
+#: ../doc/main_window.rst:231
 msgid ""
 "Use :guilabel:`Help→About OpenShot` to check your OpenShot version. Click "
 ":guilabel:`Copy` next to the version number to copy a short version and "
@@ -1683,16 +894,16 @@ msgstr ""
 " করা হয়েছে তাও অন্তর্ভুক্ত। বাগ রিপোর্ট করার সময় বা সাহায্য চাইলে তথ্য "
 "শেয়ার করার জন্য এটি একটি কার্যকর উপায়।"
 
-#: ../main_window.rst:300
+#: ../doc/main_window.rst:236
 msgid "Example output:"
 msgstr "উদাহরণ আউটপুট:"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:315
+#: ../doc/main_window.rst:251
 msgid "Views"
 msgstr "দৃশ্য"
 
-#: ../main_window.rst:317
+#: ../doc/main_window.rst:253
 msgid ""
 "The OpenShot main window is composed of multiple **docks**. These **docks** "
 "are arranged and snapped together into a grouping that we call a **View**. "
@@ -1704,7 +915,12 @@ msgstr ""
 "রয়েছে :guilabel:`Simple View`, :guilabel:`Color View`, এবং :guilabel:`My "
 "Views` (ব্যবহারকারী-সংজ্ঞায়িত বিন্যাস)।"
 
-#: ../main_window.rst:323
+# Translated with gpt-4.1-mini
+#: ../doc/main_window.rst:258
+msgid "Simple View"
+msgstr "সরল দৃশ্য"
+
+#: ../doc/main_window.rst:259
 msgid ""
 "This is the **default** view, and is designed to be easy-to-use, especially "
 "for first-time users. It contains :guilabel:`Project Files` on the top left,"
@@ -1720,7 +936,11 @@ msgstr ""
 "তাহলে স্ক্রিনের উপরের :guilabel:`View->Simple View` মেনু ব্যবহার করে দ্রুত "
 "সব ডক তাদের ডিফল্ট অবস্থানে রিসেট করতে পারেন।"
 
-#: ../main_window.rst:330
+#: ../doc/main_window.rst:265
+msgid "Color View"
+msgstr "রঙের দৃশ্য"
+
+#: ../doc/main_window.rst:266
 msgid ""
 "This view is focused on color correction and scopes. It enlarges the video "
 "preview, hides file-management docks, keeps the timeline and properties "
@@ -1733,11 +953,11 @@ msgstr ""
 " :guilabel:`Color Wheels` ডকটি ডান পাশে রাখে, এবং এর নিচে :guilabel:`Luma "
 "Waveform` ও :guilabel:`Histogram` ডকগুলো ট্যাব আকারে একসাথে রাখে।"
 
-#: ../main_window.rst:335
+#: ../doc/main_window.rst:271
 msgid "Recording View"
 msgstr "রেকর্ডিং ভিউ"
 
-#: ../main_window.rst:336
+#: ../doc/main_window.rst:272
 msgid ""
 "This view is focused on creating new recordings inside OpenShot. It shows "
 ":guilabel:`Project Files`, :guilabel:`Video Preview`, :guilabel:`Timeline`, "
@@ -1752,7 +972,7 @@ msgstr ""
 "আপনি :guilabel:`View->Docks->Properties` থেকে এটি দেখাতে পারেন রেকর্ডিং "
 "বিন্যাস বিঘ্নিত না করে।"
 
-#: ../main_window.rst:341
+#: ../doc/main_window.rst:277
 msgid ""
 "The :guilabel:`Recording` dock can record microphone audio, screen capture, "
 "webcam video, or combinations of those sources. When screen and webcam are "
@@ -1778,11 +998,11 @@ msgstr ""
 "ছাড়াই। বিস্তারিত জানতে দেখুন :ref:`clip_properties_ref`। সম্পূর্ণ রেকর্ডিং "
 "ওয়ার্কফ্লো এবং সব উৎস বিকল্পের জন্য দেখুন :ref:`recording_ref`।"
 
-#: ../main_window.rst:352
+#: ../doc/main_window.rst:288
 msgid "My Views"
 msgstr "আমার ভিউ"
 
-#: ../main_window.rst:353
+#: ../doc/main_window.rst:289
 msgid ""
 "**My Views** lets you save any dock arrangement as a named layout and recall"
 " it instantly. This is ideal for workflows that require switching between "
@@ -1796,7 +1016,7 @@ msgstr ""
 "লেআউট এবং কেন্দ্রীভূত রঙ গ্রেডিং লেআউট — প্রতিবার ডকগুলো ম্যানুয়ালি "
 "পুনর্বিন্যাস না করেই।"
 
-#: ../main_window.rst:357
+#: ../doc/main_window.rst:293
 msgid ""
 "Each saved view captures the position, size, and visibility of every dock, "
 "as well as the timeline height. Saved views are stored in your project "
@@ -1806,61 +1026,61 @@ msgstr ""
 "টাইমলাইন উচ্চতা ধারণ করে। সংরক্ষিত ভিউগুলো আপনার প্রকল্প সেটিংসে সংরক্ষিত "
 "থাকে এবং সেশন জুড়ে টিকে থাকে।"
 
-#: ../main_window.rst:360
+#: ../doc/main_window.rst:296
 msgid "**View → My Views** menu options:"
 msgstr "**View → My Views** মেনু অপশনসমূহ:"
 
-#: ../main_window.rst:366
+#: ../doc/main_window.rst:302
 msgid "Menu Item"
 msgstr "মেনু আইটেম"
 
-#: ../main_window.rst:368
+#: ../doc/main_window.rst:304
 msgid "List of user-defined views"
 msgstr "ব্যবহারকারী-সংজ্ঞায়িত ভিউগুলোর তালিকা"
 
-#: ../main_window.rst:369
+#: ../doc/main_window.rst:305
 msgid ""
 "Click to restore that layout. The currently active view shows a checkmark."
 msgstr ""
 "সেই লেআউট পুনরুদ্ধার করতে ক্লিক করুন। বর্তমানে সক্রিয় ভিউতে একটি চেকমার্ক "
 "দেখানো হয়।"
 
-#: ../main_window.rst:370
+#: ../doc/main_window.rst:306
 msgid "Update \"*[name]*\""
 msgstr "\"*[name]*\" আপডেট করুন"
 
-#: ../main_window.rst:371
+#: ../doc/main_window.rst:307
 msgid "Save your current dock arrangement over the active view, replacing it."
 msgstr ""
 "সক্রিয় ভিউয়ের উপর আপনার বর্তমান ডক বিন্যাস সংরক্ষণ করুন, এটি প্রতিস্থাপন "
 "করে।"
 
-#: ../main_window.rst:372
+#: ../doc/main_window.rst:308
 msgid "Delete \"*[name]*\""
 msgstr "\"*[name]*\" মুছে ফেলুন"
 
-#: ../main_window.rst:373
+#: ../doc/main_window.rst:309
 msgid "Remove the active view (asks for confirmation first)."
 msgstr "সক্রিয় ভিউ মুছে ফেলুন (প্রথমে নিশ্চিতকরণ চায়)।"
 
-#: ../main_window.rst:374
+#: ../doc/main_window.rst:310
 msgid "Save Current View As..."
 msgstr "বর্তমান ভিউ সংরক্ষণ করুন..."
 
-#: ../main_window.rst:375
+#: ../doc/main_window.rst:311
 msgid "Name and save your current dock arrangement as a new view."
 msgstr ""
 "আপনার বর্তমান ডক বিন্যাস একটি নতুন ভিউ হিসেবে নামকরণ করে সংরক্ষণ করুন।"
 
-#: ../main_window.rst:377
+#: ../doc/main_window.rst:313
 msgid "**Typical workflow:**"
 msgstr "**সাধারণ ওয়ার্কফ্লো:**"
 
-#: ../main_window.rst:379
+#: ../doc/main_window.rst:315
 msgid "Arrange your docks exactly how you like them."
 msgstr "আপনার ডকগুলো ঠিক যেমন চান তেমন সাজান।"
 
-#: ../main_window.rst:380
+#: ../doc/main_window.rst:316
 msgid ""
 "Open :guilabel:`View → My Views → Save Current View As...` and enter a name "
 "(e.g. *\"Audio Mix\"*)."
@@ -1868,7 +1088,7 @@ msgstr ""
 ":guilabel:`View → My Views → Save Current View As...` খুলুন এবং একটি নাম দিন"
 " (যেমন *\"Audio Mix\"*)।"
 
-#: ../main_window.rst:381
+#: ../doc/main_window.rst:317
 msgid ""
 "Later, open :guilabel:`View → My Views` and click the view name to restore "
 "that layout instantly."
@@ -1876,7 +1096,7 @@ msgstr ""
 "পরবর্তীতে, :guilabel:`View → My Views` খুলুন এবং ভিউ নাম ক্লিক করে সেই লেআউট"
 " তৎক্ষণাৎ পুনরুদ্ধার করুন।"
 
-#: ../main_window.rst:382
+#: ../doc/main_window.rst:318
 msgid ""
 "If you adjust the layout and want to keep the changes, choose "
 ":guilabel:`Update \"Audio Mix\"` to overwrite it."
@@ -1885,11 +1105,11 @@ msgstr ""
 ":guilabel:`Update \"Audio Mix\"` নির্বাচন করে ওভাররাইট করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:385
+#: ../doc/main_window.rst:321
 msgid "Docks"
 msgstr "ডকস"
 
-#: ../main_window.rst:386
+#: ../doc/main_window.rst:322
 msgid ""
 "Each widget on the OpenShot main window is contained in a **dock**. These "
 "docks can be dragged and snapped around the main window, and even grouped "
@@ -1906,17 +1126,17 @@ msgstr ""
 ":guilabel:`View->Scopes` এর অধীনে গোষ্ঠীভুক্ত।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:395
+#: ../doc/main_window.rst:331
 msgid "Dock Name"
 msgstr "ডক নাম"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:397
+#: ../doc/main_window.rst:333
 msgid "Captions"
 msgstr "ক্যাপশনস"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:398
+#: ../doc/main_window.rst:334
 msgid ""
 "Manage and add captions or subtitles to your video project. Allows you to "
 "create, edit, and manage caption data. See :ref:`caption_effect_ref` effect."
@@ -1926,12 +1146,12 @@ msgstr ""
 ":ref:`caption_effect_ref` ইফেক্ট।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:399
+#: ../doc/main_window.rst:335
 msgid "Effects"
 msgstr "ইফেক্টস"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:400
+#: ../doc/main_window.rst:336
 msgid ""
 "Browse and apply video and audio effects to your video clips. Includes "
 "filters, color adjustments, and special effects. See :ref:`effects_ref`."
@@ -1940,11 +1160,11 @@ msgstr ""
 "ফিল্টার, রঙের সমন্বয় এবং বিশেষ ইফেক্ট অন্তর্ভুক্ত। দেখুন "
 ":ref:`effects_ref`।"
 
-#: ../main_window.rst:401
+#: ../doc/main_window.rst:337
 msgid "Color Wheels"
 msgstr "রঙের চাকা"
 
-#: ../main_window.rst:402
+#: ../doc/main_window.rst:338
 msgid ""
 "Edit Color Grade wheel controls for global, shadows, midtones, and "
 "highlights from a dedicated right-side dock."
@@ -1953,12 +1173,12 @@ msgstr ""
 "গ্রেড চাকা নিয়ন্ত্রণ সম্পাদনা করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:403
+#: ../doc/main_window.rst:339
 msgid "Emojis"
 msgstr "ইমোজিস"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:404
+#: ../doc/main_window.rst:340
 msgid ""
 "Add emoji graphics to your video project. Choose from a variety of emojis to"
 " enhance your video content."
@@ -1966,33 +1186,33 @@ msgstr ""
 "আপনার ভিডিও প্রজেক্টে ইমোজি গ্রাফিক্স যোগ করুন। আপনার ভিডিও কন্টেন্ট উন্নত "
 "করতে বিভিন্ন ইমোজি থেকে নির্বাচন করুন।"
 
-#: ../main_window.rst:405
+#: ../doc/main_window.rst:341
 msgid "Histogram"
 msgstr "হিস্টোগ্রাম"
 
-#: ../main_window.rst:406
+#: ../doc/main_window.rst:342
 msgid ""
 "Analyze the tonal and channel distribution of the current preview frame."
 msgstr "বর্তমান প্রিভিউ ফ্রেমের টোনাল এবং চ্যানেল বণ্টন বিশ্লেষণ করুন।"
 
-#: ../main_window.rst:407
+#: ../doc/main_window.rst:343
 msgid "Luma Waveform"
 msgstr "লুমা ওয়েভফর্ম"
 
-#: ../main_window.rst:408
+#: ../doc/main_window.rst:344
 msgid "Analyze brightness distribution across the current preview frame."
 msgstr "বর্তমান প্রিভিউ ফ্রেম জুড়ে উজ্জ্বলতার বণ্টন বিশ্লেষণ করুন।"
 
-#: ../main_window.rst:409
+#: ../doc/main_window.rst:345
 msgid "Audio Levels"
 msgstr "অডিও স্তর"
 
-#: ../main_window.rst:410
+#: ../doc/main_window.rst:346
 msgid "Monitor audio level scope data for the current preview frame."
 msgstr "বর্তমান প্রিভিউ ফ্রেমের অডিও স্তর স্কোপ ডেটা পর্যবেক্ষণ করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:412
+#: ../doc/main_window.rst:348
 msgid ""
 "View and manage all the media files imported into your project. Organize, "
 "filter, and tag video, audio, and image files. See :ref:`files_ref`."
@@ -2001,7 +1221,12 @@ msgstr ""
 "অডিও, এবং ইমেজ ফাইল সংগঠিত, ফিল্টার এবং ট্যাগ করুন। দেখুন :ref:`files_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:414
+#: ../doc/main_window.rst:349
+msgid "Properties"
+msgstr "গুণাবলী"
+
+# Translated with gpt-4.1-mini
+#: ../doc/main_window.rst:350
 msgid ""
 "View and edit the properties of a selected effect, transition, or clip. "
 "Adjust settings such as duration, size, position, etc... See "
@@ -2011,11 +1236,11 @@ msgstr ""
 "সময়কাল, আকার, অবস্থান ইত্যাদি সেটিংস সমন্বয় করুন। দেখুন "
 ":ref:`clip_properties_ref`।"
 
-#: ../main_window.rst:415
+#: ../doc/main_window.rst:351
 msgid "Recording"
 msgstr "রেকর্ডিং"
 
-#: ../main_window.rst:416
+#: ../doc/main_window.rst:352
 msgid ""
 "Record microphone audio, screen video, webcam video, or combined recordings."
 " See :ref:`recording_ref`."
@@ -2024,12 +1249,12 @@ msgstr ""
 "করুন। দেখুন :ref:`recording_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:417
+#: ../doc/main_window.rst:353
 msgid "Transitions"
 msgstr "ট্রানজিশনস"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:418
+#: ../doc/main_window.rst:354
 msgid ""
 "Browse and apply transitions between video clips. Choose from a variety of "
 "transition wipes to create smooth changes between scenes. See "
@@ -2040,12 +1265,12 @@ msgstr ""
 ":ref:`transitions_ref`।"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:419
+#: ../doc/main_window.rst:355
 msgid "Video Preview"
 msgstr "ভিডিও প্রিভিউ"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:420
+#: ../doc/main_window.rst:356
 msgid ""
 "Preview the current state of your video project. Allows you to play back and"
 " review your edits in real-time. See :ref:`playback_ref`."
@@ -2054,7 +1279,7 @@ msgstr ""
 "সম্পাদনাগুলো প্লে ব্যাক এবং পর্যালোচনা করার সুযোগ দেয়। দেখুন "
 ":ref:`playback_ref`।"
 
-#: ../main_window.rst:422
+#: ../doc/main_window.rst:358
 msgid ""
 "If you have accidentally closed or moved a dock and can no longer find it, "
 "there are a couple easy solutions. First, you can use the "
@@ -2068,6 +1293,727 @@ msgstr ""
 ":guilabel:`View->Simple View` মেনু অপশন ব্যবহার করে ভিউকে তার ডিফল্ট "
 "অবস্থায় ফিরিয়ে আনতে পারেন। অথবা আপনি :guilabel:`View->Docks->...` মেনু "
 "ব্যবহার করে প্রধান উইন্ডোতে নির্দিষ্ট ডক উইজেট দেখানো বা লুকাতে পারেন।"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "This slider will adjust the time-scale of your timeline. Drag the left or "
+#~ "right edge to zoom in or out. Drag the blue area to scroll the timeline left"
+#~ " or right. Clips and transitions are displayed as simple rectangles, to give"
+#~ " you context for adjusting the zoom to specific clips."
+#~ msgstr ""
+#~ "এই স্লাইডারটি আপনার টাইমলাইনের সময়-স্কেল সামঞ্জস্য করবে। জুম ইন বা আউট করতে"
+#~ " বাম বা ডান প্রান্ত টেনে আনুন। টাইমলাইন বাম বা ডানে স্ক্রোল করতে নীল অংশ "
+#~ "টেনে আনুন। ক্লিপ এবং ট্রানজিশনগুলি সহজ আয়তক্ষেত্র হিসেবে প্রদর্শিত হয়, যা "
+#~ "নির্দিষ্ট ক্লিপের জন্য জুম সামঞ্জস্য করার প্রেক্ষাপট দেয়।"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "কীবোর্ড শর্টকাট"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Here is a list of the default keyboard shortcuts supported by OpenShot. You "
+#~ "can configure these shortcuts in the Preferences window, which is opened by "
+#~ "selecting :guilabel:`Edit→Preferences` from the OpenShot menu bar. (On "
+#~ "macOS, choose :guilabel:`OpenShot Video Editor→Preferences`.) Learning a few"
+#~ " of these shortcuts can save you a bunch of time!"
+#~ msgstr ""
+#~ "এখানে OpenShot দ্বারা সমর্থিত ডিফল্ট কীবোর্ড শর্টকাটগুলোর একটি তালিকা "
+#~ "রয়েছে। আপনি OpenShot মেনুবার থেকে :guilabel:`Edit→Preferences` নির্বাচন করে"
+#~ " প্রেফারেন্স উইন্ডোতে এই শর্টকাটগুলি কনফিগার করতে পারেন। (macOS-এ, "
+#~ ":guilabel:`OpenShot Video Editor→Preferences` নির্বাচন করুন।) এই "
+#~ "শর্টকাটগুলোর কিছু শেখা আপনার অনেক সময় বাঁচাতে পারে!"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Shortcut 1"
+#~ msgstr "শর্টকাট ১"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Shortcut 2"
+#~ msgstr "শর্টকাট ২"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Shortcut 3"
+#~ msgstr "শর্টকাট ৩"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+H`"
+#~ msgstr ":kbd:`Ctrl+H`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Add Marker"
+#~ msgstr "মার্কার যোগ করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`M`"
+#~ msgstr ":kbd:`M`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Y`"
+#~ msgstr ":kbd:`Ctrl+Y`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Add to Timeline"
+#~ msgstr "টাইমলাইনে যোগ করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Alt+A`"
+#~ msgstr ":kbd:`Ctrl+Alt+A`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Animated Title"
+#~ msgstr "অ্যানিমেটেড শিরোনাম"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+T`"
+#~ msgstr ":kbd:`Ctrl+Shift+T`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Ask a Question..."
+#~ msgstr "একটি প্রশ্ন করুন..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F4`"
+#~ msgstr ":kbd:`F4`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+C`"
+#~ msgstr ":kbd:`Shift+C`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Up`"
+#~ msgstr ":kbd:`Alt+Up`"
+
+#~ msgid ":kbd:`Alt+Shift+2`"
+#~ msgstr ":kbd:`Alt+Shift+2`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Choose Profile"
+#~ msgstr "প্রোফাইল নির্বাচন করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Alt+P`"
+#~ msgstr ":kbd:`Ctrl+Alt+P`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Clear All Cache"
+#~ msgstr "সমস্ত ক্যাশে পরিষ্কার করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+ESC`"
+#~ msgstr ":kbd:`Ctrl+Shift+ESC`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Clear History"
+#~ msgstr "ইতিহাস পরিষ্কার করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+H`"
+#~ msgstr ":kbd:`Ctrl+Shift+H`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Delete Optimized Videos"
+#~ msgstr "অপ্টিমাইজড ভিডিও মুছুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+O`"
+#~ msgstr ":kbd:`Ctrl+Shift+O`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Clear Waveform Display Data"
+#~ msgstr "ওয়েভফর্ম প্রদর্শন ডেটা পরিষ্কার করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+W`"
+#~ msgstr ":kbd:`Ctrl+Shift+W`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Copy"
+#~ msgstr "কপি"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+C`"
+#~ msgstr ":kbd:`Ctrl+C`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Cut"
+#~ msgstr "কাট"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+X`"
+#~ msgstr ":kbd:`Ctrl+X`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Delete Item"
+#~ msgstr "আইটেম মুছুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Delete`"
+#~ msgstr ":kbd:`Delete`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Backspace`"
+#~ msgstr ":kbd:`Backspace`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Delete Item (Ripple)"
+#~ msgstr "আইটেম মুছুন (রিপল)"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+Delete`"
+#~ msgstr ":kbd:`Shift+Delete`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Details View"
+#~ msgstr "বিস্তারিত ভিউ"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Page Up`"
+#~ msgstr ":kbd:`Ctrl+Page Up`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Donate"
+#~ msgstr "দান করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F7`"
+#~ msgstr ":kbd:`F7`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Duplicate"
+#~ msgstr "ডুপ্লিকেট করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+/`"
+#~ msgstr ":kbd:`Ctrl+Shift+/`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Edit Title"
+#~ msgstr "শিরোনাম সম্পাদনা করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+T`"
+#~ msgstr ":kbd:`Alt+T`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Export Selected Files"
+#~ msgstr "নির্বাচিত ফাইল রপ্তানি করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+E`"
+#~ msgstr ":kbd:`Ctrl+Shift+E`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Export Video / Media"
+#~ msgstr "ভিডিও / মিডিয়া রপ্তানি করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+E`"
+#~ msgstr ":kbd:`Ctrl+E`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+M`"
+#~ msgstr ":kbd:`Ctrl+M`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Fast Forward"
+#~ msgstr "দ্রুত অগ্রসর"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`L`"
+#~ msgstr ":kbd:`L`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "File Properties"
+#~ msgstr "ফাইল বৈশিষ্ট্য"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+I`"
+#~ msgstr ":kbd:`Alt+I`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Double Click`"
+#~ msgstr ":kbd:`Ctrl+Double Click`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Fullscreen"
+#~ msgstr "পূর্ণ পর্দা"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F11`"
+#~ msgstr ":kbd:`F11`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Import Files..."
+#~ msgstr "ফাইল আমদানি করুন..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+I`"
+#~ msgstr ":kbd:`Ctrl+I`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Insert Keyframe"
+#~ msgstr "কীফ্রেম সন্নিবেশ করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Shift+K`"
+#~ msgstr ":kbd:`Alt+Shift+K`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Join our Community..."
+#~ msgstr "আমাদের কমিউনিটিতে যোগ দিন..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F5`"
+#~ msgstr ":kbd:`F5`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Jump To End"
+#~ msgstr "শেষে যান"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`End`"
+#~ msgstr ":kbd:`End`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Jump To Start"
+#~ msgstr "শুরুতে যান"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Home`"
+#~ msgstr ":kbd:`Home`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Launch Tutorial"
+#~ msgstr "টিউটোরিয়াল শুরু করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F2`"
+#~ msgstr ":kbd:`F2`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "New Project"
+#~ msgstr "নতুন প্রকল্প"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+N`"
+#~ msgstr ":kbd:`Ctrl+N`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Next Frame"
+#~ msgstr "পরবর্তী ফ্রেম"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Right`"
+#~ msgstr ":kbd:`Right`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`.`"
+#~ msgstr ":kbd:`.`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Next Marker"
+#~ msgstr "পরবর্তী মার্কার"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+M`"
+#~ msgstr ":kbd:`Shift+M`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Right`"
+#~ msgstr ":kbd:`Alt+Right`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Nudge left (1 Frame)"
+#~ msgstr "এক ফ্রেম বামে সরান"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Left`"
+#~ msgstr ":kbd:`Ctrl+Left`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Nudge left (5 Frames)"
+#~ msgstr "পাঁচ ফ্রেম বামে সরান"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+Ctrl+Left`"
+#~ msgstr ":kbd:`Shift+Ctrl+Left`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Nudge right (1 Frame)"
+#~ msgstr "এক ফ্রেম ডানে সরান"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Right`"
+#~ msgstr ":kbd:`Ctrl+Right`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Nudge right (5 Frames)"
+#~ msgstr "পাঁচ ফ্রেম ডানে সরান"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+Ctrl+Right`"
+#~ msgstr ":kbd:`Shift+Ctrl+Right`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Open Help Contents"
+#~ msgstr "সহায়তা বিষয়বস্তু খুলুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F1`"
+#~ msgstr ":kbd:`F1`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Open Project..."
+#~ msgstr "প্রকল্প খুলুন..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+O`"
+#~ msgstr ":kbd:`Ctrl+O`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Paste"
+#~ msgstr "পেস্ট করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+V`"
+#~ msgstr ":kbd:`Ctrl+V`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Play/Pause Toggle"
+#~ msgstr "প্লে/পজ টগল"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Up`"
+#~ msgstr ":kbd:`Up`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Down`"
+#~ msgstr ":kbd:`Down`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Preferences"
+#~ msgstr "পছন্দসমূহ"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+P`"
+#~ msgstr ":kbd:`Ctrl+P`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Preview File"
+#~ msgstr "ফাইল প্রিভিউ করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+P`"
+#~ msgstr ":kbd:`Alt+P`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Double Click`"
+#~ msgstr ":kbd:`ডাবল ক্লিক`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Previous Frame"
+#~ msgstr "পূর্ববর্তী ফ্রেম"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Left`"
+#~ msgstr ":kbd:`Left`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`,`"
+#~ msgstr ":kbd:`,`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Previous Marker"
+#~ msgstr "পূর্ববর্তী মার্কার"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+M`"
+#~ msgstr ":kbd:`Ctrl+Shift+M`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Left`"
+#~ msgstr ":kbd:`Alt+Left`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`U`"
+#~ msgstr ":kbd:`U`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Quit"
+#~ msgstr "প্রস্থান করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Q`"
+#~ msgstr ":kbd:`Ctrl+Q`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Razor Toggle"
+#~ msgstr "রেজার টগল"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`C`"
+#~ msgstr ":kbd:`C`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`B`"
+#~ msgstr ":kbd:`B`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`R`"
+#~ msgstr ":kbd:`R`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Redo"
+#~ msgstr "পুনরায় করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+Z`"
+#~ msgstr ":kbd:`Ctrl+Shift+Z`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Report a Bug..."
+#~ msgstr "বাগ রিপোর্ট করুন..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F3`"
+#~ msgstr ":kbd:`F3`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Rewind"
+#~ msgstr "পিছনে নাড়ান"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`J`"
+#~ msgstr ":kbd:`J`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Save Current Frame"
+#~ msgstr "বর্তমান ফ্রেম সংরক্ষণ করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+Y`"
+#~ msgstr ":kbd:`Ctrl+Shift+Y`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Save Project"
+#~ msgstr "প্রকল্প সংরক্ষণ করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Save Project As..."
+#~ msgstr "প্রকল্প অন্য নামে সংরক্ষণ করুন..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+S`"
+#~ msgstr ":kbd:`Ctrl+Shift+S`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Select All"
+#~ msgstr "সব নির্বাচন করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+A`"
+#~ msgstr ":kbd:`Ctrl+A`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Select Item (Ripple)"
+#~ msgstr "আইটেম নির্বাচন করুন (রিপল)"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+A`"
+#~ msgstr ":kbd:`Alt+A`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Click`"
+#~ msgstr ":kbd:`Alt+ক্লিক`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Select None"
+#~ msgstr "কিছুই নির্বাচন করবেন না"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+A`"
+#~ msgstr ":kbd:`Ctrl+Shift+A`"
+
+#~ msgid "Share Feedback..."
+#~ msgstr "প্রতিক্রিয়া শেয়ার করুন..."
+
+#~ msgid ":kbd:`F8`"
+#~ msgstr ":kbd:`F8`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Shift+0`"
+#~ msgstr ":kbd:`Alt+Shift+0`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice All: Keep Both Sides"
+#~ msgstr "সব কাটা: দুই পাশই রাখুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+K`"
+#~ msgstr ":kbd:`Ctrl+Shift+K`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice All: Keep Left Side"
+#~ msgstr "সব কাটা: বাম পাশ রাখুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+J`"
+#~ msgstr ":kbd:`Ctrl+Shift+J`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice All: Keep Right Side"
+#~ msgstr "সব কাটা: ডান পাশ রাখুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+L`"
+#~ msgstr ":kbd:`Ctrl+Shift+L`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Both Sides"
+#~ msgstr "নির্বাচিত কাটা: দুই পাশই রাখুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Left Side"
+#~ msgstr "নির্বাচিত কাটা: বাম পাশ রাখুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+J`"
+#~ msgstr ":kbd:`Ctrl+J`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Right Side"
+#~ msgstr "নির্বাচিত কাটা: ডান পাশ রাখুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+L`"
+#~ msgstr ":kbd:`Ctrl+L`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Left (Ripple)"
+#~ msgstr "নির্বাচিত কাটা: বাম (রিপল) রাখুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`W`"
+#~ msgstr ":kbd:`W`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Right (Ripple)"
+#~ msgstr "নির্বাচিত কাটা: ডান (রিপল) রাখুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Q`"
+#~ msgstr ":kbd:`Q`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Snapping Toggle"
+#~ msgstr "স্ন্যাপিং টগল"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`S`"
+#~ msgstr ":kbd:`S`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Split File"
+#~ msgstr "ফাইল ভাগ করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+S`"
+#~ msgstr ":kbd:`Alt+S`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+Double Click`"
+#~ msgstr ":kbd:`Shift+ডাবল ক্লিক`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Thumbnail View"
+#~ msgstr "থাম্বনেইল দৃশ্য"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Page Down`"
+#~ msgstr ":kbd:`Ctrl+Page Down`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Timing Toggle"
+#~ msgstr "টাইমিং টগল"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`T`"
+#~ msgstr ":kbd:`T`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+T`"
+#~ msgstr ":kbd:`Ctrl+T`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Translate this Application..."
+#~ msgstr "এই অ্যাপ্লিকেশন অনুবাদ করুন..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F6`"
+#~ msgstr ":kbd:`F6`"
+
+#~ msgid "Update Available"
+#~ msgstr "আপডেট উপলব্ধ"
+
+#~ msgid ":kbd:`F9`"
+#~ msgstr ":kbd:`F9`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "View Toolbar"
+#~ msgstr "টুলবার দেখুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+B`"
+#~ msgstr ":kbd:`Ctrl+Shift+B`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Zoom In"
+#~ msgstr "জুম ইন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`=`"
+#~ msgstr ":kbd:`=`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+=`"
+#~ msgstr ":kbd:`Ctrl+=`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Zoom Out"
+#~ msgstr "জুম আউট"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`-`"
+#~ msgstr ":kbd:`-`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+-`"
+#~ msgstr ":kbd:`Ctrl+-`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Zoom to Timeline"
+#~ msgstr "টাইমলাইন-এ জুম করুন"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`\\\\`"
+#~ msgstr ":kbd:`\\\\`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+\\\\`"
+#~ msgstr ":kbd:`Shift+\\\\`"
+
+#~ msgid ""
+#~ "After you have spent some time editing, OpenShot may also invite you to "
+#~ "share feedback. The survey is optional. You can open it from the notice or "
+#~ "dismiss the invitation. At any time, choose :guilabel:`Help → Share "
+#~ "Feedback` or press :kbd:`F8` to share your thoughts."
+#~ msgstr ""
+#~ "সম্পাদনায় কিছু সময় ব্যয় করার পর, OpenShot আপনাকে প্রতিক্রিয়া শেয়ার করার"
+#~ " জন্য আমন্ত্রণ জানাতে পারে। জরিপটি ঐচ্ছিক। আপনি এটি বিজ্ঞপ্তি থেকে খুলতে "
+#~ "পারেন অথবা আমন্ত্রণটি বাতিল করতে পারেন। যেকোনো সময়, আপনার মতামত শেয়ার করতে"
+#~ " :guilabel:`সাহায্য → প্রতিক্রিয়া শেয়ার করুন` নির্বাচন করুন অথবা :kbd:`F8`"
+#~ " চাপুন।"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 4.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: 2026-08-30 16:50-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../color.rst:23
+#: ../doc/color.rst:23
 msgid "Color"
 msgstr "রঙ"
 
-#: ../color.rst:25
+#: ../doc/color.rst:25
 msgid ""
 "Have you ever noticed that thriller films look gritty and desaturated while "
 "romantic comedies feel vibrant and warm? That is not an accident — it is "
@@ -35,7 +35,7 @@ msgstr ""
 " একটি, এবং OpenShot আপনাকে পেশাদার মানের সরঞ্জাম দেয় এটি ব্যবহার করার জন্য,"
 " আপনি সমস্যা সমাধান করছেন বা শূন্য থেকে একটি সিনেমাটিক লুক তৈরি করছেন।"
 
-#: ../color.rst:32
+#: ../doc/color.rst:32
 msgid ""
 "*The OpenShot Color View: video preview in the center, Color Wheels dock on "
 "the right, and video scopes (Luma Waveform and Histogram) below.*"
@@ -43,7 +43,7 @@ msgstr ""
 "*OpenShot রঙ ভিউ: কেন্দ্রে ভিডিও প্রিভিউ, ডানদিকে রঙের চাকা ডক, এবং নিচে "
 "ভিডিও স্কোপ (লুমা ওয়েভফর্ম এবং হিস্টোগ্রাম)।*"
 
-#: ../color.rst:37
+#: ../doc/color.rst:37
 msgid ""
 ":ref:`effects_color_grade` in :doc:`effects` — full property reference and "
 "keyframe details for the Color Grade effect."
@@ -51,11 +51,11 @@ msgstr ""
 ":ref:`effects_color_grade` :doc:`effects` এ — রঙ গ্রেড ইফেক্টের সম্পূর্ণ "
 "প্রপার্টি রেফারেন্স এবং কীফ্রেম বিবরণ।"
 
-#: ../color.rst:43
+#: ../doc/color.rst:43
 msgid "Understanding Color"
 msgstr "রঙ বোঝা"
 
-#: ../color.rst:45
+#: ../doc/color.rst:45
 msgid ""
 "Every pixel in a digital video frame is made of three numbers: **Red**, "
 "**Green**, and **Blue** (each 0–255). White is all three at maximum; black "
@@ -69,11 +69,11 @@ msgstr ""
 "মিলিয়ে গঠিত হয় দ্বিতীয়ক রঙ (লাল + সবুজ = হলুদ, লাল + নীল = ম্যাজেন্টা, "
 "সবুজ + নীল = সায়ান)।"
 
-#: ../color.rst:49
+#: ../doc/color.rst:49
 msgid "Four properties you will adjust constantly:"
 msgstr "চারটি বৈশিষ্ট্য যা আপনি নিয়মিত সামঞ্জস্য করবেন:"
 
-#: ../color.rst:51
+#: ../doc/color.rst:51
 msgid ""
 "**Exposure** — overall brightness. Overexposed footage has many pixels near "
 "255 (blown-out highlights); underexposed footage is crushed near 0."
@@ -82,7 +82,7 @@ msgstr ""
 "২৫৫ এর কাছাকাছি থাকে (ব্লাউন-আউট হাইলাইটস); কম এক্সপোজড ফুটেজ ০ এর কাছাকাছি "
 "চাপা পড়ে।"
 
-#: ../color.rst:53
+#: ../doc/color.rst:53
 msgid ""
 "**Contrast** — the spread between brightest and darkest. High contrast is "
 "dramatic; low contrast looks flat or milky."
@@ -90,7 +90,7 @@ msgstr ""
 "**কনট্রাস্ট** — সবচেয়ে উজ্জ্বল এবং সবচেয়ে অন্ধকারের মধ্যে বিস্তার। উচ্চ "
 "কনট্রাস্ট নাটকীয়; কম কনট্রাস্ট ফ্ল্যাট বা দুধের মতো দেখায়।"
 
-#: ../color.rst:55
+#: ../doc/color.rst:55
 msgid ""
 "**Saturation** — how vivid the colors are. Zero saturation = grayscale. "
 "Cameras often record slightly less saturation than reality to give editors "
@@ -100,7 +100,7 @@ msgstr ""
 "ক্যামেরাগুলো প্রায়ই বাস্তবতার তুলনায় সামান্য কম স্যাচুরেশন রেকর্ড করে যাতে"
 " সম্পাদকদের জন্য বেশি সুযোগ থাকে।"
 
-#: ../color.rst:57
+#: ../doc/color.rst:57
 msgid ""
 "**Hue** — the actual color (red, yellow, green, blue…). Shifting hue rotates"
 " all colors around the color wheel and is mostly used for creative stylistic"
@@ -109,11 +109,11 @@ msgstr ""
 "**হিউ** — প্রকৃত রঙ (লাল, হলুদ, সবুজ, নীল…). হিউ পরিবর্তন করলে রঙের চাকা "
 "ঘুরে যায় এবং এটি প্রধানত সৃজনশীল শৈল্পিক প্রভাবের জন্য ব্যবহৃত হয়।"
 
-#: ../color.rst:61
+#: ../doc/color.rst:61
 msgid "Video Scopes — What They Are and Why They Matter"
 msgstr "ভিডিও স্কোপ — এগুলো কী এবং কেন গুরুত্বপূর্ণ"
 
-#: ../color.rst:63
+#: ../doc/color.rst:63
 msgid ""
 "Your monitor is not a reliable measuring tool — room lighting, screen "
 "brightness, and uncalibrated displays all affect what you see. **Video "
@@ -125,7 +125,7 @@ msgstr ""
 "**ভিডিও স্কোপ** আপনার ছবির প্রকৃত পিক্সেল মানগুলি সঠিক গ্রাফ আকারে প্রদর্শন "
 "করে। এগুলো কখনো মিথ্যা বলে না, যদিও আপনার মনিটর বলতে পারে।"
 
-#: ../color.rst:67
+#: ../doc/color.rst:67
 msgid ""
 "OpenShot includes three scopes, all accessible from :guilabel:`View → "
 "Scopes` or opened automatically by the clip menu options described in "
@@ -135,7 +135,7 @@ msgstr ""
 "থেকে প্রবেশযোগ্য অথবা ক্লিপ মেনু অপশন থেকে স্বয়ংক্রিয়ভাবে খোলা যায় যা "
 ":ref:`getting_started_ref` এ বর্ণিত হয়েছে:"
 
-#: ../color.rst:70
+#: ../doc/color.rst:70
 msgid ""
 "**Luma Waveform** — shows brightness across the frame, column by column. "
 "Instantly reveals overexposure, underexposure, and contrast problems. See "
@@ -145,7 +145,7 @@ msgstr ""
 "তাৎক্ষণিকভাবে অতিরিক্ত এক্সপোজার, কম এক্সপোজার, এবং কনট্রাস্ট সমস্যাগুলো "
 "প্রকাশ করে। দেখুন :ref:`luma_waveform_ref`।"
 
-#: ../color.rst:72
+#: ../doc/color.rst:72
 msgid ""
 "**Histogram** — shows how many pixels exist at each brightness level. Great "
 "for exposure and channel balance at a glance. See :ref:`histogram_ref`."
@@ -153,7 +153,7 @@ msgstr ""
 "**হিস্টোগ্রাম** — প্রতিটি উজ্জ্বলতা স্তরে কত পিক্সেল আছে তা দেখায়। এক নজরে "
 "এক্সপোজার এবং চ্যানেল ব্যালেন্সের জন্য চমৎকার। দেখুন :ref:`histogram_ref`।"
 
-#: ../color.rst:74
+#: ../doc/color.rst:74
 msgid ""
 "**Vectorscope** — a circular chroma plot showing the hue and saturation of "
 "every pixel. Ideal for checking color casts, overall saturation, and — with "
@@ -164,7 +164,7 @@ msgstr ""
 "অন্তর্নির্মিত ত্বকের রঙের রেখা দিয়ে — মুখ মূল্যায়নের জন্য আদর্শ। দেখুন "
 ":ref:`vectorscope_ref`।"
 
-#: ../color.rst:78
+#: ../doc/color.rst:78
 msgid ""
 "Every scope also has a **Region** button in its toolbar. Click it and drag a"
 " box over any part of the video preview to restrict scope analysis to just "
@@ -176,11 +176,11 @@ msgstr ""
 "অঞ্চলে সীমাবদ্ধ করুন — মুখ, আকাশ, বা ফ্রেমের যেকোনো নির্দিষ্ট অংশ আলাদা করার"
 " জন্য উপযোগী।"
 
-#: ../color.rst:83
+#: ../doc/color.rst:83
 msgid "Color Correction — Fixing What Is Wrong"
 msgstr "রঙ সংশোধন — ভুল ঠিক করা"
 
-#: ../color.rst:85
+#: ../doc/color.rst:85
 msgid ""
 "**Color correction** is the process of fixing technical problems in footage "
 "so it looks the way reality appeared: wrong white balance, bad exposure, "
@@ -193,11 +193,11 @@ msgstr ""
 " প্রাকৃতিক দেখায় এবং যেকোনো স্ক্রিনে ভালো থাকে। দেখুন "
 ":ref:`color_correction_ref`।"
 
-#: ../color.rst:90
+#: ../doc/color.rst:90
 msgid "Color Grading — Building a Look"
 msgstr "রঙ গ্রেডিং — একটি লুক তৈরি করা"
 
-#: ../color.rst:92
+#: ../doc/color.rst:92
 msgid ""
 "**Color grading** is the creative step: using the same tools to give "
 "corrected footage a deliberate visual mood or style. A warm golden "
@@ -211,11 +211,11 @@ msgstr ""
 "ফুটেজ \"ঠিক দেখায়\" থেকে \"উদ্দেশ্যমূলক দেখায়\" এ যায়। দেখুন "
 ":ref:`color_grading_ref`।"
 
-#: ../color.rst:99
+#: ../doc/color.rst:99
 msgid "Getting Started"
 msgstr "শুরু করা"
 
-#: ../color.rst:101
+#: ../doc/color.rst:101
 msgid ""
 "OpenShot offers several ways to open its color tools, depending on what you "
 "need:"
@@ -223,11 +223,11 @@ msgstr ""
 "আপনার প্রয়োজন অনুযায়ী OpenShot এর রঙের সরঞ্জাম খোলার বিভিন্ন উপায় প্রদান "
 "করে:"
 
-#: ../color.rst:106
+#: ../doc/color.rst:106
 msgid "**Right-click a clip → Look → Adjust Colors**"
 msgstr "**ক্লিপে রাইট-ক্লিক করুন → Look → রঙ সামঞ্জস্য করুন**"
 
-#: ../color.rst:104
+#: ../doc/color.rst:104
 msgid ""
 "The quickest all-in-one setup. OpenShot adds the :guilabel:`Color Grade` "
 "effect to the clip, selects it, opens the :guilabel:`Properties` panel, and "
@@ -239,7 +239,7 @@ msgstr ""
 ":guilabel:`Color Wheels` ডক ও সব তিনটি ভিডিও স্কোপ দেখায় — সঙ্গে সঙ্গেই "
 "গ্রেড করার জন্য প্রস্তুত।"
 
-#: ../color.rst:110
+#: ../doc/color.rst:110
 msgid ""
 "**Right-click a clip → Look → Color → [preset]** *(Auto Contrast, Lift "
 "Shadows, Warm Up, Boost Color…)*"
@@ -247,7 +247,7 @@ msgstr ""
 "**ক্লিপে রাইট-ক্লিক করুন → Look → রঙ → [প্রিসেট]** *(অটো কনট্রাস্ট, লিফট "
 "শ্যাডোজ, ওয়ার্ম আপ, বুস্ট কালার…)*"
 
-#: ../color.rst:109
+#: ../doc/color.rst:109
 msgid ""
 "Adds the Color Grade effect with a useful preset already applied. The Color "
 "Wheels and scopes are not opened automatically — open them any time from "
@@ -257,11 +257,11 @@ msgstr ""
 "স্বয়ংক্রিয়ভাবে খোলা হয় না — যেকোনো সময় :guilabel:`View → Scopes` থেকে "
 "এগুলো খুলুন।"
 
-#: ../color.rst:115
+#: ../doc/color.rst:115
 msgid "**Right-click a clip → Look → Analyze Colors**"
 msgstr "**ক্লিপে রাইট-ক্লিক করুন → Look → রঙ বিশ্লেষণ করুন**"
 
-#: ../color.rst:113
+#: ../doc/color.rst:113
 msgid ""
 "Opens all three scopes (Luma Waveform, Histogram, and Vectorscope, tabbed "
 "together on the right) without adding any Color Grade effect. Use this to "
@@ -273,11 +273,11 @@ msgstr ""
 "সিদ্ধান্ত নেওয়ার আগে ফুটেজ মূল্যায়নের জন্য বা প্লেব্যাকের সময় মাত্রা "
 "পর্যবেক্ষণের জন্য এটি ব্যবহার করুন।"
 
-#: ../color.rst:120
+#: ../doc/color.rst:120
 msgid "**View → Color View** *(optional immersive mode)*"
 msgstr "**View → রঙ ভিউ** *(ঐচ্ছিক ইমারসিভ মোড)*"
 
-#: ../color.rst:118
+#: ../doc/color.rst:118
 msgid ""
 "Switches the entire interface into a dedicated color grading layout: the "
 "video preview is maximized in the center, non-color docks are hidden, the "
@@ -289,11 +289,11 @@ msgstr ""
 "চাকা ডক ডানদিকে প্রদর্শিত হয়, এবং স্কোপগুলি নিচে প্রদর্শিত হয়। কাজ শেষ হলে"
 " একই মেনু থেকে আপনার সাধারণ বিন্যাসে ফিরে যান।"
 
-#: ../color.rst:123
+#: ../doc/color.rst:123
 msgid "**Effects tab → drag Color Grade onto a clip**"
 msgstr "**ইফেক্টস ট্যাব → একটি ক্লিপে কালার গ্রেড টেনে আনুন**"
 
-#: ../color.rst:123
+#: ../doc/color.rst:123
 msgid ""
 "The fully manual approach. Add the effect without opening any docks "
 "automatically."
@@ -301,11 +301,11 @@ msgstr ""
 "সম্পূর্ণ ম্যানুয়াল পদ্ধতি। কোনো ডক স্বয়ংক্রিয়ভাবে না খুলে ইফেক্ট যোগ "
 "করুন।"
 
-#: ../color.rst:128
+#: ../doc/color.rst:128
 msgid "Video Scopes"
 msgstr "ভিডিও স্কোপস"
 
-#: ../color.rst:130
+#: ../doc/color.rst:130
 msgid ""
 "Each scope updates live as the playhead moves. Use the **Region** button in "
 "any scope's toolbar to analyze just a selected area of the preview rather "
@@ -315,11 +315,11 @@ msgstr ""
 "পরিবর্তে শুধুমাত্র নির্বাচিত একটি এলাকা বিশ্লেষণ করতে যেকোনো স্কোপের টুলবারে"
 " **Region** বোতামটি ব্যবহার করুন।"
 
-#: ../color.rst:136
+#: ../doc/color.rst:136
 msgid "The Luma Waveform"
 msgstr "লুমা ওয়েভফর্ম"
 
-#: ../color.rst:138
+#: ../doc/color.rst:138
 msgid ""
 "The Luma Waveform maps every pixel by horizontal position (X axis = left-to-"
 "right across the frame) and brightness (Y axis = 0% at bottom to 100% at "
@@ -331,7 +331,7 @@ msgstr ""
 "মানচিত্রায়িত করে। যেখানে অনেক পিক্সেল একই অনুভূমিক অবস্থানে একই উজ্জ্বলতা "
 "ভাগ করে, সেখানে ট্রেসটি উজ্জ্বলভাবে জ্বলজ্বল করে।"
 
-#: ../color.rst:144
+#: ../doc/color.rst:144
 msgid ""
 "*The Luma Waveform in RGB Parade mode, showing red, green, and blue channels"
 " side by side.*"
@@ -339,15 +339,15 @@ msgstr ""
 "*RGB প্যারেড মোডে লুমা ওয়েভফর্ম, যেখানে লাল, সবুজ, এবং নীল চ্যানেল পাশাপাশি"
 " প্রদর্শিত হচ্ছে।*"
 
-#: ../color.rst:146 ../color.rst:188 ../color.rst:230
+#: ../doc/color.rst:146 ../doc/color.rst:188 ../doc/color.rst:230
 msgid "**How to read it:**"
 msgstr "**কিভাবে পড়বেন:**"
 
-#: ../color.rst:148
+#: ../doc/color.rst:148
 msgid "Waveform clustered near the **bottom** → underexposed. Raise Exposure."
 msgstr "ওয়েভফর্ম **নিচের দিকে** জমে → কম আলোযুক্ত। এক্সপোজার বাড়ান।"
 
-#: ../color.rst:149
+#: ../doc/color.rst:149
 msgid ""
 "Waveform packed against the **top** → overexposed. Lower Exposure or "
 "Highlights."
@@ -355,7 +355,7 @@ msgstr ""
 "ওয়েভফর্ম **উপরের দিকে** চাপা → অতিরিক্ত আলোযুক্ত। এক্সপোজার বা হাইলাইট "
 "কমান।"
 
-#: ../color.rst:150
+#: ../doc/color.rst:150
 msgid ""
 "A **narrow horizontal band** in the middle → low contrast, image looks "
 "milky. Increase Contrast."
@@ -363,7 +363,7 @@ msgstr ""
 "মধ্যভাগে একটি **সঙ্কীর্ণ অনুভূমিক ব্যান্ড** → কম কনট্রাস্ট, ছবি দুধের মতো "
 "দেখায়। কনট্রাস্ট বাড়ান।"
 
-#: ../color.rst:151
+#: ../doc/color.rst:151
 msgid ""
 "A **thick line at the very bottom** → blacks are crushed. Raise Shadows or "
 "lift the bottom-left point of Curve: All to restore shadow detail."
@@ -372,7 +372,7 @@ msgstr ""
 "Curve: All এর নিচে-বাম পয়েন্টটি উপরে তুলুন ছায়ার বিস্তারিত পুনরুদ্ধারের "
 "জন্য।"
 
-#: ../color.rst:154
+#: ../doc/color.rst:154
 msgid ""
 "IRE reference lines appear at 10%, 50%, and 90% as faint dashed lines. A "
 "well-exposed image keeps highlights below 90% and shadows above 5%."
@@ -381,23 +381,23 @@ msgstr ""
 "প্রদর্শিত হয়। একটি সঠিকভাবে এক্সপোজড ছবি হাইলাইট ৯০% এর নিচে এবং শ্যাডো ৫% "
 "এর উপরে রাখে।"
 
-#: ../color.rst:158
+#: ../doc/color.rst:158
 msgid "Waveform Modes"
 msgstr "ওয়েভফর্ম মোড"
 
-#: ../color.rst:164
+#: ../doc/color.rst:164
 msgid "Mode"
 msgstr "মোড"
 
-#: ../color.rst:164
+#: ../doc/color.rst:164
 msgid "What It Shows"
 msgstr "এটি যা দেখায়"
 
-#: ../color.rst:166
+#: ../doc/color.rst:166
 msgid "Luma"
 msgstr "লুমা"
 
-#: ../color.rst:166
+#: ../doc/color.rst:166
 msgid ""
 "Brightness only (ignores color). Best for exposure and contrast work. Trace "
 "color can be changed to Green, White, or Orange."
@@ -405,11 +405,11 @@ msgstr ""
 "শুধুমাত্র উজ্জ্বলতা (রঙ উপেক্ষা করে)। এক্সপোজার এবং কনট্রাস্ট কাজের জন্য "
 "সেরা। ট্রেসের রঙ সবুজ, সাদা, বা কমলা করা যেতে পারে।"
 
-#: ../color.rst:168
+#: ../doc/color.rst:168
 msgid "RGB Overlay"
 msgstr "RGB ওভারলে"
 
-#: ../color.rst:168
+#: ../doc/color.rst:168
 msgid ""
 "Red, green, and blue channels drawn on top of each other in their natural "
 "colors. Quick visual check for overall channel balance."
@@ -417,11 +417,11 @@ msgstr ""
 "লাল, সবুজ, এবং নীল চ্যানেলগুলি তাদের প্রাকৃতিক রঙে একে অপরের উপরে আঁকা হয়। "
 "সামগ্রিক চ্যানেল ভারসাম্যের দ্রুত ভিজ্যুয়াল পরীক্ষা।"
 
-#: ../color.rst:170
+#: ../doc/color.rst:170
 msgid "RGB Parade"
 msgstr "RGB প্যারেড"
 
-#: ../color.rst:170
+#: ../doc/color.rst:170
 msgid ""
 "Three side-by-side panels (R, G, B). If one panel sits noticeably higher "
 "than the others in areas that should be neutral, white balance is off. Blue "
@@ -431,19 +431,19 @@ msgstr ""
 "এলাকায় অন্যগুলোর থেকে স্পষ্টভাবে বেশি থাকে, তবে হোয়াইট ব্যালান্স ঠিক নেই। "
 "হাইলাইটে নীল লাল থেকে বেশি → ছবি খুব ঠান্ডা।"
 
-#: ../color.rst:173
+#: ../doc/color.rst:173
 msgid "Red / Green / Blue"
 msgstr "লাল / সবুজ / নীল"
 
-#: ../color.rst:173
+#: ../doc/color.rst:173
 msgid "Shows a single channel in isolation."
 msgstr "একটি চ্যানেল আলাদাভাবে দেখায়।"
 
-#: ../color.rst:179
+#: ../doc/color.rst:179
 msgid "The Histogram"
 msgstr "হিস্টোগ্রাম"
 
-#: ../color.rst:181
+#: ../doc/color.rst:181
 msgid ""
 "The Histogram sorts all pixels by brightness (0 = black on the left, 255 = "
 "white on the right) and shows how many pixels exist at each level as a bar "
@@ -453,15 +453,15 @@ msgstr ""
 " ডানদিকে সাদা) এবং প্রতিটি স্তরে কত পিক্সেল আছে তা বার চার্ট হিসেবে দেখায়। "
 "লাল, সবুজ, নীল, এবং লুমা ওভারলে করা হয়।"
 
-#: ../color.rst:186
+#: ../doc/color.rst:186
 msgid "*The Histogram in All Channels / Logarithmic mode.*"
 msgstr "*সমস্ত চ্যানেল / লগারিদমিক মোডে হিস্টোগ্রাম।*"
 
-#: ../color.rst:190
+#: ../doc/color.rst:190
 msgid "Bars **clustered left** → underexposed."
 msgstr "বারগুলো **বামে জমে** → কম আলোযুক্ত।"
 
-#: ../color.rst:191
+#: ../doc/color.rst:191
 msgid ""
 "Bars **pushed against the right edge** → overexposed, possibly clipping. A "
 "sharp wall on the right means highlight detail is gone."
@@ -469,7 +469,7 @@ msgstr ""
 "বারগুলো **ডান প্রান্তে ঠেলা** → অতিরিক্ত আলোযুক্ত, সম্ভবত ক্লিপিং। ডানদিকে "
 "একটি তীব্র প্রাচীর মানে হাইলাইটের বিস্তারিত হারিয়ে গেছে।"
 
-#: ../color.rst:193
+#: ../doc/color.rst:193
 msgid ""
 "A **narrow hill in the middle** → low contrast. Increasing Contrast will "
 "spread the bars out."
@@ -477,11 +477,11 @@ msgstr ""
 "মধ্যভাগে একটি **সঙ্কীর্ণ পাহাড়** → কম কনট্রাস্ট। কনট্রাস্ট বাড়ালে বারগুলো "
 "ছড়িয়ে পড়বে।"
 
-#: ../color.rst:195
+#: ../doc/color.rst:195
 msgid "The Histogram dock has two dropdowns:"
 msgstr "হিস্টোগ্রাম ডকে দুটি ড্রপডাউন আছে:"
 
-#: ../color.rst:197
+#: ../doc/color.rst:197
 msgid ""
 "**Channel** — *All Channels* shows R, G, B, and luma overlaid; individual "
 "options isolate one. If the Red histogram extends further right than Green "
@@ -491,7 +491,7 @@ msgstr ""
 "একটি আলাদা করে দেখায়। যদি লাল হিস্টোগ্রাম সবুজ এবং নীল থেকে ডানে বেশি "
 "বিস্তৃত হয়, ছবিটি উষ্ণ।"
 
-#: ../color.rst:199
+#: ../doc/color.rst:199
 msgid ""
 "**Scale** — *Logarithmic* (default) keeps rare tonal values visible. "
 "*Linear* shows raw counts, useful for comparing the relative weight of "
@@ -500,11 +500,11 @@ msgstr ""
 "**স্কেল** — *লগারিদমিক* (ডিফল্ট) বিরল টোনাল মান দৃশ্যমান রাখে। *লিনিয়ার* "
 "কাঁচা গণনা দেখায়, বিভিন্ন টোনের আপেক্ষিক ওজন তুলনা করার জন্য উপযোগী।"
 
-#: ../color.rst:205
+#: ../doc/color.rst:205
 msgid "The Vectorscope"
 msgstr "ভেক্টরস্কোপ"
 
-#: ../color.rst:207
+#: ../doc/color.rst:207
 msgid ""
 "The Vectorscope is a 2D chroma plot. Each pixel is placed on a circular "
 "graph by its **hue** (direction from center) and **saturation** (distance "
@@ -516,7 +516,7 @@ msgstr ""
 "স্থাপন করা হয়। কেন্দ্রে থাকা একটি পিক্সেল রঙহীন (ধূসর বা কালো); প্রান্তে "
 "থাকা পিক্সেল সম্পূর্ণ স্যাচুরেটেড।"
 
-#: ../color.rst:213
+#: ../doc/color.rst:213
 msgid ""
 "*The Vectorscope in Colorized mode, with the skin tone cluster visible near "
 "the center.*"
@@ -524,7 +524,7 @@ msgstr ""
 "*কালারাইজড মোডে ভেক্টরস্কোপ, যেখানে ত্বকের রঙের ক্লাস্টার কেন্দ্রের কাছে "
 "দৃশ্যমান।*"
 
-#: ../color.rst:215
+#: ../doc/color.rst:215
 msgid ""
 "The outer ring shows broadcast hue labels — **R** (red), **Mg** (magenta), "
 "**B** (blue), **Cy** (cyan), **G** (green), **Yi** (yellow) — at their "
@@ -538,11 +538,11 @@ msgstr ""
 "লাইন**: সব মানব ত্বকের রঙ, হালকা থেকে গাঢ় পর্যন্ত, প্রায় এই লাইনের সাথে "
 "হলুদ-কমলা অঞ্চলে Yi এবং R এর মধ্যে পড়া উচিত।"
 
-#: ../color.rst:220
+#: ../doc/color.rst:220
 msgid "**Display modes:**"
 msgstr "**ডিসপ্লে মোডস:**"
 
-#: ../color.rst:222
+#: ../doc/color.rst:222
 msgid ""
 "**Colorized** (default) — each plotted pixel adopts the hue color of its "
 "position on the wheel. Makes it easy to see which colors are present and how"
@@ -551,7 +551,7 @@ msgstr ""
 "**কালারাইজড** (ডিফল্ট) — প্রতিটি প্লট করা পিক্সেল তার অবস্থানের হিউ রঙ গ্রহণ"
 " করে। কোন রঙ উপস্থিত এবং কতটা স্যাচুরেটেড তা সহজে দেখা যায়।"
 
-#: ../color.rst:224
+#: ../doc/color.rst:224
 msgid ""
 "**Density** — monochrome brightness. Brighter = more pixels sharing that "
 "hue/saturation. Good for focusing on shape and balance rather than color "
@@ -561,7 +561,7 @@ msgstr ""
 " শেয়ার করছে। রঙের পরিচয়ের পরিবর্তে আকৃতি এবং ভারসাম্যের উপর ফোকাস করার "
 "জন্য ভালো।"
 
-#: ../color.rst:226
+#: ../doc/color.rst:226
 msgid ""
 "**Intensity** — heatmap from blue (sparse) to red (dense). Quickly shows "
 "which colors dominate."
@@ -569,7 +569,7 @@ msgstr ""
 "**ইনটেনসিটি** — নীল (দুর্লভ) থেকে লাল (ঘন) পর্যন্ত হিটম্যাপ। দ্রুত দেখায় "
 "কোন রঙগুলি আধিপত্য বিস্তার করছে।"
 
-#: ../color.rst:228
+#: ../doc/color.rst:228
 msgid ""
 "**Zoom:** 100%, 200%, or 400%. Use 200% for skin tone work — it magnifies "
 "subtle shifts near center."
@@ -577,7 +577,7 @@ msgstr ""
 "**জুম:** ১০০%, ২০০%, অথবা ৪০০%। ত্বকের রঙের কাজের জন্য ২০০% ব্যবহার করুন — "
 "এটি কেন্দ্রীয় কাছাকাছি সূক্ষ্ম পরিবর্তনগুলো বড় করে।"
 
-#: ../color.rst:232
+#: ../doc/color.rst:232
 msgid ""
 "Plot concentrated near the **center** → image is desaturated. Increase "
 "Saturation or Vibrance."
@@ -585,7 +585,7 @@ msgstr ""
 "প্লটটি **কেন্দ্রের** কাছে ঘনত্বযুক্ত → চিত্রটি রঙহীন। স্যাচুরেশন বা "
 "ভাইব্রেন্স বাড়ান।"
 
-#: ../color.rst:233
+#: ../doc/color.rst:233
 msgid ""
 "Plot tilted toward one side → color cast. Use Temperature, Tint, or the "
 "Global color wheel to push the cluster back toward center."
@@ -593,7 +593,7 @@ msgstr ""
 "প্লটটি একপাশে ঝুঁকেছে → রঙের ছায়া। ক্লাস্টারটিকে আবার কেন্দ্রে ঠেলতে "
 "Temperature, Tint, বা Global রঙের চাকা ব্যবহার করুন।"
 
-#: ../color.rst:235
+#: ../doc/color.rst:235
 msgid ""
 "For **skin tone evaluation**: use the Region selector to draw a box over a "
 "face in the preview. The cluster should fall along the dashed skin tone line"
@@ -603,11 +603,11 @@ msgstr ""
 "Region সিলেক্টর ব্যবহার করুন। ক্লাস্টারটি ছিন্ন ছিন্ন ত্বকের রঙের লাইনের "
 "সাথে সঙ্গতিপূর্ণ হওয়া উচিত (দেখুন :ref:`skin_tones_ref`)।"
 
-#: ../color.rst:241
+#: ../doc/color.rst:241
 msgid "Color Correction"
 msgstr "রঙ সংশোধন"
 
-#: ../color.rst:243
+#: ../doc/color.rst:243
 msgid ""
 "Color correction fixes technical problems — wrong white balance, bad "
 "exposure, flat contrast — so footage looks clean and natural. It is always "
@@ -617,11 +617,11 @@ msgstr ""
 "এক্সপোজার, ফ্ল্যাট কনট্রাস্ট — যাতে ফুটেজ পরিষ্কার এবং প্রাকৃতিক দেখায়। এটি"
 " সবসময় প্রথম ধাপ, যেকোন সৃজনশীল কাজের আগে।"
 
-#: ../color.rst:249
+#: ../doc/color.rst:249
 msgid "White Balance — Making Whites Look White"
 msgstr "হোয়াইট ব্যালেন্স — সাদা অংশকে সাদা দেখানো"
 
-#: ../color.rst:251
+#: ../doc/color.rst:251
 msgid ""
 "Different light sources cast different colors: incandescent bulbs are "
 "orange-warm, fluorescent lights are greenish, open shade is cool blue. When "
@@ -633,7 +633,7 @@ msgstr ""
 "ব্যালেন্স ভুল অনুমান করলে ফুটেজে রঙের ছায়া পড়ে। এটি ঠিক করা প্রায় সবসময় "
 "আপনার প্রথম কাজ।"
 
-#: ../color.rst:255
+#: ../doc/color.rst:255
 msgid ""
 "Use **Temperature** and **Tint** in the :guilabel:`Color Grade` effect "
 "properties:"
@@ -641,7 +641,7 @@ msgstr ""
 ":guilabel:`Color Grade` ইফেক্ট প্রপার্টিজে **Temperature** এবং **Tint** "
 "ব্যবহার করুন:"
 
-#: ../color.rst:257
+#: ../doc/color.rst:257
 msgid ""
 "**Temperature** — shifts the image warmer (positive) or cooler (negative). "
 "Footage that looks too orange? Slide it negative."
@@ -649,7 +649,7 @@ msgstr ""
 "**Temperature** — চিত্রকে গরম (ইতিবাচক) বা ঠান্ডা (ঋণাত্মক) করে। ফুটেজ খুব "
 "কমলা দেখাচ্ছে? এটিকে ঋণাত্মক দিকে সরান।"
 
-#: ../color.rst:259
+#: ../doc/color.rst:259
 msgid ""
 "**Tint** — fine-tunes green/magenta balance. Use this after Temperature to "
 "remove a lingering fluorescent tinge. Positive = magenta, negative = green."
@@ -658,7 +658,7 @@ msgstr ""
 "এর পরে এটি ব্যবহার করুন ফ্লুরোসেন্টের অবশিষ্ট ছায়া দূর করতে। ইতিবাচক = "
 "ম্যাজেন্টা, ঋণাত্মক = সবুজ।"
 
-#: ../color.rst:262
+#: ../doc/color.rst:262
 msgid ""
 "A quick check: find something in the shot that should be neutral — a white "
 "wall, a gray shirt, the whites of someone's eyes. The **RGB Parade** "
@@ -669,11 +669,11 @@ msgstr ""
 "দেয়াল, ধূসর শার্ট, কারো চোখের সাদা অংশ। **RGB Parade** ওয়েভফর্ম মোড এটি "
 "নিরপেক্ষ করে: তিনটি চ্যানেলই সেই নিরপেক্ষ এলাকায় একই উচ্চতায় থাকা উচিত।"
 
-#: ../color.rst:269
+#: ../doc/color.rst:269
 msgid "Skin Tones"
 msgstr "ত্বকের রঙ"
 
-#: ../color.rst:271
+#: ../doc/color.rst:271
 msgid ""
 "Human faces are the most scrutinized subjects in video. Viewers sense when "
 "skin looks wrong instantly, even if they cannot say why. Good skin tones are"
@@ -683,7 +683,7 @@ msgstr ""
 " তৎক্ষণাৎ অনুভব করেন, যদিও তারা কেন তা বলতে না পারেন। ভালো ত্বকের রঙ গরম — "
 "তারা কমলা ঝোঁকযুক্ত, সবুজ বা নীল নয়।"
 
-#: ../color.rst:274
+#: ../doc/color.rst:274
 msgid ""
 "All human skin tones — regardless of race — fall roughly along the same "
 "diagonal line on a vectorscope: the **skin tone line**. They shift lighter "
@@ -695,14 +695,14 @@ msgstr ""
 "স্যাচুরেটেড হয়, কিন্তু সবসময় কমলা থেকে হলুদ অঞ্চলে থাকে। OpenShot এর "
 "Vectorscope আপনাকে এটি সরাসরি যাচাই করতে দেয়:"
 
-#: ../color.rst:278
+#: ../doc/color.rst:278
 msgid ""
 "Right-click the clip → :guilabel:`Color → Analyze Colors` to open the "
 "scopes."
 msgstr ""
 "ক্লিপে রাইট-ক্লিক করুন → :guilabel:`Color → Analyze Colors` স্কোপ খুলতে।"
 
-#: ../color.rst:279
+#: ../doc/color.rst:279
 msgid ""
 "In the Vectorscope toolbar, click the **Region** button and drag a box over "
 "the skin in the preview."
@@ -710,7 +710,7 @@ msgstr ""
 "Vectorscope টুলবারে, **Region** বোতামে ক্লিক করুন এবং প্রিভিউতে ত্বকের উপর "
 "একটি বক্স টেনে আনুন।"
 
-#: ../color.rst:280
+#: ../doc/color.rst:280
 msgid ""
 "The cluster should sit along the dashed skin tone line. If it drifts toward "
 "green or blue, use **Temperature** (warmer) or the **Global** color wheel to"
@@ -720,7 +720,7 @@ msgstr ""
 "এটি সবুজ বা নীল দিকে সরে যায়, তবে **Temperature** (গরম) বা **Global** রঙের "
 "চাকা ব্যবহার করে এটিকে কমলা-হলুদ দিকে ফিরিয়ে আনুন।"
 
-#: ../color.rst:285
+#: ../doc/color.rst:285
 msgid ""
 "*A face region selected in the video preview (left) with the vectorscope "
 "plotting only those pixels (right). The skin tone cluster aligns with the "
@@ -730,7 +730,7 @@ msgstr ""
 " সেই পিক্সেলগুলি (ডানে) প্লট করছে। ত্বকের রঙের ক্লাস্টার হলুদ-কমলা অঞ্চলের "
 "ছিন্ন ছিন্ন ত্বকের রঙের লাইনের সাথে সঙ্গতিপূর্ণ।*"
 
-#: ../color.rst:288
+#: ../doc/color.rst:288
 msgid ""
 "Avoid pushing Saturation too high — over-saturated skin looks unnatural even"
 " when the hue is correct."
@@ -738,11 +738,11 @@ msgstr ""
 "স্যাচুরেশন খুব বেশি বাড়ানো এড়িয়ে চলুন — অতিরিক্ত স্যাচুরেটেড ত্বক "
 "অস্বাভাবিক দেখায় যদিও রঙ সঠিক থাকে।"
 
-#: ../color.rst:291
+#: ../doc/color.rst:291
 msgid "Primary Correction Controls"
 msgstr "প্রাথমিক সংশোধন নিয়ন্ত্রণ"
 
-#: ../color.rst:293
+#: ../doc/color.rst:293
 msgid ""
 "These controls appear in the :guilabel:`Properties` panel when the Color "
 "Grade effect is selected:"
@@ -751,51 +751,51 @@ msgstr ""
 ":guilabel:`Properties` প্যানেলে প্রদর্শিত হয়:"
 
 # Main-window terminology review, 2026-09-26.
-#: ../color.rst:299
+#: ../doc/color.rst:299
 msgid "Property"
 msgstr "বৈশিষ্ট্য"
 
-#: ../color.rst:299
+#: ../doc/color.rst:299
 msgid "What It Does"
 msgstr "এটি কী করে"
 
-#: ../color.rst:301
+#: ../doc/color.rst:301
 msgid "Temperature"
 msgstr "তাপমাত্রা"
 
-#: ../color.rst:301
+#: ../doc/color.rst:301
 msgid "Warms (positive) or cools (negative) the entire image."
 msgstr "পুরো চিত্রকে গরম (ইতিবাচক) বা ঠান্ডা (ঋণাত্মক) করে।"
 
-#: ../color.rst:302
+#: ../doc/color.rst:302
 msgid "Tint"
 msgstr "টিন্ট"
 
-#: ../color.rst:302
+#: ../doc/color.rst:302
 msgid "Fine-tunes green/magenta balance after Temperature."
 msgstr "তাপমাত্রার পরে সবুজ/ম্যাজেন্টার ভারসাম্য সূক্ষ্মভাবে সামঞ্জস্য করে।"
 
-#: ../color.rst:303
+#: ../doc/color.rst:303
 msgid "Exposure"
 msgstr "এক্সপোজার"
 
-#: ../color.rst:303
+#: ../doc/color.rst:303
 msgid "Makes the whole image brighter or darker."
 msgstr "পুরো চিত্রকে উজ্জ্বল বা অন্ধকার করে।"
 
-#: ../color.rst:304
+#: ../doc/color.rst:304
 msgid "Contrast"
 msgstr "কনট্রাস্ট"
 
-#: ../color.rst:304
+#: ../doc/color.rst:304
 msgid "Expands (positive) or compresses (negative) the tonal range."
 msgstr "টোনাল রেঞ্জ বাড়ায় (ইতিবাচক) বা সংকুচিত করে (ঋণাত্মক)।"
 
-#: ../color.rst:305 ../color.rst:364
+#: ../doc/color.rst:305 ../doc/color.rst:364
 msgid "Highlights"
 msgstr "হাইলাইটস"
 
-#: ../color.rst:305
+#: ../doc/color.rst:305
 msgid ""
 "Brightens or darkens only the bright parts. Negative values recover "
 "overexposed highlights."
@@ -803,30 +803,30 @@ msgstr ""
 "শুধুমাত্র উজ্জ্বল অংশগুলোকে উজ্জ্বল বা অন্ধকার করে। ঋণাত্মক মান অতিরিক্ত "
 "এক্সপোজড হাইলাইটস পুনরুদ্ধার করে।"
 
-#: ../color.rst:307 ../color.rst:362
+#: ../doc/color.rst:307 ../doc/color.rst:362
 msgid "Shadows"
 msgstr "ছায়া"
 
-#: ../color.rst:307
+#: ../doc/color.rst:307
 msgid ""
 "Lifts or lowers only the dark parts. Positive values open up shadow detail."
 msgstr ""
 "শুধুমাত্র অন্ধকার অংশগুলোকে উঁচু বা নিচু করে। ইতিবাচক মান ছায়ার বিস্তারিত "
 "উন্মুক্ত করে।"
 
-#: ../color.rst:309
+#: ../doc/color.rst:309
 msgid "Saturation"
 msgstr "স্যাচুরেশন"
 
-#: ../color.rst:309
+#: ../doc/color.rst:309
 msgid "Overall color intensity. 1.0 = unchanged, 0.0 = grayscale."
 msgstr "সর্বমোট রঙের তীব্রতা। ১.০ = অপরিবর্তিত, ০.০ = ধূসরমাত্রা।"
 
-#: ../color.rst:310
+#: ../doc/color.rst:310
 msgid "Vibrance"
 msgstr "ভাইব্রেন্স"
 
-#: ../color.rst:310
+#: ../doc/color.rst:310
 msgid ""
 "Like Saturation, but preferentially boosts muted colors without "
 "oversaturating ones that are already vivid."
@@ -834,15 +834,15 @@ msgstr ""
 "স্যাচুরেশনের মতো, কিন্তু ইতিমধ্যেই জীবন্ত রঙগুলো অতিরিক্ত স্যাচুরেট না করে "
 "মৃদু রঙগুলোকে অগ্রাধিকার দিয়ে বাড়ায়।"
 
-#: ../color.rst:315
+#: ../doc/color.rst:315
 msgid "A Correction Workflow"
 msgstr "একটি সংশোধন কর্মপ্রবাহ"
 
-#: ../color.rst:317
+#: ../doc/color.rst:317
 msgid "Work in this order for the best results:"
 msgstr "সেরা ফলাফলের জন্য এই ক্রমে কাজ করুন:"
 
-#: ../color.rst:319
+#: ../doc/color.rst:319
 msgid ""
 "**Fix white balance first** — Temperature and Tint until neutrals look "
 "neutral."
@@ -850,19 +850,19 @@ msgstr ""
 "**প্রথমে হোয়াইট ব্যালেন্স ঠিক করুন** — Temperature এবং Tint ব্যবহার করুন "
 "যতক্ষণ না নিরপেক্ষ অংশগুলি নিরপেক্ষ দেখায়।"
 
-#: ../color.rst:320
+#: ../doc/color.rst:320
 msgid "**Set exposure** — Exposure until brightness feels correct."
 msgstr ""
 "**এক্সপোজার সেট করুন** — এক্সপোজার সামঞ্জস্য করুন যতক্ষণ না উজ্জ্বলতা সঠিক "
 "মনে হয়।"
 
-#: ../color.rst:321
+#: ../doc/color.rst:321
 msgid "**Adjust contrast** — expand or compress the tonal range to add depth."
 msgstr ""
 "**কনট্রাস্ট সামঞ্জস্য করুন** — গভীরতা বাড়াতে টোনাল রেঞ্জ বাড়ান বা সংকুচিত "
 "করুন।"
 
-#: ../color.rst:322
+#: ../doc/color.rst:322
 msgid ""
 "**Recover clipping** — Highlights and Shadows if bright areas are blown or "
 "shadows are crushed."
@@ -870,13 +870,13 @@ msgstr ""
 "**ক্লিপিং পুনরুদ্ধার করুন** — উজ্জ্বল অংশ অতিরিক্ত উজ্জ্বল হলে বা ছায়া চাপা"
 " পড়লে Highlights এবং Shadows ব্যবহার করুন।"
 
-#: ../color.rst:323
+#: ../doc/color.rst:323
 msgid "**Adjust saturation** — Saturation or Vibrance to taste."
 msgstr ""
 "**স্যাচুরেশন সামঞ্জস্য করুন** — আপনার পছন্দমতো Saturation বা Vibrance "
 "ব্যবহার করুন।"
 
-#: ../color.rst:324
+#: ../doc/color.rst:324
 msgid ""
 "**Check skin tones** — open the Vectorscope, use the Region selector on "
 "faces, and confirm the cluster aligns with the skin tone line."
@@ -884,7 +884,7 @@ msgstr ""
 "**ত্বকের রঙ পরীক্ষা করুন** — Vectorscope খুলুন, মুখে Region সিলেক্টর ব্যবহার"
 " করুন, এবং নিশ্চিত করুন ক্লাস্টারটি ত্বকের রঙের লাইনের সাথে সঙ্গতিপূর্ণ।"
 
-#: ../color.rst:327
+#: ../doc/color.rst:327
 msgid ""
 "Use the scopes at each step — they show you what is actually in the image, "
 "regardless of monitor calibration."
@@ -892,11 +892,11 @@ msgstr ""
 "প্রতিটি ধাপে স্কোপগুলি ব্যবহার করুন — এগুলি আপনাকে দেখায় ছবিতে আসলে কী আছে,"
 " মনিটর ক্যালিব্রেশনের পরোয়া না করে।"
 
-#: ../color.rst:333
+#: ../doc/color.rst:333
 msgid "Color Grading"
 msgstr "রঙ গ্রেডিং"
 
-#: ../color.rst:335
+#: ../doc/color.rst:335
 msgid ""
 "Color grading is the creative step: using the same tools to build a "
 "deliberate visual mood on top of corrected footage. A few classic grades to "
@@ -906,7 +906,7 @@ msgstr ""
 " সচেতন ভিজ্যুয়াল মেজাজ তৈরি করা। আপনাকে অনুপ্রাণিত করার জন্য কয়েকটি "
 "ক্লাসিক গ্রেড:"
 
-#: ../color.rst:338
+#: ../doc/color.rst:338
 msgid ""
 "**Warm, golden nostalgic** — push Highlights toward orange-yellow, nudge "
 "Midtones slightly warm."
@@ -914,7 +914,7 @@ msgstr ""
 "**উষ্ণ, সোনালী নস্টালজিক** — হাইলাইটগুলোকে কমলা-হলুদ দিকে ঠেলে দিন, "
 "মিডটোনগুলোকে সামান্য উষ্ণ করুন।"
 
-#: ../color.rst:339
+#: ../doc/color.rst:339
 msgid ""
 "**Cold, clinical** — cool the Shadows, desaturate slightly, keep Highlights "
 "neutral."
@@ -922,7 +922,7 @@ msgstr ""
 "**ঠান্ডা, ক্লিনিক্যাল** — শ্যাডোগুলো ঠান্ডা করুন, সামান্য রঙ কমান, "
 "হাইলাইটগুলো নিরপেক্ষ রাখুন।"
 
-#: ../color.rst:340
+#: ../doc/color.rst:340
 msgid ""
 "**Teal and orange** — the blockbuster look: Shadows toward teal, Highlights "
 "toward orange."
@@ -930,7 +930,7 @@ msgstr ""
 "**টিল এবং কমলা** — ব্লকবাস্টার লুক: শ্যাডোগুলো টিলের দিকে, হাইলাইটগুলো কমলার"
 " দিকে।"
 
-#: ../color.rst:341
+#: ../doc/color.rst:341
 msgid ""
 "**Faded film** — lift the black point slightly (Curves) so shadows never "
 "reach full black."
@@ -938,11 +938,11 @@ msgstr ""
 "**ফেডেড ফিল্ম** — ব্ল্যাক পয়েন্ট সামান্য বাড়ান (কার্ভস) যাতে শ্যাডোগুলো "
 "কখনো সম্পূর্ণ কালো হয় না।"
 
-#: ../color.rst:346
+#: ../doc/color.rst:346
 msgid "Color Wheels"
 msgstr "রঙের চাকা"
 
-#: ../color.rst:348
+#: ../doc/color.rst:348
 msgid ""
 "Color wheels push color into specific **tonal ranges** without affecting the"
 " others. This is the tool professional colorists reach for most."
@@ -950,44 +950,44 @@ msgstr ""
 "রঙের চাকা নির্দিষ্ট **টোনাল পরিসরে** রঙ ঠেলে দেয় অন্যগুলিকে প্রভাবিত না "
 "করে। এটি পেশাদার রঙবিদেরা সবচেয়ে বেশি ব্যবহার করেন এমন সরঞ্জাম।"
 
-#: ../color.rst:353
+#: ../doc/color.rst:353
 msgid ""
 "*The Color Wheels dock, showing Global, Shadows, Midtones, and Highlights "
 "wheels.*"
 msgstr "*রঙের চাকা ডক, যা গ্লোবাল, শ্যাডো, মিডটোন এবং হাইলাইট চাকা দেখায়।*"
 
-#: ../color.rst:359
+#: ../doc/color.rst:359
 msgid "Wheel"
 msgstr "চাকা"
 
-#: ../color.rst:359
+#: ../doc/color.rst:359
 msgid "What It Affects"
 msgstr "এটি কী প্রভাবিত করে"
 
-#: ../color.rst:361
+#: ../doc/color.rst:361
 msgid "Global"
 msgstr "গ্লোবাল"
 
-#: ../color.rst:361
+#: ../doc/color.rst:361
 msgid "A color tint across the **entire image** at all brightness levels."
 msgstr "সমস্ত উজ্জ্বলতা স্তরে **সম্পূর্ণ ছবিতে** একটি রঙের ছোঁয়া।"
 
-#: ../color.rst:362
+#: ../doc/color.rst:362
 msgid "Color only in the **darkest parts**. Great for a cool teal tint."
 msgstr ""
 "**সবচেয়ে অন্ধকার অংশে** শুধুমাত্র রঙ। ঠান্ডা টিল টিন্টের জন্য চমৎকার।"
 
-#: ../color.rst:363
+#: ../doc/color.rst:363
 msgid "Midtones"
 msgstr "মিডটোন"
 
-#: ../color.rst:363
+#: ../doc/color.rst:363
 msgid ""
 "Color in the **middle tones** — where most skin tones live. Handle gently."
 msgstr ""
 "**মধ্যম টোনে** রঙ — যেখানে বেশিরভাগ ত্বকের রঙ থাকে। সাবধানে ব্যবহার করুন।"
 
-#: ../color.rst:364
+#: ../doc/color.rst:364
 msgid ""
 "Color only in the **brightest parts**. Warming highlights while keeping "
 "shadows cool is the foundation of the teal-and-orange look."
@@ -995,7 +995,7 @@ msgstr ""
 "**সবচেয়ে উজ্জ্বল অংশে** শুধুমাত্র রঙ। হাইলাইট গরম করা এবং শ্যাডো ঠান্ডা "
 "রাখা টিল-কমলা লুকের ভিত্তি।"
 
-#: ../color.rst:368
+#: ../doc/color.rst:368
 msgid ""
 "Drag the **central dot** toward the desired color. Further from center = "
 "stronger effect."
@@ -1003,50 +1003,50 @@ msgstr ""
 "ইচ্ছাকৃত রঙের দিকে **মধ্যবর্তী বিন্দু** টেনে আনুন। কেন্দ্র থেকে যত দূরে, "
 "প্রভাব তত শক্তিশালী।"
 
-#: ../color.rst:369
+#: ../doc/color.rst:369
 msgid ""
 "The **Amount** slider blends the tinted result back toward the original."
 msgstr "**পরিমাণ** স্লাইডার রঙিন ফলাফলকে মূল ছবির দিকে মিশ্রিত করে।"
 
-#: ../color.rst:370
+#: ../doc/color.rst:370
 msgid "The **Luma** slider adjusts the brightness of that tonal zone."
 msgstr "**লুমা** স্লাইডার ঐ টোনাল অঞ্চলের উজ্জ্বলতা সামঞ্জস্য করে।"
 
-#: ../color.rst:371
+#: ../doc/color.rst:371
 msgid ""
 "Right-click any wheel in Properties → **Reset** to return it to neutral."
 msgstr ""
 "প্রোপার্টিজে যেকোনো চাকার উপর রাইট-ক্লিক করুন → **রিসেট** করে তা নিরপেক্ষ "
 "অবস্থায় ফিরিয়ে আনুন।"
 
-#: ../color.rst:373
+#: ../doc/color.rst:373
 msgid "**To build the classic teal-and-orange look:**"
 msgstr "**ক্লাসিক টিল-কমলা লুক তৈরি করতে:**"
 
-#: ../color.rst:375
+#: ../doc/color.rst:375
 msgid "Drag **Shadows** toward teal (blue-green)."
 msgstr "**শ্যাডো** টিল (নীল-সবুজ) দিকে টেনে আনুন।"
 
-#: ../color.rst:376
+#: ../doc/color.rst:376
 msgid "Drag **Highlights** toward orange."
 msgstr "**হাইলাইট** কমলা দিকে টেনে আনুন।"
 
-#: ../color.rst:377
+#: ../doc/color.rst:377
 msgid ""
 "Optionally nudge **Midtones** very slightly toward orange to warm skin "
 "tones."
 msgstr "ঐচ্ছিকভাবে **মিডটোন** সামান্য কমলা দিকে ঠেলে ত্বকের রঙ গরম করুন।"
 
-#: ../color.rst:378
+#: ../doc/color.rst:378
 msgid ""
 "Lower the Amount sliders to 0.3–0.5 so the effect does not become overdone."
 msgstr "প্রভাব অতিরঞ্জিত না হয় সেজন্য পরিমাণ স্লাইডার ০.৩–০.৫ পর্যন্ত নামান।"
 
-#: ../color.rst:383
+#: ../doc/color.rst:383
 msgid "Curves — Precise Tonal and Color Control"
 msgstr "কার্ভস — সুনির্দিষ্ট টোনাল এবং রঙ নিয়ন্ত্রণ"
 
-#: ../color.rst:385
+#: ../doc/color.rst:385
 msgid ""
 "A curve is a graph where the horizontal axis is the input value and the "
 "vertical axis is the output value. A straight diagonal line means no change."
@@ -1057,7 +1057,7 @@ msgstr ""
 "মান। সরল তির্যক রেখা মানে কোনো পরিবর্তন নেই। কার্ভ বাঁকালে আপনি ঐ টোনাল "
 "পরিসরের ইনপুট ও আউটপুটের সম্পর্ক পরিবর্তন করেন।"
 
-#: ../color.rst:391
+#: ../doc/color.rst:391
 msgid ""
 "*The OpenShot Curve Editor. Click to add points, drag to reshape, right-"
 "click to change interpolation.*"
@@ -1065,11 +1065,11 @@ msgstr ""
 "*OpenShot কার্ভ এডিটর। পয়েন্ট যোগ করতে ক্লিক করুন, আকৃতি পরিবর্তন করতে টেনে"
 " আনুন, ইন্টারপোলেশন পরিবর্তন করতে রাইট-ক্লিক করুন।*"
 
-#: ../color.rst:393
+#: ../doc/color.rst:393
 msgid "**Common curve shapes:**"
 msgstr "**সাধারণ কার্ভ আকৃতি:**"
 
-#: ../color.rst:395
+#: ../doc/color.rst:395
 msgid ""
 "**S-curve** — pull the upper-right quarter up, the lower-left quarter down. "
 "Adds contrast and pop without shifting mid-gray. The most common starting "
@@ -1079,7 +1079,7 @@ msgstr ""
 "টানুন। মাঝারি ধূসর পরিবর্তন না করে কনট্রাস্ট এবং প্রাণ যোগ করে। সবচেয়ে "
 "সাধারণ শুরু।"
 
-#: ../color.rst:397
+#: ../doc/color.rst:397
 msgid ""
 "**Lifted blacks** — drag the bottom-left corner upward. Shadows never go "
 "fully to black — the faded-film look."
@@ -1087,7 +1087,7 @@ msgstr ""
 "**উঠানো কালো** — নিচের বাম কোণ উপরে টানুন। শ্যাডো কখনো সম্পূর্ণ কালো হয় না "
 "— ফেডেড ফিল্ম লুক।"
 
-#: ../color.rst:399
+#: ../doc/color.rst:399
 msgid ""
 "**Lower highlights** — add a point in the upper-right and pull it down. "
 "Recovers bright areas without affecting the rest."
@@ -1095,17 +1095,17 @@ msgstr ""
 "**হাইলাইট কমানো** — উপরের ডানদিকে একটি পয়েন্ট যোগ করুন এবং নিচে টানুন। বাকি"
 " অংশকে প্রভাবিত না করে উজ্জ্বল অংশ পুনরুদ্ধার করে।"
 
-#: ../color.rst:402
+#: ../doc/color.rst:402
 msgid "**The four channels:**"
 msgstr "**চারটি চ্যানেল:**"
 
-#: ../color.rst:404
+#: ../doc/color.rst:404
 msgid ""
 "**Curve: All** — overall brightness across all channels. Used most often."
 msgstr ""
 "**কার্ভ: সব** — সব চ্যানেলের সামগ্রিক উজ্জ্বলতা। সবচেয়ে বেশি ব্যবহৃত।"
 
-#: ../color.rst:405
+#: ../doc/color.rst:405
 msgid ""
 "**Curve: Red** — up adds red (warms), down adds cyan. Pull shadows down for "
 "a cool shadow tint."
@@ -1113,11 +1113,11 @@ msgstr ""
 "**কার্ভ: লাল** — উপরে টানলে লাল (উষ্ণ), নিচে টানলে সায়ান যোগ হয়। ঠান্ডা "
 "শ্যাডো টিন্টের জন্য শ্যাডো নিচে টানুন।"
 
-#: ../color.rst:406
+#: ../doc/color.rst:406
 msgid "**Curve: Green** — up adds green, down adds magenta."
 msgstr "**কার্ভ: সবুজ** — উপরে টানলে সবুজ, নিচে টানলে ম্যাজেন্টা যোগ হয়।"
 
-#: ../color.rst:407
+#: ../doc/color.rst:407
 msgid ""
 "**Curve: Blue** — up cools, down warms. Classic move: pull Blue Shadows up "
 "(cool teal shadows) and Blue Highlights down (warm orange highlights)."
@@ -1126,7 +1126,7 @@ msgstr ""
 " নীল শ্যাডো উপরে টানুন (ঠান্ডা টিল শ্যাডো) এবং নীল হাইলাইট নিচে টানুন (উষ্ণ "
 "কমলা হাইলাইট)।"
 
-#: ../color.rst:410
+#: ../doc/color.rst:410
 msgid ""
 "Curves beat sliders because you can apply *different* adjustments to "
 "*different* tonal ranges in a single operation — for example, warming "
@@ -1136,11 +1136,11 @@ msgstr ""
 " *বিভিন্ন* সমন্বয় করতে পারেন — যেমন, হাইলাইট গরম করা এবং শ্যাডো ঠান্ডা করা "
 "একসাথে।"
 
-#: ../color.rst:416
+#: ../doc/color.rst:416
 msgid "LUT Files — One-Click Color Looks"
 msgstr "LUT ফাইল — এক-ক্লিকে রঙের লুক"
 
-#: ../color.rst:418
+#: ../doc/color.rst:418
 msgid ""
 "A **LUT** (Lookup Table) is a pre-made color transformation: for every input"
 " color, output a specific different color. Professional colorists use LUTs "
@@ -1152,7 +1152,7 @@ msgstr ""
 "স্টক, ক্যামেরা লুক বা সিনেমাটিক স্টাইল পুনরায় তৈরি করতে LUT ব্যবহার করেন। "
 "OpenShot শিল্প-মানের **.cube** ফাইল সমর্থন করে।"
 
-#: ../color.rst:422
+#: ../doc/color.rst:422
 msgid ""
 "OpenShot ships with a built-in LUT collection — see the :ref:`effects_ref` "
 "page for a visual gallery. Free **.cube** packs are widely available from "
@@ -1162,19 +1162,19 @@ msgstr ""
 " :ref:`effects_ref` পৃষ্ঠা দেখুন। ফ্রি **.cube** প্যাক অনলাইনে ফটোগ্রাফি "
 "কমিউনিটিগুলো থেকে ব্যাপকভাবে পাওয়া যায়।"
 
-#: ../color.rst:425
+#: ../doc/color.rst:425
 msgid "**How to apply a LUT:**"
 msgstr "**কিভাবে LUT প্রয়োগ করবেন:**"
 
-#: ../color.rst:427
+#: ../doc/color.rst:427
 msgid "Select the :guilabel:`Color Grade` effect properties."
 msgstr ":guilabel:`Color Grade` ইফেক্ট প্রোপার্টিজ নির্বাচন করুন।"
 
-#: ../color.rst:428
+#: ../doc/color.rst:428
 msgid "Click :guilabel:`LUT File` and browse to a **.cube** file."
 msgstr ":guilabel:`LUT File` ক্লিক করুন এবং একটি **.cube** ফাইল ব্রাউজ করুন।"
 
-#: ../color.rst:429
+#: ../doc/color.rst:429
 msgid ""
 "Use :guilabel:`LUT Intensity` (0.0–1.0) to blend the LUT with your corrected"
 " image. Most professionals land between 0.4–0.7 for a natural feel."
@@ -1183,11 +1183,11 @@ msgstr ""
 "সাথে মিশ্রিত করুন। বেশিরভাগ পেশাদার ০.৪–০.৭ এর মধ্যে ব্যবহার করেন প্রাকৃতিক "
 "অনুভূতির জন্য।"
 
-#: ../color.rst:432
+#: ../doc/color.rst:432
 msgid "**Tips:**"
 msgstr "**টিপস:**"
 
-#: ../color.rst:434
+#: ../doc/color.rst:434
 msgid ""
 "Correct first, then grade. LUTs assume properly balanced footage — applied "
 "to a color-cast image, they will look wrong."
@@ -1195,7 +1195,7 @@ msgstr ""
 "প্রথমে সঠিক করুন, তারপর গ্রেড করুন। LUT গুলো সঠিকভাবে ব্যালান্স করা ফুটেজের "
 "জন্য তৈরি — রঙের ছায়াযুক্ত ছবিতে প্রয়োগ করলে এগুলো ভুল দেখাবে।"
 
-#: ../color.rst:436
+#: ../doc/color.rst:436
 msgid ""
 "Most included LUTs target Rec. 709 footage (HD cameras, smartphones). If "
 "your camera records in a LOG profile, apply the appropriate LOG conversion "
@@ -1205,7 +1205,7 @@ msgstr ""
 " আপনার ক্যামেরা যদি LOG প্রোফাইলে রেকর্ড করে, তাহলে প্রথমে উপযুক্ত LOG "
 "রূপান্তর LUT প্রয়োগ করুন।"
 
-#: ../color.rst:438
+#: ../doc/color.rst:438
 msgid ""
 "Stack Color Grade with separate Color Map / Lookup effects to layer multiple"
 " LUTs."
@@ -1213,11 +1213,11 @@ msgstr ""
 "একাধিক LUT স্তর করার জন্য আলাদা Color Map / Lookup প্রভাবের সাথে Color Grade"
 " স্তর করুন।"
 
-#: ../color.rst:443
+#: ../doc/color.rst:443
 msgid "The Mix Control"
 msgstr "মিক্স নিয়ন্ত্রণ"
 
-#: ../color.rst:445
+#: ../doc/color.rst:445
 msgid ""
 "The **Mix** control (0.0–1.0) at the bottom of the Color Grade effect blends"
 " the graded result with the original image. At 1.0, the full grade applies. "
@@ -1227,7 +1227,7 @@ msgstr ""
 "ফলাফলকে মূল ছবির সাথে মিশ্রিত করে। ১.০ এ সম্পূর্ণ গ্রেড প্রয়োগ হয়। ০.০ এ "
 "মূল ছবি প্রদর্শিত হয়।"
 
-#: ../color.rst:448
+#: ../doc/color.rst:448
 msgid ""
 "If your grade is correct but feels slightly heavy, dial Mix back to 0.7–0.9 "
 "to soften everything at once — no need to revisit every individual control."
@@ -1235,7 +1235,7 @@ msgstr ""
 "আপনার গ্রেড সঠিক হলেও যদি একটু ভারী মনে হয়, তাহলে সবকিছু একসাথে নরম করতে "
 "Mix 0.7–0.9 এ নামান — প্রতিটি নিয়ন্ত্রণ আবার দেখার দরকার নেই।"
 
-#: ../color.rst:451
+#: ../doc/color.rst:451
 msgid ""
 "Mix is keyframable: animate the grade fading in or out over time, for "
 "example opening a scene flat and letting it bloom into full color."
@@ -1243,11 +1243,11 @@ msgstr ""
 "Mix কিফ্রেমযোগ্য: সময়ের সাথে গ্রেডের ফেড ইন বা আউট অ্যানিমেট করুন, যেমন "
 "একটি দৃশ্য ফ্ল্যাট থেকে খুলে সম্পূর্ণ রঙে বিকশিত হওয়া।"
 
-#: ../color.rst:457
+#: ../doc/color.rst:457
 msgid "Putting It All Together — A Complete Workflow"
 msgstr "সবকিছু একত্রিত করা — একটি সম্পূর্ণ কর্মপ্রবাহ"
 
-#: ../color.rst:459
+#: ../doc/color.rst:459
 msgid ""
 "Select your clip. Right-click → :guilabel:`Color → Adjust Colors` to add the"
 " effect and open the Color Wheels and scopes in one step. Or use "
@@ -1259,7 +1259,7 @@ msgstr ""
 "ফুটেজ মূল্যায়নের জন্য প্রথমে :guilabel:`Color → Analyze Colors` ব্যবহার "
 "করুন।"
 
-#: ../color.rst:462
+#: ../doc/color.rst:462
 msgid ""
 "**Check the scopes before touching anything** — is the waveform too high or "
 "too low? A cast on the RGB Parade? The histogram clipping against the right "
@@ -1268,11 +1268,11 @@ msgstr ""
 "**কিছু করার আগে স্কোপগুলো পরীক্ষা করুন** — ওয়েভফর্ম কি খুব বেশি বা কম? RGB "
 "Parade-এ কোনো ছায়া আছে? হিস্টোগ্রাম কি ডান প্রান্তে ক্লিপ হচ্ছে?"
 
-#: ../color.rst:464
+#: ../doc/color.rst:464
 msgid "Fix **Temperature** and **Tint** to neutralize white balance."
 msgstr "সাদা ভারসাম্য নিরপেক্ষ করতে **Temperature** এবং **Tint** ঠিক করুন।"
 
-#: ../color.rst:465
+#: ../doc/color.rst:465
 msgid ""
 "Fix **Exposure**, then **Contrast**. Use **Highlights** and **Shadows** to "
 "recover clipping."
@@ -1280,11 +1280,11 @@ msgstr ""
 "**Exposure** ঠিক করুন, তারপর **Contrast**। ক্লিপিং পুনরুদ্ধারের জন্য "
 "**Highlights** এবং **Shadows** ব্যবহার করুন।"
 
-#: ../color.rst:466
+#: ../doc/color.rst:466
 msgid "Gently adjust **Saturation** or **Vibrance**."
 msgstr "সাবধানে **Saturation** বা **Vibrance** সামঞ্জস্য করুন।"
 
-#: ../color.rst:467
+#: ../doc/color.rst:467
 msgid ""
 "Open the **Vectorscope**, click Region, and draw a box over any faces. "
 "Confirm the skin tone cluster aligns with the dashed line. If not, adjust "
@@ -1294,7 +1294,7 @@ msgstr ""
 "আঁকুন। নিশ্চিত করুন ত্বকের রঙের ক্লাস্টার ড্যাশ করা লাইনের সাথে সঙ্গতিপূর্ণ।"
 " না হলে Temperature বা Global color wheel সামঞ্জস্য করুন।"
 
-#: ../color.rst:469
+#: ../doc/color.rst:469
 msgid ""
 "Open the **Color Wheels** dock and build your creative grade — push Shadows "
 "one direction, Highlights the opposite, handle Midtones carefully."
@@ -1302,7 +1302,7 @@ msgstr ""
 "**Color Wheels** ডক খুলুন এবং আপনার সৃজনশীল গ্রেড তৈরি করুন — Shadows একদিকে"
 " ঠেলুন, Highlights বিপরীত দিকে, Midtones সাবধানে সামলান।"
 
-#: ../color.rst:471
+#: ../doc/color.rst:471
 msgid ""
 "Fine-tune with **Curves**: a gentle S-curve on Curve: All; Curve: Blue for a"
 " cinematic push (cool shadows up, warm highlights down)."
@@ -1311,18 +1311,18 @@ msgstr ""
 "Curve: Blue এ সিনেমাটিক প্রভাবের জন্য (ঠান্ডা ছায়া উপরে, উষ্ণ হাইলাইট "
 "নিচে)।"
 
-#: ../color.rst:473
+#: ../doc/color.rst:473
 msgid ""
 "Optionally browse to a **.cube** LUT and blend it in with **LUT Intensity**."
 msgstr ""
 "ঐচ্ছিকভাবে একটি **.cube** LUT ব্রাউজ করুন এবং **LUT Intensity** দিয়ে "
 "মিশ্রিত করুন।"
 
-#: ../color.rst:474
+#: ../doc/color.rst:474
 msgid "If the overall grade feels heavy, lower **Mix** to 0.7–0.9."
 msgstr "যদি সামগ্রিক গ্রেড ভারী মনে হয়, তাহলে **Mix** 0.7–0.9 এ নামান।"
 
-#: ../color.rst:475
+#: ../doc/color.rst:475
 msgid ""
 "To compare before/after, drag **Mix** to 0.0 to see the original, then back "
 "to 1.0."
@@ -1330,7 +1330,7 @@ msgstr ""
 "আগে/পরে তুলনা করতে, **Mix** 0.0 এ টেনে মূলটি দেখুন, তারপর 1.0 এ ফিরিয়ে "
 "আনুন।"
 
-#: ../color.rst:476
+#: ../doc/color.rst:476
 msgid ""
 "Happy with the result? Right-click the effect → **Copy**, select other "
 "clips, and **Paste Effects**. Or use the **Parent** property to link "
@@ -1341,7 +1341,7 @@ msgstr ""
 "গ্রেডের সাথে যুক্ত করতে **Parent** বৈশিষ্ট্য ব্যবহার করুন (দেখুন "
 ":ref:`effect_parent_ref`)।"
 
-#: ../color.rst:480
+#: ../doc/color.rst:480
 msgid ""
 "For animating color properties over time, see :ref:`animation_ref`. For a "
 "complete list of all Color Grade properties, see :ref:`effects_ref`."

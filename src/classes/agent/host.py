@@ -47,7 +47,9 @@ class SessionServer(QObject):
         self.busy = False
         directory = session_dir()
         directory.mkdir(mode=0o700, parents=True, exist_ok=True)
-        self.endpoint = 'openshot-agent-' + self.session_id
+        # macOS temporary directories leave little room for a Unix socket name.
+        # Discovery records carry the full endpoint; it need not contain the session ID.
+        self.endpoint = 'osa-' + uuid.uuid4().hex[:16]
         if not self.server.listen(self.endpoint):
             raise RuntimeError(self.server.errorString())
         self.server.newConnection.connect(self.accept)

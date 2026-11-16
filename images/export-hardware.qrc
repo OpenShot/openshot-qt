@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/hw">
+        <file>hw-accel-amf.svg</file>
+        <file>hw-accel-vtb.svg</file>
+    </qresource>
+</RCC>

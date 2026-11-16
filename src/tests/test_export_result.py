@@ -12,9 +12,9 @@ if PATH not in sys.path:
     sys.path.append(PATH)
 
 from qt_api import QApplication, QColor, QPalette, QWidget, isdeleted
-from classes import desktop_open
+from classes import desktop_open, portal_file_dialog
 from windows.export_result import (
-    ExportResultTab, export_details, format_duration, format_elapsed, format_label, format_size, status_badge,
+    ExportResultTab, encoder_detail, export_details, format_duration, format_elapsed, format_label, format_size, status_badge,
 )
 
 DETAILS = [("file", "Format", "MP4 (H.264)"), ("film", "Resolution", "HD 720p 30 fps"),
@@ -27,11 +27,54 @@ class ExportResultTests(unittest.TestCase):
     def setUpClass(cls):
         cls.app = QApplication.instance() or QApplication([])
 
-    def make_panel(self, width=620):
-        panel = ExportResultTab(lambda text: text)
+    def make_panel(self, width=620, parent=None):
+        panel = ExportResultTab(lambda text: text, parent)
         panel.resize(width, 420)
         self.addCleanup(lambda: panel.deleteLater() if not isdeleted(panel) else None)
         return panel
+
+    def test_gpu_summary_keeps_only_this_export_and_hides_without_measurements(self):
+        panel = self.make_panel()
+        panel.show_success('/tmp/out.mp4', 'video', DETAILS)
+        raw = {'decode_gpu': 8, 'decode_cpu': 2, 'render_gpu': 10,
+               'copy_free': 9, 'gpu_requests': 10, 'encode_gpu': 10}
+        panel.set_gpu_metrics(raw)
+        raw['encode_gpu'] = 0
+        self.assertFalse(panel.gpu_summary.isHidden())
+        self.assertEqual(panel.gpu_headline.text(), 'Partially GPU accelerated')
+        self.assertIn('Read 80% · Process 100% · Copy-free 90% · Encode 100%',
+                      panel.gpu_segments.toolTip())
+        self.assertEqual(len(panel.gpu_segments.toolTip().splitlines()), 3)
+        panel.set_gpu_metrics({})
+        self.assertTrue(panel.gpu_summary.isHidden())
+        panel.set_gpu_metrics({'native_available': False})
+        self.assertFalse(panel.gpu_summary.isHidden())
+        self.assertIn('measurements are unavailable', panel.gpu_stage_summary.text())
+
+    def test_gpu_summary_uses_one_card_for_all_states_and_encoder_details(self):
+        panel = self.make_panel()
+        panel.show_success('/tmp/out.mp4', 'video', DETAILS)
+        full = dict(decode_gpu=10, render_gpu=10, encode_gpu=10, export_frames=10,
+                    export_copy_free=10, encoder='h264_nvenc')
+        panel.set_gpu_metrics(full)
+        self.assertEqual(panel.gpu_headline.text(), 'Fully GPU accelerated')
+        self.assertEqual(len(panel.cards), 6)
+        self.assertIn('NVENC', panel.gpu_summary.toolTip())
+        self.assertEqual(len(panel.gpu_summary.toolTip().splitlines()), 4)
+        self.assertEqual(len(panel.gpu_segments.toolTip().splitlines()), 3)
+        self.assertNotIn('Encoder:', panel.gpu_segments.toolTip())
+        self.assertFalse(panel.gpu_icon.pixmap().isNull())
+        partial = dict(full, encode_gpu=0, encode_cpu=10, export_copy_free=0,
+                       readbacks=10, encoder='libx264')
+        panel.set_gpu_metrics(partial)
+        self.assertEqual(panel.gpu_headline.text(), 'Partially GPU accelerated')
+        self.assertIn('Your CPU encoded', panel.gpu_stage_summary.text())
+        self.assertEqual(panel.gpu_segments.rows[2]['percent'], 0)
+        self.assertIn('Encoder: CPU · Software', panel.gpu_summary.toolTip())
+        panel.set_gpu_metrics(dict(decode_cpu=10, render_cpu=10, encode_cpu=10,
+                                   export_frames=10, export_copy_free=0))
+        self.assertEqual(panel.gpu_headline.text(), 'No GPU acceleration')
+        self.assertTrue(all(row['percent'] == 0 for row in panel.gpu_segments.rows))
 
     def test_labels(self):
         self.assertEqual(format_label("mp4", "libx264", "aac", "video"), "MP4 (H.264)")
@@ -75,8 +118,12 @@ class ExportResultTests(unittest.TestCase):
         self.assertIn("image sequence", panel.subtitle.text())
 
     def test_cards_reflow_instead_of_clipping(self):
-        panel = self.make_panel(900)
-        # Real panels are visible; hidden widgets defer resize events until shown.
+        # Match the embedded dialog tab; top-level minimum widths depend on fonts.
+        holder = QWidget()
+        self.addCleanup(holder.deleteLater)
+        panel = self.make_panel(900, parent=holder)
+        holder.show()
+        # Hidden widgets defer resize events until shown.
         panel.show()
         panel.show_success("/tmp/out.mp4", "video", DETAILS)
         self.assertEqual(panel.columns, 3)
@@ -175,6 +222,20 @@ class ExportResultTests(unittest.TestCase):
         self.assertIn("rgba(47, 191, 113", panel.styleSheet())
         self.assertFalse(panel.error_text.isVisibleTo(panel))
 
+    def test_encoder_tile_shows_the_cpu_or_gpu_badge(self):
+        self.assertEqual(encoder_detail("h264_nvenc", str), ("gpu", "Encoder", "GPU · NVENC"))
+        self.assertEqual(encoder_detail("hevc_vaapi", str), ("gpu", "Encoder", "GPU · VA-API"))
+        self.assertEqual(encoder_detail("libx264", str), ("cpu", "Encoder", "CPU · Software"))
+
+    def test_last_card_fills_a_partial_row(self):
+        panel = self.make_panel(width=900)
+        panel.show()
+        panel.show_success("/tmp/out.mp4", "video", DETAILS + [("audio", "Audio", "Stereo")])
+        panel.reflow()
+        self.assertEqual(panel.columns, 3)
+        index = panel.cards_layout.indexOf(panel.cards[-1])
+        self.assertEqual(panel.cards_layout.getItemPosition(index), (2, 0, 1, 3))
+
     def test_tab_never_demands_more_space(self):
         panel = self.make_panel()
         panel.show_success("/tmp/" + "very long folder name/" * 10 + "out.mp4", "video", DETAILS)
@@ -201,6 +262,7 @@ class ExportResultTests(unittest.TestCase):
             self.assertIn("quality-3", icons)
             audio = dict((title, value) for _, title, value in export_details(dialog, output.name, "audio", str))
             self.assertNotIn("Resolution", audio)
+            self.assertNotIn("Encoder", audio)
             self.assertEqual(audio["Format"], "MP4 (AAC)")
             self.assertEqual(audio["Audio"], "48 kHz, Stereo")
             self.assertEqual(len(audio), 6)
@@ -229,7 +291,11 @@ class ExportDialogResultTabTests(unittest.TestCase):
         ui_util.load_ui(dialog, os.path.join(info.PATH, "windows", "ui", "export.ui"))
         dialog.result_tab = None
         dialog.restoring_defaults = False
+        dialog.exporting = False
         self.addCleanup(dialog.deleteLater)
+        # Hide first (cleanups run LIFO): deleteLater never runs without an event loop,
+        # so a visible dialog can leak into later tests that close all top-level windows.
+        self.addCleanup(dialog.hide)
         return dialog
 
     def test_result_is_a_third_tab_and_settings_stay_editable(self):
@@ -279,22 +345,22 @@ class DesktopOpenTests(unittest.TestCase):
                 patch.object(desktop_open.shutil, "which", return_value="/usr/bin/xdg-open"), \
                 patch.object(desktop_open.subprocess, "Popen") as popen, \
                 patch.object(desktop_open.QDesktopServices, "openUrl", return_value=True) as qt_open:
-            with patch("classes.portal_file_dialog.open_file_with_default_application", return_value=True):
+            with patch.object(portal_file_dialog, "open_file_with_default_application", return_value=True):
                 self.assertTrue(desktop_open.open_file(None, output.name))
             popen.assert_not_called()
-            with patch("classes.portal_file_dialog.open_file_with_default_application", return_value=None):
+            with patch.object(portal_file_dialog, "open_file_with_default_application", return_value=None):
                 self.assertTrue(desktop_open.open_file(None, output.name))
             self.assertEqual(popen.call_args[0][0], ["/usr/bin/xdg-open", output.name])
             self.assertNotIn("LD_LIBRARY_PATH", popen.call_args[1]["env"])
             qt_open.assert_not_called()
-            with patch("classes.portal_file_dialog.open_containing_directory", return_value=None), \
-                    patch("classes.portal_file_dialog.show_items_in_file_manager", return_value=True) as show:
+            with patch.object(portal_file_dialog, "open_containing_directory", return_value=None), \
+                    patch.object(portal_file_dialog, "show_items_in_file_manager", return_value=True) as show:
                 popen.reset_mock()
                 self.assertTrue(desktop_open.reveal_file(None, output.name))
             show.assert_called_once_with(output.name)
             popen.assert_not_called()
-            with patch("classes.portal_file_dialog.open_containing_directory", return_value=None), \
-                    patch("classes.portal_file_dialog.show_items_in_file_manager", return_value=None):
+            with patch.object(portal_file_dialog, "open_containing_directory", return_value=None), \
+                    patch.object(portal_file_dialog, "show_items_in_file_manager", return_value=None):
                 self.assertTrue(desktop_open.reveal_file(None, output.name))
             self.assertEqual(popen.call_args[0][0], ["/usr/bin/xdg-open", os.path.dirname(output.name)])
 
@@ -302,7 +368,7 @@ class DesktopOpenTests(unittest.TestCase):
         with patch.object(desktop_open.sys, "platform", "linux"), \
                 patch.object(desktop_open, "_sandboxed", return_value=True), \
                 patch.object(desktop_open.subprocess, "Popen") as popen, \
-                patch("classes.portal_file_dialog.open_file_with_default_application", return_value=None), \
+                patch.object(portal_file_dialog, "open_file_with_default_application", return_value=None), \
                 patch.object(desktop_open.QDesktopServices, "openUrl", return_value=True) as qt_open:
             self.assertTrue(desktop_open.open_file(None, "/tmp/out.mp4"))
         popen.assert_not_called()

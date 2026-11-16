@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:23
+#: ../doc/timeline.rst:23
 msgid "Timeline"
 msgstr "타임라인"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:25
+#: ../doc/timeline.rst:25
 msgid ""
 "The timeline is where your video comes together. You arrange clips, trim "
 "them, layer visuals, and make timing decisions here. If you are new to "
@@ -35,107 +35,111 @@ msgstr ""
 "타임라인은 비디오가 하나로 모이는 곳입니다. 클립을 배열하고, 다듬고, 시각 효과를 겹치며, 타이밍을 결정하는 곳입니다. 편집이 "
 "처음이라면 타임라인을 왼쪽에서 오른쪽으로 진행되는 간단한 이야기로 생각하세요: 왼쪽은 이전 순간, 오른쪽은 이후 순간입니다."
 
-# Translated with gpt-4.1-mini
-#: ../timeline.rst:32
+#: ../doc/timeline.rst:32
 msgid ""
 "If you are just getting started, read :ref:`quick_tutorial_ref` first, then "
 "come back here for more detail. For a labeled breakdown of toolbar controls,"
-" see :ref:`timeline_toolbar_ref`."
+" see :ref:`timeline_toolbar_ref`. To select, move, and trim clips and "
+"transitions with the keyboard, see :ref:`timeline_keyboard_ref`. You can "
+"also focus Project Files with :kbd:`Shift+1` and press :kbd:`Ctrl+Enter` to "
+"place selected files at the playhead on the target track."
 msgstr ""
-"처음 시작하는 경우 먼저 :ref:`quick_tutorial_ref` 를 읽고, 자세한 내용을 위해 다시 이곳으로 돌아오세요. 도구 "
-"모음 컨트롤의 라벨이 붙은 설명은 :ref:`timeline_toolbar_ref` 를 참조하세요."
+"처음 시작하는 경우, 먼저 :ref:`quick_tutorial_ref` 를 읽고 여기로 돌아와 자세한 내용을 확인하세요. 도구 모음 "
+"컨트롤에 대한 라벨이 붙은 설명은 :ref:`timeline_toolbar_ref` 를 참조하세요. 키보드로 클립과 전환을 선택, 이동 "
+"및 다듬으려면 :ref:`timeline_keyboard_ref` 를 참조하세요. 또한 :kbd:`Shift+1` 로 프로젝트 파일에 "
+"포커스하고 :kbd:`Ctrl+Enter` 를 눌러 선택한 파일을 대상 트랙의 재생 헤드에 배치할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:37
+#: ../doc/timeline.rst:40
 msgid "Timeline Basics"
 msgstr "타임라인 기본"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:39
+#: ../doc/timeline.rst:42
 msgid "These terms are used often in this guide:"
 msgstr "이 가이드에서 자주 사용되는 용어들:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:45
+#: ../doc/timeline.rst:48
 msgid "Term"
 msgstr "용어"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:45
+#: ../doc/timeline.rst:48
 msgid "Meaning"
 msgstr "의미"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:47
+#: ../doc/timeline.rst:50
 msgid "Playhead"
 msgstr "플레이헤드"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:47
+#: ../doc/timeline.rst:50
 msgid "The red line that shows your current time position."
 msgstr "현재 시간 위치를 표시하는 빨간 선입니다."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:48
+#: ../doc/timeline.rst:51
 msgid "Track"
 msgstr "트랙"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:48
+#: ../doc/timeline.rst:51
 msgid ""
 "A horizontal layer that holds clips (top tracks appear above lower tracks)."
 msgstr "클립을 담는 수평 레이어입니다 (상위 트랙이 하위 트랙 위에 표시됩니다)."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:49
+#: ../doc/timeline.rst:52
 msgid "Clip"
 msgstr "클립"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:49
+#: ../doc/timeline.rst:52
 msgid "A video, audio, or image item placed on a track."
 msgstr "트랙에 배치된 비디오, 오디오 또는 이미지 항목입니다."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:50
+#: ../doc/timeline.rst:53
 msgid "Transition"
 msgstr "전환"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:50
+#: ../doc/timeline.rst:53
 msgid "A blend between two overlapping clips."
 msgstr "겹치는 두 클립 사이의 혼합 효과입니다."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:51
+#: ../doc/timeline.rst:54
 msgid "Marker"
 msgstr "마커"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:51
+#: ../doc/timeline.rst:54
 msgid "A saved point in time you can jump back to quickly."
 msgstr "빠르게 되돌아갈 수 있는 저장된 시간 지점입니다."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:52
+#: ../doc/timeline.rst:55
 msgid "Keyframe"
 msgstr "키프레임"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:52
+#: ../doc/timeline.rst:55
 msgid "A saved value at a point in time (used for animation)."
 msgstr "시간의 특정 지점에 저장된 값입니다 (애니메이션에 사용)."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:55
+#: ../doc/timeline.rst:58
 msgid "For a full glossary, see :ref:`glossary_ref`."
 msgstr "전체 용어집은 :ref:`glossary_ref` 를 참조하세요."
 
-#: ../timeline.rst:58
+#: ../doc/timeline.rst:61
 msgid "Current Timecode"
 msgstr "현재 타임코드"
 
-#: ../timeline.rst:60
+#: ../doc/timeline.rst:63
 msgid ""
 "The current timecode appears at the left side of the timeline ruler and "
 "shows the playhead's exact position. Click the timecode, enter a new value, "
@@ -144,7 +148,7 @@ msgstr ""
 "현재 타임코드는 타임라인 눈금자의 왼쪽에 표시되며 플레이헤드의 정확한 위치를 보여줍니다. 타임코드를 클릭하고 새 값을 입력한 후 "
 ":kbd:`Enter` 키를 눌러 플레이헤드를 해당 프레임으로 이동하세요."
 
-#: ../timeline.rst:64
+#: ../doc/timeline.rst:67
 msgid ""
 "Clear the field or enter ``0`` to jump to the start of the timeline. Press "
 ":kbd:`Up` or :kbd:`Down` to step the selected timecode segment; hold "
@@ -156,116 +160,126 @@ msgstr ""
 " :kbd:`Ctrl` 키를 누른 상태에서 1초 단위로 이동할 수 있습니다. :kbd:`Esc` 키를 눌러 취소하세요."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:70
+#: ../doc/timeline.rst:73
 msgid "Common Timeline Tasks"
 msgstr "일반적인 타임라인 작업"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:72
+#: ../doc/timeline.rst:75
 msgid "Most editing sessions follow a similar flow:"
 msgstr "대부분의 편집 작업은 비슷한 흐름을 따릅니다:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:74
+#: ../doc/timeline.rst:77
 msgid "Add media to the project using :ref:`import_files_ref`."
 msgstr ":ref:`import_files_ref` 를 사용하여 프로젝트에 미디어를 추가하세요."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:75
+#: ../doc/timeline.rst:78
 msgid "Drag files from the project panel onto timeline tracks."
 msgstr "프로젝트 패널에서 파일을 끌어와 타임라인 트랙에 놓으세요."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:76
+#: ../doc/timeline.rst:79
 msgid "Trim clip edges to remove extra content."
 msgstr "클립 가장자리를 다듬어 불필요한 내용을 제거하세요."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:77
+#: ../doc/timeline.rst:80
 msgid "Move clips into order and stack tracks to build your scene."
 msgstr "클립을 순서대로 배치하고 트랙을 쌓아 장면을 만드세요."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:78
+#: ../doc/timeline.rst:81
 msgid ""
 "Add transitions and effects where needed (:ref:`transitions_ref`, "
 ":ref:`effects_ref`)."
 msgstr "필요한 곳에 전환과 효과를 추가하세요 (:ref:`transitions_ref`, :ref:`effects_ref`)."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:79
+#: ../doc/timeline.rst:82
 msgid "Preview and adjust timing (:ref:`playback_ref`)."
 msgstr "미리 보고 타이밍을 조정하세요 (:ref:`playback_ref`)."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:81
+#: ../doc/timeline.rst:84
 msgid ""
 "Clip trimming, slicing, and clip context menu actions are covered in detail "
 "in :ref:`clips_ref`."
 msgstr "클립 다듬기, 자르기, 클립 컨텍스트 메뉴 작업은 :ref:`clips_ref` 에서 자세히 다룹니다."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:84
+#: ../doc/timeline.rst:87
 msgid "Selecting Clips and Transitions"
 msgstr "클립 및 전환 선택하기"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:86
+#: ../doc/timeline.rst:89
 msgid "Selection is one of the most important timeline skills:"
 msgstr "선택은 가장 중요한 타임라인 기술 중 하나입니다:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:88
+#: ../doc/timeline.rst:91
 msgid "Click an item to select it."
 msgstr "항목을 클릭하여 선택하세요."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:89
+#: ../doc/timeline.rst:92
 msgid ":kbd:`Ctrl+Click` adds or removes items from selection."
 msgstr ":kbd:`Ctrl+Click` 로 선택 항목을 추가하거나 제거할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:90
+#: ../doc/timeline.rst:93
 msgid ""
 ":kbd:`Shift+Click` selects a range between your anchor item and the clicked "
 "item."
 msgstr ":kbd:`Shift+Click` 로 기준 항목과 클릭한 항목 사이의 범위를 선택합니다."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:91
+#: ../doc/timeline.rst:94
 msgid ":kbd:`Ctrl+Shift+Click` adds that range to your current selection."
 msgstr ":kbd:`Ctrl+Shift+Click` 로 해당 범위를 현재 선택에 추가합니다."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:92
+#: ../doc/timeline.rst:95
 msgid ""
 ":kbd:`Alt+Click` ripple-selects from the clicked item to the end of the "
 "track."
 msgstr ":kbd:`Alt+Click` 로 클릭한 항목부터 트랙 끝까지 리플 선택합니다."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:93
+#: ../doc/timeline.rst:96
 msgid "Drag an empty-area selection box to select multiple items."
 msgstr "빈 영역을 드래그하여 여러 항목을 선택하세요."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:95
+#: ../doc/timeline.rst:98
 msgid "See :ref:`clips_ref` for the full list and examples."
 msgstr "전체 목록과 예시는 :ref:`clips_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:98
+#: ../doc/timeline.rst:101
 msgid "Timeline Toolbar and Zoom"
 msgstr "타임라인 도구 모음 및 확대/축소"
 
-# Translated with gpt-4.1-mini
-#: ../timeline.rst:100
+#: ../doc/timeline.rst:103
 msgid ""
 "The timeline toolbar helps with common navigation and editing actions "
-"(snapping, retime, razor, markers, centering, and zoom)."
-msgstr "타임라인 도구 모음은 일반적인 탐색 및 편집 작업(스냅, 재타이밍, 레이저, 마커, 중앙 정렬, 확대/축소)을 돕습니다."
+"(snapping, auto keyframes, retime, razor, markers, centering, and zoom)."
+msgstr ""
+"타임라인 도구 모음은 일반적인 탐색 및 편집 작업(스냅, 자동 키프레임, 재시간 조정, 레이저, 마커, 중앙 정렬 및 확대/축소)을 "
+"도와줍니다."
 
-#: ../timeline.rst:103
+#: ../doc/timeline.rst:106
+msgid ""
+"Use the diamond button to turn :ref:`auto_keyframes_ref` on or off. Leave it"
+" on to build animations as you edit, or turn it off to adjust existing "
+"values without adding keyframes."
+msgstr ""
+"다이아몬드 버튼을 사용하여 :ref:`auto_keyframes_ref` 를 켜거나 끌 수 있습니다. 편집하면서 애니메이션을 만들려면 켜"
+" 두고, 키프레임을 추가하지 않고 기존 값을 조정하려면 끄세요."
+
+#: ../doc/timeline.rst:109
 msgid ""
 "The :ref:`razor_tool_ref` shows a cut guide and timecode over the target "
 "clip. While paused, hovering also previews the cut frame without moving the "
@@ -278,49 +292,49 @@ msgstr ""
 " Razor 가이드는 기존의 **Snapping** 토글을 준수하며 다른 타임라인 편집과 동일한 스냅 대상과 허용 오차를 사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:109
+#: ../doc/timeline.rst:115
 msgid ""
 "Tip: If timeline editing feels crowded, zoom in with the timeline slider to "
 "make small clip adjustments easier."
 msgstr "팁: 타임라인 편집이 복잡하게 느껴지면 타임라인 슬라이더로 확대하여 작은 클립 조정을 쉽게 하세요."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:112
+#: ../doc/timeline.rst:118
 msgid ""
 "You can also zoom the timeline with :kbd:`Ctrl+Scroll Wheel`. On the QWidget"
 " timeline, hold :kbd:`Ctrl` and drag with the middle mouse button for smooth"
 " zooming."
 msgstr ""
-"타임라인은 :kbd:`Ctrl+스크롤 휠`로도 확대/축소할 수 있습니다. QWidget 타임라인에서는 :kbd:`Ctrl` 키를 누른 "
-"상태에서 가운데 마우스 버튼을 드래그하여 부드럽게 확대/축소할 수 있습니다."
+"타임라인은 :kbd:`Ctrl+스크롤 휠`\\ 로도 확대/축소할 수 있습니다. QWidget 타임라인에서는 :kbd:`Ctrl` 키를 "
+"누른 상태에서 가운데 마우스 버튼을 드래그하여 부드럽게 확대/축소할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:117
+#: ../doc/timeline.rst:123
 msgid "Tracks, Locking, and Inserting"
 msgstr "트랙, 잠금 및 삽입"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:119
+#: ../doc/timeline.rst:125
 msgid "Tracks help organize your edit. A common setup is:"
 msgstr "트랙은 편집을 정리하는 데 도움을 줍니다. 일반적인 구성은 다음과 같습니다:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:121
+#: ../doc/timeline.rst:127
 msgid "Top tracks: titles, overlays, logos, picture-in-picture"
 msgstr "상위 트랙: 제목, 오버레이, 로고, PIP(화면 속 화면)"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:122
+#: ../doc/timeline.rst:128
 msgid "Middle tracks: main video content"
 msgstr "중간 트랙: 주요 비디오 콘텐츠"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:123
+#: ../doc/timeline.rst:129
 msgid "Lower tracks: music and sound effects"
 msgstr "하위 트랙: 음악 및 효과음"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:125
+#: ../doc/timeline.rst:131
 msgid ""
 "You can lock tracks to protect them from accidental edits and use "
 "insert/ripple editing when you need later clips to move automatically."
@@ -328,7 +342,7 @@ msgstr ""
 "트랙을 잠가 실수로 편집되는 것을 방지할 수 있으며, 이후 클립이 자동으로 이동해야 할 때 삽입/리플 편집을 사용할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:128
+#: ../doc/timeline.rst:134
 msgid ""
 "For track layout basics, see :ref:`tracks_ref`. For detailed clip editing "
 "behavior, see :ref:`clips_cutting_slicing_ref`."
@@ -336,79 +350,118 @@ msgstr ""
 "트랙 레이아웃 기본은 :ref:`tracks_ref` 를, 자세한 클립 편집 동작은 "
 ":ref:`clips_cutting_slicing_ref` 를 참조하세요."
 
+#: ../doc/timeline.rst:138
+msgid ""
+"For projects with many layers, choose **Minimal** or **Compact** under "
+"**Preferences → Timeline → Track Size** to see more tracks with less "
+"scrolling. Choose **Relaxed** for more vertical room, or **Default** to "
+"restore the theme's original height. Keyframe panel spacing adjusts too. See"
+" :ref:`preferences_track_size_ref` for details."
+msgstr ""
+"레이어가 많은 프로젝트의 경우, **환경 설정 → 타임라인 → 트랙 크기**\\ 에서 **Minimal** 또는 **Compact**\\"
+" 를 선택하여 스크롤을 줄이고 더 많은 트랙을 볼 수 있습니다. 더 많은 세로 공간이 필요하면 **Relaxed**\\ 를 선택하고, "
+"테마의 원래 높이로 복원하려면 **Default**\\ 를 선택하세요. 키프레임 패널 간격도 조정됩니다. 자세한 내용은 "
+":ref:`preferences_track_size_ref` 를 참조하세요."
+
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:132
+#: ../doc/timeline.rst:145
 msgid "Keyframes in the Timeline"
 msgstr "타임라인의 키프레임"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:134
+#: ../doc/timeline.rst:147
 msgid ""
 "Keyframes let you change values over time, such as position, scale, "
 "rotation, opacity, and effect settings."
 msgstr "키프레임은 위치, 크기, 회전, 불투명도, 효과 설정 등 시간에 따라 값을 변경할 수 있게 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:137
+#: ../doc/timeline.rst:150
 msgid ""
 "In the timeline keyframe panel, each row represents one animated property. "
 "You can:"
 msgstr "타임라인 키프레임 패널에서 각 행은 하나의 애니메이션 속성을 나타냅니다. 다음을 할 수 있습니다:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:139
+#: ../doc/timeline.rst:152
 msgid "Add a keyframe row for a property"
 msgstr "속성에 대한 키프레임 행을 추가하세요"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:140
+#: ../doc/timeline.rst:153
 msgid "Insert new keyframes along the row"
 msgstr "행을 따라 새 키프레임을 삽입하세요"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:141
+#: ../doc/timeline.rst:154
 msgid "Move keyframes to change timing"
 msgstr "키프레임을 이동하여 타이밍을 변경하세요"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:142
+#: ../doc/timeline.rst:155
 msgid "Change interpolation to control motion style"
 msgstr "보간법을 변경하여 움직임 스타일을 제어하세요"
 
+#: ../doc/timeline.rst:157
+msgid ""
+"Single-click a keyframe on a clip or in the keyframe panel to select it and "
+"move the playhead to its frame. This leaves the Properties dock open or "
+"closed as you have arranged it. Double-click the keyframe, or right-click it"
+" and choose :guilabel:`Properties`, to open the dock."
+msgstr ""
+"클립이나 키프레임 패널에서 키프레임을 한 번 클릭하면 선택되고 재생 헤드가 해당 프레임으로 이동합니다. 이때 속성 도크는 사용자가 설정한"
+" 대로 열려 있거나 닫혀 있습니다. 키프레임을 두 번 클릭하거나 마우스 오른쪽 버튼을 클릭하고 :guilabel:`속성` 을 선택하면 "
+"도크가 열립니다."
+
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:144
+#: ../doc/timeline.rst:162
 msgid ""
 "For keyframe concepts and animation examples, see :ref:`animation_ref`."
 msgstr "키프레임 개념과 애니메이션 예시는 :ref:`animation_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:147
+#: ../doc/timeline.rst:165
 msgid "Next Steps"
 msgstr "다음 단계"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:149
+#: ../doc/timeline.rst:167
 msgid ""
 "After you are comfortable with timeline basics, these sections are the best "
 "next reads:"
 msgstr "타임라인 기본에 익숙해지면 다음 섹션들이 가장 좋은 다음 읽을거리입니다:"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:151
+#: ../doc/timeline.rst:169
 msgid ":ref:`clips_ref` for trimming, slicing, and clip properties"
 msgstr "다듬기, 자르기, 클립 속성에 관한 :ref:`clips_ref`"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:152
+#: ../doc/timeline.rst:170
 msgid ":ref:`effects_ref` for video/audio effects"
 msgstr "비디오/오디오 효과에 관한 :ref:`effects_ref`"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:153
+#: ../doc/timeline.rst:171
 msgid ":ref:`animation_ref` for keyframe animation workflows"
 msgstr "키프레임 애니메이션 작업 흐름에 관한 :ref:`animation_ref`"
 
 # Translated with gpt-4.1-mini
-#: ../timeline.rst:154
+#: ../doc/timeline.rst:172
 msgid ":doc:`export` for creating your final video file"
 msgstr ":doc:`export` 를 사용하여 최종 비디오 파일을 만듭니다"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "If you are just getting started, read :ref:`quick_tutorial_ref` first, then "
+#~ "come back here for more detail. For a labeled breakdown of toolbar controls,"
+#~ " see :ref:`timeline_toolbar_ref`."
+#~ msgstr ""
+#~ "처음 시작하는 경우 먼저 :ref:`quick_tutorial_ref` 를 읽고, 자세한 내용을 위해 다시 이곳으로 돌아오세요. 도구 "
+#~ "모음 컨트롤의 라벨이 붙은 설명은 :ref:`timeline_toolbar_ref` 를 참조하세요."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "The timeline toolbar helps with common navigation and editing actions "
+#~ "(snapping, retime, razor, markers, centering, and zoom)."
+#~ msgstr "타임라인 도구 모음은 일반적인 탐색 및 편집 작업(스냅, 재타이밍, 레이저, 마커, 중앙 정렬, 확대/축소)을 돕습니다."

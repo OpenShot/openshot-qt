@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:21
+#: ../doc/developers.rst:21
 msgid "Developers"
 msgstr "Forritarar"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:23
+#: ../doc/developers.rst:23
 msgid ""
 "If you are a programmer (or want to become a programmer), and are interested"
 " in developing new features, fixing bugs, or improving the user interface "
@@ -35,12 +35,12 @@ msgstr ""
 "kaflar útskýra hvernig á að byrja og taka þátt!"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:28
+#: ../doc/developers.rst:28
 msgid "The Big Picture"
 msgstr "Heildarsýn"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:29
+#: ../doc/developers.rst:29
 msgid ""
 "OpenShot Video Editor has 3 main components, a Python & PyQt user interface "
 "(:openshot-github:`openshot-qt`), a C++ audio library (:openshot-"
@@ -55,7 +55,7 @@ msgstr ""
 "kynna þér þau efni núna."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:35
+#: ../doc/developers.rst:35
 msgid ""
 "However, many bugs can be fixed and new features added with only Python "
 "knowledge, since the C++ components are not involved in the user interface "
@@ -68,7 +68,7 @@ msgstr ""
 "OpenShot forritari!"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:42
+#: ../doc/developers.rst:42
 msgid ""
 "The instructions that follow are for Ubuntu Linux, which is the easiest "
 "environment to configure for OpenShot development. If you are using another "
@@ -80,7 +80,7 @@ msgstr ""
 "mæli ég með að keyra sýndarvél með Ubuntu LTS áður en þú heldur áfram."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:47
+#: ../doc/developers.rst:47
 msgid ""
 "If you must use a Windows or Mac system for development, start by referring "
 "to the build notes in the ``libopenshot`` wiki. Building the library with "
@@ -91,7 +91,7 @@ msgstr ""
 "öllum háðum hlutum er erfiðasti hluti ferlisins."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:51
+#: ../doc/developers.rst:51
 msgid ""
 ":libopenshot-wiki:`Windows Build Instructions <Windows-Build-Instructions>`"
 msgstr ""
@@ -99,18 +99,18 @@ msgstr ""
 "Instructions>`"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:52
+#: ../doc/developers.rst:52
 msgid ":libopenshot-wiki:`Mac Build Instructions <Mac-Build-Instructions>`"
 msgstr ""
 ":libopenshot-wiki:`Mac byggingarleiðbeiningar <Mac-Build-Instructions>`"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:55
+#: ../doc/developers.rst:55
 msgid "Getting the Latest Source Code"
 msgstr "Sækja nýjustu kóðann"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:56
+#: ../doc/developers.rst:56
 msgid ""
 "Before we can fix any bugs or add any features, we need to get the source "
 "code onto your computer."
@@ -119,17 +119,17 @@ msgstr ""
 "kóðann á tölvuna þína."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:59
+#: ../doc/developers.rst:59
 msgid "Use git to clone our 3 repositories:"
 msgstr "Notaðu git til að klóna þrjú geymslurnar okkar:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:68
+#: ../doc/developers.rst:68
 msgid "Configuring your Development Environment"
 msgstr "Stilla þróunarumhverfið þitt"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:69
+#: ../doc/developers.rst:69
 msgid ""
 "In order to actually compile or run OpenShot, we need to install some "
 "dependencies on your system. The easiest way to accomplish this is with our "
@@ -142,7 +142,7 @@ msgstr ""
 "<https://www.openshot.org/ppa/>`_. PPA er óopinbert Ubuntu geymslusvæði með "
 "hugbúnaðarpökkum okkar til niðurhals og uppsetningar."
 
-#: ../developers.rst:110
+#: ../doc/developers.rst:110
 msgid ""
 "OpenShot supports PyQt5, PyQt6, and PySide6. libopenshot must be built "
 "against the correct Qt version for the binding you are using (Qt5: PyQt5, "
@@ -152,15 +152,15 @@ msgstr ""
 "réttum Qt útgáfu fyrir bindinguna sem þú notar (Qt5: PyQt5, Qt6: PyQt6 eða "
 "PySide6)."
 
-#: ../developers.rst:114
+#: ../doc/developers.rst:114
 msgid "For PySide6 (Qt6) bindings, install these packages:"
 msgstr "Fyrir PySide6 (Qt6) bindingar, settu upp þessi pakkar:"
 
-#: ../developers.rst:127
+#: ../doc/developers.rst:127
 msgid "For PyQt6, install these packages:"
 msgstr "Fyrir PyQt6, settu upp þessa pakka:"
 
-#: ../developers.rst:137
+#: ../doc/developers.rst:137
 msgid ""
 "The PyQt6 runtime must provide ``QtCore``, ``QtGui``, ``QtWidgets``, "
 "``QtSvg``, ``QtStateMachine``, and ``uic``. Some distributions split these "
@@ -176,7 +176,7 @@ msgstr ""
 "pakkana hér að ofan eða settu upp fullkomna PyQt6 hjólið í Python "
 "sýndarumhverfi:"
 
-#: ../developers.rst:149
+#: ../doc/developers.rst:149
 msgid ""
 "Verify the selected Qt binding and its required modules before launching "
 "OpenShot:"
@@ -184,7 +184,7 @@ msgstr ""
 "Staðfestu valda Qt bindingu og nauðsynlega eininga áður en OpenShot er ræst:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:157
+#: ../doc/developers.rst:157
 msgid ""
 "At this point, you should have all 3 OpenShot components source code cloned "
 "into local folders, the OpenShot daily PPA installed, and all of the "
@@ -197,12 +197,12 @@ msgstr ""
 "að þýða kóða!"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:162
+#: ../doc/developers.rst:162
 msgid "libopenshot-audio (Build Instructions)"
 msgstr "libopenshot-audio (Byggingarleiðbeiningar)"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:163
+#: ../doc/developers.rst:163
 msgid ""
 "This library is required for audio playback and audio effects. It is based "
 "on the JUCE audio framework. Here are the commands to build it:"
@@ -211,7 +211,7 @@ msgstr ""
 "JUCE hljóðrammanum. Hér eru skipanirnar til að byggja það:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:176
+#: ../doc/developers.rst:176
 msgid ""
 "Essentially, we are switching to the ``libopenshot-audio/build`` folder, "
 "then running ``cmake ..`` on the parent folder. This finds dependencies and "
@@ -229,12 +229,12 @@ msgstr ""
 "``/usr/local/`` (sjálfgefið) og ``make install`` krefst stjórnandaheimilda."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:184
+#: ../doc/developers.rst:184
 msgid "libopenshot (Build Instructions)"
 msgstr "libopenshot (Byggingarleiðbeiningar)"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:185
+#: ../doc/developers.rst:185
 msgid ""
 "This library is required for video decoding, encoding, animation, and just "
 "about everything else. It does all the heavy lifting of video editing and "
@@ -245,7 +245,7 @@ msgstr ""
 " spilun. Hér eru skipanirnar til að byggja það:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:197
+#: ../doc/developers.rst:197
 msgid ""
 "Essentially, we are switching to the ``libopenshot/build`` folder, then "
 "running ``cmake ..`` on the parent folder. This finds dependencies and "
@@ -262,7 +262,7 @@ msgstr ""
 "kerfisútgáfunnar (ef hún er til)."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:204
+#: ../doc/developers.rst:204
 msgid ""
 "We don't install our ``libopenshot`` after building, because we don't need "
 "to. For testing purposes, we can tell OpenShot to use ``libopenshot`` right "
@@ -273,12 +273,12 @@ msgstr ""
 "beint úr ``build`` möppunni okkar."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:208
+#: ../doc/developers.rst:208
 msgid "Language Bindings"
 msgstr "Tungumálatengingar"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:209
+#: ../doc/developers.rst:209
 msgid ""
 "The ``libopenshot`` API is available in several languages through SWIG "
 "bindings.  Python is used by the OpenShot user interface, and we also "
@@ -295,12 +295,12 @@ msgstr ""
 "getur klippt myndbönd úr því umhverfi sem þér hentar best."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:215
+#: ../doc/developers.rst:215
 msgid "openshot-qt (Launch Instructions)"
 msgstr "openshot-qt (Ræsingarleiðbeiningar)"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:216
+#: ../doc/developers.rst:216
 msgid ""
 "This is our main PyQt Python application. Because it is written in Python, "
 "it does not require any compiling to run. To launch OpenShot from the source"
@@ -313,7 +313,7 @@ msgstr ""
 "eftirfarandi skipanir:"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:227
+#: ../doc/developers.rst:227
 msgid ""
 "This should launch the OpenShot user interface. Any changes you have made to"
 " the source code files (``*.py`` Python files, ``*.ui`` PyQt UI files, "
@@ -328,7 +328,7 @@ msgstr ""
 "ofan, mun OpenShot líklega ekki ræsa."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:233
+#: ../doc/developers.rst:233
 msgid ""
 "If OpenShot launches at this point, congratulations! You now have a working "
 "local version of OpenShot, which is running off your local source code. Try "
@@ -340,55 +340,84 @@ msgstr ""
 "nokkrar breytingar á upprunakóðanum og ræstu OpenShot aftur... þú ættir nú "
 "að sjá breytingarnar þínar!"
 
-#: ../developers.rst:239
-msgid "Command-Line Options"
-msgstr "Skipanalínurvalkostir"
+#: ../doc/developers.rst:241
+msgid "Command-Line Launch Options"
+msgstr "Skipanalínuræsivalmöguleikar"
 
-#: ../developers.rst:241
+#: ../doc/developers.rst:243
 msgid ""
-"These options work with the installed OpenShot application, including "
-"``openshot-qt.exe`` on Windows. When running from source, use ``python3 "
-"src/launch.py`` in place of the application name. Put options before any "
-"file paths you want OpenShot to open."
+"For editing, animation, batch changes, and exports from a terminal or "
+"script, see :ref:`cli_ref`. Start with ``openshot-qt --cli intro`` (or "
+"``python3 src/launch.py --cli intro`` from source). Put ``--cli`` first, "
+"followed by the editing command and its options."
 msgstr ""
-"Þessir valkostir virka með uppsettri OpenShot-forritinu, þar með talið "
-"``openshot-qt.exe`` á Windows. Þegar keyrt er úr kóða, notaðu ``python3 "
-"src/launch.py`` í stað forritsnafnsins. Settu valkosti fyrir framan allar "
-"skráarleiðir sem þú vilt að OpenShot opni."
+"Fyrir ritvinnslu, hreyfimyndagerð, hópbreytingar og útflutning úr "
+"skipanalínu eða handriti, sjá :ref:`cli_ref`. Byrjaðu með ``openshot-qt "
+"--cli intro`` (eða ``python3 src/launch.py --cli intro`` úr uppruna). Settu "
+"``--cli`` fyrst, fylgt eftir með ritvinnsluskipuninni og valkostum hennar."
 
-#: ../developers.rst:246
+#: ../doc/developers.rst:248
+msgid ""
+"The launch options below work with the installed OpenShot application, "
+"including ``openshot-qt-cmd.exe`` on Windows for visible terminal output. "
+"For Windows CLI usage, follow the console-executable guidance in "
+":ref:`cli_ref`. When running from source, use ``python3 src/launch.py`` in "
+"place of the application name. Put options before any file paths you want "
+"OpenShot to open."
+msgstr ""
+"Ræsivalmöguleikarnir hér að neðan virka með uppsettri OpenShot-forritinu, "
+"þar með talið ``openshot-qt-cmd.exe`` á Windows fyrir sýnilegt "
+"skipanalínuframboð. Fyrir notkun Windows CLI, fylgdu leiðbeiningum um "
+"keyrslu úr skipanalínu í :ref:`cli_ref`. Þegar keyrt er úr uppruna, notaðu "
+"``python3 src/launch.py`` í stað forritanafnsins. Settu valkosti á undan "
+"öllum skráarleiðum sem þú vilt að OpenShot opni."
+
+#: ../doc/developers.rst:255
 msgid "OpenShot command-line options"
 msgstr "Skipanalínuvalkostir OpenShot"
 
-#: ../developers.rst:250
+#: ../doc/developers.rst:259
 msgid "Option"
 msgstr "Valmöguleiki"
 
-#: ../developers.rst:251
+#: ../doc/developers.rst:260
 msgid "What it does"
 msgstr "Hvað það gerir"
 
-#: ../developers.rst:252
+#: ../doc/developers.rst:261
+msgid "``--cli``"
+msgstr "``--cli``"
+
+#: ../doc/developers.rst:262
+msgid "Enter the :ref:`cli_ref`. Use ``--cli help`` for editing commands."
+msgstr ""
+"Farðu í :ref:`cli_ref`. Notaðu ``--cli help`` fyrir ritvinnsluskipanir."
+
+#: ../doc/developers.rst:263
 msgid "``-h``, ``--help``"
 msgstr "``-h``, ``--help``"
 
-#: ../developers.rst:253
-msgid "Show the available options and exit."
-msgstr "Sýna tiltæka valkosti og hætta."
+#: ../doc/developers.rst:264
+msgid ""
+"Show application launch options and exit. Use ``--cli help`` for editing "
+"commands."
+msgstr ""
+"Sýna ræsivalkosti forritsins og hætta. Notaðu ``--cli help`` fyrir "
+"ritvinnsluskipanir."
 
-#: ../developers.rst:254
+#: ../doc/developers.rst:265
 msgid "``-V``, ``--version``"
 msgstr "``-V``, ``--version``"
 
-#: ../developers.rst:255
+#: ../doc/developers.rst:266
 msgid "Print the OpenShot version and exit."
 msgstr "Prenta út útgáfu OpenShot og hætta."
 
-#: ../developers.rst:256
+#: ../doc/developers.rst:267
 msgid "``-l CODE``, ``--lang CODE``"
 msgstr "``-l CODE``, ``--lang CODE``"
 
-#: ../developers.rst:257
+#: ../doc/developers.rst:268
 msgid ""
 "Use the chosen interface language for this launch. The code must be one of "
 "those shown by ``--list-languages``."
@@ -396,19 +425,19 @@ msgstr ""
 "Notaðu valið viðmótsmál fyrir þessa keyrslu. Kóðinn verður að vera einn af "
 "þeim sem sýndir eru með ``--list-languages``."
 
-#: ../developers.rst:259
+#: ../doc/developers.rst:270
 msgid "``--list-languages``"
 msgstr "``--list-languages``"
 
-#: ../developers.rst:260
+#: ../doc/developers.rst:271
 msgid "List supported language codes and exit."
 msgstr "Skrá yfir studda málkóða og hætta."
 
-#: ../developers.rst:261
+#: ../doc/developers.rst:272
 msgid "``--path FOLDER``"
 msgstr "``--path FOLDER``"
 
-#: ../developers.rst:262
+#: ../doc/developers.rst:273
 msgid ""
 "Add a folder to the Python module search path. You can repeat this option to"
 " add more than one folder."
@@ -416,11 +445,11 @@ msgstr ""
 "Bæta möppu við leitarslóð Python eininga. Þú getur endurtekið þennan valkost"
 " til að bæta við fleiri möppum."
 
-#: ../developers.rst:264
+#: ../doc/developers.rst:275
 msgid "``--feedback-preview``"
 msgstr "``--feedback-preview``"
 
-#: ../developers.rst:265
+#: ../doc/developers.rst:276
 msgid ""
 "Show the feedback notice on launch without marking the invitation as shown "
 "in saved settings."
@@ -428,39 +457,39 @@ msgstr ""
 "Sýna ábendingu um endurgjöf við ræsinguna án þess að merkja boð um sýningu í"
 " vistaðar stillingar."
 
-#: ../developers.rst:267
+#: ../doc/developers.rst:278
 msgid "``--update-preview``"
 msgstr "``--update-preview``"
 
-#: ../developers.rst:268
+#: ../doc/developers.rst:279
 msgid ""
 "Show the update notice on launch. Both preview options can be used together."
 msgstr ""
 "Sýna tilkynningu um uppfærslu við ræsinguna. Báðir forskoðunarvalkostirnir "
 "má nota saman."
 
-#: ../developers.rst:269
+#: ../doc/developers.rst:280
 msgid "``--test-models``"
 msgstr "``--test-models``"
 
-#: ../developers.rst:270
+#: ../doc/developers.rst:281
 msgid ""
 "Enable Qt's data model tester for development (requires Qt 5.11 or later)."
 msgstr "Virkja gagnalíkanprófun Qt fyrir þróun (krefst Qt 5.11 eða nýrra)."
 
-#: ../developers.rst:271
+#: ../doc/developers.rst:282
 msgid "``-d``, ``--debug``, ``--debug-ui``"
 msgstr "``-d``, ``--debug``, ``--debug-ui``"
 
-#: ../developers.rst:272
+#: ../doc/developers.rst:283
 msgid "Add detailed interface messages to its log file and the terminal."
 msgstr "Bæta við ítarlegum viðmótsboðum í skrá yfir atburði og í skipanalínu."
 
-#: ../developers.rst:273
+#: ../doc/developers.rst:284
 msgid "``--debug-engine``"
 msgstr "``--debug-engine``"
 
-#: ../developers.rst:274
+#: ../doc/developers.rst:285
 msgid ""
 "Add detailed video and audio engine messages to its log file and the "
 "terminal."
@@ -468,37 +497,37 @@ msgstr ""
 "Bæta við ítarlegum skilaboðum frá mynd- og hljóðvél í atburðaskrá og "
 "skipanalínu."
 
-#: ../developers.rst:275
+#: ../doc/developers.rst:286
 msgid "``--log-level LEVEL``"
 msgstr "``--log-level LEVEL``"
 
-#: ../developers.rst:276
+#: ../doc/developers.rst:287
 msgid ""
 "Set the logging level for both parts of OpenShot, in files and the terminal."
 msgstr ""
 "Stilla skráningarstig fyrir báða hluta OpenShot, í skrám og skipanalínu."
 
-#: ../developers.rst:277
+#: ../doc/developers.rst:288
 msgid "``--log-file-level LEVEL``"
 msgstr "``--log-file-level LEVEL``"
 
-#: ../developers.rst:278
+#: ../doc/developers.rst:289
 msgid "Set the logging level in both log files."
 msgstr "Stilla skráningarstig í báðum atburðaskrám."
 
-#: ../developers.rst:279
+#: ../doc/developers.rst:290
 msgid "``--log-console-level LEVEL``"
 msgstr "``--log-console-level LEVEL``"
 
-#: ../developers.rst:280
+#: ../doc/developers.rst:291
 msgid "Set the logging level in the terminal for both parts of OpenShot."
 msgstr "Stilla skráningarstig í skipanalínu fyrir báða hluta OpenShot."
 
-#: ../developers.rst:281
+#: ../doc/developers.rst:292
 msgid "``--debug-file``"
 msgstr "``--debug-file``"
 
-#: ../developers.rst:282
+#: ../doc/developers.rst:293
 msgid ""
 "Add detailed interface messages to its log file only. This older option is "
 "accepted but is not shown by ``--help``."
@@ -506,11 +535,11 @@ msgstr ""
 "Bæta við ítarlegum viðmótsboðum aðeins í atburðaskrá. Þessi eldri valkostur "
 "er samþykktur en sýndur ekki með ``--help``."
 
-#: ../developers.rst:284
+#: ../doc/developers.rst:295
 msgid "``--debug-console``"
 msgstr "``--debug-console``"
 
-#: ../developers.rst:285
+#: ../doc/developers.rst:296
 msgid ""
 "Add detailed interface messages to the terminal only. This older option is "
 "accepted but is not shown by ``--help``."
@@ -518,11 +547,11 @@ msgstr ""
 "Bæta við ítarlegum viðmótsboðum aðeins í skipanalínu. Þessi eldri valkostur "
 "er samþykktur en sýndur ekki með ``--help``."
 
-#: ../developers.rst:287
+#: ../doc/developers.rst:298
 msgid "``PROJECT.osp`` or media file paths"
 msgstr "``PROJECT.osp`` eða slóðir að fjölmiðlaskrám"
 
-#: ../developers.rst:288
+#: ../doc/developers.rst:299
 msgid ""
 "Open a project when the first file path ends in ``.osp``. Otherwise, start a"
 " new project and import the supplied media files."
@@ -530,7 +559,7 @@ msgstr ""
 "Opna verkefni þegar fyrsta skráarleiðin endar á ``.osp``. Annars hefja nýtt "
 "verkefni og flytja inn gefnar fjölmiðlaskrár."
 
-#: ../developers.rst:291
+#: ../doc/developers.rst:302
 msgid ""
 "For ``LEVEL``, use ``debug``, ``info``, ``warning``, ``error``, "
 "``critical``, or ``off``. See :ref:`logging_ref` for log file locations, "
@@ -541,12 +570,12 @@ msgstr ""
 "atburðaskráa, dæmi og frekari upplýsingar um val á skráningarstillingum."
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:296
+#: ../doc/developers.rst:307
 msgid "GitHub Issues"
 msgstr "GitHub vandamál"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:297
+#: ../doc/developers.rst:308
 msgid ""
 "Now that you have successfully compiled and launched OpenShot Video Editor "
 "from source code, be sure to check out our list of bug reports on GitHub: "
@@ -560,12 +589,12 @@ msgstr ""
 "<https://forms.gle/CRqkS5tLMJE1V36V8>`_ og kynna þig!"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:303
+#: ../doc/developers.rst:314
 msgid "Share your Changes"
 msgstr "Deildu breytingunum þínum"
 
 # Translated with gpt-4.1-mini
-#: ../developers.rst:304
+#: ../doc/developers.rst:315
 msgid ""
 "Once you have fixed a bug or added an amazing new feature, be sure to share "
 "it with the OpenShot team. Ideally, we can merge this into our main source "
@@ -583,3 +612,20 @@ msgstr ""
 " vita að þú hafir breytingar tilbúnar til að sameinast. Þá getum við "
 "yfirfarið, gefið endurgjöf og vonandi sameinað breytingarnar þínar í "
 "aðalgreinina."
+
+#~ msgid "Command-Line Options"
+#~ msgstr "Skipanalínurvalkostir"
+
+#~ msgid ""
+#~ "These options work with the installed OpenShot application, including "
+#~ "``openshot-qt.exe`` on Windows. When running from source, use ``python3 "
+#~ "src/launch.py`` in place of the application name. Put options before any "
+#~ "file paths you want OpenShot to open."
+#~ msgstr ""
+#~ "Þessir valkostir virka með uppsettri OpenShot-forritinu, þar með talið "
+#~ "``openshot-qt.exe`` á Windows. Þegar keyrt er úr kóða, notaðu ``python3 "
+#~ "src/launch.py`` í stað forritsnafnsins. Settu valkosti fyrir framan allar "
+#~ "skráarleiðir sem þú vilt að OpenShot opni."
+
+#~ msgid "Show the available options and exit."
+#~ msgstr "Sýna tiltæka valkosti og hætta."

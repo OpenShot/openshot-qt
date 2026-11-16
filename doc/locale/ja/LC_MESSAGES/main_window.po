@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:21
+#: ../doc/main_window.rst:21
 msgid "Main Window"
 msgstr "メインウィンドウ"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:23
+#: ../doc/main_window.rst:23
 msgid ""
 "OpenShot Video Editor has one main window which contains most of the "
 "information, buttons, and menus needed to edit your video project."
@@ -33,99 +33,104 @@ msgstr ""
 "OpenShot Video Editorには、ビデオプロジェクトの編集に必要な情報、ボタン、メニューのほとんどを含むメインウィンドウが1つあります。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:27
+#: ../doc/main_window.rst:27
 msgid "Overview"
 msgstr "概要"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:35 ../main_window.rst:80 ../main_window.rst:101
+#: ../doc/main_window.rst:35 ../doc/main_window.rst:80
+#: ../doc/main_window.rst:101
 msgid "#"
 msgstr "＃"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:35 ../main_window.rst:80
+#: ../doc/main_window.rst:35 ../doc/main_window.rst:80
 msgid "Name"
 msgstr "名前"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:35 ../main_window.rst:80 ../main_window.rst:103
-#: ../main_window.rst:237 ../main_window.rst:367 ../main_window.rst:396
+#: ../doc/main_window.rst:35 ../doc/main_window.rst:80
+#: ../doc/main_window.rst:103 ../doc/main_window.rst:173
+#: ../doc/main_window.rst:303 ../doc/main_window.rst:332
 msgid "Description"
 msgstr "説明"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:37 ../main_window.rst:82 ../main_window.rst:104
+#: ../doc/main_window.rst:37 ../doc/main_window.rst:82
+#: ../doc/main_window.rst:104
 msgid "1"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:37
+#: ../doc/main_window.rst:37
 msgid "Main Toolbar"
 msgstr "メインツールバー"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:37
+#: ../doc/main_window.rst:37
 msgid "Contains buttons to open, save, and export your video project."
 msgstr "ビデオプロジェクトの開く、保存、エクスポートのボタンが含まれています。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:38 ../main_window.rst:83 ../main_window.rst:107
+#: ../doc/main_window.rst:38 ../doc/main_window.rst:83
+#: ../doc/main_window.rst:107
 msgid "2"
 msgstr "2"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:38
+#: ../doc/main_window.rst:38
 msgid "Function Tabs"
 msgstr "機能タブ"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:38
+#: ../doc/main_window.rst:38
 msgid "Switch between Project Files, Transitions, Effects, and Emojis."
 msgstr "プロジェクトファイル、トランジション、エフェクト、絵文字の間を切り替えます。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:39 ../main_window.rst:84 ../main_window.rst:110
+#: ../doc/main_window.rst:39 ../doc/main_window.rst:84
+#: ../doc/main_window.rst:110
 msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:39 ../main_window.rst:411
+#: ../doc/main_window.rst:39 ../doc/main_window.rst:347
 msgid "Project Files"
 msgstr "プロジェクトファイル"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:39
+#: ../doc/main_window.rst:39
 msgid ""
 "All audio, video, and image files that have been imported into your project."
 msgstr "プロジェクトにインポートされたすべての音声、動画、画像ファイル。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:40 ../main_window.rst:113
+#: ../doc/main_window.rst:40 ../doc/main_window.rst:113
 msgid "4"
 msgstr "4"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:40
+#: ../doc/main_window.rst:40
 msgid "Preview Window"
 msgstr "プレビューウィンドウ"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:40
+#: ../doc/main_window.rst:40
 msgid "This is the area that the video will playback on the screen."
 msgstr "ここが画面上で動画が再生される領域です。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:41 ../main_window.rst:116
+#: ../doc/main_window.rst:41 ../doc/main_window.rst:116
 msgid "5"
 msgstr "5"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:41 ../main_window.rst:90
+#: ../doc/main_window.rst:41 ../doc/main_window.rst:90
 msgid "Timeline Toolbar"
 msgstr "タイムラインツールバー"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:41
+#: ../doc/main_window.rst:41
 msgid ""
 "This toolbar contains buttons used for snapping, inserting markers, slicing "
 "razor, jumping between markers, and centering the timeline on the playhead. "
@@ -135,36 +140,38 @@ msgstr ""
 " :ref:`timeline_toolbar_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:42 ../main_window.rst:119
+#: ../doc/main_window.rst:42 ../doc/main_window.rst:119
 msgid "6"
 msgstr "6"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:42 ../main_window.rst:120
+#: ../doc/main_window.rst:42 ../doc/main_window.rst:120
 msgid "Zoom Slider"
 msgstr "ズームスライダー"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:42
+#: ../doc/main_window.rst:42
 msgid ""
 "This slider will adjust the time-scale of your timeline. Drag the left or "
 "right edge to zoom in or out. Drag the blue area to scroll the timeline left"
-" or right. Clips and transitions are displayed as simple rectangles, to give"
-" you context for adjusting the zoom to specific clips."
+" or right without snapping. With snapping enabled, the left grip snaps to "
+"the earliest clip start and the right grip to the latest clip end. Double-"
+"click to fit the entire timeline or restore the previous zoom. Clips and "
+"transitions are displayed as simple rectangles, to give you context for "
+"adjusting the zoom to specific clips."
 msgstr ""
-"このスライダーはタイムラインの時間スケールを調整します。左端または右端をドラッグしてズームイン・ズームアウトします。青い部分をドラッグしてタイムラインを左右にスクロールします。クリップとトランジションは単純な長方形で表示され、特定のクリップに合わせてズームを調整する際の目安となります。"
+"このスライダーはタイムラインの時間スケールを調整します。左端または右端をドラッグしてズームインまたはズームアウトします。青い部分をドラッグすると、スナップせずにタイムラインを左右にスクロールできます。スナップが有効な場合、左のグリップは最も早いクリップの開始位置に、右のグリップは最も遅いクリップの終了位置にスナップします。ダブルクリックでタイムライン全体にフィットさせるか、前のズーム状態に戻します。クリップとトランジションは単純な長方形で表示され、特定のクリップに合わせてズームを調整する際の参考になります。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:43 ../main_window.rst:122
+#: ../doc/main_window.rst:43 ../doc/main_window.rst:122
 msgid "7"
 msgstr "7"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:43
+#: ../doc/main_window.rst:43
 msgid "Play-head / Ruler"
 msgstr "再生ヘッド / ルーラー"
 
-#: ../main_window.rst:43
+#: ../doc/main_window.rst:43
 msgid ""
 "The ruler shows the time-scale, and the line is the play-head. The play-head"
 " represents the current playback position. The current timecode can be "
@@ -175,17 +182,17 @@ msgstr ""
 " :kbd:`Shift` キーを押し続けると、近くのクリップにスナップします。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:44
+#: ../doc/main_window.rst:44
 msgid "8"
 msgstr "8"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:44
+#: ../doc/main_window.rst:44
 msgid "Timeline"
 msgstr "タイムライン"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:44
+#: ../doc/main_window.rst:44
 msgid ""
 "The timeline visualizes your video project, and each clip and transition in "
 "your project. You can drag the mouse to select, move, or delete multiple "
@@ -194,17 +201,17 @@ msgstr ""
 "タイムラインはビデオプロジェクトと、プロジェクト内の各クリップやトランジションを視覚化します。マウスをドラッグして複数のアイテムを選択、移動、削除できます。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:45
+#: ../doc/main_window.rst:45
 msgid "9"
 msgstr "9"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:45
+#: ../doc/main_window.rst:45
 msgid "Filter"
 msgstr "フィルター"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:45
+#: ../doc/main_window.rst:45
 msgid ""
 "Filter the list of items shown (project files, transitions, effects, and "
 "emojis) by using these buttons and filter textbox. Enter a few letters of "
@@ -213,42 +220,42 @@ msgstr ""
 "これらのボタンとフィルターテキストボックスを使って、表示されているアイテム（プロジェクトファイル、トランジション、エフェクト、絵文字）のリストを絞り込みます。探しているものの一部の文字を入力すると、結果が表示されます。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:46
+#: ../doc/main_window.rst:46
 msgid "10"
 msgstr "10"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:46
+#: ../doc/main_window.rst:46
 msgid "Playback"
 msgstr "再生"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:46
+#: ../doc/main_window.rst:46
 msgid ""
 "Left to Right: Jump to Start, Rewind, Play/Pause, Fast Forward, and Jump to "
 "End"
 msgstr "左から右へ：先頭へジャンプ、巻き戻し、再生/一時停止、早送り、末尾へジャンプ"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:47
+#: ../doc/main_window.rst:47
 #, fuzzy
 msgid "11"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:47
+#: ../doc/main_window.rst:47
 msgid "Track"
 msgstr "トラック"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:47
+#: ../doc/main_window.rst:47
 msgid ""
 "Track area containing the track name, track menu, and per-track controls "
 "such as lock and keyframe panel icons."
 msgstr "トラック名、トラックメニュー、ロックやキーフレームパネルアイコンなどのトラックごとのコントロールを含むトラックエリア。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:50
+#: ../doc/main_window.rst:50
 msgid ""
 "For step-by-step instructions on the basic usage of OpenShot, be sure to "
 "read the :ref:`quick_tutorial_ref`."
@@ -256,29 +263,29 @@ msgstr ""
 "OpenShotの基本的な使い方のステップバイステップの説明については、必ず :ref:`quick_tutorial_ref` をお読みください。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:54
+#: ../doc/main_window.rst:54
 msgid "Built-in Tutorial"
 msgstr "組み込みチュートリアル"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:55
+#: ../doc/main_window.rst:55
 msgid ""
 "When you first launch OpenShot, you will be presented with a friendly built-"
 "in tutorial. It will demonstrate and explain the basics. Clicking "
 ":guilabel:`Next` will jump to the next topic. You can always view this "
 "tutorial again from the :guilabel:`Help→Tutorial` menu."
 msgstr ""
-"OpenShotを初めて起動すると、親切な組み込みチュートリアルが表示されます。基本操作を実演し説明します。:guilabel:`Next` "
+"OpenShotを初めて起動すると、親切な組み込みチュートリアルが表示されます。基本操作を実演し説明します。\\ :guilabel:`Next` "
 "をクリックすると次のトピックに進みます。このチュートリアルはいつでも :guilabel:` ヘルプ→チュートリアル` "
 "メニューから再度見ることができます。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:63
+#: ../doc/main_window.rst:63
 msgid "Tracks & Layers"
 msgstr "トラックとレイヤー"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:65
+#: ../doc/main_window.rst:65
 msgid ""
 "OpenShot uses tracks to layer videos and images. The top most track is the "
 "top layer, and the bottom track is the bottom layer. If you are familiar "
@@ -291,1068 +298,259 @@ msgstr ""
 "OpenShotはトラックを使って動画や画像をレイヤー化します。最上位のトラックが最上層で、最下位のトラックが最下層です。写真編集アプリケーションのレイヤーに慣れているなら、この概念に馴染みがあるでしょう。OpenShotはレイヤーを積み重ねてそれぞれを混ぜ合わせます。トラック数は無制限ですが、通常のシンプルなビデオプロジェクトでは5トラック以上は必要ありません。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:72
+#: ../doc/main_window.rst:72
 msgid "For example, imagine a 3 track video project"
 msgstr "例えば、3トラックのビデオプロジェクトを想像してください"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:82
+#: ../doc/main_window.rst:82
 msgid "Top Track"
 msgstr "トップトラック"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:82
+#: ../doc/main_window.rst:82
 msgid ""
 "Clips on this track will always be on top and visible. Often watermarks and "
 "titles are placed on higher tracks."
 msgstr "このトラックのクリップは常に最前面に表示されます。ウォーターマークやタイトルは通常、上位のトラックに配置されます。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:83
+#: ../doc/main_window.rst:83
 msgid "Middle Track"
 msgstr "ミドルトラック"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:83
+#: ../doc/main_window.rst:83
 msgid ""
 "Clips in the middle (might or might not be visible, depending on what is "
 "above them)"
 msgstr "中間のトラックのクリップ（上にあるものによっては見えないこともあります）"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:84
+#: ../doc/main_window.rst:84
 msgid "Bottom Track"
 msgstr "ボトムトラック"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:84
+#: ../doc/main_window.rst:84
 msgid ""
 "Clips on this track will always be on the bottom. Often audio clips are "
 "placed on lower tracks."
 msgstr "このトラックのクリップは常に最下層にあります。音声クリップは通常、下位のトラックに配置されます。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:94
+#: ../doc/main_window.rst:94
 msgid ""
 "For a beginner-friendly overview of timeline editing (selection, tracks, "
 "keyframes, and common workflows), see :ref:`timeline_ref`."
 msgstr ""
-"タイムライン編集（選択、トラック、キーフレーム、一般的なワークフロー）について初心者向けの概要は、:ref:`timeline_ref` "
+"タイムライン編集（選択、トラック、キーフレーム、一般的なワークフロー）について初心者向けの概要は、\\ :ref:`timeline_ref` "
 "を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:102
+#: ../doc/main_window.rst:102
 msgid "Control Group"
 msgstr "コントロールグループ"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:105 ../main_window.rst:144
+#: ../doc/main_window.rst:105
 msgid "Add Track"
 msgstr "トラックを追加"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:106
+#: ../doc/main_window.rst:106
 msgid ""
 "Add a new track to the timeline. New projects start with 5 tracks by "
 "default."
 msgstr "タイムラインに新しいトラックを追加します。新規プロジェクトはデフォルトで5トラックから始まります。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:108
+#: ../doc/main_window.rst:108
 msgid "Undo / Redo"
 msgstr "元に戻す / やり直す"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:109
+#: ../doc/main_window.rst:109
 msgid "Undo or redo your latest timeline edits."
 msgstr "最新のタイムライン編集を元に戻すか、やり直します。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:111
+#: ../doc/main_window.rst:111
 msgid "Snap, Retime, Razor"
 msgstr "スナップ、リタイム、レイザー"
 
-#: ../main_window.rst:112
+#: ../doc/main_window.rst:112
 msgid ""
 "Snapping toggles magnetic alignment. Timing Tool enables retiming by "
 "dragging clip edges. The :ref:`razor_tool_ref` previews and cuts at the "
 "guide position; press :kbd:`Esc` to exit."
 msgstr ""
-"スナッピングは磁気的な整列を切り替えます。タイミングツールはクリップの端をドラッグしてリタイミングを可能にします。:ref:`razor_tool_ref`"
-" はガイド位置でプレビューとカットを行います。終了するには :kbd:`Esc` を押してください。"
+"スナッピングは磁気的な整列を切り替えます。タイミングツールはクリップの端をドラッグしてリタイミングを可能にします。\\ "
+":ref:`razor_tool_ref` はガイド位置でプレビューとカットを行います。終了するには :kbd:`Esc` を押してください。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:114
+#: ../doc/main_window.rst:114
 msgid "Add Marker, Next/Prev Marker"
 msgstr "マーカー追加、次/前のマーカー"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:115
+#: ../doc/main_window.rst:115
 msgid ""
 "Add a marker at the playhead and jump to previous or next marker/clip "
 "boundaries."
 msgstr "プレイヘッドにマーカーを追加し、前または次のマーカーやクリップの境界にジャンプします。"
 
 # Main-window terminology review, 2026-09-26.
-#: ../main_window.rst:117 ../main_window.rst:148
+#: ../doc/main_window.rst:117
 msgid "Center on Playhead"
 msgstr "再生ヘッドを中心に表示"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:118
+#: ../doc/main_window.rst:118
 msgid "Center the visible timeline area around the current playhead position."
 msgstr "現在のプレイヘッド位置を中心に表示されているタイムライン領域を配置します。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:121
+#: ../doc/main_window.rst:121
 msgid ""
 "Control the visible timeline range. Drag handles to zoom in/out, drag center"
 " to pan, and double-click to fit timeline. You can also use "
 ":kbd:`Ctrl+Scroll Wheel`, or on the QWidget timeline hold :kbd:`Ctrl` and "
 "drag with the middle mouse button for smooth zooming."
 msgstr ""
-"表示されているタイムラインの範囲を制御します。ハンドルをドラッグしてズームイン/アウトし、中央をドラッグしてパンし、ダブルクリックでタイムラインにフィットさせます。また、:kbd:`Ctrl+スクロールホイール`"
-" を使用するか、QWidget タイムライン上で :kbd:`Ctrl` を押しながら中ボタンでドラッグしてスムーズにズームできます。"
+"表示されているタイムラインの範囲を制御します。ハンドルをドラッグしてズームイン/アウトし、中央をドラッグしてパンし、ダブルクリックでタイムラインにフィットさせます。また、\\"
+" :kbd:`Ctrl+スクロールホイール` を使用するか、QWidget タイムライン上で :kbd:`Ctrl` "
+"を押しながら中ボタンでドラッグしてスムーズにズームできます。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:123
+#: ../doc/main_window.rst:123
 msgid "Track toggles (Lock, Keyframe Panel)"
 msgstr "トラック切り替え（ロック、キーフレームパネル）"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:124
+#: ../doc/main_window.rst:124
 msgid "Per-track controls such as lock and keyframe panel visibility."
 msgstr "ロックやキーフレームパネルの表示など、トラックごとのコントロール。"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:129
-msgid "Keyboard Shortcuts"
-msgstr "キーボードショートカット"
+#: ../doc/main_window.rst:127
+msgid "Common Keyboard Shortcuts"
+msgstr "一般的なキーボードショートカット"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:130
+#: ../doc/main_window.rst:128
 msgid ""
-"Here is a list of the default keyboard shortcuts supported by OpenShot. You "
-"can configure these shortcuts in the Preferences window, which is opened by "
-"selecting :guilabel:`Edit→Preferences` from the OpenShot menu bar. (On "
-"macOS, choose :guilabel:`OpenShot Video Editor→Preferences`.) Learning a few"
-" of these shortcuts can save you a bunch of time!"
+"A few shortcuts can help you get around OpenShot and make quick edits. "
+"Timeline selection and editing shortcuts apply when the timeline has "
+"keyboard focus. Use Tab / Shift+Tab to move between controls and dock tab "
+"titles. Press Space or Enter on a focused tab title to select its dock and "
+"enter the first control."
 msgstr ""
-"以下はOpenShotでサポートされているデフォルトのキーボードショートカットの一覧です。これらのショートカットは、OpenShotメニューバーの "
-":guilabel:`編集→環境設定` （macOSでは :guilabel:`OpenShot Video Editor→環境設定` "
-"）から開く環境設定ウィンドウで設定できます。いくつか覚えるだけで大幅に時間を節約できます！"
+"いくつかのショートカットはOpenShotの操作や素早い編集に役立ちます。タイムラインの選択および編集ショートカットは、タイムラインにキーボードフォーカスがあるときに適用されます。Tab"
+" / "
+"Shift+Tabでコントロールやドックのタブタイトル間を移動します。フォーカスされたタブタイトルでSpaceまたはEnterを押すと、そのドックを選択し最初のコントロールに移動します。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:140
+#: ../doc/main_window.rst:137
 msgid "Action"
 msgstr "操作"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:140
-msgid "Shortcut 1"
-msgstr "ショートカット1"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:140
-msgid "Shortcut 2"
-msgstr "ショートカット2"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:140
-msgid "Shortcut 3"
-msgstr "ショートカット3"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:142 ../main_window.rst:294
-msgid "About OpenShot"
-msgstr "OpenShotについて"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:142
-msgid ":kbd:`Ctrl+H`"
-msgstr ":kbd:`Ctrl+H`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:143
-msgid "Add Marker"
-msgstr "マーカーを追加"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:143
-msgid ":kbd:`M`"
-msgstr ":kbd:`M`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:144
-msgid ":kbd:`Ctrl+Y`"
-msgstr ":kbd:`Ctrl+Y`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:145
-msgid "Add to Timeline"
-msgstr "タイムラインに追加"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:145
-msgid ":kbd:`Ctrl+Alt+A`"
-msgstr ":kbd:`Ctrl+Alt+A`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:146
-msgid "Animated Title"
-msgstr "アニメーションタイトル"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:146
-msgid ":kbd:`Ctrl+Shift+T`"
-msgstr ":kbd:`Ctrl+Shift+T`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:147
-msgid "Ask a Question..."
-msgstr "質問する..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:147
-msgid ":kbd:`F4`"
-msgstr ":kbd:`F4`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:148
-msgid ":kbd:`Shift+C`"
-msgstr ":kbd:`Shift+C`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:148
-msgid ":kbd:`Alt+Up`"
-msgstr ":kbd:`Alt+Up`"
-
-#: ../main_window.rst:149 ../main_window.rst:329
-msgid "Color View"
-msgstr "カラー表示"
-
-#: ../main_window.rst:149
-msgid ":kbd:`Alt+Shift+2`"
-msgstr ":kbd:`Alt+Shift+2`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:150
-msgid "Choose Profile"
-msgstr "プロファイルを選択"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:150
-msgid ":kbd:`Ctrl+Alt+P`"
-msgstr ":kbd:`Ctrl+Alt+P`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:151
-msgid "Clear All Cache"
-msgstr "すべてのキャッシュをクリア"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:151
-msgid ":kbd:`Ctrl+Shift+ESC`"
-msgstr ":kbd:`Ctrl+Shift+ESC`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:152
-msgid "Clear History"
-msgstr "履歴をクリア"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:152
-msgid ":kbd:`Ctrl+Shift+H`"
-msgstr ":kbd:`Ctrl+Shift+H`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:153
-msgid "Delete Optimized Videos"
-msgstr "最適化されたビデオを削除"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:153
-msgid ":kbd:`Ctrl+Shift+O`"
-msgstr ":kbd:`Ctrl+Shift+O`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:154
-msgid "Clear Waveform Display Data"
-msgstr "波形表示データをクリア"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:154
-msgid ":kbd:`Ctrl+Shift+W`"
-msgstr ":kbd:`Ctrl+Shift+W`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:155
-msgid "Copy"
-msgstr "コピー"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:155
-msgid ":kbd:`Ctrl+C`"
-msgstr ":kbd:`Ctrl+C`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:156
-msgid "Cut"
-msgstr "カット"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:156
-msgid ":kbd:`Ctrl+X`"
-msgstr ":kbd:`Ctrl+X`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:157
-msgid "Delete Item"
-msgstr "アイテムを削除"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:157
-msgid ":kbd:`Delete`"
-msgstr ":kbd:`Delete`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:157
-msgid ":kbd:`Backspace`"
-msgstr ":kbd:`Backspace`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:158
-msgid "Delete Item (Ripple)"
-msgstr "アイテムを削除（リップル）"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:158
-msgid ":kbd:`Shift+Delete`"
-msgstr ":kbd:`Shift+Delete`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:159
-msgid "Details View"
-msgstr "詳細ビュー"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:159
-msgid ":kbd:`Ctrl+Page Up`"
-msgstr ":kbd:`Ctrl+Page Up`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:160
-msgid "Donate"
-msgstr "寄付"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:160
-msgid ":kbd:`F7`"
-msgstr ":kbd:`F7`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:161
-msgid "Duplicate"
-msgstr "複製"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:161
-msgid ":kbd:`Ctrl+Shift+/`"
-msgstr ":kbd:`Ctrl+Shift+/`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:162
-msgid "Edit Title"
-msgstr "タイトルを編集"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:162
-msgid ":kbd:`Alt+T`"
-msgstr ":kbd:`Alt+T`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:163
-msgid "Export Selected Files"
-msgstr "選択ファイルをエクスポート"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:163
-msgid ":kbd:`Ctrl+Shift+E`"
-msgstr ":kbd:`Ctrl+Shift+E`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:164
-msgid "Export Video / Media"
-msgstr "ビデオ/メディアをエクスポート"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:164
-msgid ":kbd:`Ctrl+E`"
-msgstr ":kbd:`Ctrl+E`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:164
-msgid ":kbd:`Ctrl+M`"
-msgstr ":kbd:`Ctrl+M`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:165
-msgid "Fast Forward"
-msgstr "早送り"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:165
-msgid ":kbd:`L`"
-msgstr ":kbd:`L`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:166
-msgid "File Properties"
-msgstr "ファイルのプロパティ"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:166
-msgid ":kbd:`Alt+I`"
-msgstr ":kbd:`Alt+I`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:166
-msgid ":kbd:`Ctrl+Double Click`"
-msgstr ":kbd:`Ctrl+ダブルクリック`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:167
-msgid "Fullscreen"
-msgstr "全画面表示"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:167
-msgid ":kbd:`F11`"
-msgstr ":kbd:`F11`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:168
-msgid "Import Files..."
-msgstr "ファイルをインポート..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:168
-msgid ":kbd:`Ctrl+I`"
-msgstr ":kbd:`Ctrl+I`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:169
-msgid "Insert Keyframe"
-msgstr "キーフレームを挿入"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:169
-msgid ":kbd:`Alt+Shift+K`"
-msgstr ":kbd:`Alt+Shift+K`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:170
-msgid "Join our Community..."
-msgstr "コミュニティに参加しよう..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:170
-msgid ":kbd:`F5`"
-msgstr ":kbd:`F5`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:171
-msgid "Jump To End"
-msgstr "最後にジャンプ"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:171
-msgid ":kbd:`End`"
-msgstr ":kbd:`End`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:172
-msgid "Jump To Start"
-msgstr "最初にジャンプ"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:172
-msgid ":kbd:`Home`"
-msgstr ":kbd:`Home`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:173
-msgid "Launch Tutorial"
-msgstr "チュートリアルを開始"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:173
-msgid ":kbd:`F2`"
-msgstr ":kbd:`F2`"
+#: ../doc/main_window.rst:138
+msgid "Shortcut"
+msgstr "ショートカット"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:174
-msgid "New Project"
-msgstr "新規プロジェクト"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:174
-msgid ":kbd:`Ctrl+N`"
-msgstr ":kbd:`Ctrl+N`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:175
-msgid "Next Frame"
-msgstr "次のフレーム"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:175
-msgid ":kbd:`Right`"
-msgstr ":kbd:`Right`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:175
-msgid ":kbd:`.`"
-msgstr ":kbd:`.`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:176
-msgid "Next Marker"
-msgstr "次のマーカー"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:176
-msgid ":kbd:`Shift+M`"
-msgstr ":kbd:`Shift+M`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:176
-msgid ":kbd:`Alt+Right`"
-msgstr ":kbd:`Alt+Right`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:177
-msgid "Nudge left (1 Frame)"
-msgstr "左に微調整（1フレーム）"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:177
-msgid ":kbd:`Ctrl+Left`"
-msgstr ":kbd:`Ctrl+Left`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:178
-msgid "Nudge left (5 Frames)"
-msgstr "左に微調整（5フレーム）"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:178
-msgid ":kbd:`Shift+Ctrl+Left`"
-msgstr ":kbd:`Shift+Ctrl+Left`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:179
-msgid "Nudge right (1 Frame)"
-msgstr "右に微調整（1フレーム）"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:179
-msgid ":kbd:`Ctrl+Right`"
-msgstr ":kbd:`Ctrl+Right`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:180
-msgid "Nudge right (5 Frames)"
-msgstr "右に微調整（5フレーム）"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:180
-msgid ":kbd:`Shift+Ctrl+Right`"
-msgstr ":kbd:`Shift+Ctrl+Right`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:181
-msgid "Open Help Contents"
-msgstr "ヘルプコンテンツを開く"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:181
-msgid ":kbd:`F1`"
-msgstr ":kbd:`F1`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:182
-msgid "Open Project..."
-msgstr "プロジェクトを開く..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:182
-msgid ":kbd:`Ctrl+O`"
-msgstr ":kbd:`Ctrl+O`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:183
-msgid "Paste"
-msgstr "貼り付け"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:183
-msgid ":kbd:`Ctrl+V`"
-msgstr ":kbd:`Ctrl+V`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:184
-msgid "Play/Pause Toggle"
-msgstr "再生/一時停止切替"
+#: ../doc/main_window.rst:139
+msgid "Play / pause"
+msgstr "再生 / 一時停止"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:184
+#: ../doc/main_window.rst:140
 msgid ":kbd:`Space`"
 msgstr ":kbd:`Space`"
 
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:184
-msgid ":kbd:`Up`"
-msgstr ":kbd:`Up`"
+#: ../doc/main_window.rst:141
+msgid "Focus timeline"
+msgstr "タイムラインにフォーカス"
+
+#: ../doc/main_window.rst:142
+msgid ":kbd:`Shift+3`"
+msgstr ":kbd:`Shift+3`"
+
+#: ../doc/main_window.rst:143
+msgid "Previous / next frame"
+msgstr "前のフレーム / 次のフレーム"
+
+#: ../doc/main_window.rst:144
+msgid ":kbd:`Left` / :kbd:`Right`"
+msgstr ":kbd:`Left` / :kbd:`Right`"
+
+#: ../doc/main_window.rst:145
+msgid "Focus Project Files / add selected assets at the playhead"
+msgstr "プロジェクトファイルにフォーカス / 選択したアセットをプレイヘッド位置に追加"
+
+#: ../doc/main_window.rst:146
+msgid ":kbd:`Shift+1`, then :kbd:`Ctrl+Enter`"
+msgstr ":kbd:`Shift+1`\\ 、次に :kbd:`Ctrl+Enter`"
+
+#: ../doc/main_window.rst:147
+msgid "Select previous / next clip or transition"
+msgstr "前のクリップまたはトランジションを選択 / 次のクリップまたはトランジションを選択"
+
+#: ../doc/main_window.rst:148
+msgid ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+msgstr ":kbd:`Ctrl+Left` / :kbd:`Ctrl+Right`"
+
+#: ../doc/main_window.rst:149
+msgid "Nudge selection one frame"
+msgstr "選択を1フレームずつ移動"
+
+#: ../doc/main_window.rst:150
+msgid ":kbd:`,` / :kbd:`.`"
+msgstr ":kbd:`,` / :kbd:`.`"
+
+#: ../doc/main_window.rst:151
+msgid "Split selected clips at playhead"
+msgstr "プレイヘッド位置で選択クリップを分割"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:184
-msgid ":kbd:`Down`"
-msgstr ":kbd:`Down`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:185
-msgid "Preferences"
-msgstr "設定"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:185
-msgid ":kbd:`Ctrl+P`"
-msgstr ":kbd:`Ctrl+P`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:186
-msgid "Preview File"
-msgstr "ファイルをプレビュー"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:186
-msgid ":kbd:`Alt+P`"
-msgstr ":kbd:`Alt+P`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:186 ../main_window.rst:223
-msgid ":kbd:`Double Click`"
-msgstr ":kbd:`ダブルクリック`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:187
-msgid "Previous Frame"
-msgstr "前のフレーム"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:187
-msgid ":kbd:`Left`"
-msgstr ":kbd:`Left`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:187
-msgid ":kbd:`,`"
-msgstr ":kbd:`,`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:188
-msgid "Previous Marker"
-msgstr "前のマーカー"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:188
-msgid ":kbd:`Ctrl+Shift+M`"
-msgstr ":kbd:`Ctrl+Shift+M`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:188
-msgid ":kbd:`Alt+Left`"
-msgstr ":kbd:`Alt+Left`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:189 ../main_window.rst:413
-msgid "Properties"
-msgstr "プロパティ"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:189
-msgid ":kbd:`U`"
-msgstr ":kbd:`U`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:190
-msgid "Quit"
-msgstr "終了"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:190
-msgid ":kbd:`Ctrl+Q`"
-msgstr ":kbd:`Ctrl+Q`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:191
-msgid "Razor Toggle"
-msgstr "レイザー切替"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:191
-msgid ":kbd:`C`"
-msgstr ":kbd:`C`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:191
-msgid ":kbd:`B`"
-msgstr ":kbd:`B`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:191
-msgid ":kbd:`R`"
-msgstr ":kbd:`R`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:192
-msgid "Redo"
-msgstr "やり直し"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:192
-msgid ":kbd:`Ctrl+Shift+Z`"
-msgstr ":kbd:`Ctrl+Shift+Z`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:193
-msgid "Report a Bug..."
-msgstr "バグを報告..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:193
-msgid ":kbd:`F3`"
-msgstr ":kbd:`F3`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:194
-msgid "Rewind"
-msgstr "巻き戻し"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:194
-msgid ":kbd:`J`"
-msgstr ":kbd:`J`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:195 ../main_window.rst:196
-msgid "Save Current Frame"
-msgstr "現在のフレームを保存"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:195 ../main_window.rst:196
-msgid ":kbd:`Ctrl+Shift+Y`"
-msgstr ":kbd:`Ctrl+Shift+Y`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:197
-msgid "Save Project"
-msgstr "プロジェクトを保存"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:197
-msgid ":kbd:`Ctrl+S`"
-msgstr ":kbd:`Ctrl+S`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:198
-msgid "Save Project As..."
-msgstr "名前を付けてプロジェクトを保存..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:198
-msgid ":kbd:`Ctrl+Shift+S`"
-msgstr ":kbd:`Ctrl+Shift+S`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:199
-msgid "Select All"
-msgstr "すべて選択"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:199
-msgid ":kbd:`Ctrl+A`"
-msgstr ":kbd:`Ctrl+A`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:200
-msgid "Select Item (Ripple)"
-msgstr "アイテムを選択（リップル）"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:200
-msgid ":kbd:`Alt+A`"
-msgstr ":kbd:`Alt+A`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:200
-msgid ":kbd:`Alt+Click`"
-msgstr ":kbd:`Alt+クリック`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:201
-msgid "Select None"
-msgstr "選択解除"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:201
-msgid ":kbd:`Ctrl+Shift+A`"
-msgstr ":kbd:`Ctrl+Shift+A`"
-
-#: ../main_window.rst:202
-msgid "Share Feedback..."
-msgstr "フィードバックを共有..."
-
-#: ../main_window.rst:202
-msgid ":kbd:`F8`"
-msgstr ":kbd:`F8`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:203 ../main_window.rst:322
-msgid "Simple View"
-msgstr "シンプルビュー"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:203
-msgid ":kbd:`Alt+Shift+0`"
-msgstr ":kbd:`Alt+Shift+0`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:204
-msgid "Slice All: Keep Both Sides"
-msgstr "すべてをスライス：両側を保持"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:204
-msgid ":kbd:`Ctrl+Shift+K`"
-msgstr ":kbd:`Ctrl+Shift+K`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:205
-msgid "Slice All: Keep Left Side"
-msgstr "すべてをスライス：左側を保持"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:205
-msgid ":kbd:`Ctrl+Shift+J`"
-msgstr ":kbd:`Ctrl+Shift+J`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:206
-msgid "Slice All: Keep Right Side"
-msgstr "すべてをスライス：右側を保持"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:206
-msgid ":kbd:`Ctrl+Shift+L`"
-msgstr ":kbd:`Ctrl+Shift+L`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:207
-msgid "Slice Selected: Keep Both Sides"
-msgstr "選択部分をスライス：両側を保持"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:207
+#: ../doc/main_window.rst:152
 msgid ":kbd:`Ctrl+K`"
 msgstr ":kbd:`Ctrl+K`"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:208
-msgid "Slice Selected: Keep Left Side"
-msgstr "選択部分をスライス：左側を保持"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:208
-msgid ":kbd:`Ctrl+J`"
-msgstr ":kbd:`Ctrl+J`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:209
-msgid "Slice Selected: Keep Right Side"
-msgstr "選択部分をスライス：右側を保持"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:209
-msgid ":kbd:`Ctrl+L`"
-msgstr ":kbd:`Ctrl+L`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:210
-msgid "Slice Selected: Keep Left (Ripple)"
-msgstr "選択部分をスライス：左側を保持（リップル）"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:210
-msgid ":kbd:`W`"
-msgstr ":kbd:`W`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:211
-msgid "Slice Selected: Keep Right (Ripple)"
-msgstr "選択部分をスライス：右側を保持（リップル）"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:211
-msgid ":kbd:`Q`"
-msgstr ":kbd:`Q`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:212
-msgid "Snapping Toggle"
-msgstr "スナップ切替"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:212
-msgid ":kbd:`S`"
-msgstr ":kbd:`S`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:213
-msgid "Split File"
-msgstr "ファイルを分割"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:213
-msgid ":kbd:`Alt+S`"
-msgstr ":kbd:`Alt+S`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:213
-msgid ":kbd:`Shift+Double Click`"
-msgstr ":kbd:`Shift+ダブルクリック`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:214
-msgid "Thumbnail View"
-msgstr "サムネイルビュー"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:214
-msgid ":kbd:`Ctrl+Page Down`"
-msgstr ":kbd:`Ctrl+Page Down`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:215
-msgid "Timing Toggle"
-msgstr "タイミング切替"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:215
-msgid ":kbd:`T`"
-msgstr ":kbd:`T`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:216 ../main_window.rst:257
-msgid "Title"
-msgstr "タイトル"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:216
-msgid ":kbd:`Ctrl+T`"
-msgstr ":kbd:`Ctrl+T`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:217
-msgid "Translate this Application..."
-msgstr "このアプリケーションを翻訳..."
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:217
-msgid ":kbd:`F6`"
-msgstr ":kbd:`F6`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:218
+#: ../doc/main_window.rst:153
 msgid "Undo"
 msgstr "元に戻す"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:218
+#: ../doc/main_window.rst:154
 msgid ":kbd:`Ctrl+Z`"
 msgstr ":kbd:`Ctrl+Z`"
 
-#: ../main_window.rst:219
-msgid "Update Available"
-msgstr "アップデート利用可能"
-
-#: ../main_window.rst:219
-msgid ":kbd:`F9`"
-msgstr ":kbd:`F9`"
+#: ../doc/main_window.rst:155
+msgid "Save project"
+msgstr "プロジェクトを保存"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:220
-msgid "View Toolbar"
-msgstr "ツールバーを表示"
+#: ../doc/main_window.rst:156
+msgid ":kbd:`Ctrl+S`"
+msgstr ":kbd:`Ctrl+S`"
+
+#: ../doc/main_window.rst:158
+msgid ""
+"See :ref:`keyboard_shortcut_ref` for the full reference, keyboard timeline "
+"editing, and a comparison of common shortcuts in other editors. Customize "
+"shortcuts in :guilabel:`Preferences → Keyboard`."
+msgstr ""
+"完全なリファレンス、キーボードによるタイムライン編集、他のエディターの一般的なショートカットとの比較については "
+":ref:`keyboard_shortcut_ref` を参照してください。ショートカットは :guilabel:`環境設定 → キーボード` "
+"でカスタマイズできます。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:220
-msgid ":kbd:`Ctrl+Shift+B`"
-msgstr ":kbd:`Ctrl+Shift+B`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:221
-msgid "Zoom In"
-msgstr "ズームイン"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:221
-msgid ":kbd:`=`"
-msgstr ":kbd:`=`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:221
-msgid ":kbd:`Ctrl+=`"
-msgstr ":kbd:`Ctrl+=`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:222
-msgid "Zoom Out"
-msgstr "ズームアウト"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:222
-msgid ":kbd:`-`"
-msgstr ":kbd:`-`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:222
-msgid ":kbd:`Ctrl+-`"
-msgstr ":kbd:`Ctrl+-`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:223
-msgid "Zoom to Timeline"
-msgstr "タイムラインにズーム"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:223
-msgid ":kbd:`\\\\`"
-msgstr ":kbd:`\\\\`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:223
-msgid ":kbd:`Shift+\\\\`"
-msgstr ":kbd:`Shift+\\\\`"
-
-# Translated with gpt-4.1-mini
-#: ../main_window.rst:227
+#: ../doc/main_window.rst:163
 msgid "Menu"
 msgstr "メニュー"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:228
+#: ../doc/main_window.rst:164
 msgid ""
 "The following menu options are available on the main window on OpenShot. "
 "Most of these options can be accessed by the keyboard shortcuts mentioned "
@@ -1362,49 +560,49 @@ msgstr ""
 "OpenShotのメインウィンドウで利用可能なメニューオプションは以下の通りです。これらの多くは上記のキーボードショートカットでアクセスできます。一部のOS（macOSなど）では、これらのオプションの名称や配置が変更されている場合があります。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:236
+#: ../doc/main_window.rst:172
 msgid "Menu Name"
 msgstr "メニュー名"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:238
+#: ../doc/main_window.rst:174
 msgid "File"
 msgstr "ファイル"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:240
+#: ../doc/main_window.rst:176
 msgid ":guilabel:`New Project` Create a blank new project."
 msgstr ":guilabel:`新規プロジェクト` 空の新しいプロジェクトを作成します。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:241
+#: ../doc/main_window.rst:177
 msgid ":guilabel:`Open Project` Open an existing project."
 msgstr ":guilabel:`プロジェクトを開く` 既存のプロジェクトを開きます。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:242
+#: ../doc/main_window.rst:178
 msgid ":guilabel:`Recent Projects` Access recently opened projects."
 msgstr ":guilabel:`最近のプロジェクト` 最近開いたプロジェクトにアクセスします。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:243
+#: ../doc/main_window.rst:179
 msgid ""
 ":guilabel:`Recovery` Restore a previously saved version of your current "
 "project."
 msgstr ":guilabel:`復元` 現在のプロジェクトの以前に保存されたバージョンを復元します。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:244
+#: ../doc/main_window.rst:180
 msgid ":guilabel:`Save Project` Save the current project."
 msgstr ":guilabel:`プロジェクトを保存` 現在のプロジェクトを保存します。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:245
+#: ../doc/main_window.rst:181
 msgid ":guilabel:`Import Files` Import media files into the project."
 msgstr ":guilabel:`ファイルをインポート` メディアファイルをプロジェクトにインポートします。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:246
+#: ../doc/main_window.rst:182
 msgid ""
 ":guilabel:`Choose Profile` Select a project profile (*i.e. 1080p @ 30fps, "
 "720p @ 24fps, ...*)."
@@ -1412,7 +610,7 @@ msgstr ""
 ":guilabel:`プロファイルを選択` プロジェクトのプロファイルを選択します（例：1080p @ 30fps、720p @ 24fpsなど）。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:247
+#: ../doc/main_window.rst:183
 msgid ""
 ":guilabel:`Save Current Frame` Save the current preview video frame as an "
 "image (sometimes represented with a camera icon)."
@@ -1420,7 +618,7 @@ msgstr ""
 ":guilabel:`現在のフレームを保存` 現在のプレビュービデオフレームを画像として保存します（カメラアイコンで表されることがあります）。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:248
+#: ../doc/main_window.rst:184
 msgid ""
 ":guilabel:`Import Project` Import another project into the current project "
 "(*Adobe and Final Cut Pro formats partially supported*)."
@@ -1429,7 +627,7 @@ msgstr ""
 "Pro形式の一部をサポート）。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:249
+#: ../doc/main_window.rst:185
 msgid ""
 ":guilabel:`Export Project` Export the current project to a specified format "
 "(*EDL, Adobe, and Final Cut Pro formats partially supported*)."
@@ -1438,27 +636,27 @@ msgstr ""
 "Pro形式の一部をサポート）。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:250
+#: ../doc/main_window.rst:186
 msgid ":guilabel:`Quit` Exit the application."
 msgstr ":guilabel:`終了` アプリケーションを終了します。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:251
+#: ../doc/main_window.rst:187
 msgid "Edit"
 msgstr "編集"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:253
+#: ../doc/main_window.rst:189
 msgid ":guilabel:`Undo` Undo the last action."
 msgstr ":guilabel:`元に戻す` 最後の操作を元に戻します。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:254
+#: ../doc/main_window.rst:190
 msgid ":guilabel:`Redo` Redo the last undone action."
 msgstr ":guilabel:`やり直す` 最後に元に戻した操作をやり直します。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:255
+#: ../doc/main_window.rst:191
 msgid ""
 ":guilabel:`Clear` Clear the current history or waveform cached data. This "
 "makes the `.osp project` file a much smaller file size."
@@ -1467,13 +665,18 @@ msgstr ""
 "プロジェクトファイルのサイズが大幅に小さくなります。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:256
+#: ../doc/main_window.rst:192
 msgid ""
 ":guilabel:`Preferences` Open the preferences dialog to customize settings."
 msgstr ":guilabel:`設定` 設定ダイアログを開いてカスタマイズします。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:259
+#: ../doc/main_window.rst:193
+msgid "Title"
+msgstr "タイトル"
+
+# Translated with gpt-4.1-mini
+#: ../doc/main_window.rst:195
 msgid ""
 ":guilabel:`Title` Add a SVG vector title to the project. See "
 ":ref:`text_and_titles_ref`."
@@ -1482,7 +685,7 @@ msgstr ""
 "を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:260
+#: ../doc/main_window.rst:196
 msgid ""
 ":guilabel:`Animated Title` Add an animated title to the project. See "
 ":ref:`animated_titles_ref`."
@@ -1491,11 +694,11 @@ msgstr ""
 ":ref:`animated_titles_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:261
+#: ../doc/main_window.rst:197
 msgid "View"
 msgstr "表示"
 
-#: ../main_window.rst:263
+#: ../doc/main_window.rst:199
 msgid ""
 ":guilabel:`Simple View` and :guilabel:`Color View` switch or reset the main "
 "window layout."
@@ -1503,7 +706,7 @@ msgstr ""
 ":guilabel:`Simple View` と :guilabel:`Color View` "
 "はメインウィンドウのレイアウトを切り替えたりリセットしたりします。"
 
-#: ../main_window.rst:264
+#: ../doc/main_window.rst:200
 msgid ""
 ":guilabel:`My Views` Save, load, update, and delete your own named layouts. "
 "See :ref:`my_views_ref`."
@@ -1511,16 +714,16 @@ msgstr ""
 ":guilabel:`My Views` は、名前付きレイアウトを保存、読み込み、更新、削除できます。詳細は :ref:`my_views_ref` "
 "を参照してください。"
 
-#: ../main_window.rst:265
+#: ../doc/main_window.rst:201
 msgid ":guilabel:`Docks` Show or hide various dockable panels."
 msgstr ":guilabel:`Docks` はさまざまなドッカブルパネルの表示・非表示を切り替えます。"
 
-#: ../main_window.rst:266
+#: ../doc/main_window.rst:202
 msgid ""
 ":guilabel:`Scopes` Show or hide scope docks, or open all scopes at once."
 msgstr ":guilabel:`Scopes` はスコープドックの表示・非表示を切り替えたり、すべてのスコープを一度に開いたりします。"
 
-#: ../main_window.rst:267
+#: ../doc/main_window.rst:203
 msgid ""
 ":guilabel:`Window` Show or hide the main window toolbar, or toggle "
 "fullscreen mode."
@@ -1528,64 +731,64 @@ msgstr ""
 ":guilabel:`Window` はメインウィンドウのツールバーの表示・非表示を切り替えたり、フルスクリーンモードを切り替えたりします。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:268
+#: ../doc/main_window.rst:204
 msgid "Help"
 msgstr "ヘルプ"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:270
+#: ../doc/main_window.rst:206
 msgid ":guilabel:`Contents` Open the user guide online."
 msgstr ":guilabel:`目次` オンラインのユーザーガイドを開きます。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:271
+#: ../doc/main_window.rst:207
 msgid ":guilabel:`Tutorial` Access the built-in tutorial for new users."
 msgstr ":guilabel:`チュートリアル` 新規ユーザー向けの組み込みチュートリアルにアクセスします。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:272
+#: ../doc/main_window.rst:208
 msgid ":guilabel:`Report a Bug` Report a bug or issue."
 msgstr ":guilabel:`バグ報告` バグや問題を報告します。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:273
+#: ../doc/main_window.rst:209
 msgid ":guilabel:`Ask a Question` Ask a question about the software."
 msgstr ":guilabel:`質問する` ソフトウェアに関する質問をします。"
 
-#: ../main_window.rst:274
+#: ../doc/main_window.rst:210
 msgid ""
 ":guilabel:`Share Feedback` Open a survey about your experience with "
 "OpenShot."
 msgstr ":guilabel:`フィードバックを共有` OpenShotの使用体験に関するアンケートを開きます。"
 
-#: ../main_window.rst:275
+#: ../doc/main_window.rst:211
 msgid ""
 ":guilabel:`Update Available` Open the download page when a newer version is "
 "available."
 msgstr ":guilabel:`アップデート利用可能` 新しいバージョンが利用可能な場合、ダウンロードページを開きます。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:276
+#: ../doc/main_window.rst:212
 msgid ":guilabel:`Translate` Contribute to translations of the software."
 msgstr ":guilabel:`翻訳` ソフトウェアの翻訳に貢献します。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:277
+#: ../doc/main_window.rst:213
 msgid ":guilabel:`Donate` Make a donation to support the project."
 msgstr ":guilabel:`寄付` プロジェクトを支援するために寄付をします。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:278
+#: ../doc/main_window.rst:214
 msgid ""
 ":guilabel:`About` View information about the software (version, "
 "contributors, translators, changelog, and supporters)."
 msgstr ":guilabel:`バージョン情報` ソフトウェアの情報（バージョン、貢献者、翻訳者、変更履歴、支援者）を表示します。"
 
-#: ../main_window.rst:281
+#: ../doc/main_window.rst:217
 msgid "Notifications"
 msgstr "通知"
 
-#: ../main_window.rst:283
+#: ../doc/main_window.rst:219
 msgid ""
 "OpenShot may show a notice near the top of the window when a newer version "
 "is available. Choose :guilabel:`Upgrade` to open the download page, or close"
@@ -1594,21 +797,26 @@ msgid ""
 "update is available."
 msgstr ""
 "新しいバージョンが利用可能な場合、OpenShotはウィンドウの上部近くに通知を表示することがあります。ダウンロードページを開くには "
-":guilabel:`アップグレード` "
-"を選択し、そのバージョンの通知を非表示にするには通知を閉じてください。アップデートが利用可能なときは、:guilabel:`ヘルプ → "
-"アップデート利用可能` からもダウンロードページを開くことができ、または :kbd:`F9` を押してください。"
+":guilabel:`アップグレード` を選択し、そのバージョンの通知を非表示にするには通知を閉じてください。アップデートが利用可能なときは、\\ "
+":guilabel:`ヘルプ → アップデート利用可能` からもダウンロードページを開くことができ、または :kbd:`F9` を押してください。"
 
-#: ../main_window.rst:288
+#: ../doc/main_window.rst:224
 msgid ""
-"After you have spent some time editing, OpenShot may also invite you to "
-"share feedback. The survey is optional. You can open it from the notice or "
-"dismiss the invitation. At any time, choose :guilabel:`Help → Share "
-"Feedback` or press :kbd:`F8` to share your thoughts."
+"After your first successful export of each OpenShot release, a notice "
+"invites you to share feedback once you close the Export window. The survey "
+"is optional. You can open it from the notice or dismiss the invitation. At "
+"any time, choose :guilabel:`Help → Share Feedback` or press :kbd:`F8` to "
+"share your thoughts."
 msgstr ""
-"編集を一定時間行うと、OpenShotはフィードバックの共有を促すことがあります。アンケートは任意です。通知から開くか招待を閉じることができます。いつでも"
-" :guilabel:`ヘルプ → フィードバックを共有` を選択するか、:kbd:`F8` を押して意見を共有してください。"
+"各OpenShotリリースで初めてエクスポートに成功すると、エクスポートウィンドウを閉じた際にフィードバック共有の案内が表示されます。アンケートは任意です。案内から開くか、招待を閉じることができます。いつでも"
+" :guilabel:`ヘルプ → フィードバックを共有` を選択するか、\\ :kbd:`F8` を押して意見を共有できます。"
 
-#: ../main_window.rst:295
+# Translated with gpt-4.1-mini
+#: ../doc/main_window.rst:230
+msgid "About OpenShot"
+msgstr "OpenShotについて"
+
+#: ../doc/main_window.rst:231
 msgid ""
 "Use :guilabel:`Help→About OpenShot` to check your OpenShot version. Click "
 ":guilabel:`Copy` next to the version number to copy a short version and "
@@ -1619,27 +827,32 @@ msgstr ""
 ":guilabel:`コピー` "
 "をクリックすると、OpenShotのインストール方法を含む短いバージョン情報とシステム詳細のレポートをコピーできます。これはバグ報告やサポートを求める際に情報を共有するのに便利な方法です。"
 
-#: ../main_window.rst:300
+#: ../doc/main_window.rst:236
 msgid "Example output:"
 msgstr "出力例:"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:315
+#: ../doc/main_window.rst:251
 msgid "Views"
 msgstr "ビュー"
 
-#: ../main_window.rst:317
+#: ../doc/main_window.rst:253
 msgid ""
 "The OpenShot main window is composed of multiple **docks**. These **docks** "
 "are arranged and snapped together into a grouping that we call a **View**. "
 "OpenShot includes :guilabel:`Simple View`, :guilabel:`Color View`, and "
 ":guilabel:`My Views` (user-defined layouts)."
 msgstr ""
-"OpenShot のメインウィンドウは複数の **ドック** で構成されています。これらの **ドック** は配置されてスナップされ、**ビュー** "
-"と呼ばれるグループにまとめられます。OpenShot には :guilabel:`Simple View`、:guilabel:`Color "
-"View`、および :guilabel:`My Views`（ユーザー定義レイアウト）が含まれています。"
+"OpenShot のメインウィンドウは複数の **ドック** で構成されています。これらの **ドック** は配置されてスナップされ、\\ "
+"**ビュー** と呼ばれるグループにまとめられます。OpenShot には :guilabel:`Simple View`\\ 、\\ "
+":guilabel:`Color View`\\ 、および :guilabel:`My Views`\\ （ユーザー定義レイアウト）が含まれています。"
 
-#: ../main_window.rst:323
+# Translated with gpt-4.1-mini
+#: ../doc/main_window.rst:258
+msgid "Simple View"
+msgstr "シンプルビュー"
+
+#: ../doc/main_window.rst:259
 msgid ""
 "This is the **default** view, and is designed to be easy-to-use, especially "
 "for first-time users. It contains :guilabel:`Project Files` on the top left,"
@@ -1649,11 +862,15 @@ msgid ""
 ":guilabel:`View->Simple View` menu at the top of the screen."
 msgstr ""
 "これは **デフォルト** のビューで、特に初めてのユーザーに使いやすいよう設計されています。左上に :guilabel:`Project "
-"Files`、右上に :guilabel:`Preview Window`、下部に :guilabel:`Timeline` "
+"Files`\\ 、右上に :guilabel:`Preview Window`\\ 、下部に :guilabel:`Timeline` "
 "が含まれています。誤ってドックを閉じたり移動した場合は、画面上部の :guilabel:`View->Simple View` "
 "メニューを使ってすべてのドックをデフォルトの位置にすばやくリセットできます。"
 
-#: ../main_window.rst:330
+#: ../doc/main_window.rst:265
+msgid "Color View"
+msgstr "カラー表示"
+
+#: ../doc/main_window.rst:266
 msgid ""
 "This view is focused on color correction and scopes. It enlarges the video "
 "preview, hides file-management docks, keeps the timeline and properties "
@@ -1666,12 +883,12 @@ msgstr ""
 ":guilabel:`Histogram` ドックをタブ化します。"
 
 # Main-window terminology review, 2026-09-26.
-#: ../main_window.rst:335
+#: ../doc/main_window.rst:271
 msgid "Recording View"
 msgstr "録音・録画ビュー"
 
 # Main-window terminology review, 2026-09-26.
-#: ../main_window.rst:336
+#: ../doc/main_window.rst:272
 msgid ""
 "This view is focused on creating new recordings inside OpenShot. It shows "
 ":guilabel:`Project Files`, :guilabel:`Video Preview`, :guilabel:`Timeline`, "
@@ -1679,13 +896,14 @@ msgid ""
 "grouped with :guilabel:`Project Files` as a tab, so you can show it from "
 ":guilabel:`View->Docks->Properties` without disrupting the recording layout."
 msgstr ""
-"このビューは OpenShot 内で新しい録画を作成することに焦点を当てています。:guilabel:`Project "
-"Files`、:guilabel:`Video Preview`、:guilabel:`Timeline`、および :guilabel:`録音・録画` "
-"ドックを表示します。:guilabel:`Properties` ドックは :guilabel:`Project Files` "
-"とタブでグループ化されているため、録画レイアウトを崩さずに :guilabel:`View->Docks->Properties` から表示できます。"
+"このビューは OpenShot 内で新しい録画を作成することに焦点を当てています。\\ :guilabel:`Project Files`\\ 、\\ "
+":guilabel:`Video Preview`\\ 、\\ :guilabel:`Timeline`\\ 、および "
+":guilabel:`録音・録画` ドックを表示します。\\ :guilabel:`Properties` ドックは "
+":guilabel:`Project Files` とタブでグループ化されているため、録画レイアウトを崩さずに "
+":guilabel:`View->Docks->Properties` から表示できます。"
 
 # Main-window terminology review, 2026-09-26.
-#: ../main_window.rst:341
+#: ../doc/main_window.rst:277
 msgid ""
 "The :guilabel:`Recording` dock can record microphone audio, screen capture, "
 "webcam video, or combinations of those sources. When screen and webcam are "
@@ -1701,18 +919,18 @@ msgid ""
 msgstr ""
 ":guilabel:`録音・録画` "
 "ドックはマイク音声、画面キャプチャ、ウェブカメラ映像、またはそれらの組み合わせを録画できます。画面とウェブカメラを同時に録画すると、OpenShot "
-"はウェブカメラ映像をコーナーのピクチャーインピクチャークリップとして配置できます。これらのコーナーカメラクリップはタイムラインに追加後、通常のクリッププロパティを使用します。:guilabel:`Gravity`"
-" でコーナーを選択し、:guilabel:`Scale X` と :guilabel:`Scale Y` "
-"でコーナーのサイズを設定し、:guilabel:`Margin` "
-"でカメラを画面端から離すインセットレイアウト領域を作成し、:guilabel:`Corner Radius` "
-"で別のマスク効果を追加せずにカメラクリップを丸めます。詳細は :ref:`clip_properties_ref` "
-"を参照してください。録画の完全なワークフローとすべてのソースオプションについては :ref:`recording_ref` を参照してください。"
+"はウェブカメラ映像をコーナーのピクチャーインピクチャークリップとして配置できます。これらのコーナーカメラクリップはタイムラインに追加後、通常のクリッププロパティを使用します。\\"
+" :guilabel:`Gravity` でコーナーを選択し、\\ :guilabel:`Scale X` と :guilabel:`Scale Y` "
+"でコーナーのサイズを設定し、\\ :guilabel:`Margin` でカメラを画面端から離すインセットレイアウト領域を作成し、\\ "
+":guilabel:`Corner Radius` で別のマスク効果を追加せずにカメラクリップを丸めます。詳細は "
+":ref:`clip_properties_ref` を参照してください。録画の完全なワークフローとすべてのソースオプションについては "
+":ref:`recording_ref` を参照してください。"
 
-#: ../main_window.rst:352
+#: ../doc/main_window.rst:288
 msgid "My Views"
 msgstr "My Views"
 
-#: ../main_window.rst:353
+#: ../doc/main_window.rst:289
 msgid ""
 "**My Views** lets you save any dock arrangement as a named layout and recall"
 " it instantly. This is ideal for workflows that require switching between "
@@ -1723,7 +941,7 @@ msgstr ""
 "**My Views** "
 "は任意のドック配置を名前付きレイアウトとして保存し、即座に呼び出せます。これは、詳細なオーディオミックスレイアウトや集中したカラーグレーディングレイアウトなど、異なる編集モード間を切り替えるワークフローに最適で、毎回ドックを手動で再配置する必要がありません。"
 
-#: ../main_window.rst:357
+#: ../doc/main_window.rst:293
 msgid ""
 "Each saved view captures the position, size, and visibility of every dock, "
 "as well as the timeline height. Saved views are stored in your project "
@@ -1731,56 +949,56 @@ msgid ""
 msgstr ""
 "保存された各ビューは、すべてのドックの位置、サイズ、表示状態、およびタイムラインの高さを記録します。保存されたビューはプロジェクト設定に保存され、セッションをまたいで保持されます。"
 
-#: ../main_window.rst:360
+#: ../doc/main_window.rst:296
 msgid "**View → My Views** menu options:"
 msgstr "**View → My Views** メニューオプション:"
 
-#: ../main_window.rst:366
+#: ../doc/main_window.rst:302
 msgid "Menu Item"
 msgstr "メニュー項目"
 
-#: ../main_window.rst:368
+#: ../doc/main_window.rst:304
 msgid "List of user-defined views"
 msgstr "ユーザー定義ビューの一覧"
 
-#: ../main_window.rst:369
+#: ../doc/main_window.rst:305
 msgid ""
 "Click to restore that layout. The currently active view shows a checkmark."
 msgstr "クリックするとそのレイアウトを復元します。現在アクティブなビューにはチェックマークが表示されます。"
 
-#: ../main_window.rst:370
+#: ../doc/main_window.rst:306
 msgid "Update \"*[name]*\""
 msgstr "\"*[name]*\" を更新"
 
-#: ../main_window.rst:371
+#: ../doc/main_window.rst:307
 msgid "Save your current dock arrangement over the active view, replacing it."
 msgstr "現在のドック配置をアクティブなビューに上書き保存します。"
 
-#: ../main_window.rst:372
+#: ../doc/main_window.rst:308
 msgid "Delete \"*[name]*\""
 msgstr "\"*[name]*\" を削除"
 
-#: ../main_window.rst:373
+#: ../doc/main_window.rst:309
 msgid "Remove the active view (asks for confirmation first)."
 msgstr "アクティブなビューを削除します（事前に確認を求めます）。"
 
-#: ../main_window.rst:374
+#: ../doc/main_window.rst:310
 msgid "Save Current View As..."
 msgstr "現在のビューを名前を付けて保存..."
 
-#: ../main_window.rst:375
+#: ../doc/main_window.rst:311
 msgid "Name and save your current dock arrangement as a new view."
 msgstr "現在のドック配置に名前を付けて新しいビューとして保存します。"
 
-#: ../main_window.rst:377
+#: ../doc/main_window.rst:313
 msgid "**Typical workflow:**"
 msgstr "**典型的なワークフロー:**"
 
-#: ../main_window.rst:379
+#: ../doc/main_window.rst:315
 msgid "Arrange your docks exactly how you like them."
 msgstr "ドックを好みの配置に整えます。"
 
-#: ../main_window.rst:380
+#: ../doc/main_window.rst:316
 msgid ""
 "Open :guilabel:`View → My Views → Save Current View As...` and enter a name "
 "(e.g. *\"Audio Mix\"*)."
@@ -1788,24 +1006,24 @@ msgstr ""
 ":guilabel:`View → My Views → Save Current View As...` を開き、名前を入力します（例: "
 "*\"Audio Mix\"*）。"
 
-#: ../main_window.rst:381
+#: ../doc/main_window.rst:317
 msgid ""
 "Later, open :guilabel:`View → My Views` and click the view name to restore "
 "that layout instantly."
 msgstr "後で :guilabel:`View → My Views` を開き、ビュー名をクリックしてそのレイアウトを即座に復元します。"
 
-#: ../main_window.rst:382
+#: ../doc/main_window.rst:318
 msgid ""
 "If you adjust the layout and want to keep the changes, choose "
 ":guilabel:`Update \"Audio Mix\"` to overwrite it."
-msgstr "レイアウトを調整して変更を保持したい場合は、:guilabel:`Update \"Audio Mix\"` を選択して上書き保存します。"
+msgstr "レイアウトを調整して変更を保持したい場合は、\\ :guilabel:`Update \"Audio Mix\"` を選択して上書き保存します。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:385
+#: ../doc/main_window.rst:321
 msgid "Docks"
 msgstr "ドック"
 
-#: ../main_window.rst:386
+#: ../doc/main_window.rst:322
 msgid ""
 "Each widget on the OpenShot main window is contained in a **dock**. These "
 "docks can be dragged and snapped around the main window, and even grouped "
@@ -1821,17 +1039,17 @@ msgstr ""
 "の下にグループ化されています。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:395
+#: ../doc/main_window.rst:331
 msgid "Dock Name"
 msgstr "ドック名"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:397
+#: ../doc/main_window.rst:333
 msgid "Captions"
 msgstr "キャプション"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:398
+#: ../doc/main_window.rst:334
 msgid ""
 "Manage and add captions or subtitles to your video project. Allows you to "
 "create, edit, and manage caption data. See :ref:`caption_effect_ref` effect."
@@ -1840,12 +1058,12 @@ msgstr ""
 ":ref:`caption_effect_ref` エフェクトを参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:399
+#: ../doc/main_window.rst:335
 msgid "Effects"
 msgstr "エフェクト"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:400
+#: ../doc/main_window.rst:336
 msgid ""
 "Browse and apply video and audio effects to your video clips. Includes "
 "filters, color adjustments, and special effects. See :ref:`effects_ref`."
@@ -1853,55 +1071,55 @@ msgstr ""
 "ビデオクリップにビデオおよびオーディオエフェクトを閲覧・適用します。フィルター、色調整、特殊効果を含みます。詳細は :ref:`effects_ref`"
 " を参照してください。"
 
-#: ../main_window.rst:401
+#: ../doc/main_window.rst:337
 msgid "Color Wheels"
 msgstr "カラーホイール"
 
-#: ../main_window.rst:402
+#: ../doc/main_window.rst:338
 msgid ""
 "Edit Color Grade wheel controls for global, shadows, midtones, and "
 "highlights from a dedicated right-side dock."
 msgstr "専用の右側ドックから、グローバル、シャドウ、ミッドトーン、ハイライトのカラグレードホイールコントロールを編集します。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:403
+#: ../doc/main_window.rst:339
 msgid "Emojis"
 msgstr "絵文字"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:404
+#: ../doc/main_window.rst:340
 msgid ""
 "Add emoji graphics to your video project. Choose from a variety of emojis to"
 " enhance your video content."
 msgstr "ビデオプロジェクトに絵文字グラフィックを追加します。さまざまな絵文字から選んでビデオコンテンツを強化できます。"
 
-#: ../main_window.rst:405
+#: ../doc/main_window.rst:341
 msgid "Histogram"
 msgstr "ヒストグラム"
 
-#: ../main_window.rst:406
+#: ../doc/main_window.rst:342
 msgid ""
 "Analyze the tonal and channel distribution of the current preview frame."
 msgstr "現在のプレビューフレームのトーンおよびチャンネル分布を解析します。"
 
-#: ../main_window.rst:407
+#: ../doc/main_window.rst:343
 msgid "Luma Waveform"
 msgstr "ルマ波形"
 
-#: ../main_window.rst:408
+#: ../doc/main_window.rst:344
 msgid "Analyze brightness distribution across the current preview frame."
 msgstr "現在のプレビューフレーム全体の明るさ分布を解析します。"
 
-#: ../main_window.rst:409
+#: ../doc/main_window.rst:345
 msgid "Audio Levels"
 msgstr "オーディオレベル"
 
-#: ../main_window.rst:410
+#: ../doc/main_window.rst:346
 msgid "Monitor audio level scope data for the current preview frame."
 msgstr "現在のプレビューフレームのオーディオレベルスコープデータを監視します。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:412
+#: ../doc/main_window.rst:348
 msgid ""
 "View and manage all the media files imported into your project. Organize, "
 "filter, and tag video, audio, and image files. See :ref:`files_ref`."
@@ -1910,7 +1128,12 @@ msgstr ""
 " :ref:`files_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:414
+#: ../doc/main_window.rst:349
+msgid "Properties"
+msgstr "プロパティ"
+
+# Translated with gpt-4.1-mini
+#: ../doc/main_window.rst:350
 msgid ""
 "View and edit the properties of a selected effect, transition, or clip. "
 "Adjust settings such as duration, size, position, etc... See "
@@ -1920,11 +1143,11 @@ msgstr ""
 ":ref:`clip_properties_ref` を参照してください。"
 
 # Main-window terminology review, 2026-09-26.
-#: ../main_window.rst:415
+#: ../doc/main_window.rst:351
 msgid "Recording"
 msgstr "録音・録画"
 
-#: ../main_window.rst:416
+#: ../doc/main_window.rst:352
 msgid ""
 "Record microphone audio, screen video, webcam video, or combined recordings."
 " See :ref:`recording_ref`."
@@ -1932,12 +1155,12 @@ msgstr ""
 "マイク音声、画面動画、ウェブカメラ動画、またはそれらの組み合わせを録画します。詳細は :ref:`recording_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:417
+#: ../doc/main_window.rst:353
 msgid "Transitions"
 msgstr "トランジション"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:418
+#: ../doc/main_window.rst:354
 msgid ""
 "Browse and apply transitions between video clips. Choose from a variety of "
 "transition wipes to create smooth changes between scenes. See "
@@ -1947,12 +1170,12 @@ msgstr ""
 ":ref:`transitions_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:419
+#: ../doc/main_window.rst:355
 msgid "Video Preview"
 msgstr "ビデオプレビュー"
 
 # Translated with gpt-4.1-mini
-#: ../main_window.rst:420
+#: ../doc/main_window.rst:356
 msgid ""
 "Preview the current state of your video project. Allows you to play back and"
 " review your edits in real-time. See :ref:`playback_ref`."
@@ -1960,7 +1183,7 @@ msgstr ""
 "ビデオプロジェクトの現在の状態をプレビューします。リアルタイムで編集内容を再生・確認できます。詳細は :ref:`playback_ref` "
 "を参照してください。"
 
-#: ../main_window.rst:422
+#: ../doc/main_window.rst:358
 msgid ""
 "If you have accidentally closed or moved a dock and can no longer find it, "
 "there are a couple easy solutions. First, you can use the "
@@ -1970,8 +1193,721 @@ msgid ""
 "the main window."
 msgstr ""
 "誤ってドックを閉じたり移動して見つからなくなった場合、簡単な解決策がいくつかあります。まず、画面上部の :guilabel:`View->Simple "
-"View` メニューオプションを使って、ビューをデフォルトに戻すことができます。または、:guilabel:`View->Docks->...` "
+"View` メニューオプションを使って、ビューをデフォルトに戻すことができます。または、\\ :guilabel:`View->Docks->...` "
 "メニューを使って、メインウィンドウ上の特定のドックウィジェットを表示または非表示にできます。"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "This slider will adjust the time-scale of your timeline. Drag the left or "
+#~ "right edge to zoom in or out. Drag the blue area to scroll the timeline left"
+#~ " or right. Clips and transitions are displayed as simple rectangles, to give"
+#~ " you context for adjusting the zoom to specific clips."
+#~ msgstr ""
+#~ "このスライダーはタイムラインの時間スケールを調整します。左端または右端をドラッグしてズームイン・ズームアウトします。青い部分をドラッグしてタイムラインを左右にスクロールします。クリップとトランジションは単純な長方形で表示され、特定のクリップに合わせてズームを調整する際の目安となります。"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "キーボードショートカット"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Here is a list of the default keyboard shortcuts supported by OpenShot. You "
+#~ "can configure these shortcuts in the Preferences window, which is opened by "
+#~ "selecting :guilabel:`Edit→Preferences` from the OpenShot menu bar. (On "
+#~ "macOS, choose :guilabel:`OpenShot Video Editor→Preferences`.) Learning a few"
+#~ " of these shortcuts can save you a bunch of time!"
+#~ msgstr ""
+#~ "以下はOpenShotでサポートされているデフォルトのキーボードショートカットの一覧です。これらのショートカットは、OpenShotメニューバーの "
+#~ ":guilabel:`編集→環境設定` （macOSでは :guilabel:`OpenShot Video Editor→環境設定` "
+#~ "）から開く環境設定ウィンドウで設定できます。いくつか覚えるだけで大幅に時間を節約できます！"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Shortcut 1"
+#~ msgstr "ショートカット1"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Shortcut 2"
+#~ msgstr "ショートカット2"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Shortcut 3"
+#~ msgstr "ショートカット3"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+H`"
+#~ msgstr ":kbd:`Ctrl+H`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Add Marker"
+#~ msgstr "マーカーを追加"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`M`"
+#~ msgstr ":kbd:`M`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Y`"
+#~ msgstr ":kbd:`Ctrl+Y`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Add to Timeline"
+#~ msgstr "タイムラインに追加"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Alt+A`"
+#~ msgstr ":kbd:`Ctrl+Alt+A`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Animated Title"
+#~ msgstr "アニメーションタイトル"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+T`"
+#~ msgstr ":kbd:`Ctrl+Shift+T`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Ask a Question..."
+#~ msgstr "質問する..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F4`"
+#~ msgstr ":kbd:`F4`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+C`"
+#~ msgstr ":kbd:`Shift+C`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Up`"
+#~ msgstr ":kbd:`Alt+Up`"
+
+#~ msgid ":kbd:`Alt+Shift+2`"
+#~ msgstr ":kbd:`Alt+Shift+2`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Choose Profile"
+#~ msgstr "プロファイルを選択"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Alt+P`"
+#~ msgstr ":kbd:`Ctrl+Alt+P`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Clear All Cache"
+#~ msgstr "すべてのキャッシュをクリア"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+ESC`"
+#~ msgstr ":kbd:`Ctrl+Shift+ESC`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Clear History"
+#~ msgstr "履歴をクリア"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+H`"
+#~ msgstr ":kbd:`Ctrl+Shift+H`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Delete Optimized Videos"
+#~ msgstr "最適化されたビデオを削除"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+O`"
+#~ msgstr ":kbd:`Ctrl+Shift+O`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Clear Waveform Display Data"
+#~ msgstr "波形表示データをクリア"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+W`"
+#~ msgstr ":kbd:`Ctrl+Shift+W`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Copy"
+#~ msgstr "コピー"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+C`"
+#~ msgstr ":kbd:`Ctrl+C`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Cut"
+#~ msgstr "カット"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+X`"
+#~ msgstr ":kbd:`Ctrl+X`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Delete Item"
+#~ msgstr "アイテムを削除"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Delete`"
+#~ msgstr ":kbd:`Delete`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Backspace`"
+#~ msgstr ":kbd:`Backspace`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Delete Item (Ripple)"
+#~ msgstr "アイテムを削除（リップル）"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+Delete`"
+#~ msgstr ":kbd:`Shift+Delete`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Details View"
+#~ msgstr "詳細ビュー"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Page Up`"
+#~ msgstr ":kbd:`Ctrl+Page Up`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Donate"
+#~ msgstr "寄付"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F7`"
+#~ msgstr ":kbd:`F7`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Duplicate"
+#~ msgstr "複製"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+/`"
+#~ msgstr ":kbd:`Ctrl+Shift+/`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Edit Title"
+#~ msgstr "タイトルを編集"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+T`"
+#~ msgstr ":kbd:`Alt+T`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Export Selected Files"
+#~ msgstr "選択ファイルをエクスポート"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+E`"
+#~ msgstr ":kbd:`Ctrl+Shift+E`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Export Video / Media"
+#~ msgstr "ビデオ/メディアをエクスポート"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+E`"
+#~ msgstr ":kbd:`Ctrl+E`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+M`"
+#~ msgstr ":kbd:`Ctrl+M`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Fast Forward"
+#~ msgstr "早送り"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`L`"
+#~ msgstr ":kbd:`L`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "File Properties"
+#~ msgstr "ファイルのプロパティ"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+I`"
+#~ msgstr ":kbd:`Alt+I`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Double Click`"
+#~ msgstr ":kbd:`Ctrl+ダブルクリック`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Fullscreen"
+#~ msgstr "全画面表示"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F11`"
+#~ msgstr ":kbd:`F11`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Import Files..."
+#~ msgstr "ファイルをインポート..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+I`"
+#~ msgstr ":kbd:`Ctrl+I`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Insert Keyframe"
+#~ msgstr "キーフレームを挿入"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Shift+K`"
+#~ msgstr ":kbd:`Alt+Shift+K`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Join our Community..."
+#~ msgstr "コミュニティに参加しよう..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F5`"
+#~ msgstr ":kbd:`F5`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Jump To End"
+#~ msgstr "最後にジャンプ"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`End`"
+#~ msgstr ":kbd:`End`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Jump To Start"
+#~ msgstr "最初にジャンプ"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Home`"
+#~ msgstr ":kbd:`Home`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Launch Tutorial"
+#~ msgstr "チュートリアルを開始"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F2`"
+#~ msgstr ":kbd:`F2`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "New Project"
+#~ msgstr "新規プロジェクト"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+N`"
+#~ msgstr ":kbd:`Ctrl+N`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Next Frame"
+#~ msgstr "次のフレーム"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Right`"
+#~ msgstr ":kbd:`Right`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`.`"
+#~ msgstr ":kbd:`.`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Next Marker"
+#~ msgstr "次のマーカー"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+M`"
+#~ msgstr ":kbd:`Shift+M`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Right`"
+#~ msgstr ":kbd:`Alt+Right`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Nudge left (1 Frame)"
+#~ msgstr "左に微調整（1フレーム）"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Left`"
+#~ msgstr ":kbd:`Ctrl+Left`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Nudge left (5 Frames)"
+#~ msgstr "左に微調整（5フレーム）"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+Ctrl+Left`"
+#~ msgstr ":kbd:`Shift+Ctrl+Left`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Nudge right (1 Frame)"
+#~ msgstr "右に微調整（1フレーム）"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Right`"
+#~ msgstr ":kbd:`Ctrl+Right`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Nudge right (5 Frames)"
+#~ msgstr "右に微調整（5フレーム）"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+Ctrl+Right`"
+#~ msgstr ":kbd:`Shift+Ctrl+Right`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Open Help Contents"
+#~ msgstr "ヘルプコンテンツを開く"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F1`"
+#~ msgstr ":kbd:`F1`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Open Project..."
+#~ msgstr "プロジェクトを開く..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+O`"
+#~ msgstr ":kbd:`Ctrl+O`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Paste"
+#~ msgstr "貼り付け"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+V`"
+#~ msgstr ":kbd:`Ctrl+V`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Play/Pause Toggle"
+#~ msgstr "再生/一時停止切替"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Up`"
+#~ msgstr ":kbd:`Up`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Down`"
+#~ msgstr ":kbd:`Down`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Preferences"
+#~ msgstr "設定"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+P`"
+#~ msgstr ":kbd:`Ctrl+P`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Preview File"
+#~ msgstr "ファイルをプレビュー"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+P`"
+#~ msgstr ":kbd:`Alt+P`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Double Click`"
+#~ msgstr ":kbd:`ダブルクリック`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Previous Frame"
+#~ msgstr "前のフレーム"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Left`"
+#~ msgstr ":kbd:`Left`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`,`"
+#~ msgstr ":kbd:`,`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Previous Marker"
+#~ msgstr "前のマーカー"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+M`"
+#~ msgstr ":kbd:`Ctrl+Shift+M`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Left`"
+#~ msgstr ":kbd:`Alt+Left`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`U`"
+#~ msgstr ":kbd:`U`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Quit"
+#~ msgstr "終了"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Q`"
+#~ msgstr ":kbd:`Ctrl+Q`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Razor Toggle"
+#~ msgstr "レイザー切替"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`C`"
+#~ msgstr ":kbd:`C`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`B`"
+#~ msgstr ":kbd:`B`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`R`"
+#~ msgstr ":kbd:`R`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Redo"
+#~ msgstr "やり直し"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+Z`"
+#~ msgstr ":kbd:`Ctrl+Shift+Z`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Report a Bug..."
+#~ msgstr "バグを報告..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F3`"
+#~ msgstr ":kbd:`F3`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Rewind"
+#~ msgstr "巻き戻し"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`J`"
+#~ msgstr ":kbd:`J`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Save Current Frame"
+#~ msgstr "現在のフレームを保存"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+Y`"
+#~ msgstr ":kbd:`Ctrl+Shift+Y`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Save Project"
+#~ msgstr "プロジェクトを保存"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Save Project As..."
+#~ msgstr "名前を付けてプロジェクトを保存..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+S`"
+#~ msgstr ":kbd:`Ctrl+Shift+S`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Select All"
+#~ msgstr "すべて選択"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+A`"
+#~ msgstr ":kbd:`Ctrl+A`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Select Item (Ripple)"
+#~ msgstr "アイテムを選択（リップル）"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+A`"
+#~ msgstr ":kbd:`Alt+A`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Click`"
+#~ msgstr ":kbd:`Alt+クリック`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Select None"
+#~ msgstr "選択解除"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+A`"
+#~ msgstr ":kbd:`Ctrl+Shift+A`"
+
+#~ msgid "Share Feedback..."
+#~ msgstr "フィードバックを共有..."
+
+#~ msgid ":kbd:`F8`"
+#~ msgstr ":kbd:`F8`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+Shift+0`"
+#~ msgstr ":kbd:`Alt+Shift+0`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice All: Keep Both Sides"
+#~ msgstr "すべてをスライス：両側を保持"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+K`"
+#~ msgstr ":kbd:`Ctrl+Shift+K`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice All: Keep Left Side"
+#~ msgstr "すべてをスライス：左側を保持"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+J`"
+#~ msgstr ":kbd:`Ctrl+Shift+J`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice All: Keep Right Side"
+#~ msgstr "すべてをスライス：右側を保持"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+L`"
+#~ msgstr ":kbd:`Ctrl+Shift+L`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Both Sides"
+#~ msgstr "選択部分をスライス：両側を保持"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Left Side"
+#~ msgstr "選択部分をスライス：左側を保持"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+J`"
+#~ msgstr ":kbd:`Ctrl+J`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Right Side"
+#~ msgstr "選択部分をスライス：右側を保持"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+L`"
+#~ msgstr ":kbd:`Ctrl+L`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Left (Ripple)"
+#~ msgstr "選択部分をスライス：左側を保持（リップル）"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`W`"
+#~ msgstr ":kbd:`W`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Slice Selected: Keep Right (Ripple)"
+#~ msgstr "選択部分をスライス：右側を保持（リップル）"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Q`"
+#~ msgstr ":kbd:`Q`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Snapping Toggle"
+#~ msgstr "スナップ切替"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`S`"
+#~ msgstr ":kbd:`S`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Split File"
+#~ msgstr "ファイルを分割"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Alt+S`"
+#~ msgstr ":kbd:`Alt+S`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+Double Click`"
+#~ msgstr ":kbd:`Shift+ダブルクリック`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Thumbnail View"
+#~ msgstr "サムネイルビュー"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Page Down`"
+#~ msgstr ":kbd:`Ctrl+Page Down`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Timing Toggle"
+#~ msgstr "タイミング切替"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`T`"
+#~ msgstr ":kbd:`T`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+T`"
+#~ msgstr ":kbd:`Ctrl+T`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Translate this Application..."
+#~ msgstr "このアプリケーションを翻訳..."
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`F6`"
+#~ msgstr ":kbd:`F6`"
+
+#~ msgid "Update Available"
+#~ msgstr "アップデート利用可能"
+
+#~ msgid ":kbd:`F9`"
+#~ msgstr ":kbd:`F9`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "View Toolbar"
+#~ msgstr "ツールバーを表示"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+Shift+B`"
+#~ msgstr ":kbd:`Ctrl+Shift+B`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Zoom In"
+#~ msgstr "ズームイン"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`=`"
+#~ msgstr ":kbd:`=`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+=`"
+#~ msgstr ":kbd:`Ctrl+=`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Zoom Out"
+#~ msgstr "ズームアウト"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`-`"
+#~ msgstr ":kbd:`-`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Ctrl+-`"
+#~ msgstr ":kbd:`Ctrl+-`"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Zoom to Timeline"
+#~ msgstr "タイムラインにズーム"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`\\\\`"
+#~ msgstr ":kbd:`\\\\`"
+
+# Translated with gpt-4.1-mini
+#~ msgid ":kbd:`Shift+\\\\`"
+#~ msgstr ":kbd:`Shift+\\\\`"
+
+#~ msgid ""
+#~ "After you have spent some time editing, OpenShot may also invite you to "
+#~ "share feedback. The survey is optional. You can open it from the notice or "
+#~ "dismiss the invitation. At any time, choose :guilabel:`Help → Share "
+#~ "Feedback` or press :kbd:`F8` to share your thoughts."
+#~ msgstr ""
+#~ "編集を一定時間行うと、OpenShotはフィードバックの共有を促すことがあります。アンケートは任意です。通知から開くか招待を閉じることができます。いつでも"
+#~ " :guilabel:`ヘルプ → フィードバックを共有` を選択するか、\\ :kbd:`F8` を押して意見を共有してください。"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""
@@ -2055,10 +1991,10 @@ msgstr ""
 #~ "all the docks back to their default location using the "
 #~ ":guilabel:`View->Views->Simple View` menu at the top of the screen."
 #~ msgstr ""
-#~ "これは**デフォルト** のビューで、特に初めてのユーザーに使いやすいように設計されています。左上に:guilabel:`プロジェクトファイル` "
-#~ "、右上に:guilabel:` プレビュウウィンドウ` 、下部に:guilabel:` タイムライン` "
-#~ "が配置されています。ドックを誤って閉じたり移動した場合は、画面上部のメニュー :guilabel:` 表示->ビュー->シンプルビュー` "
-#~ "を使って、すべてのドックをデフォルトの位置にすばやくリセットできます。"
+#~ "これは\\ **デフォルト** のビューで、特に初めてのユーザーに使いやすいように設計されています。左上に\\ "
+#~ ":guilabel:`プロジェクトファイル` 、右上に\\ :guilabel:` プレビュウウィンドウ` 、下部に\\ :guilabel:` "
+#~ "タイムライン` が配置されています。ドックを誤って閉じたり移動した場合は、画面上部のメニュー :guilabel:` 表示->ビュー->シンプルビュー`"
+#~ " を使って、すべてのドックをデフォルトの位置にすばやくリセットできます。"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""
@@ -2068,7 +2004,7 @@ msgstr ""
 #~ " when you exit the program. Re-launching OpenShot will restore your custom "
 #~ "dock layout automatically."
 #~ msgstr ""
-#~ "OpenShotのメインウィンドウ上の各ウィジェットは**ドック** "
+#~ "OpenShotのメインウィンドウ上の各ウィジェットは\\ **ドック** "
 #~ "に収められています。これらのドックはドラッグしてメインウィンドウ内でスナップさせたり、タブとしてグループ化することも可能です。OpenShotはプログラム終了時にメインウィンドウのドックレイアウトを常に保存し、再起動時にカスタムレイアウトを自動的に復元します。"
 
 # Translated with gpt-4.1-mini
@@ -2081,5 +2017,5 @@ msgstr ""
 #~ "widgets on the main window."
 #~ msgstr ""
 #~ "ドックを誤って閉じたり移動して見つからなくなった場合、簡単な解決策がいくつかあります。まず、画面上部のメニュー "
-#~ ":guilabel:`表示->ビュー->シンプルビュー` を使ってビューをデフォルトに戻せます。または、:guilabel:` "
+#~ ":guilabel:`表示->ビュー->シンプルビュー` を使ってビューをデフォルトに戻せます。または、\\ :guilabel:` "
 #~ "表示->ビュー->ドック->...` メニューで特定のドックウィジェットを表示・非表示にできます。"

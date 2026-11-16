@@ -64,6 +64,7 @@ from ..snap import SnapHelper
 from ..theme import DEFAULT_THEME, TimelineTheme
 from ..state import TimelineStateMachine
 from windows.views.menu import StyledContextMenu
+from classes.keyframe_editing import is_keyframe_patch
 from classes.app import get_app
 from classes.info import PATH
 from classes.query import Clip, Transition, File
@@ -978,6 +979,23 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         if action and len(action.key) >= 1 and action.key[0].lower() in ["files", "history", "profile"]:
             return
 
+        if action and action.type == "update" and is_keyframe_patch(action.values):
+            # Preview transforms remain immediate; visual feedback is coalesced.
+            self._live_transform_pending = True
+            timer = getattr(self, "_live_transform_timer", None)
+            if timer is None:
+                timer = self._live_transform_timer = QTimer(self)
+                timer.setSingleShot(True)
+                timer.timeout.connect(lambda: TimelineWidgetBase.refresh_live_transform(self))
+            if not timer.isActive():
+                timer.start(250)
+            return
+
+        self._live_transform_pending = False
+        timer = getattr(self, "_live_transform_timer", None)
+        if timer is not None:
+            timer.stop()
+
         fps_info = get_app().project.get("fps")
         self.fps_float = float(fps_info.get("num", 24)) / float(fps_info.get("den", 1) or 1)
 
@@ -1021,6 +1039,24 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         # Schedule repaint unless updates are currently suspended
         if self._suspend_changed_update <= 0:
             self.update()
+
+    def refresh_live_transform(self):
+        if not getattr(self, "_live_transform_pending", False):
+            return
+        self._live_transform_pending = False
+        # Build only screen-distinguishable glyphs during the gesture. Release
+        # restores the full marker data used for precise keyframe editing.
+        self._live_transform_drawing = True
+        try:
+            self._refresh_keyframe_markers()
+        finally:
+            self._live_transform_drawing = False
+        self.update()
+
+    def finish_live_transform(self):
+        if getattr(self, "_live_transform_pending", False):
+            self._live_transform_pending = False
+            TimelineWidgetBase.changed(self, None)
 
     def paintEvent(self, event, *args):
         """Custom paint routine for the timeline widget."""

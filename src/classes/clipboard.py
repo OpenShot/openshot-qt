@@ -79,7 +79,7 @@ class ClipboardManager:
             try:
                 pickled_data = mime_data.data("application/x-openshot-generic").data()
                 return pickle.loads(pickled_data)
-            except (pickle.UnpicklingError, AttributeError) as e:
+            except (pickle.UnpicklingError, EOFError, AttributeError) as e:
                 print(f"Error unpickling data: {e}")
 
         print("No valid OpenShot MIME type found.")

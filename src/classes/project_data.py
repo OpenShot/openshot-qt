@@ -39,6 +39,7 @@ import tempfile
 
 from classes import info
 from classes.app import get_app
+from classes.keyframe_editing import is_keyframe_patch, apply_keyframe_patch
 from classes.image_types import get_media_type
 from classes.json_data import JsonDataStore
 from classes.logger import log
@@ -299,6 +300,16 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 parent = obj
 
 
+        if not add and not remove and is_keyframe_patch(values):
+            if not get_app().updates.ignore_history:
+                raise ValueError("Point patches require an active live edit with grouped undo")
+            if not hasattr(self, "_keyframe_patch_indexes"):
+                self._keyframe_patch_indexes = {}
+            apply_keyframe_patch(obj, values, self._keyframe_patch_indexes)
+            # The drag keeps its original snapshot and commits one full undo action.
+            return {}
+        self._keyframe_patch_indexes = {}
+
         # After processing each key, we've found object and parent, return former value/s on update
         # An insertion is reversed by deleting the inserted ID. Sibling items
         # are not part of that action and need no undo snapshot (waveforms can
@@ -516,6 +527,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         check_paths(child)
             check_paths(candidate)
         self.new()
+        measurements = getattr(get_app(), 'gpu_measurements', None)
+        if measurements:
+            measurements.reset()
 
         if file_path:
             log.info("Loading project file: %s", file_path)
@@ -528,26 +542,34 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 project_data = (self.read_from_file(file_path, path_mode="absolute")
                                 if interactive else candidate)
 
-                # Fix history (if broken)
-                if not project_data.get("history"):
-                    project_data["history"] = {"undo": [], "redo": []}
-
-                # If project has waveforms, enable removing waveforms
-                if get_app().window:
-                    get_app().window.actionClearWaveformData.setEnabled(False)
-                    for file in project_data["files"]:
-                        if file.get("ui",{}).get("audio_data", []):
-                            get_app().window.actionClearWaveformData.setEnabled(True)
-                            break
-
-            except Exception:
-                try:
-                    # Attempt to load legacy project file (v1.X version)
-                    project_data = self.read_legacy_project_file(file_path)
-
-                except Exception:
-                    # Project file not recognized as v1.X or v2.X, bubble up error
+            except Exception as ex:
+                # Only decoding failures can indicate a legacy pickle. Errors
+                # processing modern project data must retain their real cause.
+                cause = ex
+                while cause.__cause__ is not None:
+                    cause = cause.__cause__
+                if not isinstance(cause, (json.JSONDecodeError, UnicodeDecodeError)):
                     raise
+                from qt_api import is_content_uri
+                if is_content_uri(file_path):
+                    raise
+                with open(file_path, "rb") as stream:
+                    prefix = stream.read(64).lstrip()
+                if not prefix or prefix.startswith((b"{", b"[", b"\xef\xbb\xbf")):
+                    raise
+                project_data = self.read_legacy_project_file(file_path)
+
+            # Fix history (if broken)
+            if not project_data.get("history"):
+                project_data["history"] = {"undo": [], "redo": []}
+
+            # If project has waveforms, enable removing waveforms
+            if get_app().window:
+                get_app().window.actionClearWaveformData.setEnabled(False)
+                for file in project_data["files"]:
+                    if file.get("ui",{}).get("audio_data", []):
+                        get_app().window.actionClearWaveformData.setEnabled(True)
+                        break
 
             # Merge default and project settings, excluding settings not in default.
             recovery_assets = project_data.pop("runtime_assets_path", info.USER_PATH)
@@ -1864,6 +1886,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
     def changed(self, action):
         """ This method is invoked by the UpdateManager each time a change happens (i.e UpdateInterface) """
         updates = get_app().updates
+        if not is_keyframe_patch(action.values):
+            self._keyframe_patch_indexes = {}
 
         def mark_dirty():
             if not self.has_unsaved_changes:

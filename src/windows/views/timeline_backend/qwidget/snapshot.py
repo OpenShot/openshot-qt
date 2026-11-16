@@ -84,11 +84,18 @@ def snapshot_clips(mode, start, end, fps, clip_ids=None):
         stat = path.stat()
         key = (str(path), stat.st_mtime_ns, stat.st_size, rate, channel)
         file_ui = file.data.get("ui", {})
-        cached_peaks = waveform_samples(file_ui.get("audio_data"))
-        if channel == -1 and len(cached_peaks) > 1:
+        if channel == -1:
+            cached_peaks = waveform_samples(file_ui.get("audio_data"))
+            cached_rms = waveform_samples(file_ui.get("audio_data_rms"))
+        else:
+            # Separated channels reuse per-channel envelopes stored on the file
+            from classes.waveform import stored_channel_envelopes
+            stored_channels = stored_channel_envelopes(file_ui) or []
+            cached_peaks, cached_rms = (stored_channels[channel] if 0 <= channel < len(stored_channels)
+                                        else ((), ()))
+        if len(cached_peaks) > 1:
             from classes.waveform import waveform_sample_rate, waveform_data_format
-            peaks = cached_peaks
-            rms = waveform_samples(file_ui.get("audio_data_rms"))
+            peaks, rms = cached_peaks, cached_rms
             rate = waveform_sample_rate(file_ui)
             data_format = waveform_data_format(file_ui)
             metrics["cache_hits"] += 1

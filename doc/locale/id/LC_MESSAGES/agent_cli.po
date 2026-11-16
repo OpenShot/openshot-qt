@@ -1,0 +1,1774 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../doc/agent_cli.rst:6
+msgid "Command Line Interface"
+msgstr "Antarmuka Baris Perintah"
+
+#: ../doc/agent_cli.rst:8
+msgid ""
+"Bring OpenShot into your command-line workflow. Import footage, trim and "
+"arrange clips, apply effects, animate properties with keyframes, and export "
+"videos from your terminal. Use a few commands to automate repetitive edits, "
+"write a script for a recurring project, or let an AI agent help assemble and"
+" refine a video."
+msgstr ""
+"Bawa OpenShot ke dalam alur kerja baris perintah Anda. Impor rekaman, potong"
+" dan susun klip, terapkan efek, animasikan properti dengan keyframe, dan "
+"ekspor video dari terminal Anda. Gunakan beberapa perintah untuk "
+"mengotomatisasi pengeditan berulang, tulis skrip untuk proyek yang berulang,"
+" atau biarkan agen AI membantu merakit dan menyempurnakan video."
+
+#: ../doc/agent_cli.rst:13
+msgid ""
+"The command line works with the same projects as the editor. You can control"
+" an open editor and review changes as you go, or work in a **headless "
+"session** without opening a window. A session keeps your project open "
+"between commands, including its edits, undo history, and export jobs. Save "
+"it as an ``.osp`` project whenever you want to continue editing later."
+msgstr ""
+"Baris perintah bekerja dengan proyek yang sama seperti editor. Anda dapat "
+"mengontrol editor yang terbuka dan meninjau perubahan saat berjalan, atau "
+"bekerja dalam **sesi tanpa kepala** tanpa membuka jendela. Sesi menjaga "
+"proyek Anda tetap terbuka antara perintah, termasuk pengeditannya, riwayat "
+"batal, dan pekerjaan ekspor. Simpan sebagai proyek ``.osp`` kapan pun Anda "
+"ingin melanjutkan pengeditan nanti."
+
+#: ../doc/agent_cli.rst:20
+msgid "Getting started"
+msgstr "Memulai"
+
+#: ../doc/agent_cli.rst:22
+msgid ""
+"Use your installed OpenShot executable followed by ``--cli``. Start with "
+"``intro`` for a short guide to sessions, editing, animation, and saving, or "
+"``help`` for the command overview. These commands do not need an active "
+"session. The examples below require an OpenShot build that includes command-"
+"line editing."
+msgstr ""
+"Gunakan executable OpenShot yang terpasang diikuti dengan ``--cli``. Mulai "
+"dengan ``intro`` untuk panduan singkat tentang sesi, pengeditan, animasi, "
+"dan penyimpanan, atau ``help`` untuk gambaran perintah. Perintah ini tidak "
+"memerlukan sesi aktif. Contoh di bawah memerlukan build OpenShot yang "
+"menyertakan pengeditan baris perintah."
+
+#: ../doc/agent_cli.rst:30
+msgid "Linux AppImage"
+msgstr "Linux AppImage"
+
+#: ../doc/agent_cli.rst:32
+msgid "From the directory containing your downloaded AppImage::"
+msgstr "Dari direktori yang berisi AppImage yang Anda unduh::"
+
+#: ../doc/agent_cli.rst:37
+msgid ""
+"Replace ``OpenShot.AppImage`` with your downloaded filename. If "
+"**AppImageLauncher** shows desktop integration dialogs, set "
+"``APPIMAGELAUNCHER_DISABLE=1`` before launching the command::"
+msgstr ""
+"Ganti ``OpenShot.AppImage`` dengan nama file yang Anda unduh. Jika "
+"**AppImageLauncher** menampilkan dialog integrasi desktop, atur "
+"``APPIMAGELAUNCHER_DISABLE=1`` sebelum menjalankan perintah::"
+
+#: ../doc/agent_cli.rst:43
+msgid "For scripts or repeated commands, set it once in your current shell::"
+msgstr ""
+"Untuk skrip atau perintah berulang, atur sekali di shell Anda saat ini::"
+
+#: ../doc/agent_cli.rst:48
+msgid ""
+"The variable must be set before launching the AppImage: AppImageLauncher can"
+" intercept it before OpenShot receives ``--cli``. Relative media paths and "
+"``@batch.json`` files are resolved from your working directory. Keep the "
+"AppImage file available while its sessions or exports are running."
+msgstr ""
+"Variabel harus diatur sebelum menjalankan AppImage: AppImageLauncher dapat "
+"mencegatnya sebelum OpenShot menerima ``--cli``. Jalur media relatif dan "
+"file ``@batch.json`` diselesaikan dari direktori kerja Anda. Jaga file "
+"AppImage tetap tersedia saat sesi atau ekspornya berjalan."
+
+#: ../doc/agent_cli.rst:54
+msgid "Linux Snap"
+msgstr "Linux Snap"
+
+#: ../doc/agent_cli.rst:56
+msgid "For the `OpenShot Snap <https://snapcraft.io/openshot-qt>`_, use::"
+msgstr "Untuk `OpenShot Snap <https://snapcraft.io/openshot-qt>`_, gunakan::"
+
+#: ../doc/agent_cli.rst:62
+msgid ""
+"Snap's file permissions apply to command-line editing too. Keep media, "
+"projects, and exports in locations the Snap can access, such as your home "
+"folder. To allow access to external drives, connect the removable-media "
+"permission::"
+msgstr ""
+"Izin file Snap juga berlaku untuk pengeditan baris perintah. Simpan media, "
+"proyek, dan ekspor di lokasi yang dapat diakses Snap, seperti folder rumah "
+"Anda. Untuk mengizinkan akses ke drive eksternal, sambungkan izin removable-"
+"media::"
+
+#: ../doc/agent_cli.rst:69
+msgid "Windows"
+msgstr "Windows"
+
+#: ../doc/agent_cli.rst:73
+msgid ""
+"**Use openshot-qt-cmd.exe for command-line editing on Windows.** This "
+"console executable displays command results, help, and errors in your "
+"terminal. The desktop executable, ``openshot-qt.exe``, does not display "
+"standard output in an interactive terminal, leaving commands without visible"
+" feedback and making the CLI difficult to use."
+msgstr ""
+"**Gunakan openshot-qt-cmd.exe untuk pengeditan baris perintah di Windows.** "
+"Executable konsol ini menampilkan hasil perintah, bantuan, dan kesalahan di "
+"terminal Anda. Executable desktop, ``openshot-qt.exe``, tidak menampilkan "
+"output standar di terminal interaktif, sehingga perintah tidak memiliki "
+"umpan balik yang terlihat dan membuat CLI sulit digunakan."
+
+#: ../doc/agent_cli.rst:79
+msgid "In PowerShell, from the OpenShot installation directory::"
+msgstr "Di PowerShell, dari direktori instalasi OpenShot::"
+
+#: ../doc/agent_cli.rst:85
+msgid ""
+"If you are in a different directory, use the full path to ``openshot-qt-"
+"cmd.exe``. Keep ``--cli`` after the executable name."
+msgstr ""
+"Jika Anda berada di direktori berbeda, gunakan jalur lengkap ke ``openshot-"
+"qt-cmd.exe``. Pertahankan ``--cli`` setelah nama executable."
+
+#: ../doc/agent_cli.rst:89
+msgid "macOS"
+msgstr "macOS"
+
+#: ../doc/agent_cli.rst:91
+msgid "For an installation in Applications::"
+msgstr "Untuk instalasi di Applications::"
+
+#: ../doc/agent_cli.rst:97
+msgid "Finding commands"
+msgstr "Menemukan perintah"
+
+#: ../doc/agent_cli.rst:99
+msgid ""
+"Throughout this guide, ``openshot-cli`` is shorthand for your installation's"
+" command above, such as ``snap run openshot-qt --cli`` or "
+"``./OpenShot.AppImage --cli``. Some installations also provide an "
+"``openshot-cli`` command directly. When running from source, use ``python3 "
+"src/launch.py --cli`` in OpenShot's Python environment."
+msgstr ""
+"Sepanjang panduan ini, ``openshot-cli`` adalah singkatan untuk perintah "
+"instalasi Anda di atas, seperti ``snap run openshot-qt --cli`` atau "
+"``./OpenShot.AppImage --cli``. Beberapa instalasi juga menyediakan perintah "
+"``openshot-cli`` secara langsung. Saat menjalankan dari sumber, gunakan "
+"``python3 src/launch.py --cli`` di lingkungan Python OpenShot."
+
+#: ../doc/agent_cli.rst:105
+msgid ""
+"Bare ``--cli``, ``--cli help``, and ``--cli --help`` show the same overview."
+" Help becomes more specific as you navigate commands::"
+msgstr ""
+"``--cli`` saja, ``--cli help``, dan ``--cli --help`` menampilkan gambaran "
+"yang sama. Bantuan menjadi lebih spesifik saat Anda menavigasi perintah::"
+
+#: ../doc/agent_cli.rst:117
+msgid ""
+"Group help explains workflows with examples; operation help describes "
+"arguments and behavior. ``--help`` is equivalent to trailing ``help``. All "
+"help commands work without an editing session."
+msgstr ""
+"Bantuan grup menjelaskan alur kerja dengan contoh; bantuan operasi "
+"menjelaskan argumen dan perilaku. ``--help`` setara dengan ``help`` di "
+"akhir. Semua perintah bantuan bekerja tanpa sesi pengeditan."
+
+#: ../doc/agent_cli.rst:121
+msgid ""
+"``effects list`` shows the available effects with short descriptions. Effect"
+" help explains their properties, defaults, choices, and ranges. ``effects "
+"instances`` lists effects already attached to clips, with parent clip IDs. "
+"Class names, display names, and underscore aliases identify the same effect."
+msgstr ""
+"``effects list`` menampilkan efek yang tersedia dengan deskripsi singkat. "
+"Bantuan efek menjelaskan properti, default, pilihan, dan rentang mereka. "
+"``effects instances`` mencantumkan efek yang sudah terpasang pada klip, "
+"dengan ID klip induk. Nama kelas, nama tampilan, dan alias garis bawah "
+"mengidentifikasi efek yang sama."
+
+#: ../doc/agent_cli.rst:127
+msgid "Working with scripts and AI agents"
+msgstr "Bekerja dengan skrip dan agen AI"
+
+#: ../doc/agent_cli.rst:129
+msgid ""
+"AI coding agents such as **Codex** and **Claude Code** can use the CLI to "
+"inspect and edit OpenShot projects through terminal commands. Give your "
+"agent the path to your OpenShot executable, the media or project to work "
+"with, and the desired result: duration, dimensions, animation style, and "
+"output location. Ask it to read ``--cli intro`` before starting. The same "
+"commands work when you type them yourself or run them from a script."
+msgstr ""
+"Agen pengkodean AI seperti **Codex** dan **Claude Code** dapat menggunakan "
+"CLI untuk memeriksa dan mengedit proyek OpenShot melalui perintah terminal. "
+"Berikan agen Anda jalur ke executable OpenShot Anda, media atau proyek yang "
+"akan dikerjakan, dan hasil yang diinginkan: durasi, dimensi, gaya animasi, "
+"dan lokasi output. Minta untuk membaca ``--cli intro`` sebelum memulai. "
+"Perintah yang sama berfungsi saat Anda mengetiknya sendiri atau "
+"menjalankannya dari skrip."
+
+#: ../doc/agent_cli.rst:136
+msgid ""
+"Start with ``intro``, then use command-specific help as needed. A useful "
+"workflow is to select a session, inspect the project, make a small set of "
+"changes, review the result, and save. Commands return structured JSON so "
+"scripts and agents can use object IDs and results directly instead of "
+"interpreting screen output."
+msgstr ""
+"Mulailah dengan ``intro``, lalu gunakan bantuan khusus perintah sesuai "
+"kebutuhan. Alur kerja yang berguna adalah memilih sesi, memeriksa proyek, "
+"membuat beberapa perubahan kecil, meninjau hasil, dan menyimpan. Perintah "
+"mengembalikan JSON terstruktur sehingga skrip dan agen dapat menggunakan ID "
+"objek dan hasil secara langsung tanpa menginterpretasikan output layar."
+
+#: ../doc/agent_cli.rst:141
+msgid ""
+"**Inspect before editing.** Use returned IDs and property information "
+"instead of guessing names, track numbers, or timing. Select a session "
+"explicitly when more than one project is open."
+msgstr ""
+"**Periksa sebelum mengedit.** Gunakan ID yang dikembalikan dan informasi "
+"properti daripada menebak nama, nomor trek, atau waktu. Pilih sesi secara "
+"eksplisit ketika lebih dari satu proyek terbuka."
+
+#: ../doc/agent_cli.rst:144
+msgid ""
+"**Group repeated edits.** Use ``edit apply`` for a sequence of changes or "
+"``edit bulk`` to apply a template to selected clips. Validate with ``--dry-"
+"run`` before applying a batch."
+msgstr ""
+"**Kelompokkan pengeditan berulang.** Gunakan ``edit apply`` untuk rangkaian "
+"perubahan atau ``edit bulk`` untuk menerapkan template ke klip yang dipilih."
+" Validasi dengan ``--dry-run`` sebelum menerapkan batch."
+
+#: ../doc/agent_cli.rst:147
+msgid ""
+"**Check animation.** Choose a coordinate space, start with a few keyframes, "
+"and use easing presets for familiar motion. ``keyframe preview`` samples the"
+" curve so you can spot pauses or jumps before exporting. Review rendered "
+"motion as well; a contact sheet alone cannot show how an animation feels."
+msgstr ""
+"**Periksa animasi.** Pilih ruang koordinat, mulai dengan beberapa keyframe, "
+"dan gunakan preset easing untuk gerakan yang familiar. ``keyframe preview`` "
+"mengambil sampel kurva sehingga Anda dapat melihat jeda atau loncatan "
+"sebelum mengekspor. Tinjau juga gerakan yang dirender; lembar kontak saja "
+"tidak dapat menunjukkan bagaimana perasaan sebuah animasi."
+
+#: ../doc/agent_cli.rst:151
+msgid ""
+"**Save and follow exports.** Save the project explicitly and check the "
+"export job's status before treating an output as complete. If a request "
+"times out, inspect its status before repeating an edit."
+msgstr ""
+"**Simpan dan pantau ekspor.** Simpan proyek secara eksplisit dan periksa "
+"status pekerjaan ekspor sebelum menganggap output selesai. Jika permintaan "
+"habis waktu, periksa statusnya sebelum mengulangi pengeditan."
+
+#: ../doc/agent_cli.rst:155
+msgid ""
+"The sections below explain these workflows and their timing conventions."
+msgstr ""
+"Bagian-bagian di bawah ini menjelaskan alur kerja ini dan konvensi waktunya."
+
+#: ../doc/agent_cli.rst:158
+msgid "Sessions and outputs"
+msgstr "Sesi dan output"
+
+#: ../doc/agent_cli.rst:161
+msgid "Starting or finding a session"
+msgstr "Memulai atau menemukan sesi"
+
+#: ../doc/agent_cli.rst:163
+msgid "Start one headless session (without an editor window)::"
+msgstr "Mulai satu sesi headless (tanpa jendela editor)::"
+
+#: ../doc/agent_cli.rst:167
+msgid ""
+"To open an existing project at startup, add ``--project "
+"\"/path/project.osp\"``. The successful JSON response contains "
+"``result.session_id``. Copy that value. If OpenShot is already running, or "
+"you have forgotten the ID, find available sessions with::"
+msgstr ""
+"Untuk membuka proyek yang sudah ada saat startup, tambahkan ``--project "
+"\"/path/project.osp\"``. Respon JSON yang berhasil berisi "
+"``result.session_id``. Salin nilai tersebut. Jika OpenShot sudah berjalan, "
+"atau Anda lupa ID-nya, cari sesi yang tersedia dengan::"
+
+#: ../doc/agent_cli.rst:174
+msgid ""
+"Choose the session for the project you intend to edit. You do not need to "
+"start a new session for each command."
+msgstr ""
+"Pilih sesi untuk proyek yang ingin Anda edit. Anda tidak perlu memulai sesi "
+"baru untuk setiap perintah."
+
+#: ../doc/agent_cli.rst:180
+msgid "Selecting a session"
+msgstr "Memilih sesi"
+
+#: ../doc/agent_cli.rst:184
+msgid ""
+"**Set OPENSHOT_SESSION once, then run commands normally.** Your terminal "
+"remembers the selected session, so you do not need to pass ``--session`` "
+"with every command. Use the PowerShell or Bash example below."
+msgstr ""
+"**Tetapkan OPENSHOT_SESSION sekali, lalu jalankan perintah seperti biasa.** "
+"Terminal Anda mengingat sesi yang dipilih, jadi Anda tidak perlu menyertakan"
+" ``--session`` pada setiap perintah. Gunakan contoh PowerShell atau Bash di "
+"bawah ini."
+
+#: ../doc/agent_cli.rst:188
+msgid ""
+"Replace ``SESSION_ID`` below with the ``session_id`` returned by ``session "
+"start`` or ``session list``."
+msgstr ""
+"Ganti ``SESSION_ID`` di bawah ini dengan ``session_id`` yang dikembalikan "
+"oleh ``session start`` atau ``session list``."
+
+#: ../doc/agent_cli.rst:191 ../doc/agent_cli.rst:422
+msgid "Windows PowerShell::"
+msgstr "Windows PowerShell::"
+
+#: ../doc/agent_cli.rst:197
+msgid "Linux Bash::"
+msgstr "Linux Bash::"
+
+#: ../doc/agent_cli.rst:203
+msgid ""
+"On macOS, use the same ``export`` syntax. For macOS or Snap commands, "
+"substitute your installation's executable from Getting started. The "
+"selection lasts for this terminal and commands launched from it. Set it "
+"again in a new terminal, or update it when switching to a different session."
+msgstr ""
+"Di macOS, gunakan sintaks ``export`` yang sama. Untuk perintah macOS atau "
+"Snap, ganti dengan executable instalasi Anda dari Getting started. Pilihan "
+"ini berlaku untuk terminal ini dan perintah yang dijalankan darinya. "
+"Tetapkan lagi di terminal baru, atau perbarui saat beralih ke sesi yang "
+"berbeda."
+
+#: ../doc/agent_cli.rst:208
+msgid ""
+"**The remaining editing and export examples assume OPENSHOT_SESSION is "
+"set.** The next subsection shows how to capture the ID automatically for "
+"scripts."
+msgstr ""
+"**Contoh pengeditan dan ekspor berikutnya mengasumsikan OPENSHOT_SESSION "
+"sudah ditetapkan.** Subbagian berikut menunjukkan cara menangkap ID secara "
+"otomatis untuk skrip."
+
+#: ../doc/agent_cli.rst:211
+msgid ""
+"To target a different session for just one command, use ``--session``. It "
+"overrides ``OPENSHOT_SESSION`` without changing your terminal's selection::"
+msgstr ""
+"Untuk menargetkan sesi berbeda hanya untuk satu perintah, gunakan "
+"``--session``. Ini menggantikan ``OPENSHOT_SESSION`` tanpa mengubah pilihan "
+"terminal Anda::"
+
+#: ../doc/agent_cli.rst:216
+msgid ""
+"With a packaged executable, put this override after ``--cli`` and before the"
+" command group: ``--cli --session OTHER_SESSION_ID project get``."
+msgstr ""
+"Dengan executable yang dikemas, letakkan penggantian ini setelah ``--cli`` "
+"dan sebelum grup perintah: ``--cli --session OTHER_SESSION_ID project get``."
+
+#: ../doc/agent_cli.rst:219
+msgid ""
+"Automatic selection only works when exactly one reachable session exists. If"
+" you see ``session_required``, run ``session list`` and explicitly select "
+"the intended session. If it is no longer listed, start it again and use the "
+"new ID. Help, ``intro``, and session discovery do not require a selected "
+"session."
+msgstr ""
+"Pemilihan otomatis hanya berfungsi ketika tepat satu sesi yang dapat "
+"dijangkau ada. Jika Anda melihat ``session_required``, jalankan ``session "
+"list`` dan pilih sesi yang dimaksud secara eksplisit. Jika tidak lagi "
+"terdaftar, mulai lagi dan gunakan ID baru. Bantuan, ``intro``, dan penemuan "
+"sesi tidak memerlukan sesi yang dipilih."
+
+#: ../doc/agent_cli.rst:225
+msgid "Capturing the session ID automatically"
+msgstr "Menangkap ID sesi secara otomatis"
+
+#: ../doc/agent_cli.rst:227
+msgid ""
+"Scripts can read ``result.session_id`` directly from the JSON returned by "
+"``session start`` and set ``OPENSHOT_SESSION`` for subsequent commands. "
+"There is no need to copy the ID manually or read a log file. Check that "
+"startup succeeded before using the returned ID."
+msgstr ""
+"Skrip dapat membaca ``result.session_id`` langsung dari JSON yang "
+"dikembalikan oleh ``session start`` dan menetapkan ``OPENSHOT_SESSION`` "
+"untuk perintah berikutnya. Tidak perlu menyalin ID secara manual atau "
+"membaca file log. Periksa bahwa startup berhasil sebelum menggunakan ID yang"
+" dikembalikan."
+
+#: ../doc/agent_cli.rst:232
+msgid "Windows PowerShell (set the executable path for your installation)::"
+msgstr "Windows PowerShell (tetapkan jalur executable untuk instalasi Anda)::"
+
+#: ../doc/agent_cli.rst:244
+msgid "Linux Bash (requires ``jq`` to read JSON)::"
+msgstr "Linux Bash (memerlukan ``jq`` untuk membaca JSON)::"
+
+#: ../doc/agent_cli.rst:256
+msgid ""
+"The environment variable selects a session for commands launched from this "
+"terminal; it does not change a system-wide setting. Starting a session does "
+"not set the variable automatically. After stopping the session, clear the "
+"selection with ``Remove-Item Env:OPENSHOT_SESSION`` in PowerShell or ``unset"
+" OPENSHOT_SESSION`` in Bash."
+msgstr ""
+"Variabel lingkungan memilih sesi untuk perintah yang dijalankan dari "
+"terminal ini; ini tidak mengubah pengaturan sistem secara keseluruhan. "
+"Memulai sesi tidak secara otomatis menetapkan variabel ini. Setelah "
+"menghentikan sesi, hapus pilihan dengan ``Remove-Item Env:OPENSHOT_SESSION``"
+" di PowerShell atau ``unset OPENSHOT_SESSION`` di Bash."
+
+#: ../doc/agent_cli.rst:263
+msgid "Showing and stopping a session"
+msgstr "Menampilkan dan menghentikan sesi"
+
+#: ../doc/agent_cli.rst:265
+msgid "To show the selected session in the editor::"
+msgstr "Untuk menampilkan sesi yang dipilih di editor::"
+
+#: ../doc/agent_cli.rst:269
+msgid ""
+"On a desktop, ``session show`` creates the editor in the same process and "
+"keeps the live project, IDs, history, export jobs, and connection. Repeated "
+"calls raise the existing window. ``session start --show`` opens it "
+"immediately. Sessions started without a display, or with "
+"``QT_QPA_PLATFORM=offscreen``/``minimal``, cannot later show a desktop "
+"window. For those sessions, save and open the project in a new desktop "
+"session. Once shown, close the session through the editor window."
+msgstr ""
+"Di desktop, ``session show`` membuat editor dalam proses yang sama dan "
+"mempertahankan proyek langsung, ID, riwayat, pekerjaan ekspor, dan koneksi. "
+"Panggilan berulang akan memunculkan jendela yang sudah ada. ``session start "
+"--show`` membukanya segera. Sesi yang dimulai tanpa tampilan, atau dengan "
+"``QT_QPA_PLATFORM=offscreen``/``minimal``, tidak dapat menampilkan jendela "
+"desktop kemudian. Untuk sesi tersebut, simpan dan buka proyek di sesi "
+"desktop baru. Setelah ditampilkan, tutup sesi melalui jendela editor."
+
+#: ../doc/agent_cli.rst:277
+msgid ""
+"Global options (``--session``, ``--timeout``) go before the command. "
+"``session serve`` stays in the foreground for supervisors; ``session start``"
+" returns after a background host registers. ``session stop`` refuses unsaved"
+" changes and active exports. Use ``--discard`` only to intentionally discard"
+" unsaved edits."
+msgstr ""
+"Opsi global (``--session``, ``--timeout``) diletakkan sebelum perintah. "
+"``session serve`` tetap di latar depan untuk supervisor; ``session start`` "
+"kembali setelah host latar belakang terdaftar. ``session stop`` menolak "
+"perubahan yang belum disimpan dan ekspor aktif. Gunakan ``--discard`` hanya "
+"untuk sengaja membuang pengeditan yang belum disimpan."
+
+#: ../doc/agent_cli.rst:283
+msgid "Command output"
+msgstr "Output perintah"
+
+#: ../doc/agent_cli.rst:285
+msgid ""
+"Results are JSON on stdout, except the default text timeline view. Errors "
+"are JSON on stderr with exit status 1; argument-parser errors exit 2. "
+"Mutations return compact summaries with an ``inspect`` command. ``get`` "
+"returns native object JSON. Project replies include a revision; effect "
+"catalog replies do not require a session. Logs from headless sessions live "
+"beside their registry records. ``OPENSHOT_SESSION_DIR`` overrides the "
+"default ``~/.openshot_qt/sessions`` directory."
+msgstr ""
+"Hasil berupa JSON di stdout, kecuali tampilan timeline teks default. "
+"Kesalahan berupa JSON di stderr dengan status keluar 1; kesalahan argument-"
+"parser keluar 2. Mutasi mengembalikan ringkasan ringkas dengan perintah "
+"``inspect``. ``get`` mengembalikan JSON objek asli. Balasan proyek "
+"menyertakan revisi; balasan katalog efek tidak memerlukan sesi. Log dari "
+"sesi headless berada di samping catatan registri mereka. "
+"``OPENSHOT_SESSION_DIR`` menggantikan direktori default "
+"``~/.openshot_qt/sessions``."
+
+#: ../doc/agent_cli.rst:292
+msgid ""
+"Sessions accept commands locally on your computer. Keep the session registry"
+" private, since it contains the credentials used to access your editing "
+"sessions. Exports work from a snapshot, so you can continue editing while a "
+"job runs."
+msgstr ""
+"Sesi menerima perintah secara lokal di komputer Anda. Jaga registri sesi "
+"tetap pribadi, karena berisi kredensial yang digunakan untuk mengakses sesi "
+"pengeditan Anda. Ekspor bekerja dari snapshot, sehingga Anda dapat "
+"melanjutkan pengeditan saat pekerjaan berjalan."
+
+#: ../doc/agent_cli.rst:297
+msgid "Opening and saving projects"
+msgstr "Membuka dan menyimpan proyek"
+
+#: ../doc/agent_cli.rst:299
+msgid ""
+"An OpenShot project (``.osp``) stores your editable timeline. Exporting "
+"creates a finished video; saving the project lets you return to its clips, "
+"effects, and keyframes later. Save your project separately even when you "
+"also export a video."
+msgstr ""
+"Proyek OpenShot (``.osp``) menyimpan timeline yang dapat Anda edit. "
+"Mengekspor membuat video jadi; menyimpan proyek memungkinkan Anda kembali ke"
+" klip, efek, dan keyframe-nya nanti. Simpan proyek Anda secara terpisah "
+"meskipun Anda juga mengekspor video."
+
+#: ../doc/agent_cli.rst:304
+msgid "Opening a project"
+msgstr "Membuka proyek"
+
+#: ../doc/agent_cli.rst:306
+msgid "Start a session with an existing project::"
+msgstr "Mulai sesi dengan proyek yang sudah ada::"
+
+#: ../doc/agent_cli.rst:310
+msgid ""
+"Add ``--show`` to open its editor window too. To use an editor that is "
+"already running, find it with ``session list``. Set ``OPENSHOT_SESSION`` to "
+"its returned session ID, then open or inspect a project::"
+msgstr ""
+"Tambahkan ``--show`` untuk membuka jendela editor-nya juga. Untuk "
+"menggunakan editor yang sudah berjalan, temukan dengan ``session list``. "
+"Atur ``OPENSHOT_SESSION`` ke ID sesi yang dikembalikan, lalu buka atau "
+"periksa proyek::"
+
+#: ../doc/agent_cli.rst:317
+msgid ""
+"Replace the example path with your own, and quote paths containing spaces. "
+"``project open`` replaces the selected session's current project. It refuses"
+" to discard unsaved edits unless you explicitly add ``--discard``; save "
+"those edits first if you want to keep them. Opening through the CLI does not"
+" show interactive missing-media dialogs, so keep the project's source media "
+"available."
+msgstr ""
+"Ganti jalur contoh dengan milik Anda sendiri, dan beri tanda kutip pada "
+"jalur yang mengandung spasi. ``project open`` menggantikan proyek saat ini "
+"dari sesi yang dipilih. Ini menolak untuk membuang suntingan yang belum "
+"disimpan kecuali Anda secara eksplisit menambahkan ``--discard``; simpan "
+"suntingan tersebut terlebih dahulu jika ingin menyimpannya. Membuka melalui "
+"CLI tidak menampilkan dialog media hilang interaktif, jadi jaga media sumber"
+" proyek tetap tersedia."
+
+#: ../doc/agent_cli.rst:323
+msgid ""
+"For a new, empty project, use ``session start`` without ``--project``, then "
+"import media and add clips as described under Editing."
+msgstr ""
+"Untuk proyek baru yang kosong, gunakan ``session start`` tanpa "
+"``--project``, lalu impor media dan tambahkan klip seperti yang dijelaskan "
+"di bagian Pengeditan."
+
+#: ../doc/agent_cli.rst:327
+msgid "Saving a project or a copy"
+msgstr "Menyimpan proyek atau salinannya"
+
+#: ../doc/agent_cli.rst:329
+msgid ""
+"Save to a new file, or create a separate version before making more "
+"changes::"
+msgstr ""
+"Simpan ke file baru, atau buat versi terpisah sebelum melakukan perubahan "
+"lebih lanjut::"
+
+#: ../doc/agent_cli.rst:333
+msgid "To update an existing file, explicitly allow replacement::"
+msgstr ""
+"Untuk memperbarui file yang sudah ada, izinkan penggantian secara "
+"eksplisit::"
+
+#: ../doc/agent_cli.rst:337
+msgid ""
+"Always supply the destination path. Saving an ``.osp`` does not package all "
+"your source footage into that file; keep the referenced media available when"
+" moving or reopening the project."
+msgstr ""
+"Selalu berikan jalur tujuan. Menyimpan ``.osp`` tidak mengemas semua rekaman"
+" sumber Anda ke dalam file tersebut; jaga media yang direferensikan tetap "
+"tersedia saat memindahkan atau membuka kembali proyek."
+
+#: ../doc/agent_cli.rst:342
+msgid "Exporting a video"
+msgstr "Mengekspor video"
+
+#: ../doc/agent_cli.rst:344
+msgid ""
+"Automate rendering and exporting from scripts or AI agents, using the "
+"project's settings or choosing a different output profile for each render. "
+"Export jobs can run in the background or wait for completion before your "
+"script continues. To render an MP4 using the project's resolution and frame "
+"rate::"
+msgstr ""
+"Otomatiskan rendering dan ekspor dari skrip atau agen AI, menggunakan "
+"pengaturan proyek atau memilih profil keluaran berbeda untuk setiap render. "
+"Pekerjaan ekspor dapat berjalan di latar belakang atau menunggu selesai "
+"sebelum skrip Anda melanjutkan. Untuk merender MP4 menggunakan resolusi dan "
+"frame rate proyek::"
+
+#: ../doc/agent_cli.rst:351
+msgid ""
+"By default, OpenShot uses H.264 video and AAC audio. Replace the example "
+"path with your destination, using an existing folder and a new filename. "
+"Existing outputs are never overwritten. Exporting does not save your "
+"editable ``.osp`` project; use ``project save`` separately to keep your "
+"editing work."
+msgstr ""
+"Secara default, OpenShot menggunakan video H.264 dan audio AAC. Ganti jalur "
+"contoh dengan tujuan Anda, menggunakan folder yang sudah ada dan nama file "
+"baru. Output yang sudah ada tidak pernah ditimpa. Mengekspor tidak menyimpan"
+" proyek ``.osp`` yang dapat diedit; gunakan ``project save`` secara terpisah"
+" untuk menyimpan pekerjaan pengeditan Anda."
+
+#: ../doc/agent_cli.rst:356
+msgid ""
+"The ``--wait`` option keeps the command running until the export completes "
+"or reports a failure. Review the finished video before sharing it."
+msgstr ""
+"Opsi ``--wait`` menjaga perintah tetap berjalan sampai ekspor selesai atau "
+"melaporkan kegagalan. Tinjau video yang selesai sebelum membagikannya."
+
+#: ../doc/agent_cli.rst:360
+msgid "Checking export progress"
+msgstr "Memeriksa kemajuan ekspor"
+
+#: ../doc/agent_cli.rst:362
+msgid ""
+"Leave off ``--wait`` to start an export in the background. The response "
+"includes a job ID you can use to check its progress::"
+msgstr ""
+"Jangan gunakan ``--wait`` untuk memulai ekspor di latar belakang. Respons "
+"mencakup ID pekerjaan yang dapat Anda gunakan untuk memeriksa kemajuannya::"
+
+#: ../doc/agent_cli.rst:370
+msgid ""
+"Replace ``JOB_ID`` with the returned ID. If waiting times out, the export "
+"keeps running; check the same job instead of starting another export. To "
+"stop a job, use ``export cancel JOB_ID``. Each job captures the timeline "
+"when it starts, so later edits do not change an export already in progress."
+msgstr ""
+"Ganti ``JOB_ID`` dengan ID yang dikembalikan. Jika waktu tunggu habis, "
+"ekspor tetap berjalan; periksa pekerjaan yang sama daripada memulai ekspor "
+"lain. Untuk menghentikan pekerjaan, gunakan ``export cancel JOB_ID``. Setiap"
+" pekerjaan menangkap timeline saat dimulai, jadi suntingan berikutnya tidak "
+"mengubah ekspor yang sedang berjalan."
+
+#: ../doc/agent_cli.rst:375
+msgid ""
+"Waiting defaults to 600 seconds; adjust this with ``--wait-timeout``. This "
+"is separate from the global per-request ``--timeout``. Export failures, "
+"cancellation, and wait timeouts exit with status 1 and include job details."
+msgstr ""
+"Waktu tunggu default adalah 600 detik; sesuaikan dengan ``--wait-timeout``. "
+"Ini terpisah dari ``--timeout`` global per permintaan. Kegagalan ekspor, "
+"pembatalan, dan waktu tunggu keluar dengan status 1 dan menyertakan detail "
+"pekerjaan."
+
+#: ../doc/agent_cli.rst:380
+msgid "Exporting in multiple profiles"
+msgstr "Mengekspor dengan beberapa profil"
+
+#: ../doc/agent_cli.rst:382
+msgid ""
+"Export the same timeline at different resolutions or aspect ratios by "
+"choosing an export profile for each output. **An export profile applies only"
+" to that job**; it does not change the editing project's profile. A profile "
+"sets dimensions, frame rate, and aspect ratio; an export preset selects "
+"encoding settings such as MP4/H.264."
+msgstr ""
+"Ekspor timeline yang sama pada resolusi atau rasio aspek berbeda dengan "
+"memilih profil ekspor untuk setiap keluaran. **Profil ekspor hanya berlaku "
+"untuk pekerjaan itu saja**; tidak mengubah profil proyek pengeditan. Profil "
+"mengatur dimensi, frame rate, dan rasio aspek; preset ekspor memilih "
+"pengaturan encoding seperti MP4/H.264."
+
+#: ../doc/agent_cli.rst:388
+msgid "Find the available profiles and inspect their settings::"
+msgstr "Temukan profil yang tersedia dan periksa pengaturannya::"
+
+#: ../doc/agent_cli.rst:394
+msgid ""
+"For example, export landscape versions at 720p and 1080p, then a square "
+"version at 1080 by 1080. These profiles all use 30 fps::"
+msgstr ""
+"Misalnya, ekspor versi lanskap pada 720p dan 1080p, lalu versi persegi pada "
+"1080 x 1080. Semua profil ini menggunakan 30 fps::"
+
+#: ../doc/agent_cli.rst:401
+msgid ""
+"Use a different output filename for each version. Keep edits unchanged "
+"between jobs when you want matching versions. Changing aspect ratio can "
+"change framing: review each output, especially titles and animated subjects."
+" For a separately composed square or portrait version, save a project copy, "
+"change its project profile, and adjust the clips before exporting. See "
+"Profiles and the export settings below for custom profiles and encoding "
+"options."
+msgstr ""
+"Gunakan nama file keluaran berbeda untuk setiap versi. Jaga suntingan tetap "
+"tidak berubah antar pekerjaan jika Anda menginginkan versi yang cocok. "
+"Mengubah rasio aspek dapat mengubah framing: tinjau setiap keluaran, "
+"terutama judul dan subjek animasi. Untuk versi persegi atau potret yang "
+"disusun terpisah, simpan salinan proyek, ubah profil proyeknya, dan "
+"sesuaikan klip sebelum mengekspor. Lihat Profil dan pengaturan ekspor di "
+"bawah untuk profil khusus dan opsi encoding."
+
+#: ../doc/agent_cli.rst:409
+msgid "Batch exporting multiple projects"
+msgstr "Ekspor batch beberapa proyek"
+
+#: ../doc/agent_cli.rst:411
+msgid ""
+"Reuse one headless session to render several saved projects in sequence. "
+"Open a project, export it with ``--wait``, then open the next project. The "
+"examples below use each project's own resolution and frame rate and create "
+"MP4 files beside the ``.osp`` files. Add ``--profile PROFILE_ID`` to the "
+"export command to use one output profile for every project."
+msgstr ""
+"Gunakan kembali satu sesi headless untuk merender beberapa proyek yang "
+"disimpan secara berurutan. Buka proyek, ekspor dengan ``--wait``, lalu buka "
+"proyek berikutnya. Contoh di bawah menggunakan resolusi dan frame rate "
+"masing-masing proyek dan membuat file MP4 di samping file ``.osp``. "
+"Tambahkan ``--profile PROFILE_ID`` ke perintah ekspor untuk menggunakan satu"
+" profil keluaran untuk setiap proyek."
+
+#: ../doc/agent_cli.rst:417
+msgid ""
+"First run the matching automatic session-ID example above successfully, in "
+"the same terminal. It defines ``openshot`` and selects the new session. "
+"Replace the project paths below with your own. Use distinct output names "
+"that do not already exist; the examples check all destinations before "
+"starting the batch."
+msgstr ""
+"Jalankan terlebih dahulu contoh session-ID otomatis yang cocok di atas "
+"dengan sukses, di terminal yang sama. Ini mendefinisikan ``openshot`` dan "
+"memilih sesi baru. Ganti jalur proyek di bawah dengan milik Anda sendiri. "
+"Gunakan nama output yang berbeda yang belum ada; contoh memeriksa semua "
+"tujuan sebelum memulai batch."
+
+#: ../doc/agent_cli.rst:446
+msgid "Linux Bash (the parentheses keep error handling local to the batch)::"
+msgstr ""
+"Linux Bash (tanda kurung menjaga penanganan kesalahan tetap lokal pada "
+"batch)::"
+
+#: ../doc/agent_cli.rst:467
+msgid ""
+"Both recipes stop the batch on a command failure and leave the session "
+"available for inspection. The wait limit here is 24 hours per export. A wait"
+" timeout leaves the render running: use ``export list`` and ``export status "
+"JOB_ID --wait`` before retrying. Completed videos remain on disk; remove "
+"completed projects from the batch before resuming. After resolving a "
+"failure, stop the session and clear its environment variable when you are "
+"finished."
+msgstr ""
+"Kedua resep menghentikan batch saat perintah gagal dan membiarkan sesi "
+"tersedia untuk pemeriksaan. Batas waktu tunggu di sini adalah 24 jam per "
+"ekspor. Timeout tunggu membiarkan render berjalan: gunakan ``export list`` "
+"dan ``export status JOB_ID --wait`` sebelum mencoba lagi. Video yang selesai"
+" tetap ada di disk; hapus proyek yang selesai dari batch sebelum "
+"melanjutkan. Setelah menyelesaikan kegagalan, hentikan sesi dan bersihkan "
+"variabel lingkungan saat Anda selesai."
+
+#: ../doc/agent_cli.rst:475
+msgid "Choosing presets and encoding settings"
+msgstr "Memilih preset dan pengaturan encoding"
+
+#: ../doc/agent_cli.rst:477
+msgid "Discover the installed export presets and supported settings::"
+msgstr "Temukan preset ekspor yang terpasang dan pengaturan yang didukung::"
+
+#: ../doc/agent_cli.rst:484
+msgid ""
+"Export also accepts ``--from-file FILE_ID`` with optional ``--create-"
+"custom``. Settings resolve in this order: project defaults, preset, advanced"
+" JSON, explicit profile/quality/range flags. Advanced JSON exposes "
+"video/audio codecs and bitrate, audio layout/rate/channels, native codec "
+"options, hardware device settings, and thread counts."
+msgstr ""
+"Ekspor juga menerima ``--from-file FILE_ID`` dengan opsi ``--create-"
+"custom``. Pengaturan diselesaikan dalam urutan ini: default proyek, preset, "
+"JSON lanjutan, flag profil/kualitas/rentang eksplisit. JSON lanjutan "
+"menampilkan codec video/audio dan bitrate, tata letak/audio/kanal, opsi "
+"codec asli, pengaturan perangkat keras, dan jumlah thread."
+
+#: ../doc/agent_cli.rst:490
+msgid "For example, select an encoder option through advanced JSON::"
+msgstr "Misalnya, pilih opsi encoder melalui JSON lanjutan::"
+
+#: ../doc/agent_cli.rst:495
+msgid "Validating export settings"
+msgstr "Memvalidasi pengaturan ekspor"
+
+#: ../doc/agent_cli.rst:497
+msgid "Check settings before starting a render::"
+msgstr "Periksa pengaturan sebelum memulai render::"
+
+#: ../doc/agent_cli.rst:501
+msgid ""
+"Capabilities report compiled codec availability, not physical GPU "
+"availability. Validation goes further: it opens the encoders (including "
+"hardware encoders) and the container with the exact settings, in a separate "
+"process, without writing a file. A combination the container can't hold "
+"fails with ``incompatible_export``, FFmpeg's own explanation, and the "
+"setting to change (``details.cause.path``)::"
+msgstr ""
+"Laporan kemampuan menyusun ketersediaan codec, bukan ketersediaan GPU fisik."
+" Validasi lebih lanjut: membuka encoder (termasuk encoder perangkat keras) "
+"dan kontainer dengan pengaturan tepat, dalam proses terpisah, tanpa menulis "
+"file. Kombinasi yang tidak dapat ditampung kontainer gagal dengan "
+"``incompatible_export``, penjelasan FFmpeg sendiri, dan pengaturan yang "
+"harus diubah (``details.cause.path``)::"
+
+#: ../doc/agent_cli.rst:509
+msgid "The export worker runs the same check before rendering."
+msgstr "Pekerja ekspor menjalankan pemeriksaan yang sama sebelum merender."
+
+#: ../doc/agent_cli.rst:512
+msgid "Rendering a frame range"
+msgstr "Merender rentang frame"
+
+#: ../doc/agent_cli.rst:514
+msgid ""
+"Use ``--start-frame`` and ``--end-frame`` to render part of the timeline. "
+"Ranges are inclusive and one-based at the **export profile's FPS**. For "
+"example, render the first 90 frames at 30 fps (three seconds)::"
+msgstr ""
+"Gunakan ``--start-frame`` dan ``--end-frame`` untuk merender sebagian "
+"timeline. Rentang inklusif dan berbasis satu pada **FPS profil ekspor**. "
+"Misalnya, render 90 frame pertama pada 30 fps (tiga detik)::"
+
+#: ../doc/agent_cli.rst:521
+msgid "Audio-only exports and image sequences"
+msgstr "Ekspor hanya audio dan urutan gambar"
+
+#: ../doc/agent_cli.rst:523
+msgid "Choose an output mode with advanced JSON::"
+msgstr "Pilih mode output dengan JSON lanjutan::"
+
+#: ../doc/agent_cli.rst:528
+msgid ""
+"Image sequences require a new output directory. Existing outputs are never "
+"overwritten."
+msgstr ""
+"Urutan gambar memerlukan direktori output baru. Output yang ada tidak pernah"
+" ditimpa."
+
+#: ../doc/agent_cli.rst:532
+msgid "Editing"
+msgstr "Mengedit"
+
+#: ../doc/agent_cli.rst:535
+msgid "Adding clips and effects"
+msgstr "Menambahkan klip dan efek"
+
+#: ../doc/agent_cli.rst:537
+msgid ""
+"Use the IDs returned by import/add/list, and discover layer numbers with "
+"``project get``::"
+msgstr ""
+"Gunakan ID yang dikembalikan oleh import/add/list, dan temukan nomor lapisan"
+" dengan ``project get``::"
+
+#: ../doc/agent_cli.rst:549
+msgid ""
+"Choose the project profile early when possible; populated projects also "
+"support profile changes through the existing FPS conversion and undo system."
+" ``--audio-only`` on clip creation suppresses video, including embedded "
+"cover art in music files. To use that clip for Audio Visualization instead, "
+"enable its video and audio, and follow the effect's help for transparent "
+"overlays and layer placement."
+msgstr ""
+"Pilih profil proyek lebih awal jika memungkinkan; proyek yang sudah terisi "
+"juga mendukung perubahan profil melalui konversi FPS dan sistem undo yang "
+"ada. ``--audio-only`` saat pembuatan klip menonaktifkan video, termasuk "
+"sampul tertanam pada file musik. Untuk menggunakan klip itu untuk "
+"Visualisasi Audio, aktifkan video dan audio-nya, dan ikuti bantuan efek "
+"untuk overlay transparan dan penempatan lapisan."
+
+#: ../doc/agent_cli.rst:556
+msgid "Understanding clip timing"
+msgstr "Memahami waktu klip"
+
+#: ../doc/agent_cli.rst:558
+msgid ""
+"The example keyframes assume a 30fps project and a clip trimmed at source "
+"10s. Position is in timeline seconds; start/end are source seconds, with end"
+" exclusive. Frames start at 1. File thumbnail frames use source FPS. "
+"Timeline frames use project FPS. Clip keyframes use source coordinates at "
+"project FPS, so trimming the clip does not move its first visible keyframe "
+"to frame 1."
+msgstr ""
+"Keyframe contoh mengasumsikan proyek 30fps dan klip dipangkas pada sumber 10"
+" detik. Posisi dalam detik timeline; mulai/akhir adalah detik sumber, dengan"
+" akhir eksklusif. Frame mulai dari 1. Frame thumbnail file menggunakan FPS "
+"sumber. Frame timeline menggunakan FPS proyek. Keyframe klip menggunakan "
+"koordinat sumber pada FPS proyek, jadi memangkas klip tidak memindahkan "
+"keyframe terlihat pertama ke frame 1."
+
+#: ../doc/agent_cli.rst:565
+msgid "Changing properties"
+msgstr "Mengubah properti"
+
+#: ../doc/agent_cli.rst:567
+msgid ""
+"``set`` merges top-level properties. Scalars turn keyframed properties into "
+"constants. A supplied nested curve replaces that curve; use ``keyframe set``"
+" to change just one point. JSON arguments accept inline JSON, "
+"``@file.json``, or ``-`` for stdin. Property names, types, enums, keyframes,"
+" references, and timing are validated before editing the project. Errors "
+"identify the field, expected value, received value, and a correction where "
+"possible. GUI slider ranges are advisory where the engine supports values "
+"beyond them."
+msgstr ""
+"``set`` menggabungkan properti tingkat atas. Skalar mengubah properti ber-"
+"keyframe menjadi konstan. Kurva bersarang yang diberikan menggantikan kurva "
+"tersebut; gunakan ``keyframe set`` untuk mengubah hanya satu titik. Argumen "
+"JSON menerima JSON inline, ``@file.json``, atau ``-`` untuk stdin. Nama "
+"properti, tipe, enum, keyframe, referensi, dan waktu divalidasi sebelum "
+"mengedit proyek. Kesalahan mengidentifikasi bidang, nilai yang diharapkan, "
+"nilai yang diterima, dan koreksi jika memungkinkan. Rentang slider GUI "
+"bersifat saran jika mesin mendukung nilai di luar itu."
+
+#: ../doc/agent_cli.rst:576
+msgid "Adding fades"
+msgstr "Menambahkan fade"
+
+#: ../doc/agent_cli.rst:578
+msgid ""
+"``clip fade ID --in 0.5 --out 0.5`` calculates source-trim keyframe "
+"coordinates automatically. It replaces the alpha curve; ``--property volume "
+"--value 0.25`` instead creates an audio fade with a 0.25 peak gain. "
+"Durations must fit between the first and last visible frames; fade-out "
+"reaches zero on the last frame."
+msgstr ""
+"``clip fade ID --in 0.5 --out 0.5`` menghitung koordinat keyframe potongan "
+"sumber secara otomatis. Ini menggantikan kurva alfa; ``--property volume "
+"--value 0.25`` malah membuat fade audio dengan puncak gain 0.25. Durasi "
+"harus sesuai antara frame terlihat pertama dan terakhir; fade-out mencapai "
+"nol pada frame terakhir."
+
+#: ../doc/agent_cli.rst:584
+msgid "Splitting clips"
+msgstr "Memisahkan klip"
+
+#: ../doc/agent_cli.rst:586
+msgid ""
+"``clip split ID --at 6.5`` uses timeline seconds, snaps to the nearest "
+"project frame, and keeps both halves. It retains source-coordinate curves "
+"and duplicates effects with fresh IDs on the right half, following the "
+"editor's slicing behavior. The left half retains its ID. The response "
+"reports requested/actual split times and both summaries; a named batch "
+"result supports ``{\"$ref\":\"cut.right.id\"}``. Splits reject endpoints and"
+" locked tracks. Undo restores the original clip in one transaction."
+msgstr ""
+"``clip split ID --at 6.5`` menggunakan detik timeline, menempel ke frame "
+"proyek terdekat, dan mempertahankan kedua bagian. Ini mempertahankan kurva "
+"koordinat sumber dan menggandakan efek dengan ID baru pada bagian kanan, "
+"mengikuti perilaku pemotongan editor. Bagian kiri mempertahankan ID-nya. "
+"Respons melaporkan waktu pemisahan yang diminta/aktual dan kedua ringkasan; "
+"hasil batch bernama mendukung ``{\"$ref\":\"cut.right.id\"}``. Pemisahan "
+"menolak titik akhir dan trek terkunci. Undo mengembalikan klip asli dalam "
+"satu transaksi."
+
+#: ../doc/agent_cli.rst:595
+msgid "Clip menu presets"
+msgstr "Preset menu klip"
+
+#: ../doc/agent_cli.rst:597
+msgid ""
+"The editor's clip menu presets use the same code from the command line. Each"
+" command lists its presets in its help, and each one is a single undo step:"
+msgstr ""
+"Preset menu klip editor menggunakan kode yang sama dari baris perintah. "
+"Setiap perintah mencantumkan presetnya dalam bantuan, dan masing-masing "
+"adalah satu langkah batal ulang:"
+
+#: ../doc/agent_cli.rst:611
+msgid ""
+"Motion presets are relative to the clip's current transform. Look presets "
+"add or replace one effect, and ``none`` removes it. Speed and repeat retime "
+"every keyframe and change the clip's length; ``clip speed --mode reset`` "
+"restores normal speed. Other menu actions are plain edits: rotate and layout"
+" with ``clip set``, crop with ``effects add Crop``. The commands also work "
+"in ``edit apply`` and ``edit bulk``."
+msgstr ""
+"Preset gerak relatif terhadap transformasi klip saat ini. Preset tampilan "
+"menambahkan atau mengganti satu efek, dan ``none`` menghapusnya. Kecepatan "
+"dan pengulangan mengatur ulang waktu setiap keyframe dan mengubah panjang "
+"klip; ``clip speed --mode reset`` mengembalikan kecepatan normal. Aksi menu "
+"lain adalah pengeditan biasa: putar dan tata letak dengan ``clip set``, "
+"potong dengan ``effects add Crop``. Perintah juga berfungsi di ``edit "
+"apply`` dan ``edit bulk``."
+
+#: ../doc/agent_cli.rst:621
+msgid "Adding and styling text"
+msgstr "Menambahkan dan menata teks"
+
+#: ../doc/agent_cli.rst:623
+msgid ""
+"``text add`` creates a text and places it as a clip, using the same text as "
+"the editor's **Text** tool. Options you leave out use the editor's default "
+"style:"
+msgstr ""
+"``text add`` membuat teks dan menempatkannya sebagai klip, menggunakan teks "
+"yang sama dengan alat **Text** editor. Opsi yang tidak Anda isi menggunakan "
+"gaya default editor:"
+
+#: ../doc/agent_cli.rst:637
+msgid ""
+"The words, font, size, alignment, box width and default colors belong to the"
+" text in Project Files and are shared by every clip that uses it, just like "
+"in the editor. ``text set`` on one clip changes all of them and lists them "
+"in ``changed_clip_ids``; ``--this-clip-only`` gives that clip its own copy "
+"first. ``clip add FILE_ID`` places another clip of a text from ``text "
+"list``. Sizes are in pixels at the project resolution, and colors are "
+"``#RRGGBB``, ``#AARRGGBB`` (with alpha), a CSS name, or ``transparent``. "
+"``--place`` puts the box at the center, an edge or corner, or a lower third."
+" ``--line-spacing`` is a multiple of the normal distance between lines (1 is"
+" normal), and ``--background-corner`` rounds the background and border "
+"corners by that many pixels."
+msgstr ""
+"Kata-kata, font, ukuran, perataan, lebar kotak, dan warna default milik teks"
+" dalam Berkas Proyek dan dibagikan oleh setiap klip yang menggunakannya, "
+"sama seperti di editor. ``text set`` pada satu klip mengubah semuanya dan "
+"mencantumkannya di ``changed_clip_ids``; ``--this-clip-only`` memberi klip "
+"itu salinannya sendiri terlebih dahulu. ``clip add FILE_ID`` menempatkan "
+"klip lain dari teks dari ``text list``. Ukuran dalam piksel pada resolusi "
+"proyek, dan warna adalah ``#RRGGBB``, ``#AARRGGBB`` (dengan alfa), nama CSS,"
+" atau ``transparent``. ``--place`` menempatkan kotak di tengah, tepi atau "
+"sudut, atau sepertiga bawah. ``--line-spacing`` adalah kelipatan jarak "
+"normal antar baris (1 adalah normal), dan ``--background-corner`` "
+"membulatkan sudut latar belakang dan batas sebanyak piksel tersebut."
+
+#: ../doc/agent_cli.rst:647
+msgid ""
+"A text clip is an ordinary clip. Position, scale, rotation, opacity, timing,"
+" fades, motion presets and effects all use the normal ``clip`` commands. "
+"Font size, padding, box width, and letter and line spacing set the size of "
+"the text box, so they cannot be keyframed; to animate the size of text, "
+"keyframe the clip's scale. Each clip can animate its own text colors and "
+"outline and border widths with the same keyframe commands as any other "
+"property:"
+msgstr ""
+"Klip teks adalah klip biasa. Posisi, skala, rotasi, opasitas, waktu, efek "
+"memudar, preset gerak, dan efek semuanya menggunakan perintah ``clip`` "
+"biasa. Ukuran font, padding, lebar kotak, dan jarak huruf serta baris "
+"mengatur ukuran kotak teks, jadi tidak bisa diberi keyframe; untuk "
+"menganimasikan ukuran teks, beri keyframe pada skala klip. Setiap klip dapat"
+" menganimasikan warna teksnya sendiri serta garis tepi dan lebar batas "
+"dengan perintah keyframe yang sama seperti properti lain:"
+
+#: ../doc/agent_cli.rst:659
+msgid ""
+"The animated properties are ``text_color``, ``text_background``, "
+"``text_stroke`` and ``text_border`` (colors, with ``.red``, ``.green``, "
+"``.blue`` and ``.alpha`` from 0 to 255), plus ``text_stroke_width``, "
+"``text_border_width`` and ``text_background_corner``. A clip's own animation"
+" wins over the shared style, and ``text get`` lists which styles a clip "
+"animates. ``text reset CLIP_ID`` returns a clip to the default style, like "
+"**Text → Reset Style**; ``--keyframes-only`` just removes the clip's own "
+"animation. To style many texts at once, select them with "
+"``{\"text\":true}``:"
+msgstr ""
+"Properti yang dianimasikan adalah ``text_color``, ``text_background``, "
+"``text_stroke`` dan ``text_border`` (warna, dengan ``.red``, ``.green``, "
+"``.blue`` dan ``.alpha`` dari 0 sampai 255), plus ``text_stroke_width``, "
+"``text_border_width`` dan ``text_background_corner``. Animasi klip sendiri "
+"mengalahkan gaya bersama, dan ``text get`` mencantumkan gaya yang "
+"dianimasikan klip. ``text reset CLIP_ID`` mengembalikan klip ke gaya "
+"default, seperti **Text → Reset Style**; ``--keyframes-only`` hanya "
+"menghapus animasi klip sendiri. Untuk menata banyak teks sekaligus, pilih "
+"dengan ``{\"text\":true}``:"
+
+#: ../doc/agent_cli.rst:672
+msgid "Applying a batch of edits"
+msgstr "Menerapkan sekumpulan suntingan"
+
+#: ../doc/agent_cli.rst:674
+msgid ""
+"``edit apply --json @edits.json --expect-revision 12`` accepts up to 256 "
+"ordered mutation commands, using dotted command names such as ``clip.set`` "
+"and ``effects.add`` (the older ``effect.add`` spelling also works)::"
+msgstr ""
+"``edit apply --json @edits.json --expect-revision 12`` menerima hingga 256 "
+"perintah mutasi berurutan, menggunakan nama perintah bertitik seperti "
+"``clip.set`` dan ``effects.add`` (ejaan lama ``effect.add`` juga "
+"berfungsi)::"
+
+#: ../doc/agent_cli.rst:685
+msgid ""
+"The optional ``as`` binds a result for later commands in the same batch. A "
+"``{\"$ref\":\"shot.id\"}`` object substitutes that result's field. "
+"References only resolve earlier names; misspellings, forward references, and"
+" duplicate names fail before live updates. The response includes ordered "
+"compact results and a ``refs`` map of actual IDs. All changes in a "
+"successful batch form one undo/redo step. ``project.profile.set`` also "
+"supports populated timelines. Opening, saving, exporting, and inspection "
+"commands stay outside edit batches. Each command's help lists its JSON "
+"parameter names, including the underscore spelling of shell flags (for "
+"example, ``--fps-num`` becomes ``fps_num``)."
+msgstr ""
+"Opsi ``as`` mengikat hasil untuk perintah berikutnya dalam batch yang sama. "
+"Objek ``{\"$ref\":\"shot.id\"}`` menggantikan bidang hasil tersebut. "
+"Referensi hanya menyelesaikan nama sebelumnya; kesalahan ejaan, referensi "
+"maju, dan nama duplikat gagal sebelum pembaruan langsung. Respons mencakup "
+"hasil ringkas berurutan dan peta ``refs`` dari ID sebenarnya. Semua "
+"perubahan dalam batch yang berhasil membentuk satu langkah batal ulang. "
+"``project.profile.set`` juga mendukung timeline yang terisi. Perintah "
+"membuka, menyimpan, mengekspor, dan inspeksi tetap di luar batch suntingan. "
+"Bantuan setiap perintah mencantumkan nama parameter JSON-nya, termasuk ejaan"
+" garis bawah dari flag shell (misalnya, ``--fps-num`` menjadi ``fps_num``)."
+
+#: ../doc/agent_cli.rst:696
+msgid "Validating batches and handling errors"
+msgstr "Memvalidasi batch dan menangani kesalahan"
+
+#: ../doc/agent_cli.rst:698
+msgid ""
+"All commands in edit batches preflight against a detached project before any"
+" live updates. Invalid input leaves the live project and revision unchanged."
+" Valid batches form one undo group. Unexpected runtime failures can still "
+"produce partial changes; errors report completed operations. A timeout does "
+"not imply cancellation, so inspect state before retrying mutations."
+msgstr ""
+"Semua perintah dalam batch suntingan diuji terlebih dahulu terhadap proyek "
+"terpisah sebelum pembaruan langsung. Input tidak valid meninggalkan proyek "
+"dan revisi langsung tanpa perubahan. Batch valid membentuk satu grup batal "
+"ulang. Kegagalan runtime tak terduga masih dapat menghasilkan perubahan "
+"parsial; kesalahan melaporkan operasi yang selesai. Waktu habis tidak "
+"berarti pembatalan, jadi periksa status sebelum mencoba ulang mutasi."
+
+#: ../doc/agent_cli.rst:705
+msgid "Precise keyframe editing"
+msgstr "Pengeditan keyframe yang tepat"
+
+#: ../doc/agent_cli.rst:707
+msgid ""
+"``clip``, ``transition``, and ``effects`` support ``keyframe list``, "
+"``set``, ``remove``, ``clear``, ``transform``, ``copy``, and ``paste``. "
+"Property paths can address nested curves, such as ``color.red`` on a Chroma "
+"Key effect. Editing a nested curve preserves sibling channels. Run "
+"``keyframe list ID`` without a property to discover curve paths and point "
+"counts. Discovery and point listings include trim/position timing context; "
+"point listings also report native frame coordinates. ``get`` and "
+"``properties`` expose the complete native object and property metadata. "
+"Errors identify invalid fields, suggest close property names, and explain "
+"coordinate corrections."
+msgstr ""
+"``clip``, ``transition``, dan ``effects`` mendukung ``keyframe list``, "
+"``set``, ``remove``, ``clear``, ``transform``, ``copy``, dan ``paste``. "
+"Jalur properti dapat mengakses kurva bersarang, seperti ``color.red`` pada "
+"efek Chroma Key. Mengedit kurva bersarang mempertahankan saluran saudara. "
+"Jalankan ``keyframe list ID`` tanpa properti untuk menemukan jalur kurva dan"
+" jumlah titik. Penemuan dan daftar titik mencakup konteks waktu trim/posisi;"
+" daftar titik juga melaporkan koordinat frame asli. ``get`` dan "
+"``properties`` menampilkan objek asli lengkap dan metadata properti. "
+"Kesalahan mengidentifikasi bidang tidak valid, menyarankan nama properti "
+"yang mirip, dan menjelaskan koreksi koordinat."
+
+#: ../doc/agent_cli.rst:717
+msgid ""
+"Choose coordinates explicitly with ``--space native|clip|timeline`` and "
+"``--unit frames|seconds``. All frames use project FPS and are 1-based; "
+"seconds start at zero and snap to the nearest frame. Native is the existing "
+"engine keyframe coordinate (including source trim). Clip coordinates start "
+"at the visible clip in-point; timeline coordinates start at project time "
+"zero. Attached effects use their parent clip's timing. These coordinates "
+"address animation time, not the media frames selected by a time-remapping "
+"curve."
+msgstr ""
+"Pilih koordinat secara eksplisit dengan ``--space native|clip|timeline`` dan"
+" ``--unit frames|seconds``. Semua frame menggunakan FPS proyek dan berbasis "
+"1; detik mulai dari nol dan menempel pada frame terdekat. Native adalah "
+"koordinat keyframe mesin yang ada (termasuk trim sumber). Koordinat klip "
+"mulai dari titik masuk klip yang terlihat; koordinat timeline mulai dari "
+"waktu nol proyek. Efek terpasang menggunakan waktu klip induknya. Koordinat "
+"ini mengacu pada waktu animasi, bukan frame media yang dipilih oleh kurva "
+"pemetaan ulang waktu."
+
+#: ../doc/agent_cli.rst:725
+msgid ""
+"For a clip positioned at 5 seconds, trimmed at 2 seconds, in a 30 fps "
+"project, clip frame 1, timeline frame 151, and native frame 61 address the "
+"same point. Position and trim snap independently to the project frame grid. "
+"Listing an entire curve can include hidden points with nonpositive "
+"clip/timeline coordinates. Legacy ``--frame`` still means a native frame and"
+" cannot combine with ``--at``."
+msgstr ""
+"Untuk klip yang diposisikan pada 5 detik, dipangkas pada 2 detik, dalam "
+"proyek 30 fps, frame klip 1, frame timeline 151, dan frame native 61 "
+"menunjuk ke titik yang sama. Posisi dan pemangkasan snap secara independen "
+"ke grid frame proyek. Mendaftar seluruh kurva dapat mencakup titik "
+"tersembunyi dengan koordinat klip/timeline yang tidak positif. ``--frame`` "
+"warisan masih berarti frame native dan tidak dapat digabungkan dengan "
+"``--at``."
+
+#: ../doc/agent_cli.rst:731
+msgid "Examples::"
+msgstr "Contoh::"
+
+#: ../doc/agent_cli.rst:743
+msgid "Interpolation, easing, and preview"
+msgstr "Interpolasi, easing, dan pratinjau"
+
+#: ../doc/agent_cli.rst:745
+msgid ""
+"Interpolation describes the segment **into the destination point**. Linear "
+"gives a steady rate between points. Constant holds the preceding value until"
+" the destination, then jumps. Native default Bezier handles ease at both "
+"ends of each segment. Adding an intermediate point can therefore introduce "
+"an unintended slowdown; for one eased move, start with two endpoints. "
+"Normally leave handles alone and choose a named preset for a specific style."
+msgstr ""
+"Interpolasi menggambarkan segmen **menuju titik tujuan**. Linear memberikan "
+"laju yang stabil antar titik. Konstan mempertahankan nilai sebelumnya sampai"
+" tujuan, lalu melompat. Bezier default native mengatur easing di kedua ujung"
+" setiap segmen. Menambahkan titik perantara dapat menyebabkan perlambatan "
+"yang tidak diinginkan; untuk satu gerakan eased, mulai dengan dua titik "
+"akhir. Biasanya biarkan pegangan apa adanya dan pilih preset bernama untuk "
+"gaya tertentu."
+
+#: ../doc/agent_cli.rst:752
+msgid ""
+"Discover the same easing presets used by the editor's menus, without a "
+"session::"
+msgstr ""
+"Temukan preset easing yang sama yang digunakan oleh menu editor, tanpa "
+"sesi::"
+
+#: ../doc/agent_cli.rst:756
+msgid "Apply a preset to the incoming segment by setting its destination::"
+msgstr "Terapkan preset ke segmen masuk dengan mengatur tujuannya::"
+
+#: ../doc/agent_cli.rst:761
+msgid ""
+"The easing option implies Bezier. It sets the previous point's outgoing "
+"handle and the destination's incoming handle together, preserving other "
+"handles and point values. An earlier point must exist. Do not combine it "
+"with custom handles or a different interpolation. Presets work in batches "
+"and bulk templates. The GUI preset **ease** (\"Ease (Default)\") differs "
+"from the native handles used by plain Bezier interpolation. Back presets can"
+" overshoot endpoint values."
+msgstr ""
+"Opsi easing mengimplikasikan Bezier. Ini mengatur pegangan keluar titik "
+"sebelumnya dan pegangan masuk tujuan bersama-sama, mempertahankan pegangan "
+"dan nilai titik lainnya. Titik sebelumnya harus ada. Jangan gabungkan dengan"
+" pegangan kustom atau interpolasi berbeda. Preset bekerja dalam batch dan "
+"template massal. Preset GUI **ease** (\"Ease (Default)\") berbeda dari "
+"pegangan native yang digunakan oleh interpolasi Bezier biasa. Preset back "
+"dapat melewati nilai titik akhir."
+
+#: ../doc/agent_cli.rst:768
+msgid ""
+"Inspect motion **before rendering**, using the native curve evaluator::"
+msgstr ""
+"Periksa gerakan **sebelum rendering**, menggunakan evaluator kurva native::"
+
+#: ../doc/agent_cli.rst:773
+msgid ""
+"Preview is read-only and works identically for effects and transitions. It "
+"returns values and signed incoming_rate / outgoing_rate in property units "
+"per second, calculated from immediately adjacent frames. These are finite "
+"differences, not analytic derivatives. At native frame 1 the incoming rate "
+"is null. Adjacent-frame rates can inspect outside the requested range. Near-"
+"zero rates around an interior point reveal a pause; differing rates reveal a"
+" speed change. Constant interpolation reveals a jump at the destination."
+msgstr ""
+"Pratinjau hanya baca dan bekerja sama untuk efek dan transisi. Ini "
+"mengembalikan nilai dan incoming_rate / outgoing_rate bertanda dalam satuan "
+"properti per detik, dihitung dari frame yang berdekatan langsung. Ini adalah"
+" perbedaan hingga, bukan turunan analitik. Pada frame native 1, laju masuk "
+"adalah nol. Laju frame berdekatan dapat memeriksa di luar rentang yang "
+"diminta. Laju mendekati nol di sekitar titik interior menunjukkan jeda; laju"
+" berbeda menunjukkan perubahan kecepatan. Interpolasi konstan menunjukkan "
+"loncatan di tujuan."
+
+#: ../doc/agent_cli.rst:781
+msgid ""
+"Without a range, preview spans the curve's first and last points. Ranges are"
+" inclusive, with 17 evenly spaced samples by default (--count: 2–256). "
+"Keyframes and their immediate neighbors inside the range are also included, "
+"so a sparse sample count will not hide a keyframe stall. The maximum is 1024"
+" samples; larger requests require a narrower range. --at samples one frame. "
+"Preview reports requested-space coordinates and actual native frames; "
+"seconds snap to project frames as they do for editing."
+msgstr ""
+"Tanpa rentang, pratinjau mencakup titik pertama dan terakhir kurva. Rentang "
+"bersifat inklusif, dengan 17 sampel yang tersebar merata secara default "
+"(--count: 2–256). Keyframe dan tetangga terdekatnya di dalam rentang juga "
+"termasuk, sehingga jumlah sampel yang jarang tidak akan menyembunyikan jeda "
+"keyframe. Maksimum adalah 1024 sampel; permintaan lebih besar memerlukan "
+"rentang yang lebih sempit. --at mengambil sampel satu frame. Pratinjau "
+"melaporkan koordinat ruang yang diminta dan frame native aktual; detik "
+"disesuaikan ke frame proyek seperti saat pengeditan."
+
+#: ../doc/agent_cli.rst:789
+msgid ""
+"For advanced custom handles, both X and Y are normalized to the segment: X "
+"is a fraction of its frame span; Y is a fraction of its value change. The "
+"first control comes from the previous point's handle_right, the second from "
+"the destination's handle_left. Native defaults are right=(0.5, 0), "
+"left=(0.5, 1), with flat endpoint tangents. Changing handle_type alone does "
+"not recalculate a continuous tangent through surrounding points. Existing "
+"handles are preserved when moving a point."
+msgstr ""
+"Untuk pegangan kustom lanjutan, baik X dan Y dinormalisasi ke segmen: X "
+"adalah fraksi dari rentang frame; Y adalah fraksi dari perubahan nilainya. "
+"Kontrol pertama berasal dari handle_right titik sebelumnya, yang kedua dari "
+"handle_left tujuan. Default native adalah right=(0.5, 0), left=(0.5, 1), "
+"dengan tangen titik akhir datar. Mengubah handle_type saja tidak menghitung "
+"ulang tangen kontinu melalui titik sekitar. Pegangan yang ada dipertahankan "
+"saat memindahkan titik."
+
+#: ../doc/agent_cli.rst:797
+msgid ""
+"Keyframe ranges are **inclusive**, unlike clip-selection time ranges. List "
+"emits ``points`` whose ``co.X`` values use the requested coordinate "
+"space/unit. Pass that array to ``keyframe paste --json @points.json`` with "
+"the same space/unit, choosing ``--mode merge`` (replace matching frames, "
+"retain others) or ``--mode replace`` (replace the entire curve). ``copy`` "
+"accepts a source of the same object kind, an optional ``--source-property``,"
+" and anchors the first selected source point at ``--at`` on the target. "
+"Other curves and source objects remain unchanged."
+msgstr ""
+"Rentang keyframe bersifat **inklusif**, berbeda dengan rentang waktu "
+"pemilihan klip. Daftar mengeluarkan ``points`` yang nilai ``co.X``-nya "
+"menggunakan ruang/satuan koordinat yang diminta. Kirim array itu ke "
+"``keyframe paste --json @points.json`` dengan ruang/satuan yang sama, "
+"memilih ``--mode merge`` (ganti frame yang cocok, pertahankan lainnya) atau "
+"``--mode replace`` (ganti seluruh kurva). ``copy`` menerima sumber dari "
+"jenis objek yang sama, ``--source-property`` opsional, dan menambatkan titik"
+" sumber pertama yang dipilih pada ``--at`` di target. Kurva dan objek sumber"
+" lain tetap tidak berubah."
+
+#: ../doc/agent_cli.rst:805
+msgid ""
+"``transform`` applies a positive time scale around the first selected point,"
+" or ``--pivot``, followed by a signed ``--offset`` in the chosen unit. Frame"
+" snapping that creates duplicate coordinates is rejected, including "
+"collisions with points outside the selected range. Native coordinates must "
+"remain at least 1. Native normalized Bézier handles and interpolation travel"
+" with each point; handles are not absolute frame coordinates. ``set "
+"--handles`` changes only supplied handles. Interpolation belongs to the "
+"destination point."
+msgstr ""
+"``transform`` menerapkan skala waktu positif di sekitar titik pertama yang "
+"dipilih, atau ``--pivot``, diikuti oleh ``--offset`` bertanda dalam satuan "
+"yang dipilih. Snap frame yang menghasilkan koordinat duplikat ditolak, "
+"termasuk tabrakan dengan titik di luar rentang yang dipilih. Koordinat "
+"native harus tetap minimal 1. Pegangan Bézier normalisasi native dan "
+"interpolasi bergerak bersama setiap titik; pegangan bukan koordinat frame "
+"absolut. ``set --handles`` hanya mengubah pegangan yang disediakan. "
+"Interpolasi milik titik tujuan."
+
+#: ../doc/agent_cli.rst:813
+msgid ""
+"``clear`` retains a constant base point at native frame 1: specify "
+"``--value`` or sample the existing curve with ``--at`` (default native frame"
+" 1). Removing the last point also retains a constant base, so subsequent "
+"keyframe additions remain valid."
+msgstr ""
+"``clear`` mempertahankan titik dasar konstan pada frame native 1: tentukan "
+"``--value`` atau ambil sampel kurva yang ada dengan ``--at`` (default frame "
+"native 1). Menghapus titik terakhir juga mempertahankan dasar konstan, "
+"sehingga penambahan keyframe berikutnya tetap valid."
+
+#: ../doc/agent_cli.rst:818
+msgid "Selecting and editing many clips"
+msgstr "Memilih dan mengedit banyak klip"
+
+#: ../doc/agent_cli.rst:820
+msgid ""
+"Use ``edit apply --dry-run`` to validate a batch without changing the "
+"project. Use ``edit bulk`` to repeat a small command template for each "
+"selected clip, with all changes grouped into one undo step."
+msgstr ""
+"Gunakan ``edit apply --dry-run`` untuk memvalidasi batch tanpa mengubah "
+"proyek. Gunakan ``edit bulk`` untuk mengulangi template perintah kecil untuk"
+" setiap klip yang dipilih, dengan semua perubahan digabungkan menjadi satu "
+"langkah undo."
+
+#: ../doc/agent_cli.rst:824
+msgid "First preview a selection::"
+msgstr "Pertama pratinjau sebuah pilihan::"
+
+#: ../doc/agent_cli.rst:828
+msgid ""
+"Selectors support ``ids`` (unique clip ID array), ``layer``, "
+"``start``/``end`` (timeline seconds), ``file_id``, ``effect`` (class name or"
+" alias), and ``text`` (``true`` selects text clips). Filters combine with "
+"AND. Time ranges select clips overlapping ``[start, end)``; they do not trim"
+" those clips. Results are ordered by position, layer, then ID, and include "
+"IDs, summaries, lock state, and the current revision. Unknown IDs are "
+"errors. An empty selector is rejected; use ``{\"all\":true}`` explicitly for"
+" every clip. Selections are bounded to 256 clips and are never silently "
+"truncated."
+msgstr ""
+"Selector mendukung ``ids`` (array ID klip unik), ``layer``, "
+"``start``/``end`` (detik timeline), ``file_id``, ``effect`` (nama kelas atau"
+" alias), dan ``text`` (``true`` memilih klip teks). Filter digabung dengan "
+"AND. Rentang waktu memilih klip yang tumpang tindih ``[start, end)``; mereka"
+" tidak memotong klip tersebut. Hasil diurutkan berdasarkan posisi, layer, "
+"lalu ID, dan mencakup ID, ringkasan, status kunci, dan revisi saat ini. ID "
+"yang tidak dikenal adalah kesalahan. Selector kosong ditolak; gunakan "
+"``{\"all\":true}`` secara eksplisit untuk setiap klip. Seleksi dibatasi "
+"hingga 256 klip dan tidak pernah dipotong secara diam-diam."
+
+#: ../doc/agent_cli.rst:837
+msgid "For example, save this array as ``templates.json``::"
+msgstr "Sebagai contoh, simpan array ini sebagai ``templates.json``::"
+
+#: ../doc/agent_cli.rst:846
+msgid "Validate it, then apply against the revision returned by selection::"
+msgstr ""
+"Validasi, lalu terapkan terhadap revisi yang dikembalikan oleh seleksi::"
+
+#: ../doc/agent_cli.rst:851
+msgid ""
+"Existing-clip commands inherit ``id``; ``effects.add`` inherits ``clip_id``."
+" Omit these target parameters in templates. Effect edits must reference an "
+"earlier named result. Names are local to each selected clip, so ``look.id`` "
+"refers to a different effect for each clip. To change existing effect "
+"instances by explicit ID, continue using ``edit apply``. The selected ID set"
+" is fixed before expansion; changes to position or effects do not change the"
+" remaining targets."
+msgstr ""
+"Perintah klip yang ada mewarisi ``id``; ``effects.add`` mewarisi "
+"``clip_id``. Abaikan parameter target ini dalam template. Edit efek harus "
+"merujuk hasil bernama sebelumnya. Nama bersifat lokal untuk setiap klip yang"
+" dipilih, jadi ``look.id`` merujuk pada efek berbeda untuk setiap klip. "
+"Untuk mengubah instance efek yang ada dengan ID eksplisit, lanjutkan "
+"menggunakan ``edit apply``. Set ID yang dipilih tetap sebelum ekspansi; "
+"perubahan posisi atau efek tidak mengubah target yang tersisa."
+
+#: ../doc/agent_cli.rst:858
+msgid ""
+"``clip set`` applies absolute properties; ``clip adjust`` applies "
+"``multiply`` then ``add`` to a numeric property or every value in a curve, "
+"preserving point timing, interpolation, and normalized handles. It validates"
+" resulting values, including nonnegative positions and volume. Structural "
+"fields remain protected."
+msgstr ""
+"``clip set`` menerapkan properti absolut; ``clip adjust`` menerapkan "
+"``multiply`` lalu ``add`` pada properti numerik atau setiap nilai dalam "
+"kurva, mempertahankan waktu titik, interpolasi, dan pegangan ternormalisasi."
+" Ini memvalidasi nilai hasil, termasuk posisi dan volume yang tidak negatif."
+" Bidang struktural tetap terlindungi."
+
+#: ../doc/agent_cli.rst:863
+msgid ""
+"Bulk operations reject empty selections, locked target tracks, and more than"
+" 256 expanded commands. Every expanded operation passes detached preflight "
+"before any live edit. Dry runs do not reserve generated IDs. Use ``--expect-"
+"revision`` to reject stale selections. Successful batches are one undo step,"
+" including after save/reopen. GUI refreshes are batched. Unexpected "
+"runtime/listener errors can still leave a partial transaction; the error "
+"reports completed operations and undo reverts that group, as with ``edit "
+"apply``."
+msgstr ""
+"Operasi massal menolak seleksi kosong, trek target terkunci, dan lebih dari "
+"256 perintah yang diperluas. Setiap operasi yang diperluas melewati "
+"preflight terpisah sebelum pengeditan langsung. Dry run tidak memesan ID "
+"yang dihasilkan. Gunakan ``--expect-revision`` untuk menolak seleksi usang. "
+"Batch yang berhasil adalah satu langkah undo, termasuk setelah simpan/buka "
+"ulang. Penyegaran GUI dilakukan secara batch. Kesalahan runtime/listener "
+"yang tidak terduga masih dapat meninggalkan transaksi parsial; kesalahan "
+"melaporkan operasi yang selesai dan undo membatalkan grup tersebut, seperti "
+"pada ``edit apply``."
+
+#: ../doc/agent_cli.rst:872
+msgid "Profiles"
+msgstr "Profil"
+
+#: ../doc/agent_cli.rst:874
+msgid "Discover profiles and match imported video without guessing IDs::"
+msgstr "Temukan profil dan cocokkan video impor tanpa menebak ID::"
+
+#: ../doc/agent_cli.rst:884
+msgid ""
+"Catalog entries include stable IDs, descriptions, dimensions, rational FPS, "
+"aspect ratios, and scan settings. List/search is paginated. Source matching "
+"returns exact IDs and ranked alternatives with explicit differences. Setting"
+" from a file requires an exact match unless ``--create-custom`` is "
+"specified; it never silently chooses a nearby profile. Still images and "
+"audio-only sources cannot define a video profile. Matching uses declared "
+"source FPS."
+msgstr ""
+"Entri katalog mencakup ID stabil, deskripsi, dimensi, FPS rasional, rasio "
+"aspek, dan pengaturan pemindaian. Daftar/pencarian dipaginasi. Pencocokan "
+"sumber mengembalikan ID tepat dan alternatif berperingkat dengan perbedaan "
+"eksplisit. Pengaturan dari file memerlukan kecocokan tepat kecuali "
+"``--create-custom`` ditentukan; tidak pernah memilih profil terdekat secara "
+"diam-diam. Gambar diam dan sumber hanya audio tidak dapat mendefinisikan "
+"profil video. Pencocokan menggunakan FPS sumber yang dideklarasikan."
+
+#: ../doc/agent_cli.rst:891
+msgid ""
+"Custom settings are embedded in the saved project, including rational rates,"
+" so reopening does not require installing a separate profile file. Project "
+"profile changes use existing frame-rate conversion and one undo transaction."
+" Undo/redo restores clip timing and keyframes, including rounding-sensitive "
+"positions. Export can independently select a profile without changing the "
+"project."
+msgstr ""
+"Pengaturan khusus disematkan dalam proyek yang disimpan, termasuk rasio "
+"rasional, sehingga membuka kembali tidak memerlukan pemasangan file profil "
+"terpisah. Perubahan profil proyek menggunakan konversi frame-rate yang ada "
+"dan satu transaksi undo. Undo/redo mengembalikan waktu klip dan keyframe, "
+"termasuk posisi sensitif pembulatan. Ekspor dapat memilih profil secara "
+"mandiri tanpa mengubah proyek."
+
+#: ../doc/agent_cli.rst:897
+msgid ""
+"Saved undo history follows the editor's history-limit preference. The limit "
+"is a soft action budget: all records belonging to retained transactions are "
+"kept, so saving cannot truncate a large batch into a partial undo action. "
+"Zero disables saved history. The separate 256-command batch request bound "
+"still applies."
+msgstr ""
+"Riwayat undo yang disimpan mengikuti preferensi batas riwayat editor. Batas "
+"ini adalah anggaran aksi lunak: semua catatan yang termasuk dalam transaksi "
+"yang dipertahankan disimpan, sehingga penyimpanan tidak dapat memotong batch"
+" besar menjadi aksi undo parsial. Nol menonaktifkan riwayat yang disimpan. "
+"Batas permintaan batch 256 perintah terpisah masih berlaku."
+
+#: ../doc/agent_cli.rst:903
+msgid "Inspecting media and timelines"
+msgstr "Memeriksa media dan timeline"
+
+#: ../doc/agent_cli.rst:905
+msgid ""
+"Inspect clip timing and track layout as text or JSON, or render images to "
+"review composition and framing before exporting."
+msgstr ""
+"Periksa waktu klip dan tata letak trek sebagai teks atau JSON, atau render "
+"gambar untuk meninjau komposisi dan framing sebelum mengekspor."
+
+#: ../doc/agent_cli.rst:909
+msgid "Timeline summaries"
+msgstr "Ringkasan timeline"
+
+#: ../doc/agent_cli.rst:911
+msgid ""
+"Use a text view for a quick overview, or structured JSON for scripts and "
+"agents::"
+msgstr ""
+"Gunakan tampilan teks untuk gambaran cepat, atau JSON terstruktur untuk "
+"skrip dan agen::"
+
+#: ../doc/agent_cli.rst:917
+msgid ""
+"``timeline view`` defaults to compact text with used tracks, object IDs, "
+"timeline/source intervals, stream state, gain, and gaps/overlaps. Use "
+"``--detail summary|clips|full`` to choose detail, ``--format json`` for "
+"structured context, and ``--start/--end``, ``--layer``, and pagination to "
+"focus the result."
+msgstr ""
+"``timeline view`` defaultnya adalah teks ringkas dengan trek yang digunakan,"
+" ID objek, interval timeline/sumber, status aliran, gain, dan celah/tumpang "
+"tindih. Gunakan ``--detail summary|clips|full`` untuk memilih detail, "
+"``--format json`` untuk konteks terstruktur, dan ``--start/--end``, "
+"``--layer``, serta paginasi untuk memfokuskan hasil."
+
+#: ../doc/agent_cli.rst:922
+msgid ""
+"``timeline overview`` supplies compact structured context without image "
+"bytes: ordered IDs, sequence per track, timeline/source intervals, visible "
+"trim ranges, frame coordinates, audio/video state, effects, and neighboring "
+"gaps or overlaps. Intervals and frame spans are end-exclusive; frame numbers"
+" are one-based. Source frames use source FPS; timeline and keyframe "
+"coordinates use project FPS. Use ``--layer`` and ``--start/--end`` to focus,"
+" and ``--limit/--offset`` to paginate (default 100, maximum 500 items). "
+"Time-remapped clips explicitly withhold inferred source mappings. Use the "
+"returned revision with ``edit apply --expect-revision``."
+msgstr ""
+"``timeline overview`` menyediakan konteks terstruktur ringkas tanpa byte "
+"gambar: ID terurut, urutan per trek, interval timeline/sumber, rentang trim "
+"yang terlihat, koordinat frame, status audio/video, efek, dan celah atau "
+"tumpang tindih tetangga. Interval dan rentang frame eksklusif di akhir; "
+"nomor frame berbasis satu. Frame sumber menggunakan FPS sumber; koordinat "
+"timeline dan keyframe menggunakan FPS proyek. Gunakan ``--layer`` dan "
+"``--start/--end`` untuk memfokuskan, dan ``--limit/--offset`` untuk paginasi"
+" (default 100, maksimum 500 item). Klip yang di-time-remap secara eksplisit "
+"menahan pemetaan sumber yang disimpulkan. Gunakan revisi yang dikembalikan "
+"dengan ``edit apply --expect-revision``."
+
+#: ../doc/agent_cli.rst:932
+msgid "Frame previews and contact sheets"
+msgstr "Pratinjau frame dan lembar kontak"
+
+#: ../doc/agent_cli.rst:934
+msgid ""
+"Render a single frame with ``thumbnail`` or sample a range with ``strip``. "
+"Use ``file`` to inspect source media and ``timeline`` to inspect the "
+"composed video, including effects and layered clips::"
+msgstr ""
+"Render satu frame dengan ``thumbnail`` atau ambil sampel rentang dengan "
+"``strip``. Gunakan ``file`` untuk memeriksa media sumber dan ``timeline`` "
+"untuk memeriksa video yang disusun, termasuk efek dan klip berlapis::"
+
+#: ../doc/agent_cli.rst:943
+msgid ""
+"Frame images default to 320x180 pixels; contact sheets default to 160x90 per"
+" tile, plus timecode labels. Use ``--width`` and ``--height`` to choose "
+"output pixels. Responses include exact sample/frame metadata. Contact sheets"
+" help review composition across a sequence; use keyframe previews and "
+"rendered video to assess motion between those samples."
+msgstr ""
+"Gambar frame defaultnya 320x180 piksel; lembar kontak defaultnya 160x90 per "
+"ubin, plus label timecode. Gunakan ``--width`` dan ``--height`` untuk "
+"memilih piksel keluaran. Respons mencakup metadata sampel/frame yang tepat. "
+"Lembar kontak membantu meninjau komposisi sepanjang urutan; gunakan "
+"pratinjau keyframe dan video yang dirender untuk menilai gerakan antar "
+"sampel tersebut."
+
+#: ../doc/agent_cli.rst:950
+msgid "Timeline images"
+msgstr "Gambar garis waktu"
+
+#: ../doc/agent_cli.rst:952
+msgid ""
+"Capture the editor's track layout, including its ruler, thumbnails, effects,"
+" transitions, and waveforms::"
+msgstr ""
+"Tangkap tata letak trek editor, termasuk penggaris, thumbnail, efek, "
+"transisi, dan gelombang suara::"
+
+#: ../doc/agent_cli.rst:957
+msgid ""
+"Specifying ``--output`` selects image format; ``--format image`` also "
+"selects it explicitly. The capture does not change the editor's viewport or "
+"project. Responses include clip IDs and timing alongside pixel bounds."
+msgstr ""
+"Menentukan ``--output`` memilih format gambar; ``--format image`` juga "
+"memilihnya secara eksplisit. Tangkap tidak mengubah tampilan editor atau "
+"proyek. Respons mencakup ID klip dan waktu bersama batas piksel."
+
+#: ../doc/agent_cli.rst:961
+msgid ""
+"Images default to 1280 pixels wide, with height fitted to used tracks. Use "
+"``--width``, ``--height``, or ``--all-tracks`` to adjust the layout, and "
+"``--track-size`` or ``--track-label-width`` to adjust tracks and labels. The"
+" start/end range determines zoom; ``--pixels-per-second`` instead derives "
+"the width from the time range."
+msgstr ""
+"Gambar secara default berukuran lebar 1280 piksel, dengan tinggi disesuaikan"
+" dengan trek yang digunakan. Gunakan ``--width``, ``--height``, atau "
+"``--all-tracks`` untuk mengatur tata letak, dan ``--track-size`` atau "
+"``--track-label-width`` untuk mengatur trek dan label. Rentang mulai/akhir "
+"menentukan zoom; ``--pixels-per-second`` justru menentukan lebar dari "
+"rentang waktu."
+
+#: ../doc/agent_cli.rst:968
+msgid "Audio waveform views"
+msgstr "Tampilan gelombang suara audio"
+
+#: ../doc/agent_cli.rst:970
+msgid ""
+"Choose ``--mode waveforms`` to inspect audio envelopes on the timeline::"
+msgstr ""
+"Pilih ``--mode waveforms`` untuk memeriksa amplop audio pada garis waktu::"
+
+#: ../doc/agent_cli.rst:974
+msgid ""
+"``--mode auto`` uses the existing cached waveform display; ``--mode "
+"thumbnails`` shows thumbnails instead. Waveforms represent source peak/RMS "
+"levels with clip volume and timing adjustments, before audio effects or "
+"mixing."
+msgstr ""
+"``--mode auto`` menggunakan tampilan gelombang yang sudah di-cache; ``--mode"
+" thumbnails`` menampilkan thumbnail sebagai gantinya. Gelombang suara "
+"mewakili level puncak/RMS sumber dengan penyesuaian volume klip dan waktu, "
+"sebelum efek audio atau pencampuran."
+
+#: ../doc/agent_cli.rst:978
+msgid ""
+"Uncached waveform extraction decodes whole sources, limited to 600 seconds "
+"per source and 1200 source-seconds per request. Narrowing the visible range "
+"does not reduce that decoding work. For longer sources, generate waveforms "
+"in the editor first or use thumbnail mode. Subsequent requests can reuse "
+"cached waveforms."
+msgstr ""
+"Ekstraksi gelombang suara tanpa cache mendekode seluruh sumber, dibatasi "
+"hingga 600 detik per sumber dan 1200 detik-sumber per permintaan. "
+"Memperkecil rentang yang terlihat tidak mengurangi pekerjaan dekode "
+"tersebut. Untuk sumber yang lebih panjang, buat gelombang suara di editor "
+"terlebih dahulu atau gunakan mode thumbnail. Permintaan berikutnya dapat "
+"menggunakan kembali gelombang suara yang di-cache."
+
+#: ../doc/agent_cli.rst:984
+msgid "Image output and limits"
+msgstr "Output gambar dan batasannya"
+
+#: ../doc/agent_cli.rst:986
+msgid ""
+"Image paths must be new PNG files in existing directories. Images are "
+"limited to 4096 pixels per axis, 8,388,608 total pixels, and 64 contact-"
+"sheet samples. Requests beyond these limits fail before rendering."
+msgstr ""
+"Jalur gambar harus berupa file PNG baru di direktori yang sudah ada. Gambar "
+"dibatasi hingga 4096 piksel per sumbu, total 8.388.608 piksel, dan 64 sampel"
+" lembar kontak. Permintaan yang melebihi batas ini gagal sebelum proses "
+"rendering."
+
+#: ../doc/agent_cli.rst:990
+msgid ""
+"Images are written to files; JSON responses include their paths and "
+"``image_bytes`` sizes. Inspection waits for the image to finish, and large "
+"requests can briefly occupy the editor."
+msgstr ""
+"Gambar ditulis ke file; respons JSON mencakup jalur dan ukuran "
+"``image_bytes``. Pemeriksaan menunggu gambar selesai, dan permintaan besar "
+"dapat sementara menggunakan editor."
+
+#: ../doc/agent_cli.rst:995
+msgid "Handling command timeouts"
+msgstr "Menangani batas waktu perintah"
+
+#: ../doc/agent_cli.rst:997
+msgid ""
+"A request timeout does not mean a mutation failed. Use the operation ID in "
+"the error with ``operation get ID`` before retrying. ``operation list`` "
+"discovers recent mutations and their states, revisions, and outcomes. "
+"Completed operations retain their results when small enough, including "
+"returned object IDs. Storage is bounded to 100 operations and 4 MiB, with "
+"individual result bodies omitted above 256 KiB. These records last only for "
+"the running session. They do not restore projects after a crash or prevent a"
+" repeated command from applying the same edit again. Export jobs have their "
+"own status/list commands."
+msgstr ""
+"Batas waktu permintaan tidak berarti mutasi gagal. Gunakan ID operasi dalam "
+"kesalahan dengan ``operation get ID`` sebelum mencoba lagi. ``operation "
+"list`` menemukan mutasi terbaru beserta status, revisi, dan hasilnya. "
+"Operasi yang selesai menyimpan hasilnya jika cukup kecil, termasuk ID objek "
+"yang dikembalikan. Penyimpanan dibatasi hingga 100 operasi dan 4 MiB, dengan"
+" isi hasil individu dihilangkan di atas 256 KiB. Catatan ini hanya bertahan "
+"selama sesi berjalan. Mereka tidak memulihkan proyek setelah crash atau "
+"mencegah perintah berulang menerapkan edit yang sama lagi. Pekerjaan ekspor "
+"memiliki perintah status/daftar sendiri."

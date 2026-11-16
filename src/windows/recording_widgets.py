@@ -37,6 +37,18 @@ _MAC_COREFOUNDATION = None
 _MAC_KEYS = None
 
 
+class RecordingPreviewLabel(QLabel):
+    """Keep live image colors when the surrounding settings are disabled."""
+    def paintEvent(self, event):
+        pixmap = self.pixmap()
+        if pixmap is None or pixmap.isNull():
+            return super().paintEvent(event)
+        painter = QPainter(self)
+        painter.drawPixmap((self.width() - pixmap.width()) // 2,
+                           (self.height() - pixmap.height()) // 2, pixmap)
+        painter.end()
+
+
 class RecordingSourceCard(QFrame):
     toggled = pyqtSignal(bool)
 

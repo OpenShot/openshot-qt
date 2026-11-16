@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenShot Video Editor 4.0\n"
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,30 +16,30 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../learn_more.rst:23
+#: ../doc/learn_more.rst:23
 msgid "Learn More"
 msgstr ""
 
-#: ../learn_more.rst:24
+#: ../doc/learn_more.rst:24
 msgid "We are working hard to expand this user guide and to improve OpenShot Video Editor, but if you are stuck and don't know where to turn, OpenShot has several sources for additional information."
 msgstr ""
 
-#: ../learn_more.rst:27
+#: ../doc/learn_more.rst:27
 msgid "OpenShot has several `YouTube Tutorials <https://www.youtube.com/playlist?list=PLymupH2aoNQNezYzv2lhSwvoyZgLp1Q0T>`_ available to help you learn more."
 msgstr ""
 
-#: ../learn_more.rst:28
+#: ../doc/learn_more.rst:28
 msgid "OpenShot has a `Reddit User Community <https://openshot.org/forum>`_ dedicated to users helping users, answering questions, and discussing video editing and OpenShot topics."
 msgstr ""
 
-#: ../learn_more.rst:29
+#: ../doc/learn_more.rst:29
 msgid "If you would like to help improve this User Guide, `view source on GitHub <https://github.com/OpenShot/openshot-qt/tree/develop/doc>`_."
 msgstr ""
 
-#: ../learn_more.rst:30
+#: ../doc/learn_more.rst:30
 msgid "If you have discovered a new bug, please `Report a Bug <https://www.openshot.org/issues/new/>`_."
 msgstr ""
 
-#: ../learn_more.rst:31
+#: ../doc/learn_more.rst:31
 msgid "If you need professional support, you can open a ticket by sending an message to support@openshot.org or `Schedule a call <https://calendly.com/openshot-support/desktop>`_."
 msgstr ""

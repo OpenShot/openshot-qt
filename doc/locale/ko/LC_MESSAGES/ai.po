@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,12 +19,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:23
+#: ../doc/ai.rst:23
 msgid "Advanced AI: ComfyUI"
 msgstr "고급 AI: ComfyUI"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:25
+#: ../doc/ai.rst:25
 msgid ""
 "OpenShot can connect to a local `ComfyUI "
 "<https://github.com/comfyanonymous/ComfyUI>`_ server and run AI workflows "
@@ -37,21 +37,21 @@ msgstr ""
 "하드웨어는 무엇인지, 내장된 워크플로 템플릿이 어디에 있는지 설명합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:30
+#: ../doc/ai.rst:30
 msgid ""
 "AI features in OpenShot are **experimental** and require a **high-end "
 "workstation**."
 msgstr "OpenShot의 AI 기능은 **실험적** 이며 **고성능 워크스테이션** 이 필요합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:32
+#: ../doc/ai.rst:32
 msgid ""
 "These tools are **not recommended** for laptops, mid-range desktops, or "
 "budget systems."
 msgstr "이 도구들은 노트북, 중급 데스크톱 또는 저가형 시스템에는 **권장되지 않습니다**."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:33
+#: ../doc/ai.rst:33
 msgid ""
 "You must run a local `ComfyUI <https://github.com/comfyanonymous/ComfyUI>`_ "
 "server."
@@ -59,78 +59,78 @@ msgstr ""
 "로컬 `ComfyUI <https://github.com/comfyanonymous/ComfyUI>`_ 서버를 실행해야 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:34
+#: ../doc/ai.rst:34
 msgid ""
 "You should expect model downloads, setup work, and workflow troubleshooting."
 msgstr "모델 다운로드, 설정 작업 및 워크플로 문제 해결이 필요할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:37
+#: ../doc/ai.rst:37
 msgid "Minimum Recommended Hardware"
 msgstr "최소 권장 하드웨어"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:43
+#: ../doc/ai.rst:43
 msgid "Component"
 msgstr "구성 요소"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:43
+#: ../doc/ai.rst:43
 msgid "Recommendation"
 msgstr "권장 사항"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:45
+#: ../doc/ai.rst:45
 msgid "GPU"
 msgstr "GPU"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:45
+#: ../doc/ai.rst:45
 msgid "NVIDIA 5070 12GB or better (16-24GB VRAM strongly preferred)"
 msgstr "NVIDIA 5070 12GB 이상(16~24GB VRAM 권장)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:46
+#: ../doc/ai.rst:46
 msgid "CPU"
 msgstr "CPU"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:46
+#: ../doc/ai.rst:46
 msgid "Ryzen 9 5900-class CPU (or equivalent high-clock multi-core)"
 msgstr "Ryzen 9 5900급 CPU (또는 동급의 고클럭 멀티코어)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:47
+#: ../doc/ai.rst:47
 msgid "System memory"
 msgstr "시스템 메모리"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:47
+#: ../doc/ai.rst:47
 msgid "64GB RAM or more"
 msgstr "64GB RAM 이상"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:48
+#: ../doc/ai.rst:48
 msgid "Storage"
 msgstr "저장 공간"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:48
+#: ../doc/ai.rst:48
 msgid "200GB free space for models, cache, and generated outputs"
 msgstr "모델, 캐시 및 생성된 출력물을 위한 200GB 이상의 여유 공간"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:49
+#: ../doc/ai.rst:49
 msgid "Experience"
 msgstr "경험"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:49
+#: ../doc/ai.rst:49
 msgid "Comfortable with ComfyUI graphs, models, and node dependencies"
 msgstr "ComfyUI 그래프, 모델 및 노드 종속성에 익숙함"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:52
+#: ../doc/ai.rst:52
 msgid ""
 "If your system is below these levels, jobs will stall, fail, and produce "
 "unstable results. If your GPU has 8GB or less of VRAM, you will run out of "
@@ -140,33 +140,33 @@ msgstr ""
 "실행 중 메모리가 부족해질 것입니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:56
+#: ../doc/ai.rst:56
 msgid "Installation and Setup"
 msgstr "설치 및 설정"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:58
+#: ../doc/ai.rst:58
 msgid "Use this quick setup path before trying any AI workflow in OpenShot:"
 msgstr "OpenShot에서 AI 워크플로를 시도하기 전에 이 빠른 설정 경로를 사용하세요:"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:60
+#: ../doc/ai.rst:60
 msgid "Install ComfyUI and confirm it starts correctly."
 msgstr "ComfyUI를 설치하고 정상적으로 시작되는지 확인하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:61
+#: ../doc/ai.rst:61
 msgid "Install required custom nodes (listed below)."
 msgstr "필요한 커스텀 노드(아래 목록)를 설치하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:62
+#: ../doc/ai.rst:62
 msgid ""
 "Download required model files (listed below) into matching model folders."
 msgstr "필요한 모델 파일(아래 목록)을 해당 모델 폴더에 다운로드하세요."
 
 # Main-window terminology review, 2026-09-26.
-#: ../ai.rst:63
+#: ../doc/ai.rst:63
 msgid ""
 "Start ComfyUI, then open :guilabel:`Edit->Preferences->Advanced` and set "
 ":guilabel:`ComfyUI URL`."
@@ -175,12 +175,12 @@ msgstr ""
 "URL` 을 설정하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:64
+#: ../doc/ai.rst:64
 msgid "Click :guilabel:`Check` to confirm OpenShot can reach the server."
 msgstr "OpenShot이 서버에 연결할 수 있는지 확인하려면 :guilabel:`확인` 을 클릭하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:66
+#: ../doc/ai.rst:66
 msgid ""
 "For a full step-by-step server setup guide, see the OpenShot wiki: `ComfyUI:"
 " Advanced AI Setup Guide <https://github.com/OpenShot/openshot-"
@@ -191,7 +191,7 @@ msgstr ""
 "Guide>`_ 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:69
+#: ../doc/ai.rst:69
 msgid ""
 "For full ComfyUI installation details, see the official repository: `ComfyUI"
 " on GitHub <https://github.com/comfyanonymous/ComfyUI>`_."
@@ -200,12 +200,12 @@ msgstr ""
 "<https://github.com/comfyanonymous/ComfyUI>`_."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:73
+#: ../doc/ai.rst:73
 msgid "Required Custom Nodes"
 msgstr "필수 커스텀 노드"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:75
+#: ../doc/ai.rst:75
 msgid ""
 "`comfyui_controlnet_aux "
 "<https://github.com/Fannovel16/comfyui_controlnet_aux>`_"
@@ -214,7 +214,7 @@ msgstr ""
 "<https://github.com/Fannovel16/comfyui_controlnet_aux>`_"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:76
+#: ../doc/ai.rst:76
 msgid ""
 "`ComfyUI-Frame-Interpolation <https://github.com/Fannovel16/ComfyUI-Frame-"
 "Interpolation>`_"
@@ -223,7 +223,7 @@ msgstr ""
 "Interpolation>`_"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:77
+#: ../doc/ai.rst:77
 msgid ""
 "`ComfyUI-VideoHelperSuite <https://github.com/Kosinkadink/ComfyUI-"
 "VideoHelperSuite>`_"
@@ -232,7 +232,7 @@ msgstr ""
 "VideoHelperSuite>`_"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:78
+#: ../doc/ai.rst:78
 msgid ""
 "`ComfyUI-Video-Segmentation <https://github.com/miaoshouai/ComfyUI-Video-"
 "Segmentation>`_"
@@ -241,137 +241,137 @@ msgstr ""
 "Segmentation>`_"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:79
+#: ../doc/ai.rst:79
 msgid "`ComfyUI-Whisper <https://github.com/yuvraj108c/ComfyUI-Whisper>`_"
 msgstr "`ComfyUI-Whisper <https://github.com/yuvraj108c/ComfyUI-Whisper>`_"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:80
+#: ../doc/ai.rst:80
 msgid "`OpenShot-ComfyUI <https://github.com/OpenShot/OpenShot-ComfyUI>`_"
 msgstr "`OpenShot-ComfyUI <https://github.com/OpenShot/OpenShot-ComfyUI>`_"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:83
+#: ../doc/ai.rst:83
 msgid "Required Models / Files"
 msgstr "필수 모델 / 파일"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:85
+#: ../doc/ai.rst:85
 msgid "``ComfyUI/models/diffusion_models/wan2.1_vace_1.3B_fp16.safetensors``"
 msgstr "``ComfyUI/models/diffusion_models/wan2.1_vace_1.3B_fp16.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:86
+#: ../doc/ai.rst:86
 msgid ""
 "``ComfyUI/custom_nodes/ComfyUI-Frame-Interpolation/ckpts/rife/rife47.pth``"
 msgstr ""
 "``ComfyUI/custom_nodes/ComfyUI-Frame-Interpolation/ckpts/rife/rife47.pth``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:87
+#: ../doc/ai.rst:87
 msgid "``ComfyUI/models/checkpoints/sd_xl_base_1.0.safetensors``"
 msgstr "``ComfyUI/models/checkpoints/sd_xl_base_1.0.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:88
+#: ../doc/ai.rst:88
 msgid "``ComfyUI/models/checkpoints/sd_xl_refiner_1.0.safetensors``"
 msgstr "``ComfyUI/models/checkpoints/sd_xl_refiner_1.0.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:89
+#: ../doc/ai.rst:89
 msgid "``ComfyUI/models/checkpoints/stable-audio-open-1.0.safetensors``"
 msgstr "``ComfyUI/models/checkpoints/stable-audio-open-1.0.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:90
+#: ../doc/ai.rst:90
 msgid "``ComfyUI/models/clip_vision/clip_vision_g.safetensors``"
 msgstr "``ComfyUI/models/clip_vision/clip_vision_g.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:91
+#: ../doc/ai.rst:91
 msgid "``ComfyUI/models/diffusion_models/wan2.2_ti2v_5B_fp16.safetensors``"
 msgstr "``ComfyUI/models/diffusion_models/wan2.2_ti2v_5B_fp16.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:92
+#: ../doc/ai.rst:92
 msgid "``ComfyUI/models/grounding-dino/groundingdino_swint_ogc.pth``"
 msgstr "``ComfyUI/models/grounding-dino/groundingdino_swint_ogc.pth``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:93
+#: ../doc/ai.rst:93
 msgid "``ComfyUI/models/sam2/sam2.1_hiera_base_plus.pt``"
 msgstr "``ComfyUI/models/sam2/sam2.1_hiera_base_plus.pt``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:94
+#: ../doc/ai.rst:94
 msgid "``ComfyUI/models/sam2/sam2.1_hiera_small-fp16.safetensors``"
 msgstr "``ComfyUI/models/sam2/sam2.1_hiera_small-fp16.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:95
+#: ../doc/ai.rst:95
 msgid "``ComfyUI/models/sam2/sam2.1_hiera_small.pt``"
 msgstr "``ComfyUI/models/sam2/sam2.1_hiera_small.pt``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:96
+#: ../doc/ai.rst:96
 msgid "``ComfyUI/models/sam2/sam2.1_hiera_tiny-fp16.safetensors``"
 msgstr "``ComfyUI/models/sam2/sam2.1_hiera_tiny-fp16.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:97
+#: ../doc/ai.rst:97
 msgid "``ComfyUI/models/sam2/sam2.1_hiera_tiny.pt``"
 msgstr "``ComfyUI/models/sam2/sam2.1_hiera_tiny.pt``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:98
+#: ../doc/ai.rst:98
 msgid "``ComfyUI/models/sam2/sam2_hiera_small.pt``"
 msgstr "``ComfyUI/models/sam2/sam2_hiera_small.pt``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:99
+#: ../doc/ai.rst:99
 msgid "``ComfyUI/models/stt/whisper/large-v3.pt``"
 msgstr "``ComfyUI/models/stt/whisper/large-v3.pt``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:100
+#: ../doc/ai.rst:100
 msgid "``ComfyUI/models/stt/whisper/medium.pt``"
 msgstr "``ComfyUI/models/stt/whisper/medium.pt``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:101
+#: ../doc/ai.rst:101
 msgid "``ComfyUI/models/text_encoders/t5-base.safetensors``"
 msgstr "``ComfyUI/models/text_encoders/t5-base.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:102
+#: ../doc/ai.rst:102
 msgid ""
 "``ComfyUI/models/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors``"
 msgstr ""
 "``ComfyUI/models/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:103
+#: ../doc/ai.rst:103
 msgid "``ComfyUI/models/TTS/Ace-Step1.5/acestep-v15-turbo/silence_latent.pt``"
 msgstr ""
 "``ComfyUI/models/TTS/Ace-Step1.5/acestep-v15-turbo/silence_latent.pt``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:104
+#: ../doc/ai.rst:104
 msgid "``ComfyUI/models/upscale_models/RealESRGAN_x4plus.safetensors``"
 msgstr "``ComfyUI/models/upscale_models/RealESRGAN_x4plus.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:105
+#: ../doc/ai.rst:105
 msgid "``ComfyUI/models/vae/wan_2.1_vae.safetensors``"
 msgstr "``ComfyUI/models/vae/wan_2.1_vae.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:106
+#: ../doc/ai.rst:106
 msgid "``ComfyUI/models/vae/wan2.2_vae.safetensors``"
 msgstr "``ComfyUI/models/vae/wan2.2_vae.safetensors``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:107
+#: ../doc/ai.rst:107
 msgid ""
 "``ComfyUI/models/VLM/transnetv2-pytorch-weights/transnetv2-pytorch-"
 "weights.pth``"
@@ -380,32 +380,32 @@ msgstr ""
 "weights.pth``"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:110
+#: ../doc/ai.rst:110
 msgid "What Users See in OpenShot"
 msgstr "OpenShot에서 사용자가 보는 것"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:112
+#: ../doc/ai.rst:112
 msgid "When ComfyUI is available, OpenShot shows AI tools in context menus:"
 msgstr "ComfyUI가 사용 가능할 때 OpenShot은 컨텍스트 메뉴에 AI 도구를 표시합니다:"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:114
+#: ../doc/ai.rst:114
 msgid ":guilabel:`Create with AI` for creating new assets"
 msgstr ":guilabel:`AI로 생성` 새 자산을 만들기 위해"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:118
+#: ../doc/ai.rst:118
 msgid ":guilabel:`Enhance with AI (images)` for processing image assets"
 msgstr ":guilabel:`AI로 향상 (이미지)` 이미지 자산을 처리하기 위해"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:122
+#: ../doc/ai.rst:122
 msgid ":guilabel:`Enhance with AI (videos)` for processing video assets"
 msgstr ":guilabel:`AI로 향상 (비디오)` 비디오 자산을 처리하기 위해"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:126
+#: ../doc/ai.rst:126
 msgid ""
 "Generated files are added to :guilabel:`Project Files` with progress text "
 "and queue badges. Outputs are saved under ``.openshot_qt/comfyui-output/``."
@@ -414,7 +414,7 @@ msgstr ""
 "``.openshot_qt/comfyui-output/`` 아래에 저장됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:129
+#: ../doc/ai.rst:129
 msgid ""
 "Starting a **new project** or opening an **existing project** clears the "
 "temporary ``.openshot_qt`` AI working folders so you begin with a clean "
@@ -427,23 +427,23 @@ msgstr ""
 "자산은 해당 프로젝트 디렉터리에 그대로 남아 있습니다."
 
 # Main-window terminology review, 2026-09-26.
-#: ../ai.rst:134
+#: ../doc/ai.rst:134
 msgid ""
 "If ComfyUI is unavailable, OpenShot disables the AI menus. Configure the "
 "server URL in :guilabel:`Edit->Preferences->Advanced`, then use the "
 ":guilabel:`Check` button to test connectivity."
 msgstr ""
 "ComfyUI를 사용할 수 없는 경우 OpenShot은 AI 메뉴를 비활성화합니다. "
-":guilabel:`Edit->환경설정->Advanced`에서 서버 URL을 구성한 다음 :guilabel:`Check` 버튼을 사용하여"
-" 연결을 테스트합니다."
+":guilabel:`Edit->환경설정->Advanced`\\ 에서 서버 URL을 구성한 다음 :guilabel:`Check` 버튼을 "
+"사용하여 연결을 테스트합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:139
+#: ../doc/ai.rst:139
 msgid "Workflow Templates"
 msgstr "워크플로우 템플릿"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:141
+#: ../doc/ai.rst:141
 msgid ""
 "OpenShot reads built-in templates from ``comfyui/``. It also loads custom "
 "user templates from ``~/.openshot_qt/comfyui/``."
@@ -452,33 +452,33 @@ msgstr ""
 "사용자 정의 사용자 템플릿을 로드합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:144
+#: ../doc/ai.rst:144
 msgid "To add your own workflow:"
 msgstr "자신만의 워크플로우를 추가하려면:"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:146
+#: ../doc/ai.rst:146
 msgid "In ComfyUI, open the workflow tab you want to use."
 msgstr "ComfyUI에서 사용하려는 워크플로우 탭을 엽니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:147
+#: ../doc/ai.rst:147
 msgid ""
 "Choose :guilabel:`Export (API)` to save the workflow as a ``*.json`` file."
-msgstr ":guilabel:`Export (API)`를 선택하여 워크플로우를 ``*.json`` 파일로 저장하세요."
+msgstr ":guilabel:`Export (API)`\\ 를 선택하여 워크플로우를 ``*.json`` 파일로 저장하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:148
+#: ../doc/ai.rst:148
 msgid "Copy that JSON file into ``~/.openshot_qt/comfyui/``."
 msgstr "해당 JSON 파일을 ``~/.openshot_qt/comfyui/`` 에 복사하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:149
+#: ../doc/ai.rst:149
 msgid "Restart OpenShot, or reopen the project if needed."
 msgstr "OpenShot을 재시작하거나 필요하면 프로젝트를 다시 여세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:151
+#: ../doc/ai.rst:151
 msgid ""
 "OpenShot will automatically load the workflow and show it in the appropriate"
 " AI menu. When you trigger it from OpenShot, the selected source file is "
@@ -489,7 +489,7 @@ msgstr ""
 "워크플로우에 전달되고, 워크플로우 최종 출력 노드의 결과물이 :guilabel:`Project Files` 로 다시 가져와집니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:156
+#: ../doc/ai.rst:156
 msgid ""
 "OpenShot also writes a ``.openshot_qt/comfyui/debug.json`` payload for "
 "advanced users who want to inspect the exact request sent to ComfyUI."
@@ -498,88 +498,89 @@ msgstr ""
 "``.openshot_qt/comfyui/debug.json`` 페이로드도 작성합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:160
+#: ../doc/ai.rst:160
 msgid "AI Action Dialog"
 msgstr "AI 작업 대화상자"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:162
+#: ../doc/ai.rst:162
 msgid ""
 "Both :guilabel:`Create with AI` and :guilabel:`Enhance with AI` open the "
 "same generation dialog."
 msgstr ""
-":guilabel:`Create with AI`와 :guilabel:`Enhance with AI` 모두 동일한 생성 대화상자를 엽니다."
+":guilabel:`Create with AI`\\ 와 :guilabel:`Enhance with AI` 모두 동일한 생성 대화상자를 "
+"엽니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:167
+#: ../doc/ai.rst:167
 msgid "Why this dialog matters:"
 msgstr "이 대화상자가 중요한 이유:"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:169
+#: ../doc/ai.rst:169
 msgid "It keeps all AI inputs in one place."
 msgstr "모든 AI 입력을 한 곳에 모아둡니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:170
+#: ../doc/ai.rst:170
 msgid "It validates required fields before queuing the job."
 msgstr "작업 대기열에 추가하기 전에 필수 항목을 검증합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:171
+#: ../doc/ai.rst:171
 msgid "It lets you set up tracking prompts before expensive runs."
 msgstr "비용이 많이 드는 실행 전에 추적 프롬프트를 설정할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:173
+#: ../doc/ai.rst:173
 msgid "What you can do in the dialog:"
 msgstr "대화상자에서 할 수 있는 일:"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:175
+#: ../doc/ai.rst:175
 msgid "Choose the workflow/action."
 msgstr "워크플로우/작업을 선택하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:176
+#: ../doc/ai.rst:176
 msgid "Enter the prompt text."
 msgstr "프롬프트 텍스트를 입력하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:177
+#: ../doc/ai.rst:177
 msgid "Preview the selected source file (for enhance workflows)."
 msgstr "선택한 소스 파일을 미리보기(향상 워크플로우용)."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:178
+#: ../doc/ai.rst:178
 msgid "Set the output name for generated media."
 msgstr "생성된 미디어의 출력 이름을 설정하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:179
+#: ../doc/ai.rst:179
 msgid ""
 "Pick a reference image in the :guilabel:`Reference` tab for workflows that "
 "require one."
 msgstr "참조 이미지가 필요한 작업 흐름의 경우 :guilabel:`Reference` 탭에서 참조 이미지를 선택하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:180
+#: ../doc/ai.rst:180
 msgid "Provide tracking points/rectangles for tracking workflows."
 msgstr "추적 워크플로우를 위해 추적 점/사각형을 제공합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:181
+#: ../doc/ai.rst:181
 msgid ""
 "Start the job with :guilabel:`Generate` or close with :guilabel:`Cancel`."
 msgstr ":guilabel:`Generate` 로 작업을 시작하거나 :guilabel:`Cancel` 로 닫으세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:186
+#: ../doc/ai.rst:186
 msgid "Tracking (Mask, Blur, Highlight)"
 msgstr "추적 (마스크, 블러, 하이라이트)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:188
+#: ../doc/ai.rst:188
 msgid ""
 "Tracking workflows (:guilabel:`Blur...`, :guilabel:`Highlight...`, "
 ":guilabel:`Mask...`) use a region screen where you mark what to include and "
@@ -589,12 +590,12 @@ msgstr ""
 ":guilabel:`Mask...`)는 포함할 영역과 제외할 영역을 표시하는 영역 화면을 사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:195
+#: ../doc/ai.rst:195
 msgid "Why this matters"
 msgstr "이것이 중요한 이유"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:197
+#: ../doc/ai.rst:197
 msgid ""
 "Tracking helps your effect stay attached to a moving subject over time. For "
 "example, you can blur a face, highlight a player, or generate a clean mask "
@@ -604,76 +605,76 @@ msgstr ""
 "여러 프레임에 걸쳐 동일한 객체를 따르는 깨끗한 마스크를 생성할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:202
+#: ../doc/ai.rst:202
 msgid "Tracking Icons"
 msgstr "추적 아이콘"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:208
+#: ../doc/ai.rst:208
 msgid "Icon / Marker"
 msgstr "아이콘 / 마커"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:209
+#: ../doc/ai.rst:209
 msgid "Meaning"
 msgstr "의미"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:210
+#: ../doc/ai.rst:210
 msgid "Blue dot"
 msgstr "파란 점"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:211
+#: ../doc/ai.rst:211
 msgid "Positive tracking coordinate (foreground/subject seed point)."
 msgstr "양성 추적 좌표 (전경/대상 시드 포인트)."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:212
+#: ../doc/ai.rst:212
 msgid "Red dot"
 msgstr "빨간 점"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:213
+#: ../doc/ai.rst:213
 msgid "Negative tracking coordinate (background/exclusion seed point)."
 msgstr "음성 추적 좌표 (배경/제외 시드 포인트)."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:214
+#: ../doc/ai.rst:214
 msgid "Blue rectangle"
 msgstr "파란 사각형"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:215
+#: ../doc/ai.rst:215
 msgid "Positive region seed (broad subject hint)."
 msgstr "양성 영역 시드 (넓은 대상 힌트)."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:216
+#: ../doc/ai.rst:216
 msgid "Red rectangle"
 msgstr "빨간 사각형"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:217
+#: ../doc/ai.rst:217
 msgid "Negative region seed (broad exclusion hint)."
 msgstr "음성 영역 시드 (넓은 제외 힌트)."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:218
+#: ../doc/ai.rst:218
 msgid "Delete icon"
 msgstr "삭제 아이콘"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:219
+#: ../doc/ai.rst:219
 msgid "Clear all current tracking seeds (points/rectangles) and start over."
 msgstr "현재 모든 추적 시드(점/사각형)를 지우고 다시 시작합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:222
+#: ../doc/ai.rst:222
 msgid "How Tracking Works"
 msgstr "추적 작동 방식"
 
-#: ../ai.rst:224
+#: ../doc/ai.rst:224
 msgid ""
 "OpenShot sends your positive and negative markers as seed coordinates to the"
 " tracking model, which builds a mask for the subject and then follows it "
@@ -686,126 +687,126 @@ msgstr ""
 "2) <https://github.com/facebookresearch/sam2>`_ 를 사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:230
+#: ../doc/ai.rst:230
 msgid "How to use it"
 msgstr "사용 방법"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:232
+#: ../doc/ai.rst:232
 msgid "Pick a frame where the subject is clearly visible."
 msgstr "대상이 명확히 보이는 프레임을 선택하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:233
+#: ../doc/ai.rst:233
 msgid "Start with one blue dot on the subject."
 msgstr "대상에 파란 점 하나로 시작하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:234
+#: ../doc/ai.rst:234
 msgid "Add red dots on nearby background only if needed."
 msgstr "필요한 경우에만 인근 배경에 빨간 점을 추가하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:235
+#: ../doc/ai.rst:235
 msgid "Add rectangles when you need faster broad selection."
 msgstr "더 빠른 넓은 선택이 필요할 때 사각형을 추가하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:236
+#: ../doc/ai.rst:236
 msgid "Repeat on additional frames when motion/shape changes."
 msgstr "움직임/형태가 변할 때 추가 프레임에서 반복하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:238
+#: ../doc/ai.rst:238
 msgid "Adjusting over time (frame slider):"
 msgstr "시간에 따른 조정 (프레임 슬라이더):"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:240
+#: ../doc/ai.rst:240
 msgid "Move the frame slider to different moments in the clip."
 msgstr "클립 내 다른 순간으로 프레임 슬라이더를 이동하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:241
+#: ../doc/ai.rst:241
 msgid ""
 "Add or adjust dots/rectangles on frames where tracking starts to drift."
 msgstr "추적이 흐트러지기 시작하는 프레임에 점/사각형을 추가하거나 조정하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:242
+#: ../doc/ai.rst:242
 msgid ""
 "Use additional seed points only where needed, especially on occlusions, fast"
 " motion, or major shape changes."
 msgstr "특히 가림, 빠른 움직임, 큰 형태 변화가 있는 곳에만 추가 시드 포인트를 사용하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:244
+#: ../doc/ai.rst:244
 msgid "**Mask Preview Output (from this tracking process):**"
 msgstr "**마스크 미리보기 출력 (이 추적 과정에서):**"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:249
+#: ../doc/ai.rst:249
 msgid "Best Practices"
 msgstr "최선의 방법"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:251
+#: ../doc/ai.rst:251
 msgid "Use a short test clip first."
 msgstr "먼저 짧은 테스트 클립을 사용하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:252
+#: ../doc/ai.rst:252
 msgid "Start simple: a single blue dot is often enough."
 msgstr "간단하게 시작하세요: 보통 파란 점 하나면 충분합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:253
+#: ../doc/ai.rst:253
 msgid "Add more points only where tracking fails."
 msgstr "추적이 실패하는 곳에만 점을 더 추가하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:254
+#: ../doc/ai.rst:254
 msgid ""
 "If needed, add a more nuanced set of positive/negative points and "
 "rectangles."
 msgstr "필요한 경우, 더 세밀한 긍정/부정 점과 사각형 세트를 추가하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:255
+#: ../doc/ai.rst:255
 msgid "Keep positive and negative points separated clearly."
 msgstr "긍정 점과 부정 점을 명확하게 분리하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:256
+#: ../doc/ai.rst:256
 msgid ""
 "If tracking becomes messy, use the Delete icon and restart with cleaner "
 "seeds."
 msgstr "트래킹이 복잡해지면 삭제 아이콘을 사용하여 더 깔끔한 시드로 다시 시작하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:259
+#: ../doc/ai.rst:259
 msgid "Job Queue, Progress, and Cancel"
 msgstr "작업 대기열, 진행 상황 및 취소"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:261
+#: ../doc/ai.rst:261
 msgid ""
 "After you click :guilabel:`Generate`, the request is queued and runs in "
 "OpenShot's AI job queue."
 msgstr ":guilabel:`생성` 을 클릭하면 요청이 대기열에 추가되어 OpenShot의 AI 작업 대기열에서 실행됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:264
+#: ../doc/ai.rst:264
 msgid ""
 "Progress is shown in :guilabel:`Project Files` (badges and status text)."
 msgstr "진행 상황은 :guilabel:`프로젝트 파일` 에서 (배지와 상태 텍스트로) 표시됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:265
+#: ../doc/ai.rst:265
 msgid "Completed outputs are imported back into :guilabel:`Project Files`."
 msgstr "완료된 출력물은 :guilabel:`프로젝트 파일` 로 다시 가져옵니다."
 
-#: ../ai.rst:266
+#: ../doc/ai.rst:266
 msgid ""
 "Active jobs can be canceled by right-clicking the generated project file "
 "with the progress bar and choosing :guilabel:`Cancel Job`."
@@ -814,17 +815,17 @@ msgstr ""
 "취소할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:267
+#: ../doc/ai.rst:267
 msgid "Outputs are written under ``.openshot_qt/comfyui-output/``."
 msgstr "출력물은 ``.openshot_qt/comfyui-output/`` 아래에 저장됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:270
+#: ../doc/ai.rst:270
 msgid "Built-in JSON Workflows"
 msgstr "내장 JSON 워크플로우"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:272
+#: ../doc/ai.rst:272
 msgid ""
 "The sections below map directly to built-in JSON templates in ``comfyui/``. "
 "Each subsection describes why you might use it, how to run it, and key "
@@ -834,22 +835,22 @@ msgstr ""
 "주요 세부 정보가 설명되어 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:276
+#: ../doc/ai.rst:276
 msgid "Create with AI"
 msgstr "AI로 생성하기"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:279
+#: ../doc/ai.rst:279
 msgid "Image... (``txt2img-basic``)"
 msgstr "이미지... (``txt2img-basic``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:281
+#: ../doc/ai.rst:281
 msgid "Why: Generate still images from a text prompt."
 msgstr "이유: 텍스트 프롬프트로 정지 이미지를 생성합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:282
+#: ../doc/ai.rst:282
 msgid ""
 "How: Choose :guilabel:`Create with AI` -> :guilabel:`Image...`, enter a "
 "prompt, then generate."
@@ -857,7 +858,7 @@ msgstr ""
 "방법: :guilabel:`AI로 생성하기` -> :guilabel:`이미지...` 를 선택하고 프롬프트를 입력한 후 생성하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:283
+#: ../doc/ai.rst:283
 msgid ""
 "Details: Uses ``comfyui/txt2img-basic.json`` with "
 "``sd_xl_base_1.0.safetensors``."
@@ -866,17 +867,17 @@ msgstr ""
 "사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:286
+#: ../doc/ai.rst:286
 msgid "Video... (``txt2video-svd``)"
 msgstr "비디오... (``txt2video-svd``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:288
+#: ../doc/ai.rst:288
 msgid "Why: Generate short video clips from text."
 msgstr "이유: 텍스트로 짧은 비디오 클립을 생성합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:289
+#: ../doc/ai.rst:289
 msgid ""
 "How: Choose :guilabel:`Create with AI` -> :guilabel:`Video...`, enter a "
 "prompt, then generate."
@@ -884,24 +885,24 @@ msgstr ""
 "방법: :guilabel:`AI로 생성하기` -> :guilabel:`비디오...` 를 선택하고 프롬프트를 입력한 후 생성하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:290
+#: ../doc/ai.rst:290
 msgid ""
 "Details: Uses ``comfyui/txt2video-svd.json`` with WAN video generation "
 "models."
 msgstr "세부 정보: WAN 비디오 생성 모델과 함께 ``comfyui/txt2video-svd.json`` 을 사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:293
+#: ../doc/ai.rst:293
 msgid "Sound... (``txt2audio-stable-open``)"
 msgstr "사운드... (``txt2audio-stable-open``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:295
+#: ../doc/ai.rst:295
 msgid "Why: Generate non-musical audio from text prompts."
 msgstr "이유: 텍스트 프롬프트로 비음악 오디오를 생성합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:296
+#: ../doc/ai.rst:296
 msgid ""
 "How: Choose :guilabel:`Create with AI` -> :guilabel:`Sound...`, enter a "
 "prompt, then generate."
@@ -909,7 +910,7 @@ msgstr ""
 "방법: :guilabel:`AI로 생성하기` -> :guilabel:`사운드...` 를 선택하고 프롬프트를 입력한 후 생성하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:297
+#: ../doc/ai.rst:297
 msgid ""
 "Details: Uses ``comfyui/txt2audio-stable-open.json`` with Stable Audio Open "
 "models."
@@ -918,17 +919,17 @@ msgstr ""
 "사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:300
+#: ../doc/ai.rst:300
 msgid "Music... (``txt2music-ace-step``)"
 msgstr "음악... (``txt2music-ace-step``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:302
+#: ../doc/ai.rst:302
 msgid "Why: Generate music from style/tags (and optional lyrics)."
 msgstr "이유: 스타일/태그(및 선택적 가사)로 음악을 생성합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:303
+#: ../doc/ai.rst:303
 msgid ""
 "How: Choose :guilabel:`Create with AI` -> :guilabel:`Music...`, enter prompt"
 " text, then generate."
@@ -936,7 +937,7 @@ msgstr ""
 "방법: :guilabel:`AI로 생성하기` -> :guilabel:`음악...` 를 선택하고 프롬프트 텍스트를 입력한 후 생성하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:304
+#: ../doc/ai.rst:304
 msgid ""
 "Details: Uses ``comfyui/txt2music-ace-step.json`` with an Ace-Step 1.5 "
 "checkpoint."
@@ -944,21 +945,21 @@ msgstr ""
 "세부 정보: Ace-Step 1.5 체크포인트와 함께 ``comfyui/txt2music-ace-step.json`` 을 사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:307
+#: ../doc/ai.rst:307
 msgid "Enhance with AI"
 msgstr "AI로 향상하기"
 
-#: ../ai.rst:310
+#: ../doc/ai.rst:310
 msgid "Noise -> Reduce (``audio-noise-reduce``)"
 msgstr "노이즈 -> 감소 (``audio-noise-reduce``)"
 
-#: ../ai.rst:312
+#: ../doc/ai.rst:312
 msgid ""
 "Why: Lightly reduce steady background noise while keeping more of the "
 "original ambience."
 msgstr "이유: 원래의 분위기를 더 많이 유지하면서 지속적인 배경 소음을 가볍게 줄입니다."
 
-#: ../ai.rst:313
+#: ../doc/ai.rst:313
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Noise` -> "
 ":guilabel:`Reduce` on an audio file, then generate."
@@ -966,7 +967,7 @@ msgstr ""
 "방법: 오디오 파일에서 :guilabel:`AI로 향상` -> :guilabel:`노이즈` -> :guilabel:`감소` 를 선택한 후"
 " 생성하세요."
 
-#: ../ai.rst:314
+#: ../doc/ai.rst:314
 msgid ""
 "Details: Uses ``comfyui/audio-noise-reduce.json`` with "
 "``OpenShotDeepFilterNetDenoiseAudio``."
@@ -974,15 +975,15 @@ msgstr ""
 "세부사항: ``OpenShotDeepFilterNetDenoiseAudio`` 와 함께 ``comfyui/audio-noise-"
 "reduce.json`` 을 사용합니다."
 
-#: ../ai.rst:317
+#: ../doc/ai.rst:317
 msgid "Noise -> Remove (``audio-noise-remove``)"
 msgstr "노이즈 -> 제거 (``audio-noise-remove``)"
 
-#: ../ai.rst:319
+#: ../doc/ai.rst:319
 msgid "Why: Aggressively remove background noise from noisy recordings."
 msgstr "이유: 소음이 많은 녹음에서 배경 소음을 적극적으로 제거합니다."
 
-#: ../ai.rst:320
+#: ../doc/ai.rst:320
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Noise` -> "
 ":guilabel:`Remove` on an audio file, then generate."
@@ -990,7 +991,7 @@ msgstr ""
 "방법: 오디오 파일에서 :guilabel:`AI로 향상` -> :guilabel:`노이즈` -> :guilabel:`제거` 를 선택한 후"
 " 생성하세요."
 
-#: ../ai.rst:321
+#: ../doc/ai.rst:321
 msgid ""
 "Details: Uses ``comfyui/audio-noise-remove.json`` with "
 "``OpenShotDeepFilterNetDenoiseAudio``."
@@ -998,17 +999,17 @@ msgstr ""
 "세부사항: ``OpenShotDeepFilterNetDenoiseAudio`` 와 함께 ``comfyui/audio-noise-"
 "remove.json`` 을 사용합니다."
 
-#: ../ai.rst:324
+#: ../doc/ai.rst:324
 msgid "Clarity -> Speech (``audio-clarity-speech``)"
 msgstr "선명도 -> 음성 (``audio-clarity-speech``)"
 
-#: ../ai.rst:326
+#: ../doc/ai.rst:326
 msgid ""
 "Why: Improve clarity for speech recordings that sound dull, noisy, "
 "bandwidth-limited, or low fidelity."
 msgstr "이유: 둔탁하고 소음이 많거나 대역폭 제한, 저음질인 음성 녹음의 선명도를 향상시킵니다."
 
-#: ../ai.rst:327
+#: ../doc/ai.rst:327
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Clarity` -> "
 ":guilabel:`Speech` on an audio file, then generate."
@@ -1016,7 +1017,7 @@ msgstr ""
 "방법: 오디오 파일에서 :guilabel:`AI로 향상` -> :guilabel:`선명도` -> :guilabel:`음성` 을 선택한 후"
 " 생성하세요."
 
-#: ../ai.rst:328
+#: ../doc/ai.rst:328
 msgid ""
 "Details: Uses ``comfyui/audio-clarity-speech.json`` with "
 "``OpenShotLavaSRSpeechClarity``."
@@ -1025,24 +1026,24 @@ msgstr ""
 "speech.json`` 을 사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:331
+#: ../doc/ai.rst:331
 msgid "Change Image Style... (``img2img-basic``)"
 msgstr "이미지 스타일 변경... (``img2img-basic``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:333
+#: ../doc/ai.rst:333
 msgid "Why: Restyle an existing image while keeping the source composition."
 msgstr "이유: 원본 구성을 유지하면서 기존 이미지를 재스타일링합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:334
+#: ../doc/ai.rst:334
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` on an image, enter a style prompt, "
 "then generate."
 msgstr "방법: 이미지에서 :guilabel:`AI로 향상하기` 를 선택하고 스타일 프롬프트를 입력한 후 생성하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:335
+#: ../doc/ai.rst:335
 msgid ""
 "Details: Uses ``comfyui/img2img-basic.json`` with "
 "``sd_xl_base_1.0.safetensors``."
@@ -1051,17 +1052,17 @@ msgstr ""
 "사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:338
+#: ../doc/ai.rst:338
 msgid "Depth (``image-extract-depth``)"
 msgstr "깊이 (``image-extract-depth``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:340
+#: ../doc/ai.rst:340
 msgid "Why: Export a grayscale depth-map image from a source image."
 msgstr "이유: 원본 이미지에서 그레이스케일 깊이 맵 이미지를 내보냅니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:341
+#: ../doc/ai.rst:341
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Extract` -> "
 ":guilabel:`Depth` on an image, then generate."
@@ -1070,7 +1071,7 @@ msgstr ""
 ":guilabel:`Depth` 를 선택한 후 생성하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:342
+#: ../doc/ai.rst:342
 msgid ""
 "Details: Uses ``comfyui/image-extract-depth.json`` with "
 "``DepthAnythingV2Preprocessor``."
@@ -1079,17 +1080,17 @@ msgstr ""
 "depth.json`` 을 사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:345
+#: ../doc/ai.rst:345
 msgid "Lines (``image-extract-lines``)"
 msgstr "선 (``image-extract-lines``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:347
+#: ../doc/ai.rst:347
 msgid "Why: Export a line-map image from a source image."
 msgstr "이유: 원본 이미지에서 선 맵 이미지를 내보냅니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:348
+#: ../doc/ai.rst:348
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Extract` -> "
 ":guilabel:`Lines` on an image, then generate."
@@ -1098,7 +1099,7 @@ msgstr ""
 ":guilabel:`Lines` 를 선택한 후 생성하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:349
+#: ../doc/ai.rst:349
 msgid ""
 "Details: Uses ``comfyui/image-extract-lines.json`` with "
 "``LineArtPreprocessor``."
@@ -1107,50 +1108,50 @@ msgstr ""
 "사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:352
+#: ../doc/ai.rst:352
 msgid "Image to Video... (``img2video-wan``)"
 msgstr "이미지에서 비디오로... (``img2video-wan``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:354
+#: ../doc/ai.rst:354
 msgid "Why: Turn a still image into a generated video shot."
 msgstr "이유: 정지 이미지를 생성된 비디오 샷으로 변환합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:355
+#: ../doc/ai.rst:355
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` on an image, provide prompt "
 "guidance, then generate."
 msgstr "방법: 이미지에서 :guilabel:`AI로 향상하기` 를 선택하고 프롬프트 지침을 제공한 후 생성하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:356
+#: ../doc/ai.rst:356
 msgid ""
 "Details: Uses ``comfyui/img2video-wan.json`` with WAN 2.2 image-to-video "
 "models."
 msgstr "세부사항: WAN 2.2 이미지-비디오 모델과 함께 ``comfyui/img2video-wan.json`` 을 사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:359
+#: ../doc/ai.rst:359
 msgid "Change Video Style... (``video2video-basic``)"
 msgstr "비디오 스타일 변경... (``video2video-basic``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:361
+#: ../doc/ai.rst:361
 msgid "Why: Apply a new visual style to a source video."
 msgstr "이유: 원본 비디오에 새로운 시각적 스타일을 적용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:362
+#: ../doc/ai.rst:362
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` on a video, enter a style prompt, "
 "pick a reference image in the :guilabel:`Reference` tab, then generate."
 msgstr ""
-"방법: 비디오에서 :guilabel:`Enhance with AI`를 선택하고 스타일 프롬프트를 입력한 후 "
+"방법: 비디오에서 :guilabel:`Enhance with AI`\\ 를 선택하고 스타일 프롬프트를 입력한 후 "
 ":guilabel:`Reference` 탭에서 참조 이미지를 선택하고 생성하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:363
+#: ../doc/ai.rst:363
 msgid ""
 "Details: Uses ``comfyui/video2video-basic.json`` with WAN VACE video-to-"
 "video nodes, a required reference image, blended "
@@ -1164,17 +1165,17 @@ msgstr ""
 "포함한 ``comfyui/video2video-basic.json`` 을 사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:366
+#: ../doc/ai.rst:366
 msgid "Depth (``video-extract-depth``)"
 msgstr "깊이 (``video-extract-depth``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:368
+#: ../doc/ai.rst:368
 msgid "Why: Export a grayscale depth-map version of a source video."
 msgstr "이유: 원본 비디오에서 그레이스케일 깊이 맵 버전을 내보냅니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:369
+#: ../doc/ai.rst:369
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Extract` -> "
 ":guilabel:`Depth` on a video, then generate."
@@ -1183,7 +1184,7 @@ msgstr ""
 ":guilabel:`Depth` 를 선택한 후 생성하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:370
+#: ../doc/ai.rst:370
 msgid ""
 "Details: Uses ``comfyui/video-extract-depth.json`` with "
 "``DepthAnythingV2Preprocessor`` and preserves the source frame rate."
@@ -1192,17 +1193,17 @@ msgstr ""
 "depth.json`` 을 사용하며 원본 프레임 속도를 유지합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:373
+#: ../doc/ai.rst:373
 msgid "Lines (``video-extract-lines``)"
 msgstr "선 (``video-extract-lines``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:375
+#: ../doc/ai.rst:375
 msgid "Why: Export a line-map version of a source video."
 msgstr "이유: 원본 비디오에서 선 맵 버전을 내보냅니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:376
+#: ../doc/ai.rst:376
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` -> :guilabel:`Extract` -> "
 ":guilabel:`Lines` on a video, then generate."
@@ -1211,7 +1212,7 @@ msgstr ""
 ":guilabel:`Lines` 를 선택한 후 생성하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:377
+#: ../doc/ai.rst:377
 msgid ""
 "Details: Uses ``comfyui/video-extract-lines.json`` with "
 "``LineArtPreprocessor`` and preserves the source frame rate."
@@ -1220,24 +1221,24 @@ msgstr ""
 "사용하며 원본 프레임 속도를 유지합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:380
+#: ../doc/ai.rst:380
 msgid "Increase Resolution (image) (``upscale-realesrgan-x4``)"
 msgstr "해상도 향상 (이미지) (``upscale-realesrgan-x4``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:382
+#: ../doc/ai.rst:382
 msgid "Why: Upscale low-resolution images."
 msgstr "이유: 저해상도 이미지를 업스케일합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:383
+#: ../doc/ai.rst:383
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` on an image, select increase "
 "resolution, then generate."
 msgstr "방법: 이미지에서 :guilabel:`AI로 향상하기` 를 선택하고 해상도 향상을 선택한 후 생성하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:384
+#: ../doc/ai.rst:384
 msgid ""
 "Details: Uses ``comfyui/upscale-realesrgan-x4.json`` with "
 "``RealESRGAN_x4plus.safetensors``."
@@ -1246,24 +1247,24 @@ msgstr ""
 "realesrgan-x4.json`` 을 사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:387
+#: ../doc/ai.rst:387
 msgid "Increase Resolution (video) (``video-upscale-gan``)"
 msgstr "해상도 향상 (비디오) (``video-upscale-gan``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:389
+#: ../doc/ai.rst:389
 msgid "Why: Upscale video frames for higher apparent detail."
 msgstr "이유: 더 높은 명확한 디테일을 위해 비디오 프레임을 업스케일합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:390
+#: ../doc/ai.rst:390
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` on a video, select increase "
 "resolution, then generate."
 msgstr "방법: 비디오에서 :guilabel:`AI로 향상하기` 를 선택하고 해상도 향상을 선택한 후 생성하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:391
+#: ../doc/ai.rst:391
 msgid ""
 "Details: Uses ``comfyui/video-upscale-gan.json`` with "
 "``RealESRGAN_x4plus.safetensors``."
@@ -1272,24 +1273,24 @@ msgstr ""
 "gan.json`` 을 사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:394
+#: ../doc/ai.rst:394
 msgid "Smooth Motion (2x Frame Rate) (``video-frame-interpolation-rife2x``)"
 msgstr "부드러운 모션 (2배 프레임 속도) (``video-frame-interpolation-rife2x``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:396
+#: ../doc/ai.rst:396
 msgid "Why: Increase frame rate for smoother perceived motion."
 msgstr "이유: 더 부드러운 모션을 위해 프레임 속도를 증가시킵니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:397
+#: ../doc/ai.rst:397
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` on a video, select smooth motion, "
 "then generate."
 msgstr "방법: 비디오에서 :guilabel:`AI로 향상하기` 를 선택하고 부드러운 모션을 선택한 후 생성하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:398
+#: ../doc/ai.rst:398
 msgid ""
 "Details: Uses ``comfyui/video-frame-interpolation-rife2x.json`` with "
 "``rife47.pth``."
@@ -1298,25 +1299,25 @@ msgstr ""
 " 을 사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:401
+#: ../doc/ai.rst:401
 msgid "Split into Scenes (``video-segment-scenes-transnet``)"
 msgstr "장면 분할 (``video-segment-scenes-transnet``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:403
+#: ../doc/ai.rst:403
 msgid ""
 "Why: Automatically detect scene changes and split long clips into segments."
 msgstr "이유: 장면 변화를 자동으로 감지하고 긴 클립을 여러 구간으로 분할합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:404
+#: ../doc/ai.rst:404
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` on a video, select scene splitting, "
 "then generate."
 msgstr "방법: 비디오에서 :guilabel:`AI로 향상하기` 를 선택하고 장면 분할을 선택한 후 생성하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:405
+#: ../doc/ai.rst:405
 msgid ""
 "Details: Uses ``comfyui/video-segment-scenes-transnet.json`` with "
 "TransNetV2."
@@ -1325,57 +1326,57 @@ msgstr ""
 "사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:408
+#: ../doc/ai.rst:408
 msgid "Add Captions from Speech (``video-whisper-srt``)"
 msgstr "음성에서 자막 추가 (``video-whisper-srt``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:410
+#: ../doc/ai.rst:410
 msgid "Why: Transcribe speech into subtitle/caption files."
 msgstr "이유: 음성을 자막/캡션 파일로 전사합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:411
+#: ../doc/ai.rst:411
 msgid ""
 "How: Choose :guilabel:`Enhance with AI` on a video, select captions, then "
 "generate."
 msgstr "방법: 비디오에서 :guilabel:`Enhance with AI` 를 선택하고, 자막을 선택한 후 생성합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:412
+#: ../doc/ai.rst:412
 msgid ""
 "Details: Uses ``comfyui/video-whisper-srt.json`` and creates SRT output."
 msgstr "세부 정보: ``comfyui/video-whisper-srt.json`` 을 사용하고 SRT 출력을 생성합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:415
+#: ../doc/ai.rst:415
 msgid "Tracking Workflows (SAM2)"
 msgstr "트래킹 워크플로우 (SAM2)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:417
+#: ../doc/ai.rst:417
 msgid ""
 "These workflows use the same region/tracking input flow and are grouped in "
 "the tracking context menu."
 msgstr "이 워크플로우들은 동일한 영역/트래킹 입력 흐름을 사용하며 트래킹 컨텍스트 메뉴에 그룹화되어 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:421
+#: ../doc/ai.rst:421
 msgid "Blur... (image) (``image-blur-anything-sam2``)"
 msgstr "블러... (이미지) (``image-blur-anything-sam2``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:423
+#: ../doc/ai.rst:423
 msgid "Why: Blur selected subject areas in a still image."
 msgstr "이유: 정지 이미지에서 선택한 대상 영역을 흐리게 처리합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:424 ../ai.rst:431 ../ai.rst:438
+#: ../doc/ai.rst:424 ../doc/ai.rst:431 ../doc/ai.rst:438
 msgid "How: Select points/rectangles for the subject, then generate."
 msgstr "방법: 대상의 점/사각형을 선택한 후 생성합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:425
+#: ../doc/ai.rst:425
 msgid ""
 "Details: Uses ``comfyui/image-blur-anything-sam2.json`` with SAM2 image "
 "segmentation."
@@ -1383,17 +1384,17 @@ msgstr ""
 "세부 정보: SAM2 이미지 분할과 함께 ``comfyui/image-blur-anything-sam2.json`` 을 사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:428
+#: ../doc/ai.rst:428
 msgid "Highlight... (image) (``image-highlight-anything-sam2``)"
 msgstr "하이라이트... (이미지) (``image-highlight-anything-sam2``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:430
+#: ../doc/ai.rst:430
 msgid "Why: Emphasize selected subject areas in a still image."
 msgstr "이유: 정지 이미지에서 선택한 대상 영역을 강조합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:432
+#: ../doc/ai.rst:432
 msgid ""
 "Details: Uses ``comfyui/image-highlight-anything-sam2.json`` with SAM2 image"
 " segmentation."
@@ -1402,17 +1403,17 @@ msgstr ""
 "사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:435
+#: ../doc/ai.rst:435
 msgid "Mask... (image) (``image-mask-anything-sam2``)"
 msgstr "마스크... (이미지) (``image-mask-anything-sam2``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:437
+#: ../doc/ai.rst:437
 msgid "Why: Generate an image mask for selected subject areas."
 msgstr "이유: 선택한 대상 영역에 대한 이미지 마스크를 생성합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:439
+#: ../doc/ai.rst:439
 msgid ""
 "Details: Uses ``comfyui/image-mask-anything-sam2.json`` with SAM2 image "
 "segmentation."
@@ -1420,22 +1421,22 @@ msgstr ""
 "세부 정보: SAM2 이미지 분할과 함께 ``comfyui/image-mask-anything-sam2.json`` 을 사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:442
+#: ../doc/ai.rst:442
 msgid "Blur... (video) (``video-blur-anything-sam2``)"
 msgstr "블러... (비디오) (``video-blur-anything-sam2``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:444
+#: ../doc/ai.rst:444
 msgid "Why: Track and blur a moving subject in video."
 msgstr "이유: 비디오에서 움직이는 대상을 추적하고 흐리게 처리합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:445 ../ai.rst:452 ../ai.rst:459
+#: ../doc/ai.rst:445 ../doc/ai.rst:452 ../doc/ai.rst:459
 msgid "How: Mark subject/background in the region screen, then generate."
 msgstr "방법: 영역 화면에서 대상/배경을 표시한 후 생성합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:446
+#: ../doc/ai.rst:446
 msgid ""
 "Details: Uses ``comfyui/video-blur-anything-sam2.json`` with SAM2 video "
 "tracking."
@@ -1443,17 +1444,17 @@ msgstr ""
 "세부 정보: SAM2 비디오 추적과 함께 ``comfyui/video-blur-anything-sam2.json`` 을 사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:449
+#: ../doc/ai.rst:449
 msgid "Highlight... (video) (``video-highlight-anything-sam2``)"
 msgstr "하이라이트... (비디오) (``video-highlight-anything-sam2``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:451
+#: ../doc/ai.rst:451
 msgid "Why: Track and highlight a moving subject in video."
 msgstr "이유: 비디오에서 움직이는 대상을 추적하고 강조합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:453
+#: ../doc/ai.rst:453
 msgid ""
 "Details: Uses ``comfyui/video-highlight-anything-sam2.json`` with SAM2 video"
 " tracking."
@@ -1462,17 +1463,17 @@ msgstr ""
 "사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:456
+#: ../doc/ai.rst:456
 msgid "Mask... (video) (``video-mask-anything-sam2``)"
 msgstr "마스크... (비디오) (``video-mask-anything-sam2``)"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:458
+#: ../doc/ai.rst:458
 msgid "Why: Generate an animated mask that follows a moving subject."
 msgstr "이유: 움직이는 대상을 따라가는 애니메이션 마스크를 생성합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:460
+#: ../doc/ai.rst:460
 msgid ""
 "Details: Uses ``comfyui/video-mask-anything-sam2.json`` with SAM2 video "
 "tracking."
@@ -1480,78 +1481,78 @@ msgstr ""
 "세부 정보: SAM2 비디오 추적과 함께 ``comfyui/video-mask-anything-sam2.json`` 을 사용합니다."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:463
+#: ../doc/ai.rst:463
 msgid "Starting Points for New Users"
 msgstr "초보자를 위한 시작점"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:465
+#: ../doc/ai.rst:465
 msgid "If you are new to these tools, start with:"
 msgstr "이 도구들이 처음이라면, 다음부터 시작하세요:"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:467
+#: ../doc/ai.rst:467
 msgid ":guilabel:`Create with AI` -> :guilabel:`Image`"
 msgstr ":guilabel:`Create with AI` -> :guilabel:`Image`"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:468
+#: ../doc/ai.rst:468
 msgid ":guilabel:`Enhance with AI` -> :guilabel:`Increase Resolution`"
 msgstr ":guilabel:`Enhance with AI` -> :guilabel:`Increase Resolution`"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:469
+#: ../doc/ai.rst:469
 msgid ":guilabel:`Enhance with AI` -> :guilabel:`Smooth Motion`"
 msgstr ":guilabel:`Enhance with AI` -> :guilabel:`Smooth Motion`"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:470
+#: ../doc/ai.rst:470
 msgid ":guilabel:`Enhance with AI` -> :guilabel:`Split into Scenes`"
 msgstr ":guilabel:`Enhance with AI` -> :guilabel:`Split into Scenes`"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:471
+#: ../doc/ai.rst:471
 msgid ":guilabel:`Enhance with AI` -> :guilabel:`Add Captions`"
 msgstr ":guilabel:`Enhance with AI` -> :guilabel:`Add Captions`"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:474
+#: ../doc/ai.rst:474
 msgid "Troubleshooting"
 msgstr "문제 해결"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:476
+#: ../doc/ai.rst:476
 msgid "If AI menus do not appear or jobs fail immediately:"
 msgstr "AI 메뉴가 나타나지 않거나 작업이 즉시 실패하는 경우:"
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:478
+#: ../doc/ai.rst:478
 msgid "Verify ComfyUI is running and reachable at the configured URL."
 msgstr "ComfyUI가 실행 중이며 설정된 URL에서 접근 가능한지 확인하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:479
+#: ../doc/ai.rst:479
 msgid "Confirm required models exist in your ComfyUI environment."
 msgstr "필요한 모델이 ComfyUI 환경에 존재하는지 확인하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:480
+#: ../doc/ai.rst:480
 msgid ""
 "Confirm custom node packages are installed for the workflow you selected."
 msgstr "선택한 워크플로우에 필요한 커스텀 노드 패키지가 설치되어 있는지 확인하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:481
+#: ../doc/ai.rst:481
 msgid "Reduce batch/chunk sizes for long clips."
 msgstr "긴 클립의 경우 배치/청크 크기를 줄이세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:482
+#: ../doc/ai.rst:482
 msgid "Re-test with a short clip or still image first."
 msgstr "먼저 짧은 클립이나 정지 이미지로 다시 테스트하세요."
 
 # Translated with gpt-4.1-mini
-#: ../ai.rst:484
+#: ../doc/ai.rst:484
 msgid ""
 "For general performance and cache tuning, see :ref:`preferences_ref` and "
 ":ref:`playback_ref`."

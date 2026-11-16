@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,52 +18,52 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:23
+#: ../doc/quick_tutorial.rst:23
 msgid "Quick Tutorial"
 msgstr "Fljótleg kennsla"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:25
+#: ../doc/quick_tutorial.rst:25
 msgid ""
 "Using OpenShot is very easy, and this tutorial will take you through the "
-"basics in **under 5 minutes**. After this tutorial, you will be able to make "
-"a simple photo slide-show with music."
+"basics in **under 5 minutes**. After this tutorial, you will be able to make"
+" a simple photo slide-show with music."
 msgstr ""
 "Að nota OpenShot er mjög auðvelt, og þessi kennsla leiðir þig í gegnum "
 "grunnatriðin á **undir 5 mínútum**. Eftir þessa kennslu munt þú geta búið "
 "til einfalt myndasýningu með tónlist."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:30
+#: ../doc/quick_tutorial.rst:30
 msgid "Basic Terminology"
 msgstr "Grunnskilgreiningar"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:31
+#: ../doc/quick_tutorial.rst:31
 msgid ""
-"To help understand the steps below, here are some definitions of a few basic "
-"terms used in this tutorial."
+"To help understand the steps below, here are some definitions of a few basic"
+" terms used in this tutorial."
 msgstr ""
 "Til að hjálpa þér að skilja skrefin hér að neðan, eru hér nokkrar "
 "skilgreiningar á grunnorðum sem notuð eru í þessari kennslu."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:38
+#: ../doc/quick_tutorial.rst:38
 msgid "Term"
 msgstr "Hugtakið"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:38
+#: ../doc/quick_tutorial.rst:38
 msgid "Description"
 msgstr "Lýsing"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:40
+#: ../doc/quick_tutorial.rst:40
 msgid "Project"
 msgstr "Verkefni"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:40
+#: ../doc/quick_tutorial.rst:40
 msgid ""
 "A **project** includes references to all the video files and edits "
 "(animations, titles, etc...), saved in a single file."
@@ -72,26 +72,26 @@ msgstr ""
 "(hreyfimyndir, titlar o.s.frv.), vistað í einu skráarsniði."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:41
+#: ../doc/quick_tutorial.rst:41
 msgid "Timeline"
 msgstr "Tímalína"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:41
+#: ../doc/quick_tutorial.rst:41
 msgid ""
 "The **timeline** is an editing user interface that represents edits and "
 "clips on a horizontal ruler. Time progresses from left to right."
 msgstr ""
-"**Tímalínan** er klippiborð sem sýnir klippur og breytingar á láréttri línu. "
-"Tíminn færist frá vinstri til hægri."
+"**Tímalínan** er klippiborð sem sýnir klippur og breytingar á láréttri línu."
+" Tíminn færist frá vinstri til hægri."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:42
+#: ../doc/quick_tutorial.rst:42
 msgid "Track"
 msgstr "Rás"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:42
+#: ../doc/quick_tutorial.rst:42
 msgid ""
 "A separate **layer** on the timeline, which can hold clips. A timeline is "
 "made up of many tracks, stacked vertically."
@@ -100,41 +100,41 @@ msgstr ""
 "samanstendur af mörgum rásum, staflað lóðrétt."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:43
+#: ../doc/quick_tutorial.rst:43
 msgid "Clip"
 msgstr "Klippa"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:43
+#: ../doc/quick_tutorial.rst:43
 msgid ""
-"A **trimmed** portion of video, audio, or both positioned on a track, and at "
-"a specific position in time. When files are dropped on the timeline, they "
+"A **trimmed** portion of video, audio, or both positioned on a track, and at"
+" a specific position in time. When files are dropped on the timeline, they "
 "are represented as a Clip."
 msgstr ""
 "Skerptur hluti af myndbandi, hljóði eða báðum, staðsettur á rás og á "
 "ákveðnum tíma. Þegar skrár eru dregnar á tímalínuna birtast þær sem klippur."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:44
+#: ../doc/quick_tutorial.rst:44
 msgid "Transition"
 msgstr "Yfirfærslu"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:44
+#: ../doc/quick_tutorial.rst:44
 msgid ""
-"A method to **blend** two images. Transitions can take many forms, including "
-"cuts, dissolves, and wipes."
+"A method to **blend** two images. Transitions can take many forms, including"
+" cuts, dissolves, and wipes."
 msgstr ""
 "Aðferð til að **blanda** saman tveimur myndum. Yfirfærslur geta verið á "
 "margvíslegan hátt, eins og klipp, bráðnun og strok."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:48
+#: ../doc/quick_tutorial.rst:48
 msgid "Video Tutorials"
 msgstr "Myndbandskennslur"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:50
+#: ../doc/quick_tutorial.rst:50
 msgid ""
 "If you prefer to learn by **watching videos** instead of reading, we have "
 "many official video tutorials that cover a wide range of beginner and "
@@ -147,52 +147,52 @@ msgstr ""
 "leið þinni til að ná tökum á OpenShot Video Editor!"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:54
+#: ../doc/quick_tutorial.rst:54
 msgid "`Video: Getting Started <https://youtu.be/1k-ISfd-YBE>`_"
 msgstr "`Myndband: Að byrja <https://youtu.be/1k-ISfd-YBE>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:55
+#: ../doc/quick_tutorial.rst:55
 msgid "`Video: The Basics (Part 1) <https://youtu.be/VE6awGSr22Q>`_"
 msgstr "`Myndband: Grunnatriði (Hluti 1) <https://youtu.be/VE6awGSr22Q>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:56
+#: ../doc/quick_tutorial.rst:56
 msgid "`Video: The Basics (Part 2) <https://youtu.be/6PA98QL9tkw>`_"
 msgstr "`Myndband: Grunnatriði (Hluti 2) <https://youtu.be/6PA98QL9tkw>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:57
+#: ../doc/quick_tutorial.rst:57
 msgid "`Video: Basic Animation <https://youtu.be/P3zIprwr1rk>`_"
 msgstr "`Myndband: Grunnhreyfimynd <https://youtu.be/P3zIprwr1rk>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:58
+#: ../doc/quick_tutorial.rst:58
 msgid "`Video: Trim, Slice, and Split <https://youtu.be/BQS2tmgD_Rk>`_"
 msgstr "`Myndband: Skerpa, sneiða og skipta <https://youtu.be/BQS2tmgD_Rk>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:59
+#: ../doc/quick_tutorial.rst:59
 msgid "`Video: Chroma Key <https://youtu.be/2sushecqMs4>`_"
 msgstr "`Myndband: Chroma Key <https://youtu.be/2sushecqMs4>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:60
+#: ../doc/quick_tutorial.rst:60
 msgid "`Video: Masks & Transitions <https://youtu.be/Hd9k3x0diOo>`_"
 msgstr "`Myndband: Grímur og yfirfærslur <https://youtu.be/Hd9k3x0diOo>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:61
+#: ../doc/quick_tutorial.rst:61
 msgid "`Video: Backup & Recovery <https://youtu.be/5XaWBTBTpTo>`_"
 msgstr "`Myndband: Afritun og endurheimt <https://youtu.be/5XaWBTBTpTo>`_"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:64
+#: ../doc/quick_tutorial.rst:64
 msgid "Step 1 – Import Photos & Music"
 msgstr "Skref 1 – Flytja inn myndir og tónlist"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:66
+#: ../doc/quick_tutorial.rst:66
 msgid ""
 "Before we can begin making a video, we need to import media files into "
 "OpenShot. Most video, image and music file formats will work. Drag and drop "
@@ -202,68 +202,68 @@ msgstr ""
 "Áður en við getum byrjað að búa til myndband þurfum við að flytja inn "
 "fjölmiðlaskrár í OpenShot. Flest skráarsnið fyrir myndbönd, myndir og "
 "tónlist virka. Dragðu og slepptu nokkrum myndböndum eða myndum og "
-"tónlistarskrá frá skjáborðinu þínu í OpenShot. Gakktu úr skugga um að sleppa "
-"skránum þar sem örin á myndinni bendir."
+"tónlistarskrá frá skjáborðinu þínu í OpenShot. Gakktu úr skugga um að sleppa"
+" skránum þar sem örin á myndinni bendir."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:73
+#: ../doc/quick_tutorial.rst:73
 msgid ""
 "Alternative methods to add files to your projects are described in the "
 "section :ref:`import_files_ref`. The \"Show All\", \"Video\", \"Audio\", "
 "\"Image\" filters above the added files allows you to only see the file "
 "types you are interested in."
 msgstr ""
-"Aðrar aðferðir til að bæta skrám við verkefnin þín eru lýstar í kaflanum :"
-"ref:`import_files_ref`. Síurnar „Sýna allt“, „Myndband“, „Hljóð“, „Mynd“ "
+"Aðrar aðferðir til að bæta skrám við verkefnin þín eru lýstar í kaflanum "
+":ref:`import_files_ref`. Síurnar „Sýna allt“, „Myndband“, „Hljóð“, „Mynd“ "
 "fyrir ofan skrárnar sem bætt var við leyfa þér að sjá aðeins þá skráargerð "
 "sem þú hefur áhuga á."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:78
+#: ../doc/quick_tutorial.rst:78
 msgid "Step 2 – Add Photos to Timeline"
 msgstr "Skref 2 – Bæta myndum við tímalínu"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:80
+#: ../doc/quick_tutorial.rst:80
 msgid ""
 "Next, drag each video or photo onto a track in the timeline (as seen in the "
 "illustration). The timeline represents your final video, so arrange your "
 "photos (i.e. clips) in whatever sequence you want them to appear in your "
-"video. If you overlap two clips, OpenShot will automatically create a smooth "
-"fade between them (only affects the image, and not audio), displayed by blue "
-"rounded rectangles between the clips. Remember, you can rearrange the clips "
-"as many times as needed by simply dragging and dropping them."
+"video. If you overlap two clips, OpenShot will automatically create a smooth"
+" fade between them (only affects the image, and not audio), displayed by "
+"blue rounded rectangles between the clips. Remember, you can rearrange the "
+"clips as many times as needed by simply dragging and dropping them."
 msgstr ""
 "Næst, dragðu hvert myndband eða mynd á rás á tímalínunni (eins og sést á "
 "myndinni). Tímalínan sýnir lokaútgáfu myndbandsins, svo raðaðu myndunum "
-"þínum (þ.e. klippum) í þá röð sem þú vilt að þær birtist í myndbandinu þínu. "
-"Ef þú leggur tvær klippur yfir hvor aðra mun OpenShot sjálfkrafa búa til "
-"mjúka fægð á milli þeirra (áhrif á myndina einungis, ekki hljóðið), sýnd með "
-"bláum, kringlóttum ferningum á milli klippanna. Mundu að þú getur raðað "
+"þínum (þ.e. klippum) í þá röð sem þú vilt að þær birtist í myndbandinu þínu."
+" Ef þú leggur tvær klippur yfir hvor aðra mun OpenShot sjálfkrafa búa til "
+"mjúka fægð á milli þeirra (áhrif á myndina einungis, ekki hljóðið), sýnd með"
+" bláum, kringlóttum ferningum á milli klippanna. Mundu að þú getur raðað "
 "klippunum aftur og aftur eftir þörfum með því að draga og sleppa þeim."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:87
+#: ../doc/quick_tutorial.rst:87
 msgid ""
 "You can also shorten or lengthen each clip, by clicking the left or right "
 "edge and dragging your mouse. For example, if you want a photo to last "
-"longer than 10 seconds (the default duration), simply grab the right edge of "
-"the photo (on the timeline), and drag it to the right (to increase the "
+"longer than 10 seconds (the default duration), simply grab the right edge of"
+" the photo (on the timeline), and drag it to the right (to increase the "
 "clip's duration on the timeline)."
 msgstr ""
 "Þú getur einnig stytt eða lengt hverja klippu með því að smella á vinstri "
 "eða hægri brúnina og draga músina. Til dæmis, ef þú vilt að mynd varir "
 "lengur en 10 sekúndur (sjálfgefið tímabil), taktu einfaldlega hægri brún "
-"myndarinnar (á tímalínunni) og dragðu hana til hægri (til að lengja klippuna "
-"á tímalínunni)."
+"myndarinnar (á tímalínunni) og dragðu hana til hægri (til að lengja klippuna"
+" á tímalínunni)."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:95
+#: ../doc/quick_tutorial.rst:95
 msgid "Step 3 – Add Music to Timeline"
 msgstr "Skref 3 – Bæta tónlist við tímalínu"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:97
+#: ../doc/quick_tutorial.rst:97
 msgid ""
 "To make our creation more interesting, we need to add some music. Click on "
 "the music file that you imported in step 1, and drag it onto the timeline. "
@@ -278,65 +278,65 @@ msgstr ""
 "getur líka sett sömu skrá inn mörgum sinnum ef tónlistin er of stutt."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:105
+#: ../doc/quick_tutorial.rst:105
 msgid "Step 4 – Preview your Project"
 msgstr "Skref 4 – Forskoða verkefnið þitt"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:107
+#: ../doc/quick_tutorial.rst:107
 msgid ""
 "To preview what our video looks & sounds like, click the :guilabel:`Play` "
 "button under the preview window. You can also pause, rewind, and fast-"
 "forward your video project by clicking the corresponding buttons."
 msgstr ""
-"Til að forskoða hvernig myndbandið okkar lítur út og hljómar, smelltu á :"
-"guilabel:`Spila` hnappinn undir forskoðunarglugganum. Þú getur einnig sett "
+"Til að forskoða hvernig myndbandið okkar lítur út og hljómar, smelltu á "
+":guilabel:`Spila` hnappinn undir forskoðunarglugganum. Þú getur einnig sett "
 "myndbandið á pásu, spólað til baka og flýtt fyrir með því að smella á "
 "viðeigandi hnappa."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:114
+#: ../doc/quick_tutorial.rst:114
 msgid "Step 5 – Export your Video"
 msgstr "Skref 5 – Flytja út myndbandið þitt"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:115
+#: ../doc/quick_tutorial.rst:115
 msgid ""
-"Once you have edited your photo slide-show video, the last step is to export "
-"the project. Exporting converts your OpenShot project into a single video "
+"Once you have edited your photo slide-show video, the last step is to export"
+" the project. Exporting converts your OpenShot project into a single video "
 "output file. By using the default settings, the video works on most media "
 "players (such as VLC) or websites (such as YouTube, Vimeo, …)."
 msgstr ""
 "Þegar þú hefur klippt myndasýningarmyndbandið þitt er síðasta skrefið að "
 "flytja verkefnið út. Útflutningur breytir OpenShot verkefninu þínu í eina "
-"myndbandsútgangsskrá. Með því að nota sjálfgefna stillingu virkar myndbandið "
-"á flestum fjölmiðlaspilurum (eins og VLC) eða vefsíðum (eins og YouTube, "
+"myndbandsútgangsskrá. Með því að nota sjálfgefna stillingu virkar myndbandið"
+" á flestum fjölmiðlaspilurum (eins og VLC) eða vefsíðum (eins og YouTube, "
 "Vimeo o.s.frv.)."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:120
+#: ../doc/quick_tutorial.rst:120
 msgid ""
-"Click on the Export Video icon at the top of the screen (or use the :"
-"guilabel:`File→Export Video` menu). The default values will work fine, so "
+"Click on the Export Video icon at the top of the screen (or use the "
+":guilabel:`File→Export Video` menu). The default values will work fine, so "
 "just click the :guilabel:`Export Video` button to render your new video."
 msgstr ""
-"Smelltu á táknið Flytja út myndband efst á skjánum (eða notaðu valmyndina :"
-"guilabel:`Skrá→Flytja út myndband`). Sjálfgefnu stillingarnar virka vel, svo "
-"smelltu bara á hnappinn :guilabel:`Flytja út myndband` til að búa til nýja "
-"myndbandið þitt."
+"Smelltu á táknið Flytja út myndband efst á skjánum (eða notaðu valmyndina "
+":guilabel:`Skrá→Flytja út myndband`). Sjálfgefnu stillingarnar virka vel, "
+"svo smelltu bara á hnappinn :guilabel:`Flytja út myndband` til að búa til "
+"nýja myndbandið þitt."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:127
+#: ../doc/quick_tutorial.rst:127
 msgid "Conclusion"
 msgstr "Niðurstaða"
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:128
+#: ../doc/quick_tutorial.rst:128
 msgid ""
 "You should now have a basic understanding of how OpenShot works. Importing, "
-"Arranging, Previewing, and Exporting. Hopefully this tutorial took less than "
-"**5 minutes** for you to complete. Please read the rest of this guide for a "
-"more detailed understanding of OpenShot and its advanced features."
+"Arranging, Previewing, and Exporting. Hopefully this tutorial took less than"
+" **5 minutes** for you to complete. Please read the rest of this guide for a"
+" more detailed understanding of OpenShot and its advanced features."
 msgstr ""
 "Þú ættir nú að hafa grunnskilning á því hvernig OpenShot virkar. "
 "Innflutningur, raðað, forskoðun og útflutningur. Vonandi tók þessi kennsla "
@@ -345,13 +345,13 @@ msgstr ""
 "þess."
 
 # Translated with gpt-4.1-mini
-#: ../quick_tutorial.rst:133
+#: ../doc/quick_tutorial.rst:133
 msgid ""
 "If you have any questions after reading this User Guide, please consider "
-"joining our `Reddit User Community <https://openshot.org/forum>`_ to discuss "
-"topics, ask questions, and meet with other OpenShot users."
+"joining our `Reddit User Community <https://openshot.org/forum>`_ to discuss"
+" topics, ask questions, and meet with other OpenShot users."
 msgstr ""
 "Ef þú hefur einhverjar spurningar eftir að hafa lesið þessa notendahandbók, "
-"vinsamlegast íhugaðu að ganga í `Reddit notendahópinn <https://openshot.org/"
-"forum>`_ til að ræða málefni, spyrja spurninga og hitta aðra OpenShot "
-"notendur."
+"vinsamlegast íhugaðu að ganga í `Reddit notendahópinn "
+"<https://openshot.org/forum>`_ til að ræða málefni, spyrja spurninga og "
+"hitta aðra OpenShot notendur."

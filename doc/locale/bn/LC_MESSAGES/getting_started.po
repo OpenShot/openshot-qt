@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:21
+#: ../doc/getting_started.rst:21
 msgid "Video Editing Basics"
 msgstr "ভিডিও সম্পাদনার মৌলিক বিষয়সমূহ"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:23
+#: ../doc/getting_started.rst:23
 msgid ""
 "You do not need to be a trained videographer to understand how to create "
 "videos well. Simple editing can keep your viewers engaged longer, and add a "
@@ -34,7 +34,7 @@ msgstr ""
 " যোগ করতে পারে, এমনকি আপনি পেশাদার ভিডিও সম্পাদক না হলেও।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:27
+#: ../doc/getting_started.rst:27
 msgid ""
 "Basically, video editing is taking footage, cutting it up, removing the "
 "pieces you do not want, and keeping the bits you do. Back in the old days, "
@@ -47,37 +47,37 @@ msgstr ""
 " সহজ করে দিয়েছে।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:32
+#: ../doc/getting_started.rst:32
 msgid "There are three main jobs of video editing:"
 msgstr "ভিডিও সম্পাদনার তিনটি প্রধান কাজ রয়েছে:"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:34
+#: ../doc/getting_started.rst:34
 msgid "Remove mistakes or unwanted sections"
 msgstr "ভুল বা অপ্রয়োজনীয় অংশগুলি সরানো"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:35
+#: ../doc/getting_started.rst:35
 msgid "Keep the video moving at an engaging pace"
 msgstr "ভিডিওকে আকর্ষণীয় গতিতে চালিয়ে যাওয়া"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:36
+#: ../doc/getting_started.rst:36
 msgid "Insert supporting footage, audio, or titles"
 msgstr "সহায়ক ফুটেজ, অডিও, বা শিরোনাম যোগ করা"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:38
+#: ../doc/getting_started.rst:38
 msgid "Use these three points as a checklist as you edit."
 msgstr "সম্পাদনার সময় এই তিনটি পয়েন্টকে চেকলিস্ট হিসেবে ব্যবহার করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:41
+#: ../doc/getting_started.rst:41
 msgid "Computer"
 msgstr "কম্পিউটার"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:42
+#: ../doc/getting_started.rst:42
 msgid ""
 "Video editing does not require an expensive machine, especially if you are a"
 " beginner. However, it would be best if you had a more recent monitor and "
@@ -96,12 +96,12 @@ msgstr ""
 "আপনার পুরো সিস্টেম আপগ্রেড করা উচিত।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:50
+#: ../doc/getting_started.rst:50
 msgid "Accessories"
 msgstr "অ্যাকসেসরিজ"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:51
+#: ../doc/getting_started.rst:51
 msgid ""
 "Before beginning a video project, ensure there is enough storage space on "
 "your computer to save all the necessary clips. For example, one hour of "
@@ -116,7 +116,7 @@ msgstr ""
 " পারে, তাহলে একটি বাহ্যিক ড্রাইভ কেনা সমাধান।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:57
+#: ../doc/getting_started.rst:57
 msgid ""
 "It would help if you had several cables, usually Firewire or USB, to connect"
 " your computer, external hard drive, and a camera. Different computers and "
@@ -128,12 +128,12 @@ msgstr ""
 "ধরনের সংযোগকারী গ্রহণ করে, তাই কিছু কেনার আগে আপনার ম্যানুয়াল পরীক্ষা করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:63
+#: ../doc/getting_started.rst:63
 msgid "Practical Tips"
 msgstr "প্রায়োগিক টিপস"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:64
+#: ../doc/getting_started.rst:64
 msgid ""
 "Becoming a great video editor isn’t effortless, but with practice and "
 "patience, you’ll be editing like a professional in no time. Here are a few "
@@ -145,12 +145,12 @@ msgstr ""
 "প্রয়োজন তার কয়েকটি গুরুত্বপূর্ণ টিপস এবং কৌশল এখানে দেওয়া হল।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:69
+#: ../doc/getting_started.rst:69
 msgid "Pick the Right Computer"
 msgstr "সঠিক কম্পিউটার নির্বাচন করুন"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:70
+#: ../doc/getting_started.rst:70
 msgid ""
 "While having a great computer won’t necessarily make you a great video "
 "editor, a faster computer will allow you to focus more of your time on the "
@@ -165,11 +165,11 @@ msgstr ""
 " নির্ভর করে।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:77
+#: ../doc/getting_started.rst:77
 msgid "Keep Shooting"
 msgstr "চলতে থাকুন শুটিং"
 
-#: ../getting_started.rst:78
+#: ../doc/getting_started.rst:78
 msgid ""
 "Record more video and audio than you think you will need for your project. "
 "Include video that enhances the scene, sets a mood, or tells a story. You "
@@ -193,12 +193,12 @@ msgstr ""
 "OpenShot-এ আমদানি করতে পারেন।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:88
+#: ../doc/getting_started.rst:88
 msgid "Organize Your Project Files"
 msgstr "আপনার প্রকল্প ফাইলগুলি সংগঠিত করুন"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:89
+#: ../doc/getting_started.rst:89
 msgid ""
 "Composition is the key to success, whether you are running Linux, on a Mac, "
 "or a Windows machine. Be sure to label video files, audio files, and even "
@@ -215,12 +215,12 @@ msgstr ""
 "হারিয়ে যেতে পারে। সম্পাদনা শুরু করার আগে সংগঠিত থাকা খুবই লাভজনক।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:98
+#: ../doc/getting_started.rst:98
 msgid "Watch Everything"
 msgstr "সবকিছু দেখুন"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:99
+#: ../doc/getting_started.rst:99
 msgid ""
 "Watching everything is the first step in the editing process. Writer and "
 "filmmaker David Andrew Stoler says there is gold in the most unlikely of "
@@ -232,12 +232,12 @@ msgstr ""
 "সুন্দর অভিব্যক্তিগুলো কাটের পরই পাওয়া যায়।\""
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:105
+#: ../doc/getting_started.rst:105
 msgid "Edit for a Story"
 msgstr "গল্পের জন্য সম্পাদনা করুন"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:106
+#: ../doc/getting_started.rst:106
 msgid ""
 "Remember that as you edit, you are telling a story. Editing is so much more "
 "than merely cutting footage and adding effects. It is an opportunity to take"
@@ -252,12 +252,12 @@ msgstr ""
 "গল্প বলছেন।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:113
+#: ../doc/getting_started.rst:113
 msgid "Keyboard Shortcuts"
 msgstr "কীবোর্ড শর্টকাট"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:114
+#: ../doc/getting_started.rst:114
 msgid ""
 "One of the easiest ways to tell the difference between and professional "
 "video editor and a novice is to simply look at how much they use the "
@@ -269,12 +269,12 @@ msgstr ""
 " আছেন তারা জানেন কয়েক সেকেন্ড বাঁচানো পুরো প্রকল্পের সময়ে বড় সুবিধা দেয়।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:120
+#: ../doc/getting_started.rst:120
 msgid "Learn the Lingo"
 msgstr "পরিভাষা শিখুন"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:121
+#: ../doc/getting_started.rst:121
 msgid ""
 "Video editing is not just a hobby or a profession; it is an industry. And "
 "just like any industry, there is a ton of jargon to learn. Practically "
@@ -289,12 +289,12 @@ msgstr ""
 " পারে।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:129
+#: ../doc/getting_started.rst:129
 msgid "Assemble, Then Make a Rough Cut"
 msgstr "একত্রিত করুন, তারপর একটি খসড়া কাট তৈরি করুন"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:130
+#: ../doc/getting_started.rst:130
 msgid ""
 "Drag and drop all your video footage into a timeline and make sure your "
 "frame size and frame rates are consistent. Begin a new timeline and drag-"
@@ -308,12 +308,12 @@ msgstr ""
 " নোট করুন।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:136
+#: ../doc/getting_started.rst:136
 msgid "Refine Your Video"
 msgstr "আপনার ভিডিও পরিমার্জন করুন"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:137
+#: ../doc/getting_started.rst:137
 msgid ""
 "In this phase, your rough cut begins to resemble a cohesive project. Adjust "
 "the sound and color, make sure the dialog is audible, and add music, titles,"
@@ -329,12 +329,12 @@ msgstr ""
 "একটি সঙ্গতিপূর্ণ ভিডিওর জন্য প্রায়শই কিছু মৌলিক পোস্ট-প্রসেসিং করতে হবে।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:145
+#: ../doc/getting_started.rst:145
 msgid "Refine Some More"
 msgstr "আরও পরিমার্জন করুন"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:146
+#: ../doc/getting_started.rst:146
 msgid ""
 "A slow scene can set the mood and add tension or it can bore an audience. A "
 "fast scene can add adrenaline to your audience’s systems or it can give them"
@@ -349,12 +349,12 @@ msgstr ""
 "কারণে হতাশ হবেন না।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:153
+#: ../doc/getting_started.rst:153
 msgid "Exporting"
 msgstr "রপ্তানি"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:154
+#: ../doc/getting_started.rst:154
 msgid ""
 "People view most of their projects on phones, tablets, or computers, so it "
 "is essential to know how to export for the web. The goal when exporting a "
@@ -368,12 +368,12 @@ msgstr ""
 "ফাইল সাইজ নির্ধারণ করে চারটি প্রধান কারণ:"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:160
+#: ../doc/getting_started.rst:160
 msgid "Codec"
 msgstr "কোডেক"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:161
+#: ../doc/getting_started.rst:161
 msgid ""
 "A codec determines the type of file format (MP4, AVI, MOV). The more "
 "compression performed by the codec, the smaller your video’s size. Videos "
@@ -384,12 +384,12 @@ msgstr ""
 "ভিজ্যুয়াল মানে কম হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:166
+#: ../doc/getting_started.rst:166
 msgid "Resolution"
 msgstr "রেজোলিউশন"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:167
+#: ../doc/getting_started.rst:167
 msgid ""
 "Resolution refers to the number of horizontal and vertical pixels (dots on "
 "display) your video contains. For example, a 4K UHD (2160P) video has four "
@@ -402,12 +402,12 @@ msgstr ""
 "ফলে ফাইল সাইজ বড় হয়।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:173
+#: ../doc/getting_started.rst:173
 msgid "Bit Rate"
 msgstr "বিট রেট"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:174
+#: ../doc/getting_started.rst:174
 msgid ""
 "The Bit Rate is the measure of the speed of data processing of your video. A"
 " higher bit rate means higher-quality video and larger files. OpenShot "
@@ -419,12 +419,12 @@ msgstr ""
 " ট্যাবে বিট রেট / কোয়ালিটি ম্যানুয়ালি সেট করার সুযোগ দেয়।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:180
+#: ../doc/getting_started.rst:180
 msgid "Frame Rate"
 msgstr "ফ্রেম রেট"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:181
+#: ../doc/getting_started.rst:181
 msgid ""
 "The frequency (in Hz) at which consecutive images, called frames, appear on "
 "the display is the Frame Rate. Typically, you export your video in the film "
@@ -440,12 +440,12 @@ msgstr ""
 "দ্বিগুণ হবে।"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:188
+#: ../doc/getting_started.rst:188
 msgid "Conclusion"
 msgstr "উপসংহার"
 
 # Translated with gpt-4.1-mini
-#: ../getting_started.rst:189
+#: ../doc/getting_started.rst:189
 msgid ""
 "In conclusion, video editing is an accessible skill that can elevate your "
 "video content even if you're not a professional videographer. With the "

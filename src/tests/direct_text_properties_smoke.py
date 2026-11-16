@@ -15,7 +15,7 @@ from classes import version
 # UI workflow checks must not depend on the external update service.
 version.get_current_Version = lambda: None
 from classes.query import Clip
-from qt_api import QColor, QFont, QTimer, QT_API
+from qt_api import QColor, QCoreApplication, QEvent, QFont, QTimer, QT_API
 QTest = importlib.import_module({"pyqt5": "PyQt5", "pyqt6": "PyQt6", "pyside6": "PySide6"}[QT_API] + ".QtTest").QTest
 
 app = OpenShotApp([], mode="unittest")
@@ -159,6 +159,131 @@ def verify():
         checks.assertEqual(restored["reader"]["text_animation"], animated["reader"]["text_animation"])
         checks.assertEqual(QColor(evaluated_text_style(restored, 31)["color"]), QColor("#800000ff"))
         checks.assertEqual(QColor(evaluated_text_style(Clip.get(id=sibling.id).data, 31)["color"]), QColor(style["color"]))
+        # Every clip transform keeps all changed properties in one undoable gesture.
+        from qt_api import QMouseEvent, QPointF, QPoint, QLocale, Qt
+        drag = Clip()
+        drag.data = new_text_clip(style, root, 0.0, after["layer"], 4.0)
+        drag.data["file_id"] = asset.id
+        drag.save()
+        window.SeekSignal.emit(1, True)
+        window.timeline.AddSelectionJS(drag.id, "clip", True)
+        QTest.qWait(200)
+        window.TransformSignal.emit([drag.id])
+        video = window.videoPreview
+        video.repaint()
+        checks.assertIsNotNone(video.transform)
+        # The real playback signal must update an existing animation without a drag.
+        import openshot
+        native_drag = Clip.get(id=drag.id)
+        native_drag.data["scale_x"] = {"Points": [
+            {"co": {"X": 1, "Y": 0.5}, "interpolation": openshot.LINEAR},
+            {"co": {"X": 61, "Y": 1.5}, "interpolation": openshot.LINEAR}]}
+        native_drag.save()
+        window.dockProperties.show()
+        window.dockProperties.raise_()
+        model.update_item([{"id": drag.id, "type": "clip"}])
+        model.update_item_timeout()
+        table = window.propertyTableView
+        QTest.qWait(150)
+        for frame, value in ((1, 0.5), (31, 1.0), (61, 1.5)):
+            window.SeekSignal.emit(frame, True)
+            QTest.qWait(100)
+            window.preview_thread.position_changed.emit(frame)
+            app.processEvents()
+            actual, valid = QLocale().system().toDouble(item("scale_x").text())
+            checks.assertTrue(valid)
+            checks.assertAlmostEqual(actual, value, places=3)
+        window.SeekSignal.emit(31, True)
+        QTest.qWait(100)
+        window.preview_thread.position_changed.emit(31)
+        app.processEvents()
+
+        def menu_action(text):
+            index = model.model.index(item("scale_x").row(), 1)
+            table.scrollTo(index)
+            app.processEvents()
+            # A selection timer may replace rows while processing events.
+            index = model.model.index(item("scale_x").row(), 1)
+            point = table.visualRect(index).center()
+            event = QMouseEvent(QEvent.MouseButtonPress, QPointF(point), Qt.RightButton,
+                                Qt.RightButton, Qt.NoModifier)
+            with patch("windows.views.properties_tableview.StyledContextMenu.show_at"):
+                table.contextMenuEvent(event)
+            return next(action for action in table.menu.actions() if action.text() == app._tr(text))
+
+        # Exercise the actual menu wiring, including curve handles and undo.
+        before_menu = copy.deepcopy(Clip.get(id=drag.id).data["scale_x"])
+        history_before_menu = len(app.updates.actionHistory)
+        menu_action("Insert Keyframe").trigger()
+        checks.assertIn(31, [point["co"]["X"] for point in Clip.get(id=drag.id).data["scale_x"]["Points"]])
+        menu_action("Linear").trigger()
+        menu_action("Constant").trigger()
+        menu_action("Bezier").menu().actions()[0].trigger()
+        menu_action("Remove Keyframe").trigger()
+        checks.assertNotIn(31, [point["co"]["X"] for point in Clip.get(id=drag.id).data["scale_x"]["Points"]])
+        while len(app.updates.actionHistory) > history_before_menu:
+            app.updates.undo()
+        checks.assertEqual(Clip.get(id=drag.id).data["scale_x"], before_menu)
+
+        # Real numeric-cell pointer dragging must remain one undoable gesture.
+        window.SeekSignal.emit(1, True)
+        QTest.qWait(100)
+        window.preview_thread.position_changed.emit(1)
+        app.processEvents()
+        index = model.model.index(item("scale_x").row(), 1)
+        table.scrollTo(index)
+        app.processEvents()
+        index = model.model.index(item("scale_x").row(), 1)
+        point = table.visualRect(index).center()
+        before_cell = copy.deepcopy(Clip.get(id=drag.id).data["scale_x"])
+        history_before_cell = len(app.updates.actionHistory)
+        QTest.mousePress(table.viewport(), Qt.LeftButton, Qt.NoModifier, point)
+        for offset in (10, 40):
+            table.mouseMoveEvent(QMouseEvent(QEvent.MouseMove, QPointF(point + QPoint(offset, 0)),
+                                            Qt.NoButton, Qt.LeftButton, Qt.NoModifier))
+        QTest.mouseRelease(table.viewport(), Qt.LeftButton, Qt.NoModifier, point + QPoint(40, 0))
+        after_cell = copy.deepcopy(Clip.get(id=drag.id).data["scale_x"])
+        checks.assertNotEqual(after_cell, before_cell)
+        checks.assertEqual(len(app.updates.actionHistory), history_before_cell + 1)
+        app.updates.undo()
+        checks.assertEqual(Clip.get(id=drag.id).data["scale_x"], before_cell)
+        app.updates.redo()
+        checks.assertEqual(Clip.get(id=drag.id).data["scale_x"], after_cell)
+        app.updates.undo()
+        print("PROPERTY_INTERACTIONS_PASSED", flush=True)
+
+        modes = {
+            'location': ('location_x', 'location_y'),
+            'origin': ('origin_x', 'origin_y'),
+            'rotation': ('rotation',),
+            **{name: ('shear_x',) for name in ('shear_top', 'shear_bottom')},
+            **{name: ('shear_y',) for name in ('shear_left', 'shear_right')},
+            **{name: ('scale_x', 'scale_y') for name in (
+                'scale_top_left', 'scale_top_right', 'scale_bottom_left', 'scale_bottom_right')},
+            **{name: ('scale_x',) for name in ('scale_left', 'scale_right')},
+            **{name: ('scale_y',) for name in ('scale_top', 'scale_bottom')},
+        }
+        for mode, keys in modes.items():
+            window.TransformSignal.emit([drag.id])
+            video.repaint()
+            before_drag = copy.deepcopy(Clip.get(id=drag.id).data)
+            video.hover_transform_mode = mode
+            video.mousePressEvent(QMouseEvent(QEvent.MouseButtonPress, QPointF(200, 150),
+                                             Qt.LeftButton, Qt.LeftButton, Qt.NoModifier))
+            video.mouseMoveEvent(QMouseEvent(QEvent.MouseMove, QPointF(203, 152),
+                                            Qt.NoButton, Qt.LeftButton, Qt.NoModifier))
+            video.mouseReleaseEvent(QMouseEvent(QEvent.MouseButtonRelease, QPointF(203, 152),
+                                               Qt.LeftButton, Qt.NoButton, Qt.NoModifier))
+            after_drag = copy.deepcopy(Clip.get(id=drag.id).data)
+            for key in keys:
+                checks.assertNotEqual(after_drag[key], before_drag[key])
+            app.updates.undo()
+            for key in keys:
+                checks.assertEqual(Clip.get(id=drag.id).data[key], before_drag[key])
+            app.updates.redo()
+            for key in keys:
+                checks.assertEqual(Clip.get(id=drag.id).data[key], after_drag[key])
+            app.updates.undo()
         passed = True
         print("TEXT_PROPERTIES_PASSED", flush=True)
     except Exception:
@@ -170,4 +295,8 @@ def verify():
 checks.assertTrue(app.gui())
 QTimer.singleShot(4000, verify)
 app.exec_()
+# Destroy the window while Python and Qt are still fully alive. PyQt5 on
+# Ubuntu 22.04 can crash when these objects survive until interpreter teardown.
+app.window.deleteLater()
+QCoreApplication.sendPostedEvents(None, QEvent.DeferredDelete)
 sys.exit(0 if passed else 1)

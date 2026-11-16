@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:23
+#: ../doc/animation.rst:23
 msgid "Animation"
 msgstr "Animación"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:25
+#: ../doc/animation.rst:25
 msgid ""
 "OpenShot has been designed specifically with animation in mind. The powerful"
 " curve-based animation framework can handle most jobs with ease, and is "
@@ -41,152 +41,169 @@ msgstr ""
 "valores intermedios."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:30
+#: ../doc/animation.rst:30
 msgid "Overview"
 msgstr "Resumen"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:38 ../animation.rst:141
+#: ../doc/animation.rst:38 ../doc/animation.rst:187
 msgid "#"
 msgstr "#"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:38 ../animation.rst:141
+#: ../doc/animation.rst:38 ../doc/animation.rst:187
 msgid "Name"
 msgstr "Nombre"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:38 ../animation.rst:65 ../animation.rst:141
+#: ../doc/animation.rst:38 ../doc/animation.rst:71 ../doc/animation.rst:187
 msgid "Description"
 msgstr "Descripción"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:40 ../animation.rst:41 ../animation.rst:143
+#: ../doc/animation.rst:40 ../doc/animation.rst:41 ../doc/animation.rst:189
 msgid "1"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:40
+#: ../doc/animation.rst:40
 msgid "Green Property"
 msgstr "Propiedad Verde"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:40
+#: ../doc/animation.rst:40
 msgid "When the play-head is on a key frame, the property appears green"
 msgstr ""
 "Cuando el cabezal de reproducción está en un fotograma clave, la propiedad "
 "aparece en verde"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:41
+#: ../doc/animation.rst:41
 msgid "Blue Property"
 msgstr "Propiedad Azul"
 
-# Translated with gpt-4.1-mini
-#: ../animation.rst:41
-msgid ""
-"When the play-head is on an interpolated value, the property appears blue"
+#: ../doc/animation.rst:41
+msgid "When the play-head is between key frames, the property appears blue"
 msgstr ""
-"Cuando el cabezal de reproducción está en un valor interpolado, la propiedad"
-" aparece en azul"
+"Cuando el cabezal de reproducción está entre fotogramas clave, la propiedad "
+"aparece en azul"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:42 ../animation.rst:144
+#: ../doc/animation.rst:42 ../doc/animation.rst:190
 msgid "2"
 msgstr "2"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:42
+#: ../doc/animation.rst:42
 msgid "Value Slider"
 msgstr "Control deslizante de valor"
 
-# Translated with gpt-4.1-mini
-#: ../animation.rst:42
+#: ../doc/animation.rst:42
 msgid ""
-"Click and drag your mouse to adjust the value (this automatically creates a "
-"key frame if needed)"
+"Drag to adjust a property. With Auto Keyframes on, this also records the "
+"value at the playhead."
 msgstr ""
-"Haz clic y arrastra el ratón para ajustar el valor (esto crea "
-"automáticamente un fotograma clave si es necesario)"
+"Arrastra para ajustar una propiedad. Con Fotogramas Clave Automáticos "
+"activados, esto también registra el valor en el cabezal de reproducción."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:43
+#: ../doc/animation.rst:43
 msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:43
+#: ../doc/animation.rst:43
 msgid "Play-head"
 msgstr "Cabezal de reproducción"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:43
+#: ../doc/animation.rst:43
 msgid "Position the play-head over a clip where you need a key frame"
 msgstr ""
 "Coloca el cabezal de reproducción sobre un clip donde necesites un fotograma"
 " clave"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:44
+#: ../doc/animation.rst:44
 msgid "4"
 msgstr "4"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:44
+#: ../doc/animation.rst:44
 msgid "Key frame Markers"
 msgstr "Marcadores de fotogramas clave"
 
-#: ../animation.rst:44
+#: ../doc/animation.rst:44
 msgid ""
 "Colorful icons line the bottom of the clip for every keyframe "
 "(`circle=Bézier`, `diamond=linear`, `square=constant`). Each icon matches "
 "the color of its clip, effect, or transition. The selected item's keyframe "
 "icons are shown brighter. Filtering the property list also filters these "
-"icons. Click any icon to jump the play-head, load its properties, and select"
-" its clip, effect, or transition. Drag an icon left or right to move the "
-"keyframe and fine‑tune your animation timing. The play-head moves to the "
-"keyframe's new position when you finish dragging."
+"icons. Click any icon to jump the play-head and select its clip, effect, or "
+"transition without opening the Properties dock. Double-click the icon, or "
+"right-click and choose :guilabel:`Properties`, to open the dock. Drag an "
+"icon left or right to move the keyframe and fine‑tune your animation timing."
+" The play-head moves to the keyframe's new position when you finish "
+"dragging."
 msgstr ""
 "Iconos coloridos se alinean en la parte inferior del clip para cada "
 "fotograma clave (`circle=Bézier`, `diamond=linear`, `square=constant`). Cada"
 " icono coincide con el color de su clip, efecto o transición. Los iconos de "
 "fotogramas clave del elemento seleccionado se muestran más brillantes. "
-"Filtrar la lista de propiedades también filtra estos iconos. Haga clic en "
-"cualquier icono para saltar el cabezal de reproducción, cargar sus "
-"propiedades y seleccionar su clip, efecto o transición. Arrastre un icono "
-"hacia la izquierda o derecha para mover el fotograma clave y ajustar "
-"finamente el tiempo de su animación. El cabezal de reproducción se mueve a "
-"la nueva posición del fotograma clave cuando termina de arrastrar."
+"Filtrar la lista de propiedades también filtra estos iconos. Haz clic en "
+"cualquier icono para saltar el cabezal de reproducción y seleccionar su "
+"clip, efecto o transición sin abrir el panel de Propiedades. Haz doble clic "
+"en el icono, o clic derecho y elige :guilabel:`Properties`, para abrir el "
+"panel. Arrastra un icono hacia la izquierda o derecha para mover el "
+"fotograma clave y ajustar finamente el tiempo de tu animación. El cabezal de"
+" reproducción se mueve a la nueva posición del fotograma clave cuando "
+"termines de arrastrar."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:48
+#: ../doc/animation.rst:48
 msgid "Key Frames"
 msgstr "Fotogramas clave"
 
-# Translated with gpt-4.1-mini
-#: ../animation.rst:49
+#: ../doc/animation.rst:49
 msgid ""
-"To create a key frame in OpenShot, simply position the play-head (i.e. "
-"playback position) at any point over a clip, and edit properties in the "
-"property dialog. If the property supports key frames, it will turn green, "
-"and a small icon (`circle=Bézier, diamond=linear, square=constant`) will "
-"appear on the bottom of your clip at that position. Move your play-head to "
-"another point over that clip, and adjust the properties again. All "
-"animations require at least 2 key frames, but can support an unlimited "
-"number of them."
+"A keyframe remembers a property's value at a particular moment. For example,"
+" to make a clip gradually grow larger, you can set its scale at the "
+"beginning and choose a larger scale near the end. OpenShot calculates the "
+"change between those two keyframes during playback."
 msgstr ""
-"Para crear un fotograma clave en OpenShot, simplemente posiciona el cabezal "
-"de reproducción (es decir, la posición de reproducción) en cualquier punto "
-"sobre un clip y edita las propiedades en el diálogo de propiedades. Si la "
-"propiedad admite fotogramas clave, se pondrá verde y aparecerá un pequeño "
-"icono (`circle=Bézier, diamond=linear, square=constant`) en la parte "
-"inferior de tu clip en esa posición. Mueve el cabezal de reproducción a otro"
-" punto sobre ese clip y ajusta las propiedades nuevamente. Todas las "
-"animaciones requieren al menos 2 fotogramas clave, pero pueden soportar un "
-"número ilimitado de ellos."
+"Un fotograma clave recuerda el valor de una propiedad en un momento "
+"particular. Por ejemplo, para hacer que un clip crezca gradualmente, puedes "
+"establecer su escala al principio y elegir una escala mayor cerca del final."
+" OpenShot calcula el cambio entre esos dos fotogramas clave durante la "
+"reproducción."
+
+#: ../doc/animation.rst:53
+msgid ""
+"With :ref:`auto_keyframes_ref` on (the default), move the playhead to the "
+"moment you want to change and adjust a property in the Properties dock. "
+"OpenShot adds a keyframe there, or updates it if one already exists. Move to"
+" another moment and adjust the value again to build your animation."
+msgstr ""
+"Con :ref:`auto_keyframes_ref` activado (por defecto), mueve el cabezal de "
+"reproducción al momento que deseas cambiar y ajusta una propiedad en el "
+"panel de Propiedades. OpenShot añade un fotograma clave allí, o lo actualiza"
+" si ya existe uno. Muévete a otro momento y ajusta el valor nuevamente para "
+"construir tu animación."
+
+#: ../doc/animation.rst:57
+msgid ""
+"A property turns green when the playhead is on one of its keyframes. Small "
+"markers along the bottom of the clip show where its keyframes are. Their "
+"shapes indicate how the values change between them: ``circle=Bézier, "
+"diamond=linear, square=constant``."
+msgstr ""
+"Una propiedad se vuelve verde cuando el cabezal de reproducción está en uno "
+"de sus fotogramas clave. Pequeños marcadores en la parte inferior del clip "
+"muestran dónde están sus fotogramas clave. Sus formas indican cómo cambian "
+"los valores entre ellos: ``circle=Bézier, diamond=linear, square=constant``."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:55
+#: ../doc/animation.rst:61
 msgid ""
 "Use the :guilabel:`Next Marker` and :guilabel:`Previous Marker` toolbar "
 "buttons to step through the selected item's keyframes. They follow whichever"
@@ -200,7 +217,7 @@ msgstr ""
 "detiene al inicio y al final de su clip padre."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:59
+#: ../doc/animation.rst:65
 msgid ""
 "To adjust the **interpolation mode**, right click on the small graph icon "
 "next to a property value."
@@ -209,17 +226,17 @@ msgstr ""
 "icono de gráfico junto a un valor de propiedad."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:65
+#: ../doc/animation.rst:71
 msgid "Key-frame Interpolation"
 msgstr "Interpolación de fotogramas clave"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:67
+#: ../doc/animation.rst:73
 msgid "Bézier"
 msgstr "Bézier"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:67
+#: ../doc/animation.rst:73
 msgid ""
 "Interpolated values use a quadratic curve, and ease-in and ease-out. Icon: "
 ":guilabel:`Circle`."
@@ -228,12 +245,12 @@ msgstr ""
 "suaves. Icono: :guilabel:`Círculo`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:68
+#: ../doc/animation.rst:74
 msgid "Linear"
 msgstr "Lineal"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:68
+#: ../doc/animation.rst:74
 msgid ""
 "Interpolated values are calculated linear (each step value is equal). Icon: "
 ":guilabel:`Diamond`."
@@ -242,12 +259,12 @@ msgstr ""
 "igual). Icono: :guilabel:`Diamante`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:69
+#: ../doc/animation.rst:75
 msgid "Constant"
 msgstr "Constante"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:69
+#: ../doc/animation.rst:75
 msgid ""
 "Interpolated values stay the same until the next key frame, and jump to the "
 "new value. Icon: :guilabel:`Square`."
@@ -256,7 +273,7 @@ msgstr ""
 "clave y saltan al nuevo valor. Icono: :guilabel:`Cuadrado`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:72
+#: ../doc/animation.rst:78
 #, fuzzy
 msgid ""
 "For more info on creating key frames for location, rotation, scale, shear, "
@@ -267,26 +284,155 @@ msgstr ""
 ":ref:`clip_transform_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:73
+#: ../doc/animation.rst:79
 msgid "For more info on preset animations, see :ref:`clip_presets_ref`."
 msgstr ""
 "Para más información sobre animaciones preestablecidas, consulta "
 ":ref:`clip_presets_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:74
+#: ../doc/animation.rst:80
 msgid "For a full list of key frames, see :ref:`clip_properties_ref`."
 msgstr ""
 "Para una lista completa de fotogramas clave, consulta "
 ":ref:`clip_properties_ref`."
 
+#: ../doc/animation.rst:85
+msgid "Auto Keyframes"
+msgstr "Fotogramas Clave Automáticos"
+
+#: ../doc/animation.rst:86
+msgid ""
+"Auto Keyframes helps you animate as you edit. Leave it on to record changes "
+"at the playhead as you move, resize, or adjust a clip. You can turn it on or"
+" off with the diamond button on the timeline toolbar. The same setting "
+"applies to edits in the Properties dock and to the transform handles in the "
+"preview."
+msgstr ""
+"Los Fotogramas Clave Automáticos te ayudan a animar mientras editas. Déjalo "
+"activado para registrar cambios en el cabezal de reproducción mientras "
+"mueves, redimensionas o ajustas un clip. Puedes activarlo o desactivarlo con"
+" el botón de diamante en la barra de herramientas de la línea de tiempo. La "
+"misma configuración se aplica a las ediciones en el panel de Propiedades y a"
+" los manejadores de transformación en la vista previa."
+
+#: ../doc/animation.rst:90
+msgid ""
+"Auto Keyframes starts enabled. If you prefer to place keyframes yourself, "
+"turn off **Auto Keyframes on Startup** in **Preferences → Timeline**. "
+"OpenShot will start with it off next time, and you can still switch it on "
+"whenever you need it."
+msgstr ""
+"Los Fotogramas Clave Automáticos se inician activados. Si prefieres colocar "
+"los fotogramas clave tú mismo, desactiva **Fotogramas Clave Automáticos al "
+"iniciar** en **Preferencias → Línea de tiempo**. OpenShot se iniciará "
+"desactivado la próxima vez, y aún puedes activarlo cuando lo necesites."
+
+#: ../doc/animation.rst:94
+msgid ""
+"Turn Auto Keyframes off when you want to adjust existing values without "
+"adding more keyframes. For example, if you have not animated a clip's size, "
+"you can resize it while viewing any part of the clip and keep that size "
+"throughout playback."
+msgstr ""
+"Desactiva los Fotogramas Clave Automáticos cuando quieras ajustar valores "
+"existentes sin añadir más fotogramas clave. Por ejemplo, si no has animado "
+"el tamaño de un clip, puedes redimensionarlo mientras ves cualquier parte "
+"del clip y mantener ese tamaño durante toda la reproducción."
+
+#: ../doc/animation.rst:98
+msgid ""
+"If a property is already animated, your edit changes its keyframe at the "
+"playhead, or the nearest one to the left. Suppose a clip grows from small to"
+" large: editing its scale halfway through with Auto Keyframes off changes "
+"the starting scale and leaves the ending scale alone. To change a particular"
+" keyframe, move the playhead onto it before editing. Turning Auto Keyframes "
+"off does not remove your animation."
+msgstr ""
+"Si una propiedad ya está animada, tu edición cambia su fotograma clave en el"
+" cabezal de reproducción, o el más cercano a la izquierda. Supongamos que un"
+" clip crece de pequeño a grande: editar su escala a mitad de camino con los "
+"Fotogramas Clave Automáticos desactivados cambia la escala inicial y deja la"
+" escala final intacta. Para cambiar un fotograma clave en particular, mueve "
+"el cabezal de reproducción sobre él antes de editar. Desactivar los "
+"Fotogramas Clave Automáticos no elimina tu animación."
+
+#: ../doc/animation.rst:103
+msgid ""
+"Auto Keyframes only records on clips under the playhead. When the playhead "
+"is before or after a clip, editing it changes its nearest keyframe instead, "
+"so the whole clip changes without animating. When you edit several selected "
+"clips at once, each clip follows this rule on its own: clips under the "
+"playhead are keyframed at the playhead, and the others change without "
+"animating."
+msgstr ""
+"Los Fotogramas Clave Automáticos solo registran en clips bajo el cabezal de "
+"reproducción. Cuando el cabezal está antes o después de un clip, editarlo "
+"cambia su fotograma clave más cercano, por lo que todo el clip cambia sin "
+"animarse. Cuando editas varios clips seleccionados a la vez, cada clip sigue"
+" esta regla por separado: los clips bajo el cabezal se fotograman en el "
+"cabezal, y los demás cambian sin animar."
+
+#: ../doc/animation.rst:108
+msgid ""
+"While editing between keyframes, the preview shows the animation at the "
+"playhead. The Properties dock may show the earlier keyframe you are "
+"changing, so its value can differ from what you see in the preview. Hover "
+"over a numeric value to check which frame you are editing."
+msgstr ""
+"Mientras editas entre fotogramas clave, la vista previa muestra la animación"
+" en el cabezal de reproducción. El panel de Propiedades puede mostrar el "
+"fotograma clave anterior que estás cambiando, por lo que su valor puede "
+"diferir de lo que ves en la vista previa. Pasa el cursor sobre un valor "
+"numérico para verificar qué fotograma estás editando."
+
+#: ../doc/animation.rst:112
+msgid ""
+"You can also build an animation by placing keyframes yourself, with Auto "
+"Keyframes off:"
+msgstr ""
+"También puedes construir una animación colocando los fotogramas clave tú "
+"mismo, con los Fotogramas Clave Automáticos desactivados:"
+
+#: ../doc/animation.rst:114
+msgid "Move the playhead to where you want the animation to begin."
+msgstr ""
+"Mueve el cabezal de reproducción al lugar donde quieres que comience la "
+"animación."
+
+#: ../doc/animation.rst:115
+msgid ""
+"Insert a keyframe using the keyframe panel or the Properties context menu. "
+"This remembers the current value."
+msgstr ""
+"Inserta un fotograma clave usando el panel de fotogramas clave o el menú "
+"contextual de Propiedades. Esto recuerda el valor actual."
+
+#: ../doc/animation.rst:116
+msgid "Move to another moment and insert another keyframe."
+msgstr "Muévete a otro momento e inserta otro fotograma clave."
+
+#: ../doc/animation.rst:117
+msgid "Adjust its value. OpenShot animates between the two keyframes."
+msgstr "Ajusta su valor. OpenShot anima entre los dos fotogramas clave."
+
+#: ../doc/animation.rst:119
+msgid ""
+"Repeat these steps to add more changes to the animation. See "
+":ref:`split_clip_ref` for preparing shorter segments with their own starting"
+" keyframes."
+msgstr ""
+"Repite estos pasos para añadir más cambios a la animación. Consulta "
+":ref:`split_clip_ref` para preparar segmentos más cortos con sus propios "
+"fotogramas clave iniciales."
+
 # Translated with gpt-4.1-mini
-#: ../animation.rst:77
+#: ../doc/animation.rst:123
 msgid "Timing"
 msgstr "Temporización"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:78
+#: ../doc/animation.rst:124
 msgid ""
 "Changing how fast a clip plays is done with the :guilabel:`Time` property "
 "and the :guilabel:`Timing` tool."
@@ -294,7 +440,7 @@ msgstr ""
 "Cambiar la velocidad de reproducción de un clip se hace con la propiedad "
 ":guilabel:`Tiempo` y la herramienta :guilabel:`Temporización`."
 
-#: ../animation.rst:80
+#: ../doc/animation.rst:126
 msgid ""
 "The :guilabel:`Speed` menu offers presets such as normal, fast, slow, "
 "freeze, reverse, and repeat. See details in :ref:`clip_time_ref`."
@@ -303,7 +449,7 @@ msgstr ""
 "congelar, reverso y repetir. Consulte los detalles en :ref:`clip_time_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:81
+#: ../doc/animation.rst:127
 msgid ""
 "The :guilabel:`Timing` tool lets you drag a clip’s edges to speed it up or "
 "slow it down. OpenShot adds the needed Time keyframes and **scales your "
@@ -317,11 +463,11 @@ msgstr ""
 "rápido, los más largos más lento. Más información: :ref:`clip_time_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:86
+#: ../doc/animation.rst:132
 msgid "Repeating"
 msgstr "Repetición"
 
-#: ../animation.rst:87
+#: ../doc/animation.rst:133
 msgid ""
 "To play a clip multiple times, use :guilabel:`Right-Click → Speed → Repeat`."
 msgstr ""
@@ -329,19 +475,19 @@ msgstr ""
 "Velocidad → Repetir`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:89
+#: ../doc/animation.rst:135
 msgid ":guilabel:`Loop` repeats in one direction (forward or reverse)."
 msgstr ":guilabel:`Bucle` repite en una dirección (adelante o atrás)."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:90
+#: ../doc/animation.rst:136
 msgid ""
 ":guilabel:`Ping-Pong` alternates direction (forward then backward, etc.)."
 msgstr ""
 ":guilabel:`Ping-Pong` alterna la dirección (adelante y luego atrás, etc.)."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:91
+#: ../doc/animation.rst:137
 msgid ""
 ":guilabel:`Custom` can add a short pause between passes, speed up or slow "
 "down each pass, including keyframes."
@@ -350,7 +496,7 @@ msgstr ""
 "acelerar o ralentizar cada pasada, incluyendo fotogramas clave."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:93
+#: ../doc/animation.rst:139
 msgid ""
 "OpenShot writes the :guilabel:`Time` curve for you, and you can edit those "
 "keyframes just like any other. See more: :ref:`clip_time_repeat_ref`."
@@ -360,12 +506,12 @@ msgstr ""
 ":ref:`clip_time_repeat_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:97
+#: ../doc/animation.rst:143
 msgid "Bézier Presets"
 msgstr "Preajustes Bézier"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:98
+#: ../doc/animation.rst:144
 msgid ""
 "When using a Bézier curve for animation, OpenShot includes more than 20 "
 "curve presets (which affect the shape of the curve). For example, **Ease-"
@@ -382,7 +528,7 @@ msgstr ""
 "esperado y luego regresa (produciendo un efecto rebote)."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:103
+#: ../doc/animation.rst:149
 msgid ""
 "To choose a curve preset, right click on the small graph icon next to a key "
 "frame."
@@ -390,11 +536,11 @@ msgstr ""
 "Para elegir un preajuste de curva, haz clic derecho en el pequeño ícono de "
 "gráfico junto a un fotograma clave."
 
-#: ../animation.rst:110
+#: ../doc/animation.rst:156
 msgid "Ken Burns Effect"
 msgstr "Efecto Ken Burns"
 
-#: ../animation.rst:111
+#: ../doc/animation.rst:157
 msgid ""
 "The **Ken Burns effect** is a pan-and-zoom animation technique — named after"
 " documentary filmmaker Ken Burns — that brings still images or video clips "
@@ -414,12 +560,12 @@ msgstr ""
 "control total. Vea :ref:`clip_presets_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:120
+#: ../doc/animation.rst:166
 msgid "Image Sequences"
 msgstr "Secuencias de imágenes"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:121
+#: ../doc/animation.rst:167
 msgid ""
 "If you have a sequence of similarly named images (such as, cat001.png, "
 "cat002.png, cat003.png, etc...), you can simply drag and drop one of them "
@@ -436,7 +582,7 @@ msgstr ""
 "basa en su tasa de fotogramas."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:126
+#: ../doc/animation.rst:172
 msgid ""
 "**NOTE:** Be sure your image sequence starts at 0 or 1, or you will likely "
 "receive an error when importing it into OpenShot. For example, if your "
@@ -451,7 +597,7 @@ msgstr ""
 "solución sencilla es renumerar las imágenes para que comiencen en 1."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:132
+#: ../doc/animation.rst:178
 msgid ""
 "To adjust the frame rate of the animation, right click and choose **File "
 "Properties** in the **Project Files** panel, and adjust the frame rate. Once"
@@ -463,12 +609,12 @@ msgstr ""
 "correcta, arrastra la animación a la línea de tiempo."
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:143
+#: ../doc/animation.rst:189
 msgid "File Properties"
 msgstr "Propiedades del archivo"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:143
+#: ../doc/animation.rst:189
 msgid ""
 "Select an image sequence in the **Project Files** panel, right click and "
 "choose **File Properties**"
@@ -477,18 +623,75 @@ msgstr ""
 "proyecto**, haz clic derecho y elige **Propiedades del archivo**"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:144
+#: ../doc/animation.rst:190
 msgid "Frame Rate"
 msgstr "Tasa de fotogramas"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:144
+#: ../doc/animation.rst:190
 msgid ""
 "Adjust the frame rate of the animation. Typically, hand-drawn animations use"
 " 12 frames per second."
 msgstr ""
 "Ajusta la tasa de fotogramas de la animación. Normalmente, las animaciones "
 "dibujadas a mano usan 12 fotogramas por segundo."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "When the play-head is on an interpolated value, the property appears blue"
+#~ msgstr ""
+#~ "Cuando el cabezal de reproducción está en un valor interpolado, la propiedad"
+#~ " aparece en azul"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Click and drag your mouse to adjust the value (this automatically creates a "
+#~ "key frame if needed)"
+#~ msgstr ""
+#~ "Haz clic y arrastra el ratón para ajustar el valor (esto crea "
+#~ "automáticamente un fotograma clave si es necesario)"
+
+#~ msgid ""
+#~ "Colorful icons line the bottom of the clip for every keyframe "
+#~ "(`circle=Bézier`, `diamond=linear`, `square=constant`). Each icon matches "
+#~ "the color of its clip, effect, or transition. The selected item's keyframe "
+#~ "icons are shown brighter. Filtering the property list also filters these "
+#~ "icons. Click any icon to jump the play-head, load its properties, and select"
+#~ " its clip, effect, or transition. Drag an icon left or right to move the "
+#~ "keyframe and fine‑tune your animation timing. The play-head moves to the "
+#~ "keyframe's new position when you finish dragging."
+#~ msgstr ""
+#~ "Iconos coloridos se alinean en la parte inferior del clip para cada "
+#~ "fotograma clave (`circle=Bézier`, `diamond=linear`, `square=constant`). Cada"
+#~ " icono coincide con el color de su clip, efecto o transición. Los iconos de "
+#~ "fotogramas clave del elemento seleccionado se muestran más brillantes. "
+#~ "Filtrar la lista de propiedades también filtra estos iconos. Haga clic en "
+#~ "cualquier icono para saltar el cabezal de reproducción, cargar sus "
+#~ "propiedades y seleccionar su clip, efecto o transición. Arrastre un icono "
+#~ "hacia la izquierda o derecha para mover el fotograma clave y ajustar "
+#~ "finamente el tiempo de su animación. El cabezal de reproducción se mueve a "
+#~ "la nueva posición del fotograma clave cuando termina de arrastrar."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "To create a key frame in OpenShot, simply position the play-head (i.e. "
+#~ "playback position) at any point over a clip, and edit properties in the "
+#~ "property dialog. If the property supports key frames, it will turn green, "
+#~ "and a small icon (`circle=Bézier, diamond=linear, square=constant`) will "
+#~ "appear on the bottom of your clip at that position. Move your play-head to "
+#~ "another point over that clip, and adjust the properties again. All "
+#~ "animations require at least 2 key frames, but can support an unlimited "
+#~ "number of them."
+#~ msgstr ""
+#~ "Para crear un fotograma clave en OpenShot, simplemente posiciona el cabezal "
+#~ "de reproducción (es decir, la posición de reproducción) en cualquier punto "
+#~ "sobre un clip y edita las propiedades en el diálogo de propiedades. Si la "
+#~ "propiedad admite fotogramas clave, se pondrá verde y aparecerá un pequeño "
+#~ "icono (`circle=Bézier, diamond=linear, square=constant`) en la parte "
+#~ "inferior de tu clip en esa posición. Mueve el cabezal de reproducción a otro"
+#~ " punto sobre ese clip y ajusta las propiedades nuevamente. Todas las "
+#~ "animaciones requieren al menos 2 fotogramas clave, pero pueden soportar un "
+#~ "número ilimitado de ellos."
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

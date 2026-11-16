@@ -28,12 +28,13 @@
 import copy
 import json
 import os
+import pickle  # nosec B403 - Generate controlled pickle fixtures for regression tests.
 import sys
 import tempfile
 import types
 import unittest
 from contextlib import ExitStack
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import openshot
 
@@ -44,6 +45,7 @@ if PATH not in sys.path:
 from qt_api import QApplication
 
 from classes.project_data import ProjectDataStore
+from classes.json_data import JsonDataStore
 from classes.updates import UpdateManager
 from tests.qt_test_app import ensure_app_state as ensure_qt_app_state, get_or_create_app
 from tests.source_tree import source_path
@@ -130,6 +132,103 @@ class ProjectDataTests(unittest.TestCase):
 
     def tearDown(self):
         ensure_app_state(self.app)
+
+    def test_point_patches_commit_full_history_and_round_trip_undo(self):
+        from classes.keyframe_editing import is_keyframe_patch
+        manager = UpdateManager()
+        self.app.updates = manager
+        store = make_store()
+        original = {"id": "C1", "scale_x": {"Points": [
+            {"co": {"X": 1, "Y": 1.0}, "interpolation": openshot.LINEAR,
+             "handle_left": {"X": 0.2, "Y": 0.3}}]}}
+        store._data = {"clips": [json.loads(json.dumps(original))]}
+        reader = openshot.DummyReader(openshot.Fraction(30, 1), 64, 64, 48000, 2, 60.0)
+        native_clip = openshot.Clip(reader)
+        native_clip.Id("C1")
+        native = openshot.Timeline(64, 64, openshot.Fraction(30, 1), 48000, 2, openshot.LAYOUT_STEREO)
+        native.AddClip(native_clip)
+        native.Open()
+        manager.add_listener(types.SimpleNamespace(changed=lambda action: native.ApplyJsonDiff(action.json(is_array=True))))
+        manager.add_listener(store)
+        key = ["clips", {"id": "C1"}]
+        manager.ignore_history = True
+        manager.transaction_id = "drag"
+        for frame in range(1, 1001):
+            manager.update(key, {"scale_x": {"Point": {"co": {"X": frame, "Y": frame / 1000}}}})
+            self.assertLess(len(manager.last_action.json()), 300)
+        self.assertFalse(manager.actionHistory)
+        self.assertEqual(native_clip.scale_x.GetCount(), 1000)
+        self.assertAlmostEqual(native_clip.scale_x.GetValue(500), 0.5)
+        final = json.loads(json.dumps(store._data["clips"][0]))
+        self.assertEqual(len(final["scale_x"]["Points"]), 1000)
+        self.assertEqual(final["scale_x"]["Points"][0]["handle_left"], {"X": 0.2, "Y": 0.3})
+        self.assertNotIn('"Point":', json.dumps(store._data))
+        manager.update(key, final)
+        manager.apply_last_action_to_history(original)
+        manager.ignore_history = False
+        manager.transaction_id = None
+        self.assertEqual(len(manager.actionHistory), 1)
+        self.assertFalse(is_keyframe_patch(manager.actionHistory[0].values))
+        manager.undo()
+        self.assertEqual(store._data["clips"][0], original)
+        self.assertEqual(native_clip.scale_x.GetCount(), 1)
+        self.assertAlmostEqual(native_clip.scale_x.GetValue(500), 1.0)
+        manager.redo()
+        self.assertEqual(store._data["clips"][0], final)
+        self.assertFalse(store._keyframe_patch_indexes)
+        self.assertEqual(native_clip.scale_x.GetCount(), 1000)
+        self.assertAlmostEqual(native_clip.scale_x.GetValue(500), 0.5)
+        native.Close()
+
+    def test_new_project_resets_gpu_measurements(self):
+        measurements = Mock()
+        self.app.updates = types.SimpleNamespace(load=Mock())
+        store = ProjectDataStore()
+        with patch.object(self.app, 'gpu_measurements', measurements, create=True):
+            store.load('')
+        measurements.reset.assert_called_once_with()
+
+    def test_broken_json_and_empty_projects_do_not_fall_back_to_pickle(self):
+        for contents in ('{"clips": [', '', '  [1,'):
+            with self.subTest(contents=contents), tempfile.TemporaryDirectory() as directory:
+                path = os.path.join(directory, "broken.osp")
+                with open(path, "w") as stream:
+                    stream.write(contents)
+                store = make_store()
+                JsonDataStore.__init__(store)
+                with patch.object(store, "new"), patch.object(store, "read_legacy_project_file") as legacy:
+                    with self.assertRaises(Exception) as caught:
+                        store.load(path)
+                    legacy.assert_not_called()
+                if contents:
+                    self.assertIsInstance(caught.exception.__cause__, json.JSONDecodeError)
+                else:
+                    self.assertIn("no data", str(caught.exception))
+
+    def test_binary_and_text_pickles_still_reach_legacy_loader(self):
+        for protocol in (0, 2):
+            with self.subTest(protocol=protocol), tempfile.TemporaryDirectory() as directory:
+                path = os.path.join(directory, "legacy.osp")
+                with open(path, "wb") as stream:
+                    pickle.dump({"legacy": True}, stream, protocol=protocol)
+                store = make_store()
+                JsonDataStore.__init__(store)
+                sentinel = RuntimeError("legacy loader reached")
+                with patch.object(store, "new"), \
+                        patch.object(store, "read_legacy_project_file", side_effect=sentinel) as legacy:
+                    with self.assertRaises(RuntimeError) as caught:
+                        store.load(path)
+                    self.assertIs(caught.exception, sentinel)
+                    legacy.assert_called_once_with(path)
+
+    def test_post_decode_failure_is_not_misreported_as_legacy_project(self):
+        store = make_store()
+        with patch.object(store, "new"), \
+                patch.object(store, "read_from_file", return_value=[]), \
+                patch.object(store, "read_legacy_project_file") as legacy:
+            with self.assertRaises(AttributeError):
+                store.load("modern.osp")
+            legacy.assert_not_called()
 
     def test_new_project_uses_default_track_count(self):
         with tempfile.TemporaryDirectory() as tmpdir, \

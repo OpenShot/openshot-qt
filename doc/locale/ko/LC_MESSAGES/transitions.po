@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:23
+#: ../doc/transitions.rst:23
 msgid "Transitions"
 msgstr "전환 효과"
 
-#: ../transitions.rst:25
+#: ../doc/transitions.rst:25
 msgid ""
 "A transition is used to gradually fade (also called a **cross dissolve** or "
 "**crossfade**) or wipe between two clip images. In OpenShot, transitions are"
@@ -32,13 +32,13 @@ msgid ""
 "transition must be placed on top of a clip (overlapping it), with the most "
 "common location being the beginning or end of a clip."
 msgstr ""
-"트랜지션은 두 클립 이미지 사이를 점진적으로 페이드(또는 **크로스 디졸브** 또는 **크로스페이드**라고도 함)하거나 와이프하는 데 "
-"사용됩니다. OpenShot에서 트랜지션은 타임라인의 파란색 둥근 사각형으로 표시됩니다. 두 클립을 겹칠 때 자동으로 생성되며, "
+"트랜지션은 두 클립 이미지 사이를 점진적으로 페이드(또는 **크로스 디졸브** 또는 **크로스페이드**\\ 라고도 함)하거나 와이프하는 "
+"데 사용됩니다. OpenShot에서 트랜지션은 타임라인의 파란색 둥근 사각형으로 표시됩니다. 두 클립을 겹칠 때 자동으로 생성되며, "
 "**Transitions** 패널에서 타임라인으로 드래그하여 수동으로 추가할 수도 있습니다. 트랜지션은 클립 위에 배치되어야 "
 "하며(겹쳐져야 하며), 가장 일반적인 위치는 클립의 시작 또는 끝입니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:31
+#: ../doc/transitions.rst:31
 msgid ""
 "NOTE: Transitions **do not** affect **audio**, so if you are intending to "
 "fade in/out the audio volume of a clip, you must adjust the ``volume`` clip "
@@ -48,79 +48,79 @@ msgstr ""
 " 조정해야 합니다. :ref:`clip_properties_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:35
+#: ../doc/transitions.rst:35
 msgid "Overview"
 msgstr "개요"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:40
+#: ../doc/transitions.rst:40
 msgid "#"
 msgstr "#"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:40
+#: ../doc/transitions.rst:40
 msgid "Name"
 msgstr "이름"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:40 ../transitions.rst:105
+#: ../doc/transitions.rst:40 ../doc/transitions.rst:106
 msgid "Description"
 msgstr "설명"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:42
+#: ../doc/transitions.rst:42
 msgid "1"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:42
+#: ../doc/transitions.rst:42
 msgid "Clip 1"
 msgstr "클립 1"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:42
+#: ../doc/transitions.rst:42
 msgid "A video clip"
 msgstr "비디오 클립"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:43
+#: ../doc/transitions.rst:43
 msgid "2"
 msgstr "2"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:43
+#: ../doc/transitions.rst:43
 msgid "Transition"
 msgstr "전환 효과"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:43
+#: ../doc/transitions.rst:43
 msgid ""
 "A gradual fade transition between the 2 clip images, created automatically "
 "by overlapping the clips (does not affect the audio)"
 msgstr "두 클립 이미지 사이를 점진적으로 페이드하는 전환 효과로, 클립을 겹치면 자동으로 생성됩니다(오디오에는 영향을 주지 않음)."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:44
+#: ../doc/transitions.rst:44
 msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:44
+#: ../doc/transitions.rst:44
 msgid "Clip 2"
 msgstr "클립 2"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:44
+#: ../doc/transitions.rst:44
 msgid "An image clip"
 msgstr "이미지 클립"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:48
+#: ../doc/transitions.rst:48
 msgid "Direction"
 msgstr "방향"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:49
+#: ../doc/transitions.rst:49
 msgid ""
 "Transitions adjust the alpha/transparency of the overlapping clip image "
 "(i.e. the clip under the transition), and can either fade from opaque to "
@@ -135,12 +135,12 @@ msgstr ""
 "있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:56
+#: ../doc/transitions.rst:56
 msgid "Transparency"
 msgstr "투명도"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:57
+#: ../doc/transitions.rst:57
 msgid ""
 "If transitions are used on images or videos that contain transparency (*i.e."
 " alpha channel*) this will result in the original clip disappearing abruptly"
@@ -161,12 +161,12 @@ msgstr ""
 "결합하여 더 부드럽게 페이드할 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:65
+#: ../doc/transitions.rst:65
 msgid "Cutting & Slicing"
 msgstr "자르기 및 분할"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:66
+#: ../doc/transitions.rst:66
 msgid ""
 "OpenShot has many easy ways to adjust the start and end trim positions of a "
 "transition (otherwise known as cutting or trimming). The most common method "
@@ -180,12 +180,12 @@ msgstr ""
 " :ref:`clips_cutting_slicing_ref` 및 :ref:`keyboard_shortcut_ref` 섹션을 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:71
+#: ../doc/transitions.rst:71
 msgid "Mask"
 msgstr "마스크"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:72
+#: ../doc/transitions.rst:72
 msgid ""
 "In video editing, masks are powerful tools that allow you to selectively "
 "display specific areas of a video clip. Similar to masking in image editing,"
@@ -196,7 +196,7 @@ msgstr ""
 "비디오 마스크는 변경이 적용될 영역을 정의하며 나머지 부분은 영향을 받지 않습니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:76
+#: ../doc/transitions.rst:76
 msgid ""
 "A mask can be thought of as a shape or path that outlines the area you want "
 "to target. Commonly used shapes include rectangles, circles, and freeform "
@@ -206,7 +206,7 @@ msgstr ""
 "마스크된 영역을 \"마스크 영역\"이라고 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:79
+#: ../doc/transitions.rst:79
 msgid ""
 "Masks can be animated, allowing you to change the shape or position over "
 "time. This enables dynamic effects like revealing hidden elements or "
@@ -222,12 +222,12 @@ msgstr ""
 " 결합하여 애니메이션화된 복잡한 마스크를 만들 수 있습니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:86
+#: ../doc/transitions.rst:86
 msgid "Custom Transition"
 msgstr "사용자 정의 전환 효과"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:87
+#: ../doc/transitions.rst:87
 msgid ""
 "Any greyscale image can be used as a transition (or mask), by adding it to "
 "your ``~/.openshot_qt/transitions/`` folder. Just be sure to name your file "
@@ -239,27 +239,28 @@ msgstr ""
 "표시됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:92
+#: ../doc/transitions.rst:92
 msgid "Transition Properties"
 msgstr "전환 효과 속성"
 
-# Translated with gpt-4.1-mini
-#: ../transitions.rst:93
+#: ../doc/transitions.rst:93
 msgid ""
 "Below is a list of transition properties which can be edited, and in most "
 "cases, animated over time. To view a transition's properties, right click "
 "and choose :guilabel:`Properties`. The property editor will appear, where "
-"you can change these properties. NOTE: Pay close attention to where the "
-"play-head (i.e. red playback line) is. Key frames are automatically created "
-"at the current playback position, to help create animations."
+"you can change these properties. Move the playhead to a keyframe to adjust "
+"that part of the transition. If you want to add a change between existing "
+"keyframes, leave :ref:`auto_keyframes_ref` on and edit at the new position. "
+"With it off, editing between keyframes adjusts the earlier one instead."
 msgstr ""
-"아래는 편집할 수 있고 대부분 시간에 따라 애니메이션화할 수 있는 전환 효과 속성 목록입니다. 전환 효과 속성을 보려면 마우스 오른쪽 "
-"버튼을 클릭하고 :guilabel:` 속성` 을 선택하세요. 속성 편집기가 나타나며 여기서 속성을 변경할 수 있습니다. 참고: 재생 "
-"헤드(즉, 빨간 재생선)의 위치를 주의 깊게 확인하세요. 애니메이션 생성에 도움이 되도록 현재 재생 위치에 키프레임이 자동으로 "
-"생성됩니다."
+"아래는 편집할 수 있고 대부분의 경우 시간에 따라 애니메이션화할 수 있는 전환 속성 목록입니다. 전환 속성을 보려면 마우스 오른쪽 버튼을"
+" 클릭하고 :guilabel:`속성`\\ 을 선택하세요. 속성 편집기가 나타나며 여기서 이러한 속성을 변경할 수 있습니다. 재생 헤드를 "
+"키프레임으로 이동하여 해당 전환 부분을 조정하세요. 기존 키프레임 사이에 변경을 추가하려면 "
+":ref:`auto_keyframes_ref`\\ 를 켜고 새 위치에서 편집하세요. 끄면 키프레임 사이를 편집할 때 이전 키프레임이 "
+"조정됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:98
+#: ../doc/transitions.rst:99
 msgid ""
 "NOTE: Transitions do not affect audio, so if you are intending to fade "
 "in/out the audio volume of a clip, you must adjust the ``volume`` clip "
@@ -269,200 +270,201 @@ msgstr ""
 "합니다. :ref:`clip_properties_ref` 를 참조하세요."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:105
+#: ../doc/transitions.rst:106
 msgid "Transition Property Name"
 msgstr "전환 효과 속성 이름"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:105
+#: ../doc/transitions.rst:106
 msgid "Type"
 msgstr "유형"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:107
+#: ../doc/transitions.rst:108
 msgid "Brightness"
 msgstr "밝기"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:107 ../transitions.rst:108
+#: ../doc/transitions.rst:108 ../doc/transitions.rst:109
 msgid "Key-frame"
 msgstr "키프레임"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:107
+#: ../doc/transitions.rst:108
 msgid ""
 "Curve representing the brightness of the transition image, which affects the"
 " fade/wipe (-1 to 1)"
 msgstr "페이드/와이프에 영향을 주는 전환 이미지 밝기를 나타내는 곡선 (-1에서 1까지)"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:108
+#: ../doc/transitions.rst:109
 msgid "Contrast"
 msgstr "대비"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:108
+#: ../doc/transitions.rst:109
 msgid ""
 "Curve representing the contrast of the transition image, which affects the "
 "softness/hardness of the fade/wipe (0 to 20)"
 msgstr "페이드/와이프의 부드러움/단단함에 영향을 주는 전환 이미지 대비를 나타내는 곡선 (0에서 20까지)"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:109 ../transitions.rst:124
+#: ../doc/transitions.rst:110 ../doc/transitions.rst:125
 msgid "Duration"
 msgstr "길이"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:109 ../transitions.rst:110 ../transitions.rst:117
-#: ../transitions.rst:119
+#: ../doc/transitions.rst:110 ../doc/transitions.rst:111
+#: ../doc/transitions.rst:118 ../doc/transitions.rst:120
 msgid "Float"
 msgstr "실수"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:109
+#: ../doc/transitions.rst:110
 msgid "The length of the transition (in seconds). Read-only property."
 msgstr "전환의 길이(초 단위). 읽기 전용 속성입니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:110 ../transitions.rst:132
+#: ../doc/transitions.rst:111 ../doc/transitions.rst:133
 msgid "End"
 msgstr "끝"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:110
+#: ../doc/transitions.rst:111
 msgid "The end trimming position of the transition (in seconds)."
 msgstr "전환의 끝 트리밍 위치(초 단위)."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:111 ../transitions.rst:140
+#: ../doc/transitions.rst:112 ../doc/transitions.rst:141
 msgid "ID"
 msgstr "ID"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:111 ../transitions.rst:116
+#: ../doc/transitions.rst:112 ../doc/transitions.rst:117
 msgid "String"
 msgstr "문자열"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:111
+#: ../doc/transitions.rst:112
 msgid ""
 "A randomly generated GUID (globally unique identifier) assigned to each "
 "transition. Read-only property."
 msgstr "각 전환에 할당된 무작위 생성 GUID(전역 고유 식별자). 읽기 전용 속성입니다."
 
-#: ../transitions.rst:112
+#: ../doc/transitions.rst:113
 msgid "Mask: Invert"
 msgstr "마스크: 반전"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:112 ../transitions.rst:113 ../transitions.rst:118
+#: ../doc/transitions.rst:113 ../doc/transitions.rst:114
+#: ../doc/transitions.rst:119
 msgid "Bool"
 msgstr "불리언"
 
-#: ../transitions.rst:112
+#: ../doc/transitions.rst:113
 msgid ""
 "Invert the mask source so light areas become dark and dark areas become "
 "light."
 msgstr "마스크 소스를 반전시켜 밝은 영역은 어둡게, 어두운 영역은 밝게 만듭니다."
 
-#: ../transitions.rst:113
+#: ../doc/transitions.rst:114
 msgid "Mask: Loop"
 msgstr "마스크: 반복"
 
-#: ../transitions.rst:113
+#: ../doc/transitions.rst:114
 msgid ""
 "Loop an animated mask source when the transition is longer than the source."
 msgstr "트랜지션이 소스보다 길 때 애니메이션 마스크 소스를 반복합니다."
 
-#: ../transitions.rst:114
+#: ../doc/transitions.rst:115
 msgid "Mask: Source"
 msgstr "마스크: 소스"
 
-#: ../transitions.rst:114
+#: ../doc/transitions.rst:115
 msgid "Reader"
 msgstr "리더"
 
-#: ../transitions.rst:114
+#: ../doc/transitions.rst:115
 msgid ""
 "The image, image sequence, or video used as the transition's grayscale mask "
 "source."
 msgstr "트랜지션의 그레이스케일 마스크 소스로 사용되는 이미지, 이미지 시퀀스 또는 비디오입니다."
 
-#: ../transitions.rst:115
+#: ../doc/transitions.rst:116
 msgid "Mask: Time Mode"
 msgstr "마스크: 시간 모드"
 
-#: ../transitions.rst:115
+#: ../doc/transitions.rst:116
 msgid "Enum"
 msgstr "열거형"
 
-#: ../transitions.rst:115
+#: ../doc/transitions.rst:116
 msgid "Controls how OpenShot maps transition time to an animated mask source."
 msgstr "OpenShot이 트랜지션 시간을 애니메이션 마스크 소스에 매핑하는 방식을 제어합니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:116
+#: ../doc/transitions.rst:117
 msgid "Parent"
 msgstr "상위"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:116
+#: ../doc/transitions.rst:117
 msgid ""
 "The parent object to this transition, which makes many of these keyframe "
 "values initialize to the parent value."
 msgstr "이 전환의 상위 객체로, 많은 키프레임 값이 상위 값으로 초기화됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:117
+#: ../doc/transitions.rst:118
 msgid "Position"
 msgstr "위치"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:117
+#: ../doc/transitions.rst:118
 msgid "The position of the transition on the timeline (in seconds)."
 msgstr "타임라인에서 전환의 위치(초 단위)."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:118
+#: ../doc/transitions.rst:119
 msgid "Replace Image"
 msgstr "이미지 교체"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:118
+#: ../doc/transitions.rst:119
 msgid ""
 "For debugging a problem, this property displays the transition image "
 "(instead of becoming a transparency)."
 msgstr "문제 디버깅을 위해 이 속성은 전환 이미지를 표시합니다 (투명도가 되지 않고)."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:119
+#: ../doc/transitions.rst:120
 msgid "Start"
 msgstr "시작"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:119
+#: ../doc/transitions.rst:120
 msgid "The start trimming position of the transition (in seconds)."
 msgstr "전환의 시작 트리밍 위치(초 단위)."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:120 ../transitions.rst:158
+#: ../doc/transitions.rst:121 ../doc/transitions.rst:159
 msgid "Track"
 msgstr "트랙"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:120
+#: ../doc/transitions.rst:121
 msgid "Int"
 msgstr "정수"
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:120
+#: ../doc/transitions.rst:121
 msgid ""
 "The layer which holds the transition (higher tracks are rendered on top of "
 "lower tracks)."
 msgstr "전환이 위치한 레이어 (높은 트랙이 낮은 트랙 위에 렌더링됩니다)."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:125
+#: ../doc/transitions.rst:126
 msgid ""
 "The :guilabel:`Duration` property is a float value indicating the length of "
 "the transition in seconds. This is a Read-only property. This is calculated "
@@ -473,21 +475,21 @@ msgstr ""
 " 길이를 변경하려면 :guilabel:` 시작` 및/또는 :guilabel:` 끝` 전환 속성을 편집해야 합니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:128
+#: ../doc/transitions.rst:129
 msgid ""
 "**Usage Example:** Inspect the duration of a transition to ensure it fits a "
 "specific time slot in the project."
 msgstr "** 사용 예:** 프로젝트 내 특정 시간 슬롯에 맞도록 전환 길이를 확인합니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:129
+#: ../doc/transitions.rst:130
 msgid ""
 "**Tip:** Consider using the \"Duration\" property for transitions that need "
 "to match specific time intervals, such as dialogue or scenes."
 msgstr "** 팁:** 대화나 장면과 같이 특정 시간 간격에 맞춰야 하는 전환에는 \"길이\" 속성을 사용하는 것을 고려하세요."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:133
+#: ../doc/transitions.rst:134
 msgid ""
 "The :guilabel:`End` property defines the trimming point at the end of the "
 "transition in seconds, allowing you to control how much of the transition is"
@@ -498,21 +500,21 @@ msgstr ""
 "이 속성을 변경하면 :guilabel:` 길이` 전환 속성에 영향을 줍니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:136
+#: ../doc/transitions.rst:137
 msgid ""
 "**Usage Example:** Trimming the end of a transition to align with another "
 "clip or trimming off unwanted sections of the transition."
 msgstr "** 사용 예:** 다른 클립과 맞추기 위해 전환의 끝을 트리밍하거나 원하지 않는 부분을 잘라냅니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:137
+#: ../doc/transitions.rst:138
 msgid ""
 "**Tip:** Combine the \"Start\" and \"End\" properties to precisely control "
 "the visible portion of the transition."
 msgstr "** 팁:** \"시작\"과 \"끝\" 속성을 조합하여 전환의 보이는 부분을 정확히 제어하세요."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:141
+#: ../doc/transitions.rst:142
 msgid ""
 "The :guilabel:`ID` property holds a randomly generated GUID (Globally Unique"
 " Identifier) assigned to each transition, ensuring its uniqueness. This is a"
@@ -522,24 +524,24 @@ msgstr ""
 "속성이며, 전환 생성 시 OpenShot에서 할당합니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:144
+#: ../doc/transitions.rst:145
 msgid ""
 "**Usage Example:** Referencing specific transitions within custom scripts or"
 " automation tasks."
 msgstr "** 사용 예:** 사용자 스크립트나 자동화 작업에서 특정 전환을 참조합니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:145
+#: ../doc/transitions.rst:146
 msgid ""
 "**Tip:** While typically managed behind the scenes, understanding transition"
 " IDs can aid in advanced project customization."
 msgstr "** 팁:** 일반적으로 내부에서 관리되지만, 전환 ID를 이해하면 고급 프로젝트 맞춤화에 도움이 됩니다."
 
-#: ../transitions.rst:148
+#: ../doc/transitions.rst:149
 msgid "Mask Properties"
 msgstr "마스크 속성"
 
-#: ../transitions.rst:149
+#: ../doc/transitions.rst:150
 msgid ""
 "The :guilabel:`Mask: Source`, :guilabel:`Mask: Time Mode`, :guilabel:`Mask: "
 "Loop`, and :guilabel:`Mask: Invert` properties control the grayscale mask "
@@ -552,22 +554,22 @@ msgstr ""
 "단일 이미지를 사용하며, 애니메이션 마스크는 비디오 또는 이미지 시퀀스를 사용할 수 있고, 시간 매핑 및 반복 옵션이 트랜지션의 각 "
 "지점에서 사용되는 소스 프레임을 결정합니다."
 
-#: ../transitions.rst:154
+#: ../doc/transitions.rst:155
 msgid ""
 "**Usage Example:** Use :guilabel:`Mask: Invert` when the visible and hidden "
 "areas of a custom mask are reversed."
 msgstr ""
-"**사용 예:** 사용자 정의 마스크의 보이는 영역과 숨겨진 영역이 반전된 경우 :guilabel:`Mask: Invert`를 "
+"**사용 예:** 사용자 정의 마스크의 보이는 영역과 숨겨진 영역이 반전된 경우 :guilabel:`Mask: Invert`\\ 를 "
 "사용하세요."
 
-#: ../transitions.rst:155
+#: ../doc/transitions.rst:156
 msgid ""
 "**Tip:** When using an animated mask, trim the mask source carefully before "
 "enabling loop behavior."
 msgstr "**팁:** 애니메이션 마스크를 사용할 때는 반복 동작을 활성화하기 전에 마스크 소스를 신중하게 다듬으세요."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:159
+#: ../doc/transitions.rst:160
 msgid ""
 "The :guilabel:`Track` property is an integer indicating the layer on which "
 "the transition is placed. Transitions on higher tracks are rendered above "
@@ -576,18 +578,32 @@ msgstr ""
 ":guilabel:` 트랙` 속성은 전환이 위치한 레이어를 나타내는 정수입니다. 높은 트랙에 있는 전환이 낮은 트랙 위에 렌더링됩니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:162
+#: ../doc/transitions.rst:163
 msgid ""
 "**Usage Example:** Arranging transitions in different layers for creating "
 "visual depth and complexity."
 msgstr "** 사용 예:** 시각적 깊이와 복잡성을 위해 전환을 다른 레이어에 배치합니다."
 
 # Translated with gpt-4.1-mini
-#: ../transitions.rst:163
+#: ../doc/transitions.rst:164
 msgid ""
 "**Tip:** Use higher tracks for elements that need to appear above others, "
 "like text overlays or graphics."
 msgstr "** 팁:** 텍스트 오버레이나 그래픽처럼 다른 요소 위에 나타나야 하는 요소에는 높은 트랙을 사용하세요."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Below is a list of transition properties which can be edited, and in most "
+#~ "cases, animated over time. To view a transition's properties, right click "
+#~ "and choose :guilabel:`Properties`. The property editor will appear, where "
+#~ "you can change these properties. NOTE: Pay close attention to where the "
+#~ "play-head (i.e. red playback line) is. Key frames are automatically created "
+#~ "at the current playback position, to help create animations."
+#~ msgstr ""
+#~ "아래는 편집할 수 있고 대부분 시간에 따라 애니메이션화할 수 있는 전환 효과 속성 목록입니다. 전환 효과 속성을 보려면 마우스 오른쪽 "
+#~ "버튼을 클릭하고 :guilabel:` 속성` 을 선택하세요. 속성 편집기가 나타나며 여기서 속성을 변경할 수 있습니다. 참고: 재생 "
+#~ "헤드(즉, 빨간 재생선)의 위치를 주의 깊게 확인하세요. 애니메이션 생성에 도움이 되도록 현재 재생 위치에 키프레임이 자동으로 "
+#~ "생성됩니다."
 
 # Translated with gpt-4.1-mini
 #~ msgid ""

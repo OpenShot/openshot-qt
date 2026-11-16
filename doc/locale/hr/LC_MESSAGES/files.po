@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-02 17:20-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,16 +20,16 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:23
+#: ../doc/files.rst:23
 msgid "Files"
 msgstr "Datoteke"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:25
+#: ../doc/files.rst:25
 msgid ""
 "To create a video, we need to make media files available to our project by "
-"importing files into OpenShot. Most media file types are recognized, such as "
-"videos, images, and audio files. Files can be viewed and managed in the "
+"importing files into OpenShot. Most media file types are recognized, such as"
+" videos, images, and audio files. Files can be viewed and managed in the "
 "**Project Files** panel."
 msgstr ""
 "Za izradu videa, potrebno je učiniti medijske datoteke dostupnima našem "
@@ -38,7 +38,7 @@ msgstr ""
 "pregledavati i upravljati u panelu **Datoteke projekta**."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:29
+#: ../doc/files.rst:29
 msgid ""
 "Note that imported files are not copied anywhere, they remain in the "
 "physical location they were before and are simply being made available to "
@@ -53,16 +53,16 @@ msgstr ""
 "projektu. Stoga ih ne smijete brisati, preimenovati ili premještati nakon "
 "što ih dodate u projekt. Filtri \"Prikaži sve\", \"Video\", \"Audio\", "
 "\"Slika\" iznad datoteka omogućuju vam da vidite samo vrste datoteka koje "
-"vas zanimaju. Također možete prebacivati prikaz između :guilabel:`detalja` "
-"i :guilabel:`sličica` vaših datoteka."
+"vas zanimaju. Također možete prebacivati prikaz između :guilabel:`detalja` i"
+" :guilabel:`sličica` vaših datoteka."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:39
+#: ../doc/files.rst:39
 msgid "Import Files"
 msgstr "Uvezi datoteke"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:40
+#: ../doc/files.rst:40
 msgid ""
 "There are many different ways to import media files into an OpenShot "
 "project. When a file is imported successfully, it will be automatically "
@@ -77,23 +77,23 @@ msgstr ""
 "prikazati."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:48
+#: ../doc/files.rst:48
 msgid "Import File Method"
 msgstr "Metoda uvoza datoteke"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:48 ../files.rst:85 ../files.rst:142 ../files.rst:182
-#: ../files.rst:216 ../files.rst:240
+#: ../doc/files.rst:48 ../doc/files.rst:85 ../doc/files.rst:288
+#: ../doc/files.rst:362 ../doc/files.rst:386
 msgid "Description"
 msgstr "Opis"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:50
+#: ../doc/files.rst:50
 msgid "Drag and Drop"
 msgstr "Povuci i ispusti"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:50
+#: ../doc/files.rst:50
 msgid ""
 "Drag and drop the files from your file manager (file explorer, finder, "
 "etc...)."
@@ -102,56 +102,56 @@ msgstr ""
 "finder, itd...)."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:51
+#: ../doc/files.rst:51
 msgid "Context menu (`File Menu`_)"
 msgstr "Kontekstni izbornik (`Izbornik datoteka`_)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:51
+#: ../doc/files.rst:51
 msgid ""
-"Right click anywhere in the **Project Files** panel and choose :guilabel:"
-"`Import Files`."
+"Right click anywhere in the **Project Files** panel and choose "
+":guilabel:`Import Files`."
 msgstr ""
-"Desni klik bilo gdje u panelu **Datoteke projekta** i odaberite :guilabel:"
-"`Uvezi datoteke`."
+"Desni klik bilo gdje u panelu **Datoteke projekta** i odaberite "
+":guilabel:`Uvezi datoteke`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:52
+#: ../doc/files.rst:52
 msgid "Main Menu"
 msgstr "Glavni izbornik"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:52
+#: ../doc/files.rst:52
 msgid "In the main menu choose: :guilabel:`File\\→Import Files`."
 msgstr "U glavnom izborniku odaberite: :guilabel:`Datoteka\\→Uvezi datoteke`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:53
+#: ../doc/files.rst:53
 msgid "Toolbar button"
 msgstr "Gumb na alatnoj traci"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:53
+#: ../doc/files.rst:53
 msgid "Click the :guilabel:`+` toolbar button in the main toolbar."
 msgstr "Kliknite gumb :guilabel:`+` na glavnoj alatnoj traci."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:54
+#: ../doc/files.rst:54
 msgid "Keyboard shortcut"
 msgstr "Tipkovni prečac"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:54
+#: ../doc/files.rst:54
 msgid "Press :kbd:`Ctrl-F` (:kbd:`Cmd-F` on Mac)."
 msgstr "Pritisnite :kbd:`Ctrl-F` (:kbd:`Cmd-F` na Macu)."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:55 ../files.rst:63
+#: ../doc/files.rst:55 ../doc/files.rst:63
 msgid "Paste from Clipboard"
 msgstr "Zalijepi iz međuspremnika"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:55
+#: ../doc/files.rst:55
 msgid ""
 "Press :kbd:`Ctrl-V` (:kbd:`Cmd-V` on Mac) to paste copied files from your "
 "clipboard. See :ref:`paste_from_clipboard_ref`."
@@ -160,130 +160,132 @@ msgstr ""
 "datoteka iz međuspremnika. Pogledajte :ref:`paste_from_clipboard_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:64
+#: ../doc/files.rst:64
 msgid ""
 "You can paste files and clipboard media straight into OpenShot. If you "
-"copied one or more files in your file manager, switch to OpenShot and press :"
-"kbd:`Ctrl-V` in the **Project Files** panel to add them, just like importing."
+"copied one or more files in your file manager, switch to OpenShot and press "
+":kbd:`Ctrl-V` in the **Project Files** panel to add them, just like "
+"importing."
 msgstr ""
-"Možete zalijepiti datoteke i medije iz međuspremnika izravno u OpenShot. Ako "
-"ste kopirali jednu ili više datoteka u upravitelju datoteka, prebacite se na "
-"OpenShot i pritisnite :kbd:`Ctrl-V` u panelu **Datoteke projekta** da ih "
+"Možete zalijepiti datoteke i medije iz međuspremnika izravno u OpenShot. Ako"
+" ste kopirali jednu ili više datoteka u upravitelju datoteka, prebacite se "
+"na OpenShot i pritisnite :kbd:`Ctrl-V` u panelu **Datoteke projekta** da ih "
 "dodate, kao kod uvoza."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:67
+#: ../doc/files.rst:67
 msgid ""
 "If you copied media **data** (for example, **Copy Image** in a web browser, "
-"a pasted frame from another app, or other image/audio/video clipboard data), "
-"press :kbd:`Ctrl-V` in OpenShot to create a file for that clipboard content. "
-"OpenShot saves a copy in a temporary folder: ``.openshot_qt/clipboard/``. "
-"The new file is then added to your project and appears in **Project Files**."
+"a pasted frame from another app, or other image/audio/video clipboard data),"
+" press :kbd:`Ctrl-V` in OpenShot to create a file for that clipboard "
+"content. OpenShot saves a copy in a temporary folder: "
+"``.openshot_qt/clipboard/``. The new file is then added to your project and "
+"appears in **Project Files**."
 msgstr ""
 "Ako ste kopirali medijske **podatke** (na primjer, **Kopiraj sliku** u web "
-"pregledniku, zalijepljeni kadar iz druge aplikacije ili druge slike/audio/"
-"video podatke iz međuspremnika), pritisnite :kbd:`Ctrl-V` u OpenShotu da "
-"biste stvorili datoteku za taj sadržaj međuspremnika. OpenShot sprema kopiju "
-"u privremenu mapu: ``.openshot_qt/clipboard/``. Nova datoteka se zatim "
-"dodaje u vaš projekt i pojavljuje se u **Datoteke projekta**."
+"pregledniku, zalijepljeni kadar iz druge aplikacije ili druge "
+"slike/audio/video podatke iz međuspremnika), pritisnite :kbd:`Ctrl-V` u "
+"OpenShotu da biste stvorili datoteku za taj sadržaj međuspremnika. OpenShot "
+"sprema kopiju u privremenu mapu: ``.openshot_qt/clipboard/``. Nova datoteka "
+"se zatim dodaje u vaš projekt i pojavljuje se u **Datoteke projekta**."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:74
+#: ../doc/files.rst:74
 msgid "File Menu"
 msgstr "Izbornik datoteke"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:75
+#: ../doc/files.rst:75
 msgid ""
 "To view the file menu, right click on a file (in the **Project Files** "
 "panel). Here are the actions you can use from the file menu."
 msgstr ""
 "Za prikaz izbornika datoteke, kliknite desnom tipkom miša na datoteku (u "
-"panelu **Datoteke projekta**). Evo radnji koje možete koristiti iz izbornika "
-"datoteke."
+"panelu **Datoteke projekta**). Evo radnji koje možete koristiti iz izbornika"
+" datoteke."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:84
+#: ../doc/files.rst:84
 msgid "File Context Option"
 msgstr "Opcija kontekstnog izbornika datoteke"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:86
+#: ../doc/files.rst:86
 msgid "Import Files..."
 msgstr "Uvezi datoteke..."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:87
+#: ../doc/files.rst:87
 msgid "Import files into your project"
 msgstr "Uvezi datoteke u svoj projekt"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:88
+#: ../doc/files.rst:88
 msgid "Create with AI / Enhance with AI (Optional)"
 msgstr "Stvori s AI / Poboljšaj s AI (Opcionalno)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:89
+#: ../doc/files.rst:89
 msgid ""
 "AI menu actions for generating or enhancing media files. These options are "
 "shown only when AI is enabled and the selected file type supports the "
 "workflow. See :ref:`ai_ref`."
 msgstr ""
-"AI izbornik za generiranje ili poboljšanje medijskih datoteka. Ove opcije se "
-"prikazuju samo kada je AI omogućen i odabrani tip datoteke podržava tijek "
+"AI izbornik za generiranje ili poboljšanje medijskih datoteka. Ove opcije se"
+" prikazuju samo kada je AI omogućen i odabrani tip datoteke podržava tijek "
 "rada. Pogledajte :ref:`ai_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:90
+#: ../doc/files.rst:90
 msgid "Details View"
 msgstr "Prikaz detalja"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:91
+#: ../doc/files.rst:91
 msgid "Switch the Project Files panel to details view"
 msgstr "Prebaci ploču Projektnih datoteka na prikaz detalja"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:92 ../files.rst:114
+#: ../doc/files.rst:92 ../doc/files.rst:116
 msgid "Preview File"
 msgstr "Pregledaj datoteku"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:93
+#: ../doc/files.rst:93
 msgid "Preview a media file"
 msgstr "Pregledaj medijsku datoteku"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:94 ../files.rst:170
+#: ../doc/files.rst:94 ../doc/files.rst:316
 msgid "Split File"
 msgstr "Podijeli datoteku"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:95
+#: ../doc/files.rst:95
 msgid ""
 "Split a file into many smaller files. The new trimmed files appear in the "
 "Project Files list."
 msgstr ""
-"Podijeli datoteku na više manjih datoteka. Nove skraćene datoteke pojavljuju "
-"se na popisu Datoteka projekta."
+"Podijeli datoteku na više manjih datoteka. Nove skraćene datoteke pojavljuju"
+" se na popisu Datoteka projekta."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:96 ../files.rst:193
+#: ../doc/files.rst:96 ../doc/files.rst:339
 msgid "Export Files"
 msgstr "Izvezi datoteke"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:97
+#: ../doc/files.rst:97
 msgid "Export selected files (and split segments) to a destination folder"
 msgstr "Izvezi odabrane datoteke (i podijeljene segmente) u odredišnu mapu"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:98 ../files.rst:205
+#: ../doc/files.rst:98 ../doc/files.rst:351
 msgid "Add to Timeline"
 msgstr "Dodaj na vremensku crtu"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:99
+#: ../doc/files.rst:99
 msgid ""
 "Add many files to the timeline in one step, including transitions or "
 "alternating tracks."
@@ -292,38 +294,38 @@ msgstr ""
 "prijelaze ili izmjenjujuće staze."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:100
+#: ../doc/files.rst:100
 msgid "Choose Profile"
 msgstr "Odaberi profil"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:101
+#: ../doc/files.rst:101
 msgid ""
-"Change the current project profile to match the selected file. If the file's "
-"profile does not match a known profile, it will give you the option to "
+"Change the current project profile to match the selected file. If the file's"
+" profile does not match a known profile, it will give you the option to "
 "create a custom profile."
 msgstr ""
 "Promijenite trenutni profil projekta da odgovara odabranoj datoteci. Ako "
-"profil datoteke ne odgovara poznatom profilu, dobit ćete opciju za stvaranje "
-"prilagođenog profila."
+"profil datoteke ne odgovara poznatom profilu, dobit ćete opciju za stvaranje"
+" prilagođenog profila."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:102 ../files.rst:242
+#: ../doc/files.rst:102 ../doc/files.rst:388
 msgid "File Properties"
 msgstr "Svojstva datoteke"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:103
+#: ../doc/files.rst:103
 msgid "View the properties of a file, such as frame rate, size, etc..."
 msgstr "Pogledajte svojstva datoteke, poput brzine kadrova, veličine itd..."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:104 ../files.rst:125
+#: ../doc/files.rst:104 ../doc/files.rst:184
 msgid "Optimize"
 msgstr "Optimiziraj"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:105
+#: ../doc/files.rst:105
 msgid ""
 "Create, link, unlink, or delete optimized preview files for the selected "
 "video files."
@@ -332,82 +334,235 @@ msgstr ""
 "odabrane video datoteke."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:106 ../files.rst:250
+#: ../doc/files.rst:106 ../doc/files.rst:396
 msgid "Remove from Project"
 msgstr "Ukloni iz projekta"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:107
+#: ../doc/files.rst:107
 msgid "Remove a file from the project"
 msgstr "Ukloni datoteku iz projekta"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:108
+#: ../doc/files.rst:108
 msgid "Edit Title"
 msgstr "Uredi naslov"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:109
+#: ../doc/files.rst:109
 msgid "Edit an existing title SVG file (shown when an SVG title is selected)"
 msgstr ""
 "Uredi postojeću SVG datoteku naslova (prikazuje se kada je odabran SVG "
 "naslov)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:110
+#: ../doc/files.rst:110
 msgid "Duplicate Title"
 msgstr "Dupliciraj naslov"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:111
+#: ../doc/files.rst:111
 #, fuzzy
 msgid ""
 "Make a copy, and then edit the copied title SVG file (shown when an SVG "
 "title is selected)"
 msgstr "Napravite kopiju, a zatim uredite kopiranu SVG datoteku naslova"
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:115
+#: ../doc/files.rst:117
 msgid ""
 "The :guilabel:`Preview File` action opens the Preview dialog for the "
-"selected file from :guilabel:`Project Files`. Simply double check a file to "
-"open this dialog."
+"selected file from :guilabel:`Project Files`. Double-click a file, or press "
+":kbd:`Shift+2` or :kbd:`Alt+P` while the file list has focus. With the "
+"timeline focused, the same shortcut plays the selected clip from its Start "
+"point. You can also right-click a timeline clip and choose "
+":guilabel:`Preview Clip`. Double-clicking a saved split reopens its range "
+"editor instead of read-only preview."
 msgstr ""
-"Radnja :guilabel:`Pregledaj datoteku` otvara dijalog pregleda za odabranu "
-"datoteku iz :guilabel:`Projektnih datoteka`. Jednostavno dvaput kliknite "
-"datoteku da otvorite ovaj dijalog."
+"Radnja :guilabel:`Pregledaj datoteku` otvara dijalog Pregled za odabranu "
+"datoteku iz :guilabel:`Datoteke projekta`. Dvaput kliknite datoteku ili "
+"pritisnite :kbd:`Shift+2` ili :kbd:`Alt+P` dok je fokus na popisu datoteka. "
+"Kad je fokus na vremenskoj liniji, ista prečica reproducira odabrani isječak"
+" od njegove početne točke. Također možete kliknuti desnom tipkom miša na "
+"isječak na vremenskoj liniji i odabrati :guilabel:`Pregledaj isječak`. "
+"Dvaput klikom na spremljeni podijeljeni isječak ponovno se otvara njegov "
+"uređivač raspona umjesto samo za pregled."
+
+#: ../doc/files.rst:124
+msgid "Playback starts automatically when you open a preview or Split File."
+msgstr ""
+"Reprodukcija započinje automatski kada otvorite pregled ili podijeljenu "
+"datoteku."
+
+#: ../doc/files.rst:125
+msgid ""
+":guilabel:`Loop` repeats playback and is enabled by default in Preview."
+msgstr ""
+":guilabel:`Petlja` ponavlja reprodukciju i prema zadanim postavkama je "
+"omogućena u pregledu."
+
+#: ../doc/files.rst:126
+msgid "Click the speaker to mute preview audio without changing the project."
+msgstr ""
+"Kliknite zvučnik za isključivanje zvuka pregleda bez promjene projekta."
+
+#: ../doc/files.rst:127
+msgid ""
+"Click or drag the volume slider to adjust preview audio without affecting "
+"your exported video. Save the project to remember this volume for all its "
+"previews."
+msgstr ""
+"Kliknite ili povucite klizač glasnoće za podešavanje zvuka pregleda bez "
+"utjecaja na izvezeni video. Spremite projekt da zapamtite ovu glasnoću za "
+"sve njegove preglede."
+
+#: ../doc/files.rst:129
+msgid ""
+"Use Fit Window to size the video area to the source aspect ratio. Black bars"
+" already encoded in the source remain visible."
+msgstr ""
+"Koristite Prilagodi prozor za veličinu video područja prema omjeru slike "
+"izvora. Crne trake već kodirane u izvoru ostaju vidljive."
+
+#: ../doc/files.rst:131
+msgid ""
+"Seeking during playback keeps playback running. Dragging to resize, move, or"
+" draw a range pauses playback so its boundary frames can be inspected."
+msgstr ""
+"Traženje tijekom reprodukcije održava reprodukciju aktivnom. Povlačenje za "
+"promjenu veličine, pomicanje ili crtanje raspona pauzira reprodukciju kako "
+"bi se mogli pregledati granični okviri."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:118
-msgid "Playback starts automatically."
-msgstr "Reprodukcija počinje automatski."
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:119
-msgid "Loop is enabled by default."
-msgstr "Petlja je prema zadanim postavkama omogućena."
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:120
+#: ../doc/files.rst:133
 msgid "Press :kbd:`Space` to toggle play/pause."
 msgstr "Pritisnite :kbd:`Space` za prebacivanje reprodukcije/pauze."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:121
+#: ../doc/files.rst:134
 msgid "Use the mouse scroll wheel to zoom in/out."
 msgstr "Koristite kotačić miša za povećavanje/smanjivanje."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:122
+#: ../doc/files.rst:135
 msgid ""
-"A :guilabel:`Reset Zoom` button appears when zoom is not 100%, and resets to "
-"100%."
+"A :guilabel:`Reset Zoom` button appears when zoom is not 100%, and resets to"
+" 100%."
 msgstr ""
-"Gumb :guilabel:`Poništi zum` pojavljuje se kada zum nije 100% i vraća zum na "
-"100%."
+"Gumb :guilabel:`Poništi zum` pojavljuje se kada zum nije 100% i vraća zum na"
+" 100%."
+
+#: ../doc/files.rst:137
+msgid ""
+"Resize or maximize the window to suit your workspace. Preview and Split File"
+" remember your window size when you save the project."
+msgstr ""
+"Promijenite veličinu ili maksimizirajte prozor prema vašem radnom prostoru. "
+"Pregled i Podijeljena datoteka pamte veličinu prozora kada spremite projekt."
+
+#: ../doc/files.rst:140
+msgid ""
+"The colored bar beneath the ruler shows sections already loaded for "
+"playback. If playback is choppy, try a smaller window or :ref:`optimize the "
+"file <optimize_ref>`."
+msgstr ""
+"Obojena traka ispod ravnala prikazuje dijelove već učitane za reprodukciju. "
+"Ako je reprodukcija neujednačena, pokušajte manji prozor ili "
+":ref:`optimizirajte datoteku <optimize_ref>`."
+
+#: ../doc/files.rst:143
+msgid ""
+"Preview File shows playback and scrubbing controls only. Preview Clip and "
+"Split File add range editing below the shared preview. The source ruler and "
+"filmstrip show the full recording, with the selected range highlighted. Drag"
+" either grip to adjust the range and move the playhead with it. Drag on the "
+"ruler above the filmstrip to scrub without changing the range. Edit the "
+"Start and End timecodes for precise boundaries, or click the adjacent clock "
+"button to use the current playhead position (:kbd:`I` / :kbd:`O`). End is "
+"the last included frame; a one-frame range is valid. Duration shows the "
+"length of the selected range and can be edited to move End while keeping "
+"Start fixed. Duration is limited to at least one frame and at most the "
+"remaining source length. The buttons beside Play jump to Start and End."
+msgstr ""
+"Pregled datoteke prikazuje samo kontrole reprodukcije i pomicanja. Pregled "
+"isječka i Podijeljena datoteka dodaju uređivanje raspona ispod zajedničkog "
+"pregleda. Izvorno ravnalo i filmska traka prikazuju cijeli zapis, s "
+"označenim odabranim rasponom. Povucite bilo koji držač za podešavanje "
+"raspona i pomicanje pokazivača reprodukcije zajedno s njim. Povucite po "
+"ravnalu iznad filmske trake za pomicanje bez promjene raspona. Uredite "
+"početne i završne vremenske kodove za precizne granice ili kliknite susjedni"
+" gumb sata za korištenje trenutne pozicije pokazivača reprodukcije (:kbd:`I`"
+" / :kbd:`O`). Kraj je posljednji uključeni okvir; raspon od jednog okvira je"
+" valjan. Trajanje prikazuje duljinu odabranog raspona i može se uređivati za"
+" pomicanje kraja dok početak ostaje fiksiran. Trajanje je ograničeno na "
+"najmanje jedan okvir i najviše preostalu duljinu izvora. Gumbi pored "
+"Reproduciraj skaču na početak i kraj."
+
+#: ../doc/files.rst:155
+msgid ""
+"When editing a timeline clip, :guilabel:`Update Clip` updates only that "
+"clip. Its position stays fixed and its duration changes; neighboring clips "
+"do not move. Locked or retimed clips can be previewed, but range application"
+" is disabled. :guilabel:`Reset` reloads the saved range. Each update is one "
+"undo step."
+msgstr ""
+"Prilikom uređivanja isječka na vremenskoj liniji, :guilabel:`Ažuriraj "
+"isječak` ažurira samo taj isječak. Njegova pozicija ostaje fiksna, a "
+"trajanje se mijenja; susjedni isječci se ne pomiču. Zaključani ili "
+"promijenjeni isječci mogu se pregledavati, ali primjena raspona je "
+"onemogućena. :guilabel:`Resetiraj` ponovno učitava spremljeni raspon. Svako "
+"ažuriranje je jedan korak poništavanja."
+
+#: ../doc/files.rst:160
+msgid ""
+"Split File provides Start, End, Duration, and an optional Name beside "
+":guilabel:`Create`. Each click creates one Project Files entry and leaves "
+"the window open to create another. Pressing :kbd:`Enter` in Name or outside "
+"the time fields saves and closes the editor. In Start, End, or Duration, "
+"Enter commits the value and keeps the editor open. Tab moves through Start, "
+"End, Duration, and Name; Shift+Tab reverses the order. Each creation is one "
+"undo step. Opening an existing split lets you update its range and name "
+"without changing existing timeline clips. :guilabel:`Update` saves the split"
+" and closes its editor, refreshing the file and dependent clip thumbnails. "
+":guilabel:`Update Clip` saves and closes clip preview. Use the window close "
+"control or :kbd:`Esc` to close without applying changes."
+msgstr ""
+"Podijeljena datoteka pruža Početak, Kraj, Trajanje i opcionalno Ime pored "
+":guilabel:`Stvori`. Svaki klik stvara jedan unos u Datotekama projekta i "
+"ostavlja prozor otvorenim za stvaranje drugog. Pritiskom na :kbd:`Enter` u "
+"Imenu ili izvan vremenskih polja sprema se i zatvara uređivač. U Početku, "
+"Kraju ili Trajanju, Enter potvrđuje vrijednost i ostavlja uređivač "
+"otvorenim. Tab se kreće kroz Početak, Kraj, Trajanje i Ime; Shift+Tab "
+"mijenja redoslijed. Svako stvaranje je jedan korak poništavanja. Otvaranje "
+"postojećeg podijeljenog dijela omogućuje ažuriranje njegovog raspona i imena"
+" bez promjene postojećih isječaka na vremenskoj liniji. :guilabel:`Ažuriraj`"
+" sprema podjelu i zatvara njen uređivač, osvježavajući datoteku i sličice "
+"ovisnih isječaka. :guilabel:`Ažuriraj isječak` sprema i zatvara pregled "
+"isječka. Koristite kontrolu zatvaranja prozora ili :kbd:`Esc` za zatvaranje "
+"bez primjene promjena."
+
+#: ../doc/files.rst:173
+msgid ""
+"Drag a filmstrip handle to trim, drag inside the selection to move it, or "
+"drag outside it to draw a new range. Click to seek, or drag on the ruler to "
+"scrub without changing the range."
+msgstr ""
+"Povucite ručicu filmske trake za rezanje, povucite unutar odabira za "
+"pomicanje ili povucite izvan njega za crtanje novog raspona. Kliknite za "
+"traženje ili povucite po ravnalu za pomicanje bez promjene raspona."
+
+#: ../doc/files.rst:177
+msgid ""
+"If a modified range changes elsewhere in the project, discard its local "
+"changes and reload it before saving. The dialog remains attached to its "
+"original source or timeline clip when the main-window selection changes."
+msgstr ""
+"Ako se izmijenjeni raspon promijeni negdje drugdje u projektu, odbacite "
+"njegove lokalne promjene i ponovno ga učitajte prije spremanja. Dijalog "
+"ostaje povezan s izvornim izvorom ili isječkom vremenske linije kada se "
+"promijeni odabir u glavnom prozoru."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:126
+#: ../doc/files.rst:185
 msgid ""
 "Optimized preview files are lower-resolution copies of your source video "
 "files (sometimes referred to as proxy files), used to improve editing "
@@ -415,44 +570,296 @@ msgid ""
 "helpful with large formats such as 4K, high frame rate, or high bitrate "
 "footage."
 msgstr ""
-"Optimizirane pregledne datoteke su kopije vaših izvornim video datoteka niže "
-"rezolucije (ponekad nazvane proxy datoteke), koje se koriste za poboljšanje "
-"odziva pri uređivanju bez mijenjanja izvornog medija. Posebno su korisne za "
-"velike formate poput 4K, visokih brzina kadrova ili visokih bitrateova."
+"Optimizirane pregledne datoteke su kopije vaših izvornim video datoteka niže"
+" rezolucije (ponekad nazvane proxy datoteke), koje se koriste za poboljšanje"
+" odziva pri uređivanju bez mijenjanja izvornog medija. Posebno su korisne za"
+" velike formate poput 4K, visokih brzina kadrova ili visokih bitrateova."
+
+#: ../doc/files.rst:190
+msgid "Automatic optimization"
+msgstr "Automatska optimizacija"
+
+#: ../doc/files.rst:191
+msgid ""
+"When OpenShot creates a video's first thumbnail, it records how long the "
+"first frame takes to produce. This uses work already needed to display the "
+"video in Project Files; there is no separate decoding test. Videos whose "
+"thumbnail frame takes longer than the :guilabel:`Auto-Optimize Threshold` "
+"may benefit from smaller preview copies."
+msgstr ""
+"Kad OpenShot stvori prvu sličicu videa, bilježi koliko vremena treba za "
+"izradu prvog okvira. Ovo koristi rad koji je već potreban za prikaz videa u "
+"Datotekama projekta; nema zasebnog testa dekodiranja. Videozapisi čiji okvir"
+" sličice traje dulje od :guilabel:`Praga automatske optimizacije` mogu imati"
+" koristi od manjih kopija za pregled."
+
+#: ../doc/files.rst:196
+msgid ""
+"With the default :guilabel:`Ask` preference, a banner appears when OpenShot "
+"finds a qualifying video in a project that does not yet have a saved choice:"
+msgstr ""
+"S zadanim :guilabel:`Pitaj` postavkama, pojavit će se banner kada OpenShot "
+"pronađe kvalificirani video u projektu koji još nema spremljeni izbor:"
+
+#: ../doc/files.rst:199
+msgid ""
+"**Optimize videos for smoother playback?** Originals and export quality stay"
+" unchanged."
+msgstr ""
+"**Optimizirati videozapise za glađu reprodukciju?** Izvorni i kvaliteta "
+"izvoza ostaju nepromijenjeni."
+
+#: ../doc/files.rst:201
+msgid ""
+"Click :guilabel:`Optimize Automatically` to enable automatic optimization "
+"for the current project. The banner disappears immediately, and qualifying "
+"videos are added to the optimization queue. Videos you import later also "
+"join the queue when they qualify, even if another video is already being "
+"optimized. You are not asked again for each file."
+msgstr ""
+"Kliknite :guilabel:`Automatski optimiziraj` za omogućavanje automatske "
+"optimizacije za trenutni projekt. Banner odmah nestaje, a kvalificirani "
+"videozapisi se dodaju u red za optimizaciju. Videozapisi koje kasnije "
+"uvezete također se pridružuju redu kada zadovolje uvjete, čak i ako se drugi"
+" video već optimizira. Za svaku datoteku nećete biti ponovno pitani."
+
+#: ../doc/files.rst:206
+msgid ""
+"You can continue editing while optimization runs. There is no progress "
+"banner; progress appears on the files in Project Files instead."
+msgstr ""
+"Možete nastaviti uređivati dok traje optimizacija. Nema bannera za napredak;"
+" napredak se prikazuje na datotekama u Datotekama projekta."
+
+#: ../doc/files.rst:209
+msgid ""
+"Click :guilabel:`Not Now` or close the banner to decline. OpenShot remembers"
+" your choice when you save the project, so reopening it or importing more "
+"videos does not repeat the suggestion. To change your choice, check or "
+"uncheck :menuselection:`File --> Auto-Optimize` or press :kbd:`Ctrl+Alt+O` "
+"(:kbd:`Command+Alt+O` on macOS). Customize this shortcut in "
+":menuselection:`Edit --> Preferences --> Keyboard`. Turning it off stops new"
+" automatic work; jobs already started can be canceled through the file's "
+":guilabel:`Optimize` submenu. Existing optimized copies remain available."
+msgstr ""
+"Kliknite :guilabel:`Not Now` ili zatvorite banner da odbijete. OpenShot "
+"pamti vaš izbor kada spremite projekt, tako da ponovno otvaranje ili uvoz "
+"dodatnih videa ne ponavlja prijedlog. Za promjenu izbora označite ili "
+"poništite :menuselection:`File --> Auto-Optimize` ili pritisnite "
+":kbd:`Ctrl+Alt+O` (:kbd:`Command+Alt+O` na macOS-u). Prilagodite ovu prečicu"
+" u :menuselection:`Edit --> Preferences --> Keyboard`. Isključivanje "
+"zaustavlja novi automatski rad; poslovi koji su već započeti mogu se "
+"otkazati putem podizbornika :guilabel:`Optimize` datoteke. Postojeće "
+"optimizirane kopije ostaju dostupne."
+
+#: ../doc/files.rst:217
+msgid ""
+"In :menuselection:`Edit --> Preferences`, open the :guilabel:`Optimize` tab "
+"(see :ref:`preferences_optimize_ref`):"
+msgstr ""
+"U :menuselection:`Edit --> Preferences` otvorite karticu "
+":guilabel:`Optimize` (vidi :ref:`preferences_optimize_ref`):"
+
+#: ../doc/files.rst:220
+msgid ""
+":guilabel:`Auto-Optimize`: :guilabel:`Ask` shows the banner and is the "
+"default. :guilabel:`Always` optimizes qualifying videos without a banner. "
+":guilabel:`Never` disables suggestions and automatic processing. These "
+"defaults apply to projects without a saved choice; a project's own setting "
+"takes precedence."
+msgstr ""
+":guilabel:`Auto-Optimize`: :guilabel:`Ask` prikazuje banner i zadana je "
+"opcija. :guilabel:`Always` optimizira kvalificirane videozapise bez bannera."
+" :guilabel:`Never` onemogućuje prijedloge i automatsku obradu. Ove zadane "
+"postavke vrijede za projekte bez spremljenog izbora; postavka projekta ima "
+"prednost."
+
+#: ../doc/files.rst:224
+msgid ""
+":guilabel:`Auto-Optimize Threshold`: defaults to **200 ms**. Lower values "
+"include more videos; higher values include fewer. This measures producing "
+"the first thumbnail frame, not opening the file, saving the thumbnail, or "
+"waiting in a queue."
+msgstr ""
+":guilabel:`Auto-Optimize Threshold`: zadano je **200 ms**. Niže vrijednosti "
+"uključuju više videozapisa; više vrijednosti uključuju manje. Ovo mjeri "
+"stvaranje prvog okvira sličice, a ne otvaranje datoteke, spremanje sličice "
+"ili čekanje u redu."
+
+#: ../doc/files.rst:227
+msgid ""
+":guilabel:`Optimized Preview Resolution` and :guilabel:`Concurrent Optimize "
+"Jobs` control the preview copies and how many videos can be processed at "
+"once."
+msgstr ""
+":guilabel:`Optimized Preview Resolution` i :guilabel:`Concurrent Optimize "
+"Jobs` kontroliraju pregledne kopije i koliko se videozapisa može obrađivati "
+"istovremeno."
+
+#: ../doc/files.rst:230
+msgid ""
+"Thumbnail timing is saved with each file in the project. OpenShot reuses a "
+"valid timing when you reopen the project on the same computer. A changed "
+"source file or a different computer needs a new measurement. When opening "
+"older projects, OpenShot refreshes missing timings in the background, one "
+"small thumbnail at a time, checking videos used on the timeline first. New "
+"checks pause during playback. Slow videos trigger the same banner; accepting"
+" it also checks and queues the remaining videos. Enabling :guilabel:`File → "
+"Auto-Optimize` starts these checks too. Choosing :guilabel:`Never` or "
+"dismissing the banner stops further checks for that project. Save the "
+"project to keep its timings for next time. You can always optimize videos "
+"manually."
+msgstr ""
+"Vrijeme sličice sprema se uz svaku datoteku u projektu. OpenShot ponovno "
+"koristi valjano vrijeme kada ponovno otvorite projekt na istom računalu. "
+"Promijenjena izvorna datoteka ili drugo računalo zahtijevaju novo mjerenje. "
+"Prilikom otvaranja starijih projekata, OpenShot osvježava nedostajuća "
+"vremena u pozadini, jednu malu sličicu po jednu, prvo provjeravajući "
+"videozapise korištene na vremenskoj liniji. Nove provjere se pauziraju "
+"tijekom reprodukcije. Spori videozapisi pokreću isti banner; prihvaćanje "
+"također provjerava i stavlja u red preostale videozapise. Omogućavanje "
+":guilabel:`File → Auto-Optimize` također pokreće ove provjere. Odabirom "
+":guilabel:`Never` ili odbacivanjem bannera zaustavlja se daljnje provjere za"
+" taj projekt. Spremite projekt da biste sačuvali vremena za sljedeći put. "
+"Videozapise uvijek možete optimizirati ručno."
+
+#: ../doc/files.rst:240
+msgid ""
+"The threshold is a guide, not a guarantee of playback performance. Other "
+"applications can affect timing, and effects or overlapping clips can slow "
+"playback independently of the source video. Optimized copies use additional "
+"disk space in the project's assets folder; original files and export quality"
+" stay unchanged. Canceled or failed automatic jobs are not automatically "
+"retried during the current project session."
+msgstr ""
+"Prag je smjernica, a ne jamstvo izvedbe reprodukcije. Druge aplikacije mogu "
+"utjecati na vrijeme, a efekti ili preklapajući isječci mogu usporiti "
+"reprodukciju neovisno o izvornom videozapisu. Optimizirane kopije koriste "
+"dodatni prostor na disku u mapi resursa projekta; izvorne datoteke i "
+"kvaliteta izvoza ostaju nepromijenjeni. Otkazani ili neuspjeli automatski "
+"poslovi se ne ponavljaju automatski tijekom trenutne sesije projekta."
+
+#: ../doc/files.rst:246
+msgid ""
+"Closing OpenShot cancels queued and running optimization jobs. Active jobs "
+"finish their current processing step before closing, and unfinished preview "
+"files are removed."
+msgstr ""
+"Zatvaranje OpenShota otkazuje poslove optimizacije u redu i one u tijeku. "
+"Aktivni poslovi dovršavaju trenutni korak obrade prije zatvaranja, a "
+"nedovršene pregledne datoteke se uklanjaju."
+
+#: ../doc/files.rst:250
+msgid "Optimization status"
+msgstr "Status optimizacije"
+
+#: ../doc/files.rst:251
+msgid ""
+"Hover over a file in Project Files to see its filename followed by a brief "
+"status:"
+msgstr ""
+"Zadržite pokazivač iznad datoteke u Projekt datotekama da vidite njezin "
+"naziv datoteke praćen kratkim statusom:"
+
+#: ../doc/files.rst:257
+msgid "Tooltip status"
+msgstr "Status alatne oznake"
+
+#: ../doc/files.rst:258
+msgid "Meaning"
+msgstr "Značenje"
+
+#: ../doc/files.rst:259
+msgid "Queued for optimization"
+msgstr "U redu za optimizaciju"
+
+#: ../doc/files.rst:260
+msgid "Waiting for an available optimization job slot."
+msgstr "Čeka se dostupno mjesto za posao optimizacije."
+
+#: ../doc/files.rst:261
+msgid "Optimizing for smoother playback — 35%"
+msgstr "Optimizacija za glađu reprodukciju — 35%"
+
+#: ../doc/files.rst:262
+msgid "Creating a preview copy. The percentage shows progress."
+msgstr "Stvaranje pregledne kopije. Postotak pokazuje napredak."
+
+#: ../doc/files.rst:263
+msgid "Optimized for smoother playback"
+msgstr "Optimizirano za glađu reprodukciju"
+
+#: ../doc/files.rst:264
+msgid "The preview copy is ready to use."
+msgstr "Pregledna kopija je spremna za upotrebu."
+
+#: ../doc/files.rst:265
+msgid "Canceling optimization"
+msgstr "Otkaži optimizaciju"
+
+#: ../doc/files.rst:266
+msgid "Stopping the current job and cleaning up the unfinished copy."
+msgstr "Zaustavljanje trenutnog posla i čišćenje nedovršene kopije."
+
+#: ../doc/files.rst:267
+msgid "Optimized preview missing"
+msgstr "Nedostaje optimizirani pregled"
+
+#: ../doc/files.rst:268
+msgid ""
+"The linked preview copy cannot be found. Recreate it with Optimize Video or "
+"link an existing copy."
+msgstr ""
+"Povezana pregledna kopija nije pronađena. Ponovno je stvorite pomoću "
+"Optimize Video ili povežite postojeću kopiju."
+
+#: ../doc/files.rst:270
+msgid ""
+"To stop a queued or running job, right-click the file and choose "
+":menuselection:`Optimize --> Cancel`. Canceling a job does not turn off "
+":menuselection:`File --> Auto-Optimize` for later imports."
+msgstr ""
+"Za zaustavljanje posla u redu ili u tijeku, kliknite desnom tipkom miša na "
+"datoteku i odaberite :menuselection:`Optimize --> Cancel`. Otkazivanje posla"
+" ne isključuje :menuselection:`File --> Auto-Optimize` za kasnije uvoze."
+
+#: ../doc/files.rst:275
+msgid "Manual optimization"
+msgstr "Ručno optimiziranje"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:130
+#: ../doc/files.rst:276
 msgid ""
 "For video files, the file context menu includes an :guilabel:`Optimize` "
-"submenu. This feature creates or links smaller preview copies of your source "
-"clips, which can improve playback and scrubbing on slower systems or with "
+"submenu. This feature creates or links smaller preview copies of your source"
+" clips, which can improve playback and scrubbing on slower systems or with "
 "high-resolution footage. Optimizing also pre-loads thumbnails to further "
 "improve the editing smoothness when zooming into the timeline."
 msgstr ""
-"Za video datoteke, kontekstni izbornik datoteke uključuje podizbornik :"
-"guilabel:`Optimiziraj`. Ova značajka stvara ili povezuje manje pregledne "
-"kopije vaših izvornim isječaka, što može poboljšati reprodukciju i pomicanje "
-"na sporijim sustavima ili s videozapisima visoke rezolucije. Optimizacija "
-"također unaprijed učitava sličice za dodatno poboljšanje glatkoće uređivanja "
-"pri zumiranju vremenske crte."
+"Za video datoteke, kontekstni izbornik datoteke uključuje podizbornik "
+":guilabel:`Optimiziraj`. Ova značajka stvara ili povezuje manje pregledne "
+"kopije vaših izvornim isječaka, što može poboljšati reprodukciju i pomicanje"
+" na sporijim sustavima ili s videozapisima visoke rezolucije. Optimizacija "
+"također unaprijed učitava sličice za dodatno poboljšanje glatkoće uređivanja"
+" pri zumiranju vremenske crte."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:135
+#: ../doc/files.rst:281
 msgid "The :guilabel:`Optimize` submenu contains these actions:"
 msgstr "Podizbornik :guilabel:`Optimiziraj` sadrži ove radnje:"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:141
+#: ../doc/files.rst:287
 msgid "Action"
 msgstr "Radnja"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:143
+#: ../doc/files.rst:289
 msgid "Optimize Video"
 msgstr "Optimiziraj video"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:144
+#: ../doc/files.rst:290
 msgid ""
 "Create an optimized preview file for each selected video file. OpenShot "
 "stores these files in the project's ``optimized`` assets folder."
@@ -461,75 +868,76 @@ msgstr ""
 "OpenShot pohranjuje te datoteke u mapu ``optimized`` unutar projekta."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:145
+#: ../doc/files.rst:291
 msgid "Link to Existing..."
 msgstr "Poveži s postojećim..."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:146
+#: ../doc/files.rst:292
 msgid ""
-"Choose a folder containing already-created optimized files and link the best "
-"matching files to the selected source clips. This supports common proxy "
-"naming styles, known proxy suffixes, file ID suffixes, and extension changes."
+"Choose a folder containing already-created optimized files and link the best"
+" matching files to the selected source clips. This supports common proxy "
+"naming styles, known proxy suffixes, file ID suffixes, and extension "
+"changes."
 msgstr ""
 "Odaberite mapu koja sadrži već stvorene optimizirane datoteke i povežite "
 "najbolje odgovarajuće datoteke s odabranim izvornim isječcima. Ovo podržava "
-"uobičajene stilove imenovanja proxy datoteka, poznate proxy sufikse, sufikse "
-"ID datoteka i promjene ekstenzija."
+"uobičajene stilove imenovanja proxy datoteka, poznate proxy sufikse, sufikse"
+" ID datoteka i promjene ekstenzija."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:147
+#: ../doc/files.rst:293
 msgid "Unlink"
 msgstr "Odveži"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:148
+#: ../doc/files.rst:294
 msgid ""
 "Remove the optimized preview link from the selected file without deleting "
 "the optimized file from disk."
 msgstr ""
-"Ukloni vezu optimizirane pregledne datoteke s odabrane datoteke bez brisanja "
-"optimizirane datoteke s diska."
+"Ukloni vezu optimizirane pregledne datoteke s odabrane datoteke bez brisanja"
+" optimizirane datoteke s diska."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:149
+#: ../doc/files.rst:295
 msgid "Delete & Unlink"
 msgstr "Izbriši i odveži"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:150
+#: ../doc/files.rst:296
 msgid ""
 "Delete the linked optimized file from disk, then remove the link from the "
 "selected file."
 msgstr ""
-"Izbriši povezanu optimiziranu datoteku s diska, zatim ukloni vezu s odabrane "
-"datoteke."
+"Izbriši povezanu optimiziranu datoteku s diska, zatim ukloni vezu s odabrane"
+" datoteke."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:152
+#: ../doc/files.rst:298
 msgid ""
-"When optimization is in progress, the submenu changes to a single :guilabel:"
-"`Cancel` action for the selected file(s). Optimized preview files are used "
-"only for editing and preview playback. Your final export still uses the "
-"original source files."
+"When optimization is in progress, the submenu changes to a single "
+":guilabel:`Cancel` action for the selected file(s). Optimized preview files "
+"are used only for editing and preview playback. Your final export still uses"
+" the original source files."
 msgstr ""
-"Dok je optimizacija u tijeku, podizbornik se mijenja u jednu radnju :"
-"guilabel:`Otkaži` za odabranu datoteku(e). Optimizirane pregledne datoteke "
+"Dok je optimizacija u tijeku, podizbornik se mijenja u jednu radnju "
+":guilabel:`Otkaži` za odabranu datoteku(e). Optimizirane pregledne datoteke "
 "koriste se samo za uređivanje i pregled reprodukcije. Vaš konačni izvoz i "
 "dalje koristi izvorne datoteke."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:155
+#: ../doc/files.rst:301
 msgid ""
 "When you use :guilabel:`Link to Existing...`, OpenShot tries to match each "
-"selected source clip to an existing optimized file in a safe order. It first "
-"looks for the same base filename with a different video extension, then for "
-"common proxy-style names such as ``_proxy``, ``_preview``, ``_optimized``, "
-"``_lowres``, resolution tags such as ``_720p`` or ``_1080p``, and camera/"
-"editor-style variants such as ``_p``. It also supports names that add the "
-"OpenShot file ID after a known proxy suffix, such as ``clip001_proxy_F1."
-"mp4``, and it can still match files named only by file ID, such as ``F1."
-"mp4``."
+"selected source clip to an existing optimized file in a safe order. It first"
+" looks for the same base filename with a different video extension, then for"
+" common proxy-style names such as ``_proxy``, ``_preview``, ``_optimized``, "
+"``_lowres``, resolution tags such as ``_720p`` or ``_1080p``, and "
+"camera/editor-style variants such as ``_p``. It also supports names that add"
+" the OpenShot file ID after a known proxy suffix, such as "
+"``clip001_proxy_F1.mp4``, and it can still match files named only by file "
+"ID, such as ``F1.mp4``."
 msgstr ""
 "Kada koristite :guilabel:`Poveži s postojećim...`, OpenShot pokušava "
 "uskladiti svaki odabrani izvorni isječak s postojećom optimiziranom "
@@ -542,15 +950,15 @@ msgstr ""
 "datoteke imenovane samo po ID-u datoteke, poput ``F1.mp4``."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:162
+#: ../doc/files.rst:308
 msgid ""
 "Best practice when bringing your own optimized files is to keep the same "
 "base filename as the source clip and add a clear proxy-style suffix, for "
-"example ``clip001_proxy.mp4`` or ``clip001_proxy.mov``. If you need to avoid "
-"filename collisions, append the OpenShot file ID after the proxy suffix, for "
-"example ``clip001_proxy_F1.mp4``. Avoid unrelated suffixes such as "
-"``_final`` or ``_reviewcopy``, because OpenShot does not treat those as safe "
-"proxy naming patterns."
+"example ``clip001_proxy.mp4`` or ``clip001_proxy.mov``. If you need to avoid"
+" filename collisions, append the OpenShot file ID after the proxy suffix, "
+"for example ``clip001_proxy_F1.mp4``. Avoid unrelated suffixes such as "
+"``_final`` or ``_reviewcopy``, because OpenShot does not treat those as safe"
+" proxy naming patterns."
 msgstr ""
 "Najbolja praksa pri korištenju vlastitih optimiziranih datoteka je zadržati "
 "isti osnovni naziv datoteke kao izvorni isječak i dodati jasan proxy stil "
@@ -560,99 +968,67 @@ msgstr ""
 "sufikse poput ``_final`` ili ``_reviewcopy``, jer OpenShot ne smatra te "
 "sigurne obrasce imenovanja proxy datoteka."
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:171
+#: ../doc/files.rst:317
 msgid ""
-"If you need to cut a large video file into many smaller files before "
-"editing, the **Split File** dialog is built exactly for this purpose. Right "
-"click on a file, and choose :guilabel:`Split File`. Use this dialog to "
-"quickly separate a large file into many smaller segments. For each segment, "
-"you can select the starting and ending frame, and a title. Each segment "
-"appears as a new file in the Project Files dialog."
+"Use **Split File** to choose the parts of a longer recording you want to "
+"work with. Right click a file in **Project Files** and choose "
+":guilabel:`Split File`. Select the start and end of a segment, give it an "
+"optional name, and click :guilabel:`Create`. Adjust the markers and repeat "
+"to prepare as many segments as you need."
 msgstr ""
-"Ako trebate izrezati veliku video datoteku na više manjih prije uređivanja, "
-"dijalog **Podijeli datoteku** je napravljen upravo za tu svrhu. Desni klik "
-"na datoteku i odaberite :guilabel:`Podijeli datoteku`. Koristite ovaj "
-"dijalog za brzo razdvajanje velike datoteke na više manjih segmenata. Za "
-"svaki segment možete odabrati početni i završni kadar te naslov. Svaki "
-"segment pojavljuje se kao nova datoteka u dijalogu Datoteke projekta."
+"Koristite **Split File** za odabir dijelova dužeg snimka s kojima želite "
+"raditi. Desnom tipkom miša kliknite datoteku u **Project Files** i odaberite"
+" :guilabel:`Split File`. Odaberite početak i kraj segmenta, dajte mu "
+"opcionalni naziv i kliknite :guilabel:`Create`. Prilagodite oznake i "
+"ponovite za pripremu onoliko segmenata koliko vam treba."
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:182 ../files.rst:216 ../files.rst:240
-msgid "#"
-msgstr "#"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:182 ../files.rst:216 ../files.rst:240
-msgid "Name"
-msgstr "Naziv"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:184 ../files.rst:218 ../files.rst:242
-msgid "1"
-msgstr "1"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:184
-msgid "Start of File"
-msgstr "Početak datoteke"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:184
-msgid "Choose the starting frame of your file by clicking this button"
-msgstr "Odaberite početni kadar vaše datoteke klikom na ovaj gumb"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:185 ../files.rst:219 ../files.rst:243
-msgid "2"
-msgstr "2"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:185
-msgid "End of File"
-msgstr "Kraj datoteke"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:185
-msgid "Choose the ending frame of your file by clicking this button"
-msgstr "Odaberite završni kadar vaše datoteke klikom na ovaj gumb"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:186 ../files.rst:220
-msgid "3"
-msgstr "3"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:186
-msgid "Name of File"
-msgstr "Naziv datoteke"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:186
-msgid "Enter an optional name"
-msgstr "Unesite opcionalni naziv"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:187 ../files.rst:221
-msgid "4"
-msgstr "4"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:187
-msgid "Create Button"
-msgstr "Gumb za stvaranje"
-
-# Translated with gpt-4.1-mini
-#: ../files.rst:187
+#: ../doc/files.rst:322
 msgid ""
-"Create the file (which resets this dialog, so you can repeat these steps for "
-"each segment)"
+"Each segment appears in Project Files and can be added to the timeline like "
+"any other file. The segments all use the original media on disk, so you can "
+"prepare them without making extra copies of the recording."
 msgstr ""
-"Stvori datoteku (što resetira ovaj dijalog, tako da možete ponoviti ove "
-"korake za svaki segment)"
+"Svaki segment se pojavljuje u Project Files i može se dodati na vremensku "
+"liniju kao i bilo koja druga datoteka. Svi segmenti koriste izvornu medijsku"
+" datoteku na disku, tako da ih možete pripremiti bez stvaranja dodatnih "
+"kopija snimke."
+
+#: ../doc/files.rst:325
+msgid ""
+"When you add a segment to the timeline, OpenShot gives its properties "
+"starting keyframes at the segment's beginning. For example, with "
+":ref:`auto_keyframes_ref` on, you can move to the end and change the "
+"rotation to make it turn over the length of that segment. The animation "
+"starts from the part you chose to use."
+msgstr ""
+"Kada dodate segment na vremensku liniju, OpenShot postavlja njegove početne "
+"ključne okvire na početak segmenta. Na primjer, s uključenim "
+":ref:`auto_keyframes_ref`, možete se pomaknuti do kraja i promijeniti "
+"rotaciju da se okrene tijekom trajanja tog segmenta. Animacija počinje od "
+"dijela koji ste odabrali za korištenje."
+
+#: ../doc/files.rst:329
+msgid ""
+"If you have already animated a timeline clip, slicing it preserves that "
+"animation through the cut. Split File is useful for choosing your segments "
+"before you begin that work."
+msgstr ""
+"Ako ste već animirali isječak na vremenskoj liniji, rezanje ga čuva tu "
+"animaciju kroz rez. Split File je koristan za odabir segmenata prije nego "
+"što započnete taj rad."
+
+#: ../doc/files.rst:332
+msgid ""
+"Preview an existing split-file entry to adjust its saved IN/OUT range. The "
+"ruler includes the surrounding footage, allowing you to extend the range "
+"again without reimporting the source."
+msgstr ""
+"Pregledajte postojeći unos podijeljene datoteke da prilagodite spremljeni "
+"IN/OUT raspon. Ravnalo uključuje okolni materijal, što vam omogućuje da "
+"ponovno proširite raspon bez ponovnog uvoza izvora."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:190
+#: ../doc/files.rst:336
 msgid ""
 "Please refer to the section :ref:`clips_cutting_slicing_ref` for more ways "
 "to cut and slice clips directly in the timeline."
@@ -661,31 +1037,31 @@ msgstr ""
 "rezanja i dijeljenja isječaka izravno na vremenskoj liniji."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:194
+#: ../doc/files.rst:340
 msgid ""
 "If you want your split file segments available outside of your OpenShot "
-"project, or want to copy all your video assets to one place, you can do this "
-"with the **Export Files** dialog. Simply :kbd:`Ctrl+Click` to select all the "
-"files you like, then :kbd:`Right Click` and choose :guilabel:`Export Files`. "
-"In the dialog that appears, choose a destination folder, and click :guilabel:"
-"`Export`."
+"project, or want to copy all your video assets to one place, you can do this"
+" with the **Export Files** dialog. Simply :kbd:`Ctrl+Click` to select all "
+"the files you like, then :kbd:`Right Click` and choose :guilabel:`Export "
+"Files`. In the dialog that appears, choose a destination folder, and click "
+":guilabel:`Export`."
 msgstr ""
 "Ako želite da vaši segmenti podijeljenih datoteka budu dostupni izvan vašeg "
 "OpenShot projekta, ili želite kopirati sve svoje video materijale na jedno "
-"mjesto, to možete učiniti putem dijaloga **Izvezi datoteke**. Jednostavno :"
-"kbd:`Ctrl+Klik` za odabir svih željenih datoteka, zatim :kbd:`Desni klik` i "
-"odaberite :guilabel:`Izvezi datoteke`. U dijalogu koji se pojavi, odaberite "
-"odredišnu mapu i kliknite :guilabel:`Izvezi`."
+"mjesto, to možete učiniti putem dijaloga **Izvezi datoteke**. Jednostavno "
+":kbd:`Ctrl+Klik` za odabir svih željenih datoteka, zatim :kbd:`Desni klik` i"
+" odaberite :guilabel:`Izvezi datoteke`. U dijalogu koji se pojavi, odaberite"
+" odredišnu mapu i kliknite :guilabel:`Izvezi`."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:199
+#: ../doc/files.rst:345
 msgid ""
 "NOTE: This will export each file or file segment using its **original video "
-"profile** (width, height, framerate, aspect ratio, etc...). It also supports "
-"any :ref:`split_clip_ref` (described above). For example, if you have split "
-"a long video file into many different segments (and named them), you can now "
-"export all the segments as separate video files (using the original file's "
-"video profile)."
+"profile** (width, height, framerate, aspect ratio, etc...). It also supports"
+" any :ref:`split_clip_ref` (described above). For example, if you have split"
+" a long video file into many different segments (and named them), you can "
+"now export all the segments as separate video files (using the original "
+"file's video profile)."
 msgstr ""
 "NAPOMENA: Ovo će izvesti svaku datoteku ili segment datoteke koristeći "
 "njezin **izvorni video profil** (širina, visina, broj sličica u sekundi, "
@@ -695,12 +1071,12 @@ msgstr ""
 "zasebne video datoteke (koristeći izvorni video profil datoteke)."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:206
+#: ../doc/files.rst:352
 msgid ""
 "In certain cases, you might need to add many files to the timeline at the "
 "same time. For example, a photo slideshow, or a large number of short video "
-"clips. The **Add to Timeline** dialog can automate this task for you. First, "
-"select all files you need to add, right click, and choose Add to Timeline."
+"clips. The **Add to Timeline** dialog can automate this task for you. First,"
+" select all files you need to add, right click, and choose Add to Timeline."
 msgstr ""
 "U određenim slučajevima možda ćete trebati dodati mnogo datoteka na "
 "vremensku liniju odjednom. Na primjer, foto prezentaciju ili veliki broj "
@@ -709,22 +1085,42 @@ msgstr ""
 "trebate dodati, desni klik i odaberite Dodaj na vremensku liniju."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:218
+#: ../doc/files.rst:362 ../doc/files.rst:386
+msgid "#"
+msgstr "#"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:362 ../doc/files.rst:386
+msgid "Name"
+msgstr "Naziv"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:364 ../doc/files.rst:388
+msgid "1"
+msgstr "1"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:364
 msgid "Selected Files"
 msgstr "Odabrane datoteke"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:218
+#: ../doc/files.rst:364
 msgid "The list of selected files that need to be added to the timeline"
 msgstr "Popis odabranih datoteka koje treba dodati na vremensku liniju"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:219
+#: ../doc/files.rst:365 ../doc/files.rst:389
+msgid "2"
+msgstr "2"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:365
 msgid "Order of Files"
 msgstr "Redoslijed datoteka"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:219
+#: ../doc/files.rst:365
 msgid ""
 "Use these buttons to reorder the list of files (move up, move down, "
 "randomize, remove)"
@@ -733,59 +1129,69 @@ msgstr ""
 "dolje, nasumično, ukloni)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:220
+#: ../doc/files.rst:366
+msgid "3"
+msgstr "3"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:366
 msgid "Timeline Position"
 msgstr "Pozicija na vremenskoj liniji"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:220
+#: ../doc/files.rst:366
 msgid ""
-"Choose the starting position and track where these files need to be inserted "
-"on the timeline"
+"Choose the starting position and track where these files need to be inserted"
+" on the timeline"
 msgstr ""
 "Odaberite početnu poziciju i stazu na koju se ove datoteke trebaju umetnuti "
 "na vremensku liniju"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:221
+#: ../doc/files.rst:367
+msgid "4"
+msgstr "4"
+
+# Translated with gpt-4.1-mini
+#: ../doc/files.rst:367
 msgid "Fade Options"
 msgstr "Opcije izblijedjenja"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:221
+#: ../doc/files.rst:367
 msgid ""
 "Fade in, fade out, both, or none (only affects the image, and not audio)"
 msgstr ""
-"Izblijedi u, izblijedi van, oboje ili nijedno (utječe samo na sliku, ne i na "
-"zvuk)"
+"Izblijedi u, izblijedi van, oboje ili nijedno (utječe samo na sliku, ne i na"
+" zvuk)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "5"
 msgstr "5"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "Zoom Options"
 msgstr "Opcije zumiranja"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:222
+#: ../doc/files.rst:368
 msgid "Zoom in, zoom out, or none"
 msgstr "Zumiraj unutra, zumiraj van ili nijedno"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid "6"
 msgstr "6"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid "Transitions"
 msgstr "Prijelazi"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:223
+#: ../doc/files.rst:369
 msgid ""
 "Choose a specific transition to use between files, random, or none (only "
 "affects the image, and not the audio)"
@@ -794,16 +1200,16 @@ msgstr ""
 "nijedno (utječe samo na sliku, ne i na zvuk)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:229
+#: ../doc/files.rst:375
 msgid "Properties"
 msgstr "Svojstva"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:230
+#: ../doc/files.rst:376
 msgid ""
 "To view the properties of any imported file in your video project, right "
-"click on the file, and choose **File Properties**. This will launch the file "
-"properties dialog, which displays information about your media file. For "
+"click on the file, and choose **File Properties**. This will launch the file"
+" properties dialog, which displays information about your media file. For "
 "certain types of images (i.e. image sequences), you can adjust the frame "
 "rate on this dialog also."
 msgstr ""
@@ -814,7 +1220,7 @@ msgstr ""
 "prilagoditi broj sličica u sekundi u ovom dijalogu."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:242
+#: ../doc/files.rst:388
 msgid ""
 "Select an image sequence in the **Project Files** panel, right click and "
 "choose **File Properties**"
@@ -823,35 +1229,49 @@ msgstr ""
 "odaberite **Svojstva datoteke**"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:243
+#: ../doc/files.rst:389
 msgid "Frame Rate"
 msgstr "Broj sličica u sekundi"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:243
+#: ../doc/files.rst:389
 msgid ""
 "For image sequences, you can also adjust the frame rate of the animation"
 msgstr ""
-"Za sekvence slika također možete prilagoditi broj sličica u sekundi animacije"
+"Za sekvence slika također možete prilagoditi broj sličica u sekundi "
+"animacije"
 
-# Translated with gpt-4.1-mini
-#: ../files.rst:252
+#: ../doc/files.rst:398
 msgid ""
-"This will remove a file from the project. It will not delete the underlying "
-"physical file though, so removing a file from the project merely makes it "
-"unavailable for this video project."
+"Removing an entry from **Project Files** does not delete the source media "
+"from disk."
 msgstr ""
-"Ovo će ukloniti datoteku iz projekta. Međutim, neće izbrisati stvarnu "
-"fizičku datoteku, pa uklanjanje datoteke iz projekta samo čini datoteku "
-"nedostupnom za ovaj video projekt."
+"Uklanjanje unosa iz **Projektnih datoteka** ne briše izvorni medijski zapis "
+"s diska."
+
+#: ../doc/files.rst:400
+msgid ""
+"You can import the file again whenever you need it. For example, after "
+"preparing several :ref:`Split File segments <split_clip_ref>` and removing "
+"the original from Project Files, you might want to use a different part of "
+"the recording. Import it again to work with the whole recording; your "
+"existing segments stay as they are. If the original is already in Project "
+"Files, importing it again selects it."
+msgstr ""
+"Datoteku možete ponovno uvesti kad god vam zatreba. Na primjer, nakon "
+"pripreme nekoliko :ref:`segmenti podijeljene datoteke <split_clip_ref>` i "
+"uklanjanja izvornika iz Projektnih datoteka, možda ćete htjeti koristiti "
+"drugi dio snimke. Ponovno je uvezite da biste radili s cijelom snimkom; "
+"postojeći segmenti ostaju nepromijenjeni. Ako je izvorna datoteka već u "
+"Projektnim datotekama, ponovno uvođenje će je odabrati."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:257
+#: ../doc/files.rst:408
 msgid "Project Assets Folder"
 msgstr "Mapa resursa projekta"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:258
+#: ../doc/files.rst:409
 msgid ""
 "OpenShot creates and uses a few **temporary working folders** while you "
 "edit. These live under ``.openshot_qt/`` in your user profile and hold "
@@ -863,7 +1283,7 @@ msgstr ""
 "vas:"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:261
+#: ../doc/files.rst:412
 msgid ""
 "``.openshot_qt/blender/`` - Blender animation renders created by the "
 "Animated Title dialog"
@@ -872,13 +1292,13 @@ msgstr ""
 "dijalog Animirani naslov"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:262
+#: ../doc/files.rst:413
 msgid "``.openshot_qt/title/`` - SVG title files created by the Title dialog"
 msgstr ""
 "``.openshot_qt/title/`` - SVG datoteke naslova stvorene dijalogom Naslov"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:263
+#: ../doc/files.rst:414
 msgid ""
 "``.openshot_qt/thumbnail/`` - Thumbnails generated for Project Files and "
 "Timeline"
@@ -887,7 +1307,7 @@ msgstr ""
 "vremensku liniju"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:264
+#: ../doc/files.rst:415
 msgid ""
 "``.openshot_qt/clipboard/`` - Media created from clipboard pastes (images, "
 "audio, or video that must be saved to disk first)"
@@ -896,7 +1316,7 @@ msgstr ""
 "međuspremnika (slike, zvuk ili video koji se prvo moraju spremiti na disk)"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:265
+#: ../doc/files.rst:416
 msgid ""
 "``.openshot_qt/optimized/`` - Optimized preview files created for smoother "
 "editing"
@@ -905,13 +1325,13 @@ msgstr ""
 "glađe uređivanje"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:266
+#: ../doc/files.rst:417
 msgid "``.openshot_qt/protobuf_data`` - Tracking and object detection data"
 msgstr ""
 "``.openshot_qt/protobuf_data`` - Podaci za praćenje i detekciju objekata"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:268
+#: ../doc/files.rst:419
 msgid ""
 "When you choose **File→Save As**, OpenShot copies these folders into your "
 "project directory, inside a single folder named ``PROJECTNAME_Assets``. For "
@@ -920,13 +1340,13 @@ msgid ""
 "optimized preview files linked to the project."
 msgstr ""
 "Kada odaberete **Datoteka→Spremi kao**, OpenShot kopira ove mape u "
-"direktorij vašeg projekta, unutar jedne mape nazvane ``PROJECTNAME_Assets``. "
-"Na primjer: ``MyProject_Assets/clipboard`` će sadržavati sav medij koji ste "
-"zalijepili iz međuspremnika, a ``MyProject_Assets/optimized`` će sadržavati "
-"sve optimizirane pregledne datoteke povezane s projektom."
+"direktorij vašeg projekta, unutar jedne mape nazvane ``PROJECTNAME_Assets``."
+" Na primjer: ``MyProject_Assets/clipboard`` će sadržavati sav medij koji ste"
+" zalijepili iz međuspremnika, a ``MyProject_Assets/optimized`` će sadržavati"
+" sve optimizirane pregledne datoteke povezane s projektom."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:272
+#: ../doc/files.rst:423
 #, fuzzy
 msgid ""
 "As part of this process, all paths inside your ``*.osp`` project file are "
@@ -938,35 +1358,36 @@ msgstr ""
 "jednu mapu."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:275
+#: ../doc/files.rst:426
 msgid "Missing Files"
 msgstr "Nedostajuće datoteke"
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:277
+#: ../doc/files.rst:428
 msgid ""
 "When you create and save a project in OpenShot, any files imported into the "
 "software (such as videos, audio, and images) must remain accessible "
 "throughout the project's duration. This means that these imported files "
-"should not be renamed, deleted, or moved to different folders. Additionally, "
-"the full path where these files are located should not be renamed either. "
+"should not be renamed, deleted, or moved to different folders. Additionally,"
+" the full path where these files are located should not be renamed either. "
 "This principle applies to other video editing software as well."
 msgstr ""
-"Kada kreirate i spremite projekt u OpenShotu, sve datoteke uvezene u softver "
-"(kao što su videozapisi, audio i slike) moraju ostati dostupne tijekom "
-"trajanja projekta. To znači da se te uvezene datoteke ne smiju preimenovati, "
-"izbrisati ili premjestiti u druge mape. Također, puna putanja na kojoj se te "
-"datoteke nalaze ne smije se mijenjati. Ovo pravilo vrijedi i za drugi "
+"Kada kreirate i spremite projekt u OpenShotu, sve datoteke uvezene u softver"
+" (kao što su videozapisi, audio i slike) moraju ostati dostupne tijekom "
+"trajanja projekta. To znači da se te uvezene datoteke ne smiju preimenovati,"
+" izbrisati ili premjestiti u druge mape. Također, puna putanja na kojoj se "
+"te datoteke nalaze ne smije se mijenjati. Ovo pravilo vrijedi i za drugi "
 "softver za video montažu."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:282
+#: ../doc/files.rst:433
 msgid ""
 "For example, users might move or delete folders, unplug their USB devices, "
-"or move or delete their project files. Any of these examples cause a :"
-"guilabel:`Missing File` message, in which OpenShot prompts you to locate the "
-"folder of the missing file(s). Depending on the number of files you added to "
-"your project, OpenShot could prompt you many times to find the missing files."
+"or move or delete their project files. Any of these examples cause a "
+":guilabel:`Missing File` message, in which OpenShot prompts you to locate "
+"the folder of the missing file(s). Depending on the number of files you "
+"added to your project, OpenShot could prompt you many times to find the "
+"missing files."
 msgstr ""
 "Na primjer, korisnici mogu premjestiti ili izbrisati mape, isključiti USB "
 "uređaje ili premjestiti ili izbrisati datoteke projekta. Bilo koji od ovih "
@@ -976,7 +1397,7 @@ msgstr ""
 "tražiti da pronađete nedostajuće datoteke."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:286
+#: ../doc/files.rst:437
 msgid ""
 "When OpenShot saves a project, all file paths are converted to **relative** "
 "file paths. As long as you keep all assets organized in the same parent "
@@ -992,7 +1413,7 @@ msgstr ""
 "bez problema."
 
 # Translated with gpt-4.1-mini
-#: ../files.rst:290
+#: ../doc/files.rst:441
 msgid ""
 "Everyone has their unique way of organizing files, and it's crucial to "
 "remember not to make changes to file paths, rename files, or delete files "
@@ -1004,5 +1425,85 @@ msgstr ""
 "zapamtiti da ne mijenjate putanje datoteka, ne preimenujete ili brišete "
 "datoteke prilikom rada s video editorima, jer to može dovesti do problema s "
 "nedostajućim datotekama. Za detaljan vodič o nedostajućim datotekama, "
-"pogledajte `The Case of “Missing Files”! <https://github.com/OpenShot/"
-"openshot-qt/wiki/Missing-File-Prompt>`_."
+"pogledajte `The Case of “Missing Files”! "
+"<https://github.com/OpenShot/openshot-qt/wiki/Missing-File-Prompt>`_."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "The :guilabel:`Preview File` action opens the Preview dialog for the "
+#~ "selected file from :guilabel:`Project Files`. Simply double check a file to "
+#~ "open this dialog."
+#~ msgstr ""
+#~ "Radnja :guilabel:`Pregledaj datoteku` otvara dijalog pregleda za odabranu "
+#~ "datoteku iz :guilabel:`Projektnih datoteka`. Jednostavno dvaput kliknite "
+#~ "datoteku da otvorite ovaj dijalog."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Playback starts automatically."
+#~ msgstr "Reprodukcija počinje automatski."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Loop is enabled by default."
+#~ msgstr "Petlja je prema zadanim postavkama omogućena."
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "If you need to cut a large video file into many smaller files before "
+#~ "editing, the **Split File** dialog is built exactly for this purpose. Right "
+#~ "click on a file, and choose :guilabel:`Split File`. Use this dialog to "
+#~ "quickly separate a large file into many smaller segments. For each segment, "
+#~ "you can select the starting and ending frame, and a title. Each segment "
+#~ "appears as a new file in the Project Files dialog."
+#~ msgstr ""
+#~ "Ako trebate izrezati veliku video datoteku na više manjih prije uređivanja, "
+#~ "dijalog **Podijeli datoteku** je napravljen upravo za tu svrhu. Desni klik "
+#~ "na datoteku i odaberite :guilabel:`Podijeli datoteku`. Koristite ovaj "
+#~ "dijalog za brzo razdvajanje velike datoteke na više manjih segmenata. Za "
+#~ "svaki segment možete odabrati početni i završni kadar te naslov. Svaki "
+#~ "segment pojavljuje se kao nova datoteka u dijalogu Datoteke projekta."
+
+# Translated with gpt-4.1-mini
+#~ msgid "Start of File"
+#~ msgstr "Početak datoteke"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Choose the starting frame of your file by clicking this button"
+#~ msgstr "Odaberite početni kadar vaše datoteke klikom na ovaj gumb"
+
+# Translated with gpt-4.1-mini
+#~ msgid "End of File"
+#~ msgstr "Kraj datoteke"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Choose the ending frame of your file by clicking this button"
+#~ msgstr "Odaberite završni kadar vaše datoteke klikom na ovaj gumb"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Name of File"
+#~ msgstr "Naziv datoteke"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Enter an optional name"
+#~ msgstr "Unesite opcionalni naziv"
+
+# Translated with gpt-4.1-mini
+#~ msgid "Create Button"
+#~ msgstr "Gumb za stvaranje"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Create the file (which resets this dialog, so you can repeat these steps for"
+#~ " each segment)"
+#~ msgstr ""
+#~ "Stvori datoteku (što resetira ovaj dijalog, tako da možete ponoviti ove "
+#~ "korake za svaki segment)"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "This will remove a file from the project. It will not delete the underlying "
+#~ "physical file though, so removing a file from the project merely makes it "
+#~ "unavailable for this video project."
+#~ msgstr ""
+#~ "Ovo će ukloniti datoteku iz projekta. Međutim, neće izbrisati stvarnu "
+#~ "fizičku datoteku, pa uklanjanje datoteke iz projekta samo čini datoteku "
+#~ "nedostupnom za ovaj video projekt."

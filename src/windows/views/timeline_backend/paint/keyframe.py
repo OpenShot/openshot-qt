@@ -31,6 +31,21 @@ from qt_api import QColor, QPainter, QPainterPath, QPen, Qt
 from .base import BasePainter
 
 
+def visible_keyframe_markers(markers, content_area, spacing):
+    """Bound glyph overdraw by pixels without changing editing/hit-test data."""
+    buckets = {}
+    for marker in markers:
+        rect = marker.get("rect")
+        if not isinstance(rect, QRectF) or not rect.intersects(content_area):
+            continue
+        key = (marker.get("type"), marker.get("owner_id"),
+               int(rect.center().y()), int(rect.center().x() // spacing))
+        previous = buckets.get(key)
+        if previous is None or (marker.get("selected") and not previous.get("selected")):
+            buckets[key] = marker
+    return buckets.values()
+
+
 class KeyframePainter(BasePainter):
     def update_theme(self):
         fill = self.w.theme.keyframe_fill
@@ -64,7 +79,7 @@ class KeyframePainter(BasePainter):
         painter.setClipRect(content_area, Qt.IntersectClip)
         painter.setRenderHint(QPainter.Antialiasing, True)
         painter.setPen(self.pen)
-        for marker in markers:
+        for marker in visible_keyframe_markers(markers, content_area, max(1, self.size / 2)):
             rect = marker.get("rect")
             if not isinstance(rect, QRectF) or rect.isNull():
                 continue

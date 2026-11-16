@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:21
+#: ../doc/introduction.rst:21
 msgid "Introduction"
 msgstr "مقدمة"
 
-#: ../introduction.rst:23
+#: ../doc/introduction.rst:23
 msgid ""
 "OpenShot Video Editor is an award-winning, open-source video editor, "
 "available on Linux, macOS, Chrome OS, and Windows. OpenShot can create "
@@ -36,30 +36,30 @@ msgstr ""
 "ورسوم متحركة مذهلة بواجهة سهلة الاستخدام ومجموعة غنية من الميزات."
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:30
+#: ../doc/introduction.rst:30
 msgid "Features"
 msgstr "الميزات"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:31
+#: ../doc/introduction.rst:31
 msgid "**Free & open-source** (licensed under GPLv3)"
 msgstr "**مجاني ومفتوح المصدر** (مرخص بموجب GPLv3)"
 
-#: ../introduction.rst:32
+#: ../doc/introduction.rst:32
 msgid "**Cross-platform** (Linux, macOS, Chrome OS, and Windows)"
 msgstr "**متعدد المنصات** (Linux وmacOS وChrome OS وWindows)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:33
+#: ../doc/introduction.rst:33
 msgid "**Easy-to-use UI** (beginner-friendly, built-in tutorial)"
 msgstr "**واجهة سهلة الاستخدام** (مناسبة للمبتدئين، مع دروس مدمجة)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:34
+#: ../doc/introduction.rst:34
 msgid "**Supports most formats** (video, audio, images - FFmpeg-based)"
 msgstr "**يدعم معظم الصيغ** (فيديو، صوت، صور - يعتمد على FFmpeg)"
 
-#: ../introduction.rst:35
+#: ../doc/introduction.rst:35
 msgid ""
 "**70+ export targets & profiles** (YouTube, TikTok, Reels, Shorts, and more)"
 msgstr ""
@@ -67,29 +67,29 @@ msgstr ""
 "والمزيد)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:36
+#: ../doc/introduction.rst:36
 msgid "**Advanced timeline** (drag-drop, scroll, zoom, snap)"
 msgstr ""
 "**الجدول الزمني المتقدم** (السحب والإفلات، التمرير، التكبير، الالتقاط)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:37
+#: ../doc/introduction.rst:37
 msgid "**Advanced clips** (trim, alpha, scale, rotate, shear, transform)"
 msgstr "**مقاطع متقدمة** (قص، ألفا، مقياس، تدوير، قص، تحويل)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:38
+#: ../doc/introduction.rst:38
 msgid "**Real-time preview** (multi-threaded, performance-optimized)"
 msgstr "**معاينة في الوقت الحقيقي** (متعدد الخيوط، محسّن للأداء)"
 
-#: ../introduction.rst:39
+#: ../doc/introduction.rst:39
 msgid ""
 "**Multiple workspace modes** (Simple and Color views, plus save your own)"
 msgstr ""
 "**أنماط مساحة عمل متعددة** (عرض بسيط وملون، بالإضافة إلى حفظ إعداداتك "
 "الخاصة)"
 
-#: ../introduction.rst:40
+#: ../doc/introduction.rst:40
 msgid ""
 "**Keyframe animations & panel** (`linear`, `bézier`, `constant` "
 "interpolation, visual keyframe panel)"
@@ -97,27 +97,27 @@ msgstr ""
 "**رسوم متحركة وإطار رئيسي ولوحة** (`linear`، `bézier`، `constant` للتداخل، "
 "لوحة الإطارات الرئيسية المرئية)"
 
-#: ../introduction.rst:41
+#: ../doc/introduction.rst:41
 msgid "**One-click presets** (motion, fade, look, camera, color, and more)"
 msgstr ""
 "**إعدادات مسبقة بنقرة واحدة** (حركة، تلاشي، مظهر، كاميرا، لون، والمزيد)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:42
+#: ../doc/introduction.rst:42
 msgid "**Compositing, overlays, watermarks, transparency**"
 msgstr "**التركيب، التراكبات، العلامات المائية، الشفافية**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:43
+#: ../doc/introduction.rst:43
 msgid "**Unlimited tracks / layers** (for complex projects)"
 msgstr "**مسارات / طبقات غير محدودة** (للمشاريع المعقدة)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:44
+#: ../doc/introduction.rst:44
 msgid "**Transitions, masks, wipes** (grayscale images, animated masks)"
 msgstr "**الانتقالات، الأقنعة، المسح** (صور تدرج الرمادي، أقنعة متحركة)"
 
-#: ../introduction.rst:45
+#: ../doc/introduction.rst:45
 msgid ""
 "**Video effects** (chroma key, blur, brightness & contrast, film grain, "
 "stabilizer, and more)"
@@ -125,12 +125,12 @@ msgstr ""
 "**تأثيرات الفيديو** (مفتاح الكروما، التمويه، السطوع والتباين، حبيبات الفيلم،"
 " المثبت، والمزيد)"
 
-#: ../introduction.rst:46
+#: ../doc/introduction.rst:46
 msgid ""
 "**Audio effects** (compressor, expander, noise removal, echo, and more)"
 msgstr "**تأثيرات الصوت** (الضاغط، الموسع، إزالة الضوضاء، الصدى، والمزيد)"
 
-#: ../introduction.rst:47
+#: ../doc/introduction.rst:47
 msgid ""
 "**Color grading** (color wheels, RGB curves, LUT support, video scopes & "
 "analysis)"
@@ -139,16 +139,16 @@ msgstr ""
 "والتحليل)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:48
+#: ../doc/introduction.rst:48
 msgid "**Image sequences & 2D animations**"
 msgstr "**تسلسلات الصور والرسوم المتحركة ثنائية الأبعاد**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:49
+#: ../doc/introduction.rst:49
 msgid "**Blender 3D integration** (animated 3D title templates)"
 msgstr "**تكامل Blender ثلاثي الأبعاد** (قوالب عناوين ثلاثية الأبعاد متحركة)"
 
-#: ../introduction.rst:50
+#: ../doc/introduction.rst:50
 msgid ""
 "**Vector file support & editing** (SVG for titles, lower thirds, text "
 "overlays)"
@@ -156,21 +156,21 @@ msgstr ""
 "**دعم وتحرير ملفات المتجهات** (SVG للعناوين، الأشرطة السفلية، تراكبات النص)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:51
+#: ../doc/introduction.rst:51
 msgid "**Audio mixing, waveform, editing**"
 msgstr "**خلط الصوت، شكل الموجة، التحرير**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:52
+#: ../doc/introduction.rst:52
 msgid "**Emojis** (open-source stickers & artwork)"
 msgstr "**الرموز التعبيرية** (ملصقات وأعمال فنية مفتوحة المصدر)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:53
+#: ../doc/introduction.rst:53
 msgid "**Frame accuracy** (per-frame navigation)"
 msgstr "**دقة الإطار** (التنقل إطار بإطار)"
 
-#: ../introduction.rst:54
+#: ../doc/introduction.rst:54
 msgid ""
 "**Time re-mapping & speed changes** (slow motion, repeat, loop, ping-pong, "
 "forward/backward)"
@@ -179,18 +179,18 @@ msgstr ""
 "المستمر، بينغ-بونغ، للأمام/للخلف)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:55
+#: ../doc/introduction.rst:55
 #, fuzzy
 msgid "**Built-in AI** (motion tracking, object detection, stabilization)"
 msgstr "**الذكاء الاصطناعي المتقدم** (تتبع الحركة، كشف الأجسام، التثبيت)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:56
+#: ../doc/introduction.rst:56
 msgid "**Advanced AI** (see :ref:`ai_ref`)"
 msgstr "**الذكاء الاصطناعي المتقدم** (انظر :ref:`ai_ref`)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:58
+#: ../doc/introduction.rst:58
 msgid ""
 "**Tracking & masks** (object tracking, animated mask generation, auto-blur, "
 "auto-highlight)"
@@ -199,7 +199,7 @@ msgstr ""
 "التمييز التلقائي)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:59
+#: ../doc/introduction.rst:59
 msgid ""
 "**Image & video generation** (text-to-image, image style transfer, "
 "text/image-to-video)"
@@ -208,50 +208,50 @@ msgstr ""
 "النص/الصورة إلى فيديو)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:60
+#: ../doc/introduction.rst:60
 msgid ""
 "**Quality enhancement** (upscaling, frame interpolation/increase frame rate)"
 msgstr "**تحسين الجودة** (تكبير الصورة، استيفاء الإطارات/زيادة معدل الإطارات)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:61
+#: ../doc/introduction.rst:61
 msgid ""
 "**Analysis & automation** (auto scene splitting, speech "
 "transcription/captions)"
 msgstr "**التحليل والأتمتة** (تقسيم المشاهد تلقائيًا، نسخ الكلام/الترجمة)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:62
+#: ../doc/introduction.rst:62
 msgid "**Audio generation** (sound and music generation)"
 msgstr "**توليد الصوت** (توليد الصوت والموسيقى)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:63
+#: ../doc/introduction.rst:63
 msgid "*Additional workflows can be added with custom ComfyUI templates*"
 msgstr "*يمكن إضافة سير عمل إضافي باستخدام قوالب ComfyUI المخصصة*"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:64
+#: ../doc/introduction.rst:64
 msgid "**Credits & captions** (scrolling, animated)"
 msgstr "**الاعتمادات والتسميات التوضيحية** (تمرير، متحركة)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:65
+#: ../doc/introduction.rst:65
 msgid "**Hardware acceleration** (NVIDIA, AMD, Intel, etc.)"
 msgstr "**تسريع الأجهزة** (NVIDIA، AMD، Intel، إلخ)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:66
+#: ../doc/introduction.rst:66
 msgid "**Import & export** (EDL, Final Cut Pro)"
 msgstr "**الاستيراد والتصدير** (EDL، Final Cut Pro)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:67
+#: ../doc/introduction.rst:67
 msgid "**Desktop integration** (drag-drop from file managers)"
 msgstr "**تكامل سطح المكتب** (السحب والإفلات من مديري الملفات)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:68
+#: ../doc/introduction.rst:68
 msgid ""
 "**JSON project format** (`OpenShot Cloud API "
 "<https://www.openshot.org/cloud-api/>`_ compatible)"
@@ -260,38 +260,38 @@ msgstr ""
 "<https://www.openshot.org/cloud-api/>`_)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:69
+#: ../doc/introduction.rst:69
 msgid "**Customizable shortcuts**"
 msgstr "**اختصارات قابلة للتخصيص**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:70
+#: ../doc/introduction.rst:70
 msgid "**Translations** (100+ languages)"
 msgstr "**الترجمات** (أكثر من 100 لغة)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:71
+#: ../doc/introduction.rst:71
 msgid "**High DPI** monitor support"
 msgstr "**دعم شاشات عالية الدقة (High DPI)**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:72
+#: ../doc/introduction.rst:72
 msgid ""
 "**Community support** (`Visit our forum <https://openshot.org/forum/>`_)"
 msgstr "**دعم المجتمع** (`قم بزيارة منتدانا <https://openshot.org/forum/>`_)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:75
+#: ../doc/introduction.rst:75
 msgid "Screenshot"
 msgstr "لقطة شاشة"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:81
+#: ../doc/introduction.rst:81
 msgid "System Requirements"
 msgstr "متطلبات النظام"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:82
+#: ../doc/introduction.rst:82
 msgid ""
 "Video editing benefits from modern, multi-core CPUs with **fast clock "
 "speeds** (GHz), large amounts of memory, and fast hard disk drives. "
@@ -304,53 +304,53 @@ msgstr ""
 " النظام الدنيا**:"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:87
+#: ../doc/introduction.rst:87
 msgid "TL;DR"
 msgstr "ملخص"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:88
+#: ../doc/introduction.rst:88
 msgid "Most computers manufactured after 2017 will run OpenShot"
 msgstr "معظم الحواسيب المصنعة بعد عام 2017 ستشغل OpenShot"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:91
+#: ../doc/introduction.rst:91
 msgid "Minimum Specifications"
 msgstr "المواصفات الدنيا"
 
-#: ../introduction.rst:92
+#: ../doc/introduction.rst:92
 msgid "64-bit Operating System (*Linux, macOS, Chrome OS, Windows 7/8/10/11*)"
 msgstr "نظام تشغيل 64-بت (*Linux وmacOS وChrome OS وWindows 7/8/10/11*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:95
+#: ../doc/introduction.rst:95
 msgid "Multi-core processor with 64-bit support"
 msgstr "معالج متعدد النوى يدعم 64-بت"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:94
+#: ../doc/introduction.rst:94
 msgid "Minimum cores: 2 (*recommended: 6+ cores*)"
 msgstr "الحد الأدنى للنوى: 2 (*موصى به: 6 نوى أو أكثر*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:95
+#: ../doc/introduction.rst:95
 msgid "Minimum threads: 4 (*recommended: 6+ threads*)"
 msgstr "الحد الأدنى للخيوط: 4 (*موصى به: 6 خيوط أو أكثر*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:96
+#: ../doc/introduction.rst:96
 msgid "Minimum turbo clock speed: 2.7 Ghz (*recommended: 3.4+ Ghz*)"
 msgstr ""
 "الحد الأدنى لسرعة ساعة التيربو: 2.7 جيجاهرتز (*موصى به: 3.4 جيجاهرتز أو "
 "أكثر*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:97
+#: ../doc/introduction.rst:97
 msgid "4GB of RAM (*16+ GB recommended*)"
 msgstr "ذاكرة وصول عشوائي 4 جيجابايت (*موصى به: 16 جيجابايت أو أكثر*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:98
+#: ../doc/introduction.rst:98
 msgid ""
 "1 GB of hard-disk space for installation & usage (*recommended: 50+ GB "
 "available hard-disk space for media, videos, images, and storage*)"
@@ -359,7 +359,7 @@ msgstr ""
 "من المساحة المتاحة للوسائط، الفيديوهات، الصور، والتخزين*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:99
+#: ../doc/introduction.rst:99
 msgid ""
 "Optional: Solid-state drive (SSD), if utilizing disk-caching add an "
 "additional 10GB of hard-disk space"
@@ -368,17 +368,17 @@ msgstr ""
 "على القرص أضف 10 جيجابايت إضافية من مساحة القرص الصلب"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:100
+#: ../doc/introduction.rst:100
 msgid "For factors related to real-time previews, see :ref:`playback_ref`."
 msgstr "لعوامل متعلقة بالمعاينات في الوقت الحقيقي، راجع :ref:`playback_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:103
+#: ../doc/introduction.rst:103
 msgid "License"
 msgstr "الرخصة"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:104
+#: ../doc/introduction.rst:104
 msgid ""
 "OpenShot Video Editor is free software: you can redistribute it and/or "
 "modify it under the terms of the GNU General Public License as published by "
@@ -390,7 +390,7 @@ msgstr ""
 "الرخصة، أو (حسب اختيارك) أي إصدار لاحق."
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:109
+#: ../doc/introduction.rst:109
 msgid ""
 "OpenShot Video Editor is distributed in the hope that it will be useful, but"
 " WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "

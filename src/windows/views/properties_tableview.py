@@ -1480,6 +1480,20 @@ class PropertiesTableView(QTableView):
         self.clip_properties_model.update_item(selection)
         QTimer.singleShot(125, self._auto_connect_color_grade_wheels_dock)
 
+    @pyqtSlot(int)
+    def playback_frame_changed(self, frame_number):
+        """Follow playback without resetting a control or menu the user is editing."""
+        if (not self.isVisible() or self.mouse_pressed or self.transaction_id
+                or self.update_in_progress):
+            return
+        editing = getattr(getattr(QAbstractItemView, "State", QAbstractItemView), "EditingState", None)
+        if self.state() == editing:
+            return
+        if self.menu is not None and not isdeleted(self.menu) and self.menu.isVisible():
+            return
+        # update_model's existing callback also synchronizes wheel/curve previews.
+        self.clip_properties_model.update_frame(frame_number)
+
     def select_frame(self, frame_number):
         """ Update the values of the selected clip, based on the current frame """
 

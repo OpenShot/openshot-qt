@@ -130,6 +130,21 @@ class OpenShotApp(QApplication):
         # Init data objects
         self.settings = settings.SettingStore(parent=self)
         self.settings.load()
+        from classes.gpu_settings import apply_gpu_preferences
+        from classes.gpu_diagnostics import DEBUG_VARIABLES
+        gpu_environment_overrides = {key: os.environ[key] for key in
+                                     ('OPENSHOT_RENDER_BACKEND', 'OPENSHOT_VULKAN_DEVICE') + DEBUG_VARIABLES
+                                     if key in os.environ}
+        apply_gpu_preferences(self.settings, native=openshot)
+        diagnostics = getattr(self, 'gpu_diagnostics', None)
+        if diagnostics:
+            diagnostics.environ = dict(os.environ)
+            diagnostics.environment_overrides = gpu_environment_overrides
+            diagnostics.event('effective settings', backend=os.environ.get('OPENSHOT_RENDER_BACKEND'),
+                              device=os.environ.get('OPENSHOT_VULKAN_DEVICE', 'automatic'),
+                              environment_overrides=gpu_environment_overrides)
+        from classes.gpu_metrics import GpuMeasurements
+        self.gpu_measurements = GpuMeasurements(openshot, getattr(self, 'gpu_diagnostics', None))
         assets_path = info.configure_asset_defaults(self.settings.get("unsaved-assets-path"))
         log.info("Unsaved project assets: %s", assets_path)
         if self.mode != "unittest":
@@ -176,6 +191,9 @@ class OpenShotApp(QApplication):
             from classes.distribution import distribution_label
             log.info("distribution: %s", distribution_label())
             log.info("libopenshot version: %s" % openshot.OPENSHOT_VERSION_FULL)
+            from classes.gpu_diagnostics import GpuDiagnostics
+            self.gpu_diagnostics = GpuDiagnostics(openshot, log)
+            self.gpu_diagnostics.log_startup()
             log.info("platform: %s" % platform.platform())
             log.info("processor: %s" % platform.processor())
             log.info("machine: %s" % platform.machine())
@@ -276,6 +294,14 @@ class OpenShotApp(QApplication):
         from windows.main_window import MainWindow
         log.debug("Creating main interface window")
         self.window = MainWindow()
+        diagnostics = getattr(self, "gpu_diagnostics", None)
+        if diagnostics:
+            diagnostics.start_probe()
+            self.gpu_diagnostics_timer = QTimer(self)
+            self.gpu_diagnostics_timer.setInterval(30000)
+            self.gpu_diagnostics_timer.timeout.connect(diagnostics.log_summary)
+            self.gpu_diagnostics_timer.start()
+            self.aboutToQuit.connect(diagnostics.log_summary)
 
         # Check for gui launch failures
         if self.mode == "quit":

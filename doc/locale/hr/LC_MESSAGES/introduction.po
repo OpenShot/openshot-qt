@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:21
+#: ../doc/introduction.rst:21
 msgid "Introduction"
 msgstr "Uvod"
 
-#: ../introduction.rst:23
+#: ../doc/introduction.rst:23
 msgid ""
 "OpenShot Video Editor is an award-winning, open-source video editor, "
 "available on Linux, macOS, Chrome OS, and Windows. OpenShot can create "
@@ -37,31 +37,31 @@ msgstr ""
 "značajki."
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:30
+#: ../doc/introduction.rst:30
 msgid "Features"
 msgstr "Značajke"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:31
+#: ../doc/introduction.rst:31
 msgid "**Free & open-source** (licensed under GPLv3)"
 msgstr "**Besplatan i otvoren izvor** (licenciran pod GPLv3)"
 
-#: ../introduction.rst:32
+#: ../doc/introduction.rst:32
 msgid "**Cross-platform** (Linux, macOS, Chrome OS, and Windows)"
 msgstr "**Višeplatformski** (Linux, macOS, Chrome OS i Windows)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:33
+#: ../doc/introduction.rst:33
 msgid "**Easy-to-use UI** (beginner-friendly, built-in tutorial)"
 msgstr "**Jednostavno sučelje** (prikladno za početnike, ugrađeni vodič)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:34
+#: ../doc/introduction.rst:34
 msgid "**Supports most formats** (video, audio, images - FFmpeg-based)"
 msgstr ""
 "**Podržava većinu formata** (video, audio, slike - bazirano na FFmpeg)"
 
-#: ../introduction.rst:35
+#: ../doc/introduction.rst:35
 msgid ""
 "**70+ export targets & profiles** (YouTube, TikTok, Reels, Shorts, and more)"
 msgstr ""
@@ -69,33 +69,33 @@ msgstr ""
 "više)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:36
+#: ../doc/introduction.rst:36
 msgid "**Advanced timeline** (drag-drop, scroll, zoom, snap)"
 msgstr ""
 "**Napredna vremenska crta** (povuci-i-ispusti, pomicanje, zumiranje, "
 "poravnanje)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:37
+#: ../doc/introduction.rst:37
 msgid "**Advanced clips** (trim, alpha, scale, rotate, shear, transform)"
 msgstr ""
 "**Napredni isječci** (rezanje, alfa, skaliranje, rotacija, iskrivljenje, "
 "transformacija)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:38
+#: ../doc/introduction.rst:38
 msgid "**Real-time preview** (multi-threaded, performance-optimized)"
 msgstr ""
 "**Pregled u stvarnom vremenu** (više niti, optimizirano za performanse)"
 
-#: ../introduction.rst:39
+#: ../doc/introduction.rst:39
 msgid ""
 "**Multiple workspace modes** (Simple and Color views, plus save your own)"
 msgstr ""
 "**Više načina rada radnog prostora** (Jednostavan i prikazi boja, plus "
 "spremite vlastiti)"
 
-#: ../introduction.rst:40
+#: ../doc/introduction.rst:40
 msgid ""
 "**Keyframe animations & panel** (`linear`, `bézier`, `constant` "
 "interpolation, visual keyframe panel)"
@@ -103,29 +103,29 @@ msgstr ""
 "**Animacije ključnih okvira i ploča** (`linear`, `bézier`, `constant` "
 "interpolacija, vizualna ploča ključnih okvira)"
 
-#: ../introduction.rst:41
+#: ../doc/introduction.rst:41
 msgid "**One-click presets** (motion, fade, look, camera, color, and more)"
 msgstr ""
 "**Predlošci jednim klikom** (pokret, izblijedjivanje, izgled, kamera, boja i"
 " više)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:42
+#: ../doc/introduction.rst:42
 msgid "**Compositing, overlays, watermarks, transparency**"
 msgstr "**Slojevi, preklapanja, vodeni žigovi, prozirnost**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:43
+#: ../doc/introduction.rst:43
 msgid "**Unlimited tracks / layers** (for complex projects)"
 msgstr "**Neograničeni zapisi / slojevi** (za složene projekte)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:44
+#: ../doc/introduction.rst:44
 msgid "**Transitions, masks, wipes** (grayscale images, animated masks)"
 msgstr ""
 "**Prijelazi, maske, brisanja** (slike u sivim tonovima, animirane maske)"
 
-#: ../introduction.rst:45
+#: ../doc/introduction.rst:45
 msgid ""
 "**Video effects** (chroma key, blur, brightness & contrast, film grain, "
 "stabilizer, and more)"
@@ -133,13 +133,13 @@ msgstr ""
 "**Video efekti** (chroma key, zamućenje, svjetlina i kontrast, filmska "
 "zrnca, stabilizator i više)"
 
-#: ../introduction.rst:46
+#: ../doc/introduction.rst:46
 msgid ""
 "**Audio effects** (compressor, expander, noise removal, echo, and more)"
 msgstr ""
 "**Audio efekti** (kompresor, ekspanzer, uklanjanje šuma, odjek i više)"
 
-#: ../introduction.rst:47
+#: ../doc/introduction.rst:47
 msgid ""
 "**Color grading** (color wheels, RGB curves, LUT support, video scopes & "
 "analysis)"
@@ -148,16 +148,16 @@ msgstr ""
 "mjerači i analiza)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:48
+#: ../doc/introduction.rst:48
 msgid "**Image sequences & 2D animations**"
 msgstr "**Sekvence slika i 2D animacije**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:49
+#: ../doc/introduction.rst:49
 msgid "**Blender 3D integration** (animated 3D title templates)"
 msgstr "**Integracija s Blender 3D** (animirani 3D predlošci naslova)"
 
-#: ../introduction.rst:50
+#: ../doc/introduction.rst:50
 msgid ""
 "**Vector file support & editing** (SVG for titles, lower thirds, text "
 "overlays)"
@@ -166,21 +166,21 @@ msgstr ""
 " tekstualne slojeve)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:51
+#: ../doc/introduction.rst:51
 msgid "**Audio mixing, waveform, editing**"
 msgstr "**Miksanje zvuka, valni oblik, uređivanje**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:52
+#: ../doc/introduction.rst:52
 msgid "**Emojis** (open-source stickers & artwork)"
 msgstr "**Emotikoni** (otvoreni naljepnice i umjetnički radovi)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:53
+#: ../doc/introduction.rst:53
 msgid "**Frame accuracy** (per-frame navigation)"
 msgstr "**Točnost okvira** (navigacija po okvirima)"
 
-#: ../introduction.rst:54
+#: ../doc/introduction.rst:54
 msgid ""
 "**Time re-mapping & speed changes** (slow motion, repeat, loop, ping-pong, "
 "forward/backward)"
@@ -189,7 +189,7 @@ msgstr ""
 "ping-pong, naprijed/nazad)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:55
+#: ../doc/introduction.rst:55
 #, fuzzy
 msgid "**Built-in AI** (motion tracking, object detection, stabilization)"
 msgstr ""
@@ -197,12 +197,12 @@ msgstr ""
 "stabilizacija)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:56
+#: ../doc/introduction.rst:56
 msgid "**Advanced AI** (see :ref:`ai_ref`)"
 msgstr "**Napredna AI** (vidi :ref:`ai_ref`)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:58
+#: ../doc/introduction.rst:58
 msgid ""
 "**Tracking & masks** (object tracking, animated mask generation, auto-blur, "
 "auto-highlight)"
@@ -211,7 +211,7 @@ msgstr ""
 "automatsko zamućivanje, automatsko isticanje)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:59
+#: ../doc/introduction.rst:59
 msgid ""
 "**Image & video generation** (text-to-image, image style transfer, "
 "text/image-to-video)"
@@ -220,7 +220,7 @@ msgstr ""
 "tekst/slika u video)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:60
+#: ../doc/introduction.rst:60
 msgid ""
 "**Quality enhancement** (upscaling, frame interpolation/increase frame rate)"
 msgstr ""
@@ -228,7 +228,7 @@ msgstr ""
 "frejmova/povećanje broja frejmova)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:61
+#: ../doc/introduction.rst:61
 msgid ""
 "**Analysis & automation** (auto scene splitting, speech "
 "transcription/captions)"
@@ -237,40 +237,40 @@ msgstr ""
 "govora/podnaslovi)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:62
+#: ../doc/introduction.rst:62
 msgid "**Audio generation** (sound and music generation)"
 msgstr "**Generiranje zvuka** (generiranje zvukova i glazbe)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:63
+#: ../doc/introduction.rst:63
 msgid "*Additional workflows can be added with custom ComfyUI templates*"
 msgstr ""
 "*Dodatni tijekovi rada mogu se dodati prilagođenim ComfyUI predlošcima*"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:64
+#: ../doc/introduction.rst:64
 msgid "**Credits & captions** (scrolling, animated)"
 msgstr "**Zasluge i titlovi** (pomičući, animirani)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:65
+#: ../doc/introduction.rst:65
 msgid "**Hardware acceleration** (NVIDIA, AMD, Intel, etc.)"
 msgstr "**Hardversko ubrzanje** (NVIDIA, AMD, Intel i dr.)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:66
+#: ../doc/introduction.rst:66
 msgid "**Import & export** (EDL, Final Cut Pro)"
 msgstr "**Uvoz i izvoz** (EDL, Final Cut Pro)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:67
+#: ../doc/introduction.rst:67
 msgid "**Desktop integration** (drag-drop from file managers)"
 msgstr ""
 "**Integracija s radnom površinom** (povuci-i-ispusti iz upravitelja "
 "datoteka)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:68
+#: ../doc/introduction.rst:68
 msgid ""
 "**JSON project format** (`OpenShot Cloud API "
 "<https://www.openshot.org/cloud-api/>`_ compatible)"
@@ -279,39 +279,39 @@ msgstr ""
 "<https://www.openshot.org/cloud-api/>`_)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:69
+#: ../doc/introduction.rst:69
 msgid "**Customizable shortcuts**"
 msgstr "**Prilagodljivi prečaci**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:70
+#: ../doc/introduction.rst:70
 msgid "**Translations** (100+ languages)"
 msgstr "**Prijevodi** (više od 100 jezika)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:71
+#: ../doc/introduction.rst:71
 msgid "**High DPI** monitor support"
 msgstr "**Podrška za monitore visoke DPI**"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:72
+#: ../doc/introduction.rst:72
 msgid ""
 "**Community support** (`Visit our forum <https://openshot.org/forum/>`_)"
 msgstr ""
 "**Podrška zajednice** (`Posjetite naš forum <https://openshot.org/forum/>`_)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:75
+#: ../doc/introduction.rst:75
 msgid "Screenshot"
 msgstr "Snimka zaslona"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:81
+#: ../doc/introduction.rst:81
 msgid "System Requirements"
 msgstr "Sistemski zahtjevi"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:82
+#: ../doc/introduction.rst:82
 msgid ""
 "Video editing benefits from modern, multi-core CPUs with **fast clock "
 "speeds** (GHz), large amounts of memory, and fast hard disk drives. "
@@ -324,54 +324,54 @@ msgstr ""
 "Ovo su **minimalni sistemski zahtjevi**:"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:87
+#: ../doc/introduction.rst:87
 msgid "TL;DR"
 msgstr "Ukupno uzevši"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:88
+#: ../doc/introduction.rst:88
 msgid "Most computers manufactured after 2017 will run OpenShot"
 msgstr ""
 "Većina računala proizvedenih nakon 2017. godine može pokrenuti OpenShot"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:91
+#: ../doc/introduction.rst:91
 msgid "Minimum Specifications"
 msgstr "Minimalne specifikacije"
 
-#: ../introduction.rst:92
+#: ../doc/introduction.rst:92
 msgid "64-bit Operating System (*Linux, macOS, Chrome OS, Windows 7/8/10/11*)"
 msgstr ""
 "64-bitni operativni sustav (*Linux, macOS, Chrome OS, Windows 7/8/10/11*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:95
+#: ../doc/introduction.rst:95
 msgid "Multi-core processor with 64-bit support"
 msgstr "Višejedrni procesor s podrškom za 64-bit"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:94
+#: ../doc/introduction.rst:94
 msgid "Minimum cores: 2 (*recommended: 6+ cores*)"
 msgstr "Minimalan broj jezgri: 2 (*preporučeno: 6 ili više jezgri*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:95
+#: ../doc/introduction.rst:95
 msgid "Minimum threads: 4 (*recommended: 6+ threads*)"
 msgstr "Minimalan broj dretvi: 4 (*preporučeno: 6 ili više dretvi*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:96
+#: ../doc/introduction.rst:96
 msgid "Minimum turbo clock speed: 2.7 Ghz (*recommended: 3.4+ Ghz*)"
 msgstr ""
 "Minimalna turbo brzina takta: 2,7 GHz (*preporučeno: 3,4 GHz ili više*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:97
+#: ../doc/introduction.rst:97
 msgid "4GB of RAM (*16+ GB recommended*)"
 msgstr "4 GB RAM-a (*preporučeno 16 GB ili više*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:98
+#: ../doc/introduction.rst:98
 msgid ""
 "1 GB of hard-disk space for installation & usage (*recommended: 50+ GB "
 "available hard-disk space for media, videos, images, and storage*)"
@@ -380,7 +380,7 @@ msgstr ""
 "GB ili više slobodnog prostora za medije, videozapise, slike i pohranu*)"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:99
+#: ../doc/introduction.rst:99
 msgid ""
 "Optional: Solid-state drive (SSD), if utilizing disk-caching add an "
 "additional 10GB of hard-disk space"
@@ -389,19 +389,19 @@ msgstr ""
 "prostora na tvrdom disku"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:100
+#: ../doc/introduction.rst:100
 msgid "For factors related to real-time previews, see :ref:`playback_ref`."
 msgstr ""
 "Za čimbenike vezane uz pregled u stvarnom vremenu, pogledajte "
 ":ref:`playback_ref`."
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:103
+#: ../doc/introduction.rst:103
 msgid "License"
 msgstr "Licenca"
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:104
+#: ../doc/introduction.rst:104
 msgid ""
 "OpenShot Video Editor is free software: you can redistribute it and/or "
 "modify it under the terms of the GNU General Public License as published by "
@@ -414,7 +414,7 @@ msgstr ""
 "verzije."
 
 # Translated with gpt-4.1-mini
-#: ../introduction.rst:109
+#: ../doc/introduction.rst:109
 msgid ""
 "OpenShot Video Editor is distributed in the hope that it will be useful, but"
 " WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY "

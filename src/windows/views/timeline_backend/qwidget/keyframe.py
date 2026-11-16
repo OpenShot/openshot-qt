@@ -228,7 +228,17 @@ class KeyframeMixin:
                 elif local_seconds < -1e-6 or local_seconds > duration + 1e-6:
                     dimmed = True
             frame_int = int(round(frame_float))
-            previous = markers.get(frame_int)
+            marker_key = frame_int
+            if getattr(self, "_live_transform_drawing", False):
+                x = clip_rect_view.left() + local_seconds * self.pixels_per_second
+                size = max(2, self.keyframe_painter.size)
+                if x < self.track_name_width - size or x > self.width() + size:
+                    return
+                marker_key = int(x // max(1, size / 2))
+                previous = markers.get(marker_key)
+                if previous and previous["frame"] != frame_int:
+                    return
+            previous = markers.get(marker_key)
             path_value = None
             if point_path is not None:
                 try:
@@ -290,7 +300,7 @@ class KeyframeMixin:
                 entry["paths"] = tuple(entry_paths)
                 if len(entry_paths) == 1:
                     entry["path"] = entry_paths[0]
-            markers[frame_int] = entry
+            markers[marker_key] = entry
 
         def walk(obj, path):
             if isinstance(obj, dict):
@@ -402,6 +412,9 @@ class KeyframeMixin:
         return result
 
     def _build_clip_keyframes(self, rect, clip, view_state):
+        if getattr(self, "_live_transform_drawing", False):
+            preview = getattr(self.win, "videoPreview", None)
+            clip = getattr(preview, "_live_transform_clips", {}).get(clip.id, clip)
         data = clip.data if isinstance(clip.data, dict) else {}
         base_start = float(data.get("start", 0.0) or 0.0)
         base_end = float(data.get("end", base_start) or base_start)

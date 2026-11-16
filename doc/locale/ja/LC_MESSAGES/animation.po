@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 14:26-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 "Generated-By: Babel 2.10.3\n"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:23
+#: ../doc/animation.rst:23
 msgid "Animation"
 msgstr "アニメーション"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:25
+#: ../doc/animation.rst:25
 msgid ""
 "OpenShot has been designed specifically with animation in mind. The powerful"
 " curve-based animation framework can handle most jobs with ease, and is "
@@ -36,129 +36,143 @@ msgstr ""
 "OpenShotはアニメーションを念頭に置いて特別に設計されています。強力な曲線ベースのアニメーションフレームワークはほとんどの作業を簡単に処理でき、ほぼあらゆるアニメーションを作成するのに十分柔軟です。キーフレームはクリップの特定のポイントで値を指定し、OpenShotが中間の値の補間という難しい作業を行います。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:30
+#: ../doc/animation.rst:30
 msgid "Overview"
 msgstr "概要"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:38 ../animation.rst:141
+#: ../doc/animation.rst:38 ../doc/animation.rst:187
 msgid "#"
 msgstr "＃"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:38 ../animation.rst:141
+#: ../doc/animation.rst:38 ../doc/animation.rst:187
 msgid "Name"
 msgstr "名前"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:38 ../animation.rst:65 ../animation.rst:141
+#: ../doc/animation.rst:38 ../doc/animation.rst:71 ../doc/animation.rst:187
 msgid "Description"
 msgstr "説明"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:40 ../animation.rst:41 ../animation.rst:143
+#: ../doc/animation.rst:40 ../doc/animation.rst:41 ../doc/animation.rst:189
 msgid "1"
 msgstr "1"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:40
+#: ../doc/animation.rst:40
 msgid "Green Property"
 msgstr "緑のプロパティ"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:40
+#: ../doc/animation.rst:40
 msgid "When the play-head is on a key frame, the property appears green"
 msgstr "プレイヘッドがキーフレーム上にあるとき、プロパティは緑色で表示されます"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:41
+#: ../doc/animation.rst:41
 msgid "Blue Property"
 msgstr "青のプロパティ"
 
-# Translated with gpt-4.1-mini
-#: ../animation.rst:41
-msgid ""
-"When the play-head is on an interpolated value, the property appears blue"
-msgstr "プレイヘッドが補間値上にあるとき、プロパティは青色で表示されます"
+#: ../doc/animation.rst:41
+msgid "When the play-head is between key frames, the property appears blue"
+msgstr "プレイヘッドがキーフレームの間にあるとき、プロパティは青く表示されます"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:42 ../animation.rst:144
+#: ../doc/animation.rst:42 ../doc/animation.rst:190
 msgid "2"
 msgstr "2"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:42
+#: ../doc/animation.rst:42
 msgid "Value Slider"
 msgstr "値スライダー"
 
-# Translated with gpt-4.1-mini
-#: ../animation.rst:42
+#: ../doc/animation.rst:42
 msgid ""
-"Click and drag your mouse to adjust the value (this automatically creates a "
-"key frame if needed)"
-msgstr "クリックしてドラッグし、値を調整します（必要に応じて自動的にキーフレームが作成されます）"
+"Drag to adjust a property. With Auto Keyframes on, this also records the "
+"value at the playhead."
+msgstr "ドラッグしてプロパティを調整します。オートキーフレームがオンの場合、プレイヘッドの位置で値も記録されます。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:43
+#: ../doc/animation.rst:43
 msgid "3"
 msgstr "3"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:43
+#: ../doc/animation.rst:43
 msgid "Play-head"
 msgstr "プレイヘッド"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:43
+#: ../doc/animation.rst:43
 msgid "Position the play-head over a clip where you need a key frame"
 msgstr "キーフレームが必要なクリップ上にプレイヘッドを配置します"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:44
+#: ../doc/animation.rst:44
 msgid "4"
 msgstr "4"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:44
+#: ../doc/animation.rst:44
 msgid "Key frame Markers"
 msgstr "キーフレームマーカー"
 
-#: ../animation.rst:44
+#: ../doc/animation.rst:44
 msgid ""
 "Colorful icons line the bottom of the clip for every keyframe "
 "(`circle=Bézier`, `diamond=linear`, `square=constant`). Each icon matches "
 "the color of its clip, effect, or transition. The selected item's keyframe "
 "icons are shown brighter. Filtering the property list also filters these "
-"icons. Click any icon to jump the play-head, load its properties, and select"
-" its clip, effect, or transition. Drag an icon left or right to move the "
-"keyframe and fine‑tune your animation timing. The play-head moves to the "
-"keyframe's new position when you finish dragging."
+"icons. Click any icon to jump the play-head and select its clip, effect, or "
+"transition without opening the Properties dock. Double-click the icon, or "
+"right-click and choose :guilabel:`Properties`, to open the dock. Drag an "
+"icon left or right to move the keyframe and fine‑tune your animation timing."
+" The play-head moves to the keyframe's new position when you finish "
+"dragging."
 msgstr ""
-"カラフルなアイコンが各キーフレームのクリップの下部に並んでいます（`circle=Bézier`、`diamond=linear`、`square=constant`）。各アイコンはそのクリップ、エフェクト、またはトランジションの色に対応しています。選択された項目のキーフレームアイコンは明るく表示されます。プロパティリストのフィルタリングはこれらのアイコンにも適用されます。任意のアイコンをクリックすると、プレイヘッドがその位置にジャンプし、プロパティが読み込まれ、対応するクリップ、エフェクト、またはトランジションが選択されます。アイコンを左右にドラッグするとキーフレームを移動でき、アニメーションのタイミングを微調整できます。ドラッグを終了するとプレイヘッドはキーフレームの新しい位置に移動します。"
+"カラフルなアイコンがクリップの下部に並び、各キーフレームを示します（`circle=Bézier`、`diamond=linear`、`square=constant`）。各アイコンはそのクリップ、エフェクト、またはトランジションの色に対応しています。選択されたアイテムのキーフレームアイコンは明るく表示されます。プロパティリストのフィルタリングはこれらのアイコンにも適用されます。アイコンをクリックすると、プロパティドックを開かずにプレイヘッドがその位置にジャンプし、対応するクリップ、エフェクト、またはトランジションが選択されます。アイコンをダブルクリックするか、右クリックして"
+" :guilabel:`プロパティ` "
+"を選択するとドックが開きます。アイコンを左右にドラッグしてキーフレームを移動し、アニメーションのタイミングを微調整できます。ドラッグを終えるとプレイヘッドはキーフレームの新しい位置に移動します。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:48
+#: ../doc/animation.rst:48
 msgid "Key Frames"
 msgstr "キーフレーム"
 
-# Translated with gpt-4.1-mini
-#: ../animation.rst:49
+#: ../doc/animation.rst:49
 msgid ""
-"To create a key frame in OpenShot, simply position the play-head (i.e. "
-"playback position) at any point over a clip, and edit properties in the "
-"property dialog. If the property supports key frames, it will turn green, "
-"and a small icon (`circle=Bézier, diamond=linear, square=constant`) will "
-"appear on the bottom of your clip at that position. Move your play-head to "
-"another point over that clip, and adjust the properties again. All "
-"animations require at least 2 key frames, but can support an unlimited "
-"number of them."
+"A keyframe remembers a property's value at a particular moment. For example,"
+" to make a clip gradually grow larger, you can set its scale at the "
+"beginning and choose a larger scale near the end. OpenShot calculates the "
+"change between those two keyframes during playback."
 msgstr ""
-"OpenShotでキーフレームを作成するには、単にプレイヘッド（再生位置）をクリップ上の任意のポイントに配置し、プロパティダイアログでプロパティを編集します。プロパティがキーフレームをサポートしている場合、緑色に変わり、その位置のクリップの下部に小さなアイコン（`circle=ベジェ`,"
-" `diamond=線形`, `square=一定` "
-"）が表示されます。プレイヘッドをクリップ上の別のポイントに移動し、再度プロパティを調整します。すべてのアニメーションには少なくとも2つのキーフレームが必要ですが、無制限にサポートできます。"
+"キーフレームは特定の時点でのプロパティの値を記憶します。例えば、クリップを徐々に大きくするには、開始時点でスケールを設定し、終了近くでより大きなスケールを選択します。OpenShotは再生中にこれら二つのキーフレーム間の変化を計算します。"
+
+#: ../doc/animation.rst:53
+msgid ""
+"With :ref:`auto_keyframes_ref` on (the default), move the playhead to the "
+"moment you want to change and adjust a property in the Properties dock. "
+"OpenShot adds a keyframe there, or updates it if one already exists. Move to"
+" another moment and adjust the value again to build your animation."
+msgstr ""
+":ref:`auto_keyframes_ref` "
+"がオン（デフォルト）の場合、変更したい時点にプレイヘッドを移動し、プロパティドックでプロパティを調整します。OpenShotはそこにキーフレームを追加するか、既に存在する場合は更新します。別の時点に移動して再度値を調整し、アニメーションを作成します。"
+
+#: ../doc/animation.rst:57
+msgid ""
+"A property turns green when the playhead is on one of its keyframes. Small "
+"markers along the bottom of the clip show where its keyframes are. Their "
+"shapes indicate how the values change between them: ``circle=Bézier, "
+"diamond=linear, square=constant``."
+msgstr ""
+"プレイヘッドがプロパティのキーフレーム上にあると、そのプロパティは緑色になります。クリップの下部に小さなマーカーが表示され、キーフレームの位置を示します。マーカーの形状は値の変化方法を示しています：\\"
+" ``circle=Bézier, diamond=linear, square=constant``\\ 。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:55
+#: ../doc/animation.rst:61
 msgid ""
 "Use the :guilabel:`Next Marker` and :guilabel:`Previous Marker` toolbar "
 "buttons to step through the selected item's keyframes. They follow whichever"
@@ -169,55 +183,55 @@ msgstr ""
 "ボタンを使用します。これらは選択されたクリップ、エフェクト、またはトランジションに従います。エフェクトが選択されている場合、ナビゲーションは親クリップの開始と終了でも停止します。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:59
+#: ../doc/animation.rst:65
 msgid ""
 "To adjust the **interpolation mode**, right click on the small graph icon "
 "next to a property value."
 msgstr "補間モードを調整するには、プロパティ値の隣にある小さなグラフアイコンを右クリックします。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:65
+#: ../doc/animation.rst:71
 msgid "Key-frame Interpolation"
 msgstr "キーフレーム補間"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:67
+#: ../doc/animation.rst:73
 msgid "Bézier"
 msgstr "ベジェ"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:67
+#: ../doc/animation.rst:73
 msgid ""
 "Interpolated values use a quadratic curve, and ease-in and ease-out. Icon: "
 ":guilabel:`Circle`."
-msgstr "補間値は2次曲線を使用し、イーズインとイーズアウトを適用します。アイコン：:guilabel:`円` 。"
+msgstr "補間値は2次曲線を使用し、イーズインとイーズアウトを適用します。アイコン：\\ :guilabel:`円` 。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:68
+#: ../doc/animation.rst:74
 msgid "Linear"
 msgstr "線形"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:68
+#: ../doc/animation.rst:74
 msgid ""
 "Interpolated values are calculated linear (each step value is equal). Icon: "
 ":guilabel:`Diamond`."
-msgstr "補間値は線形で計算されます（各ステップの値は等しい）。アイコン：:guilabel:`ダイヤモンド` 。"
+msgstr "補間値は線形で計算されます（各ステップの値は等しい）。アイコン：\\ :guilabel:`ダイヤモンド` 。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:69
+#: ../doc/animation.rst:75
 msgid "Constant"
 msgstr "一定"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:69
+#: ../doc/animation.rst:75
 msgid ""
 "Interpolated values stay the same until the next key frame, and jump to the "
 "new value. Icon: :guilabel:`Square`."
-msgstr "補間値は次のキーフレームまで同じ値を保持し、新しい値にジャンプします。アイコン：:guilabel:`四角` 。"
+msgstr "補間値は次のキーフレームまで同じ値を保持し、新しい値にジャンプします。アイコン：\\ :guilabel:`四角` 。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:72
+#: ../doc/animation.rst:78
 #, fuzzy
 msgid ""
 "For more info on creating key frames for location, rotation, scale, shear, "
@@ -225,28 +239,125 @@ msgid ""
 msgstr "位置、回転、スケール、シアー、位置のキーフレーム作成の詳細は :ref:`clip_transform_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:73
+#: ../doc/animation.rst:79
 msgid "For more info on preset animations, see :ref:`clip_presets_ref`."
 msgstr "プリセットアニメーションの詳細は :ref:`clip_presets_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:74
+#: ../doc/animation.rst:80
 msgid "For a full list of key frames, see :ref:`clip_properties_ref`."
 msgstr "キーフレームの完全なリストは :ref:`clip_properties_ref` を参照してください。"
 
+#: ../doc/animation.rst:85
+msgid "Auto Keyframes"
+msgstr "オートキーフレーム"
+
+#: ../doc/animation.rst:86
+msgid ""
+"Auto Keyframes helps you animate as you edit. Leave it on to record changes "
+"at the playhead as you move, resize, or adjust a clip. You can turn it on or"
+" off with the diamond button on the timeline toolbar. The same setting "
+"applies to edits in the Properties dock and to the transform handles in the "
+"preview."
+msgstr ""
+"オートキーフレームは編集しながらアニメーションを助けます。クリップを移動、リサイズ、調整するときにプレイヘッドの位置で変更を記録するため、オンのままにしてください。タイムラインツールバーのダイヤモンドボタンでオン・オフを切り替えられます。同じ設定はプロパティドックの編集やプレビューの変形ハンドルにも適用されます。"
+
+#: ../doc/animation.rst:90
+msgid ""
+"Auto Keyframes starts enabled. If you prefer to place keyframes yourself, "
+"turn off **Auto Keyframes on Startup** in **Preferences → Timeline**. "
+"OpenShot will start with it off next time, and you can still switch it on "
+"whenever you need it."
+msgstr ""
+"オートキーフレームは初期状態で有効です。キーフレームを自分で配置したい場合は、\\ **設定 → タイムライン** の "
+"**起動時にオートキーフレームを有効にする** をオフにしてください。次回起動時はオフで開始されますが、必要に応じていつでもオンに切り替えられます。"
+
+#: ../doc/animation.rst:94
+msgid ""
+"Turn Auto Keyframes off when you want to adjust existing values without "
+"adding more keyframes. For example, if you have not animated a clip's size, "
+"you can resize it while viewing any part of the clip and keep that size "
+"throughout playback."
+msgstr ""
+"新しいキーフレームを追加せずに既存の値を調整したい場合は、オートキーフレームをオフにしてください。例えば、クリップのサイズをアニメーションしていない場合、クリップの任意の部分を見ながらサイズを変更し、そのサイズを再生中ずっと維持できます。"
+
+#: ../doc/animation.rst:98
+msgid ""
+"If a property is already animated, your edit changes its keyframe at the "
+"playhead, or the nearest one to the left. Suppose a clip grows from small to"
+" large: editing its scale halfway through with Auto Keyframes off changes "
+"the starting scale and leaves the ending scale alone. To change a particular"
+" keyframe, move the playhead onto it before editing. Turning Auto Keyframes "
+"off does not remove your animation."
+msgstr ""
+"プロパティがすでにアニメーションされている場合、編集はプレイヘッド上のキーフレーム、または左側で最も近いキーフレームを変更します。例えば、クリップが小さい状態から大きくなる場合、オートキーフレームをオフにして途中でスケールを編集すると、開始時のスケールが変わり、終了時のスケールはそのまま残ります。特定のキーフレームを変更するには、編集前にプレイヘッドをそのキーフレームに移動してください。オートキーフレームをオフにしてもアニメーションは削除されません。"
+
+#: ../doc/animation.rst:103
+msgid ""
+"Auto Keyframes only records on clips under the playhead. When the playhead "
+"is before or after a clip, editing it changes its nearest keyframe instead, "
+"so the whole clip changes without animating. When you edit several selected "
+"clips at once, each clip follows this rule on its own: clips under the "
+"playhead are keyframed at the playhead, and the others change without "
+"animating."
+msgstr ""
+"オートキーフレームはプレイヘッドの下にあるクリップのみ記録します。プレイヘッドがクリップの前または後ろにある場合、編集は最も近いキーフレームを変更し、クリップ全体がアニメーションなしで変わります。複数のクリップを同時に編集するときは、それぞれのクリップがこのルールに従います：プレイヘッド下のクリップはプレイヘッド位置でキーフレームが作成され、それ以外はアニメーションなしで変更されます。"
+
+#: ../doc/animation.rst:108
+msgid ""
+"While editing between keyframes, the preview shows the animation at the "
+"playhead. The Properties dock may show the earlier keyframe you are "
+"changing, so its value can differ from what you see in the preview. Hover "
+"over a numeric value to check which frame you are editing."
+msgstr ""
+"キーフレーム間を編集している間、プレビューはプレイヘッドの位置でアニメーションを表示します。プロパティドックは変更中の前のキーフレームを表示することがあり、その値はプレビューで見えるものと異なる場合があります。数値の上にカーソルを置くと、どのフレームを編集しているか確認できます。"
+
+#: ../doc/animation.rst:112
+msgid ""
+"You can also build an animation by placing keyframes yourself, with Auto "
+"Keyframes off:"
+msgstr "オートキーフレームをオフにして、自分でキーフレームを配置してアニメーションを作成することもできます："
+
+#: ../doc/animation.rst:114
+msgid "Move the playhead to where you want the animation to begin."
+msgstr "アニメーションを開始したい位置にプレイヘッドを移動します。"
+
+#: ../doc/animation.rst:115
+msgid ""
+"Insert a keyframe using the keyframe panel or the Properties context menu. "
+"This remembers the current value."
+msgstr "キーフレームパネルまたはプロパティのコンテキストメニューを使ってキーフレームを挿入します。これにより現在の値が記憶されます。"
+
+#: ../doc/animation.rst:116
+msgid "Move to another moment and insert another keyframe."
+msgstr "別の時点に移動して、別のキーフレームを挿入します。"
+
+#: ../doc/animation.rst:117
+msgid "Adjust its value. OpenShot animates between the two keyframes."
+msgstr "値を調整します。OpenShotは二つのキーフレーム間をアニメーション化します。"
+
+#: ../doc/animation.rst:119
+msgid ""
+"Repeat these steps to add more changes to the animation. See "
+":ref:`split_clip_ref` for preparing shorter segments with their own starting"
+" keyframes."
+msgstr ""
+"これらの手順を繰り返してアニメーションにさらに変更を加えます。独自の開始キーフレームを持つ短いセグメントの準備については "
+":ref:`split_clip_ref` を参照してください。"
+
 # Translated with gpt-4.1-mini
-#: ../animation.rst:77
+#: ../doc/animation.rst:123
 msgid "Timing"
 msgstr "タイミング"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:78
+#: ../doc/animation.rst:124
 msgid ""
 "Changing how fast a clip plays is done with the :guilabel:`Time` property "
 "and the :guilabel:`Timing` tool."
-msgstr "クリップの再生速度の変更は、:guilabel:`時間` プロパティと :guilabel:` タイミング` ツールで行います。"
+msgstr "クリップの再生速度の変更は、\\ :guilabel:`時間` プロパティと :guilabel:` タイミング` ツールで行います。"
 
-#: ../animation.rst:80
+#: ../doc/animation.rst:126
 msgid ""
 "The :guilabel:`Speed` menu offers presets such as normal, fast, slow, "
 "freeze, reverse, and repeat. See details in :ref:`clip_time_ref`."
@@ -255,7 +366,7 @@ msgstr ""
 ":ref:`clip_time_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:81
+#: ../doc/animation.rst:127
 msgid ""
 "The :guilabel:`Timing` tool lets you drag a clip’s edges to speed it up or "
 "slow it down. OpenShot adds the needed Time keyframes and **scales your "
@@ -267,35 +378,35 @@ msgstr ""
 " :ref:`clip_time_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:86
+#: ../doc/animation.rst:132
 msgid "Repeating"
 msgstr "繰り返し"
 
-#: ../animation.rst:87
+#: ../doc/animation.rst:133
 msgid ""
 "To play a clip multiple times, use :guilabel:`Right-Click → Speed → Repeat`."
-msgstr "クリップを複数回再生するには、:guilabel:`右クリック → Speed → Repeat` を使用してください。"
+msgstr "クリップを複数回再生するには、\\ :guilabel:`右クリック → Speed → Repeat` を使用してください。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:89
+#: ../doc/animation.rst:135
 msgid ":guilabel:`Loop` repeats in one direction (forward or reverse)."
 msgstr ":guilabel:`ループ` は一方向（順再生または逆再生）で繰り返します。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:90
+#: ../doc/animation.rst:136
 msgid ""
 ":guilabel:`Ping-Pong` alternates direction (forward then backward, etc.)."
 msgstr ":guilabel:`ピンポン` は方向を交互に切り替えます（順再生、逆再生など）。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:91
+#: ../doc/animation.rst:137
 msgid ""
 ":guilabel:`Custom` can add a short pause between passes, speed up or slow "
 "down each pass, including keyframes."
 msgstr ":guilabel:`カスタム` は通過間に短い一時停止を追加したり、各通過の速度を速めたり遅くしたりできます（キーフレームも含む）。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:93
+#: ../doc/animation.rst:139
 msgid ""
 "OpenShot writes the :guilabel:`Time` curve for you, and you can edit those "
 "keyframes just like any other. See more: :ref:`clip_time_repeat_ref`."
@@ -304,12 +415,12 @@ msgstr ""
 ":ref:`clip_time_repeat_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:97
+#: ../doc/animation.rst:143
 msgid "Bézier Presets"
 msgstr "ベジェプリセット"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:98
+#: ../doc/animation.rst:144
 msgid ""
 "When using a Bézier curve for animation, OpenShot includes more than 20 "
 "curve presets (which affect the shape of the curve). For example, **Ease-"
@@ -318,22 +429,22 @@ msgid ""
 " gradual beginning and ending, but actually goes past the expected value and"
 " then back (producing a bounce effect)."
 msgstr ""
-"アニメーションにベジェ曲線を使用する場合、OpenShotには20以上の曲線プリセット（曲線の形状に影響します）が含まれています。例えば、**Ease-"
-"In** は開始時の傾斜が緩やかで、アニメーションが開始時にゆっくり動き、終了時に速くなります。**Ease-In/Out (Back)** "
-"は開始と終了が緩やかですが、実際には予想値を超えて戻る（バウンス効果を生み出す）動きをします。"
+"アニメーションにベジェ曲線を使用する場合、OpenShotには20以上の曲線プリセット（曲線の形状に影響します）が含まれています。例えば、\\ "
+"**Ease-In** は開始時の傾斜が緩やかで、アニメーションが開始時にゆっくり動き、終了時に速くなります。\\ **Ease-In/Out "
+"(Back)** は開始と終了が緩やかですが、実際には予想値を超えて戻る（バウンス効果を生み出す）動きをします。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:103
+#: ../doc/animation.rst:149
 msgid ""
 "To choose a curve preset, right click on the small graph icon next to a key "
 "frame."
 msgstr "曲線プリセットを選択するには、キーフレームの隣にある小さなグラフアイコンを右クリックしてください。"
 
-#: ../animation.rst:110
+#: ../doc/animation.rst:156
 msgid "Ken Burns Effect"
 msgstr "ケン・バーンズ効果"
 
-#: ../animation.rst:111
+#: ../doc/animation.rst:157
 msgid ""
 "The **Ken Burns effect** is a pan-and-zoom animation technique — named after"
 " documentary filmmaker Ken Burns — that brings still images or video clips "
@@ -345,18 +456,18 @@ msgid ""
 msgstr ""
 "**ケン・バーンズ効果** "
 "は、ドキュメンタリー映画監督ケン・バーンズにちなんで名付けられたパン＆ズームのアニメーション技法で、静止画像やビデオクリップにゆっくりとした意図的なカメラの動きを加えて命を吹き込みます。OpenShot"
-" では、:guilabel:`右クリック → Motion → Camera` "
-"のプリセットを使ってワンクリックでケン・バーンズアニメーション（ズームイン、ズームアウト、パン、ズーム＆パン（自動方向））を適用するか、:guilabel:`Location"
-" X/Y` と :guilabel:`Scale X/Y` にキーフレームを手動で設定して完全にコントロールできます。詳細は "
-":ref:`clip_presets_ref` を参照してください。"
+" では、\\ :guilabel:`右クリック → Motion → Camera` "
+"のプリセットを使ってワンクリックでケン・バーンズアニメーション（ズームイン、ズームアウト、パン、ズーム＆パン（自動方向））を適用するか、\\ "
+":guilabel:`Location X/Y` と :guilabel:`Scale X/Y` "
+"にキーフレームを手動で設定して完全にコントロールできます。詳細は :ref:`clip_presets_ref` を参照してください。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:120
+#: ../doc/animation.rst:166
 msgid "Image Sequences"
 msgstr "画像シーケンス"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:121
+#: ../doc/animation.rst:167
 msgid ""
 "If you have a sequence of similarly named images (such as, cat001.png, "
 "cat002.png, cat003.png, etc...), you can simply drag and drop one of them "
@@ -368,7 +479,7 @@ msgstr ""
 "同じような名前の画像の連番（例：cat001.png、cat002.png、cat003.pngなど）がある場合、そのうちの1つをOpenShotにドラッグ＆ドロップすると、連番全体のインポートを促されます。OpenShotはこれらの連続した画像を動画のフレームのように高速で再生します。表示速度はフレームレートに基づいています。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:126
+#: ../doc/animation.rst:172
 msgid ""
 "**NOTE:** Be sure your image sequence starts at 0 or 1, or you will likely "
 "receive an error when importing it into OpenShot. For example, if your "
@@ -380,38 +491,76 @@ msgstr ""
 "画像シーケンスは0または1から始まるようにしてください。そうしないとOpenShotへのインポート時にエラーが発生する可能性があります。例えば、シーケンスがcat222.pngから始まる場合や、途中の画像が欠けている場合、OpenShotはシーケンスを正しく認識できません。簡単な対処法は、画像の番号を1から始まるように付け直すことです。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:132
+#: ../doc/animation.rst:178
 msgid ""
 "To adjust the frame rate of the animation, right click and choose **File "
 "Properties** in the **Project Files** panel, and adjust the frame rate. Once"
 " you have set the correct frame rate, drag the animation onto the timeline."
 msgstr ""
-"アニメーションのフレームレートを調整するには、**プロジェクトファイル** パネルで右クリックして**ファイルのプロパティ** "
+"アニメーションのフレームレートを調整するには、\\ **プロジェクトファイル** パネルで右クリックして\\ **ファイルのプロパティ** "
 "を選択し、フレームレートを調整します。正しいフレームレートを設定したら、アニメーションをタイムラインにドラッグしてください。"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:143
+#: ../doc/animation.rst:189
 msgid "File Properties"
 msgstr "ファイルのプロパティ"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:143
+#: ../doc/animation.rst:189
 msgid ""
 "Select an image sequence in the **Project Files** panel, right click and "
 "choose **File Properties**"
-msgstr "**プロジェクトファイル** パネルで画像シーケンスを選択し、右クリックして**ファイルのプロパティ** を選択します"
+msgstr "**プロジェクトファイル** パネルで画像シーケンスを選択し、右クリックして\\ **ファイルのプロパティ** を選択します"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:144
+#: ../doc/animation.rst:190
 msgid "Frame Rate"
 msgstr "フレームレート"
 
 # Translated with gpt-4.1-mini
-#: ../animation.rst:144
+#: ../doc/animation.rst:190
 msgid ""
 "Adjust the frame rate of the animation. Typically, hand-drawn animations use"
 " 12 frames per second."
 msgstr "アニメーションのフレームレートを調整します。通常、手描きアニメーションは1秒あたり12フレームを使用します。"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "When the play-head is on an interpolated value, the property appears blue"
+#~ msgstr "プレイヘッドが補間値上にあるとき、プロパティは青色で表示されます"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "Click and drag your mouse to adjust the value (this automatically creates a "
+#~ "key frame if needed)"
+#~ msgstr "クリックしてドラッグし、値を調整します（必要に応じて自動的にキーフレームが作成されます）"
+
+#~ msgid ""
+#~ "Colorful icons line the bottom of the clip for every keyframe "
+#~ "(`circle=Bézier`, `diamond=linear`, `square=constant`). Each icon matches "
+#~ "the color of its clip, effect, or transition. The selected item's keyframe "
+#~ "icons are shown brighter. Filtering the property list also filters these "
+#~ "icons. Click any icon to jump the play-head, load its properties, and select"
+#~ " its clip, effect, or transition. Drag an icon left or right to move the "
+#~ "keyframe and fine‑tune your animation timing. The play-head moves to the "
+#~ "keyframe's new position when you finish dragging."
+#~ msgstr ""
+#~ "カラフルなアイコンが各キーフレームのクリップの下部に並んでいます（`circle=Bézier`、`diamond=linear`、`square=constant`）。各アイコンはそのクリップ、エフェクト、またはトランジションの色に対応しています。選択された項目のキーフレームアイコンは明るく表示されます。プロパティリストのフィルタリングはこれらのアイコンにも適用されます。任意のアイコンをクリックすると、プレイヘッドがその位置にジャンプし、プロパティが読み込まれ、対応するクリップ、エフェクト、またはトランジションが選択されます。アイコンを左右にドラッグするとキーフレームを移動でき、アニメーションのタイミングを微調整できます。ドラッグを終了するとプレイヘッドはキーフレームの新しい位置に移動します。"
+
+# Translated with gpt-4.1-mini
+#~ msgid ""
+#~ "To create a key frame in OpenShot, simply position the play-head (i.e. "
+#~ "playback position) at any point over a clip, and edit properties in the "
+#~ "property dialog. If the property supports key frames, it will turn green, "
+#~ "and a small icon (`circle=Bézier, diamond=linear, square=constant`) will "
+#~ "appear on the bottom of your clip at that position. Move your play-head to "
+#~ "another point over that clip, and adjust the properties again. All "
+#~ "animations require at least 2 key frames, but can support an unlimited "
+#~ "number of them."
+#~ msgstr ""
+#~ "OpenShotでキーフレームを作成するには、単にプレイヘッド（再生位置）をクリップ上の任意のポイントに配置し、プロパティダイアログでプロパティを編集します。プロパティがキーフレームをサポートしている場合、緑色に変わり、その位置のクリップの下部に小さなアイコン（`circle=ベジェ`,"
+#~ " `diamond=線形`, `square=一定` "
+#~ "）が表示されます。プレイヘッドをクリップ上の別のポイントに移動し、再度プロパティを調整します。すべてのアニメーションには少なくとも2つのキーフレームが必要ですが、無制限にサポートできます。"
 
 # Translated with gpt-4.1-mini
 #~ msgid ""
@@ -437,4 +586,4 @@ msgstr "アニメーションのフレームレートを調整します。通常
 # Translated with gpt-4.1-mini
 #~ msgid ""
 #~ "To play a clip multiple times, use :guilabel:`Right-Click → Time → Repeat`."
-#~ msgstr "クリップを複数回再生するには、:guilabel:`右クリック → 時間 → 繰り返し` を使用します。"
+#~ msgstr "クリップを複数回再生するには、\\ :guilabel:`右クリック → 時間 → 繰り返し` を使用します。"

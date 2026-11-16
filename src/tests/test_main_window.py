@@ -45,7 +45,7 @@ if PATH not in sys.path:
     sys.path.append(PATH)
 
 from qt_api import QByteArray, QCoreApplication, QEvent, QKeySequence, Qt
-from qt_api import QContextMenuEvent, QMouseEvent, QPoint, QPointF, QTabBar
+from qt_api import QContextMenuEvent, QMouseEvent, QPoint, QPointF, QRect, QTabBar
 from qt_api import QApplication, QDialog, QDockWidget, QMainWindow, QMenu, QStandardItem, QStandardItemModel
 
 from classes import qt_types
@@ -182,6 +182,16 @@ class MainWindowTests(unittest.TestCase):
         metrics = types.ModuleType("classes.metrics")
         metrics.track_metric_session = lambda *args, **kwargs: None
         metrics.track_metric_screen = lambda *args, **kwargs: None
+        metrics.track_metric_error = lambda *args, **kwargs: None
+        previous_metrics = sys.modules.get("classes.metrics")
+
+        def restore_metrics():
+            if previous_metrics is None:
+                sys.modules.pop("classes.metrics", None)
+            else:
+                sys.modules["classes.metrics"] = previous_metrics
+
+        cls.addClassCleanup(restore_metrics)
         sys.modules["classes.metrics"] = metrics
         sys.modules.pop("windows.views.timeline", None)
         sys.modules.pop("windows.main_window", None)
@@ -190,6 +200,40 @@ class MainWindowTests(unittest.TestCase):
         cls.main_window_module = importlib.import_module("windows.main_window")
         cls.properties_tableview_module = importlib.import_module("windows.views.properties_tableview")
         cls.properties_model_module = importlib.import_module("windows.models.properties_model")
+
+    def test_project_loading_blocks_autosave_and_scope_dispatch(self):
+        module = self.main_window_module
+        window = types.SimpleNamespace(_project_loading=True)
+        with patch.object(module, "get_app") as get_app:
+            module.MainWindow.auto_save_project(window)
+            module.MainWindow._run_scope_analysis(window)
+            get_app.assert_not_called()
+
+    def test_project_loading_blocks_preview_refresh(self):
+        from windows.preview_thread import PlayerWorker
+        worker = types.SimpleNamespace(parent=types.SimpleNamespace(_project_loading=True))
+        PlayerWorker.refreshFrame(worker)
+
+    def test_failed_backup_reports_error_and_can_retry_same_revision(self):
+        module = self.main_window_module
+        for error in (MemoryError(), OSError("disk full")):
+            with self.subTest(error=type(error).__name__):
+                project = MagicMock(current_filepath=None)
+                project.needs_save.return_value = True
+                project.save.side_effect = [error, None]
+                app = types.SimpleNamespace(project=project,
+                                            updates=types.SimpleNamespace(data_version=7),
+                                            _tr=lambda text: text)
+                window = types.SimpleNamespace(last_auto_save_data_version=6,
+                                               ProjectSaveFailed=MagicMock())
+                with patch.object(module, "get_app", return_value=app):
+                    module.MainWindow.auto_save_project(window)
+                    self.assertEqual(window.last_auto_save_data_version, 6)
+                    window.ProjectSaveFailed.emit.assert_called_once()
+                    self.assertTrue(window.ProjectSaveFailed.emit.call_args[0][1])
+                    module.MainWindow.auto_save_project(window)
+                    self.assertEqual(window.last_auto_save_data_version, 7)
+                    self.assertEqual(project.save.call_count, 2)
 
     def test_track_stack_preserves_selected_track_across_renumbering(self):
         module = self.main_window_module
@@ -516,10 +560,75 @@ class MainWindowTests(unittest.TestCase):
             restoreGeometry=lambda value: calls.append(value),
         )
 
-        self.main_window_module.MainWindow._restore_saved_geometry_before_show(
-            fake_window)
+        with patch.object(QApplication, "platformName", return_value="xcb"):
+            self.main_window_module.MainWindow._restore_saved_geometry_before_show(
+                fake_window)
 
         self.assertEqual(calls, [QByteArray(b"geometry")])
+
+    def test_wayland_restores_size_and_state_without_stale_position(self):
+        # Working 4.2 and failing 4.1 -> 4.2 geometry from the menu-position report.
+        geometries = (
+            b"AdnQywADAAAAAAd9AAAAbwAAC8gAAAOrAAAHgAAAAI0AAAvFAAADqAAAAAAAAAAACgAAAAeAAAAAjQAAC8UAAAOo",
+            b"AdnQywADAAAAABB9AAAAkAAAFMIAAAPQAAAQfQAAALUAABTCAAAD0AAAAAAAAAAACgAAABB9AAAAtQAAFMIAAAPQ",
+            b"AdnQywADAAAAABB6AAAAlwAAFMUAAAPTAAAQfQAAALUAABTCAAAD0AAAAAAAAAAACgAAABB9AAAAtQAAFMIAAAPQ",
+        )
+        for platform in ("wayland", "wayland-egl"):
+            for encoded in geometries:
+                with self.subTest(platform=platform, geometry=encoded):
+                    window = QMainWindow()
+                    baseline = QMainWindow()
+                    try:
+                        geometry = bytearray(QByteArray.fromBase64(encoded))
+                        # Qt rejects geometry saved at over twice the test screen's
+                        # width. Adapt only that metadata, keeping Raffi's positions.
+                        geometry[46:50] = QApplication.primaryScreen().geometry().width().to_bytes(4, "big")
+                        window.saved_geometry = QByteArray(bytes(geometry))
+                        self.assertTrue(baseline.restoreGeometry(window.saved_geometry))
+                        with patch.object(QApplication, "platformName", return_value=platform):
+                            self.main_window_module.MainWindow._restore_saved_geometry_before_show(
+                                window)
+                        self.assertEqual(window.pos(), QApplication.primaryScreen().geometry().topLeft())
+                        self.assertEqual(window.size(), baseline.size())
+                        self.assertEqual(window.windowState(), baseline.windowState())
+                    finally:
+                        window.deleteLater()
+                        baseline.deleteLater()
+
+    def test_wayland_geometry_keeps_maximized_and_fullscreen_state(self):
+        for state in (Qt.WindowMaximized, Qt.WindowFullScreen):
+            with self.subTest(state=state):
+                window = QMainWindow()
+                try:
+                    window.resize(640, 480)
+                    window.setWindowState(state)
+                    window.saved_geometry = window.saveGeometry()
+                    window.setWindowState(Qt.WindowNoState)
+                    with patch.object(QApplication, "platformName", return_value="wayland"):
+                        self.main_window_module.MainWindow._restore_saved_geometry_before_show(
+                            window)
+                    self.assertEqual(window.windowState(), state)
+                finally:
+                    window.deleteLater()
+
+    def test_wayland_geometry_uses_screen_origin_and_primary_fallback(self):
+        origin = QPoint(-1920, 120)
+        screen = types.SimpleNamespace(geometry=lambda: QRect(origin, QPoint(-1, 1199)))
+        for selected_screen in (screen, None):
+            with self.subTest(selected_screen=selected_screen):
+                window = types.SimpleNamespace(
+                    saved_geometry=QByteArray(b"geometry"),
+                    restoreGeometry=MagicMock(),
+                    pos=lambda: QPoint(4221, 181),
+                    move=MagicMock(),
+                    windowState=lambda: Qt.WindowNoState,
+                    setWindowState=MagicMock(),
+                )
+                with patch.object(QApplication, "platformName", return_value="wayland"), \
+                        patch.object(QApplication, "screenAt", return_value=selected_screen), \
+                        patch.object(QApplication, "primaryScreen", return_value=screen):
+                    self.main_window_module.MainWindow._restore_saved_geometry_before_show(window)
+                window.move.assert_called_once_with(origin)
 
     def test_active_custom_view_setter_does_not_shadow_reader(self):
         fake_window = types.SimpleNamespace()
@@ -1361,6 +1470,50 @@ class MainWindowTests(unittest.TestCase):
         self.assertEqual(fake_window.dockWidgetArea(fake_window.dockProperties), Qt.LeftDockWidgetArea)
         self.assertNotIn(fake_window.dockProperties, fake_window.tabifiedDockWidgets(fake_window.dockFiles))
         self.assertFalse(fake_window.dockProperties.isHidden())
+
+    def test_gpu_inspector_redocks_after_simple_and_color_view_changes(self):
+        from unittest.mock import Mock
+        from windows.views.gpu_metrics import GpuPreviewSegments
+        window = QMainWindow()
+        for name in ('Files', 'Transitions', 'Effects', 'Emojis', 'Properties', 'Video',
+                     'Timeline', 'LumaWaveform', 'Histogram', 'Vectorscope'):
+            dock = QDockWidget(name, window)
+            dock.setObjectName('dock' + name)
+            setattr(window, 'dock' + name, dock)
+        for name in ('getDocks', 'removeDocks', 'addDocks', 'floatDocks', 'showDocks'):
+            setattr(window, name, types.MethodType(getattr(self.main_window_module.MainWindow, name), window))
+        window._set_active_custom_view_id = Mock()
+        window._set_active_builtin_view = Mock()
+        window.style_dock_widgets = Mock()
+        measurements = Mock()
+        measurements.snapshot.return_value = {}
+        badge = GpuPreviewSegments(measurements, lambda text: text, window, window)
+        window.setCentralWidget(badge)
+        window.show()
+        event = QMouseEvent(QEvent.MouseButtonRelease, QPointF(2, 2),
+                            Qt.LeftButton, Qt.NoButton, Qt.NoModifier)
+        try:
+            badge.mouseReleaseEvent(event)
+            dock = window.gpuMetricsDock
+            window.style_dock_widgets.assert_called()
+            for layout in (self.main_window_module.MainWindow._apply_simple_view_layout,
+                           self.main_window_module.MainWindow.actionColor_Grade_View_trigger):
+                for reopen in (lambda: badge.mouseReleaseEvent(event), dock.toggleViewAction().trigger):
+                    layout(window)
+                    self.assertTrue(dock.isHidden())
+                    reopen()
+                    self.app.processEvents()
+                    self.assertEqual(window.dockWidgetArea(dock), Qt.RightDockWidgetArea)
+                    self.assertFalse(dock.isFloating())
+                    self.assertFalse(dock.isHidden())
+            dock.setFloating(True)
+            dock.hide()
+            badge.mouseReleaseEvent(event)
+            self.assertTrue(dock.isFloating())  # Preserve deliberate user undocking.
+        finally:
+            window.close()
+            window.deleteLater()
+            self.app.processEvents()
 
     def test_recording_view_matches_simple_layout_with_recording_on_right(self):
         fake_window = QMainWindow()

@@ -3,6 +3,8 @@ import copy
 import json
 import os
 from pathlib import Path
+import shutil
+from unittest.mock import patch
 import subprocess  # nosec B404 - Launch controlled local processes without a shell.
 import sys
 import tempfile
@@ -27,6 +29,60 @@ class DirectTextTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.app, _ = get_or_create_app(lambda: QApplication([]))
+
+    def test_locked_thumbnail_uses_concurrent_cached_image(self):
+        with tempfile.TemporaryDirectory() as root:
+            style = default_text(640, 360)
+
+            def concurrent_render(source, destination):
+                shutil.copyfile(source, destination)
+                raise PermissionError("Another renderer published and opened this image")
+
+            with patch("classes.direct_text.replace_file_with_retry", side_effect=concurrent_render):
+                path = render_text(style, root)
+            self.assertFalse(QImage(path).isNull())
+            self.assertEqual(os.listdir(root), [os.path.basename(path)])
+
+    def test_thumbnail_permission_error_without_cached_image_is_not_hidden(self):
+        with tempfile.TemporaryDirectory() as root:
+            with patch("classes.direct_text.replace_file_with_retry", side_effect=PermissionError("denied")):
+                with self.assertRaises(PermissionError):
+                    render_text(default_text(640, 360), root)
+            self.assertEqual(os.listdir(root), [])
+
+    def test_text_metadata_ignores_transforms_but_tracks_style_and_animation(self):
+        from classes.direct_text import (text_animation_properties, set_text_keyframe,
+                                         _text_animation_properties_json)
+        style = default_text(640, 360)
+        clip = new_text_clip(style, None, 0, 1000000, 4)
+        _text_animation_properties_json.cache_clear()
+        original = text_animation_properties(clip, 1)
+        moved = copy.deepcopy(clip)
+        moved["location_x"]["Points"][0]["co"]["Y"] = 0.5
+        moved["scale_x"]["Points"][0]["co"]["Y"] = 2.0
+        self.assertEqual(text_animation_properties(moved, 1), original)
+        self.assertEqual(_text_animation_properties_json.cache_info().misses, 1)
+        self.assertEqual(_text_animation_properties_json.cache_info().hits, 1)
+        # UI draft/readonly mutations must not change another caller's metadata.
+        changed = text_animation_properties(moved, 1)
+        changed["text_color"]["red"]["value"] = -999
+        changed["text_color"]["readonly"] = True
+        self.assertEqual(text_animation_properties(clip, 1), original)
+        moved["direct_text"]["color"] = "#ff123456"
+        recolored = text_animation_properties(moved, 1)
+        self.assertEqual(recolored["text_color"]["red"]["value"], 0x12)
+        self.assertEqual(_text_animation_properties_json.cache_info().misses, 2)
+        animated = set_text_keyframe(moved, "stroke_width", 0, 1, True)
+        animated = set_text_keyframe(animated, "stroke_width", 10, 21, True)
+        for frame in (1, 11, 21):
+            actual = text_animation_properties(animated, frame)["text_stroke_width"]
+            native = openshot.Clip()
+            native.alpha.SetJson(json.dumps(animated["text_stroke_width"]))
+            expected = json.loads(native.PropertiesJSON(frame))["alpha"]
+            expected.update(name="Text Outline Width", type="float", min=0, max=30)
+            self.assertEqual(actual, expected)
+        # Undoing to the old style must also restore the old metadata.
+        self.assertEqual(text_animation_properties(clip, 1), original)
 
     def test_native_reader_unicode_alpha_and_immutable_history(self):
         with tempfile.TemporaryDirectory() as root:

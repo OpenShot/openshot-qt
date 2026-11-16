@@ -505,6 +505,22 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         # Update preview
         self.refreshFrameSignal.emit()
 
+    def gpu_device_lost(self):
+        """Keep editing on the CPU after the GPU driver resets or times out."""
+        if getattr(self, "_gpu_device_lost_handled", False):
+            return
+        self._gpu_device_lost_handled = True
+        _ = get_app()._tr
+        log.warning("GPU device lost; clearing cached GPU frames and continuing on the CPU")
+        diagnostics = getattr(get_app(), "gpu_diagnostics", None)
+        if diagnostics:
+            diagnostics.event("device lost", reason="Vulkan reported VK_ERROR_DEVICE_LOST")
+        # Cached frames may still point at the lost GPU; render them again on the CPU.
+        self.timeline_sync.timeline.ClearAllCache(True)
+        self.refreshFrameSignal.emit()
+        self.statusBar.showMessage(
+            _("The GPU stopped responding, so OpenShot is using the CPU for the rest of this session."), 20000)
+
     def actionClearAllCache_trigger(self):
         """ Clear all timeline cache - deep clear """
         self.timeline_sync.timeline.ClearAllCache(True)
@@ -552,6 +568,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                 file.data["ui"].pop("audio_data_format", None)
                 file.data["ui"].pop("audio_data_rms", None)
                 file.data["ui"].pop("audio_data_rate", None)
+                file.data["ui"].pop("audio_data_channels", None)
                 file.save()
 
         clips = Clip.filter()
@@ -921,6 +938,9 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
     def auto_save_project(self):
         """Auto save the project"""
+        # Missing-file dialogs run an event loop before project loading finishes.
+        if getattr(self, "_project_loading", False):
+            return
         app = get_app()
         current_data_version = app.updates.data_version
 
@@ -957,7 +977,14 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         else:
             # No saved project found
             log.info("Creating backup of project file: %s", info.BACKUP_FILE)
-            app.project.save(info.BACKUP_FILE, backup_only=True)
+            try:
+                app.project.save(info.BACKUP_FILE, backup_only=True)
+            except Exception as ex:
+                log.error("Couldn't save backup %s", info.BACKUP_FILE, exc_info=True)
+                message = (app._tr("Not enough memory to save the project.")
+                           if isinstance(ex, MemoryError) else str(ex))
+                self.ProjectSaveFailed.emit(info.BACKUP_FILE, message)
+                return
 
         self.last_auto_save_data_version = current_data_version
 
@@ -1518,6 +1545,8 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
         GetFrame is routed via RunScopeSignal so scope work stays off the UI thread.
         """
+        if getattr(self, "_project_loading", False):
+            return
         frame_number = self._scope_pending_frame
         if frame_number is None:
             return
@@ -2358,33 +2387,28 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
         return all_marker_positions
 
-    def actionPreviousMarker_trigger(self, checked=True):
-        log.info("actionPreviousMarker_trigger")
-
-        # Calculate current position (in seconds)
+    def seekToAdjacentMarker(self, forward):
+        """Seek to the closest marker frame before (or after) the current frame"""
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
-        current_position = (self.preview_thread.current_frame - 1) / fps_float
-        all_marker_positions = self.findAllMarkerPositions()
+        current_frame = self.preview_thread.current_frame
+        last_frame = get_app().window.timeline_sync.GetLastFrame()
 
-        # Loop through all markers, and find the closest one to the left
-        closest_position = None
-        for marker_position in sorted(all_marker_positions):
-            # Is marker smaller than position?
-            if marker_position < current_position and (abs(marker_position - current_position) > 0.001):
-                # Is marker larger than previous marker
-                if closest_position and marker_position > closest_position:
-                    # Set a new closest marker
-                    closest_position = marker_position
-                elif not closest_position:
-                    # First one found
-                    closest_position = marker_position
+        # Compare markers in frames (not seconds), so a marker which rounds to
+        # the current frame (i.e. a clip end between frames) is never chosen
+        marker_frames = {
+            min(round(marker_position * fps_float) + 1, last_frame)
+            for marker_position in self.findAllMarkerPositions()
+        }
+        if forward:
+            candidates = [frame for frame in marker_frames if frame > current_frame]
+            frame_to_seek = min(candidates, default=None)
+        else:
+            candidates = [frame for frame in marker_frames if frame < current_frame]
+            frame_to_seek = max(candidates, default=None)
 
-        # Seek to marker position (if any)
-        if closest_position is not None:
-            # Seek
-            frame_to_seek = round(closest_position * fps_float) + 1
-            frame_to_seek = min(frame_to_seek, get_app().window.timeline_sync.GetLastFrame())
+        # Seek to marker frame (if any)
+        if frame_to_seek is not None:
             self.SeekSignal.emit(frame_to_seek, True)
 
             # Keep properties in sync with the seek target. Avoid forcing
@@ -2392,41 +2416,14 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
             # player position and overwrite this navigation jump.
             get_app().window.propertyTableView.select_frame(frame_to_seek)
         self.timeline.setFocus(Qt.OtherFocusReason)
+
+    def actionPreviousMarker_trigger(self, checked=True):
+        log.info("actionPreviousMarker_trigger")
+        self.seekToAdjacentMarker(forward=False)
 
     def actionNextMarker_trigger(self, checked=True):
         log.info("actionNextMarker_trigger")
-
-        # Calculate current position (in seconds)
-        fps = get_app().project.get("fps")
-        fps_float = float(fps["num"]) / float(fps["den"])
-        current_position = (self.preview_thread.current_frame - 1) / fps_float
-        all_marker_positions = self.findAllMarkerPositions()
-
-        # Loop through all markers, and find the closest one to the right
-        closest_position = None
-        for marker_position in sorted(all_marker_positions):
-            # Is marker smaller than position?
-            if marker_position > current_position and (abs(marker_position - current_position) > 0.001):
-                # Is marker larger than previous marker
-                if closest_position and marker_position < closest_position:
-                    # Set a new closest marker
-                    closest_position = marker_position
-                elif not closest_position:
-                    # First one found
-                    closest_position = marker_position
-
-        # Seek to marker position (if any)
-        if closest_position is not None:
-            # Seek
-            frame_to_seek = round(closest_position * fps_float) + 1
-            frame_to_seek = min(frame_to_seek, get_app().window.timeline_sync.GetLastFrame())
-            self.SeekSignal.emit(frame_to_seek, True)
-
-            # Keep properties in sync with the seek target. Avoid forcing
-            # refreshFrameSignal here: it can queue a stale seek to the old
-            # player position and overwrite this navigation jump.
-            get_app().window.propertyTableView.select_frame(frame_to_seek)
-        self.timeline.setFocus(Qt.OtherFocusReason)
+        self.seekToAdjacentMarker(forward=True)
 
     def actionCenterOnPlayhead_trigger(self, checked=True):
         """ Center the timeline on the current playhead position """
@@ -4584,6 +4581,14 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         """Restore outer geometry before the window is mapped."""
         if self.saved_geometry:
             self.restoreGeometry(self.saved_geometry)
+            if QApplication.platformName().startswith("wayland"):
+                # Wayland cannot restore desktop positions. Old Qt versions can
+                # leave a stale origin that offsets menus after restoreGeometry().
+                # Keep the restored size/state, using the current screen's origin.
+                screen = QApplication.screenAt(self.pos()) or QApplication.primaryScreen()
+                state = self.windowState()
+                self.move(screen.geometry().topLeft())
+                self.setWindowState(state)
 
     @staticmethod
     def _positive_int(value):
@@ -5837,6 +5842,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.preview_thread = self.preview_parent.worker
         self.sliderZoomWidget.connect_playback()
         self.timeline.connect_playback()
+        self.preview_thread.position_changed.connect(self.propertyTableView.playback_frame_changed)
 
         # Scope analysis: debounced timer dispatches GetFrame+FrameScope to the
         # PlayerWorker thread so the UI thread only handles paint/update work.
@@ -6010,7 +6016,9 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
         # Init all Keyboard shortcuts
         from windows.feedback import FeedbackController
-        self.feedback_controller = FeedbackController(self, s, _, preview=info.FEEDBACK_PREVIEW)
+        self.feedback_controller = FeedbackController(
+            self, s, _, preview=info.FEEDBACK_PREVIEW or info.RATING_PREVIEW,
+            rating_preview=info.RATING_PREVIEW)
         self.initShortcuts()
 
         # Apply accessibility-friendly tab order after layout settles

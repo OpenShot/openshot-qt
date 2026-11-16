@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenShot Video Editor 3.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-16 18:08-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,16 +18,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:21
+#: ../doc/import_export.rst:21
 msgid "Import & Export"
 msgstr "Import și Export"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:23
+#: ../doc/import_export.rst:23
 msgid ""
 "Video editing projects (including tracks, clips, and keyframes) can be "
-"**imported** and **exported** from OpenShot Video Editor in widely supported "
-"formats (**EDL**: Edit Decision Lists, and **XML**: Final Cut Pro format). "
+"**imported** and **exported** from OpenShot Video Editor in widely supported"
+" formats (**EDL**: Edit Decision Lists, and **XML**: Final Cut Pro format). "
 "For example, if you start editing a video in a different program (Adobe "
 "Premier, Final Cut Pro, etc...), but later need to move all your edits to "
 "OpenShot (or vice versa)."
@@ -36,16 +36,16 @@ msgstr ""
 "**importate** și **exportate** din OpenShot Video Editor în formate larg "
 "acceptate (**EDL**: Liste de decizii de editare, și **XML**: format Final "
 "Cut Pro). De exemplu, dacă începeți să editați un video într-un alt program "
-"(Adobe Premiere, Final Cut Pro etc...), dar ulterior trebuie să mutați toate "
-"editările în OpenShot (sau invers)."
+"(Adobe Premiere, Final Cut Pro etc...), dar ulterior trebuie să mutați toate"
+" editările în OpenShot (sau invers)."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:29
+#: ../doc/import_export.rst:29
 msgid "EDL (Edit Decision Lists)"
 msgstr "EDL (Liste de decizii de editare)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:30
+#: ../doc/import_export.rst:30
 msgid ""
 "The following features are supported when importing and exporting an EDL "
 "file with OpenShot."
@@ -54,32 +54,32 @@ msgstr ""
 "cu OpenShot."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:36
+#: ../doc/import_export.rst:36
 msgid "EDL Option Name"
 msgstr "Numele opțiunii EDL"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:36 ../import_export.rst:122
+#: ../doc/import_export.rst:36 ../doc/import_export.rst:122
 msgid "Description"
 msgstr "Descriere"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:38
+#: ../doc/import_export.rst:38
 msgid "EDL Format"
 msgstr "Format EDL"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:38
+#: ../doc/import_export.rst:38
 msgid "CMX-3600 (a very widely supported variation)"
 msgstr "CMX-3600 (o variație foarte larg acceptată)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:39
+#: ../doc/import_export.rst:39
 msgid "Single Track"
 msgstr "Pistă unică"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:39
+#: ../doc/import_export.rst:39
 msgid ""
 "Only a single track can be imported at a time (this is a limitation of the "
 "EDL format)"
@@ -88,54 +88,54 @@ msgstr ""
 "formatului EDL)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:40
+#: ../doc/import_export.rst:40
 msgid "Tape Name"
 msgstr "Numele benzii"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:40
+#: ../doc/import_export.rst:40
 msgid "Only **AX** and **BL** tape names are currently supported in OpenShot"
 msgstr "În prezent, OpenShot acceptă doar numele de benzi **AX** și **BL**"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:41
+#: ../doc/import_export.rst:41
 msgid "Edits (V and A)"
 msgstr "Editări (V și A)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:41
+#: ../doc/import_export.rst:41
 msgid "Only edits are currently supported (transitions are not yet supported)"
 msgstr ""
 "În prezent, sunt acceptate doar editările (tranzițiile nu sunt încă "
 "acceptate)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:42 ../import_export.rst:127
+#: ../doc/import_export.rst:42 ../doc/import_export.rst:127
 msgid "Opacity"
 msgstr "Opacitate"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:42 ../import_export.rst:127
+#: ../doc/import_export.rst:42 ../doc/import_export.rst:127
 msgid "Opacity keyframes are supported"
 msgstr "Cadrele cheie pentru opacitate sunt acceptate"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:43 ../import_export.rst:128
+#: ../doc/import_export.rst:43 ../doc/import_export.rst:128
 msgid "Audio Levels"
 msgstr "Niveluri audio"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:43 ../import_export.rst:128
+#: ../doc/import_export.rst:43 ../doc/import_export.rst:128
 msgid "Volume keyframes are supported"
 msgstr "Cadrele cheie pentru volum sunt acceptate"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:47
+#: ../doc/import_export.rst:47
 msgid "Example EDL Output"
 msgstr "Exemplu de ieșire EDL"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:49
+#: ../doc/import_export.rst:49
 msgid ""
 "OpenShot follows the CMX 3600 layout for event lines and uses comment lines "
 "(`* ...`) to carry keyframes. CMX 3600 does not define units or "
@@ -144,21 +144,21 @@ msgid ""
 "with or without spaces, mixed case, optional interpolation tokens, and "
 "ignores unknown trailing text/reel tags to maximize compatibility."
 msgstr ""
-"OpenShot urmează structura CMX 3600 pentru liniile de eveniment și folosește "
-"linii de comentariu (`* ...`) pentru a transporta cadrele cheie. CMX 3600 nu "
-"definește unități sau interpolări în comentarii, așa că exportatorul nostru "
-"adaugă valori lizibile și nume de interpolare, iar importatorul nostru este "
-"foarte tolerant: acceptă unități cu sau fără spații, cu majuscule și "
-"minuscule mixte, tokenuri opționale de interpolare și ignoră textul "
-"necunoscut sau etichetele de role pentru a maximiza compatibilitatea."
+"OpenShot urmează structura CMX 3600 pentru liniile de eveniment și folosește"
+" linii de comentariu (`* ...`) pentru a transporta cadrele cheie. CMX 3600 "
+"nu definește unități sau interpolări în comentarii, așa că exportatorul "
+"nostru adaugă valori lizibile și nume de interpolare, iar importatorul "
+"nostru este foarte tolerant: acceptă unități cu sau fără spații, cu "
+"majuscule și minuscule mixte, tokenuri opționale de interpolare și ignoră "
+"textul necunoscut sau etichetele de role pentru a maximiza compatibilitatea."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:109
+#: ../doc/import_export.rst:109
 msgid "XML (Final Cut Pro format)"
 msgstr "XML (format Final Cut Pro)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:110
+#: ../doc/import_export.rst:110
 msgid ""
 "The following features are supported when importing and exporting an XML "
 "file with OpenShot. This XML format is supported in many video editors (not "
@@ -166,12 +166,12 @@ msgid ""
 "support for importing and exporting this same XML format."
 msgstr ""
 "Următoarele funcții sunt acceptate la importul și exportul unui fișier XML "
-"cu OpenShot. Acest format XML este acceptat în multe editoare video (nu doar "
-"Final Cut Pro). De fapt, majoritatea editorilor video comerciali oferă "
+"cu OpenShot. Acest format XML este acceptat în multe editoare video (nu doar"
+" Final Cut Pro). De fapt, majoritatea editorilor video comerciali oferă "
 "suport pentru importul și exportul acestui format XML."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:114
+#: ../doc/import_export.rst:114
 msgid ""
 "OpenShot uses the legacy Final Cut Pro XML Interchange Format (**xmeml**) "
 "from Final Cut Pro 7. Our exporter writes `<!DOCTYPE xmeml>` projects that "
@@ -181,46 +181,46 @@ msgid ""
 msgstr ""
 "OpenShot folosește formatul vechi de schimb XML Final Cut Pro (**xmeml**) "
 "din Final Cut Pro 7. Exportatorul nostru scrie proiecte `<!DOCTYPE xmeml>` "
-"care respectă DTD-ul XML Final Cut Pro v1.0 și este compatibil cu versiunile "
-"de schemă v4 și v5 ale acestui format de schimb (DTD-urile livrate cu Final "
-"Cut Pro 7)."
+"care respectă DTD-ul XML Final Cut Pro v1.0 și este compatibil cu versiunile"
+" de schemă v4 și v5 ale acestui format de schimb (DTD-urile livrate cu Final"
+" Cut Pro 7)."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:122
+#: ../doc/import_export.rst:122
 msgid "XML Option Name"
 msgstr "Numele opțiunii XML"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:124
+#: ../doc/import_export.rst:124
 msgid "XML Format"
 msgstr "Format XML"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:124
+#: ../doc/import_export.rst:124
 msgid ""
 "Final Cut Pro format (but most commercial video editors also support this "
 "format)"
 msgstr ""
-"Format Final Cut Pro (dar majoritatea editorilor video comerciali acceptă și "
-"acest format)"
+"Format Final Cut Pro (dar majoritatea editorilor video comerciali acceptă și"
+" acest format)"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:125
+#: ../doc/import_export.rst:125
 msgid "All Tracks"
 msgstr "Toate pistele"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:125
+#: ../doc/import_export.rst:125
 msgid "All video and audio tracks are supported"
 msgstr "Toate pistele video și audio sunt acceptate"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:126
+#: ../doc/import_export.rst:126
 msgid "Edits"
 msgstr "Editări"
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:126
+#: ../doc/import_export.rst:126
 msgid ""
 "All clips on all tracks are supported (video, image, and audio files). "
 "Transitions are not yet supported."
@@ -229,6 +229,6 @@ msgstr ""
 "și audio). Tranzițiile nu sunt încă acceptate."
 
 # Translated with gpt-4.1-mini
-#: ../import_export.rst:132
+#: ../doc/import_export.rst:132
 msgid "Example XML Output (tree view)"
 msgstr "Exemplu de ieșire XML (vizualizare arbore)"

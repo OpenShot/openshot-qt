@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenShot Video Editor 4.0\n"
+"Project-Id-Version: OpenShot Video Editor 4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-30 16:50-0500\n"
+"POT-Creation-Date: 2026-10-31 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,3957 +16,3957 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../effects.rst:23
+#: ../doc/effects.rst:23
 msgid "Effects"
 msgstr ""
 
-#: ../effects.rst:25
+#: ../doc/effects.rst:25
 msgid "Effects are used in OpenShot to enhance or modify the audio or video of a clip. They can modify pixels and audio data, and can generally enhance your video projects. Each effect has its own set of properties, most of which can be animated over time, for example varying the :guilabel:`Brightness & Contrast` of a clip over time."
 msgstr ""
 
-#: ../effects.rst:29
-msgid "Effects can be added to any clip by dragging and dropping them from the Effects tab onto a clip. Each effect is represented by a small colored icon and the first letter of the effect name. Note: Pay close attention to where the play-head (i.e. red playback line) is. Key frames are automatically created at the current playback position, to help create animations quickly."
+#: ../doc/effects.rst:29
+msgid "Effects can be added to any clip by dragging and dropping them from the Effects tab onto a clip. Each effect is represented by a small colored icon and the first letter of the effect name."
 msgstr ""
 
-#: ../effects.rst:34
-msgid "To view an effect's properties, right-click on the effect icon, revealing the context menu, and choose :guilabel:`Properties`. The property editor will appear, where you can edit these properties. Properties appear alphabetically in the dock, with filter options available at the top. Hold :kbd:`Ctrl` and click multiple effect icons to select them all, the Properties dock will show an entry such as ``3 Selections`` so you can adjust their common settings in one step. See :ref:`clip_properties_ref`."
+#: ../doc/effects.rst:32
+msgid "Click an effect icon to select it without opening the Properties dock. If the dock is already open, it updates to the selected effect. To open it, double-click the effect icon, or right-click the icon and choose :guilabel:`Properties`. The property editor will appear, where you can edit these properties. Properties appear alphabetically in the dock, with filter options available at the top. Hold :kbd:`Ctrl` and click multiple effect icons to select them all, the Properties dock will show an entry such as ``3 Selections`` so you can adjust their common settings in one step. See :ref:`clip_properties_ref`."
 msgstr ""
 
-#: ../effects.rst:41
+#: ../doc/effects.rst:41
 msgid "Masks and Effects"
 msgstr ""
 
-#: ../effects.rst:43
+#: ../doc/effects.rst:43
 msgid "All effects can now use a **static or animated mask** to limit where the effect is applied. This makes effects much more precise, because you can target only the subject or region you care about and blend the result smoothly into the original image."
 msgstr ""
 
-#: ../effects.rst:48
+#: ../doc/effects.rst:48
 msgid "Why this matters:"
 msgstr ""
 
-#: ../effects.rst:50
+#: ../doc/effects.rst:50
 msgid "Keep edits focused on one area (for example, blur only a face)."
 msgstr ""
 
-#: ../effects.rst:51
+#: ../doc/effects.rst:51
 msgid "Stack multiple effects on the same subject without affecting the full frame."
 msgstr ""
 
-#: ../effects.rst:52
+#: ../doc/effects.rst:52
 msgid "Animate how strongly or where an effect is applied over time."
 msgstr ""
 
-#: ../effects.rst:54
+#: ../doc/effects.rst:54
 msgid "How to use effect masks:"
 msgstr ""
 
-#: ../effects.rst:56
+#: ../doc/effects.rst:56
 msgid "Add an effect to a clip."
 msgstr ""
 
-#: ../effects.rst:57
-#: ../effects.rst:554
+#: ../doc/effects.rst:57
+#: ../doc/effects.rst:554
 msgid "Open the effect :guilabel:`Properties`."
 msgstr ""
 
-#: ../effects.rst:58
+#: ../doc/effects.rst:58
 msgid "Choose a :guilabel:`Mask: Source` (static image, animated mask video, :guilabel:`Tracker`, or :guilabel:`Object Detector`)."
 msgstr ""
 
-#: ../effects.rst:60
+#: ../doc/effects.rst:60
 msgid "Adjust :guilabel:`Mask Mode` (for example, *Limit to Mask* or *Vary Strength*)."
 msgstr ""
 
-#: ../effects.rst:62
+#: ../doc/effects.rst:62
 msgid "For quick rectangular masks, add a :guilabel:`Tracker` effect to the clip, draw a box around the area you want to affect, then choose that tracker as the :guilabel:`Mask: Source` for another effect, such as :guilabel:`Blur` or :guilabel:`Pixelate`. The tracker box can be moved or resized directly in the video preview while the Tracker effect is selected, and those box changes can be keyframed over time. Tracker boxes also work on static photos, so the same workflow can limit an effect to one region of an image."
 msgstr ""
 
-#: ../effects.rst:68
+#: ../doc/effects.rst:68
 msgid "High-quality animated masks can also be generated with Advanced AI workflows. In many cases, you can click one or more subjects and let tracking build a mask automatically. See :ref:`ai_ref`."
 msgstr ""
 
-#: ../effects.rst:72
+#: ../doc/effects.rst:72
 msgid "Mask controls to know:"
 msgstr ""
 
-#: ../effects.rst:74
+#: ../doc/effects.rst:74
 msgid "Any effect mask can be inverted to flip between foreground and background."
 msgstr ""
 
-#: ../effects.rst:75
+#: ../doc/effects.rst:75
 msgid "Animated mask videos can be looped."
 msgstr ""
 
-#: ../effects.rst:76
+#: ../doc/effects.rst:76
 msgid "When looping, set start/end mask trim carefully. If not adjusted, OpenShot loops the entire mask source, not just the segment you intended to repeat."
 msgstr ""
 
-#: ../effects.rst:79
+#: ../doc/effects.rst:79
 msgid "To adjust a property:"
 msgstr ""
 
-#: ../effects.rst:81
+#: ../doc/effects.rst:81
 msgid "Drag the slider for coarse changes."
 msgstr ""
 
-#: ../effects.rst:82
+#: ../doc/effects.rst:82
 msgid "Double-click to enter precise values."
 msgstr ""
 
-#: ../effects.rst:83
+#: ../doc/effects.rst:83
 msgid "Right/double-click for non-numerical options."
 msgstr ""
 
-#: ../effects.rst:85
+#: ../doc/effects.rst:85
 msgid "Effects with ``Margin: Left``, ``Margin: Top``, ``Margin: Right``, and ``Margin: Bottom`` controls can also be adjusted directly in the video preview. Select the effect, then drag the preview rectangle to move the affected area, resize its handles, or draw a new rectangle inside the clip."
 msgstr ""
 
-#: ../effects.rst:89
+#: ../doc/effects.rst:89
 msgid "The same preview rectangle can be used to position Caption text. Select a Caption effect, then move or resize the white rectangle in the video preview to adjust the Caption margins."
 msgstr ""
 
-#: ../effects.rst:92
-msgid "Effect properties are integral to the :ref:`animation_ref` system. When you modify an effect property, a keyframe is generated at the current playhead position. For a property to span the entire clip, position the playhead at or before the clip's start before making adjustments. A convenient way to identify a clip's start is by utilizing the 'next/previous marker' feature on the Timeline toolbar."
+#: ../doc/effects.rst:92
+msgid "You can animate an effect just like a clip. For example, leave :ref:`auto_keyframes_ref` on and change brightness at different moments to gradually brighten a scene. Turn it off while choosing a steady brightness for a property you have not animated yet. If an animation already exists, edits with Auto Keyframes off change the keyframe at or before the playhead."
 msgstr ""
 
-#: ../effects.rst:100
+#: ../doc/effects.rst:100
 msgid "List of Effects"
 msgstr ""
 
-#: ../effects.rst:101
+#: ../doc/effects.rst:101
 msgid "OpenShot Video Editor has a total of 43 built-in video and audio effects: 34 video effects and 9 audio effects. These effects can be added to a clip by dragging the effect onto a clip. The following table contains the name and short description of each effect."
 msgstr ""
 
-#: ../effects.rst:281
+#: ../doc/effects.rst:281
 msgid "Icon"
 msgstr ""
 
-#: ../effects.rst:281
+#: ../doc/effects.rst:281
 msgid "Effect Name"
 msgstr ""
 
-#: ../effects.rst:281
+#: ../doc/effects.rst:281
 msgid "Effect Description"
 msgstr ""
 
-#: ../effects.rst:283
+#: ../doc/effects.rst:283
 msgid "|mask_icon|"
 msgstr ""
 
-#: ../effects.rst:117
+#: ../doc/effects.rst:117
 msgid "Alpha Mask / Wipe Transition Icon"
 msgstr ""
 
-#: ../effects.rst:283
-#: ../effects.rst:469
+#: ../doc/effects.rst:283
+#: ../doc/effects.rst:469
 msgid "Alpha Mask / Wipe Transition"
 msgstr ""
 
-#: ../effects.rst:283
+#: ../doc/effects.rst:283
 msgid "Grayscale mask transition between images."
 msgstr ""
 
-#: ../effects.rst:284
+#: ../doc/effects.rst:284
 msgid "|analogtape_icon|"
 msgstr ""
 
-#: ../effects.rst:105
+#: ../doc/effects.rst:105
 msgid "Analog Tape Icon"
 msgstr ""
 
-#: ../effects.rst:284
-#: ../effects.rst:442
+#: ../doc/effects.rst:284
+#: ../doc/effects.rst:442
 msgid "Analog Tape"
 msgstr ""
 
-#: ../effects.rst:284
+#: ../doc/effects.rst:284
 msgid "Vintage home-video wobble, bleed, and snow."
 msgstr ""
 
-#: ../effects.rst:285
+#: ../doc/effects.rst:285
 msgid "|audiovisualization_icon|"
 msgstr ""
 
-#: ../effects.rst:109
+#: ../doc/effects.rst:109
 msgid "Audio Visualization Icon"
 msgstr ""
 
-#: ../effects.rst:285
-#: ../effects.rst:488
+#: ../doc/effects.rst:285
+#: ../doc/effects.rst:488
 msgid "Audio Visualization"
 msgstr ""
 
-#: ../effects.rst:285
+#: ../doc/effects.rst:285
 msgid "Render waveform, spectrum, and other transparent audio visualizations."
 msgstr ""
 
-#: ../effects.rst:286
+#: ../doc/effects.rst:286
 msgid "|bars_icon|"
 msgstr ""
 
-#: ../effects.rst:121
+#: ../doc/effects.rst:121
 msgid "Bars Icon"
 msgstr ""
 
-#: ../effects.rst:286
-#: ../effects.rst:613
+#: ../doc/effects.rst:286
+#: ../doc/effects.rst:613
 msgid "Bars"
 msgstr ""
 
-#: ../effects.rst:286
+#: ../doc/effects.rst:286
 msgid "Add colored bars around your video."
 msgstr ""
 
-#: ../effects.rst:287
+#: ../doc/effects.rst:287
 msgid "|beatsync_icon|"
 msgstr ""
 
-#: ../effects.rst:113
+#: ../doc/effects.rst:113
 msgid "Beat Sync Icon"
 msgstr ""
 
-#: ../effects.rst:287
-#: ../effects.rst:531
+#: ../doc/effects.rst:287
+#: ../doc/effects.rst:531
 msgid "Beat Sync"
 msgstr ""
 
-#: ../effects.rst:287
+#: ../doc/effects.rst:287
 msgid "Generate audio-reactive color flashes for compositing."
 msgstr ""
 
-#: ../effects.rst:288
+#: ../doc/effects.rst:288
 msgid "|blur_icon|"
 msgstr ""
 
-#: ../effects.rst:125
+#: ../doc/effects.rst:125
 msgid "Blur Icon"
 msgstr ""
 
-#: ../effects.rst:288
-#: ../effects.rst:632
+#: ../doc/effects.rst:288
+#: ../doc/effects.rst:632
 msgid "Blur"
 msgstr ""
 
-#: ../effects.rst:288
+#: ../doc/effects.rst:288
 msgid "Adjust image blur."
 msgstr ""
 
-#: ../effects.rst:289
+#: ../doc/effects.rst:289
 msgid "|brightness_icon|"
 msgstr ""
 
-#: ../effects.rst:129
+#: ../doc/effects.rst:129
 msgid "Brightness & Contrast Icon"
 msgstr ""
 
-#: ../effects.rst:289
-#: ../effects.rst:656
+#: ../doc/effects.rst:289
+#: ../doc/effects.rst:656
 msgid "Brightness & Contrast"
 msgstr ""
 
-#: ../effects.rst:289
+#: ../doc/effects.rst:289
 msgid "Modify frame’s brightness and contrast."
 msgstr ""
 
-#: ../effects.rst:290
+#: ../doc/effects.rst:290
 msgid "|caption_icon|"
 msgstr ""
 
-#: ../effects.rst:133
+#: ../doc/effects.rst:133
 msgid "Caption Icon"
 msgstr ""
 
-#: ../effects.rst:290
-#: ../effects.rst:674
+#: ../doc/effects.rst:290
+#: ../doc/effects.rst:674
 msgid "Caption"
 msgstr ""
 
-#: ../effects.rst:290
+#: ../doc/effects.rst:290
 msgid "Add text captions to any clip."
 msgstr ""
 
-#: ../effects.rst:291
+#: ../doc/effects.rst:291
 msgid "|chromakey_icon|"
 msgstr ""
 
-#: ../effects.rst:137
+#: ../doc/effects.rst:137
 msgid "Chroma Key (Greenscreen) Icon"
 msgstr ""
 
-#: ../effects.rst:291
-#: ../effects.rst:724
+#: ../doc/effects.rst:291
+#: ../doc/effects.rst:724
 msgid "Chroma Key (Greenscreen)"
 msgstr ""
 
-#: ../effects.rst:291
+#: ../doc/effects.rst:291
 msgid "Replace color with transparency."
 msgstr ""
 
-#: ../effects.rst:292
+#: ../doc/effects.rst:292
 msgid "|colorgrade_icon|"
 msgstr ""
 
-#: ../effects.rst:145
+#: ../doc/effects.rst:145
 msgid "Color Grade Icon"
 msgstr ""
 
-#: ../effects.rst:292
-#: ../effects.rst:753
+#: ../doc/effects.rst:292
+#: ../doc/effects.rst:753
 msgid "Color Grade"
 msgstr ""
 
-#: ../effects.rst:292
+#: ../doc/effects.rst:292
 msgid "Unified grading with corrections, curves, wheels, and LUT support."
 msgstr ""
 
-#: ../effects.rst:293
+#: ../doc/effects.rst:293
 msgid "|colormap_icon|"
 msgstr ""
 
-#: ../effects.rst:141
+#: ../doc/effects.rst:141
 msgid "Color Map / Lookup Icon"
 msgstr ""
 
-#: ../effects.rst:293
-#: ../effects.rst:792
+#: ../doc/effects.rst:293
+#: ../doc/effects.rst:792
 msgid "Color Map / Lookup"
 msgstr ""
 
-#: ../effects.rst:293
+#: ../doc/effects.rst:293
 msgid "Adjust colors using 3D LUT lookup tables (.cube format)."
 msgstr ""
 
-#: ../effects.rst:294
+#: ../doc/effects.rst:294
 msgid "|saturation_icon|"
 msgstr ""
 
-#: ../effects.rst:149
+#: ../doc/effects.rst:149
 msgid "Color Saturation Icon"
 msgstr ""
 
-#: ../effects.rst:294
-#: ../effects.rst:1012
+#: ../doc/effects.rst:294
+#: ../doc/effects.rst:1012
 msgid "Color Saturation"
 msgstr ""
 
-#: ../effects.rst:294
+#: ../doc/effects.rst:294
 msgid "Adjust color intensity."
 msgstr ""
 
-#: ../effects.rst:295
+#: ../doc/effects.rst:295
 msgid "|colorshift_icon|"
 msgstr ""
 
-#: ../effects.rst:153
+#: ../doc/effects.rst:153
 msgid "Color Shift Icon"
 msgstr ""
 
-#: ../effects.rst:295
-#: ../effects.rst:1030
+#: ../doc/effects.rst:295
+#: ../doc/effects.rst:1030
 msgid "Color Shift"
 msgstr ""
 
-#: ../effects.rst:295
+#: ../doc/effects.rst:295
 msgid "Shift image colors in various directions."
 msgstr ""
 
-#: ../effects.rst:296
+#: ../doc/effects.rst:296
 msgid "|compressor_icon|"
 msgstr ""
 
-#: ../effects.rst:241
+#: ../doc/effects.rst:241
 msgid "Compressor Icon"
 msgstr ""
 
-#: ../effects.rst:296
-#: ../effects.rst:1799
+#: ../doc/effects.rst:296
+#: ../doc/effects.rst:1799
 msgid "Compressor"
 msgstr ""
 
-#: ../effects.rst:296
+#: ../doc/effects.rst:296
 msgid "Reduce loudness or amplify quiet sounds."
 msgstr ""
 
-#: ../effects.rst:297
+#: ../doc/effects.rst:297
 msgid "|crop_icon|"
 msgstr ""
 
-#: ../effects.rst:157
+#: ../doc/effects.rst:157
 msgid "Crop Icon"
 msgstr ""
 
-#: ../effects.rst:297
-#: ../effects.rst:1061
+#: ../doc/effects.rst:297
+#: ../doc/effects.rst:1061
 msgid "Crop"
 msgstr ""
 
-#: ../effects.rst:297
+#: ../doc/effects.rst:297
 msgid "Crop out parts of your video."
 msgstr ""
 
-#: ../effects.rst:298
+#: ../doc/effects.rst:298
 msgid "|deinterlace_icon|"
 msgstr ""
 
-#: ../effects.rst:161
+#: ../doc/effects.rst:161
 msgid "Deinterlace Icon"
 msgstr ""
 
-#: ../effects.rst:298
-#: ../effects.rst:1088
+#: ../doc/effects.rst:298
+#: ../doc/effects.rst:1088
 msgid "Deinterlace"
 msgstr ""
 
-#: ../effects.rst:298
+#: ../doc/effects.rst:298
 msgid "Remove interlacing from video."
 msgstr ""
 
-#: ../effects.rst:299
+#: ../doc/effects.rst:299
 msgid "|delay_icon|"
 msgstr ""
 
-#: ../effects.rst:245
+#: ../doc/effects.rst:245
 msgid "Delay Icon"
 msgstr ""
 
-#: ../effects.rst:299
-#: ../effects.rst:1819
+#: ../doc/effects.rst:299
+#: ../doc/effects.rst:1819
 msgid "Delay"
 msgstr ""
 
-#: ../effects.rst:299
+#: ../doc/effects.rst:299
 msgid "Adjust audio-video synchronism."
 msgstr ""
 
-#: ../effects.rst:300
+#: ../doc/effects.rst:300
 msgid "|denoiseimage_icon|"
 msgstr ""
 
-#: ../effects.rst:165
+#: ../doc/effects.rst:165
 msgid "Denoise Image Icon"
 msgstr ""
 
-#: ../effects.rst:300
-#: ../effects.rst:1103
+#: ../doc/effects.rst:300
+#: ../doc/effects.rst:1103
 msgid "Denoise Image"
 msgstr ""
 
-#: ../effects.rst:300
+#: ../doc/effects.rst:300
 msgid "Reduce visible grain and color speckles in video frames."
 msgstr ""
 
-#: ../effects.rst:301
+#: ../doc/effects.rst:301
 msgid "|displace_icon|"
 msgstr ""
 
-#: ../effects.rst:169
+#: ../doc/effects.rst:169
 msgid "Displacement Map Icon"
 msgstr ""
 
-#: ../effects.rst:301
-#: ../effects.rst:1167
+#: ../doc/effects.rst:301
+#: ../doc/effects.rst:1167
 msgid "Displacement Map"
 msgstr ""
 
-#: ../effects.rst:301
+#: ../doc/effects.rst:301
 msgid "Use a grayscale image or video to warp the frame."
 msgstr ""
 
-#: ../effects.rst:302
+#: ../doc/effects.rst:302
 msgid "|distortion_icon|"
 msgstr ""
 
-#: ../effects.rst:249
+#: ../doc/effects.rst:249
 msgid "Distortion Icon"
 msgstr ""
 
-#: ../effects.rst:302
-#: ../effects.rst:1834
+#: ../doc/effects.rst:302
+#: ../doc/effects.rst:1834
 msgid "Distortion"
 msgstr ""
 
-#: ../effects.rst:302
+#: ../doc/effects.rst:302
 msgid "Clip audio signal for distortion."
 msgstr ""
 
-#: ../effects.rst:303
+#: ../doc/effects.rst:303
 msgid "|echo_icon|"
 msgstr ""
 
-#: ../effects.rst:253
+#: ../doc/effects.rst:253
 msgid "Echo Icon"
 msgstr ""
 
-#: ../effects.rst:303
-#: ../effects.rst:1852
+#: ../doc/effects.rst:303
+#: ../doc/effects.rst:1852
 msgid "Echo"
 msgstr ""
 
-#: ../effects.rst:303
+#: ../doc/effects.rst:303
 msgid "Add delayed sound reflection."
 msgstr ""
 
-#: ../effects.rst:304
+#: ../doc/effects.rst:304
 msgid "|expander_icon|"
 msgstr ""
 
-#: ../effects.rst:257
+#: ../doc/effects.rst:257
 msgid "Expander Icon"
 msgstr ""
 
-#: ../effects.rst:304
-#: ../effects.rst:1869
+#: ../doc/effects.rst:304
+#: ../doc/effects.rst:1869
 msgid "Expander"
 msgstr ""
 
-#: ../effects.rst:304
+#: ../doc/effects.rst:304
 msgid "Make loud parts relatively louder."
 msgstr ""
 
-#: ../effects.rst:305
+#: ../doc/effects.rst:305
 msgid "|filmgrain_icon|"
 msgstr ""
 
-#: ../effects.rst:173
+#: ../doc/effects.rst:173
 msgid "Film Grain Icon"
 msgstr ""
 
-#: ../effects.rst:305
-#: ../effects.rst:1206
+#: ../doc/effects.rst:305
+#: ../doc/effects.rst:1206
 msgid "Film Grain"
 msgstr ""
 
-#: ../effects.rst:305
+#: ../doc/effects.rst:305
 msgid "Add natural film-inspired texture and motion."
 msgstr ""
 
-#: ../effects.rst:306
+#: ../doc/effects.rst:306
 msgid "|glow_icon|"
 msgstr ""
 
-#: ../effects.rst:177
+#: ../doc/effects.rst:177
 msgid "Glow Icon"
 msgstr ""
 
-#: ../effects.rst:306
-#: ../effects.rst:1261
+#: ../doc/effects.rst:306
+#: ../doc/effects.rst:1261
 msgid "Glow"
 msgstr ""
 
-#: ../effects.rst:306
+#: ../doc/effects.rst:306
 msgid "Add a soft outer or inner glow to visible pixels."
 msgstr ""
 
-#: ../effects.rst:307
+#: ../doc/effects.rst:307
 msgid "|hue_icon|"
 msgstr ""
 
-#: ../effects.rst:181
+#: ../doc/effects.rst:181
 msgid "Hue Icon"
 msgstr ""
 
-#: ../effects.rst:307
-#: ../effects.rst:1286
+#: ../doc/effects.rst:307
+#: ../doc/effects.rst:1286
 msgid "Hue"
 msgstr ""
 
-#: ../effects.rst:307
+#: ../doc/effects.rst:307
 msgid "Adjust hue / color."
 msgstr ""
 
-#: ../effects.rst:308
+#: ../doc/effects.rst:308
 msgid "|lensflare_icon|"
 msgstr ""
 
-#: ../effects.rst:185
+#: ../doc/effects.rst:185
 msgid "Lens Flare Icon"
 msgstr ""
 
-#: ../effects.rst:308
-#: ../effects.rst:1301
+#: ../doc/effects.rst:308
+#: ../doc/effects.rst:1301
 msgid "Lens Flare"
 msgstr ""
 
-#: ../effects.rst:308
+#: ../doc/effects.rst:308
 msgid "Simulate sunlight hitting a lens with flares."
 msgstr ""
 
-#: ../effects.rst:309
+#: ../doc/effects.rst:309
 msgid "|negate_icon|"
 msgstr ""
 
-#: ../effects.rst:189
+#: ../doc/effects.rst:189
 msgid "Negative Icon"
 msgstr ""
 
-#: ../effects.rst:309
-#: ../effects.rst:1321
+#: ../doc/effects.rst:309
+#: ../doc/effects.rst:1321
 msgid "Negative"
 msgstr ""
 
-#: ../effects.rst:309
+#: ../doc/effects.rst:309
 msgid "Produce a negative image."
 msgstr ""
 
-#: ../effects.rst:310
+#: ../doc/effects.rst:310
 msgid "|noise_icon|"
 msgstr ""
 
-#: ../effects.rst:261
+#: ../doc/effects.rst:261
 msgid "Noise Icon"
 msgstr ""
 
-#: ../effects.rst:310
-#: ../effects.rst:1889
+#: ../doc/effects.rst:310
+#: ../doc/effects.rst:1889
 msgid "Noise"
 msgstr ""
 
-#: ../effects.rst:310
+#: ../doc/effects.rst:310
 msgid "Add random equal-intensity signals."
 msgstr ""
 
-#: ../effects.rst:311
+#: ../doc/effects.rst:311
 msgid "|objectdetection_icon|"
 msgstr ""
 
-#: ../effects.rst:193
+#: ../doc/effects.rst:193
 msgid "Object Detector Icon"
 msgstr ""
 
-#: ../effects.rst:311
-#: ../effects.rst:1386
+#: ../doc/effects.rst:311
+#: ../doc/effects.rst:1386
 msgid "Object Detector"
 msgstr ""
 
-#: ../effects.rst:311
+#: ../doc/effects.rst:311
 msgid "Detect objects in video."
 msgstr ""
 
-#: ../effects.rst:312
+#: ../doc/effects.rst:312
 msgid "|objectmask_icon|"
 msgstr ""
 
-#: ../effects.rst:197
+#: ../doc/effects.rst:197
 msgid "Object Mask Icon"
 msgstr ""
 
-#: ../effects.rst:312
-#: ../effects.rst:1327
+#: ../doc/effects.rst:312
+#: ../doc/effects.rst:1327
 msgid "Object Mask"
 msgstr ""
 
-#: ../effects.rst:312
+#: ../doc/effects.rst:312
 msgid "Select and follow a subject with a detailed animated mask."
 msgstr ""
 
-#: ../effects.rst:313
+#: ../doc/effects.rst:313
 msgid "|outline_icon|"
 msgstr ""
 
-#: ../effects.rst:201
+#: ../doc/effects.rst:201
 msgid "Outline Icon"
 msgstr ""
 
-#: ../effects.rst:313
-#: ../effects.rst:1469
+#: ../doc/effects.rst:313
+#: ../doc/effects.rst:1469
 msgid "Outline"
 msgstr ""
 
-#: ../effects.rst:313
+#: ../doc/effects.rst:313
 msgid "Add outline around any image or text."
 msgstr ""
 
-#: ../effects.rst:314
+#: ../doc/effects.rst:314
 msgid "|parametriceq_icon|"
 msgstr ""
 
-#: ../effects.rst:265
+#: ../doc/effects.rst:265
 msgid "Parametric EQ Icon"
 msgstr ""
 
-#: ../effects.rst:314
-#: ../effects.rst:1904
+#: ../doc/effects.rst:314
+#: ../doc/effects.rst:1904
 msgid "Parametric EQ"
 msgstr ""
 
-#: ../effects.rst:314
+#: ../doc/effects.rst:314
 msgid "Adjust frequency volume in audio."
 msgstr ""
 
-#: ../effects.rst:315
+#: ../doc/effects.rst:315
 msgid "|pixelate_icon|"
 msgstr ""
 
-#: ../effects.rst:205
+#: ../doc/effects.rst:205
 msgid "Pixelate Icon"
 msgstr ""
 
-#: ../effects.rst:315
-#: ../effects.rst:1490
+#: ../doc/effects.rst:315
+#: ../doc/effects.rst:1490
 msgid "Pixelate"
 msgstr ""
 
-#: ../effects.rst:315
+#: ../doc/effects.rst:315
 msgid "Increase or decrease visible pixels."
 msgstr ""
 
-#: ../effects.rst:316
+#: ../doc/effects.rst:316
 msgid "|robotization_icon|"
 msgstr ""
 
-#: ../effects.rst:269
+#: ../doc/effects.rst:269
 msgid "Robotization Icon"
 msgstr ""
 
-#: ../effects.rst:316
-#: ../effects.rst:1922
+#: ../doc/effects.rst:316
+#: ../doc/effects.rst:1922
 msgid "Robotization"
 msgstr ""
 
-#: ../effects.rst:316
+#: ../doc/effects.rst:316
 msgid "Transform audio into robotic voice."
 msgstr ""
 
-#: ../effects.rst:317
+#: ../doc/effects.rst:317
 msgid "|shadow_icon|"
 msgstr ""
 
-#: ../effects.rst:213
+#: ../doc/effects.rst:213
 msgid "Shadow Icon"
 msgstr ""
 
-#: ../effects.rst:317
-#: ../effects.rst:1548
+#: ../doc/effects.rst:317
+#: ../doc/effects.rst:1548
 msgid "Shadow"
 msgstr ""
 
-#: ../effects.rst:317
+#: ../doc/effects.rst:317
 msgid "Add a soft drop shadow behind visible pixels."
 msgstr ""
 
-#: ../effects.rst:318
+#: ../doc/effects.rst:318
 msgid "|sharpen_icon|"
 msgstr ""
 
-#: ../effects.rst:209
+#: ../doc/effects.rst:209
 msgid "Sharpen Icon"
 msgstr ""
 
-#: ../effects.rst:318
-#: ../effects.rst:1509
+#: ../doc/effects.rst:318
+#: ../doc/effects.rst:1509
 msgid "Sharpen"
 msgstr ""
 
-#: ../effects.rst:318
+#: ../doc/effects.rst:318
 msgid "Boost edge contrast to make video details look crisper."
 msgstr ""
 
-#: ../effects.rst:319
+#: ../doc/effects.rst:319
 msgid "|shift_icon|"
 msgstr ""
 
-#: ../effects.rst:217
+#: ../doc/effects.rst:217
 msgid "Shift Icon"
 msgstr ""
 
-#: ../effects.rst:319
-#: ../effects.rst:1574
+#: ../doc/effects.rst:319
+#: ../doc/effects.rst:1574
 msgid "Shift"
 msgstr ""
 
-#: ../effects.rst:319
+#: ../doc/effects.rst:319
 msgid "Shift image in different directions."
 msgstr ""
 
-#: ../effects.rst:320
+#: ../doc/effects.rst:320
 msgid "|sphericalprojection_icon|"
 msgstr ""
 
-#: ../effects.rst:221
+#: ../doc/effects.rst:221
 msgid "Spherical Projection Icon"
 msgstr ""
 
-#: ../effects.rst:320
-#: ../effects.rst:1590
+#: ../doc/effects.rst:320
+#: ../doc/effects.rst:1590
 msgid "Spherical Projection"
 msgstr ""
 
-#: ../effects.rst:320
+#: ../doc/effects.rst:320
 msgid "Flatten or project 360° and fisheye footage."
 msgstr ""
 
-#: ../effects.rst:321
+#: ../doc/effects.rst:321
 msgid "|stabilizer_icon|"
 msgstr ""
 
-#: ../effects.rst:225
+#: ../doc/effects.rst:225
 msgid "Stabilizer Icon"
 msgstr ""
 
-#: ../effects.rst:321
-#: ../effects.rst:1641
+#: ../doc/effects.rst:321
+#: ../doc/effects.rst:1641
 msgid "Stabilizer"
 msgstr ""
 
-#: ../effects.rst:321
+#: ../doc/effects.rst:321
 msgid "Reduce video shake."
 msgstr ""
 
-#: ../effects.rst:322
+#: ../doc/effects.rst:322
 msgid "|timer_icon|"
 msgstr ""
 
-#: ../effects.rst:229
+#: ../doc/effects.rst:229
 msgid "Timer Icon"
 msgstr ""
 
-#: ../effects.rst:322
-#: ../effects.rst:1656
+#: ../doc/effects.rst:322
+#: ../doc/effects.rst:1656
 msgid "Timer"
 msgstr ""
 
-#: ../effects.rst:322
+#: ../doc/effects.rst:322
 msgid "Render a styled count up, count down, clock, timecode, or frame number overlay."
 msgstr ""
 
-#: ../effects.rst:323
+#: ../doc/effects.rst:323
 msgid "|tracker_icon|"
 msgstr ""
 
-#: ../effects.rst:233
+#: ../doc/effects.rst:233
 msgid "Tracker Icon"
 msgstr ""
 
-#: ../effects.rst:323
-#: ../effects.rst:1707
+#: ../doc/effects.rst:323
+#: ../doc/effects.rst:1707
 msgid "Tracker"
 msgstr ""
 
-#: ../effects.rst:323
+#: ../doc/effects.rst:323
 msgid "Track bounding box in video."
 msgstr ""
 
-#: ../effects.rst:324
+#: ../doc/effects.rst:324
 msgid "|wave_icon|"
 msgstr ""
 
-#: ../effects.rst:237
+#: ../doc/effects.rst:237
 msgid "Wave Icon"
 msgstr ""
 
-#: ../effects.rst:324
-#: ../effects.rst:1774
+#: ../doc/effects.rst:324
+#: ../doc/effects.rst:1774
 msgid "Wave"
 msgstr ""
 
-#: ../effects.rst:324
+#: ../doc/effects.rst:324
 msgid "Distort image into a wave pattern."
 msgstr ""
 
-#: ../effects.rst:325
+#: ../doc/effects.rst:325
 msgid "|whisperization_icon|"
 msgstr ""
 
-#: ../effects.rst:273
+#: ../doc/effects.rst:273
 msgid "Whisperization Icon"
 msgstr ""
 
-#: ../effects.rst:325
-#: ../effects.rst:1939
+#: ../doc/effects.rst:325
+#: ../doc/effects.rst:1939
 msgid "Whisperization"
 msgstr ""
 
-#: ../effects.rst:325
+#: ../doc/effects.rst:325
 msgid "Transform audio into whispers."
 msgstr ""
 
-#: ../effects.rst:330
+#: ../doc/effects.rst:330
 msgid "Effect Properties"
 msgstr ""
 
-#: ../effects.rst:331
-msgid "Below is a list of **common** effect properties, shared by all effects in OpenShot. To view an effect's properties, right click and choose :guilabel:`Properties`. The property editor will appear, where you can change these properties. Note: Pay close attention to where the play-head (i.e. red playback line) is. Key frames are automatically created at the current playback position, to help quickly create animations."
+#: ../doc/effects.rst:331
+msgid "Below is a list of **common** effect properties, shared by all effects in OpenShot. To view an effect's properties, right click and choose :guilabel:`Properties`. The property editor will appear, where you can change these properties. To make an effect change during playback, adjust its values at different moments with :ref:`auto_keyframes_ref` on. That section also explains how to adjust existing animations or place keyframes yourself."
 msgstr ""
 
-#: ../effects.rst:336
+#: ../doc/effects.rst:336
 msgid "See the table below for a list of common effect properties. Only the **common properties** that all effects share are listed here. Each effect also has many **unique properties**, which are specific to each effect, see :ref:`effect_video_effects_ref` for more information on individual effects and their unique properties."
 msgstr ""
 
-#: ../effects.rst:344
+#: ../doc/effects.rst:344
 msgid "Effect Property Name"
 msgstr ""
 
-#: ../effects.rst:344
+#: ../doc/effects.rst:344
 msgid "Type"
 msgstr ""
 
-#: ../effects.rst:344
-#: ../effects.rst:450
-#: ../effects.rst:479
-#: ../effects.rst:513
-#: ../effects.rst:587
-#: ../effects.rst:622
-#: ../effects.rst:643
-#: ../effects.rst:665
-#: ../effects.rst:701
-#: ../effects.rst:742
-#: ../effects.rst:771
-#: ../effects.rst:806
-#: ../effects.rst:1021
-#: ../effects.rst:1046
-#: ../effects.rst:1076
-#: ../effects.rst:1097
-#: ../effects.rst:1156
-#: ../effects.rst:1193
-#: ../effects.rst:1236
-#: ../effects.rst:1276
-#: ../effects.rst:1295
-#: ../effects.rst:1310
-#: ../effects.rst:1374
-#: ../effects.rst:1437
-#: ../effects.rst:1480
-#: ../effects.rst:1499
-#: ../effects.rst:1538
-#: ../effects.rst:1563
-#: ../effects.rst:1583
-#: ../effects.rst:1601
-#: ../effects.rst:1650
-#: ../effects.rst:1680
-#: ../effects.rst:1751
-#: ../effects.rst:1782
-#: ../effects.rst:1808
-#: ../effects.rst:1828
-#: ../effects.rst:1843
-#: ../effects.rst:1861
-#: ../effects.rst:1878
-#: ../effects.rst:1898
-#: ../effects.rst:1913
-#: ../effects.rst:1931
-#: ../effects.rst:1948
+#: ../doc/effects.rst:344
+#: ../doc/effects.rst:450
+#: ../doc/effects.rst:479
+#: ../doc/effects.rst:513
+#: ../doc/effects.rst:587
+#: ../doc/effects.rst:622
+#: ../doc/effects.rst:643
+#: ../doc/effects.rst:665
+#: ../doc/effects.rst:701
+#: ../doc/effects.rst:742
+#: ../doc/effects.rst:771
+#: ../doc/effects.rst:806
+#: ../doc/effects.rst:1021
+#: ../doc/effects.rst:1046
+#: ../doc/effects.rst:1076
+#: ../doc/effects.rst:1097
+#: ../doc/effects.rst:1156
+#: ../doc/effects.rst:1193
+#: ../doc/effects.rst:1236
+#: ../doc/effects.rst:1276
+#: ../doc/effects.rst:1295
+#: ../doc/effects.rst:1310
+#: ../doc/effects.rst:1374
+#: ../doc/effects.rst:1437
+#: ../doc/effects.rst:1480
+#: ../doc/effects.rst:1499
+#: ../doc/effects.rst:1538
+#: ../doc/effects.rst:1563
+#: ../doc/effects.rst:1583
+#: ../doc/effects.rst:1601
+#: ../doc/effects.rst:1650
+#: ../doc/effects.rst:1680
+#: ../doc/effects.rst:1751
+#: ../doc/effects.rst:1782
+#: ../doc/effects.rst:1808
+#: ../doc/effects.rst:1828
+#: ../doc/effects.rst:1843
+#: ../doc/effects.rst:1861
+#: ../doc/effects.rst:1878
+#: ../doc/effects.rst:1898
+#: ../doc/effects.rst:1913
+#: ../doc/effects.rst:1931
+#: ../doc/effects.rst:1948
 msgid "Description"
 msgstr ""
 
-#: ../effects.rst:346
+#: ../doc/effects.rst:346
 msgid "Apply Before Clip"
 msgstr ""
 
-#: ../effects.rst:346
+#: ../doc/effects.rst:346
 msgid "Boolean"
 msgstr ""
 
-#: ../effects.rst:346
+#: ../doc/effects.rst:346
 msgid "Apply this effect before the Clip processes keyframes? (default is Yes)"
 msgstr ""
 
-#: ../effects.rst:347
-#: ../effects.rst:362
+#: ../doc/effects.rst:347
+#: ../doc/effects.rst:362
 msgid "Duration"
 msgstr ""
 
-#: ../effects.rst:347
-#: ../effects.rst:348
-#: ../effects.rst:356
-#: ../effects.rst:357
+#: ../doc/effects.rst:347
+#: ../doc/effects.rst:348
+#: ../doc/effects.rst:356
+#: ../doc/effects.rst:357
 msgid "Float"
 msgstr ""
 
-#: ../effects.rst:347
+#: ../doc/effects.rst:347
 msgid "The length of the effect (in seconds). Read-only property. Most effects default to the length of a clip. This property is hidden when an effect belongs to a clip."
 msgstr ""
 
-#: ../effects.rst:348
-#: ../effects.rst:369
+#: ../doc/effects.rst:348
+#: ../doc/effects.rst:369
 msgid "End"
 msgstr ""
 
-#: ../effects.rst:348
+#: ../doc/effects.rst:348
 msgid "The end trimming position of the effect (in seconds). This property is hidden when an effect belongs to a clip."
 msgstr ""
 
-#: ../effects.rst:349
-#: ../effects.rst:376
+#: ../doc/effects.rst:349
+#: ../doc/effects.rst:376
 msgid "ID"
 msgstr ""
 
-#: ../effects.rst:349
-#: ../effects.rst:355
+#: ../doc/effects.rst:349
+#: ../doc/effects.rst:355
 msgid "String"
 msgstr ""
 
-#: ../effects.rst:349
+#: ../doc/effects.rst:349
 msgid "A randomly generated GUID (globally unique identifier) assigned to each effect. Read-only property."
 msgstr ""
 
-#: ../effects.rst:350
+#: ../doc/effects.rst:350
 msgid "Mask: Invert"
 msgstr ""
 
-#: ../effects.rst:350
-#: ../effects.rst:351
+#: ../doc/effects.rst:350
+#: ../doc/effects.rst:351
 msgid "Bool"
 msgstr ""
 
-#: ../effects.rst:350
+#: ../doc/effects.rst:350
 msgid "Invert the mask source so light areas become dark and dark areas become light."
 msgstr ""
 
-#: ../effects.rst:351
+#: ../doc/effects.rst:351
 msgid "Mask: Loop"
 msgstr ""
 
-#: ../effects.rst:351
+#: ../doc/effects.rst:351
 msgid "Loop an animated mask source when the effect is longer than the source."
 msgstr ""
 
-#: ../effects.rst:352
+#: ../doc/effects.rst:352
 msgid "Mask Mode"
 msgstr ""
 
-#: ../effects.rst:352
-#: ../effects.rst:354
+#: ../doc/effects.rst:352
+#: ../doc/effects.rst:354
 msgid "Enum"
 msgstr ""
 
-#: ../effects.rst:352
+#: ../doc/effects.rst:352
 msgid "Controls how the mask limits or varies the strength of the effect."
 msgstr ""
 
-#: ../effects.rst:353
+#: ../doc/effects.rst:353
 msgid "Mask: Source"
 msgstr ""
 
-#: ../effects.rst:353
+#: ../doc/effects.rst:353
 msgid "Reader"
 msgstr ""
 
-#: ../effects.rst:353
+#: ../doc/effects.rst:353
 msgid "The image, image sequence, video, Tracker, or Object Detector used as the effect's grayscale mask source."
 msgstr ""
 
-#: ../effects.rst:354
+#: ../doc/effects.rst:354
 msgid "Mask: Time Mode"
 msgstr ""
 
-#: ../effects.rst:354
+#: ../doc/effects.rst:354
 msgid "Controls how OpenShot maps effect time to an animated mask source."
 msgstr ""
 
-#: ../effects.rst:355
+#: ../doc/effects.rst:355
 msgid "Parent"
 msgstr ""
 
-#: ../effects.rst:355
+#: ../doc/effects.rst:355
 msgid "The parent object to this effect, which makes many of these keyframe values initialize to the parent value."
 msgstr ""
 
-#: ../effects.rst:356
-#: ../effects.rst:408
+#: ../doc/effects.rst:356
+#: ../doc/effects.rst:408
 msgid "Position"
 msgstr ""
 
-#: ../effects.rst:356
+#: ../doc/effects.rst:356
 msgid "The position of the effect on the timeline (in seconds). This property is hidden when an effect belongs to a clip."
 msgstr ""
 
-#: ../effects.rst:357
-#: ../effects.rst:414
+#: ../doc/effects.rst:357
+#: ../doc/effects.rst:414
 msgid "Start"
 msgstr ""
 
-#: ../effects.rst:357
+#: ../doc/effects.rst:357
 msgid "The start trimming position of the effect (in seconds). This property is hidden when an effect belongs to a clip."
 msgstr ""
 
-#: ../effects.rst:358
-#: ../effects.rst:390
+#: ../doc/effects.rst:358
+#: ../doc/effects.rst:390
 msgid "Track"
 msgstr ""
 
-#: ../effects.rst:358
+#: ../doc/effects.rst:358
 msgid "Int"
 msgstr ""
 
-#: ../effects.rst:358
+#: ../doc/effects.rst:358
 msgid "The layer which holds the effect (higher tracks are rendered on top of lower tracks). This property is hidden when an effect belongs to a clip."
 msgstr ""
 
-#: ../effects.rst:363
+#: ../doc/effects.rst:363
 msgid "The :guilabel:`Duration` property is a float value indicating the length of the effect in seconds. This is a Read-only property. This is calculated by: End - Start. To modify duration, you must edit the :guilabel:`Start` and/or :guilabel:`End` effect properties."
 msgstr ""
 
-#: ../effects.rst:366
+#: ../doc/effects.rst:366
 msgid "*NOTE: Most effects in OpenShot default the effect duration to the clip duration, and hide this property from the editor.*"
 msgstr ""
 
-#: ../effects.rst:370
+#: ../doc/effects.rst:370
 msgid "The :guilabel:`End` property defines the trimming point at the end of the effect in seconds, allowing you to control how much of the effect is visible in the timeline. Changing this property will impact the :guilabel:`Duration` effect property."
 msgstr ""
 
-#: ../effects.rst:373
-#: ../effects.rst:394
-#: ../effects.rst:411
-#: ../effects.rst:418
+#: ../doc/effects.rst:373
+#: ../doc/effects.rst:394
+#: ../doc/effects.rst:411
+#: ../doc/effects.rst:418
 msgid "*NOTE: Most effects in OpenShot default this property to match the clip, and hide this property from the editor.*"
 msgstr ""
 
-#: ../effects.rst:377
+#: ../doc/effects.rst:377
 msgid "The :guilabel:`ID` property holds a randomly generated GUID (Globally Unique Identifier) assigned to each effect, ensuring its uniqueness. This is a Read-only property, and assigned by OpenShot when an effect is created."
 msgstr ""
 
-#: ../effects.rst:381
+#: ../doc/effects.rst:381
 msgid "Mask Properties"
 msgstr ""
 
-#: ../effects.rst:382
+#: ../doc/effects.rst:382
 msgid "The :guilabel:`Mask: Source`, :guilabel:`Mask Mode`, :guilabel:`Mask: Time Mode`, :guilabel:`Mask: Loop`, and :guilabel:`Mask: Invert` properties limit where an effect is applied. The mask source can be a static image, image sequence, video, :guilabel:`Tracker`, or :guilabel:`Object Detector`. Light areas of the mask usually apply more of the effect, while dark areas apply less; use :guilabel:`Mask: Invert` when you need the opposite result. Tracker and Object Detector sources use their bounding boxes as the masked region, which is useful for limiting effects such as blur, pixelation, color correction, or sharpening to a specific subject."
 msgstr ""
 
-#: ../effects.rst:391
+#: ../doc/effects.rst:391
 msgid "The :guilabel:`Track` property is an integer indicating the layer on which the effect is placed. Effects on higher tracks are rendered above those on lower tracks."
 msgstr ""
 
-#: ../effects.rst:399
+#: ../doc/effects.rst:399
 msgid "Effect Parent"
 msgstr ""
 
-#: ../effects.rst:400
+#: ../doc/effects.rst:400
 msgid "The :guilabel:`Parent` property of an effect sets the initial keyframe values to a parent effect. For example, if many effects all point to the same parent effect, they will inherit all their initial properties, such as font size, font color, and background color for a ``Caption`` effect. In the example of many ``Caption`` effects using the same Parent effect, it is an efficient way to manage a large number of these effects."
 msgstr ""
 
-#: ../effects.rst:404
+#: ../doc/effects.rst:404
 msgid "NOTE: The ``parent`` property for effects should be linked to the **same type** of parent effect, otherwise their default initial values will not match. Also see :ref:`clip_parent_ref`."
 msgstr ""
 
-#: ../effects.rst:409
+#: ../doc/effects.rst:409
 msgid "The :guilabel:`Position` property determines the effect's position on the timeline in seconds, with 0.0 indicating the beginning."
 msgstr ""
 
-#: ../effects.rst:415
+#: ../doc/effects.rst:415
 msgid "The :guilabel:`Start` property defines the trimming point at the beginning of the effect in seconds. Changing this property will impact the :guilabel:`Duration` effect property."
 msgstr ""
 
-#: ../effects.rst:421
+#: ../doc/effects.rst:421
 msgid "Sequencing"
 msgstr ""
 
-#: ../effects.rst:423
+#: ../doc/effects.rst:423
 msgid "Effects are normally applied **before** the Clip processes keyframes. This allows the effect to process the raw image of the clip, before the clip applies properties such as scaling, rotation, location, etc... Normally, this is the preferred sequence of events, and this is the default behavior of effects in OpenShot. However, you can optionally override this behavior with the ``Apply Before Clip Keyframes`` property."
 msgstr ""
 
-#: ../effects.rst:428
+#: ../doc/effects.rst:428
 msgid "If you set the ``Apply Before Clip Keyframes`` property to ``No``, the effect will be sequenced **after** the clip scales, rotates, and applies keyframes to the image. This can be useful on certain effects, such as the **Mask** effect, when you want to animate a clip first and then apply a static mask to the clip."
 msgstr ""
 
-#: ../effects.rst:435
+#: ../doc/effects.rst:435
 msgid "Video Effects"
 msgstr ""
 
-#: ../effects.rst:437
+#: ../doc/effects.rst:437
 msgid "Effects are generally divided into two categories: video and audio effects. Video effects modify the image and pixel data of a clip. Below is a list of video effects, and their properties. Often it is best to experiment with an effect, entering different values into the properties, and observing the results."
 msgstr ""
 
-#: ../effects.rst:443
+#: ../doc/effects.rst:443
 msgid "The **Analog Tape** effect emulates consumer tape playback: horizontal line wobble (\"tracking\"), chroma bleed, luma softness, grainy snow, a bottom **tracking stripe**, and short **static bursts**. All controls are key-framable and the noise is deterministic (seeded from the effect’s ID with an optional offset), so renders are repeatable."
 msgstr ""
 
-#: ../effects.rst:450
-#: ../effects.rst:479
-#: ../effects.rst:513
-#: ../effects.rst:587
-#: ../effects.rst:622
-#: ../effects.rst:643
-#: ../effects.rst:665
-#: ../effects.rst:701
-#: ../effects.rst:742
-#: ../effects.rst:771
-#: ../effects.rst:806
-#: ../effects.rst:1021
-#: ../effects.rst:1046
-#: ../effects.rst:1076
-#: ../effects.rst:1097
-#: ../effects.rst:1156
-#: ../effects.rst:1193
-#: ../effects.rst:1236
-#: ../effects.rst:1276
-#: ../effects.rst:1295
-#: ../effects.rst:1310
-#: ../effects.rst:1374
-#: ../effects.rst:1437
-#: ../effects.rst:1480
-#: ../effects.rst:1499
-#: ../effects.rst:1538
-#: ../effects.rst:1563
-#: ../effects.rst:1583
-#: ../effects.rst:1601
-#: ../effects.rst:1650
-#: ../effects.rst:1680
-#: ../effects.rst:1751
-#: ../effects.rst:1782
-#: ../effects.rst:1808
-#: ../effects.rst:1828
-#: ../effects.rst:1843
-#: ../effects.rst:1861
-#: ../effects.rst:1878
-#: ../effects.rst:1898
-#: ../effects.rst:1913
-#: ../effects.rst:1931
-#: ../effects.rst:1948
+#: ../doc/effects.rst:450
+#: ../doc/effects.rst:479
+#: ../doc/effects.rst:513
+#: ../doc/effects.rst:587
+#: ../doc/effects.rst:622
+#: ../doc/effects.rst:643
+#: ../doc/effects.rst:665
+#: ../doc/effects.rst:701
+#: ../doc/effects.rst:742
+#: ../doc/effects.rst:771
+#: ../doc/effects.rst:806
+#: ../doc/effects.rst:1021
+#: ../doc/effects.rst:1046
+#: ../doc/effects.rst:1076
+#: ../doc/effects.rst:1097
+#: ../doc/effects.rst:1156
+#: ../doc/effects.rst:1193
+#: ../doc/effects.rst:1236
+#: ../doc/effects.rst:1276
+#: ../doc/effects.rst:1295
+#: ../doc/effects.rst:1310
+#: ../doc/effects.rst:1374
+#: ../doc/effects.rst:1437
+#: ../doc/effects.rst:1480
+#: ../doc/effects.rst:1499
+#: ../doc/effects.rst:1538
+#: ../doc/effects.rst:1563
+#: ../doc/effects.rst:1583
+#: ../doc/effects.rst:1601
+#: ../doc/effects.rst:1650
+#: ../doc/effects.rst:1680
+#: ../doc/effects.rst:1751
+#: ../doc/effects.rst:1782
+#: ../doc/effects.rst:1808
+#: ../doc/effects.rst:1828
+#: ../doc/effects.rst:1843
+#: ../doc/effects.rst:1861
+#: ../doc/effects.rst:1878
+#: ../doc/effects.rst:1898
+#: ../doc/effects.rst:1913
+#: ../doc/effects.rst:1931
+#: ../doc/effects.rst:1948
 msgid "Property Name"
 msgstr ""
 
-#: ../effects.rst:452
+#: ../doc/effects.rst:452
 msgid "tracking"
 msgstr ""
 
-#: ../effects.rst:452
+#: ../doc/effects.rst:452
 msgid "``(float, 0–1)`` Horizontal **line wobble** plus a subtle bottom **skew**. Higher values increase amplitude and skew height."
 msgstr ""
 
-#: ../effects.rst:453
+#: ../doc/effects.rst:453
 msgid "bleed"
 msgstr ""
 
-#: ../effects.rst:453
+#: ../doc/effects.rst:453
 msgid "``(float, 0–1)`` **Chroma bleed / fringing.** Horizontal chroma shift + blur with a slight desaturation. Gives the “rainbow edge” look."
 msgstr ""
 
-#: ../effects.rst:454
-#: ../effects.rst:1240
+#: ../doc/effects.rst:454
+#: ../doc/effects.rst:1240
 msgid "softness"
 msgstr ""
 
-#: ../effects.rst:454
+#: ../doc/effects.rst:454
 msgid "``(float, 0–1)`` **Luma softness.** Small horizontal blur on Y (approx. 0–2 px). Keep low to retain detail when noise is high."
 msgstr ""
 
-#: ../effects.rst:455
+#: ../doc/effects.rst:455
 msgid "noise"
 msgstr ""
 
-#: ../effects.rst:455
+#: ../doc/effects.rst:455
 msgid "``(float, 0–1)`` **Snow, hiss, and dropouts.** Controls grain strength, probability/length of white **streaks**, and a faint line hum."
 msgstr ""
 
-#: ../effects.rst:456
+#: ../doc/effects.rst:456
 msgid "stripe"
 msgstr ""
 
-#: ../effects.rst:456
+#: ../doc/effects.rst:456
 msgid "``(float, 0–1)`` **Tracking stripe.** Lifts the bottom band, adds hiss/noise there, and widens the lifted region as the value increases."
 msgstr ""
 
-#: ../effects.rst:457
+#: ../doc/effects.rst:457
 msgid "static_bands"
 msgstr ""
 
-#: ../effects.rst:457
+#: ../doc/effects.rst:457
 msgid "``(float, 0–1)`` **Static bursts.** Short bright bands with **row-clumped streaks** (many “shooting stars” across neighboring rows)."
 msgstr ""
 
-#: ../effects.rst:458
+#: ../doc/effects.rst:458
 msgid "seed_offset"
 msgstr ""
 
-#: ../effects.rst:458
+#: ../doc/effects.rst:458
 msgid "``(int, 0–1000)`` Adds to the internal seed (derived from the effect ID) for deterministic variation between clips."
 msgstr ""
 
-#: ../effects.rst:461
-#: ../effects.rst:1252
-#: ../effects.rst:1629
+#: ../doc/effects.rst:461
+#: ../doc/effects.rst:1252
+#: ../doc/effects.rst:1629
 msgid "**Usage notes**"
 msgstr ""
 
-#: ../effects.rst:463
+#: ../doc/effects.rst:463
 msgid "**Subtle “home video”**: ``tracking=0.25``, ``bleed=0.20``, ``softness=0.20``, ``noise=0.25``, ``stripe=0.10``, ``static_bands=0.05``."
 msgstr ""
 
-#: ../effects.rst:464
+#: ../doc/effects.rst:464
 msgid "**Bad tracking / head clog**: ``tracking=0.8–1.0``, ``stripe=0.6–0.9``, ``noise=0.6–0.8``, ``static_bands=0.4–0.6``, ``softness<=0.2``, and set ``bleed`` to about 0.3."
 msgstr ""
 
-#: ../effects.rst:465
+#: ../doc/effects.rst:465
 msgid "**Color fringing only**: raise ``bleed`` (about 0.5) and keep other controls low."
 msgstr ""
 
-#: ../effects.rst:466
+#: ../doc/effects.rst:466
 msgid "**Different but repeatable snow**: leave the effect ID alone (for deterministic output) and change ``seed_offset`` to get a new, still-repeatable pattern."
 msgstr ""
 
-#: ../effects.rst:470
+#: ../doc/effects.rst:470
 msgid "The Alpha Mask / Wipe Transition effect leverages a grayscale mask to create a dynamic transition between two images or video clips. In this effect, the light areas of the mask reveal the new image, while the dark areas conceal it, allowing for creative and custom transitions that go beyond standard fade or wipe techniques. This effect only affects the image, and not the audio track."
 msgstr ""
 
-#: ../effects.rst:481
-#: ../effects.rst:667
-#: ../effects.rst:1200
-#: ../effects.rst:1314
+#: ../doc/effects.rst:481
+#: ../doc/effects.rst:667
+#: ../doc/effects.rst:1200
+#: ../doc/effects.rst:1314
 msgid "brightness"
 msgstr ""
 
-#: ../effects.rst:481
+#: ../doc/effects.rst:481
 msgid "``(float, -1 to 1)`` This curve controls the motion across the wipe"
 msgstr ""
 
-#: ../effects.rst:482
-#: ../effects.rst:668
-#: ../effects.rst:776
-#: ../effects.rst:1201
+#: ../doc/effects.rst:482
+#: ../doc/effects.rst:668
+#: ../doc/effects.rst:776
+#: ../doc/effects.rst:1201
 msgid "contrast"
 msgstr ""
 
-#: ../effects.rst:482
+#: ../doc/effects.rst:482
 msgid "``(float, 0 to 20)`` This curve controls the hardness and softness of the wipe edge"
 msgstr ""
 
-#: ../effects.rst:483
+#: ../doc/effects.rst:483
 msgid "reader"
 msgstr ""
 
-#: ../effects.rst:483
+#: ../doc/effects.rst:483
 msgid "``(reader)`` This reader can use any image or video as input for your grayscale wipe"
 msgstr ""
 
-#: ../effects.rst:484
-#: ../effects.rst:1202
+#: ../doc/effects.rst:484
+#: ../doc/effects.rst:1202
 msgid "replace_image"
 msgstr ""
 
-#: ../effects.rst:484
+#: ../doc/effects.rst:484
 msgid "``(bool, choices: ['Yes', 'No'])`` Replace the clips image with the current grayscale wipe image, useful for troubleshooting"
 msgstr ""
 
-#: ../effects.rst:489
+#: ../doc/effects.rst:489
 msgid "The Audio Visualization effect turns sound into animated visuals, making it easy to create music visualizers, audio spectrum analyzers, waveform animations, podcast videos, lyric videos, DJ visuals, and social media clips that react to music, voice, beats, and other audio. It draws from the clip's audio samples and can render waveforms, filled waveforms, audio bars, radial visualizers, frequency spectrum displays, phase scopes, particles, VU meters, and radial bars."
 msgstr ""
 
-#: ../effects.rst:495
+#: ../doc/effects.rst:495
 msgid "Because this is a video effect, the visualization can be composited directly over the source image, placed on a transparent background, or drawn over a solid, faded, or gradient background. This makes it useful for YouTube music videos, podcast audiograms, voiceover clips, album preview videos, karaoke-style videos, and quick promotional clips where the audio needs a strong visual presence."
 msgstr ""
 
-#: ../effects.rst:500
+#: ../doc/effects.rst:500
 msgid "Common uses include:"
 msgstr ""
 
-#: ../effects.rst:502
+#: ../doc/effects.rst:502
 msgid "**Music visualizer videos**: Add moving waveforms, spectrum bars, radial bars, or particles to a song, remix, or beat."
 msgstr ""
 
-#: ../effects.rst:503
+#: ../doc/effects.rst:503
 msgid "**Podcast and voiceover clips**: Show a waveform or VU meter while a speaker talks, especially for audio-only media."
 msgstr ""
 
-#: ../effects.rst:504
+#: ../doc/effects.rst:504
 msgid "**Lyric and karaoke videos**: Combine captions or titles with reactive audio visuals behind or around the text."
 msgstr ""
 
-#: ../effects.rst:505
+#: ../doc/effects.rst:505
 msgid "**Social media audiograms**: Create short clips for YouTube Shorts, TikTok, Instagram Reels, and other platforms."
 msgstr ""
 
-#: ../effects.rst:506
+#: ../doc/effects.rst:506
 msgid "**DJ, concert, and livestream visuals**: Use neon, radial, particle, or spectrum styles for energetic background motion."
 msgstr ""
 
-#: ../effects.rst:507
+#: ../doc/effects.rst:507
 msgid "**Technical audio displays**: Use spectrum, phase scope, or VU meter modes to show frequency content, stereo movement, or loudness."
 msgstr ""
 
-#: ../effects.rst:515
+#: ../doc/effects.rst:515
 msgid "visualization_type"
 msgstr ""
 
-#: ../effects.rst:515
+#: ../doc/effects.rst:515
 msgid "``(int, choices: ['Waveform', 'Filled Waveform', 'Bars', 'Radial', 'Radial Bars', 'Spectrum', 'Phase Scope', 'Particles', 'VU Meter'])``"
 msgstr ""
 
-#: ../effects.rst:516
+#: ../doc/effects.rst:516
 msgid "style"
 msgstr ""
 
-#: ../effects.rst:516
+#: ../doc/effects.rst:516
 msgid "``(int, choices: ['Clean', 'Soft', 'Neon', 'Minimal', 'Retro'])``"
 msgstr ""
 
-#: ../effects.rst:517
-#: ../effects.rst:625
-#: ../effects.rst:709
-#: ../effects.rst:744
-#: ../effects.rst:1282
-#: ../effects.rst:1570
-#: ../effects.rst:1687
+#: ../doc/effects.rst:517
+#: ../doc/effects.rst:625
+#: ../doc/effects.rst:709
+#: ../doc/effects.rst:744
+#: ../doc/effects.rst:1282
+#: ../doc/effects.rst:1570
+#: ../doc/effects.rst:1687
 msgid "color"
 msgstr ""
 
-#: ../effects.rst:517
+#: ../doc/effects.rst:517
 msgid "``(color)`` Seed color for the visualization"
 msgstr ""
 
-#: ../effects.rst:518
-#: ../effects.rst:591
-#: ../effects.rst:809
+#: ../doc/effects.rst:518
+#: ../doc/effects.rst:591
+#: ../doc/effects.rst:809
 msgid "intensity"
 msgstr ""
 
-#: ../effects.rst:518
+#: ../doc/effects.rst:518
 msgid "``(float, 0 to 10)`` Overall audio response and visual strength"
 msgstr ""
 
-#: ../effects.rst:519
+#: ../doc/effects.rst:519
 msgid "smoothing"
 msgstr ""
 
-#: ../effects.rst:519
+#: ../doc/effects.rst:519
 msgid "``(float, 0 to 1)`` Smooths the audio response between sampled points"
 msgstr ""
 
-#: ../effects.rst:520
-#: ../effects.rst:1159
+#: ../doc/effects.rst:520
+#: ../doc/effects.rst:1159
 msgid "detail"
 msgstr ""
 
-#: ../effects.rst:520
+#: ../doc/effects.rst:520
 msgid "``(float, 0 to 1)`` Controls visual density, such as bars, points, or particles"
 msgstr ""
 
-#: ../effects.rst:521
+#: ../doc/effects.rst:521
 msgid "glow"
 msgstr ""
 
-#: ../effects.rst:521
+#: ../doc/effects.rst:521
 msgid "``(float, 0 to 1)`` Adds soft glow around the visualization"
 msgstr ""
 
-#: ../effects.rst:522
+#: ../doc/effects.rst:522
 msgid "color_spread"
 msgstr ""
 
-#: ../effects.rst:522
+#: ../doc/effects.rst:522
 msgid "``(float, 0 to 1)`` Controls color variation around the seed color or rainbow mode"
 msgstr ""
 
-#: ../effects.rst:523
+#: ../doc/effects.rst:523
 msgid "color_mode"
 msgstr ""
 
-#: ../effects.rst:523
+#: ../doc/effects.rst:523
 msgid "``(int, choices: ['Seed', 'Rainbow'])``"
 msgstr ""
 
-#: ../effects.rst:524
+#: ../doc/effects.rst:524
 msgid "channel_layout"
 msgstr ""
 
-#: ../effects.rst:524
+#: ../doc/effects.rst:524
 msgid "``(int, choices: ['Auto', 'Combined', 'Split', 'Overlay'])``"
 msgstr ""
 
-#: ../effects.rst:525
-#: ../effects.rst:595
+#: ../doc/effects.rst:525
+#: ../doc/effects.rst:595
 msgid "frequency_low"
 msgstr ""
 
-#: ../effects.rst:525
+#: ../doc/effects.rst:525
 msgid "``(float, 0 to 1)`` Normalized frequency floor: 0 = 20 Hz, 1 = 20 kHz"
 msgstr ""
 
-#: ../effects.rst:526
-#: ../effects.rst:596
+#: ../doc/effects.rst:526
+#: ../doc/effects.rst:596
 msgid "frequency_high"
 msgstr ""
 
-#: ../effects.rst:526
+#: ../doc/effects.rst:526
 msgid "``(float, 0 to 1)`` Normalized frequency ceiling: 0 = 20 Hz, 1 = 20 kHz"
 msgstr ""
 
-#: ../effects.rst:527
-#: ../effects.rst:703
-#: ../effects.rst:1463
-#: ../effects.rst:1682
-#: ../effects.rst:1770
+#: ../doc/effects.rst:527
+#: ../doc/effects.rst:703
+#: ../doc/effects.rst:1463
+#: ../doc/effects.rst:1682
+#: ../doc/effects.rst:1770
 msgid "background"
 msgstr ""
 
-#: ../effects.rst:527
+#: ../doc/effects.rst:527
 msgid "``(int, choices: ['Transparent', 'Solid', 'Fade', 'Gradient', 'Source'])``"
 msgstr ""
 
-#: ../effects.rst:532
+#: ../doc/effects.rst:532
 msgid "The **Beat Sync** effect turns audio energy into a flashing full-frame color layer. A simple example is a black frame that flashes toward white on each drum hit. By placing that flashing clip above your video and changing its :guilabel:`Composite (Blend Mode)`, you can make the video underneath pulse, brighten, darken, or color-shift with the beat."
 msgstr ""
 
-#: ../effects.rst:537
+#: ../doc/effects.rst:537
 msgid "This effect is a little different from most video effects: it does not directly brighten the clip underneath it. Instead, it creates a new flashing image from the audio clip it is applied to. You preview that flashing image first, then use the clip's composite mode to blend it with another clip on a lower track."
 msgstr ""
 
-#: ../effects.rst:543
+#: ../doc/effects.rst:543
 msgid "Beat Sync needs access to audio samples. If the clip's :guilabel:`Enable Audio` property is set manually, use :guilabel:`Auto` or :guilabel:`Yes`. If you want Beat Sync to react to an audio clip but you do **not** want to hear that clip, set the clip's :guilabel:`Volume` keyframe to ``0.0``. The effect can still use the silent audio data to generate the flashing colors."
 msgstr ""
 
-#: ../effects.rst:549
+#: ../doc/effects.rst:549
 msgid "Basic Workflow"
 msgstr ""
 
-#: ../effects.rst:551
+#: ../doc/effects.rst:551
 msgid "Place an audio clip on the Timeline."
 msgstr ""
 
-#: ../effects.rst:552
+#: ../doc/effects.rst:552
 msgid "Drag the :guilabel:`Beat Sync` effect from the **Effects** panel onto that audio clip."
 msgstr ""
 
-#: ../effects.rst:553
+#: ../doc/effects.rst:553
 msgid "Preview the clip by itself first. You should see a flashing color layer, usually black flashing toward white."
 msgstr ""
 
-#: ../effects.rst:555
+#: ../doc/effects.rst:555
 msgid "Adjust :guilabel:`Low Color` and :guilabel:`High Color`. For example, black to white creates a brightness flash, white to black creates a darkening flash, and red to green creates a color pulse."
 msgstr ""
 
-#: ../effects.rst:557
+#: ../doc/effects.rst:557
 msgid "Adjust :guilabel:`Response Curve` to control how easily the flash appears:"
 msgstr ""
 
-#: ../effects.rst:559
+#: ../doc/effects.rst:559
 msgid "Lift the middle of the curve to make smaller sounds flash more strongly."
 msgstr ""
 
-#: ../effects.rst:560
+#: ../doc/effects.rst:560
 msgid "Lower the middle of the curve to make only stronger beats flash."
 msgstr ""
 
-#: ../effects.rst:561
+#: ../doc/effects.rst:561
 msgid "Create a steeper curve for a sharper strobe-like response."
 msgstr ""
 
-#: ../effects.rst:563
+#: ../doc/effects.rst:563
 msgid "If the effect is reacting to the wrong part of the sound, adjust :guilabel:`Low Frequency` and :guilabel:`High Frequency`. For example, a bass-only flash should use a lower frequency range."
 msgstr ""
 
-#: ../effects.rst:565
+#: ../doc/effects.rst:565
 msgid "When the flashing layer feels right, select the Beat Sync clip and change its :guilabel:`Composite (Blend Mode)` property. Try modes such as :guilabel:`Screen`, :guilabel:`Overlay`, :guilabel:`Multiply`, or :guilabel:`Color Dodge`, depending on the look you want."
 msgstr ""
 
-#: ../effects.rst:569
+#: ../doc/effects.rst:569
 msgid "Place the video you want to affect on the track **below** the Beat Sync clip."
 msgstr ""
 
-#: ../effects.rst:570
+#: ../doc/effects.rst:570
 msgid "Preview the composited result and fine-tune the colors, curve, intensity, threshold, or composite mode."
 msgstr ""
 
-#: ../effects.rst:573
+#: ../doc/effects.rst:573
 msgid "Common Uses"
 msgstr ""
 
-#: ../effects.rst:575
+#: ../doc/effects.rst:575
 msgid "**Music video flashes**: Flash white or bright colors on snare hits, kicks, or strong beats."
 msgstr ""
 
-#: ../effects.rst:576
+#: ../doc/effects.rst:576
 msgid "**Bass pulses**: Use a low frequency range so the image reacts mostly to bass drums or bass lines."
 msgstr ""
 
-#: ../effects.rst:577
+#: ../doc/effects.rst:577
 msgid "**Silent driver track**: Use a muted audio clip only as the control signal for the visual flash."
 msgstr ""
 
-#: ../effects.rst:578
+#: ../doc/effects.rst:578
 msgid "**Color rhythm effects**: Blend between two custom colors, such as blue to yellow or red to green."
 msgstr ""
 
-#: ../effects.rst:581
-#: ../effects.rst:765
-#: ../effects.rst:1368
-#: ../effects.rst:1431
-#: ../effects.rst:1532
-#: ../effects.rst:1745
+#: ../doc/effects.rst:581
+#: ../doc/effects.rst:765
+#: ../doc/effects.rst:1368
+#: ../doc/effects.rst:1431
+#: ../doc/effects.rst:1532
+#: ../doc/effects.rst:1745
 msgid "Properties"
 msgstr ""
 
-#: ../effects.rst:589
+#: ../doc/effects.rst:589
 msgid "low_color"
 msgstr ""
 
-#: ../effects.rst:589
+#: ../doc/effects.rst:589
 msgid "``(color)`` Color generated when the audio response is low. The default is black."
 msgstr ""
 
-#: ../effects.rst:590
+#: ../doc/effects.rst:590
 msgid "high_color"
 msgstr ""
 
-#: ../effects.rst:590
+#: ../doc/effects.rst:590
 msgid "``(color)`` Color generated when the audio response is high. The default is white."
 msgstr ""
 
-#: ../effects.rst:591
+#: ../doc/effects.rst:591
 msgid "``(float, 0 to 10)`` Audio gain before response shaping. Higher values make quieter audio produce stronger flashes."
 msgstr ""
 
-#: ../effects.rst:592
-#: ../effects.rst:745
-#: ../effects.rst:1542
-#: ../effects.rst:1815
-#: ../effects.rst:1885
+#: ../doc/effects.rst:592
+#: ../doc/effects.rst:745
+#: ../doc/effects.rst:1542
+#: ../doc/effects.rst:1815
+#: ../doc/effects.rst:1885
 msgid "threshold"
 msgstr ""
 
-#: ../effects.rst:592
+#: ../doc/effects.rst:592
 msgid "``(float, 0 to 1)`` Audio level that must be exceeded before the effect responds. Raise this to ignore quieter sounds."
 msgstr ""
 
-#: ../effects.rst:593
+#: ../doc/effects.rst:593
 msgid "attack_ms"
 msgstr ""
 
-#: ../effects.rst:593
+#: ../doc/effects.rst:593
 msgid "``(float, 1 to 500)`` How quickly the flash rises after a beat or loud sound."
 msgstr ""
 
-#: ../effects.rst:594
+#: ../doc/effects.rst:594
 msgid "decay_ms"
 msgstr ""
 
-#: ../effects.rst:594
+#: ../doc/effects.rst:594
 msgid "``(float, 1 to 2000)`` How slowly the flash fades back after the audio energy drops."
 msgstr ""
 
-#: ../effects.rst:595
+#: ../doc/effects.rst:595
 msgid "``(float, 0 to 1)`` Normalized frequency floor: 0 = 20 Hz, 1 = 20 kHz."
 msgstr ""
 
-#: ../effects.rst:596
+#: ../doc/effects.rst:596
 msgid "``(float, 0 to 1)`` Normalized frequency ceiling: 0 = 20 Hz, 1 = 20 kHz."
 msgstr ""
 
-#: ../effects.rst:597
-#: ../effects.rst:1196
-#: ../effects.rst:1621
+#: ../doc/effects.rst:597
+#: ../doc/effects.rst:1196
+#: ../doc/effects.rst:1621
 msgid "invert"
 msgstr ""
 
-#: ../effects.rst:597
+#: ../doc/effects.rst:597
 msgid "``(int, choices: ['No', 'Yes'])`` Reverses the audio response, so quiet moments use the high color and loud moments use the low color."
 msgstr ""
 
-#: ../effects.rst:598
-#: ../effects.rst:1163
+#: ../doc/effects.rst:598
+#: ../doc/effects.rst:1163
 msgid "response_curve"
 msgstr ""
 
-#: ../effects.rst:598
+#: ../doc/effects.rst:598
 msgid "``(rich curve editor)`` Maps detected audio energy to the blend between :guilabel:`Low Color` and :guilabel:`High Color`."
 msgstr ""
 
-#: ../effects.rst:602
+#: ../doc/effects.rst:602
 msgid "Technical Notes"
 msgstr ""
 
-#: ../effects.rst:604
+#: ../doc/effects.rst:604
 msgid "Beat Sync analyzes the clip's audio, filters it to the selected frequency range, follows the audio envelope using the attack and decay settings, applies the threshold, then samples the :guilabel:`Response Curve`. The resulting value blends between :guilabel:`Low Color` and :guilabel:`High Color` and fills the entire frame with that color. The clip's own image is not used as a background; the effect generates a clean color layer intended for compositing."
 msgstr ""
 
-#: ../effects.rst:609
+#: ../doc/effects.rst:609
 msgid "Because the output is a full-frame layer, the final look depends heavily on the clip's :guilabel:`Composite (Blend Mode)`. Preview the flashing layer alone first, then choose a blend mode after placing the target video on the track below it."
 msgstr ""
 
-#: ../effects.rst:614
+#: ../doc/effects.rst:614
 msgid "The Bars effect adds colored bars around your video frame, which can be used for aesthetic purposes, to frame the video within a certain aspect ratio, or to simulate the appearance of viewing content on a different display device. This effect is particularly useful for creating a cinematic or broadcast look."
 msgstr ""
 
-#: ../effects.rst:624
-#: ../effects.rst:645
-#: ../effects.rst:710
-#: ../effects.rst:1078
-#: ../effects.rst:1501
+#: ../doc/effects.rst:624
+#: ../doc/effects.rst:645
+#: ../doc/effects.rst:710
+#: ../doc/effects.rst:1078
+#: ../doc/effects.rst:1501
 msgid "bottom"
 msgstr ""
 
-#: ../effects.rst:624
+#: ../doc/effects.rst:624
 msgid "``(float, 0 to 0.5)`` The curve to adjust the bottom bar size"
 msgstr ""
 
-#: ../effects.rst:625
+#: ../doc/effects.rst:625
 msgid "``(color)`` The curve to adjust the color of bars"
 msgstr ""
 
-#: ../effects.rst:626
-#: ../effects.rst:648
-#: ../effects.rst:715
-#: ../effects.rst:1079
-#: ../effects.rst:1502
+#: ../doc/effects.rst:626
+#: ../doc/effects.rst:648
+#: ../doc/effects.rst:715
+#: ../doc/effects.rst:1079
+#: ../doc/effects.rst:1502
 msgid "left"
 msgstr ""
 
-#: ../effects.rst:626
+#: ../doc/effects.rst:626
 msgid "``(float, 0 to 0.5)`` The curve to adjust the left bar size"
 msgstr ""
 
-#: ../effects.rst:627
-#: ../effects.rst:649
-#: ../effects.rst:717
-#: ../effects.rst:1080
-#: ../effects.rst:1504
+#: ../doc/effects.rst:627
+#: ../doc/effects.rst:649
+#: ../doc/effects.rst:717
+#: ../doc/effects.rst:1080
+#: ../doc/effects.rst:1504
 msgid "right"
 msgstr ""
 
-#: ../effects.rst:627
+#: ../doc/effects.rst:627
 msgid "``(float, 0 to 0.5)`` The curve to adjust the right bar size"
 msgstr ""
 
-#: ../effects.rst:628
-#: ../effects.rst:651
-#: ../effects.rst:720
-#: ../effects.rst:1081
-#: ../effects.rst:1505
+#: ../doc/effects.rst:628
+#: ../doc/effects.rst:651
+#: ../doc/effects.rst:720
+#: ../doc/effects.rst:1081
+#: ../doc/effects.rst:1505
 msgid "top"
 msgstr ""
 
-#: ../effects.rst:628
+#: ../doc/effects.rst:628
 msgid "``(float, 0 to 0.5)`` The curve to adjust the top bar size"
 msgstr ""
 
-#: ../effects.rst:633
+#: ../doc/effects.rst:633
 msgid "The Blur effect softens the image, reducing detail and texture. This can be used to create a sense of depth, draw attention to specific parts of the frame, or simply to apply a stylistic choice for aesthetic purposes. The intensity of the blur can be adjusted to achieve the desired level of softness. Use the ``left``, ``right``, ``top``, and ``bottom`` margin properties to limit the blur to a rectangular area, such as a corner, logo, or static part of the screen."
 msgstr ""
 
-#: ../effects.rst:645
-#: ../effects.rst:1501
+#: ../doc/effects.rst:645
+#: ../doc/effects.rst:1501
 msgid "``(float, 0 to 1)`` The curve to adjust the bottom margin size"
 msgstr ""
 
-#: ../effects.rst:646
+#: ../doc/effects.rst:646
 msgid "horizontal_radius"
 msgstr ""
 
-#: ../effects.rst:646
+#: ../doc/effects.rst:646
 msgid "``(float, 0 to 100)`` Horizontal blur radius keyframe. The size of the horizontal blur operation in pixels."
 msgstr ""
 
-#: ../effects.rst:647
+#: ../doc/effects.rst:647
 msgid "iterations"
 msgstr ""
 
-#: ../effects.rst:647
+#: ../doc/effects.rst:647
 msgid "``(float, 0 to 100)`` Iterations keyframe. The # of blur iterations per pixel. 3 iterations = Gaussian."
 msgstr ""
 
-#: ../effects.rst:648
-#: ../effects.rst:1502
+#: ../doc/effects.rst:648
+#: ../doc/effects.rst:1502
 msgid "``(float, 0 to 1)`` The curve to adjust the left margin size"
 msgstr ""
 
-#: ../effects.rst:649
-#: ../effects.rst:1504
+#: ../doc/effects.rst:649
+#: ../doc/effects.rst:1504
 msgid "``(float, 0 to 1)`` The curve to adjust the right margin size"
 msgstr ""
 
-#: ../effects.rst:650
+#: ../doc/effects.rst:650
 msgid "sigma"
 msgstr ""
 
-#: ../effects.rst:650
+#: ../doc/effects.rst:650
 msgid "``(float, 0 to 100)`` Sigma keyframe. The amount of spread in the blur operation. Should be larger than radius."
 msgstr ""
 
-#: ../effects.rst:651
-#: ../effects.rst:1505
+#: ../doc/effects.rst:651
+#: ../doc/effects.rst:1505
 msgid "``(float, 0 to 1)`` The curve to adjust the top margin size"
 msgstr ""
 
-#: ../effects.rst:652
+#: ../doc/effects.rst:652
 msgid "vertical_radius"
 msgstr ""
 
-#: ../effects.rst:652
+#: ../doc/effects.rst:652
 msgid "``(float, 0 to 100)`` Vertical blur radius keyframe. The size of the vertical blur operation in pixels."
 msgstr ""
 
-#: ../effects.rst:657
+#: ../doc/effects.rst:657
 msgid "The Brightness & Contrast effect allows for the adjustment of the overall lightness or darkness of the image (brightness) and the difference between the darkest and lightest parts of the image (contrast). This effect can be used to correct poorly lit videos or to create dramatic lighting effects for artistic purposes."
 msgstr ""
 
-#: ../effects.rst:667
+#: ../doc/effects.rst:667
 msgid "``(float, -1 to 1)`` The curve to adjust the brightness"
 msgstr ""
 
-#: ../effects.rst:668
+#: ../doc/effects.rst:668
 msgid "``(float, 0 to 100)`` The curve to adjust the contrast (3 is typical, 20 is a lot, 100 is max. 0 is invalid)"
 msgstr ""
 
-#: ../effects.rst:675
+#: ../doc/effects.rst:675
 msgid "Add text captions on top of your video. We support both VTT (WebVTT) and SubRip (SRT) subtitle file formats. These formats are used to display captions or subtitles in videos. They allow you to add text-based subtitles to video content, making it more accessible to a wider audience, especially for those who are deaf or hard of hearing. The Caption effect can even animate the text fading in/out, and supports any font, size, color, and margin. OpenShot also has an easy-to-use Caption editor, where you can quickly insert captions at the playhead position, or edit all your caption text in one place."
 msgstr ""
 
-#: ../effects.rst:682
+#: ../doc/effects.rst:682
 msgid "The Caption editor's insert button (the plus icon) creates a complete caption cue at the current playhead position, using a three-second default duration when possible, and selects the placeholder caption text so you can start typing immediately. Caption text updates are previewed while you type."
 msgstr ""
 
-#: ../effects.rst:686
+#: ../doc/effects.rst:686
 msgid "To set a caption's end time from the playhead, remove the existing end timestamp from the cue line, leaving the start timestamp and arrow. Move the playhead to the desired end time, place the text cursor on that incomplete timestamp line, and press the plus icon again. OpenShot inserts the current playhead timestamp as the cue's end time."
 msgstr ""
 
-#: ../effects.rst:703
+#: ../doc/effects.rst:703
 msgid "``(color)`` Color of caption area background"
 msgstr ""
 
-#: ../effects.rst:704
-#: ../effects.rst:1461
-#: ../effects.rst:1683
-#: ../effects.rst:1768
+#: ../doc/effects.rst:704
+#: ../doc/effects.rst:1461
+#: ../doc/effects.rst:1683
+#: ../doc/effects.rst:1768
 msgid "background_alpha"
 msgstr ""
 
-#: ../effects.rst:704
+#: ../doc/effects.rst:704
 msgid "``(float, 0 to 1)`` Background color alpha"
 msgstr ""
 
-#: ../effects.rst:705
-#: ../effects.rst:1462
-#: ../effects.rst:1684
-#: ../effects.rst:1769
+#: ../doc/effects.rst:705
+#: ../doc/effects.rst:1462
+#: ../doc/effects.rst:1684
+#: ../doc/effects.rst:1769
 msgid "background_corner"
 msgstr ""
 
-#: ../effects.rst:705
+#: ../doc/effects.rst:705
 msgid "``(float, 0 to 60)`` Background corner radius"
 msgstr ""
 
-#: ../effects.rst:706
-#: ../effects.rst:1685
+#: ../doc/effects.rst:706
+#: ../doc/effects.rst:1685
 msgid "background_padding"
 msgstr ""
 
-#: ../effects.rst:706
+#: ../doc/effects.rst:706
 msgid "``(float, 0 to 60)`` Background padding"
 msgstr ""
 
-#: ../effects.rst:707
+#: ../doc/effects.rst:707
 msgid "caption_font"
 msgstr ""
 
-#: ../effects.rst:707
+#: ../doc/effects.rst:707
 msgid "``(font)`` Font name or family name"
 msgstr ""
 
-#: ../effects.rst:708
+#: ../doc/effects.rst:708
 msgid "caption_text"
 msgstr ""
 
-#: ../effects.rst:708
+#: ../doc/effects.rst:708
 msgid "``(caption)`` VTT/Subrip formatted caption text (multi-line)"
 msgstr ""
 
-#: ../effects.rst:709
+#: ../doc/effects.rst:709
 msgid "``(color)`` Color of caption text"
 msgstr ""
 
-#: ../effects.rst:710
+#: ../doc/effects.rst:710
 msgid "``(float, 0 to 1)`` Size of bottom margin"
 msgstr ""
 
-#: ../effects.rst:711
+#: ../doc/effects.rst:711
 msgid "fade_in"
 msgstr ""
 
-#: ../effects.rst:711
+#: ../doc/effects.rst:711
 msgid "``(float, 0 to 3)`` Fade in per caption (# of seconds)"
 msgstr ""
 
-#: ../effects.rst:712
+#: ../doc/effects.rst:712
 msgid "fade_out"
 msgstr ""
 
-#: ../effects.rst:712
+#: ../doc/effects.rst:712
 msgid "``(float, 0 to 3)`` Fade out per caption (# of seconds)"
 msgstr ""
 
-#: ../effects.rst:713
-#: ../effects.rst:1689
+#: ../doc/effects.rst:713
+#: ../doc/effects.rst:1689
 msgid "font_alpha"
 msgstr ""
 
-#: ../effects.rst:713
+#: ../doc/effects.rst:713
 msgid "``(float, 0 to 1)`` Font color alpha"
 msgstr ""
 
-#: ../effects.rst:714
-#: ../effects.rst:1691
+#: ../doc/effects.rst:714
+#: ../doc/effects.rst:1691
 msgid "font_size"
 msgstr ""
 
-#: ../effects.rst:714
+#: ../doc/effects.rst:714
 msgid "``(float, 0 to 200)`` Font size in points"
 msgstr ""
 
-#: ../effects.rst:715
+#: ../doc/effects.rst:715
 msgid "``(float, 0 to 0.5)`` Size of left margin"
 msgstr ""
 
-#: ../effects.rst:716
+#: ../doc/effects.rst:716
 msgid "line_spacing"
 msgstr ""
 
-#: ../effects.rst:716
+#: ../doc/effects.rst:716
 msgid "``(float, 0 to 5)`` Distance between lines (1.0 default)"
 msgstr ""
 
-#: ../effects.rst:717
+#: ../doc/effects.rst:717
 msgid "``(float, 0 to 0.5)`` Size of right margin"
 msgstr ""
 
-#: ../effects.rst:718
-#: ../effects.rst:1458
-#: ../effects.rst:1698
-#: ../effects.rst:1765
+#: ../doc/effects.rst:718
+#: ../doc/effects.rst:1458
+#: ../doc/effects.rst:1698
+#: ../doc/effects.rst:1765
 msgid "stroke"
 msgstr ""
 
-#: ../effects.rst:718
+#: ../doc/effects.rst:718
 msgid "``(color)`` Color of text border / stroke"
 msgstr ""
 
-#: ../effects.rst:719
-#: ../effects.rst:1381
-#: ../effects.rst:1459
-#: ../effects.rst:1699
-#: ../effects.rst:1766
+#: ../doc/effects.rst:719
+#: ../doc/effects.rst:1381
+#: ../doc/effects.rst:1459
+#: ../doc/effects.rst:1699
+#: ../doc/effects.rst:1766
 msgid "stroke_width"
 msgstr ""
 
-#: ../effects.rst:719
+#: ../doc/effects.rst:719
 msgid "``(float, 0 to 10)`` Width of text border / stroke"
 msgstr ""
 
-#: ../effects.rst:720
+#: ../doc/effects.rst:720
 msgid "``(float, 0 to 1)`` Size of top margin"
 msgstr ""
 
-#: ../effects.rst:725
+#: ../doc/effects.rst:725
 msgid "The Chroma Key (Greenscreen) effect replaces a specific color (or chroma) in the video (commonly green or blue) with transparency, allowing for the compositing of the video over a different background. This effect is widely used in film and television production for creating visual effects and placing subjects in settings that would be otherwise impossible or impractical to shoot in."
 msgstr ""
 
-#: ../effects.rst:730
+#: ../doc/effects.rst:730
 msgid "**Green Screen Workflow**"
 msgstr ""
 
-#: ../effects.rst:732
+#: ../doc/effects.rst:732
 msgid "Place your background clip on a lower track and your green-screen footage on the track directly above it."
 msgstr ""
 
-#: ../effects.rst:733
+#: ../doc/effects.rst:733
 msgid "Drag and drop the :guilabel:`Chroma Key (Greenscreen)` effect from the **Effects** panel onto your green-screen clip."
 msgstr ""
 
-#: ../effects.rst:734
+#: ../doc/effects.rst:734
 msgid "Double-click the :guilabel:`color` button in the Properties panel to open the color picker, then select the green or blue background color."
 msgstr ""
 
-#: ../effects.rst:735
+#: ../doc/effects.rst:735
 msgid "Raise the :guilabel:`threshold` slider until the background turns fully transparent."
 msgstr ""
 
-#: ../effects.rst:736
+#: ../doc/effects.rst:736
 msgid "Fine-tune :guilabel:`halo` to remove any residual color fringe around the subject edges."
 msgstr ""
 
-#: ../effects.rst:744
+#: ../doc/effects.rst:744
 msgid "``(color)`` The color to match"
 msgstr ""
 
-#: ../effects.rst:745
+#: ../doc/effects.rst:745
 msgid "``(float, 0 to 125)`` The threshold (or fuzz factor) for matching similar colors. The larger the value the more colors that will be matched."
 msgstr ""
 
-#: ../effects.rst:746
+#: ../doc/effects.rst:746
 msgid "halo"
 msgstr ""
 
-#: ../effects.rst:746
+#: ../doc/effects.rst:746
 msgid "``(float, 0 to 125)`` The additional threshold for halo elimination."
 msgstr ""
 
-#: ../effects.rst:747
+#: ../doc/effects.rst:747
 msgid "keymethod"
 msgstr ""
 
-#: ../effects.rst:747
+#: ../doc/effects.rst:747
 msgid "``(int, choices: ['Basic keying', 'HSV/HSL hue', 'HSV saturation', 'HSL saturation', 'HSV value', 'HSL luminance', 'LCH luminosity', 'LCH chroma', 'LCH hue', 'CIE Distance', 'Cb,Cr vector'])`` The keying method or algorithm to use."
 msgstr ""
 
-#: ../effects.rst:754
+#: ../doc/effects.rst:754
 msgid "The Color Grade effect combines primary correction, tonal wheels, RGB curves, and LUT support into one fully animated effect. Use it for **color correction** (white balance, exposure, contrast) and **color grading** (building a stylized look). Right-click a clip and use :guilabel:`Look → Color` presets to apply it instantly, or switch to :guilabel:`View → Color View` for a dedicated grading workspace."
 msgstr ""
 
-#: ../effects.rst:761
+#: ../doc/effects.rst:761
 msgid ":doc:`color` — full workflow guide covering the Color Wheels dock, Curve Editor, video scopes, color presets, skin tone matching, and step-by-step grading examples."
 msgstr ""
 
-#: ../effects.rst:773
+#: ../doc/effects.rst:773
 msgid "temperature"
 msgstr ""
 
-#: ../effects.rst:773
+#: ../doc/effects.rst:773
 msgid "``(float, -1 to 1)`` White-balance style warm/cool adjustment. Positive values warm the image; negative values cool it."
 msgstr ""
 
-#: ../effects.rst:774
+#: ../doc/effects.rst:774
 msgid "tint"
 msgstr ""
 
-#: ../effects.rst:774
+#: ../doc/effects.rst:774
 msgid "``(float, -1 to 1)`` Green/magenta balance adjustment for fine white-balance correction."
 msgstr ""
 
-#: ../effects.rst:775
+#: ../doc/effects.rst:775
 msgid "exposure"
 msgstr ""
 
-#: ../effects.rst:775
+#: ../doc/effects.rst:775
 msgid "``(float, -2 to 2)`` Overall brightness adjustment in stops."
 msgstr ""
 
-#: ../effects.rst:776
+#: ../doc/effects.rst:776
 msgid "``(float, -1 to 1)`` Expand or compress tonal separation around the midtones."
 msgstr ""
 
-#: ../effects.rst:777
-#: ../effects.rst:1244
+#: ../doc/effects.rst:777
+#: ../doc/effects.rst:1244
 msgid "highlights"
 msgstr ""
 
-#: ../effects.rst:777
+#: ../doc/effects.rst:777
 msgid "``(float, -1 to 1)`` Recover or brighten bright tonal regions."
 msgstr ""
 
-#: ../effects.rst:778
-#: ../effects.rst:1242
+#: ../doc/effects.rst:778
+#: ../doc/effects.rst:1242
 msgid "shadows"
 msgstr ""
 
-#: ../effects.rst:778
+#: ../doc/effects.rst:778
 msgid "``(float, -1 to 1)`` Lift or deepen dark tonal regions."
 msgstr ""
 
-#: ../effects.rst:779
-#: ../effects.rst:1023
+#: ../doc/effects.rst:779
+#: ../doc/effects.rst:1023
 msgid "saturation"
 msgstr ""
 
-#: ../effects.rst:779
+#: ../doc/effects.rst:779
 msgid "``(float, 0 to 4)`` Global color intensity multiplier."
 msgstr ""
 
-#: ../effects.rst:780
+#: ../doc/effects.rst:780
 msgid "vibrance"
 msgstr ""
 
-#: ../effects.rst:780
+#: ../doc/effects.rst:780
 msgid "``(float, -1 to 1)`` Adaptive colorfulness adjustment that affects lower-saturation pixels more strongly."
 msgstr ""
 
-#: ../effects.rst:781
-#: ../effects.rst:1865
+#: ../doc/effects.rst:781
+#: ../doc/effects.rst:1865
 msgid "mix"
 msgstr ""
 
-#: ../effects.rst:781
+#: ../doc/effects.rst:781
 msgid "``(float, 0 to 1)`` Blend between the original frame and the fully graded result."
 msgstr ""
 
-#: ../effects.rst:782
+#: ../doc/effects.rst:782
 msgid "wheels"
 msgstr ""
 
-#: ../effects.rst:782
+#: ../doc/effects.rst:782
 msgid "``(rich wheels editor)`` Opens the Color Wheels dock for animated :guilabel:`Global`, :guilabel:`Shadows`, :guilabel:`Midtones`, and :guilabel:`Highlights` color and luma adjustments. Includes a preview thumbnail and :guilabel:`Edit` / :guilabel:`Reset` context menu."
 msgstr ""
 
-#: ../effects.rst:783
+#: ../doc/effects.rst:783
 msgid "curve_all"
 msgstr ""
 
-#: ../effects.rst:783
+#: ../doc/effects.rst:783
 msgid "``(rich curve editor)`` Opens the all-channels Curve Editor popup for overall tonal shaping. Includes a preview thumbnail and :guilabel:`Edit` / :guilabel:`Reset` context menu."
 msgstr ""
 
-#: ../effects.rst:784
+#: ../doc/effects.rst:784
 msgid "curve_red"
 msgstr ""
 
-#: ../effects.rst:784
+#: ../doc/effects.rst:784
 msgid "``(rich curve editor)`` Opens the red channel Curve Editor popup for animated red-channel shaping."
 msgstr ""
 
-#: ../effects.rst:785
+#: ../doc/effects.rst:785
 msgid "curve_green"
 msgstr ""
 
-#: ../effects.rst:785
+#: ../doc/effects.rst:785
 msgid "``(rich curve editor)`` Opens the green channel Curve Editor popup for animated green-channel shaping."
 msgstr ""
 
-#: ../effects.rst:786
+#: ../doc/effects.rst:786
 msgid "curve_blue"
 msgstr ""
 
-#: ../effects.rst:786
+#: ../doc/effects.rst:786
 msgid "``(rich curve editor)`` Opens the blue channel Curve Editor popup for animated blue-channel shaping."
 msgstr ""
 
-#: ../effects.rst:787
-#: ../effects.rst:808
+#: ../doc/effects.rst:787
+#: ../doc/effects.rst:808
 msgid "lut_path"
 msgstr ""
 
-#: ../effects.rst:787
+#: ../doc/effects.rst:787
 msgid "``(string)`` Filesystem path to the `.cube` LUT file applied after the correction and curve stages."
 msgstr ""
 
-#: ../effects.rst:788
+#: ../doc/effects.rst:788
 msgid "lut_intensity"
 msgstr ""
 
-#: ../effects.rst:788
+#: ../doc/effects.rst:788
 msgid "``(float, 0 to 1)`` Blend amount for the selected LUT."
 msgstr ""
 
-#: ../effects.rst:793
+#: ../doc/effects.rst:793
 msgid "The Color Map effect applies a 3D LUT (Lookup Table) to your footage, instantly transforming its colors to achieve a consistent look or mood. A 3D LUT is simply a table that remaps every input hue to a new output palette. With separate keyframe curves for red, green, and blue channels, you can precisely control, and even animate, how much each channel is influenced by the LUT, making it easy to fine-tune or blend your grade over time."
 msgstr ""
 
-#: ../effects.rst:798
+#: ../doc/effects.rst:798
 msgid "LUT files (`.cube` format) can be downloaded from many online resources, including free packs on photography blogs or marketplaces, such as https://freshluts.com/. OpenShot includes a selection of popular LUTs designed for **Rec 709** gamma out of the box."
 msgstr ""
 
-#: ../effects.rst:808
+#: ../doc/effects.rst:808
 msgid "``(string)`` Filesystem path to the `.cube` LUT file."
 msgstr ""
 
-#: ../effects.rst:809
+#: ../doc/effects.rst:809
 msgid "``(float, 0.0 to 1.0)`` % Blending overall intensity (0.0 = no LUT, 1.0 = full LUT)."
 msgstr ""
 
-#: ../effects.rst:810
+#: ../doc/effects.rst:810
 msgid "intensity_r"
 msgstr ""
 
-#: ../effects.rst:810
+#: ../doc/effects.rst:810
 msgid "``(float, 0.0 to 1.0)`` % Blending the LUT’s red channel (0.0 = no LUT, 1.0 = full LUT)."
 msgstr ""
 
-#: ../effects.rst:811
+#: ../doc/effects.rst:811
 msgid "intensity_g"
 msgstr ""
 
-#: ../effects.rst:811
+#: ../doc/effects.rst:811
 msgid "``(float, 0.0 to 1.0)`` % Blending the LUT’s green channel (0.0 = no LUT, 1.0 = full LUT)."
 msgstr ""
 
-#: ../effects.rst:812
+#: ../doc/effects.rst:812
 msgid "intensity_b"
 msgstr ""
 
-#: ../effects.rst:812
+#: ../doc/effects.rst:812
 msgid "``(float, 0.0 to 1.0)`` % Blending the LUT’s blue channel (0.0 = no LUT, 1.0 = full LUT)."
 msgstr ""
 
-#: ../effects.rst:816
+#: ../doc/effects.rst:816
 msgid "Gamma and Rec 709"
 msgstr ""
 
-#: ../effects.rst:817
+#: ../doc/effects.rst:817
 msgid "Gamma is the way video systems brighten or darken the midtones of an image. **Rec 709** is the standard gamma curve used for most HD and online video today. By shipping with **Rec 709** LUTs, OpenShot makes it simple to apply a grade that matches the vast majority of footage you’ll edit."
 msgstr ""
 
-#: ../effects.rst:821
+#: ../doc/effects.rst:821
 msgid "If your camera or workflow uses a different gamma (for example a LOG profile), you can still use a LUT made for that curve. Simply use a `.cube` file designed for your gamma under the Color Map effect’s **LUT Path**. Just be sure your footage gamma matches the LUT gamma—or the colors may look incorrect."
 msgstr ""
 
-#: ../effects.rst:825
+#: ../doc/effects.rst:825
 msgid "The following **Rec 709** LUT files are included in OpenShot, organized into the following categories:"
 msgstr ""
 
-#: ../effects.rst:828
+#: ../doc/effects.rst:828
 msgid "Cinematic & Blockbuster"
 msgstr ""
 
-#: ../effects.rst:867
+#: ../doc/effects.rst:867
 msgid "Dark & Moody"
 msgstr ""
 
-#: ../effects.rst:909
+#: ../doc/effects.rst:909
 msgid "Film Stock & Vintage"
 msgstr ""
 
-#: ../effects.rst:953
+#: ../doc/effects.rst:953
 msgid "Teal & Orange Vibes"
 msgstr ""
 
-#: ../effects.rst:977
+#: ../doc/effects.rst:977
 msgid "Utility & Correction"
 msgstr ""
 
-#: ../effects.rst:992
+#: ../doc/effects.rst:992
 msgid "Vibrant & Colorful"
 msgstr ""
 
-#: ../effects.rst:1013
+#: ../doc/effects.rst:1013
 msgid "The Color Saturation effect adjusts the intensity and vibrancy of colors within the video. Increasing saturation can make colors more vivid and eye-catching, while decreasing it can create a more subdued, almost black-and-white appearance."
 msgstr ""
 
-#: ../effects.rst:1023
+#: ../doc/effects.rst:1023
 msgid "``(float, 0 to 4)`` The curve to adjust the overall saturation of the frame's image (0.0 = greyscale, 1.0 = normal, 2.0 = double saturation)"
 msgstr ""
 
-#: ../effects.rst:1024
+#: ../doc/effects.rst:1024
 msgid "saturation_B"
 msgstr ""
 
-#: ../effects.rst:1024
+#: ../doc/effects.rst:1024
 msgid "``(float, 0 to 4)`` The curve to adjust blue saturation of the frame's image"
 msgstr ""
 
-#: ../effects.rst:1025
+#: ../doc/effects.rst:1025
 msgid "saturation_G"
 msgstr ""
 
-#: ../effects.rst:1025
+#: ../doc/effects.rst:1025
 msgid "``(float, 0 to 4)`` The curve to adjust green saturation of the frame's image (0.0 = greyscale, 1.0 = normal, 2.0 = double saturation)"
 msgstr ""
 
-#: ../effects.rst:1026
+#: ../doc/effects.rst:1026
 msgid "saturation_R"
 msgstr ""
 
-#: ../effects.rst:1026
+#: ../doc/effects.rst:1026
 msgid "``(float, 0 to 4)`` The curve to adjust red saturation of the frame's image"
 msgstr ""
 
-#: ../effects.rst:1031
+#: ../doc/effects.rst:1031
 msgid "Shift the colors of an image up, down, left, and right (with infinite wrapping)."
 msgstr ""
 
-#: ../effects.rst:1033
+#: ../doc/effects.rst:1033
 msgid "**Each pixel has 4 color channels:**"
 msgstr ""
 
-#: ../effects.rst:1035
+#: ../doc/effects.rst:1035
 msgid "Red, Green, Blue, and Alpha (i.e. transparency)"
 msgstr ""
 
-#: ../effects.rst:1036
+#: ../doc/effects.rst:1036
 msgid "Each channel value is between 0 and 255"
 msgstr ""
 
-#: ../effects.rst:1038
+#: ../doc/effects.rst:1038
 msgid "The Color Shift effect simply \"moves\" or \"translates\" a specific color channel on the X or Y axis. *Not all video and image formats support an alpha channel, and in those cases, you will not see any changes when adjusting the color shift of the alpha channel.*"
 msgstr ""
 
-#: ../effects.rst:1048
+#: ../doc/effects.rst:1048
 msgid "alpha_x"
 msgstr ""
 
-#: ../effects.rst:1048
+#: ../doc/effects.rst:1048
 msgid "``(float, -1 to 1)`` Shift the Alpha X coordinates (left or right)"
 msgstr ""
 
-#: ../effects.rst:1049
+#: ../doc/effects.rst:1049
 msgid "alpha_y"
 msgstr ""
 
-#: ../effects.rst:1049
+#: ../doc/effects.rst:1049
 msgid "``(float, -1 to 1)`` Shift the Alpha Y coordinates (up or down)"
 msgstr ""
 
-#: ../effects.rst:1050
+#: ../doc/effects.rst:1050
 msgid "blue_x"
 msgstr ""
 
-#: ../effects.rst:1050
+#: ../doc/effects.rst:1050
 msgid "``(float, -1 to 1)`` Shift the Blue X coordinates (left or right)"
 msgstr ""
 
-#: ../effects.rst:1051
+#: ../doc/effects.rst:1051
 msgid "blue_y"
 msgstr ""
 
-#: ../effects.rst:1051
+#: ../doc/effects.rst:1051
 msgid "``(float, -1 to 1)`` Shift the Blue Y coordinates (up or down)"
 msgstr ""
 
-#: ../effects.rst:1052
+#: ../doc/effects.rst:1052
 msgid "green_x"
 msgstr ""
 
-#: ../effects.rst:1052
+#: ../doc/effects.rst:1052
 msgid "``(float, -1 to 1)`` Shift the Green X coordinates (left or right)"
 msgstr ""
 
-#: ../effects.rst:1053
+#: ../doc/effects.rst:1053
 msgid "green_y"
 msgstr ""
 
-#: ../effects.rst:1053
+#: ../doc/effects.rst:1053
 msgid "``(float, -1 to 1)`` Shift the Green Y coordinates (up or down)"
 msgstr ""
 
-#: ../effects.rst:1054
+#: ../doc/effects.rst:1054
 msgid "red_x"
 msgstr ""
 
-#: ../effects.rst:1054
+#: ../doc/effects.rst:1054
 msgid "``(float, -1 to 1)`` Shift the Red X coordinates (left or right)"
 msgstr ""
 
-#: ../effects.rst:1055
+#: ../doc/effects.rst:1055
 msgid "red_y"
 msgstr ""
 
-#: ../effects.rst:1055
+#: ../doc/effects.rst:1055
 msgid "``(float, -1 to 1)`` Shift the Red Y coordinates (up or down)"
 msgstr ""
 
-#: ../effects.rst:1062
+#: ../doc/effects.rst:1062
 msgid "The Crop effect removes unwanted outer areas from the video frame, allowing you to focus on a particular part of the shot, change the aspect ratio, or remove distracting elements from the edges of the frame. This effect is the primary method for cropping a Clip in OpenShot. The ``left``, ``right``, ``top``, and ``bottom`` key-frames can even be animated, for a moving and resizing cropped area. You can leave the cropped area blank, or you can dynamically resize the cropped area to fill the screen."
 msgstr ""
 
-#: ../effects.rst:1068
+#: ../doc/effects.rst:1068
 msgid "You can quickly add this effect by right-clicking a clip and choosing :guilabel:`Crop`. When active, blue crop handles appear in the video preview so you can adjust the crop visually."
 msgstr ""
 
-#: ../effects.rst:1078
+#: ../doc/effects.rst:1078
 msgid "``(float, 0 to 1)`` Size of bottom bar"
 msgstr ""
 
-#: ../effects.rst:1079
+#: ../doc/effects.rst:1079
 msgid "``(float, 0 to 1)`` Size of left bar"
 msgstr ""
 
-#: ../effects.rst:1080
+#: ../doc/effects.rst:1080
 msgid "``(float, 0 to 1)`` Size of right bar"
 msgstr ""
 
-#: ../effects.rst:1081
+#: ../doc/effects.rst:1081
 msgid "``(float, 0 to 1)`` Size of top bar"
 msgstr ""
 
-#: ../effects.rst:1082
-#: ../effects.rst:1312
-#: ../effects.rst:1585
+#: ../doc/effects.rst:1082
+#: ../doc/effects.rst:1312
+#: ../doc/effects.rst:1585
 msgid "x"
 msgstr ""
 
-#: ../effects.rst:1082
+#: ../doc/effects.rst:1082
 msgid "``(float, -1 to 1)`` X-offset"
 msgstr ""
 
-#: ../effects.rst:1083
-#: ../effects.rst:1313
-#: ../effects.rst:1586
+#: ../doc/effects.rst:1083
+#: ../doc/effects.rst:1313
+#: ../doc/effects.rst:1586
 msgid "y"
 msgstr ""
 
-#: ../effects.rst:1083
+#: ../doc/effects.rst:1083
 msgid "``(float, -1 to 1)`` Y-offset"
 msgstr ""
 
-#: ../effects.rst:1084
+#: ../doc/effects.rst:1084
 msgid "resize"
 msgstr ""
 
-#: ../effects.rst:1084
+#: ../doc/effects.rst:1084
 msgid "``(bool, choices: ['Yes', 'No'])`` Replace the frame image with the cropped area (allows automatic scaling of the cropped image)"
 msgstr ""
 
-#: ../effects.rst:1089
+#: ../doc/effects.rst:1089
 msgid "The Deinterlace effect is used to remove interlacing artifacts from video footage, which are commonly seen as horizontal lines across moving objects. This effect is essential for converting interlaced video (such as from older video cameras or broadcast sources) into a progressive format suitable for modern displays."
 msgstr ""
 
-#: ../effects.rst:1099
+#: ../doc/effects.rst:1099
 msgid "isOdd"
 msgstr ""
 
-#: ../effects.rst:1099
+#: ../doc/effects.rst:1099
 msgid "``(bool, choices: ['Yes', 'No'])`` Use odd or even lines"
 msgstr ""
 
-#: ../effects.rst:1104
+#: ../doc/effects.rst:1104
 msgid "The **Denoise Image** effect reduces visible video noise, grain, and color speckles. It is useful for low-light camera footage, noisy webcam clips, high-ISO photos, old video, compressed footage, and rendered images that have unwanted speckling."
 msgstr ""
 
-#: ../effects.rst:1108
+#: ../doc/effects.rst:1108
 msgid "For a quick start, drag **Denoise Image** onto a clip and preview the result. The default settings are designed to clean up common noise while keeping faces, text, edges, and fine details recognizable. If the image still looks too noisy, raise :guilabel:`Strength`. If the image starts to look too smooth, raise :guilabel:`Detail`."
 msgstr ""
 
-#: ../effects.rst:1113
+#: ../doc/effects.rst:1113
 msgid "Simple controls"
 msgstr ""
 
-#: ../effects.rst:1115
+#: ../doc/effects.rst:1115
 msgid ":guilabel:`Strength` controls how much denoising is applied."
 msgstr ""
 
-#: ../effects.rst:1116
+#: ../doc/effects.rst:1116
 msgid ":guilabel:`Detail` protects edges and texture. Higher values keep more detail; lower values remove more speckles."
 msgstr ""
 
-#: ../effects.rst:1117
+#: ../doc/effects.rst:1117
 msgid ":guilabel:`Color Noise` targets red, green, and blue color speckles, which are common in dark video."
 msgstr ""
 
-#: ../effects.rst:1119
+#: ../doc/effects.rst:1119
 msgid "Most users can start with those three controls. The next controls are helpful when you want cleaner video without creating ghosting or smearing:"
 msgstr ""
 
-#: ../effects.rst:1122
+#: ../doc/effects.rst:1122
 msgid ":guilabel:`Temporal` blends a small amount of information from the previous frame during normal playback. This can reduce dancing noise from frame to frame."
 msgstr ""
 
-#: ../effects.rst:1124
+#: ../doc/effects.rst:1124
 msgid ":guilabel:`Motion Safety` protects moving objects. Higher values are more cautious and reduce the chance of ghosting."
 msgstr ""
 
-#: ../effects.rst:1125
+#: ../doc/effects.rst:1125
 msgid ":guilabel:`Response Curve` changes denoise strength by brightness. By default, shadows are cleaned more strongly, midtones are balanced, and highlights are affected more lightly."
 msgstr ""
 
-#: ../effects.rst:1129
+#: ../doc/effects.rst:1129
 msgid "How it works"
 msgstr ""
 
-#: ../effects.rst:1131
+#: ../doc/effects.rst:1131
 msgid "Denoise Image combines **spatial denoising** and conservative **temporal denoising**. Spatial denoising looks at the current frame and smooths small noisy variations while trying to preserve important edges. Temporal denoising compares neighboring frames and only blends when the image appears stable enough. When OpenShot detects a seek, scrub, frame jump, or still image, temporal history is reset automatically, so the effect falls back to the current frame only."
 msgstr ""
 
-#: ../effects.rst:1136
+#: ../doc/effects.rst:1136
 msgid "The effect also treats brightness and color differently. Dark areas usually contain more camera sensor noise, so the default response curve applies stronger cleanup in shadows. Bright areas usually need less denoising. Color speckles are reduced more aggressively than luma detail, which helps remove low-light chroma noise without turning the whole image into a blur."
 msgstr ""
 
-#: ../effects.rst:1142
+#: ../doc/effects.rst:1142
 msgid "Usage tips"
 msgstr ""
 
-#: ../effects.rst:1144
+#: ../doc/effects.rst:1144
 msgid "For mild camera noise, use the default settings or raise :guilabel:`Strength` slightly."
 msgstr ""
 
-#: ../effects.rst:1145
+#: ../doc/effects.rst:1145
 msgid "For very noisy dark footage, raise :guilabel:`Strength` and :guilabel:`Color Noise`, then lower :guilabel:`Detail` only as much as needed."
 msgstr ""
 
-#: ../effects.rst:1147
+#: ../doc/effects.rst:1147
 msgid "For faces, text, hair, leaves, or detailed textures, keep :guilabel:`Detail` higher to avoid a smeared look."
 msgstr ""
 
-#: ../effects.rst:1148
+#: ../doc/effects.rst:1148
 msgid "For moving subjects, keep :guilabel:`Motion Safety` high and avoid pushing :guilabel:`Temporal` too far."
 msgstr ""
 
-#: ../effects.rst:1149
+#: ../doc/effects.rst:1149
 msgid "For still images or photos, :guilabel:`Temporal` has no useful history, so focus on :guilabel:`Strength`, :guilabel:`Detail`, :guilabel:`Color Noise`, and :guilabel:`Response Curve`."
 msgstr ""
 
-#: ../effects.rst:1158
-#: ../effects.rst:1197
+#: ../doc/effects.rst:1158
+#: ../doc/effects.rst:1197
 msgid "strength"
 msgstr ""
 
-#: ../effects.rst:1158
+#: ../doc/effects.rst:1158
 msgid "``(float, 0 to 1)`` Overall denoise amount. Higher values remove more grain and speckles."
 msgstr ""
 
-#: ../effects.rst:1159
+#: ../doc/effects.rst:1159
 msgid "``(float, 0 to 1)`` Edge and texture protection. Higher values preserve more fine detail; lower values smooth more noise."
 msgstr ""
 
-#: ../effects.rst:1160
+#: ../doc/effects.rst:1160
 msgid "temporal"
 msgstr ""
 
-#: ../effects.rst:1160
+#: ../doc/effects.rst:1160
 msgid "``(float, 0 to 1)`` Previous-frame blending amount for stable sequential video frames."
 msgstr ""
 
-#: ../effects.rst:1161
+#: ../doc/effects.rst:1161
 msgid "motion_safety"
 msgstr ""
 
-#: ../effects.rst:1161
+#: ../doc/effects.rst:1161
 msgid "``(float, 0 to 1)`` Motion protection. Higher values reduce temporal blending where movement is detected."
 msgstr ""
 
-#: ../effects.rst:1162
+#: ../doc/effects.rst:1162
 msgid "color_noise"
 msgstr ""
 
-#: ../effects.rst:1162
+#: ../doc/effects.rst:1162
 msgid "``(float, 0 to 1)`` Extra cleanup for red, green, and blue color speckles."
 msgstr ""
 
-#: ../effects.rst:1163
+#: ../doc/effects.rst:1163
 msgid "``(curve)`` Brightness-based denoise response. Use it to denoise shadows, midtones, and highlights differently."
 msgstr ""
 
-#: ../effects.rst:1168
+#: ../doc/effects.rst:1168
 msgid "The Displacement Map effect uses a grayscale image or video to warp the current frame in the horizontal and vertical directions. This effect is also commonly called a **distortion map**, **warp map**, **displace effect**, or **displacement effect**. It is useful for heat haze, water ripples, refractive glass, mirage effects, animated distortion overlays, shockwave looks, and other stylized screen warps."
 msgstr ""
 
-#: ../effects.rst:1173
+#: ../doc/effects.rst:1173
 msgid "The map source is sampled for every pixel. **Mid-gray** is neutral and causes no movement. **Darker** and **lighter** areas shift pixels in opposite directions. A still image creates a fixed distortion pattern, while a video or animated map creates moving distortion over time. Transparent parts of the map smoothly fade back toward neutral displacement."
 msgstr ""
 
-#: ../effects.rst:1178
+#: ../doc/effects.rst:1178
 msgid "Usage Notes"
 msgstr ""
 
-#: ../effects.rst:1180
+#: ../doc/effects.rst:1180
 msgid "Use a **grayscale image or grayscale video** for the most predictable results."
 msgstr ""
 
-#: ../effects.rst:1181
+#: ../doc/effects.rst:1181
 msgid "Use **Map: Source** to pick an imported file, image sequence, video clip, or even a transition image as the map."
 msgstr ""
 
-#: ../effects.rst:1182
+#: ../doc/effects.rst:1182
 msgid "**Strength** multiplies both the horizontal and vertical displacement."
 msgstr ""
 
-#: ../effects.rst:1183
+#: ../doc/effects.rst:1183
 msgid "**Horizontal** controls left/right warping as a percentage of the frame width."
 msgstr ""
 
-#: ../effects.rst:1184
+#: ../doc/effects.rst:1184
 msgid "**Vertical** controls up/down warping as a percentage of the frame height."
 msgstr ""
 
-#: ../effects.rst:1185
+#: ../doc/effects.rst:1185
 msgid "**Brightness** and **Contrast** reshape the map before displacement, which can make the warp subtler or more dramatic."
 msgstr ""
 
-#: ../effects.rst:1186
+#: ../doc/effects.rst:1186
 msgid "**Map: Invert** flips the direction driven by light and dark areas."
 msgstr ""
 
-#: ../effects.rst:1187
+#: ../doc/effects.rst:1187
 msgid "**Replace Image** is a debug preview that shows the processed map instead of the warped frame."
 msgstr ""
 
-#: ../effects.rst:1195
+#: ../doc/effects.rst:1195
 msgid "map_reader"
 msgstr ""
 
-#: ../effects.rst:1195
+#: ../doc/effects.rst:1195
 msgid "``(reader)`` **Map: Source.** Select the grayscale image, animation, video, or transition file used as the displacement source"
 msgstr ""
 
-#: ../effects.rst:1196
+#: ../doc/effects.rst:1196
 msgid "``(int, choices: ['Yes', 'No'])`` **Map: Invert.** Reverse the displacement direction driven by dark and light areas"
 msgstr ""
 
-#: ../effects.rst:1197
+#: ../doc/effects.rst:1197
 msgid "``(float, 0 to 3)`` Overall multiplier for the displacement effect"
 msgstr ""
 
-#: ../effects.rst:1198
+#: ../doc/effects.rst:1198
 msgid "horizontal"
 msgstr ""
 
-#: ../effects.rst:1198
+#: ../doc/effects.rst:1198
 msgid "``(float, -1 to 1)`` Horizontal displacement amount, as a percentage of the frame width"
 msgstr ""
 
-#: ../effects.rst:1199
+#: ../doc/effects.rst:1199
 msgid "vertical"
 msgstr ""
 
-#: ../effects.rst:1199
+#: ../doc/effects.rst:1199
 msgid "``(float, -1 to 1)`` Vertical displacement amount, as a percentage of the frame height"
 msgstr ""
 
-#: ../effects.rst:1200
+#: ../doc/effects.rst:1200
 msgid "``(float, -1 to 1)`` Brightness adjustment applied to the displacement map before warping"
 msgstr ""
 
-#: ../effects.rst:1201
+#: ../doc/effects.rst:1201
 msgid "``(float, 0 to 20)`` Contrast adjustment applied to the displacement map before warping"
 msgstr ""
 
-#: ../effects.rst:1202
+#: ../doc/effects.rst:1202
 msgid "``(int, choices: ['Yes', 'No'])`` Replace the output image with the processed map, useful for previewing or debugging the distortion map"
 msgstr ""
 
-#: ../effects.rst:1207
+#: ../doc/effects.rst:1207
 msgid "The **Film Grain** effect adds a gentle moving texture to your video, similar to the tiny speckles you see in real film photography. This can make very clean digital footage feel warmer, more natural, or more cinematic. It can also help blend mixed footage together, especially when one clip looks too sharp or too smooth compared to the rest of your project."
 msgstr ""
 
-#: ../effects.rst:1212
+#: ../doc/effects.rst:1212
 msgid "If you are new to film grain, start small. A little grain can add life and texture without calling attention to itself. Stronger settings can be useful for vintage looks, music videos, horror scenes, documentary recreations, or footage that should feel like older 16mm or Super 8 film."
 msgstr ""
 
-#: ../effects.rst:1216
+#: ../doc/effects.rst:1216
 msgid "You can add Film Grain from the :guilabel:`Effects` tab, or right-click a clip and choose :guilabel:`Look → Film → Film Grain` to start with a preset: :guilabel:`35mm Fine`, :guilabel:`35mm Classic`, :guilabel:`35mm Gritty`, :guilabel:`16mm Classic`, :guilabel:`Super 8`, or :guilabel:`High ISO`. Presets only set the properties for you; all controls remain visible and editable."
 msgstr ""
 
-#: ../effects.rst:1221
+#: ../doc/effects.rst:1221
 msgid "Simple starting points:"
 msgstr ""
 
-#: ../effects.rst:1223
+#: ../doc/effects.rst:1223
 msgid "**Clean cinematic texture**: try :guilabel:`35mm Fine`, then lower ``amount`` if it feels too visible."
 msgstr ""
 
-#: ../effects.rst:1224
+#: ../doc/effects.rst:1224
 msgid "**Classic film look**: try :guilabel:`35mm Classic` for a balanced grain pattern."
 msgstr ""
 
-#: ../effects.rst:1225
+#: ../doc/effects.rst:1225
 msgid "**Punchy, gritty film look**: try :guilabel:`35mm Gritty` for heavier, more visible grain."
 msgstr ""
 
-#: ../effects.rst:1226
+#: ../doc/effects.rst:1226
 msgid "**Older home-movie style**: try :guilabel:`Super 8`, which uses larger, more active grain."
 msgstr ""
 
-#: ../effects.rst:1227
+#: ../doc/effects.rst:1227
 msgid "**Low-light camera noise style**: try :guilabel:`High ISO`, then adjust ``color_amount`` to control how colorful the grain feels."
 msgstr ""
 
-#: ../effects.rst:1229
+#: ../doc/effects.rst:1229
 msgid "The grain is deterministic, which means the same settings render the same grain pattern each time. Change ``seed`` when you want a different repeatable grain pattern on a clip."
 msgstr ""
 
-#: ../effects.rst:1238
-#: ../effects.rst:1540
+#: ../doc/effects.rst:1238
+#: ../doc/effects.rst:1540
 msgid "amount"
 msgstr ""
 
-#: ../effects.rst:1238
+#: ../doc/effects.rst:1238
 msgid "``(float, 0 to 1)`` Overall grain intensity. Lower values are subtle; higher values are more visible and gritty."
 msgstr ""
 
-#: ../effects.rst:1239
-#: ../effects.rst:1315
+#: ../doc/effects.rst:1239
+#: ../doc/effects.rst:1315
 msgid "size"
 msgstr ""
 
-#: ../effects.rst:1239
+#: ../doc/effects.rst:1239
 msgid "``(float, 0 to 1)`` Grain scale. Lower values create fine grain; higher values create larger, coarser grain."
 msgstr ""
 
-#: ../effects.rst:1240
+#: ../doc/effects.rst:1240
 msgid "``(float, 0 to 1)`` Softens the grain texture. Lower values look crisp; higher values look smoother and more organic."
 msgstr ""
 
-#: ../effects.rst:1241
+#: ../doc/effects.rst:1241
 msgid "clump"
 msgstr ""
 
-#: ../effects.rst:1241
+#: ../doc/effects.rst:1241
 msgid "``(float, 0 to 1)`` Controls how even or clustered the grain appears. Higher values create more irregular groups of grain."
 msgstr ""
 
-#: ../effects.rst:1242
+#: ../doc/effects.rst:1242
 msgid "``(float, 0 to 1)`` Grain strength in dark areas of the image."
 msgstr ""
 
-#: ../effects.rst:1243
+#: ../doc/effects.rst:1243
 msgid "midtones"
 msgstr ""
 
-#: ../effects.rst:1243
+#: ../doc/effects.rst:1243
 msgid "``(float, 0 to 1)`` Grain strength in middle brightness areas, such as skin tones and everyday objects."
 msgstr ""
 
-#: ../effects.rst:1244
+#: ../doc/effects.rst:1244
 msgid "``(float, 0 to 1)`` Grain strength in bright areas, such as skies, windows, and lights."
 msgstr ""
 
-#: ../effects.rst:1245
+#: ../doc/effects.rst:1245
 msgid "color_amount"
 msgstr ""
 
-#: ../effects.rst:1245
+#: ../doc/effects.rst:1245
 msgid "``(float, 0 to 1)`` How much the grain affects color. Lower values are mostly luma grain; higher values add more chroma grain."
 msgstr ""
 
-#: ../effects.rst:1246
+#: ../doc/effects.rst:1246
 msgid "color_variation"
 msgstr ""
 
-#: ../effects.rst:1246
+#: ../doc/effects.rst:1246
 msgid "``(float, 0 to 1)`` How independently the red, green, and blue grain changes. Higher values feel more colorful and random."
 msgstr ""
 
-#: ../effects.rst:1247
+#: ../doc/effects.rst:1247
 msgid "evolution"
 msgstr ""
 
-#: ../effects.rst:1247
+#: ../doc/effects.rst:1247
 msgid "``(float, 0 to 1)`` How much the grain renews over time. Higher values make the texture change more from frame to frame."
 msgstr ""
 
-#: ../effects.rst:1248
+#: ../doc/effects.rst:1248
 msgid "coherence"
 msgstr ""
 
-#: ../effects.rst:1248
+#: ../doc/effects.rst:1248
 msgid "``(float, 0 to 1)`` How stable and smooth the grain remains between frames. Higher values feel calmer and less jumpy."
 msgstr ""
 
-#: ../effects.rst:1249
+#: ../doc/effects.rst:1249
 msgid "seed"
 msgstr ""
 
-#: ../effects.rst:1249
+#: ../doc/effects.rst:1249
 msgid "``(int, 0 to 1000000)`` Selects the exact repeatable grain pattern. Change this to get a different look without changing intensity."
 msgstr ""
 
-#: ../effects.rst:1254
+#: ../doc/effects.rst:1254
 msgid "Grain is easiest to judge while the video is playing, not on a single paused frame."
 msgstr ""
 
-#: ../effects.rst:1255
+#: ../doc/effects.rst:1255
 msgid "If faces or bright skies look too noisy, lower ``highlights`` or ``amount``."
 msgstr ""
 
-#: ../effects.rst:1256
+#: ../doc/effects.rst:1256
 msgid "If shadows look too clean compared to the rest of the image, raise ``shadows`` slightly."
 msgstr ""
 
-#: ../effects.rst:1257
+#: ../doc/effects.rst:1257
 msgid "If the grain looks too digital or sharp, raise ``softness`` or lower ``color_variation``."
 msgstr ""
 
-#: ../effects.rst:1258
+#: ../doc/effects.rst:1258
 msgid "If the grain looks too busy during motion, lower ``evolution`` or raise ``coherence``."
 msgstr ""
 
-#: ../effects.rst:1262
+#: ../doc/effects.rst:1262
 msgid "The Glow effect creates a soft halo from the clip's visible pixels. It can render either outside the subject for a classic outer glow, or along the inside edges for an inner glow. The effect uses the source alpha channel, so transparent PNGs, text, logos, and masked clips work especially well."
 msgstr ""
 
-#: ../effects.rst:1266
+#: ../doc/effects.rst:1266
 msgid "You can add Glow from the :guilabel:`Effects` tab, or right-click a clip and choose :guilabel:`Look → Lighting → Glow` to start with a preset: :guilabel:`Soft White` (a gentle neutral halo), :guilabel:`Warm` (a warm amber glow), :guilabel:`Neon` (a vivid colored glow), or :guilabel:`Inner Glow` (glow drawn inside the subject's edges). Presets only set the properties for you; all controls remain visible and editable."
 msgstr ""
 
-#: ../effects.rst:1278
-#: ../effects.rst:1543
-#: ../effects.rst:1694
+#: ../doc/effects.rst:1278
+#: ../doc/effects.rst:1543
+#: ../doc/effects.rst:1694
 msgid "mode"
 msgstr ""
 
-#: ../effects.rst:1278
+#: ../doc/effects.rst:1278
 msgid "``(int, choices: ['Outer', 'Inner'])`` Choose whether the glow appears outside the visible pixels (Outer) or just inside their edges (Inner)."
 msgstr ""
 
-#: ../effects.rst:1279
-#: ../effects.rst:1565
+#: ../doc/effects.rst:1279
+#: ../doc/effects.rst:1565
 msgid "opacity"
 msgstr ""
 
-#: ../effects.rst:1279
+#: ../doc/effects.rst:1279
 msgid "``(float, 0 to 1)`` Overall glow strength and transparency."
 msgstr ""
 
-#: ../effects.rst:1280
-#: ../effects.rst:1566
+#: ../doc/effects.rst:1280
+#: ../doc/effects.rst:1566
 msgid "blur_radius"
 msgstr ""
 
-#: ../effects.rst:1280
+#: ../doc/effects.rst:1280
 msgid "``(float, 0 to 100)`` Blur radius in pixels used to soften the glow. Larger values create a wider, softer halo."
 msgstr ""
 
-#: ../effects.rst:1281
-#: ../effects.rst:1316
-#: ../effects.rst:1567
+#: ../doc/effects.rst:1281
+#: ../doc/effects.rst:1316
+#: ../doc/effects.rst:1567
 msgid "spread"
 msgstr ""
 
-#: ../effects.rst:1281
+#: ../doc/effects.rst:1281
 msgid "``(float, 0 to 1)`` Expands and strengthens the source alpha before blurring for a denser, more filled-in glow."
 msgstr ""
 
-#: ../effects.rst:1282
+#: ../doc/effects.rst:1282
 msgid "``(color)`` Tint color of the glow, including alpha. Use the alpha channel to control the glow's maximum opacity independently of the ``opacity`` property."
 msgstr ""
 
-#: ../effects.rst:1287
+#: ../doc/effects.rst:1287
 msgid "The Hue effect adjusts the overall color balance of the video, changing the hues without affecting the brightness or saturation. This can be used for color correction or to apply dramatic color effects that transform the mood of the footage."
 msgstr ""
 
-#: ../effects.rst:1297
+#: ../doc/effects.rst:1297
 msgid "hue"
 msgstr ""
 
-#: ../effects.rst:1297
+#: ../doc/effects.rst:1297
 msgid "``(float, 0 to 1)`` The curve to adjust the percentage of hue shift"
 msgstr ""
 
-#: ../effects.rst:1302
+#: ../doc/effects.rst:1302
 msgid "The Lens Flare effect simulates bright light hitting your camera lens, creating glowing halos, colored rings and gentle glares over your footage. Reflections are automatically placed along a line from the light source toward the center of the frame. You can animate any property with keyframes to follow your action or match your scene."
 msgstr ""
 
-#: ../effects.rst:1312
+#: ../doc/effects.rst:1312
 msgid "``(float, -1 to 1)`` Horizontal position of the light source. -1 is left edge, 0 is center, +1 is right edge."
 msgstr ""
 
-#: ../effects.rst:1313
+#: ../doc/effects.rst:1313
 msgid "``(float, -1 to 1)`` Vertical position of the light source. -1 is top edge, 0 is center, +1 is bottom edge."
 msgstr ""
 
-#: ../effects.rst:1314
+#: ../doc/effects.rst:1314
 msgid "``(float, 0 to 1)`` Overall glow strength and transparency. Higher values make brighter, more opaque flares."
 msgstr ""
 
-#: ../effects.rst:1315
+#: ../doc/effects.rst:1315
 msgid "``(float, 0.1 to 3)`` Scale of the entire flare effect. Larger values enlarge halos, rings and glows."
 msgstr ""
 
-#: ../effects.rst:1316
+#: ../doc/effects.rst:1316
 msgid "``(float, 0 to 1)`` How far secondary reflections travel. 0 keeps them close to the source, 1 pushes them all the way toward the opposite edge."
 msgstr ""
 
-#: ../effects.rst:1317
+#: ../doc/effects.rst:1317
 msgid "tint_color"
 msgstr ""
 
-#: ../effects.rst:1317
+#: ../doc/effects.rst:1317
 msgid "``(color)`` Shifts the flare colors to match your scene. Use the RGBA sliders to pick hue and transparency."
 msgstr ""
 
-#: ../effects.rst:1322
+#: ../doc/effects.rst:1322
 msgid "The Negative effect inverts the colors of the video, producing an image that resembles a photographic negative. This can be used for artistic effects, to create a surreal or otherworldly look, or to highlight specific elements within the frame."
 msgstr ""
 
-#: ../effects.rst:1328
+#: ../doc/effects.rst:1328
 msgid "The Object Mask effect creates a detailed, animated mask around a subject that you identify. Instead of drawing a rectangular tracking box, you mark the subject with points or rectangles and OpenShot follows its visible outline through the clip. Use it to highlight a person or product, create a colored cutout or outline, or provide the :guilabel:`Mask: Source` for another effect such as Blur, Pixelate, or Color Grade."
 msgstr ""
 
-#: ../effects.rst:1333
+#: ../doc/effects.rst:1333
 msgid "Object Mask runs locally in OpenShot and does not require a ComfyUI server. OpenShot uses an `EfficientSAM model <https://github.com/OpenShot/openshot-onnx/tree/main/efficient-sam>`_ to turn your prompts into a mask on selected frames, then uses `Cutie models <https://github.com/OpenShot/openshot-onnx/tree/main/cutie>`_ to propagate that mask through the video. These OpenCV-friendly model packages are maintained in the `OpenShot ONNX repository <https://github.com/OpenShot/openshot-onnx>`_. The model files are downloaded the first time you use the effect and are stored for later use."
 msgstr ""
 
-#: ../effects.rst:1342
+#: ../doc/effects.rst:1342
 msgid "Creating an Object Mask"
 msgstr ""
 
-#: ../effects.rst:1343
+#: ../doc/effects.rst:1343
 msgid "Drag :guilabel:`Object Mask` from the :guilabel:`Effects` panel onto a video clip."
 msgstr ""
 
-#: ../effects.rst:1344
+#: ../doc/effects.rst:1344
 msgid "In the initialization dialog, choose a :guilabel:`Quality` level and download the Object Mask model files if they are not installed. Higher quality generally takes more processing time and memory."
 msgstr ""
 
-#: ../effects.rst:1346
+#: ../doc/effects.rst:1346
 msgid "Leave :guilabel:`Processing Device` set to :guilabel:`CPU` for maximum compatibility, or select an available GPU option. :guilabel:`GPU (Auto)` falls back to CPU when a supported GPU backend is unavailable."
 msgstr ""
 
-#: ../effects.rst:1348
+#: ../doc/effects.rst:1348
 msgid "Click :guilabel:`Select Points`. On a frame where the subject is clearly visible, add at least one positive point or rectangle on the subject. Add negative points or rectangles over nearby background or unwanted objects when they help separate the subject."
 msgstr ""
 
-#: ../effects.rst:1351
+#: ../doc/effects.rst:1351
 msgid "Enable the mask preview to check the selected area. Add prompts on other frames if the subject changes greatly, becomes hidden, or the initial selection is ambiguous."
 msgstr ""
 
-#: ../effects.rst:1353
+#: ../doc/effects.rst:1353
 msgid "Click :guilabel:`Process Effect`. Processing analyzes the clip and creates the animated mask data used by the effect. Cancel the job if you need to revise the prompts or settings."
 msgstr ""
 
-#: ../effects.rst:1356
+#: ../doc/effects.rst:1356
 msgid "After processing, select the Object Mask effect to change its fill and outline. To apply another effect only inside the detected subject, add that effect to the same clip and select Object Mask under its :guilabel:`Mask: Source` property. Use :guilabel:`Mask: Invert` on the other effect when you want to modify the background instead."
 msgstr ""
 
-#: ../effects.rst:1361
+#: ../doc/effects.rst:1361
 msgid "Object Mask and Advanced AI"
 msgstr ""
 
-#: ../effects.rst:1362
+#: ../doc/effects.rst:1362
 msgid "Object Mask is the quickest built-in workflow when you need a reusable mask inside an OpenShot project. The similar ComfyUI :guilabel:`Mask...`, :guilabel:`Blur...`, and :guilabel:`Highlight...` workflows generate new media files through a separately installed ComfyUI server and provide more customizable AI pipelines. See :ref:`ai_tracking_ref` for those Advanced AI workflows."
 msgstr ""
 
-#: ../effects.rst:1376
-#: ../effects.rst:1445
+#: ../doc/effects.rst:1376
+#: ../doc/effects.rst:1445
 msgid "draw_mask"
 msgstr ""
 
-#: ../effects.rst:1376
+#: ../doc/effects.rst:1376
 msgid "``(int, choices: ['Yes', 'No'])`` Show or hide the colored mask overlay."
 msgstr ""
 
-#: ../effects.rst:1377
-#: ../effects.rst:1464
+#: ../doc/effects.rst:1377
+#: ../doc/effects.rst:1464
 msgid "mask_color"
 msgstr ""
 
-#: ../effects.rst:1377
+#: ../doc/effects.rst:1377
 msgid "``(color)`` Color drawn over the selected subject."
 msgstr ""
 
-#: ../effects.rst:1378
-#: ../effects.rst:1465
+#: ../doc/effects.rst:1378
+#: ../doc/effects.rst:1465
 msgid "mask_alpha"
 msgstr ""
 
-#: ../effects.rst:1378
+#: ../doc/effects.rst:1378
 msgid "``(float, 0 to 1)`` Opacity of the colored mask overlay."
 msgstr ""
 
-#: ../effects.rst:1379
+#: ../doc/effects.rst:1379
 msgid "stroke_color"
 msgstr ""
 
-#: ../effects.rst:1379
+#: ../doc/effects.rst:1379
 msgid "``(color)`` Color of the outline around the selected subject."
 msgstr ""
 
-#: ../effects.rst:1380
-#: ../effects.rst:1460
-#: ../effects.rst:1767
+#: ../doc/effects.rst:1380
+#: ../doc/effects.rst:1460
+#: ../doc/effects.rst:1767
 msgid "stroke_alpha"
 msgstr ""
 
-#: ../effects.rst:1380
+#: ../doc/effects.rst:1380
 msgid "``(float, 0 to 1)`` Opacity of the subject outline."
 msgstr ""
 
-#: ../effects.rst:1381
+#: ../doc/effects.rst:1381
 msgid "``(int, 0 to 50)`` Width of the subject outline in pixels. Use ``0`` to hide it."
 msgstr ""
 
-#: ../effects.rst:1382
+#: ../doc/effects.rst:1382
 msgid "protobuf_data_path"
 msgstr ""
 
-#: ../effects.rst:1382
+#: ../doc/effects.rst:1382
 msgid "``(string)`` Internal path to the processed mask data. Normally managed by OpenShot."
 msgstr ""
 
-#: ../effects.rst:1387
+#: ../doc/effects.rst:1387
 msgid "The Object Detector effect automatically finds and follows known classes of objects throughout a video. Depending on the selected YOLO model, these can include people, vehicles, animals, and many common objects. OpenShot stores each detection as a tracked object, allowing you to display boxes and labels, customize individual detections, parent another clip to a detected object, or use detections as the :guilabel:`Mask: Source` for another effect."
 msgstr ""
 
-#: ../effects.rst:1392
+#: ../doc/effects.rst:1392
 msgid "Unlike Object Mask, Object Detector does not require you to mark a particular subject first. It scans the clip for all object classes known by the selected model. Use Object Detector when you want automatic discovery or several tracked objects; use Object Mask when you need a precise subject silhouette selected with your own prompts."
 msgstr ""
 
-#: ../effects.rst:1397
+#: ../doc/effects.rst:1397
 msgid "Creating Object Detections"
 msgstr ""
 
-#: ../effects.rst:1398
+#: ../doc/effects.rst:1398
 msgid "Drag :guilabel:`Object Detector` from the :guilabel:`Effects` panel onto a video clip."
 msgstr ""
 
-#: ../effects.rst:1399
+#: ../doc/effects.rst:1399
 msgid "Choose a YOLO :guilabel:`Version` and download its model and class-name files if needed. Nano models are normally the fastest starting point; larger models can improve detection at the cost of processing time and memory."
 msgstr ""
 
-#: ../effects.rst:1401
+#: ../doc/effects.rst:1401
 msgid "Leave :guilabel:`Processing Device` set to :guilabel:`CPU` for maximum compatibility, or select an available GPU option. :guilabel:`GPU (Auto)` falls back to CPU when necessary."
 msgstr ""
 
-#: ../effects.rst:1403
+#: ../doc/effects.rst:1403
 msgid "Click :guilabel:`Process Effect`. OpenShot analyzes the clip and creates the tracked-object data. Processing can take time for long or high-resolution clips and can be canceled."
 msgstr ""
 
-#: ../effects.rst:1405
+#: ../doc/effects.rst:1405
 msgid "Select the processed effect and adjust its Properties. Use :guilabel:`Class Filter` and :guilabel:`Confidence Threshold` to reduce the visible results, then select an individual object to customize its box, label, mask, or styling."
 msgstr ""
 
-#: ../effects.rst:1410
+#: ../doc/effects.rst:1410
 msgid "Class Filters & Confidence"
 msgstr ""
 
-#: ../effects.rst:1411
+#: ../doc/effects.rst:1411
 msgid "Enter one or more comma-separated names in :guilabel:`Class Filter`, such as ``person, car``, to display only those classes. Class names depend on the selected model and its class-name file. Leave the field empty to display all detected classes. Raise :guilabel:`Confidence Threshold` to hide uncertain detections and reduce false positives; lower it when the model is missing a partially hidden or difficult subject."
 msgstr ""
 
-#: ../effects.rst:1416
+#: ../doc/effects.rst:1416
 msgid "Object Detector can also produce segmentation masks when the selected YOLO model supports them. Those masks can be displayed on the clip or used by another effect. Models that only output bounding boxes still work as rectangular mask sources."
 msgstr ""
 
-#: ../effects.rst:1421
-#: ../effects.rst:1735
+#: ../doc/effects.rst:1421
+#: ../doc/effects.rst:1735
 msgid "How Parenting Works"
 msgstr ""
 
-#: ../effects.rst:1422
+#: ../doc/effects.rst:1422
 msgid "Once you have tracked objects, you can \"parent\" other :ref:`clips_ref` to them. This means that the second clip, which could be a graphic, text, or another video layer, will now follow the tracked object as if it's attached to it. If the tracked object moves to the left, the child clip moves to the left. If the tracked object grows in size (gets closer to the camera), the child clip also scales up. For parented clips to appear correctly, they must be on a Track higher than the tracked objects, and set the appropriate :ref:`clip_scale_ref` property."
 msgstr ""
 
-#: ../effects.rst:1428
-#: ../effects.rst:1742
+#: ../doc/effects.rst:1428
+#: ../doc/effects.rst:1742
 msgid "See :ref:`clip_parent_ref`."
 msgstr ""
 
-#: ../effects.rst:1439
+#: ../doc/effects.rst:1439
 msgid "class_filter"
 msgstr ""
 
-#: ../effects.rst:1439
+#: ../doc/effects.rst:1439
 msgid "``(string)`` Comma-separated object classes to display (for example, ``person, car``). Leave empty for all classes."
 msgstr ""
 
-#: ../effects.rst:1440
+#: ../doc/effects.rst:1440
 msgid "confidence_threshold"
 msgstr ""
 
-#: ../effects.rst:1440
+#: ../doc/effects.rst:1440
 msgid "``(float, 0 to 1)`` Minimum confidence value to display the detected objects"
 msgstr ""
 
-#: ../effects.rst:1441
+#: ../doc/effects.rst:1441
 msgid "display_box_text"
 msgstr ""
 
-#: ../effects.rst:1441
+#: ../doc/effects.rst:1441
 msgid "``(int, choices: ['Yes', 'No'])`` Draw class name and ID of ALL tracked objects"
 msgstr ""
 
-#: ../effects.rst:1442
+#: ../doc/effects.rst:1442
 msgid "display_boxes"
 msgstr ""
 
-#: ../effects.rst:1442
+#: ../doc/effects.rst:1442
 msgid "``(int, choices: ['Yes', 'No'])`` Draw bounding box around ALL tracked objects (a quick way to hide all tracked objects)"
 msgstr ""
 
-#: ../effects.rst:1443
+#: ../doc/effects.rst:1443
 msgid "selected_object_index"
 msgstr ""
 
-#: ../effects.rst:1443
+#: ../doc/effects.rst:1443
 msgid "``(int, 0 to 200)`` Index of the tracked object that is `selected` to modify its properties"
 msgstr ""
 
-#: ../effects.rst:1444
-#: ../effects.rst:1753
+#: ../doc/effects.rst:1444
+#: ../doc/effects.rst:1753
 msgid "draw_box"
 msgstr ""
 
-#: ../effects.rst:1444
+#: ../doc/effects.rst:1444
 msgid "``(int, choices: ['Yes', 'No'])`` Whether to draw the box around the selected tracked object"
 msgstr ""
 
-#: ../effects.rst:1445
+#: ../doc/effects.rst:1445
 msgid "``(int, choices: ['Yes', 'No'])`` Whether to draw the segmentation mask for the selected object, when available"
 msgstr ""
 
-#: ../effects.rst:1446
+#: ../doc/effects.rst:1446
 msgid "draw_text"
 msgstr ""
 
-#: ../effects.rst:1446
+#: ../doc/effects.rst:1446
 msgid "``(int, choices: ['Yes', 'No'])`` Whether to draw the class name and ID for the selected object"
 msgstr ""
 
-#: ../effects.rst:1447
-#: ../effects.rst:1754
+#: ../doc/effects.rst:1447
+#: ../doc/effects.rst:1754
 msgid "box_id"
 msgstr ""
 
-#: ../effects.rst:1447
-#: ../effects.rst:1754
+#: ../doc/effects.rst:1447
+#: ../doc/effects.rst:1754
 msgid "``(string)`` Internal ID of a tracked object box for identification purposes"
 msgstr ""
 
-#: ../effects.rst:1448
-#: ../effects.rst:1755
+#: ../doc/effects.rst:1448
+#: ../doc/effects.rst:1755
 msgid "x1"
 msgstr ""
 
-#: ../effects.rst:1448
-#: ../effects.rst:1755
+#: ../doc/effects.rst:1448
+#: ../doc/effects.rst:1755
 msgid "``(float, 0 to 1)`` Top left X coordinate of a tracked object box, normalized to the video frame width"
 msgstr ""
 
-#: ../effects.rst:1449
-#: ../effects.rst:1756
+#: ../doc/effects.rst:1449
+#: ../doc/effects.rst:1756
 msgid "y1"
 msgstr ""
 
-#: ../effects.rst:1449
-#: ../effects.rst:1756
+#: ../doc/effects.rst:1449
+#: ../doc/effects.rst:1756
 msgid "``(float, 0 to 1)`` Top left Y coordinate of a tracked object box, normalized to the video frame height"
 msgstr ""
 
-#: ../effects.rst:1450
-#: ../effects.rst:1757
+#: ../doc/effects.rst:1450
+#: ../doc/effects.rst:1757
 msgid "x2"
 msgstr ""
 
-#: ../effects.rst:1450
-#: ../effects.rst:1757
+#: ../doc/effects.rst:1450
+#: ../doc/effects.rst:1757
 msgid "``(float, 0 to 1)`` Bottom right X coordinate of a tracked object box, normalized to the video frame width"
 msgstr ""
 
-#: ../effects.rst:1451
-#: ../effects.rst:1758
+#: ../doc/effects.rst:1451
+#: ../doc/effects.rst:1758
 msgid "y2"
 msgstr ""
 
-#: ../effects.rst:1451
-#: ../effects.rst:1758
+#: ../doc/effects.rst:1451
+#: ../doc/effects.rst:1758
 msgid "``(float, 0 to 1)`` Bottom right Y coordinate of a tracked object box, normalized to the video frame height"
 msgstr ""
 
-#: ../effects.rst:1452
-#: ../effects.rst:1759
+#: ../doc/effects.rst:1452
+#: ../doc/effects.rst:1759
 msgid "delta_x"
 msgstr ""
 
-#: ../effects.rst:1452
-#: ../effects.rst:1759
+#: ../doc/effects.rst:1452
+#: ../doc/effects.rst:1759
 msgid "``(float, -1.0 to 1)`` Horizontal movement delta of the tracked object box from its previous position"
 msgstr ""
 
-#: ../effects.rst:1453
-#: ../effects.rst:1760
+#: ../doc/effects.rst:1453
+#: ../doc/effects.rst:1760
 msgid "delta_y"
 msgstr ""
 
-#: ../effects.rst:1453
-#: ../effects.rst:1760
+#: ../doc/effects.rst:1453
+#: ../doc/effects.rst:1760
 msgid "``(float, -1.0 to 1)`` Vertical movement delta of the tracked object box from its previous position"
 msgstr ""
 
-#: ../effects.rst:1454
-#: ../effects.rst:1761
+#: ../doc/effects.rst:1454
+#: ../doc/effects.rst:1761
 msgid "scale_x"
 msgstr ""
 
-#: ../effects.rst:1454
-#: ../effects.rst:1761
+#: ../doc/effects.rst:1454
+#: ../doc/effects.rst:1761
 msgid "``(float, 0 to 1)`` Scaling factor in the X direction for the tracked object box, relative to its original size"
 msgstr ""
 
-#: ../effects.rst:1455
-#: ../effects.rst:1762
+#: ../doc/effects.rst:1455
+#: ../doc/effects.rst:1762
 msgid "scale_y"
 msgstr ""
 
-#: ../effects.rst:1455
-#: ../effects.rst:1762
+#: ../doc/effects.rst:1455
+#: ../doc/effects.rst:1762
 msgid "``(float, 0 to 1)`` Scaling factor in the Y direction for the tracked object box, relative to its original size"
 msgstr ""
 
-#: ../effects.rst:1456
-#: ../effects.rst:1763
+#: ../doc/effects.rst:1456
+#: ../doc/effects.rst:1763
 msgid "rotation"
 msgstr ""
 
-#: ../effects.rst:1456
-#: ../effects.rst:1763
+#: ../doc/effects.rst:1456
+#: ../doc/effects.rst:1763
 msgid "``(float, 0 to 360)`` Rotation angle of the tracked object box, in degrees"
 msgstr ""
 
-#: ../effects.rst:1457
-#: ../effects.rst:1764
+#: ../doc/effects.rst:1457
+#: ../doc/effects.rst:1764
 msgid "visible"
 msgstr ""
 
-#: ../effects.rst:1457
-#: ../effects.rst:1764
+#: ../doc/effects.rst:1457
+#: ../doc/effects.rst:1764
 msgid "``(bool)`` Is the tracked object box visible in the current frame. Read-only property."
 msgstr ""
 
-#: ../effects.rst:1458
-#: ../effects.rst:1765
+#: ../doc/effects.rst:1458
+#: ../doc/effects.rst:1765
 msgid "``(color)`` Color of the stroke (border) around the tracked object box"
 msgstr ""
 
-#: ../effects.rst:1459
-#: ../effects.rst:1766
+#: ../doc/effects.rst:1459
+#: ../doc/effects.rst:1766
 msgid "``(int, 1 to 10)`` Width of the stroke (border) around the tracked object box"
 msgstr ""
 
-#: ../effects.rst:1460
-#: ../effects.rst:1767
+#: ../doc/effects.rst:1460
+#: ../doc/effects.rst:1767
 msgid "``(float, 0 to 1)`` Opacity of the stroke (border) around the tracked object box"
 msgstr ""
 
-#: ../effects.rst:1461
-#: ../effects.rst:1768
+#: ../doc/effects.rst:1461
+#: ../doc/effects.rst:1768
 msgid "``(float, 0 to 1)`` Opacity of the background fill inside the tracked object box"
 msgstr ""
 
-#: ../effects.rst:1462
-#: ../effects.rst:1769
+#: ../doc/effects.rst:1462
+#: ../doc/effects.rst:1769
 msgid "``(int, 0 to 150)`` Radius of the corners for the background fill inside the tracked object box"
 msgstr ""
 
-#: ../effects.rst:1463
-#: ../effects.rst:1770
+#: ../doc/effects.rst:1463
+#: ../doc/effects.rst:1770
 msgid "``(color)`` Color of the background fill inside the tracked object box"
 msgstr ""
 
-#: ../effects.rst:1464
+#: ../doc/effects.rst:1464
 msgid "``(color)`` Color of the selected object's segmentation mask, when available"
 msgstr ""
 
-#: ../effects.rst:1465
+#: ../doc/effects.rst:1465
 msgid "``(float, 0 to 1)`` Opacity of the selected object's segmentation mask"
 msgstr ""
 
-#: ../effects.rst:1470
+#: ../doc/effects.rst:1470
 msgid "The Outline effect adds a customizable border around images or text within a video frame. It works by extracting the image’s alpha channel, blurring it to generate a smooth outline mask, and then combining this mask with a solid color layer. Users can adjust the outline’s width as well as its color components (red, green, blue) and transparency (alpha), allowing for a wide range of visual styles. This effect is ideal for emphasizing text, creating visual separation, and adding an artistic flair to your videos."
 msgstr ""
 
-#: ../effects.rst:1482
+#: ../doc/effects.rst:1482
 msgid "width"
 msgstr ""
 
-#: ../effects.rst:1482
+#: ../doc/effects.rst:1482
 msgid "``(float, 0 to 100)``   The width of the outline in pixels."
 msgstr ""
 
-#: ../effects.rst:1483
+#: ../doc/effects.rst:1483
 msgid "red"
 msgstr ""
 
-#: ../effects.rst:1483
+#: ../doc/effects.rst:1483
 msgid "``(float, 0 to 255)``   The red color component of the outline."
 msgstr ""
 
-#: ../effects.rst:1484
+#: ../doc/effects.rst:1484
 msgid "green"
 msgstr ""
 
-#: ../effects.rst:1484
+#: ../doc/effects.rst:1484
 msgid "``(float, 0 to 255)``   The green color component of the outline."
 msgstr ""
 
-#: ../effects.rst:1485
+#: ../doc/effects.rst:1485
 msgid "blue"
 msgstr ""
 
-#: ../effects.rst:1485
+#: ../doc/effects.rst:1485
 msgid "``(float, 0 to 255)``   The blue color component of the outline."
 msgstr ""
 
-#: ../effects.rst:1486
+#: ../doc/effects.rst:1486
 msgid "alpha"
 msgstr ""
 
-#: ../effects.rst:1486
+#: ../doc/effects.rst:1486
 msgid "``(float, 0 to 255)``   The transparency (alpha) value for the outline."
 msgstr ""
 
-#: ../effects.rst:1491
+#: ../doc/effects.rst:1491
 msgid "The Pixelate effect increases or decreases the size of the pixels in the video, creating a mosaic-like appearance. This can be used to obscure details (such as faces or license plates for privacy reasons), or as a stylistic effect to evoke a retro, digital, or abstract aesthetic."
 msgstr ""
 
-#: ../effects.rst:1503
+#: ../doc/effects.rst:1503
 msgid "pixelization"
 msgstr ""
 
-#: ../effects.rst:1503
+#: ../doc/effects.rst:1503
 msgid "``(float, 0 to 0.99)`` The curve to adjust the amount of pixelization"
 msgstr ""
 
-#: ../effects.rst:1510
+#: ../doc/effects.rst:1510
 msgid "The Sharpen effect enhances perceived detail by first blurring the frame slightly and then adding a scaled difference (the *un-sharp mask*) back on top. This boosts edge contrast, making textures and outlines appear crisper without changing overall brightness."
 msgstr ""
 
-#: ../effects.rst:1515
+#: ../doc/effects.rst:1515
 msgid "Modes"
 msgstr ""
 
-#: ../effects.rst:1517
+#: ../doc/effects.rst:1517
 msgid "**Unsharp** – Classic un-sharp mask: the edge detail is added back to the *original* frame. Produces the familiar punchy sharpen seen in photo editors."
 msgstr ""
 
-#: ../effects.rst:1520
+#: ../doc/effects.rst:1520
 msgid "**HighPass** – High-pass blend: the edge detail is added to the *blurred* frame, then the result replaces the original.  Gives a softer, more “contrasty” look and can rescue highlights that would otherwise clip."
 msgstr ""
 
-#: ../effects.rst:1524
+#: ../doc/effects.rst:1524
 msgid "Channels"
 msgstr ""
 
-#: ../effects.rst:1526
+#: ../doc/effects.rst:1526
 msgid "**All** – Apply the edge mask to the full RGB signal (strongest effect – colour and brightness sharpened)."
 msgstr ""
 
-#: ../effects.rst:1527
+#: ../doc/effects.rst:1527
 msgid "**Luma** – Apply only to luma (brightness).  Colours stay untouched, so chroma noise is not amplified."
 msgstr ""
 
-#: ../effects.rst:1528
+#: ../doc/effects.rst:1528
 msgid "**Chroma** – Apply only to the chroma (colour difference) channels.  Useful for gently reviving colour edges without changing perceived brightness."
 msgstr ""
 
-#: ../effects.rst:1540
+#: ../doc/effects.rst:1540
 msgid "``(float, 0 to 40)`` Strength multiplier / up to 100% edge boost"
 msgstr ""
 
-#: ../effects.rst:1541
+#: ../doc/effects.rst:1541
 msgid "radius"
 msgstr ""
 
-#: ../effects.rst:1541
+#: ../doc/effects.rst:1541
 msgid "``(float, 0 to 10)`` Blur radius in pixels at 720p (auto-scaled to clip size)"
 msgstr ""
 
-#: ../effects.rst:1542
+#: ../doc/effects.rst:1542
 msgid "``(float, 0 to 1)`` Minimum luma difference that will be sharpened"
 msgstr ""
 
-#: ../effects.rst:1543
+#: ../doc/effects.rst:1543
 msgid "``(int, choices: ['Unsharp', 'HighPass'])`` Math style of the sharpening mask"
 msgstr ""
 
-#: ../effects.rst:1544
+#: ../doc/effects.rst:1544
 msgid "channel"
 msgstr ""
 
-#: ../effects.rst:1544
+#: ../doc/effects.rst:1544
 msgid "``(int, choices: ['All', 'Luma', 'Chroma'])`` Which colour channels receive sharpening"
 msgstr ""
 
-#: ../effects.rst:1549
+#: ../doc/effects.rst:1549
 msgid "The Shadow effect creates a soft drop shadow from the clip's visible pixels. It uses the source alpha channel, blurs that silhouette, and offsets it by a distance and angle before drawing the original image on top. This is useful for giving text, logos, overlays, and cut-out subjects more separation from the background."
 msgstr ""
 
-#: ../effects.rst:1553
+#: ../doc/effects.rst:1553
 msgid "You can add Shadow from the :guilabel:`Effects` tab, or right-click a clip and choose :guilabel:`Look → Lighting → Shadow` to start with a preset: :guilabel:`Subtle` (a light near shadow), :guilabel:`Soft` (a diffused medium shadow), :guilabel:`Strong` (a bold, high-opacity shadow), or :guilabel:`Long` (a distant, elongated shadow). Presets only set the properties for you; all controls remain visible and editable."
 msgstr ""
 
-#: ../effects.rst:1565
+#: ../doc/effects.rst:1565
 msgid "``(float, 0 to 1)`` Overall shadow strength and transparency."
 msgstr ""
 
-#: ../effects.rst:1566
+#: ../doc/effects.rst:1566
 msgid "``(float, 0 to 100)`` Blur radius in pixels used to soften the shadow edges. Higher values produce softer, more diffused shadows."
 msgstr ""
 
-#: ../effects.rst:1567
+#: ../doc/effects.rst:1567
 msgid "``(float, 0 to 1)`` Expands and strengthens the source alpha before blurring for a fuller, heavier shadow shape."
 msgstr ""
 
-#: ../effects.rst:1568
+#: ../doc/effects.rst:1568
 msgid "distance"
 msgstr ""
 
-#: ../effects.rst:1568
+#: ../doc/effects.rst:1568
 msgid "``(float, -500 to 500)`` Offset distance of the shadow in pixels. Negative values move the shadow in the opposite direction."
 msgstr ""
 
-#: ../effects.rst:1569
+#: ../doc/effects.rst:1569
 msgid "angle"
 msgstr ""
 
-#: ../effects.rst:1569
+#: ../doc/effects.rst:1569
 msgid "``(float, -360 to 360)`` Direction of the shadow offset in degrees. 0° is right, 90° is down, 180° is left, 270° is up."
 msgstr ""
 
-#: ../effects.rst:1570
+#: ../doc/effects.rst:1570
 msgid "``(color)`` Shadow tint color, including alpha. The default is semi-transparent black."
 msgstr ""
 
-#: ../effects.rst:1575
+#: ../doc/effects.rst:1575
 msgid "The Shift effect moves the entire image in different directions (up, down, left, and right with infinite wrapping), creating a sense of motion or disorientation. This can be used for transitions, to simulate camera movement, or to add dynamic motion to static shots."
 msgstr ""
 
-#: ../effects.rst:1585
+#: ../doc/effects.rst:1585
 msgid "``(float, -1 to 1)`` Shift the X coordinates (left or right)"
 msgstr ""
 
-#: ../effects.rst:1586
+#: ../doc/effects.rst:1586
 msgid "``(float, -1 to 1)`` Shift the Y coordinates (up or down)"
 msgstr ""
 
-#: ../effects.rst:1592
+#: ../doc/effects.rst:1592
 msgid "The Spherical Projection effect flattens 360° or fisheye footage into a normal rectangular view, or generates fisheye output. Steer a virtual camera with yaw, pitch, and roll. Control the output view with FOV. Choose the input type (equirect or one of the fisheye models), pick a projection mode for the output, and select a sampling mode that balances quality and speed. This is ideal for keyframed “virtual camera” moves inside 360° clips and for converting circular fisheye shots."
 msgstr ""
 
-#: ../effects.rst:1603
+#: ../doc/effects.rst:1603
 msgid "yaw"
 msgstr ""
 
-#: ../effects.rst:1603
+#: ../doc/effects.rst:1603
 msgid "``(float, -180 to 180)`` Horizontal rotation around the up axis (degrees)."
 msgstr ""
 
-#: ../effects.rst:1605
+#: ../doc/effects.rst:1605
 msgid "pitch"
 msgstr ""
 
-#: ../effects.rst:1605
+#: ../doc/effects.rst:1605
 msgid "``(float, -180 to 180)`` Vertical rotation around the right axis (degrees)."
 msgstr ""
 
-#: ../effects.rst:1607
+#: ../doc/effects.rst:1607
 msgid "roll"
 msgstr ""
 
-#: ../effects.rst:1607
+#: ../doc/effects.rst:1607
 msgid "``(float, -180 to 180)`` Rotation around the forward axis (degrees)."
 msgstr ""
 
-#: ../effects.rst:1609
+#: ../doc/effects.rst:1609
 msgid "fov"
 msgstr ""
 
-#: ../effects.rst:1609
+#: ../doc/effects.rst:1609
 msgid "``(float, 0 to 179)`` **Out FOV.** Horizontal field of view of the virtual camera (degrees) for the output."
 msgstr ""
 
-#: ../effects.rst:1611
+#: ../doc/effects.rst:1611
 msgid "in_fov"
 msgstr ""
 
-#: ../effects.rst:1611
+#: ../doc/effects.rst:1611
 msgid "``(float, 1 to 360)`` **In FOV.** Total coverage of the source lens. Used when **Input Model = Fisheye** (typical value 180). Ignored for equirect sources."
 msgstr ""
 
-#: ../effects.rst:1613
+#: ../doc/effects.rst:1613
 msgid "projection_mode"
 msgstr ""
 
-#: ../effects.rst:1613
+#: ../doc/effects.rst:1613
 msgid "``(int)`` Output projection: **Sphere (0):** rectilinear output over the full sphere. **Hemisphere (1):** rectilinear output over a half sphere. **Fisheye: Equidistant (2)**, **Equisolid (3)**, **Stereographic (4)**, **Orthographic (5)**: circular fisheye output using the selected mapping."
 msgstr ""
 
-#: ../effects.rst:1618
+#: ../doc/effects.rst:1618
 msgid "input_model"
 msgstr ""
 
-#: ../effects.rst:1618
+#: ../doc/effects.rst:1618
 msgid "``(int)`` Source lens model: **Equirectangular (0)**, **Fisheye: Equidistant (1)**, **Fisheye: Equisolid (2)**, **Fisheye: Stereographic (3)**, **Fisheye: Orthographic (4)**."
 msgstr ""
 
-#: ../effects.rst:1621
+#: ../doc/effects.rst:1621
 msgid "``(int)`` Flip the view by 180° without mirroring. **Normal (0)**, **Invert (1)**. For equirect sources this behaves like a 180° yaw. For fisheye inputs it swaps front/back hemispheres."
 msgstr ""
 
-#: ../effects.rst:1624
+#: ../doc/effects.rst:1624
 msgid "interpolation"
 msgstr ""
 
-#: ../effects.rst:1624
+#: ../doc/effects.rst:1624
 msgid "``(int)`` Sampling method: **Nearest (0)**, **Bilinear (1)**, **Bicubic (2)**, **Auto (3)**. Auto picks Bilinear at ~1:1, Bicubic when upscaling, and a mipmapped Bilinear when downscaling."
 msgstr ""
 
-#: ../effects.rst:1631
+#: ../doc/effects.rst:1631
 msgid "**Flatten a fisheye clip to a normal view:** Set **Input Model** to the correct fisheye type, set **In FOV** to your lens coverage (often 180), choose **Projection Mode = Sphere** or **Hemisphere**, then frame with **Yaw/Pitch/Roll** and **Out FOV**."
 msgstr ""
 
-#: ../effects.rst:1633
+#: ../doc/effects.rst:1633
 msgid "**Reframe an equirect clip:** Set **Input Model = Equirectangular**, pick **Sphere** (full) or **Hemisphere** (front/back). **Invert** on equirect is equivalent to yaw +180 and does not mirror."
 msgstr ""
 
-#: ../effects.rst:1635
+#: ../doc/effects.rst:1635
 msgid "**Create a fisheye output:** Choose one of the **Fisheye** projection modes (2..5). **Out FOV** controls disk coverage (180 gives a classic circular fisheye)."
 msgstr ""
 
-#: ../effects.rst:1637
+#: ../doc/effects.rst:1637
 msgid "If the image looks mirrored, turn **Invert** off. If you need the back view on equirect, use **Invert** or add +180 to **Yaw**."
 msgstr ""
 
-#: ../effects.rst:1638
+#: ../doc/effects.rst:1638
 msgid "If the output looks soft or aliased, reduce **Out FOV** or increase export resolution. **Auto** interpolation adapts the filter to scaling."
 msgstr ""
 
-#: ../effects.rst:1642
+#: ../doc/effects.rst:1642
 msgid "The Stabilizer effect reduces unwanted shake and jitter in handheld or unstable video footage, resulting in smoother, more professional-looking shots. This is particularly useful for action scenes, handheld shots, or any footage where a tripod was not used."
 msgstr ""
 
-#: ../effects.rst:1652
+#: ../doc/effects.rst:1652
 msgid "zoom"
 msgstr ""
 
-#: ../effects.rst:1652
+#: ../doc/effects.rst:1652
 msgid "``(float, 0 to 2)`` Percentage to zoom into the clip, to crop off the shaking and uneven edges"
 msgstr ""
 
-#: ../effects.rst:1657
+#: ../doc/effects.rst:1657
 msgid "The Timer effect renders a styled time overlay on top of a clip. It can count up, count down, display a wall-clock style timer, show timecode, or show frame numbers. Use it for sports clips, tutorials, races, countdowns, progress timers, timecode burn-ins, or any clip that needs an on-screen timer."
 msgstr ""
 
-#: ../effects.rst:1661
+#: ../doc/effects.rst:1661
 msgid "By default, Timer uses :guilabel:`Source Time`, so speed changes and time keyframes on the parent clip also affect the timer. For example, if a clip is slowed down, the timer slows down with it. Switch to :guilabel:`Clip Time` when you want the timer to follow the clip's timeline position instead."
 msgstr ""
 
-#: ../effects.rst:1665
+#: ../doc/effects.rst:1665
 msgid "Use :guilabel:`Font Name`, :guilabel:`Font Size`, text color, stroke, and background controls to style the timer. Use :guilabel:`Gravity` to choose the starting position, then adjust :guilabel:`X Offset (%)` and :guilabel:`Y Offset (%)` to fine-tune the placement."
 msgstr ""
 
-#: ../effects.rst:1669
+#: ../doc/effects.rst:1669
 msgid ":guilabel:`Mode` controls what kind of timer is displayed."
 msgstr ""
 
-#: ../effects.rst:1670
+#: ../doc/effects.rst:1670
 msgid ":guilabel:`Countdown Duration` controls count-down length. Set it to ``0`` to count down from the clip's duration."
 msgstr ""
 
-#: ../effects.rst:1671
+#: ../doc/effects.rst:1671
 msgid ":guilabel:`Start Time` offsets count-up, clock, timecode, frame, and count-down values."
 msgstr ""
 
-#: ../effects.rst:1672
+#: ../doc/effects.rst:1672
 msgid ":guilabel:`Gravity` places the timer in one of nine positions on the frame."
 msgstr ""
 
-#: ../effects.rst:1673
+#: ../doc/effects.rst:1673
 msgid ":guilabel:`X Offset (%)` and :guilabel:`Y Offset (%)` move the timer by a percentage of the frame size."
 msgstr ""
 
-#: ../effects.rst:1674
+#: ../doc/effects.rst:1674
 msgid "Font, color, stroke, background, and opacity controls can be keyframed for animated timer styles."
 msgstr ""
 
-#: ../effects.rst:1682
+#: ../doc/effects.rst:1682
 msgid "``(color)`` Background box color behind the timer text."
 msgstr ""
 
-#: ../effects.rst:1683
+#: ../doc/effects.rst:1683
 msgid "``(float, 0 to 1)`` Background opacity."
 msgstr ""
 
-#: ../effects.rst:1684
+#: ../doc/effects.rst:1684
 msgid "``(float, 0 to 100)`` Background corner radius."
 msgstr ""
 
-#: ../effects.rst:1685
+#: ../doc/effects.rst:1685
 msgid "``(float, 0 to 100)`` Padding around the timer text."
 msgstr ""
 
-#: ../effects.rst:1686
+#: ../doc/effects.rst:1686
 msgid "clamp"
 msgstr ""
 
-#: ../effects.rst:1686
+#: ../doc/effects.rst:1686
 msgid "``(int, choices: ['Yes', 'No'])`` Clamp duration-style timer output at zero."
 msgstr ""
 
-#: ../effects.rst:1687
+#: ../doc/effects.rst:1687
 msgid "``(color)`` Timer text color."
 msgstr ""
 
-#: ../effects.rst:1688
+#: ../doc/effects.rst:1688
 msgid "end_time"
 msgstr ""
 
-#: ../effects.rst:1688
+#: ../doc/effects.rst:1688
 msgid "``(float, 0 to 86400)`` Countdown duration in seconds. Use ``0`` to count down from the clip duration."
 msgstr ""
 
-#: ../effects.rst:1689
+#: ../doc/effects.rst:1689
 msgid "``(float, 0 to 1)`` Timer text and stroke opacity."
 msgstr ""
 
-#: ../effects.rst:1690
+#: ../doc/effects.rst:1690
 msgid "font_name"
 msgstr ""
 
-#: ../effects.rst:1690
+#: ../doc/effects.rst:1690
 msgid "``(font)`` Font name or family name."
 msgstr ""
 
-#: ../effects.rst:1691
+#: ../doc/effects.rst:1691
 msgid "``(float, 1 to 300)`` Timer font size."
 msgstr ""
 
-#: ../effects.rst:1692
+#: ../doc/effects.rst:1692
 msgid "format"
 msgstr ""
 
-#: ../effects.rst:1692
+#: ../doc/effects.rst:1692
 msgid "``(int, choices: ['MM:SS', 'HH:MM:SS', 'HH:MM:SS.mmm', 'Timecode', 'Frames'])`` Timer display format."
 msgstr ""
 
-#: ../effects.rst:1693
+#: ../doc/effects.rst:1693
 msgid "gravity"
 msgstr ""
 
-#: ../effects.rst:1693
+#: ../doc/effects.rst:1693
 msgid "``(int, choices: ['Top Left', 'Top Center', 'Top Right', 'Left', 'Center', 'Right', 'Bottom Left', 'Bottom Center', 'Bottom Right'])`` Position of the timer on the frame."
 msgstr ""
 
-#: ../effects.rst:1694
+#: ../doc/effects.rst:1694
 msgid "``(int, choices: ['Count Up', 'Count Down', 'Clock', 'Timecode', 'Frame Number'])`` Timer mode."
 msgstr ""
 
-#: ../effects.rst:1695
+#: ../doc/effects.rst:1695
 msgid "prefix"
 msgstr ""
 
-#: ../effects.rst:1695
+#: ../doc/effects.rst:1695
 msgid "``(string)`` Text shown before the timer value."
 msgstr ""
 
-#: ../effects.rst:1696
+#: ../doc/effects.rst:1696
 msgid "show_background"
 msgstr ""
 
-#: ../effects.rst:1696
+#: ../doc/effects.rst:1696
 msgid "``(int, choices: ['Yes', 'No'])`` Show or hide the background box."
 msgstr ""
 
-#: ../effects.rst:1697
+#: ../doc/effects.rst:1697
 msgid "start_time"
 msgstr ""
 
-#: ../effects.rst:1697
+#: ../doc/effects.rst:1697
 msgid "``(float, -86400 to 86400)`` Starting offset in seconds."
 msgstr ""
 
-#: ../effects.rst:1698
+#: ../doc/effects.rst:1698
 msgid "``(color)`` Timer text border / stroke color."
 msgstr ""
 
-#: ../effects.rst:1699
+#: ../doc/effects.rst:1699
 msgid "``(float, 0 to 20)`` Width of the timer text border / stroke."
 msgstr ""
 
-#: ../effects.rst:1700
+#: ../doc/effects.rst:1700
 msgid "suffix"
 msgstr ""
 
-#: ../effects.rst:1700
+#: ../doc/effects.rst:1700
 msgid "``(string)`` Text shown after the timer value."
 msgstr ""
 
-#: ../effects.rst:1701
+#: ../doc/effects.rst:1701
 msgid "time_source"
 msgstr ""
 
-#: ../effects.rst:1701
+#: ../doc/effects.rst:1701
 msgid "``(int, choices: ['Clip Time', 'Source Time'])`` Choose whether the timer follows clip time or the clip's source-time keyframe curve."
 msgstr ""
 
-#: ../effects.rst:1702
+#: ../doc/effects.rst:1702
 msgid "x_offset"
 msgstr ""
 
-#: ../effects.rst:1702
+#: ../doc/effects.rst:1702
 msgid "``(float, -100 to 100)`` Horizontal offset as a percentage of frame width."
 msgstr ""
 
-#: ../effects.rst:1703
+#: ../doc/effects.rst:1703
 msgid "y_offset"
 msgstr ""
 
-#: ../effects.rst:1703
+#: ../doc/effects.rst:1703
 msgid "``(float, -100 to 100)`` Vertical offset as a percentage of frame height."
 msgstr ""
 
-#: ../effects.rst:1708
+#: ../doc/effects.rst:1708
 msgid "The Tracker effect allows for the tracking of a specific object or area within the video frame across multiple frames. This can be used for motion tracking, adding effects or annotations that follow the movement of objects, or for stabilizing footage based on a tracked point. When tracking an object, be sure to select the entire object, which is visible at the start of a clip, and choose one of the following ``Tracking Type`` algorithms. The tracking algorithm then follows this object from frame to frame, recording its position, scale, and sometimes rotation."
 msgstr ""
 
-#: ../effects.rst:1714
+#: ../doc/effects.rst:1714
 msgid "The tracked box can also be used as a live mask source for any other effect. For example, add a :guilabel:`Tracker` effect, draw a box around a face or license plate, add a :guilabel:`Blur` or :guilabel:`Pixelate` effect to the same clip, and set that effect's :guilabel:`Mask: Source` to the tracker. The blur or pixelation is then limited to the tracked box and updates in the video preview as you adjust it."
 msgstr ""
 
-#: ../effects.rst:1719
+#: ../doc/effects.rst:1719
 msgid "Tracker boxes are not limited to moving video. You can add a Tracker effect to a static photo, use its box as the :guilabel:`Mask: Source` for another effect, and keyframe the box position or size if the masked region should move over time. Select the Tracker effect, then use the video preview transform handles to move or resize the box; OpenShot updates the box properties such as ``x1``, ``y1``, ``x2``, and ``y2`` so the masked effect follows the adjusted region."
 msgstr ""
 
-#: ../effects.rst:1725
+#: ../doc/effects.rst:1725
 msgid "Tracking Type"
 msgstr ""
 
-#: ../effects.rst:1726
+#: ../doc/effects.rst:1726
 msgid "**KCF:** (default) A blend of Boosting and MIL strategies, employing correlation filters on overlapping areas from 'bags' to accurately track and predict object movement. It offers higher speed and accuracy and can stop tracking when the object is lost but struggles to resume tracking after losing the object."
 msgstr ""
 
-#: ../effects.rst:1727
+#: ../doc/effects.rst:1727
 msgid "**MIL:** Improves upon Boosting by considering multiple potential positives ('bags') around the definite positive object, increasing robustness to noise and maintaining good accuracy. However, it shares the Boosting Tracker's drawbacks of low speed and difficulty in stopping tracking when the object is lost."
 msgstr ""
 
-#: ../effects.rst:1728
+#: ../doc/effects.rst:1728
 msgid "**BOOSTING:** Utilizes the online AdaBoost algorithm to enhance the classification of tracked objects by focusing on incorrectly classified ones. It requires setting the initial frame and treats nearby objects as background, adjusting to new frames based on maximum score areas. It's known for accurate tracking but suffers from low speed, noise sensitivity, and difficulty stopping tracking upon object loss."
 msgstr ""
 
-#: ../effects.rst:1729
+#: ../doc/effects.rst:1729
 msgid "**TLD:** Decomposes tracking into tracking, learning, and detection phases, allowing for adaptation and correction over time. While it can handle object scaling and occlusions reasonably well, it may behave unpredictably, with instability in tracking and detection."
 msgstr ""
 
-#: ../effects.rst:1730
+#: ../doc/effects.rst:1730
 msgid "**MEDIANFLOW:** Based on the Lucas-Kanade method, it analyzes forward and backward movement to estimate trajectory errors for real-time position prediction. It's fast and accurate under certain conditions but can lose track of fast-moving objects."
 msgstr ""
 
-#: ../effects.rst:1731
+#: ../doc/effects.rst:1731
 msgid "**MOSSE:** Utilizes adaptive correlations in Fourier space to maintain robustness against lighting, scale, and pose changes. It boasts very high tracking speeds and is better at continuing tracking after loss, but it may persist in tracking an absent object."
 msgstr ""
 
-#: ../effects.rst:1732
+#: ../doc/effects.rst:1732
 msgid "**CSRT:** Employs spatial reliability maps to adjust filter support, enhancing the ability to track non-rectangular objects and perform well even with object overlaps. However, it is slower and may not operate reliably when the object is lost."
 msgstr ""
 
-#: ../effects.rst:1736
+#: ../doc/effects.rst:1736
 msgid "Once you have a tracked object, you can \"parent\" other :ref:`clips_ref` to it. This means that the second clip, which could be a graphic, text, or another video layer, will now follow the tracked object as if it's attached to it. If the tracked object moves to the left, the child clip moves to the left. If the tracked object grows in size (gets closer to the camera), the child clip also scales up. For parented clips to appear correctly, they must be on a Track higher than the tracked objects, and set the appropriate :ref:`clip_scale_ref` property."
 msgstr ""
 
-#: ../effects.rst:1753
+#: ../doc/effects.rst:1753
 msgid "``(int, choices: ['Yes', 'No'])`` Whether to draw the box around the tracked object"
 msgstr ""
 
-#: ../effects.rst:1775
+#: ../doc/effects.rst:1775
 msgid "The Wave effect distorts the image into a wave-like pattern, simulating effects like heat haze, water reflections, or other forms of distortion. The speed, amplitude, and direction of the waves can be adjusted."
 msgstr ""
 
-#: ../effects.rst:1784
+#: ../doc/effects.rst:1784
 msgid "amplitude"
 msgstr ""
 
-#: ../effects.rst:1784
+#: ../doc/effects.rst:1784
 msgid "``(float, 0 to 5)`` The height of the wave"
 msgstr ""
 
-#: ../effects.rst:1785
+#: ../doc/effects.rst:1785
 msgid "multiplier"
 msgstr ""
 
-#: ../effects.rst:1785
+#: ../doc/effects.rst:1785
 msgid "``(float, 0 to 10)`` Amount to multiply the wave (make it bigger)"
 msgstr ""
 
-#: ../effects.rst:1786
+#: ../doc/effects.rst:1786
 msgid "shift_x"
 msgstr ""
 
-#: ../effects.rst:1786
+#: ../doc/effects.rst:1786
 msgid "``(float, 0 to 1000)`` Amount to shift X-axis"
 msgstr ""
 
-#: ../effects.rst:1787
+#: ../doc/effects.rst:1787
 msgid "speed_y"
 msgstr ""
 
-#: ../effects.rst:1787
+#: ../doc/effects.rst:1787
 msgid "``(float, 0 to 300)`` Speed of the wave on the Y-axis"
 msgstr ""
 
-#: ../effects.rst:1788
+#: ../doc/effects.rst:1788
 msgid "wavelength"
 msgstr ""
 
-#: ../effects.rst:1788
+#: ../doc/effects.rst:1788
 msgid "``(float, 0 to 3)`` The length of the wave"
 msgstr ""
 
-#: ../effects.rst:1792
+#: ../doc/effects.rst:1792
 msgid "Audio Effects"
 msgstr ""
 
-#: ../effects.rst:1794
+#: ../doc/effects.rst:1794
 msgid "Audio effects modify the waveforms and audio sample data of a clip. Below is a list of audio effects, and their properties. Often it is best to experiment with an effect, entering different values into the properties, and observing the results."
 msgstr ""
 
-#: ../effects.rst:1800
+#: ../doc/effects.rst:1800
 msgid "The Compressor effect in audio processing reduces the dynamic range of the audio signal, making loud sounds quieter and quiet sounds louder. This creates a more consistent volume level, useful for balancing the loudness of different audio sources or for achieving a particular sound characteristic in music production."
 msgstr ""
 
-#: ../effects.rst:1810
-#: ../effects.rst:1880
+#: ../doc/effects.rst:1810
+#: ../doc/effects.rst:1880
 msgid "attack"
 msgstr ""
 
-#: ../effects.rst:1810
-#: ../effects.rst:1880
+#: ../doc/effects.rst:1810
+#: ../doc/effects.rst:1880
 msgid "``(float, 0.1 to 100)``"
 msgstr ""
 
-#: ../effects.rst:1811
-#: ../effects.rst:1881
+#: ../doc/effects.rst:1811
+#: ../doc/effects.rst:1881
 msgid "bypass"
 msgstr ""
 
-#: ../effects.rst:1811
-#: ../effects.rst:1881
+#: ../doc/effects.rst:1811
+#: ../doc/effects.rst:1881
 msgid "``(bool)``"
 msgstr ""
 
-#: ../effects.rst:1812
-#: ../effects.rst:1882
+#: ../doc/effects.rst:1812
+#: ../doc/effects.rst:1882
 msgid "makeup_gain"
 msgstr ""
 
-#: ../effects.rst:1812
-#: ../effects.rst:1882
+#: ../doc/effects.rst:1812
+#: ../doc/effects.rst:1882
 msgid "``(float, -12 to 12)``"
 msgstr ""
 
-#: ../effects.rst:1813
-#: ../effects.rst:1883
+#: ../doc/effects.rst:1813
+#: ../doc/effects.rst:1883
 msgid "ratio"
 msgstr ""
 
-#: ../effects.rst:1813
-#: ../effects.rst:1883
+#: ../doc/effects.rst:1813
+#: ../doc/effects.rst:1883
 msgid "``(float, 1 to 100)``"
 msgstr ""
 
-#: ../effects.rst:1814
-#: ../effects.rst:1884
+#: ../doc/effects.rst:1814
+#: ../doc/effects.rst:1884
 msgid "release"
 msgstr ""
 
-#: ../effects.rst:1814
-#: ../effects.rst:1884
+#: ../doc/effects.rst:1814
+#: ../doc/effects.rst:1884
 msgid "``(float, 10 to 1000)``"
 msgstr ""
 
-#: ../effects.rst:1815
-#: ../effects.rst:1885
+#: ../doc/effects.rst:1815
+#: ../doc/effects.rst:1885
 msgid "``(float, -60 to 0)``"
 msgstr ""
 
-#: ../effects.rst:1820
+#: ../doc/effects.rst:1820
 msgid "The Delay effect adds an echo to the audio signal, repeating the sound after a short delay. This can create a sense of space and depth in the audio, and is commonly used for creative effects in music, sound design, and audio post-production."
 msgstr ""
 
-#: ../effects.rst:1830
+#: ../doc/effects.rst:1830
 msgid "delay_time"
 msgstr ""
 
-#: ../effects.rst:1830
-#: ../effects.rst:1863
+#: ../doc/effects.rst:1830
+#: ../doc/effects.rst:1863
 msgid "``(float, 0 to 5)``"
 msgstr ""
 
-#: ../effects.rst:1835
+#: ../doc/effects.rst:1835
 msgid "The Distortion effect intentionally clips the audio signal, adding harmonic and non-harmonic overtones. This can create a gritty, aggressive sound characteristic of many electric guitar tones and is used for both musical and sound design purposes."
 msgstr ""
 
-#: ../effects.rst:1845
+#: ../doc/effects.rst:1845
 msgid "distortion_type"
 msgstr ""
 
-#: ../effects.rst:1845
+#: ../doc/effects.rst:1845
 msgid "``(int, choices: ['Hard Clipping', 'Soft Clipping', 'Exponential', 'Full Wave Rectifier', 'Half Wave Rectifier'])``"
 msgstr ""
 
-#: ../effects.rst:1846
+#: ../doc/effects.rst:1846
 msgid "input_gain"
 msgstr ""
 
-#: ../effects.rst:1846
-#: ../effects.rst:1847
-#: ../effects.rst:1848
-#: ../effects.rst:1917
+#: ../doc/effects.rst:1846
+#: ../doc/effects.rst:1847
+#: ../doc/effects.rst:1848
+#: ../doc/effects.rst:1917
 msgid "``(int, -24 to 24)``"
 msgstr ""
 
-#: ../effects.rst:1847
+#: ../doc/effects.rst:1847
 msgid "output_gain"
 msgstr ""
 
-#: ../effects.rst:1848
+#: ../doc/effects.rst:1848
 msgid "tone"
 msgstr ""
 
-#: ../effects.rst:1853
+#: ../doc/effects.rst:1853
 msgid "The Echo effect, similar to delay, repeats the audio signal at intervals, but with a focus on creating a distinct repetition of sound that mimics natural echoes. This can be used to simulate acoustic environments or for creative sound effects."
 msgstr ""
 
-#: ../effects.rst:1863
+#: ../doc/effects.rst:1863
 msgid "echo_time"
 msgstr ""
 
-#: ../effects.rst:1864
+#: ../doc/effects.rst:1864
 msgid "feedback"
 msgstr ""
 
-#: ../effects.rst:1864
-#: ../effects.rst:1865
+#: ../doc/effects.rst:1864
+#: ../doc/effects.rst:1865
 msgid "``(float, 0 to 1)``"
 msgstr ""
 
-#: ../effects.rst:1870
+#: ../doc/effects.rst:1870
 msgid "The Expander effect increases the dynamic range of audio, making quiet sounds quieter and leaving loud sounds unaffected. This is the opposite of compression and is used to reduce background noise or increase the dynamic impact of audio."
 msgstr ""
 
-#: ../effects.rst:1890
+#: ../doc/effects.rst:1890
 msgid "The Noise effect adds random, equal-intensity signals across the frequency spectrum to the audio, simulating the sound of white noise. This can be used for sound masking, as a component in sound design, or for testing and calibration purposes."
 msgstr ""
 
-#: ../effects.rst:1900
+#: ../doc/effects.rst:1900
 msgid "level"
 msgstr ""
 
-#: ../effects.rst:1900
+#: ../doc/effects.rst:1900
 msgid "``(int, 0 to 100)``"
 msgstr ""
 
-#: ../effects.rst:1905
+#: ../doc/effects.rst:1905
 msgid "The Parametric EQ (Equalizer) effect allows for precise adjustments to the volume level of specific frequency ranges in the audio signal. This can be used for corrective measures, such as removing unwanted tones, or creatively, to shape the tonal balance of the audio."
 msgstr ""
 
-#: ../effects.rst:1915
+#: ../doc/effects.rst:1915
 msgid "filter_type"
 msgstr ""
 
-#: ../effects.rst:1915
+#: ../doc/effects.rst:1915
 msgid "``(int, choices: ['Low Pass', 'High Pass', 'Low Shelf', 'High Shelf', 'Band Pass', 'Band Stop', 'Peaking Notch'])``"
 msgstr ""
 
-#: ../effects.rst:1916
+#: ../doc/effects.rst:1916
 msgid "frequency"
 msgstr ""
 
-#: ../effects.rst:1916
+#: ../doc/effects.rst:1916
 msgid "``(int, 20 to 20000)``"
 msgstr ""
 
-#: ../effects.rst:1917
+#: ../doc/effects.rst:1917
 msgid "gain"
 msgstr ""
 
-#: ../effects.rst:1918
+#: ../doc/effects.rst:1918
 msgid "q_factor"
 msgstr ""
 
-#: ../effects.rst:1918
+#: ../doc/effects.rst:1918
 msgid "``(float, 0 to 20)``"
 msgstr ""
 
-#: ../effects.rst:1923
+#: ../doc/effects.rst:1923
 msgid "The Robotization effect transforms the audio to sound mechanical or robotic, by applying a combination of pitch modulation and synthesis techniques. This effect is widely used for character voices in media, creative music production, and sound design."
 msgstr ""
 
-#: ../effects.rst:1933
-#: ../effects.rst:1950
+#: ../doc/effects.rst:1933
+#: ../doc/effects.rst:1950
 msgid "fft_size"
 msgstr ""
 
-#: ../effects.rst:1933
-#: ../effects.rst:1950
+#: ../doc/effects.rst:1933
+#: ../doc/effects.rst:1950
 msgid "``(int, choices: ['128', '256', '512', '1024', '2048'])``"
 msgstr ""
 
-#: ../effects.rst:1934
-#: ../effects.rst:1951
+#: ../doc/effects.rst:1934
+#: ../doc/effects.rst:1951
 msgid "hop_size"
 msgstr ""
 
-#: ../effects.rst:1934
-#: ../effects.rst:1951
+#: ../doc/effects.rst:1934
+#: ../doc/effects.rst:1951
 msgid "``(int, choices: ['1/2', '1/4', '1/8'])``"
 msgstr ""
 
-#: ../effects.rst:1935
-#: ../effects.rst:1952
+#: ../doc/effects.rst:1935
+#: ../doc/effects.rst:1952
 msgid "window_type"
 msgstr ""
 
-#: ../effects.rst:1935
-#: ../effects.rst:1952
+#: ../doc/effects.rst:1935
+#: ../doc/effects.rst:1952
 msgid "``(int, choices: ['Rectangular', 'Bart Lett', 'Hann', 'Hamming'])``"
 msgstr ""
 
-#: ../effects.rst:1940
+#: ../doc/effects.rst:1940
 msgid "The Whisperization effect transforms the audio to mimic a whispering voice, often by filtering out certain frequencies and adding noise. This can be used for artistic effects in music, sound design for film and video, or in audio storytelling to convey secrecy or intimacy."
 msgstr ""
 
-#: ../effects.rst:1955
+#: ../doc/effects.rst:1955
 msgid "For more info on key frames and animation, see :ref:`animation_ref`."
 msgstr ""

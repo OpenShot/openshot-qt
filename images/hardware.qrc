@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/hardware">
+        <file alias="cpu.svg">hardware-cpu.svg</file>
+        <file alias="gpu.svg">hardware-gpu.svg</file>
+    </qresource>
+</RCC>

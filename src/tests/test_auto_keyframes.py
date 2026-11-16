@@ -36,6 +36,8 @@ class AutoKeyframeTests(unittest.TestCase):
             window=types.SimpleNamespace(actionAutoKeyframes=self.action,
                                          refreshFrameSignal=Mock()))
         self.preview = types.SimpleNamespace(transaction_id="drag")
+        self.preview.updateClipProperties = types.MethodType(
+            video_widget.VideoWidget.updateClipProperties, self.preview)
         self.saved = {"rotation": curve((1, 0), (51, 20), (101, 90)),
                       "start": 2., "end": 4.04, "position": 10.}
 

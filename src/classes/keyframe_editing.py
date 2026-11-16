@@ -91,3 +91,41 @@ def remove_points_in_range(keyframe, frame_start, frame_end):
         p for p in keyframe["Points"]
         if not (frame_start <= p.get("co", {}).get("X", -1) <= frame_end)
     ]
+
+
+def is_keyframe_patch(values):
+    """Transient single-point edits; project files always retain full Points arrays."""
+    return isinstance(values, dict) and bool(values) and all(
+        isinstance(curve, dict) and set(curve) == {"Point"}
+        and isinstance(curve["Point"], dict)
+        and isinstance(curve["Point"].get("co"), dict)
+        and isinstance(curve["Point"]["co"].get("X"), (int, float))
+        and isinstance(curve["Point"]["co"].get("Y"), (int, float))
+        for curve in values.values())
+
+
+def apply_keyframe_patch(data, values, indexes):
+    """Apply drag samples without copying or scanning the preceding animation.
+
+    Indexes belong to one live edit and are discarded on a normal update.
+    Keep every matching point for compatibility with imported duplicate frames.
+    """
+    for name, patch in values.items():
+        points = data.setdefault(name, {"Points": []}).setdefault("Points", [])
+        key = (id(data), name)
+        cached = indexes.get(key)
+        if cached is None or cached[0] is not points or cached[1] != len(points):
+            by_frame = {}
+            for point in points:
+                by_frame.setdefault(point["co"]["X"], []).append(point)
+        else:
+            by_frame = cached[2]
+        point = deepcopy(patch["Point"])
+        frame = point["co"]["X"]
+        if frame in by_frame:
+            for previous in by_frame[frame]:
+                previous.update(deepcopy(point))
+        else:
+            points.append(point)
+            by_frame[frame] = [point]
+        indexes[key] = (points, len(points), by_frame)
