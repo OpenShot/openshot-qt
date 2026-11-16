@@ -1962,7 +1962,10 @@ of control points. It supports CPU and Vulkan rendering, with automatic CPU
 fallback when Vulkan is unavailable.
 
 Select the effect's badge on the timeline to display its mesh in the preview.
-Drag any of the 16 handles to reshape the image. The mesh follows the clip's
+Click a handle to select it, or drag a rectangle in empty preview space to select
+several handles. Selected handles are white. Drag any selected handle to move the
+selected group together. Click empty space to clear the selection.
+The mesh follows the clip's
 position, scale, rotation, and preview zoom. Points may be moved outside the
 image; pixels outside the output frame are clipped, and uncovered areas are
 transparent. Strong deformations can fold the mesh over itself.
@@ -1982,7 +1985,8 @@ Strength and point offsets support normal keyframe editing. With Auto Keyframes
 on, dragging a point records its position at the playhead. With it off, edits use
 the existing keyframe editing rules. Each drag is one undoable action.
 
-Right-click the preview for **Reset Selected Point** and **Reset Mesh**. These
-reset custom offsets using the current keyframe editing rules; they preserve the
-preset, strength, and other animation keys. Choose Custom to remove the base
-preset shape. Grid density is fixed so animated points retain their identity.
+Right-click the preview for **Reset Selected Points**, or **Reset All Points**
+when no handles are selected. Reset returns those handles to the regular,
+undeformed grid, including when a base shape preset is active. It follows the
+current keyframe editing rules and preserves other animation keys. Grid density
+is fixed so animated points retain their identity.
