@@ -401,6 +401,9 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         self._distort_marquee_rect = None
         self._distort_group_drag = {}
         self._distort_drag = None
+        self._live_transform_effects = {}
+        self._live_effect_indexes = {}
+        self._live_distort_preview = None
         self.transforming_effect = None
         self.transforming_clip_object = None
         self.transforming_effect_object = None
@@ -1147,10 +1150,15 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         # Timeline.GetClipEffect returns a SWIG EffectBase proxy, which exposes
         # virtual base methods but not Distort's MeshJSON. Evaluate a typed
         # snapshot of the live effect so presets and animated edits stay in sync.
-        distort = openshot.Distort()
-        distort.SetJson(self.transforming_effect_object.Json())
+        # During recording, keep a typed preview copy updated by small point
+        # patches instead of serializing all recorded curves on every paint.
+        distort = (getattr(self, "_live_distort_preview", None)
+                   if getattr(self, "mouse_pressed", False) else None)
+        if distort is None:
+            distort = openshot.Distort()
+            distort.SetJson(self.transforming_effect_object.Json())
         mesh = json.loads(distort.MeshJSON(frame, 36))
-        props = json.loads(self.transforming_effect_object.PropertiesJSON(frame))
+        props = json.loads(distort.PropertiesJSON(frame))
         focus = int(props["selected_point"]["value"])
         effect_id = self.transforming_effect_object.Id()
         if effect_id != getattr(self, "_distort_selection_effect_id", None):
@@ -1288,7 +1296,11 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             group = getattr(self, "_distort_group_drag", {})
             values = (VideoWidget._distort_group_offsets(group, position) if group
                       else self._distort_drag_offsets(drag, position))
-            self.updateEffectProperties(self.transforming_effect.id, drag[-1], None, values)
+            frame = drag[-1]
+            if getattr(self, "transforming_clip", None) is not None:
+                fps = get_app().project.get("fps")
+                frame = self._get_clip_frame_number(self.transforming_clip, fps["num"] / fps["den"])
+            self.updateEffectProperties(self.transforming_effect.id, frame, None, values)
         elif not self.mouse_pressed:
             self._distort_hover(position)
         self.update()
@@ -1424,6 +1436,9 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             get_app().updates.transaction_id = self.transaction_id
             self._live_transform_clips = {c.id: c for c in self.transforming_clips}
             self._live_transform_indexes = {}
+            self._live_transform_effects = {}
+            self._live_effect_indexes = {}
+            self._live_distort_preview = None
             if self.transform_mode == 'draw_margin_box' and self.transform:
                 self.margin_box_drag_anchor = self.transform.inverted()[0].map(event.pos())
         else:
@@ -1564,7 +1579,8 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             if VideoWidget._is_distort(self):
                 # Include point selection as well as both curves in the final action.
                 # Redo must restore the complete gesture, not just its last sample.
-                effect = Effect.get(id=self.transforming_effect.id)
+                effect = (getattr(self, "_live_transform_effects", {}).get(self.transforming_effect.id)
+                          or Effect.get(id=self.transforming_effect.id))
                 changed = {key: value for key, value in effect.data.items()
                            if self.original_effect_data.get(key) != value} if effect else {}
                 if changed:
@@ -1586,6 +1602,9 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         self._distort_drag = None
         self._live_transform_clips = {}
         self._live_transform_indexes = {}
+        self._live_transform_effects = {}
+        self._live_effect_indexes = {}
+        self._live_distort_preview = None
         timeline = getattr(getattr(get_app(), "window", None), "timeline", None)
         finish = getattr(timeline, "finish_live_transform", None)
         if callable(finish):
@@ -2632,9 +2651,52 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             {property_key: new_value},
             refresh=refresh)
 
+    def _update_live_distort_properties(self, effect_id, frame_number, values, refresh):
+        """Record small, constant-size samples using the clip transform path."""
+        app = get_app()
+        effects = getattr(self, "_live_transform_effects", {})
+        effect = effects.get(effect_id) or Effect.get(id=effect_id)
+        if not effect:
+            return
+        effects[effect_id] = effect
+        self._live_transform_effects = effects
+        preview = getattr(self, "_live_distort_preview", None)
+        if preview is None:
+            preview = openshot.Distort()
+            preview.SetJson(json.dumps(effect.data))
+            self._live_distort_preview = preview
+        auto = auto_keyframes_enabled(app.window)
+        patches = {}
+        for name, value in values.items():
+            if value is None:
+                continue
+            points = effect.data.get(name, {}).get("Points", [])
+            target = edit_frame(points, frame_number, auto)
+            point = {"co": {"X": target, "Y": float(value)}}
+            if auto:
+                point["interpolation"] = openshot.BEZIER
+            patches[name] = {"Point": point}
+        if not patches:
+            return
+        indexes = getattr(self, "_live_effect_indexes", {})
+        apply_keyframe_patch(effect.data, patches, indexes)
+        self._live_effect_indexes = indexes
+        preview.SetJson(json.dumps(patches))
+        app.updates.transaction_id = self.transaction_id
+        app.updates.update(effect.key, patches)
+        if refresh:
+            app.window.refreshFrameSignal.emit()
+
     def updateEffectProperties(self, effect_id, frame_number, obj_id, property_updates, refresh=True):
         """Update one or more effect keyframe properties in a single project update."""
         if not property_updates:
+            return
+
+        if (obj_id is None and getattr(self, "mouse_pressed", False)
+                and getattr(self, "transaction_id", None) and get_app().updates.ignore_history
+                and VideoWidget._is_distort(self) and self.transforming_effect.id == effect_id):
+            VideoWidget._update_live_distort_properties(
+                self, effect_id, max(1, int(round(frame_number))), property_updates, refresh)
             return
 
         c = Effect.get(id=effect_id)
@@ -3045,11 +3107,15 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             return
 
         action = getattr(get_app().updates, "last_action", None)
-        if (getattr(self, "_live_transform_clips", None)
+        if ((getattr(self, "_live_transform_clips", None)
+             or getattr(self, "_live_transform_effects", None))
                 and is_keyframe_patch(getattr(action, "values", None))):
             return
         self._live_transform_clips = {}
         self._live_transform_indexes = {}
+        self._live_transform_effects = {}
+        self._live_effect_indexes = {}
+        self._live_distort_preview = None
 
         # SWIG references do not keep timeline-owned objects alive. Undo/redo
         # can delete or replace them, so resolve both sides by their Python IDs.

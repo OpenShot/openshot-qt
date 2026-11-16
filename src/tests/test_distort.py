@@ -265,3 +265,93 @@ class DistortSelectionTests(unittest.TestCase):
             self.assertEqual(widget._distort_selected, {10})
         finally:
             painter.end()
+
+
+@unittest.skipUnless(hasattr(openshot, 'Distort'), 'Requires libopenshot Distort')
+class DistortLiveRecordingTests(unittest.TestCase):
+    def test_drag_records_current_playback_frames_on_trimmed_clip(self):
+        clip = types.SimpleNamespace(data={'start':2.0,'end':20.0,'position':10.0})
+        widget = types.SimpleNamespace(mouse_pressed=True, mouse_dragging=True, transform_mode='distort_5',
+            _distort_drag=(5,QPointF(),[0,0],1,QTransform(),(100,100),61),
+            transforming_clip=clip, transforming_effect=types.SimpleNamespace(id='effect'),
+            setCursor=Mock(), update=Mock(), updateEffectProperties=Mock(),
+            _distort_drag_offsets=VideoWidget._distort_drag_offsets)
+        widget._get_clip_frame_number = lambda clip,fps: VideoWidget._get_clip_frame_number(widget,clip,fps)
+        app = types.SimpleNamespace(project={'fps':{'num':30,'den':1}},
+            window=types.SimpleNamespace(preview_thread=types.SimpleNamespace(current_frame=301)))
+        with patch('windows.video_widget.get_app',return_value=app):
+            for frame in (301,302,304):
+                app.window.preview_thread.current_frame=frame
+                VideoWidget._move_distort(widget,QPointF(20,30))
+        self.assertEqual([c.args[1] for c in widget.updateEffectProperties.call_args_list],[61,62,64])
+
+    def make_live_effect(self, points):
+        native=openshot.Distort()
+        data=json.loads(native.Json())
+        data['point_5_x']={'Points':json.loads(json.dumps(points))}
+        data['point_5_y']={'Points':json.loads(json.dumps(points))}
+        effect=types.SimpleNamespace(id='effect',data=data,save=Mock(),
+            key=['clips',{'id':'clip'},'effects',{'id':'effect'}])
+        widget=types.SimpleNamespace(mouse_pressed=True,transaction_id='drag',
+            transforming_effect=types.SimpleNamespace(id='effect'),transforming_effect_object=native)
+        app=types.SimpleNamespace(updates=types.SimpleNamespace(ignore_history=True,update=Mock()),
+            window=types.SimpleNamespace(actionAutoKeyframes=None,refreshFrameSignal=Mock()))
+        return widget,effect,app
+
+    def test_live_effect_sends_small_patches_and_reuses_detached_data(self):
+        points=[{'co':{'X':frame,'Y':0.0},'interpolation':openshot.LINEAR} for frame in range(1,5001)]
+        widget,effect,app=self.make_live_effect(points)
+        with patch('windows.video_widget.get_app',return_value=app), \
+             patch('windows.video_widget.Effect.get',return_value=effect) as query:
+            for frame in (5001,5002,5002):
+                VideoWidget.updateEffectProperties(widget,'effect',frame,None,{'point_5_x':0.2,'point_5_y':0.3})
+        query.assert_called_once_with(id='effect')
+        effect.save.assert_not_called()
+        self.assertEqual(len(effect.data['point_5_x']['Points']),5002)
+        self.assertEqual(len(effect.data['point_5_y']['Points']),5002)
+        for call in app.updates.update.call_args_list:
+            self.assertLess(len(json.dumps(call.args)),350)
+            self.assertEqual(set(call.args[1]['point_5_x']),{'Point'})
+        self.assertAlmostEqual(json.loads(widget._live_distort_preview.PropertiesJSON(5002))['point_5_x']['value'],0.2)
+
+    def test_live_edit_respects_disabled_auto_keyframes(self):
+        points=[{'co':{'X':frame,'Y':0.0},'interpolation':openshot.LINEAR,
+                 'handle_left':{'X':0.2,'Y':0.3}} for frame in (1,50,100)]
+        widget,effect,app=self.make_live_effect(points)
+        app.window.actionAutoKeyframes=Mock()
+        app.window.actionAutoKeyframes.isChecked.return_value=False
+        with patch('windows.video_widget.get_app',return_value=app), \
+             patch('windows.video_widget.Effect.get',return_value=effect):
+            VideoWidget.updateEffectProperties(widget,'effect',80,None,{'point_5_x':0.2})
+        result=effect.data['point_5_x']['Points']
+        self.assertEqual(len(result),3)
+        self.assertEqual(result[1]['co'],{'X':50,'Y':0.2})
+        self.assertEqual(result[1]['interpolation'],openshot.LINEAR)
+        self.assertEqual(result[1]['handle_left'],{'X':0.2,'Y':0.3})
+        self.assertNotIn('interpolation',app.updates.update.call_args.args[1]['point_5_x']['Point'])
+
+    def test_overlay_uses_live_snapshot_without_serializing_native_curves(self):
+        native=Mock()
+        native.Id.return_value='effect'
+        native.Json.side_effect=AssertionError('Live overlay serialized the native effect')
+        native.PropertiesJSON.side_effect=AssertionError('Live overlay read native metadata')
+        widget=types.SimpleNamespace(mouse_pressed=True,_live_distort_preview=openshot.Distort(),
+            transforming_effect_object=native,transform=QTransform(),handle_opacity=1)
+        image=QImage(640,480,QImage.Format_ARGB32_Premultiplied)
+        image.fill(Qt.transparent)
+        painter=QPainter(image)
+        try:
+            VideoWidget._draw_distort_mesh(widget,painter,600,400,1)
+        finally:
+            painter.end()
+        self.assertEqual(len(widget._distort_handles),16)
+        native.Json.assert_not_called()
+
+    def test_point_patch_refresh_keeps_live_effect_cache(self):
+        effects={'effect':object()}
+        widget=types.SimpleNamespace(watch_project=True,_live_transform_effects=effects)
+        patch_data={'point_5_x':{'Point':{'co':{'X':12,'Y':0.2}}}}
+        app=types.SimpleNamespace(updates=types.SimpleNamespace(last_action=types.SimpleNamespace(values=patch_data)))
+        with patch('windows.video_widget.get_app',return_value=app):
+            VideoWidget.refreshTriggered(widget)
+        self.assertIs(widget._live_transform_effects,effects)

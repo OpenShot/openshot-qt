@@ -133,6 +133,62 @@ class ProjectDataTests(unittest.TestCase):
     def tearDown(self):
         ensure_app_state(self.app)
 
+    @unittest.skipUnless(hasattr(openshot, "Distort"), "Requires libopenshot Distort")
+    def test_live_distort_patches_record_native_frames_and_undo_as_one_drag(self):
+        from unittest.mock import Mock
+        from windows.video_widget import VideoWidget
+        from classes.query import Effect
+        manager = UpdateManager()
+        self.app.updates = manager
+        store = make_store()
+        self.app.project = store
+        reader = openshot.DummyReader(openshot.Fraction(30, 1), 64, 64, 48000, 2, 60.0)
+        clip = openshot.Clip(reader)
+        clip.Id("C1")
+        effect = openshot.Distort()
+        effect.Id("D1")
+        clip.AddEffect(effect)
+        original = json.loads(effect.Json())
+        store._data = {"clips": [json.loads(clip.Json())]}
+        native = openshot.Timeline(64, 64, openshot.Fraction(30, 1), 48000, 2, openshot.LAYOUT_STEREO)
+        native.AddClip(clip)
+        native.Open()
+        manager.add_listener(types.SimpleNamespace(changed=lambda action: native.ApplyJsonDiff(action.json(is_array=True))))
+        manager.add_listener(store)
+        selected = Effect.get(id="D1")
+        widget = types.SimpleNamespace(mouse_pressed=True, mouse_dragging=True, transaction_id="distort-drag",
+            transforming_effect=selected, transforming_effect_object=native.GetClipEffect("D1"),
+            original_effect_data=original, original_clip_data_map={}, transforming_clips=[],
+            region_enabled=False, _restore_transform_playback_cache=Mock(), setCursor=Mock())
+        manager.ignore_history = True
+        manager.transaction_id = widget.transaction_id
+        try:
+            for frame in range(11, 131):
+                VideoWidget.updateEffectProperties(widget, "D1", frame, None,
+                    {"point_5_x": frame/1000.0, "point_5_y": -frame/1000.0}, refresh=False)
+                self.assertLess(len(manager.last_action.json()), 400)
+            self.assertFalse(manager.actionHistory)
+            props = json.loads(native.GetClipEffect("D1").PropertiesJSON(80))
+            self.assertEqual(props["point_5_x"]["points"], 121)
+            self.assertAlmostEqual(props["point_5_x"]["value"], 0.08)
+            final = json.loads(json.dumps(store._data["clips"][0]["effects"][0]))
+            self.assertNotIn('"Point":', json.dumps(final))
+            VideoWidget.mouseReleaseEvent(widget, types.SimpleNamespace(accept=lambda: None))
+            self.assertEqual(len(manager.actionHistory), 1)
+            self.assertFalse(widget._live_transform_effects)
+            manager.undo()
+            self.assertEqual(store._data["clips"][0]["effects"][0], original)
+            props = json.loads(native.GetClipEffect("D1").PropertiesJSON(80))
+            self.assertEqual(props["point_5_x"]["points"], 1)
+            self.assertEqual(props["point_5_x"]["value"], 0)
+            manager.redo()
+            self.assertEqual(store._data["clips"][0]["effects"][0], final)
+            props = json.loads(native.GetClipEffect("D1").PropertiesJSON(80))
+            self.assertEqual(props["point_5_x"]["points"], 121)
+            self.assertAlmostEqual(props["point_5_y"]["value"], -0.08)
+        finally:
+            native.Close()
+
     def test_point_patches_commit_full_history_and_round_trip_undo(self):
         from classes.keyframe_editing import is_keyframe_patch
         manager = UpdateManager()

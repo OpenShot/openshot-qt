@@ -1824,6 +1824,9 @@ class PropertiesModel(updates.UpdateInterface):
             if timer is not None:
                 timer.stop()
         live_clips = getattr(preview, "_live_transform_clips", {}) if live_transform else {}
+        live_items = dict(live_clips)
+        if live_transform:
+            live_items.update(getattr(preview, "_live_transform_effects", {}))
         _ = app._tr
         refreshed = False
 
@@ -1850,7 +1853,7 @@ class PropertiesModel(updates.UpdateInterface):
                 self._edit_source_data = None
                 if len(self.selected) == 1 and not auto_keyframes_enabled(app.window):
                     getter = {"clip": Clip.get, "transition": Transition.get, "effect": Effect.get}.get(item_type)
-                    source = live_clips.get(c.Id()) or (getter(id=c.Id()) if getter else None)
+                    source = live_items.get(c.Id()) or (getter(id=c.Id()) if getter else None)
                     # Project curves are authoritative for edits. Serializing the
                     # whole native object here makes refresh cost grow with every keyframe.
                     data = getattr(source, "data", None)

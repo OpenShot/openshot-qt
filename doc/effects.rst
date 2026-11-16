@@ -1982,7 +1982,9 @@ The Properties dock provides these controls:
   as fractions of the image width and height, before Strength is applied.
 
 Strength and point offsets support normal keyframe editing. With Auto Keyframes
-on, dragging a point records its position at the playhead. With it off, edits use
+on, dragging a point during playback records positions at the advancing playhead,
+including when dragging a group. The preview uses incremental point updates so
+recording does not resend the whole animation on each mouse move. With it off, edits use
 the existing keyframe editing rules. Each drag is one undoable action.
 
 Right-click the preview for **Reset Selected Points**, or **Reset All Points**
