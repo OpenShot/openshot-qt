@@ -385,6 +385,7 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
 
     def clearTransformState(self):
         """Clear all transform-related state to avoid using invalid clip/effect objects"""
+        VideoWidget._finish_source_transform(self)
         self._restore_transform_playback_cache()
         self.mouse_pressed = False
         self.mouse_dragging = False
@@ -1207,12 +1208,40 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             get_app().updates.transaction_id = self.transaction_id
             self._live_transform_clips = {c.id: c for c in self.transforming_clips}
             self._live_transform_indexes = {}
+            VideoWidget._begin_source_transform(self)
             if self.transform_mode == 'draw_margin_box' and self.transform:
                 self.margin_box_drag_anchor = self.transform.inverted()[0].map(event.pos())
         else:
             self.transaction_id = None
             self.original_clip_data_map = {}
             self.original_effect_data = None
+
+    def _begin_source_transform(self):
+        window = getattr(get_app(), "window", None)
+        native = getattr(getattr(window, "timeline_sync", None), "timeline", None)
+        begin = getattr(native, "BeginClipTransform", None)
+        if not callable(begin):
+            return
+        self._source_transform_timeline = native
+        self._source_transform_ids = [clip.id for clip in self.transforming_clips]
+        for clip_id in self._source_transform_ids:
+            begin(clip_id)
+
+    def _finish_source_transform(self):
+        native = getattr(self, "_source_transform_timeline", None)
+        clip_ids = getattr(self, "_source_transform_ids", [])
+        self._source_transform_timeline = None
+        self._source_transform_ids = []
+        finish = getattr(native, "EndClipTransform", None)
+        if not callable(finish):
+            return
+        refined = False
+        for clip_id in clip_ids:
+            refined = finish(clip_id) or refined
+        window = getattr(get_app(), "window", None)
+        refresh = getattr(window, "refreshFrameSignal", None)
+        if refined and refresh is not None:
+            refresh.emit()
 
     def _restore_transform_playback_cache(self):
         previous = getattr(self, "_transform_playback_cache_state", None)
@@ -1352,6 +1381,7 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         finish = getattr(timeline, "finish_live_transform", None)
         if callable(finish):
             finish()
+        VideoWidget._finish_source_transform(self)
         self._restore_transform_playback_cache()
         self.setCursor(Qt.ArrowCursor)
 
