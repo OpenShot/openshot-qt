@@ -6,6 +6,7 @@
 import copy
 import json
 import os
+import re
 
 from classes import info
 from classes.logger import log
@@ -136,6 +137,10 @@ KNOWN_NODE_TYPES = {
     "openshotdeepfilternetdenoiseaudio",
     "openshotlavasrspeechclarity",
 }
+
+
+EXTRA_INPUT_TYPES = {"image", "video", "audio", "text", "choice"}
+EXTRA_INPUT_KEY_PATTERN = re.compile(r"^[a-z0-9_]+$")
 
 
 class ComfyTemplateRegistry:
@@ -273,6 +278,7 @@ class ComfyTemplateRegistry:
         override_icon = str(payload.get("action_icon") or payload.get("icon") or "").strip()
         override_open_dialog = payload.get("open_dialog", None)
         needs_reference_image = bool(payload.get("needs_reference_image", False))
+        extra_inputs = self._parse_extra_inputs(payload, path, needs_reference_image)
 
         inferred_category = "unknown"
         requires_source = bool(input_types)
@@ -334,7 +340,110 @@ class ComfyTemplateRegistry:
             "open_dialog": open_dialog,
             "menu_parent": override_menu_parent,
             "needs_reference_image": needs_reference_image,
+            "extra_inputs": extra_inputs,
+            "default_prompt": str(payload.get("default_prompt") or "").strip(),
         }
+
+    def _parse_extra_inputs(self, payload, path, needs_reference_image):
+        """Parse and normalize the optional "extra_inputs" template key.
+
+        Each entry declares one additional input the Generate dialog should collect:
+        an "image"/"video"/"audio" file (picked from Project Files, same as the existing
+        reference-image combo) or free-form "text". Invalid entries are skipped with a
+        warning rather than failing the whole template.
+
+        Backward compatible with the older, single-purpose "needs_reference_image" flag:
+        if set and no entry already declares key "reference_image", one is synthesized
+        so existing templates (e.g. video2video-basic.json) keep working unchanged.
+        """
+        raw_entries = payload.get("extra_inputs")
+        if raw_entries is None:
+            raw_entries = []
+        elif not isinstance(raw_entries, list):
+            log.warning(
+                "ComfyUI template has invalid extra_inputs (%s): must be a list, got %s",
+                os.path.basename(path), type(raw_entries).__name__,
+            )
+            raw_entries = []
+
+        parsed = []
+        seen_keys = set()
+        for entry in raw_entries:
+            if not isinstance(entry, dict):
+                log.warning(
+                    "ComfyUI template has invalid extra_inputs entry (%s): not an object: %r",
+                    os.path.basename(path), entry,
+                )
+                continue
+
+            key = str(entry.get("key", "")).strip()
+            if not key or not EXTRA_INPUT_KEY_PATTERN.match(key):
+                log.warning(
+                    "ComfyUI template has invalid extra_inputs entry (%s): "
+                    "key must match [a-z0-9_]+, got %r",
+                    os.path.basename(path), key,
+                )
+                continue
+            if key in seen_keys:
+                log.warning(
+                    "ComfyUI template has duplicate extra_inputs key (%s): %r",
+                    os.path.basename(path), key,
+                )
+                continue
+
+            entry_type = str(entry.get("type", "")).strip().lower()
+            if entry_type not in EXTRA_INPUT_TYPES:
+                log.warning(
+                    "ComfyUI template has invalid extra_inputs entry (%s): "
+                    "type must be one of %s, got %r",
+                    os.path.basename(path), sorted(EXTRA_INPUT_TYPES), entry_type,
+                )
+                continue
+
+            label = str(entry.get("label", "")).strip()
+            if not label:
+                label = key.replace("_", " ").strip().capitalize()
+
+            required = entry.get("required", True)
+            if not isinstance(required, bool):
+                required = True
+
+            if entry_type == "choice":
+                raw_choices = entry.get("choices")
+                choices = [
+                    str(c).strip() for c in raw_choices
+                ] if isinstance(raw_choices, list) else []
+                choices = [c for c in choices if c]
+                if not choices:
+                    log.warning(
+                        "ComfyUI template has invalid extra_inputs entry (%s): "
+                        "type 'choice' requires a non-empty 'choices' list, got %r",
+                        os.path.basename(path), raw_choices,
+                    )
+                    continue
+
+            seen_keys.add(key)
+            parsed_entry = {"key": key, "type": entry_type, "label": label, "required": required}
+            if entry_type == "text":
+                default_value = entry.get("default")
+                if isinstance(default_value, str) and default_value:
+                    parsed_entry["default"] = default_value
+            elif entry_type == "choice":
+                parsed_entry["choices"] = choices
+                default_value = entry.get("default")
+                if isinstance(default_value, str) and default_value in choices:
+                    parsed_entry["default"] = default_value
+            parsed.append(parsed_entry)
+
+        if needs_reference_image and "reference_image" not in seen_keys:
+            parsed.insert(0, {
+                "key": "reference_image",
+                "type": "image",
+                "label": "Reference image",
+                "required": True,
+            })
+
+        return parsed
 
     def _primary_output_type(self, output_types):
         if "video" in output_types:
