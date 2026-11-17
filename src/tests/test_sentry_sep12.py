@@ -1,3 +1,21 @@
+# Copyright (c) 2026 OpenShot Studios, LLC
+# This file is part of OpenShot Video Editor (https://www.openshot.org).
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# OpenShot Video Editor is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# OpenShot Video Editor is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with OpenShot Video Editor. If not, see <https://www.gnu.org/licenses/>.
+
+
 """Regression coverage for the September 12 Sentry fixes."""
 
 import copy
@@ -88,7 +106,7 @@ class SentrySeptemberTests(unittest.TestCase):
 
     def test_failed_asset_creation_aborts_save_before_mutating_project(self):
         store = make_store()
-        store._data = {"clips": [], "files": []}
+        store._data = {"clips": [], "files": [], "layers": []}
         store.current_filepath = "original.osp"
         store.has_unsaved_changes = True
         original = copy.deepcopy(store._data)

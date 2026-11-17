@@ -1,3 +1,21 @@
+# Copyright (c) 2026 OpenShot Studios, LLC
+# This file is part of OpenShot Video Editor (https://www.openshot.org).
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# OpenShot Video Editor is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# OpenShot Video Editor is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with OpenShot Video Editor. If not, see <https://www.gnu.org/licenses/>.
+
+
 """Regression coverage for unsaved asset locations and external title scratch files."""
 import copy
 import json
@@ -144,7 +162,7 @@ class AssetLocationTests(unittest.TestCase):
         store._data = data
         self.app.window = types.SimpleNamespace(actionClearWaveformData=DummyAction())
         self.app.updates = types.SimpleNamespace(load=Mock())
-        defaults = {'files': [], 'clips': [], 'effects': [], 'history': {'undo': [], 'redo': []}}
+        defaults = {'files': [], 'clips': [], 'layers': [], 'effects': [], 'history': {'undo': [], 'redo': []}}
         with ExitStack() as stack:
             def new():
                 info.reset_userdirs()
@@ -168,9 +186,12 @@ class AssetLocationTests(unittest.TestCase):
         store = make_store()
         store._data = {
             'files': [{'id': str(i), 'path': str(p)} for i, p in enumerate((title, frame, recording))],
-            'clips': [{'id': 'C'+str(i), 'file_id': str(i), 'reader': {'path': str(p)}, 'effects': []}
+            'clips': [{'id': 'C'+str(i), 'file_id': str(i),
+                       'position': 0, 'start': 0, 'end': 10, 'layer': 1000000,
+                       'reader': {'path': str(p), 'type': 'FFmpegReader' if p.suffix == '.wav' else 'QtImageReader'},
+                       'effects': []}
                       for i, p in enumerate((title, frame, recording))],
-            'effects': [],
+            'layers': [], 'effects': [],
             'history': {'undo': [{'key': ['files'], 'value': {'path': str(title)}}],
                         'redo': [{'key': ['files'], 'value': {'path': str(frame)}}]},
         }
@@ -207,7 +228,7 @@ class AssetLocationTests(unittest.TestCase):
                 title = old_root / 'title' / 'recovered.svg'
                 title.write_text('<svg/>')
                 store = make_store()
-                store._data = {'files': [{'id': 'T', 'path': str(title)}], 'clips': [], 'effects': []}
+                store._data = {'files': [{'id': 'T', 'path': str(title)}], 'clips': [], 'layers': [], 'effects': []}
                 store.save(info.BACKUP_FILE, backup_only=True)
                 self.assertTrue(title.exists())
                 self.assertNotIn('runtime_assets_path', store._data)
@@ -234,7 +255,7 @@ class AssetLocationTests(unittest.TestCase):
         recording.parent.mkdir(parents=True)
         recording.write_bytes(b'voice')
         store = make_store()
-        store._data = {'files': [{'id': 'R', 'path': str(recording)}], 'clips': [], 'effects': []}
+        store._data = {'files': [{'id': 'R', 'path': str(recording)}], 'clips': [], 'layers': [], 'effects': []}
         store.save(info.BACKUP_FILE, backup_only=True)
         self._load_project(store, info.BACKUP_FILE, recovery=True)
         store.current_filepath = None
