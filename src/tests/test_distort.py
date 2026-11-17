@@ -285,6 +285,26 @@ class DistortLiveRecordingTests(unittest.TestCase):
                 VideoWidget._move_distort(widget,QPointF(20,30))
         self.assertEqual([c.args[1] for c in widget.updateEffectProperties.call_args_list],[61,62,64])
 
+    @unittest.skipUnless(hasattr(openshot, 'Distort'), 'Requires libopenshot Distort')
+    def test_modifier_click_toggles_edge_points_without_editing_history(self):
+        effect = openshot.Distort()
+        for modifier in (Qt.ControlModifier, Qt.ShiftModifier):
+            with self.subTest(modifier=modifier):
+                widget = types.SimpleNamespace(
+                    transforming_effect_object=effect, region_enabled=False,
+                    transforming_effect=types.SimpleNamespace(id='effect'),
+                    hover_transform_mode='distort_0', _distort_selected={15},
+                    _distort_hover=Mock(), update=Mock(), mouse_pressed=False)
+                event = types.SimpleNamespace(accept=Mock(), button=lambda: Qt.LeftButton,
+                    pos=lambda: QPointF(0, 0), modifiers=lambda: modifier)
+                with patch('windows.video_widget.get_app') as app:
+                    VideoWidget.mousePressEvent(widget, event)
+                    self.assertEqual(widget._distort_selected, {0, 15})
+                    self.assertFalse(widget.mouse_pressed)
+                    VideoWidget.mousePressEvent(widget, event)
+                    self.assertEqual(widget._distort_selected, {15})
+                    app.assert_not_called()
+
     def make_live_effect(self, points):
         native=openshot.Distort()
         data=json.loads(native.Json())

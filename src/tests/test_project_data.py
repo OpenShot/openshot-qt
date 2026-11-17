@@ -42,7 +42,7 @@ PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 if PATH not in sys.path:
     sys.path.append(PATH)
 
-from qt_api import QApplication
+from qt_api import QApplication, QPointF, Qt
 
 from classes.project_data import ProjectDataStore
 from classes.json_data import JsonDataStore
@@ -185,6 +185,33 @@ class ProjectDataTests(unittest.TestCase):
             props = json.loads(native.GetClipEffect("D1").PropertiesJSON(80))
             self.assertEqual(props["point_5_x"]["points"], 121)
             self.assertAlmostEqual(props["point_5_y"]["value"], -0.08)
+
+            # A new drag must capture the current effect, even if the preview's
+            # selection object has not been rebound since the previous gesture.
+            widget._is_playing = lambda: False
+            widget._distort_hover = Mock()
+            widget._begin_distort_drag = Mock()
+            widget.hover_transform_mode = "distort_6"
+            widget.hover_cursor = Qt.OpenHandCursor
+            event = types.SimpleNamespace(accept=Mock(), button=lambda: Qt.LeftButton,
+                                          pos=lambda: QPointF(20, 20),
+                                          modifiers=lambda: Qt.NoModifier)
+            VideoWidget.mousePressEvent(widget, event)
+            VideoWidget.updateEffectProperties(widget, "D1", 80, None,
+                                               {"point_6_x": 0.25}, refresh=False)
+            VideoWidget.mouseReleaseEvent(widget, event)
+            self.assertEqual(len(manager.actionHistory), 2)
+            self.assertNotEqual(manager.actionHistory[0].transaction,
+                                manager.actionHistory[1].transaction)
+            second_final = copy.deepcopy(store._data["clips"][0]["effects"][0])
+            manager.undo()
+            self.assertEqual(store._data["clips"][0]["effects"][0], final)
+            manager.undo()
+            self.assertEqual(store._data["clips"][0]["effects"][0], original)
+            manager.redo()
+            self.assertEqual(store._data["clips"][0]["effects"][0], final)
+            manager.redo()
+            self.assertEqual(store._data["clips"][0]["effects"][0], second_final)
         finally:
             native.Close()
 

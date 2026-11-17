@@ -1225,7 +1225,9 @@ Start shaping an image
 
 To move several points together, drag a selection rectangle from empty preview
 space around the points you want. Selected points turn white. Drag any selected
-point to move the group. Click empty space to clear the selection.
+point to move the group. Hold :kbd:`Ctrl` or :kbd:`Shift` and click a point to add
+it to or remove it from the selection. This also works for points at the edges
+of the preview, without zooming out. Click empty space to clear the selection.
 
 Points can move beyond the image edges. Areas left uncovered become transparent,
 and anything moved outside the video frame is cut off. For a smooth, recognizable
@@ -1270,7 +1272,10 @@ icons appear on the clip while you move, giving you feedback that your animation
 is being recorded. Each drag can be undone in one step. With Auto Keyframes off,
 your edits adjust the existing keyframe at or before the playhead instead.
 
-For ready-made animations, right-click the clip and use :guilabel:`Motion`:
+For ready-made animations, right-click the **clip on the timeline**, then open
+:guilabel:`Motion → In`, :guilabel:`Motion → Out`, or :guilabel:`Motion → Emphasis`.
+The preview right-click menu contains the point reset commands; the animations
+are in the clip menu:
 
 - **Lens Resolve In / Lens Resolve Out**: A curved, lens-like image settles into place or bends away.
 - **Ribbon In / Ribbon Out**: A compressed, curved image opens out or folds away.

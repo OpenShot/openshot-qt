@@ -656,6 +656,14 @@ class TimelineHelperTests(unittest.TestCase):
                             actions = [a for a in menu.actions() if not a.isSeparator()]
                             labels = {a.text() for a in actions}
                             self.assertTrue({"Copy", "Properties", "Remove " + kind} <= labels)
+                            if kind == "Clip" and hasattr(openshot, "Distort"):
+                                motion = next(a.menu() for a in actions if a.text() == "Motion")
+                                zones = {a.text(): a.menu() for a in motion.actions() if a.menu()}
+                                for zone in ("In", "Out"):
+                                    names = {a.text() for a in zones[zone].actions()}
+                                    self.assertTrue({name + " " + zone for name in
+                                                     ("Lens Resolve", "Ribbon", "Wave")} <= names)
+                                self.assertIn("Wave Pass", {a.text() for a in zones["Emphasis"].actions()})
                             if kind != "Effect":
                                 self.assertTrue({"Cut", "Paste", "Slice"} <= labels)
                             for action in actions:

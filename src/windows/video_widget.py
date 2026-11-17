@@ -1329,6 +1329,14 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             if event.button() != Qt.LeftButton:
                 return
             self._distort_hover(event.pos())
+            mode = self.hover_transform_mode
+            modifiers = event.modifiers()
+            if (mode and (modifiers_has(modifiers, Qt.ControlModifier)
+                          or modifiers_has(modifiers, Qt.ShiftModifier))):
+                index = int(mode.split("_")[1])
+                self._distort_selected = set(getattr(self, "_distort_selected", set())) ^ {index}
+                self.update()
+                return
         self.mouse_pressed = True
         self.mouse_dragging = False
         self.mouse_position = event.pos()
@@ -1433,7 +1441,12 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         if self.transforming_clips or self.transforming_effect:
             self.transaction_id = str(uuid.uuid4())
             self.original_clip_data_map = {c.id: json.loads(json.dumps(c.data)) for c in self.transforming_clips} if self.transforming_clips else {}
-            self.original_effect_data = json.loads(json.dumps(self.transforming_effect.data)) if self.transforming_effect else None
+            # The preview selection can lag behind live edits. Undo must start
+            # from the current project state, not a previous drag's snapshot.
+            effect = self.transforming_effect
+            if VideoWidget._is_distort(self):
+                effect = Effect.get(id=effect.id) or effect
+            self.original_effect_data = json.loads(json.dumps(effect.data)) if effect else None
             get_app().updates.transaction_id = self.transaction_id
             self._live_transform_clips = {c.id: c for c in self.transforming_clips}
             self._live_transform_indexes = {}

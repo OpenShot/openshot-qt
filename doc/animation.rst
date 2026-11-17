@@ -127,7 +127,8 @@ and drag its grid points. Start playback, then drag to record your changes at
 the moving playhead. Keyframe icons appear on the clip as you work.
 
 Stop playback to review the result and adjust its timing. With Distort, you can
-select several grid points with a rectangle and animate them together. To return
+select several grid points with a rectangle, or hold :kbd:`Ctrl` or :kbd:`Shift`
+and click points to change the selection, then animate them together. To return
 points to their normal positions, right-click the preview and choose
 :guilabel:`Reset Selected Points`, or clear the selection and choose
 :guilabel:`Reset All Points`.
