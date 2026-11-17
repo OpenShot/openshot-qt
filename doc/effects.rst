@@ -98,7 +98,7 @@ Keyframes off change the keyframe at or before the playhead.
 
 List of Effects
 ---------------
-OpenShot Video Editor has a total of 44 built-in video and audio effects: 35 video effects and 9 audio effects.
+OpenShot Video Editor has a total of 45 built-in video and audio effects: 35 video effects and 10 audio effects.
 These effects can be added to a clip by dragging the effect onto a clip. The following table contains
 the name and short description of each effect.
 
@@ -270,6 +270,10 @@ the name and short description of each effect.
    :width: 50px
    :alt: Parametric EQ Icon
 
+.. |pitchshift_icon| image:: ../src/effects/icons/pitchshift@2x.png
+   :width: 50px
+   :alt: Pitch Shift Icon
+
 .. |robotization_icon| image:: ../src/effects/icons/robotization@2x.png
    :width: 50px
    :alt: Robotization Icon
@@ -317,6 +321,7 @@ the name and short description of each effect.
    |objectmask_icon|           Object Mask                   Select and follow a subject with a detailed animated mask.
    |outline_icon|              Outline                       Add outline around any image or text.
    |parametriceq_icon|         Parametric EQ                 Adjust frequency volume in audio.
+   |pitchshift_icon|           Pitch Shift                   Raise or lower pitch without changing duration.
    |pixelate_icon|             Pixelate                      Increase or decrease visible pixels.
    |robotization_icon|         Robotization                  Transform audio into robotic voice.
    |shadow_icon|               Shadow                        Add a soft drop shadow behind visible pixels.
@@ -2001,6 +2006,50 @@ shape the tonal balance of the audio.
    frequency                   ``(int, 20 to 20000)``
    gain                        ``(int, -24 to 24)``
    q_factor                    ``(float, 0 to 20)``
+   ==========================  ============
+
+.. _pitch_shift_effect:
+
+Pitch Shift
+"""""""""""
+The Pitch Shift effect raises or lowers audio pitch without changing playback speed or clip duration.
+Drag **Pitch Shift** from the **Audio** effects onto a clip, then select its effect badge to edit
+its properties. Start with a small change, such as ``-3`` or ``+3`` semitones, and preview the result.
+
+**Pitch (semitones)** controls how far to raise or lower the pitch. ``+12`` raises it one octave;
+``-12`` lowers it one octave. Fractional values provide fine tuning: ``0.25`` is 25 cents
+(one quarter of a semitone). The default value of ``0`` leaves the audio unchanged.
+
+**Mix** blends the original audio with the shifted audio. The default, ``1``, plays only the
+shifted audio; ``0`` plays only the original. Try ``0.5`` with a small pitch shift for doubling,
+or with a musical interval, such as ``+7``, to blend in a harmony. Mix does not change the pitch
+interval itself.
+
+**Preserve Formants** helps voices retain their natural character and is **On** by default.
+Turn it **Off** for exaggerated character voices. Large pitch shifts can still sound artificial.
+**Quality** balances processing speed and audio quality: start with **Balanced**,
+use **Fast** on slower computers, and try **High** for demanding material. Quality and formant
+preservation apply to the whole effect and do not support keyframes.
+
+Pitch and Mix support **Linear**, **Bézier**, and **Constant** keyframes. Linear pitch keyframes
+produce a steady musical glide; Bézier curves ease the change; Constant keyframes produce stepped
+changes. For example, animate Pitch from ``0`` to ``12`` to rise one octave, or animate Mix from
+``0`` to ``1`` to gradually introduce a fixed pitch shift. See :ref:`animation_ref` for keyframe editing.
+
+Processing delay is compensated to keep audio synchronized with video. After a seek, the effect
+reconstructs recent audio history using a bounded pre-roll. Long delay or feedback histories in
+earlier effects can therefore differ from uninterrupted playback.
+
+.. table::
+   :widths: 26 80
+
+   ==========================  ============
+   Property Name               Description
+   ==========================  ============
+   pitch                       ``(float, -24 to 24)`` Semitones; default ``0``. Supports keyframes.
+   mix                         ``(float, 0 to 1)`` Shifted audio proportion; default ``1``. Supports keyframes.
+   preserve_formants           ``(bool)`` Preserve voice character; default On. No keyframes.
+   quality                     ``(int, choices: ['Fast', 'Balanced', 'High'])`` Default Balanced. No keyframes.
    ==========================  ============
 
 Robotization

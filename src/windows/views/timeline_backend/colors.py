@@ -63,6 +63,7 @@ _EFFECT_COLORS: Dict[str, str] = {
     "ObjectDetection":    "#636363",
     "Outline":            "#be6d33",
     "ParametricEQ":       "#708090",
+    "PitchShift":         "#7561ad",
     "Pixelate":           "#9fa131",
     "Robotization":       "#CC5500",
     "Saturation":         "#ff3d00",
