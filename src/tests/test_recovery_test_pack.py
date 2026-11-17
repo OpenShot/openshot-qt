@@ -40,6 +40,8 @@ def load_helper(name):
     return module
 
 
+@unittest.skipUnless((ROOT / 'src').is_dir(),
+                     'Recovery-pack generator tests require the source checkout')
 class RecoveryTestPackTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
