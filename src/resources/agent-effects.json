@@ -427,6 +427,16 @@
         "background": "(color) Color of the background fill inside the tracked object box"
       }
     },
+    "distort": {
+      "description": "Bend and stretch a clip using an animated 4 by 4 control mesh. Select the effect to drag handles in the preview. Presets provide base shapes, custom point offsets are additive, and Strength blends the result with the original image. Uncovered areas are transparent. Supports CPU and Vulkan rendering with CPU fallback.",
+      "properties": {
+        "preset": "(int, 0 to 6) Custom, Bend, Flag, Bulge, Pinch, Taper, Squeeze; not animated",
+        "strength": "(float, -2 to 2) Keyframeable strength; zero is the original image",
+        "selected_point": "(int, 0 to 15) Inspector point selection, row-major order",
+        "point_N_x": "(float, -1 to 1) Keyframeable horizontal offset for point N (0 to 15), fraction of image width",
+        "point_N_y": "(float, -1 to 1) Keyframeable vertical offset for point N (0 to 15), fraction of image height"
+      }
+    },
     "wave": {
       "description": "The Wave effect distorts the image into a wave-like pattern, simulating effects like heat haze, water reflections,\nor other forms of distortion. The speed, amplitude, and direction of the waves can be adjusted.",
       "properties": {

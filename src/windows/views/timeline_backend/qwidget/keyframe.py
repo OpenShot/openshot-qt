@@ -41,6 +41,7 @@ from classes.logger import log
 from classes.query import Clip, Transition, Effect
 from classes.query import Marker
 from ..colors import effect_color_qcolor
+from ..paint.keyframe import visible_keyframe_markers
 from windows.views.menu import StyledContextMenu, populate_keyframe_context_menu
 
 
@@ -474,6 +475,10 @@ class KeyframeMixin:
             )
         )
 
+        live_effects = {}
+        if getattr(self, "_live_transform_drawing", False):
+            preview = getattr(self.win, "videoPreview", None)
+            live_effects = getattr(preview, "_live_transform_effects", {})
         for eff_index, eff in enumerate(effects):
             if not isinstance(eff, dict):
                 continue
@@ -481,6 +486,11 @@ class KeyframeMixin:
             if effect_id is None:
                 continue
             effect_id_str = str(effect_id)
+            # Live effect edits use detached data, just like clip transforms.
+            # Read that snapshot while painting without copying it into the clip.
+            live_effect = live_effects.get(effect_id_str)
+            if live_effect is not None:
+                eff = live_effect.data
             color = self._effect_color(eff)
             eff_selected = effect_id_str in effect_selected_ids
             markers.extend(
@@ -558,10 +568,16 @@ class KeyframeMixin:
 
         drag = self._dragging_keyframe
         if drag and drag.get("key") and markers:
-            pending_seconds = drag.get("pending_seconds")
-            pending_frame = drag.get("pending_frame")
+            group = {item["key"]: item for item in drag.get("selected_markers", [])}
             for marker in markers:
-                if marker.get("key") == drag.get("key"):
+                entry = group.get(marker.get("key"))
+                if entry is not None:
+                    pending_frame = entry["frame"] + drag["pending_frame"] - drag["original_frame"]
+                    pending_seconds = (pending_frame - 1) / self.fps_float - entry["clip_start"]
+                else:
+                    pending_frame = drag.get("pending_frame")
+                    pending_seconds = drag.get("pending_seconds")
+                if entry is not None or marker.get("key") == drag.get("key"):
                     if pending_seconds is not None:
                         marker["seconds"] = pending_seconds
                         marker["display_seconds"] = pending_seconds
@@ -584,7 +600,8 @@ class KeyframeMixin:
                         marker["dimmed"] = False
                     if pending_frame is not None:
                         marker["display_frame"] = pending_frame
-                    break
+                    if not group:
+                        break
 
         self._keyframe_markers = markers
         self._keyframes_dirty = False
@@ -965,9 +982,17 @@ class KeyframeMixin:
 
     def _get_keyframe_at(self, pos):
         self._ensure_keyframe_markers()
+        markers = self._keyframe_markers
+        if all(hasattr(self, name) for name in ("track_name_width", "ruler_height", "scroll_bar_thickness", "width", "height", "keyframe_painter")):
+            area = QRectF(self.track_name_width, self.ruler_height,
+                self.width()-self.track_name_width-self.scroll_bar_thickness,
+                self.height()-self.ruler_height-self.scroll_bar_thickness)
+            # Click the glyph actually drawn, rather than a hidden neighbour
+            # whose overlapping hit area happens to be tested first.
+            markers = list(visible_keyframe_markers(markers, area, max(1, self.keyframe_painter.size/2)))
         return keyframe_hit_at(
             pos,
-            ((marker.get("rect"), marker) for marker in reversed(self._keyframe_markers)),
+            ((marker.get("rect"), marker) for marker in reversed(markers)),
             # Icons straddle the clip's bottom border. Give their inside half
             # extra reach so the clip body does not take over as soon as the
             # pointer approaches from above.
@@ -1078,6 +1103,8 @@ class KeyframeMixin:
             if other is marker:
                 continue
             if current_key is not None and other.get("key") == current_key:
+                continue
+            if other.get("key") in getattr(self, "_selected_keyframe_keys", set()):
                 continue
             absolute = self._marker_absolute_seconds(other)
             if absolute is None:
@@ -1438,6 +1465,77 @@ class KeyframeMixin:
         """Resolve ordinary points and grouped color-grade icons alike."""
         return tuple(point.get("paths") or (() if not point.get("path") else (point["path"],)))
 
+    def _complete_keyframe_markers(self):
+        """Editing uses every point, independent of viewport/paint thinning."""
+        self.geometry.ensure()
+        state = self.geometry._current_view_state()
+        live = getattr(self, "_live_transform_drawing", False)
+        self._live_transform_drawing = False
+        try:
+            markers = []
+            for rect, clip, _selected in self.geometry.iter_clips(viewport=False):
+                markers.extend(self._build_clip_keyframes(rect, clip, state))
+            for rect, transition, _selected in self.geometry.iter_transitions(viewport=False):
+                markers.extend(self._build_transition_keyframes(rect, transition, state))
+            return markers
+        finally:
+            self._live_transform_drawing = live
+
+    def _sync_panel_selection_from_clip_markers(self, selected_keys=None, replace=False):
+        """An edge icon selects every child row it represents, not one lane."""
+        selected = getattr(self, "_selected_keyframe_keys", set()) if selected_keys is None else selected_keys
+        panels = getattr(self, "_panel_properties", {})
+        if not selected or not panels or not hasattr(self, "_panel_merge_selection_map"):
+            return
+        for track, info in panels.items():
+            mapping = {}
+            for prop in info.get("properties", []):
+                if not prop.get("key"):
+                    continue
+                prop_context = self._panel_property_context(prop, info.get("context"))
+                frames, signature = set(), None
+                for point in prop.get("points", []):
+                    context = self._panel_property_context({"context": point.get("_panel_context")}, prop_context)
+                    kind = context.get("item_type", info.get("item_type", "clip"))
+                    owner_id = (context.get("effect_id") if kind == "effect" else
+                                context.get("transition_id") if kind == "transition" else context.get("clip_id"))
+                    owner_id = str(owner_id or context.get("item_id") or info.get("item_id") or "")
+                    frame = point.get("frame")
+                    if frame is None or (kind, owner_id, int(frame)) not in selected:
+                        continue
+                    frames.add(int(frame))
+                    signature = self._panel_context_signature(context)
+                if frames:
+                    mapping[prop["key"]] = self._panel_selection_selector(frames, context_signature=signature)
+            if mapping:
+                if replace:
+                    self._panel_set_selection_map(track, mapping)
+                else:
+                    self._panel_merge_selection_map(track, mapping)
+
+    def _clip_selected_keyframe_targets(self):
+        selected = getattr(self, "_selected_keyframe_keys", set())
+        if not selected:
+            return []
+        targets = {}
+        # Rebuild paths from current curves; stored list indices can change
+        # between selection and deletion (or after another property edit).
+        for marker in self._complete_keyframe_markers():
+            if marker.get("key") not in selected:
+                continue
+            owner_type = marker.get("object_type") or ("transition" if marker.get("type") == "transition" else "clip")
+            object_id = marker.get("object_id")
+            if not object_id:
+                continue
+            key = (owner_type, object_id)
+            target = targets.setdefault(key, {"owner_type": owner_type, "object_id": object_id,
+                "clip": marker.get("clip"), "transition": marker.get("transition"), "paths": set()})
+            paths = marker.get("data_paths") or ()
+            if not paths and marker.get("data_path"):
+                paths = (marker["data_path"],)
+            target["paths"].update(tuple(path) for path in paths)
+        return list(targets.values())
+
     def _panel_selected_keyframe_targets(self):
         targets = {}
         panel_selection = getattr(self, "_panel_selected_keyframes", {}) or {}
@@ -1626,9 +1724,16 @@ class KeyframeMixin:
         marker_selected = bool(getattr(self, "_active_keyframe_marker", None)
                                or getattr(self, "_press_keyframe", None)
                                or getattr(self, "_dragging_keyframe", None))
+        clip_keys_selected = bool(getattr(self, "_selected_keyframe_keys", set()))
         changed = False
-        targets = self._panel_selected_keyframe_targets()
-        for target in targets:
+        targets_by_owner = {}
+        for target in self._panel_selected_keyframe_targets() + KeyframeMixin._clip_selected_keyframe_targets(self):
+            key = (target.get("owner_type"), target.get("object_id"))
+            if key not in targets_by_owner:
+                targets_by_owner[key] = dict(target, paths=set(target.get("paths") or ()))
+            else:
+                targets_by_owner[key]["paths"].update(target.get("paths") or ())
+        for target in targets_by_owner.values():
             owner_type = target.get("owner_type")
             object_id = target.get("object_id")
             if not owner_type or not object_id:
@@ -1677,7 +1782,7 @@ class KeyframeMixin:
             )
             changed = True
 
-        if not changed and not panel_selected:
+        if not changed and not panel_selected and not clip_keys_selected:
             marker = getattr(self, "_active_keyframe_marker", None)
             if not marker:
                 marker = getattr(self, "_press_keyframe", None)
@@ -1688,9 +1793,10 @@ class KeyframeMixin:
         if not changed:
             # A selected keyframe consumes Delete even if no point is removable.
             # Never fall through to deleting its effect or clip.
-            return panel_selected or marker_selected
+            return panel_selected or marker_selected or clip_keys_selected
 
         self._active_keyframe_marker = None
+        self._selected_keyframe_keys = set()
         self._press_keyframe = None
         self._dragging_keyframe = None
         self._dragging_panel_keyframes = None
@@ -1827,6 +1933,7 @@ class KeyframeMixin:
             return
 
         self._active_keyframe_marker = None
+        self._selected_keyframe_keys = set()
         self._press_keyframe = None
         self._dragging_keyframe = None
         self._dragging_panel_keyframes = None
@@ -1901,11 +2008,11 @@ class KeyframeMixin:
         self._dragging_keyframe["transaction_id"] = tid
         timeline = getattr(self.win, "timeline", None)
         if timeline:
-            timeline.StartKeyframeDrag(
-                self._dragging_keyframe.get("object_type", "clip"),
-                self._dragging_keyframe.get("object_id", ""),
-                tid,
-            )
+            sources = self._dragging_keyframe.get("group_sources")
+            owners = sources.keys() if sources else [(self._dragging_keyframe.get("object_type", "clip"),
+                                                     self._dragging_keyframe.get("object_id", ""))]
+            for owner_type, owner_id in owners:
+                timeline.StartKeyframeDrag(owner_type, owner_id, tid)
 
     def _startKeyframeDrag(self):
         if self._press_hit == "panel-keyframe":
@@ -1916,7 +2023,9 @@ class KeyframeMixin:
         self._press_keyframe = None
         if not marker:
             return
-        if marker.get("type") == "clip":
+        if getattr(self, "_selected_keyframe_keys", set()):
+            KeyframeMixin._sync_panel_selection_from_clip_markers(self)
+        elif marker.get("type") == "clip":
             self._panel_select_points_for_clip_marker(marker)
         self.mouse_dragging = True
         self._dragging_keyframe = {
@@ -1940,6 +2049,23 @@ class KeyframeMixin:
         }
         if not self._dragging_keyframe["data_paths"] and marker.get("data_path"):
             self._dragging_keyframe["data_paths"] = (marker.get("data_path"),)
+        selected_keys = getattr(self, "_selected_keyframe_keys", set())
+        if len(selected_keys) > 1:
+            entries = [dict(item) for item in self._complete_keyframe_markers()
+                       if item.get("key") in selected_keys]
+            if len(entries) > 1:
+                drag = self._dragging_keyframe
+                drag["selected_markers"] = entries
+                drag["original_frame"] = marker["frame"]
+                drag["group_min_delta"] = max(round(item["clip_start"] * self.fps_float) + 1 - item["frame"] for item in entries)
+                drag["group_max_delta"] = min(round(item["clip_end"] * self.fps_float) + 1 - item["frame"] for item in entries)
+                drag["group_sources"] = {}
+                for item in entries:
+                    owner = item.get("transition") if item.get("type") == "transition" else item.get("clip")
+                    key = (item.get("object_type"), item.get("object_id"))
+                    if owner and key not in drag["group_sources"]:
+                        drag["group_sources"][key] = (owner, json.loads(json.dumps(owner.data)))
+
         # Use the frame's timeline position, even when its painted icon is inset
         # at a clip boundary. The padded hitbox must not change the drag origin.
         anchor_x = (marker.get("clip_rect", QRectF()).left()
@@ -1980,15 +2106,31 @@ class KeyframeMixin:
             new_frame = int(round(seconds * self.fps_float)) + 1
         else:
             new_frame = drag.get("current_frame")
+        if drag.get("selected_markers"):
+            delta = new_frame - drag["original_frame"]
+            delta = max(drag["group_min_delta"], min(delta, drag["group_max_delta"]))
+            new_frame = drag["original_frame"] + delta
+            relative_seconds = (new_frame - 1) / self.fps_float - clip_start
+            drag["pending_seconds"] = relative_seconds
         drag["pending_frame"] = new_frame
         absolute_seconds = self._keyframe_base_position(marker) + relative_seconds
-        self._panel_preview_marker(
-            marker,
-            drag.get("current_frame"),
-            new_frame,
-            absolute_seconds,
-            drag_paths=drag.get("data_paths"),
-        )
+        if drag.get("selected_markers"):
+            delta = new_frame - drag["original_frame"]
+            for item in drag["selected_markers"]:
+                pending = item["frame"] + delta
+                seconds = self._keyframe_base_position(item) + (pending - 1) / self.fps_float - item["clip_start"]
+                self._panel_preview_marker(item, item["frame"], pending, seconds,
+                                           drag_paths=item.get("data_paths"))
+            pending_keys = {(*item["key"][:-1], item["frame"] + delta) for item in drag["selected_markers"]}
+            KeyframeMixin._sync_panel_selection_from_clip_markers(self, pending_keys, replace=True)
+        else:
+            self._panel_preview_marker(
+                marker,
+                drag.get("current_frame"),
+                new_frame,
+                absolute_seconds,
+                drag_paths=drag.get("data_paths"),
+            )
         if new_frame != drag.get("current_frame"):
             drag["moved"] = True
         self._seek_to_marker_frame(marker, new_frame, start_preroll=False)
@@ -2010,6 +2152,26 @@ class KeyframeMixin:
         if not timeline:
             return
         transaction_id = drag.get("transaction_id")
+        if drag.get("selected_markers"):
+            delta = new_frame - drag["original_frame"]
+            copies = {key: json.loads(json.dumps(base)) for key, (owner, base) in drag["group_sources"].items()}
+            for item in drag["selected_markers"]:
+                key = (item.get("object_type"), item.get("object_id"))
+                paths = item.get("data_paths") or (() if not item.get("data_path") else (item["data_path"],))
+                for path in paths:
+                    self._set_keyframe_frame_at_path(copies[key], path, item["frame"] + delta)
+            for key, data_copy in copies.items():
+                owner = drag["group_sources"][key][0]
+                owner.data = data_copy
+                if key[0] == "transition":
+                    timeline.update_transition_data(data_copy, only_basic_props=False,
+                        ignore_refresh=ignore_refresh, transaction_id=transaction_id)
+                else:
+                    timeline.update_clip_data(data_copy, only_basic_props=False, ignore_reader=True,
+                        ignore_refresh=ignore_refresh, transaction_id=transaction_id)
+            drag["current_frame"] = new_frame
+            drag["moved"] = True
+            return
         data_paths = tuple(drag.get("data_paths") or ())
         data_path = drag.get("data_path") if drag.get("data_path") else None
         if marker.get("type") == "transition":
@@ -2152,7 +2314,13 @@ class KeyframeMixin:
         if not marker:
             return
         self._active_keyframe_marker = marker
+        existing = set(getattr(self, "_selected_keyframe_keys", set()))
+        selected = existing if not clear_existing or marker.get("key") in existing else set()
+        if marker.get("key"):
+            selected.add(marker["key"])
+        self._selected_keyframe_keys = selected
         self._select_marker_owner(marker, seek=True, clear_existing=clear_existing)
+        KeyframeMixin._sync_panel_selection_from_clip_markers(self)
 
     def _seek_to_marker_frame(self, marker, frame, start_preroll=True):
         if marker is None or frame is None:
@@ -2191,10 +2359,14 @@ class KeyframeMixin:
             if started:
                 self._apply_keyframe_delta(drag, force=True)
                 if timeline:
-                    timeline.FinalizeKeyframeDrag(
-                        drag.get("object_type", "clip"),
-                        drag.get("object_id", ""),
-                    )
+                    sources = drag.get("group_sources")
+                    owners = sources.keys() if sources else [(drag.get("object_type", "clip"), drag.get("object_id", ""))]
+                    for owner_type, owner_id in owners:
+                        if sources:
+                            # Finalize clears the backend transaction after each
+                            # owner; keep all owners in this drag's undo group.
+                            timeline.keyframe_transaction_id = drag.get("transaction_id")
+                        timeline.FinalizeKeyframeDrag(owner_type, owner_id)
                 if hasattr(self.win, "show_property_timeout"):
                     QTimer.singleShot(0, self.win.show_property_timeout)
             pending_frame = drag.get("pending_frame")
@@ -2204,9 +2376,25 @@ class KeyframeMixin:
             clear_existing = drag.get("clear_existing", True)
             self._handle_keyframe_click(marker, clear_existing=clear_existing)
 
+        if moved and marker and marker.get("key") and drag.get("pending_frame") is not None:
+            old_key = marker["key"]
+            new_key = (*old_key[:-1], int(drag["pending_frame"]))
+            selected = set(getattr(self, "_selected_keyframe_keys", set()))
+            if drag.get("selected_markers"):
+                delta = drag["pending_frame"] - drag["original_frame"]
+                for item in drag["selected_markers"]:
+                    selected.discard(item["key"])
+                for item in drag["selected_markers"]:
+                    selected.add((*item["key"][:-1], item["frame"] + delta))
+            else:
+                selected.discard(old_key)
+                selected.add(new_key)
+            self._selected_keyframe_keys = selected
+            marker["key"] = new_key
         self._active_keyframe_marker = marker
         self._dragging_keyframe = None
         self.mouse_dragging = False
         self._keyframes_dirty = True
         self._release_cursor()
+        KeyframeMixin._sync_panel_selection_from_clip_markers(self)
         self.update()

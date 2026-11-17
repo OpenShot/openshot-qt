@@ -3974,7 +3974,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                 effect = Effect.get(id=sel["id"])
                 if effect and (
                     effect.data.get("has_tracked_object")
-                    or effect.data.get("class_name") in ("Bars", "Blur", "Caption", "Crop", "Pixelate")
+                    or effect.data.get("class_name") in ("Bars", "Blur", "Caption", "Crop", "Distort", "Pixelate")
                     or all(prop in effect.data for prop in ("left", "top", "right", "bottom"))
                 ):
                     clip_id = effect.parent['id']

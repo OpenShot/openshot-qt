@@ -1679,19 +1679,37 @@ class ClipInteractionMixin:
         e = self._last_event
         ctrl_down = bool(e.modifiers() & Qt.ControlModifier)
         self.box_start = e.position() if hasattr(e, "position") else QPointF(e.pos())
+        self._box_ctrl_down = ctrl_down
+        self._box_keyframe_candidates = []
+        self._box_existing_keyframes = set(getattr(self, "_selected_keyframe_keys", set())) if ctrl_down else set()
         panel_lane = self._panel_lane_at(self.box_start)
         panel_track = panel_lane.get("track") if panel_lane else self._panel_track_at_pos(self.box_start)
         if panel_track is not None:
             self._panel_box_track = panel_track
             self._panel_box_bounds = self._panel_bounds_for_track(self._panel_box_track)
+            # One marquee can span the panel and its owning clip's edge icons.
+            # Keep it on this track, but extend upward through the icon band.
+            self._box_keyframe_candidates = [
+                marker for marker in self._complete_keyframe_markers()
+                if self.normalize_track_number(getattr(marker.get("clip") or marker.get("transition"), "data", {}).get("layer"))
+                == self.normalize_track_number(panel_track)]
+            if self._box_keyframe_candidates and not self._panel_box_bounds.isNull():
+                top = min(marker["rect"].top() for marker in self._box_keyframe_candidates)
+                self._panel_box_bounds.setTop(min(self._panel_box_bounds.top(), top))
             if not ctrl_down:
+                self._selected_keyframe_keys = set()
                 self._clear_panel_selection(self._panel_box_track)
         else:
             self._panel_box_track = None
             self._panel_box_bounds = QRectF()
+            # Keep selected owners visible while choosing their keyframes.
+            # Clip selection is cleared only if this box hits no keyframes.
+            self._box_keyframe_candidates = self._complete_keyframe_markers()
             if not ctrl_down:
-                # Starting a new box selection clears existing selections
-                self.win.clearSelections()
+                self._selected_keyframe_keys = set()
+                self._active_keyframe_marker = None
+                self._press_keyframe = None
+                self._clear_panel_selection(None)
         self.selection_rect = QRectF()
 
     def _boxMove(self):
@@ -1706,12 +1724,19 @@ class ClipInteractionMixin:
             else:
                 rect = QRectF()
         self.selection_rect = rect
+        hits = {marker["key"] for marker in getattr(self, "_box_keyframe_candidates", [])
+                if marker.get("key") and marker.get("rect", QRectF()).intersects(rect)}
+        self._selected_keyframe_keys = set(getattr(self, "_box_existing_keyframes", set())) | hits
         self.update()
 
     def _finishBoxSelect(self):
         """Finalize box-select: add items intersecting the selection rectangle."""
         self.geometry.ensure()
         if self._panel_box_track is not None:
+            hits = {marker["key"] for marker in getattr(self, "_box_keyframe_candidates", [])
+                    if marker.get("key") and marker.get("rect", QRectF()).intersects(self.selection_rect)}
+            self._selected_keyframe_keys = set(getattr(self, "_box_existing_keyframes", set())) | hits
+            self._box_keyframe_candidates = []
             ctrl_down = False
             if self._last_event and hasattr(self._last_event, "modifiers"):
                 mods = self._last_event.modifiers()
@@ -1765,11 +1790,26 @@ class ClipInteractionMixin:
                     self._panel_merge_selection_map(track_num, frames_by_prop)
             else:
                 self._panel_set_selection_map(track_num, frames_by_prop)
+            self._sync_panel_selection_from_clip_markers()
             self.selection_rect = QRectF()
             self._panel_box_track = None
             self._panel_box_bounds = QRectF()
             self.update()
             return
+
+        hits = {marker["key"] for marker in getattr(self, "_box_keyframe_candidates", [])
+                if marker.get("key") and marker.get("rect", QRectF()).intersects(self.selection_rect)}
+        existing = set(getattr(self, "_box_existing_keyframes", set()))
+        self._selected_keyframe_keys = existing | hits
+        self._box_keyframe_candidates = []
+        if hits:
+            self._sync_panel_selection_from_clip_markers()
+            self.selection_rect = QRectF()
+            self.update()
+            return
+        if not getattr(self, "_box_ctrl_down", False):
+            self.win.clearSelections()
+            self._selected_keyframe_keys = set()
 
         # Ensure geometry is up-to-date for clip selections
         self.geometry.mark_dirty()

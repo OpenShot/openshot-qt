@@ -39,7 +39,7 @@ from qt_api import modifiers_has
 from qt_api import (
     QTransform, QPainter, QIcon, QColor, QPen, QBrush, QCursor, QImage, QRegion
 )
-from qt_api import QSizePolicy, QWidget, QPushButton, QToolTip, QEvent
+from qt_api import QSizePolicy, QWidget, QPushButton, QToolTip, QEvent, QMenu
 from qt_api import QtGui, QtWidgets, QT_API, unwrapinstance
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -395,6 +395,16 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         self.transforming_clip = None
         self.transforming_clips.clear()
         self.transforming_clip_objects.clear()
+        self._distort_handles = []
+        self._distort_selected = set()
+        self._distort_selection_effect_id = None
+        self._distort_marquee_anchor = None
+        self._distort_marquee_rect = None
+        self._distort_group_drag = {}
+        self._distort_drag = None
+        self._live_transform_effects = {}
+        self._live_effect_indexes = {}
+        self._live_distort_preview = None
         self.transforming_effect = None
         self.transforming_clip_object = None
         self.transforming_effect_object = None
@@ -576,6 +586,8 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         elif (self.transforming_effect and self.transforming_effect_object and
                 getattr(self.transforming_effect_object.info, 'class_name', '') == 'Crop'):
             transform_label = _("Crop")
+        elif VideoWidget._is_distort(self):
+            transform_label = _("Distort")
         elif self.transforming_effect and self._effect_has_margin_box():
             transform_label = _("Region")
         elif self.transforming_effect or self.transforming_clips:
@@ -745,6 +757,8 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
                 else:
                     union_rect = union_rect.united(rect)
 
+            self._distort_handles = []
+            distort_mesh = False
             crop_params = None
             crop_norm = None
             margin_box_norm = None
@@ -776,6 +790,11 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
                             effect_rect = QRectF(QPointF(x1_abs, y1_abs), QPointF(x2_abs, y2_abs))
                             union_rect = effect_rect if union_rect is None else union_rect.united(effect_rect)
                             first_props = first_props or default_props
+
+                elif getattr(eff_info, 'class_name', '') == 'Distort':
+                    distort_mesh = True
+                    union_rect = clip_rect
+                    first_props = clip_props
 
                 elif getattr(eff_info, 'class_name', '') == 'Crop':
                     effect_id = None
@@ -858,16 +877,19 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
                     x1, y1, x2, y2 = margin_box_norm
                 else:
                     x1 = y1 = x2 = y2 = None
-                self.drawTransformHandler(
-                    painter, sx, sy, sw, sh, ox, oy,
-                    x1, y1, x2, y2,
-                    skip_origin=(
-                        is_crop
-                        or margin_box_norm is not None
-                        or tracked_object_overlay
-                    ),
-                    muted_handles=(is_crop or margin_box_norm is not None)
-                )
+                if distort_mesh:
+                    self._draw_distort_mesh(painter, sw, sh, frame)
+                else:
+                    self.drawTransformHandler(
+                        painter, sx, sy, sw, sh, ox, oy,
+                        x1, y1, x2, y2,
+                        skip_origin=(
+                            is_crop
+                            or margin_box_norm is not None
+                            or tracked_object_overlay
+                        ),
+                        muted_handles=(is_crop or margin_box_norm is not None)
+                    )
 
                 # Crop origin glyph (screen space; constant size; with opacity)
                 if is_crop:
@@ -1069,6 +1091,9 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         renderer.present.connect(self.present)
 
     def mouseDoubleClickEvent(self, event):
+        if VideoWidget._is_distort(self):
+            event.accept()
+            return
         text = getattr(getattr(self, "win", None), "direct_text", None)
         if text and text.draft is not None:
             event.accept()
@@ -1080,6 +1105,206 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
                 event.accept()
                 return
         super().mouseDoubleClickEvent(event)
+
+    def contextMenuEvent(self, event):
+        if not VideoWidget._is_distort(self) or self.region_enabled:
+            return super().contextMenuEvent(event)
+        _ = get_app()._tr
+        menu = QMenu(self)
+        selected = set(getattr(self, "_distort_selected", set()))
+        reset = menu.addAction(_("Reset Selected Points") if selected else _("Reset All Points"))
+        if menu.exec_(event.globalPos()) != reset:
+            return
+        self._reset_distort_points(selected or set(range(16)))
+        event.accept()
+
+    def _reset_distort_points(self, indices):
+        """Return handles to the regular grid, including an active base shape."""
+        fps = get_app().project.get("fps")
+        frame = self._get_clip_frame_number(self.transforming_clip, fps["num"] / fps["den"])
+        effect = openshot.Distort()
+        effect.SetJson(self.transforming_effect_object.Json())
+        data = json.loads(effect.Json())
+        mesh = json.loads(effect.MeshJSON(frame, 3))
+        strength = json.loads(effect.PropertiesJSON(frame))["strength"]["value"]
+        values = {}
+        for index in sorted(indices):
+            for axis, component, resting in (("x", 0, (index % 4) / 3.0),
+                                             ("y", 1, (index // 4) / 3.0)):
+                key = "point_%s_%s" % (index, axis)
+                curve = openshot.Keyframe()
+                curve.SetJson(json.dumps(data[key]))
+                # Offsets cancel the preset as well as custom deformation.
+                value = (curve.GetValue(frame) + (resting - mesh[index][component]) / strength
+                         if abs(strength) > 0.0001 else 0.0)
+                values[key] = 0.0 if abs(value) < 1e-12 else max(-1.0, min(1.0, value))
+        self.transaction_id = None
+        self.updateEffectProperties(self.transforming_effect.id, frame, None, values)
+
+    def _is_distort(self):
+        obj = getattr(self, "transforming_effect_object", None)
+        return bool(getattr(self, "transforming_effect", None) and obj
+                    and getattr(obj.info, "class_name", "") == "Distort")
+
+    def _draw_distort_mesh(self, painter, width, height, frame):
+        """Draw the same interpolated surface used by the CPU renderer."""
+        # Timeline.GetClipEffect returns a SWIG EffectBase proxy, which exposes
+        # virtual base methods but not Distort's MeshJSON. Evaluate a typed
+        # snapshot of the live effect so presets and animated edits stay in sync.
+        # During recording, keep a typed preview copy updated by small point
+        # patches instead of serializing all recorded curves on every paint.
+        distort = (getattr(self, "_live_distort_preview", None)
+                   if getattr(self, "mouse_pressed", False) else None)
+        if distort is None:
+            distort = openshot.Distort()
+            distort.SetJson(self.transforming_effect_object.Json())
+        mesh = json.loads(distort.MeshJSON(frame, 36))
+        props = json.loads(distort.PropertiesJSON(frame))
+        focus = int(props["selected_point"]["value"])
+        effect_id = self.transforming_effect_object.Id()
+        if effect_id != getattr(self, "_distort_selection_effect_id", None):
+            self._distort_selection_effect_id = effect_id
+            self._distort_selected = set()
+            self._distort_focus_point = focus
+            self._distort_pending_focus_point = None
+        elif getattr(self, "_distort_pending_focus_point", None) is not None:
+            if focus == self._distort_pending_focus_point:
+                self._distort_pending_focus_point = None
+                self._distort_focus_point = focus
+        elif focus != getattr(self, "_distort_focus_point", focus):
+            # A different point chosen in the Properties dock becomes selected.
+            self._distort_selected = {focus}
+            self._distort_focus_point = focus
+        selected = getattr(self, "_distort_selected", set())
+        self._distort_size = (width, height)
+        self._distort_frame = frame
+        self._distort_transform = QTransform(self.transform)
+        self._distort_handles = []
+        points = [self.transform.map(QPointF(x * width, y * height)) for x, y in mesh]
+        painter.resetTransform()
+        color = QColor("#53a0ed")
+        color.setAlphaF(self.handle_opacity)
+        pen = QPen(color, 1.25)
+        pen.setCosmetic(True)
+        painter.setPen(pen)
+        for row in (0, 12, 24, 36):
+            for col in range(36):
+                painter.drawLine(points[row * 37 + col], points[row * 37 + col + 1])
+        for col in (0, 12, 24, 36):
+            for row in range(36):
+                painter.drawLine(points[row * 37 + col], points[(row + 1) * 37 + col])
+        for row in range(4):
+            for col in range(4):
+                index = row * 4 + col
+                point = points[row * 12 * 37 + col * 12]
+                self._distort_handles.append(point)
+                painter.setBrush(QColor("#ffffff") if index in selected else color)
+                painter.drawEllipse(point, 5.5 if index in selected else 4.0,
+                                    5.5 if index in selected else 4.0)
+
+        marquee = getattr(self, "_distort_marquee_rect", None)
+        if marquee is not None:
+            painter.setPen(QPen(color, 1.0, Qt.DashLine))
+            fill = QColor(color)
+            fill.setAlpha(35)
+            painter.setBrush(fill)
+            painter.drawRect(marquee)
+
+    def _distort_hover(self, position):
+        hits = [(QPointF(position) - p).manhattanLength()
+                for p in getattr(self, "_distort_handles", [])]
+        index = min(range(len(hits)), key=hits.__getitem__) if hits else None
+        self.hover_transform_mode = ("distort_" + str(index)
+                                     if index is not None and hits[index] <= 12 else None)
+        self.hover_cursor = Qt.OpenHandCursor if self.hover_transform_mode else Qt.ArrowCursor
+        self.setCursor(self.hover_cursor)
+
+    def _begin_distort_drag(self, position):
+        self._distort_drag = None
+        self._distort_group_drag = {}
+        self._distort_marquee_anchor = None
+        self._distort_marquee_rect = None
+        mode = self.transform_mode
+        if not mode or not mode.startswith("distort_"):
+            self._distort_selected = set()
+            self._distort_marquee_anchor = QPointF(position)
+            self._distort_marquee_rect = QRectF(QPointF(position), QPointF(position))
+            self.update()
+            return
+        index = int(mode.split("_")[1])
+        selected = set(getattr(self, "_distort_selected", set()))
+        if index not in selected:
+            selected = {index}
+        self._distort_selected = selected
+        self._distort_focus_point = index
+        frame = self._distort_frame
+        data = json.loads(self.transforming_effect_object.Json())
+        props = json.loads(self.transforming_effect_object.PropertiesJSON(frame))
+        strength = props["strength"]["value"]
+        inverse, invertible = self._distort_transform.inverted()
+        if invertible and abs(strength) > 0.0001:
+            for point_index in sorted(selected):
+                values = []
+                for axis in ("x", "y"):
+                    curve = openshot.Keyframe()
+                    curve.SetJson(json.dumps(data["point_%s_%s" % (point_index, axis)]))
+                    values.append(curve.GetValue(frame))
+                self._distort_group_drag[point_index] = (
+                    point_index, inverse.map(QPointF(position)), values, strength,
+                    inverse, self._distort_size, frame)
+            self._distort_drag = self._distort_group_drag[index]
+        effect = Effect.get(id=self.transforming_effect.id)
+        if effect and data.get("selected_point") != index:
+            self._distort_pending_focus_point = index
+            effect.data = {"selected_point": index}
+            effect.save()
+        self.update()
+
+    @staticmethod
+    def _distort_drag_offsets(drag, position):
+        index, anchor, values, strength, inverse, size, frame = drag
+        delta = inverse.map(QPointF(position)) - anchor
+        return {"point_%s_x" % index: max(-1.0, min(1.0, values[0] + delta.x() / max(size[0], 0.0001) / strength)),
+                "point_%s_y" % index: max(-1.0, min(1.0, values[1] + delta.y() / max(size[1], 0.0001) / strength))}
+
+    @staticmethod
+    def _distort_group_offsets(drags, position):
+        """Move selected points together, limiting the shared delta at bounds."""
+        first = next(iter(drags.values()))
+        _, anchor, _, strength, inverse, size, _ = first
+        delta = inverse.map(QPointF(position)) - anchor
+        dx = delta.x() / max(size[0], 0.0001) / strength
+        dy = delta.y() / max(size[1], 0.0001) / strength
+        values = [drag[2] for drag in drags.values()]
+        dx = max(max(-1.0 - v[0] for v in values), min(dx, min(1.0 - v[0] for v in values)))
+        dy = max(max(-1.0 - v[1] for v in values), min(dy, min(1.0 - v[1] for v in values)))
+        updates = {}
+        for index, drag in drags.items():
+            updates["point_%s_x" % index] = drag[2][0] + dx
+            updates["point_%s_y" % index] = drag[2][1] + dy
+        return updates
+
+    def _move_distort(self, position):
+        anchor = getattr(self, "_distort_marquee_anchor", None)
+        if anchor is not None and self.mouse_pressed:
+            self._distort_marquee_rect = QRectF(anchor, QPointF(position)).normalized()
+            self._distort_selected = {
+                index for index, point in enumerate(getattr(self, "_distort_handles", []))
+                if self._distort_marquee_rect.contains(point)}
+        elif self.mouse_dragging and self.transform_mode and getattr(self, "_distort_drag", None):
+            drag = self._distort_drag
+            self.setCursor(Qt.ClosedHandCursor)
+            group = getattr(self, "_distort_group_drag", {})
+            values = (VideoWidget._distort_group_offsets(group, position) if group
+                      else self._distort_drag_offsets(drag, position))
+            frame = drag[-1]
+            if getattr(self, "transforming_clip", None) is not None:
+                fps = get_app().project.get("fps")
+                frame = self._get_clip_frame_number(self.transforming_clip, fps["num"] / fps["den"])
+            self.updateEffectProperties(self.transforming_effect.id, frame, None, values)
+        elif not self.mouse_pressed:
+            self._distort_hover(position)
+        self.update()
 
     def mousePressEvent(self, event):
         """Capture mouse press event on video preview window"""
@@ -1100,6 +1325,18 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             if not self._is_playing():
                 openshot.Settings.Instance().ENABLE_PLAYBACK_CACHING = False
             return
+        if VideoWidget._is_distort(self) and not self.region_enabled:
+            if event.button() != Qt.LeftButton:
+                return
+            self._distort_hover(event.pos())
+            mode = self.hover_transform_mode
+            modifiers = event.modifiers()
+            if (mode and (modifiers_has(modifiers, Qt.ControlModifier)
+                          or modifiers_has(modifiers, Qt.ShiftModifier))):
+                index = int(mode.split("_")[1])
+                self._distort_selected = set(getattr(self, "_distort_selected", set())) ^ {index}
+                self.update()
+                return
         self.mouse_pressed = True
         self.mouse_dragging = False
         self.mouse_position = event.pos()
@@ -1204,10 +1441,18 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         if self.transforming_clips or self.transforming_effect:
             self.transaction_id = str(uuid.uuid4())
             self.original_clip_data_map = {c.id: json.loads(json.dumps(c.data)) for c in self.transforming_clips} if self.transforming_clips else {}
-            self.original_effect_data = json.loads(json.dumps(self.transforming_effect.data)) if self.transforming_effect else None
+            # The preview selection can lag behind live edits. Undo must start
+            # from the current project state, not a previous drag's snapshot.
+            effect = self.transforming_effect
+            if VideoWidget._is_distort(self):
+                effect = Effect.get(id=effect.id) or effect
+            self.original_effect_data = json.loads(json.dumps(effect.data)) if effect else None
             get_app().updates.transaction_id = self.transaction_id
             self._live_transform_clips = {c.id: c for c in self.transforming_clips}
             self._live_transform_indexes = {}
+            self._live_transform_effects = {}
+            self._live_effect_indexes = {}
+            self._live_distort_preview = None
             VideoWidget._begin_source_transform(self)
             if self.transform_mode == 'draw_margin_box' and self.transform:
                 self.margin_box_drag_anchor = self.transform.inverted()[0].map(event.pos())
@@ -1215,6 +1460,9 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             self.transaction_id = None
             self.original_clip_data_map = {}
             self.original_effect_data = None
+
+        if VideoWidget._is_distort(self) and not self.region_enabled:
+            self._begin_distort_drag(event.pos())
 
     def _begin_source_transform(self):
         window = getattr(get_app(), "window", None)
@@ -1258,6 +1506,9 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             self.middle_pan_active = False
             self.setCursor(Qt.OpenHandCursor if self.zoom > 1.0 else Qt.ArrowCursor)
             return
+        self._distort_marquee_anchor = None
+        self._distort_marquee_rect = None
+        self._distort_group_drag = {}
         was_dragging = self.mouse_dragging
         self.mouse_pressed = False
         self.mouse_dragging = False
@@ -1367,7 +1618,22 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
 
         if self.transforming_effect and self.original_effect_data:
             get_app().updates.transaction_id = self.transaction_id
-            get_app().updates.apply_last_action_to_history(self.original_effect_data)
+            if VideoWidget._is_distort(self):
+                # Include point selection as well as both curves in the final action.
+                # Redo must restore the complete gesture, not just its last sample.
+                effect = (getattr(self, "_live_transform_effects", {}).get(self.transforming_effect.id)
+                          or Effect.get(id=self.transforming_effect.id))
+                changed = {key: value for key, value in effect.data.items()
+                           if self.original_effect_data.get(key) != value} if effect else {}
+                if changed:
+                    get_app().updates.ignore_history = True
+                    effect.data = changed
+                    effect.save()
+                    get_app().updates.apply_last_action_to_history(
+                        {key: self.original_effect_data[key] for key in changed
+                         if key in self.original_effect_data})
+            else:
+                get_app().updates.apply_last_action_to_history(self.original_effect_data)
 
         # Clear transaction and data
         get_app().updates.transaction_id = None
@@ -1375,8 +1641,12 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         self.original_clip_data = None
         self.original_clip_data_map = {}
         self.original_effect_data = None
+        self._distort_drag = None
         self._live_transform_clips = {}
         self._live_transform_indexes = {}
+        self._live_transform_effects = {}
+        self._live_effect_indexes = {}
+        self._live_distort_preview = None
         timeline = getattr(getattr(get_app(), "window", None), "timeline", None)
         finish = getattr(timeline, "finish_live_transform", None)
         if callable(finish):
@@ -1664,6 +1934,12 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
 
         if self.zoom > 1.0 and not self.mouse_pressed:
             self.setCursor(Qt.OpenHandCursor)
+
+        if VideoWidget._is_distort(self):
+            self._move_distort(event.pos())
+            self.mouse_position = event.pos()
+            self.mutex.unlock()
+            return
 
         if self.transforming_clip and (not self.transforming_effect):
             # Modify clip transform properties (x, y, height, width, rotation, shear)
@@ -2418,9 +2694,52 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             {property_key: new_value},
             refresh=refresh)
 
+    def _update_live_distort_properties(self, effect_id, frame_number, values, refresh):
+        """Record small, constant-size samples using the clip transform path."""
+        app = get_app()
+        effects = getattr(self, "_live_transform_effects", {})
+        effect = effects.get(effect_id) or Effect.get(id=effect_id)
+        if not effect:
+            return
+        effects[effect_id] = effect
+        self._live_transform_effects = effects
+        preview = getattr(self, "_live_distort_preview", None)
+        if preview is None:
+            preview = openshot.Distort()
+            preview.SetJson(json.dumps(effect.data))
+            self._live_distort_preview = preview
+        auto = auto_keyframes_enabled(app.window)
+        patches = {}
+        for name, value in values.items():
+            if value is None:
+                continue
+            points = effect.data.get(name, {}).get("Points", [])
+            target = edit_frame(points, frame_number, auto)
+            point = {"co": {"X": target, "Y": float(value)}}
+            if auto:
+                point["interpolation"] = openshot.BEZIER
+            patches[name] = {"Point": point}
+        if not patches:
+            return
+        indexes = getattr(self, "_live_effect_indexes", {})
+        apply_keyframe_patch(effect.data, patches, indexes)
+        self._live_effect_indexes = indexes
+        preview.SetJson(json.dumps(patches))
+        app.updates.transaction_id = self.transaction_id
+        app.updates.update(effect.key, patches)
+        if refresh:
+            app.window.refreshFrameSignal.emit()
+
     def updateEffectProperties(self, effect_id, frame_number, obj_id, property_updates, refresh=True):
         """Update one or more effect keyframe properties in a single project update."""
         if not property_updates:
+            return
+
+        if (obj_id is None and getattr(self, "mouse_pressed", False)
+                and getattr(self, "transaction_id", None) and get_app().updates.ignore_history
+                and VideoWidget._is_distort(self) and self.transforming_effect.id == effect_id):
+            VideoWidget._update_live_distort_properties(
+                self, effect_id, max(1, int(round(frame_number))), property_updates, refresh)
             return
 
         c = Effect.get(id=effect_id)
@@ -2831,11 +3150,15 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             return
 
         action = getattr(get_app().updates, "last_action", None)
-        if (getattr(self, "_live_transform_clips", None)
+        if ((getattr(self, "_live_transform_clips", None)
+             or getattr(self, "_live_transform_effects", None))
                 and is_keyframe_patch(getattr(action, "values", None))):
             return
         self._live_transform_clips = {}
         self._live_transform_indexes = {}
+        self._live_transform_effects = {}
+        self._live_effect_indexes = {}
+        self._live_distort_preview = None
 
         # SWIG references do not keep timeline-owned objects alive. Undo/redo
         # can delete or replace them, so resolve both sides by their Python IDs.

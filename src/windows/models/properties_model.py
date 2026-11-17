@@ -1824,6 +1824,9 @@ class PropertiesModel(updates.UpdateInterface):
             if timer is not None:
                 timer.stop()
         live_clips = getattr(preview, "_live_transform_clips", {}) if live_transform else {}
+        live_items = dict(live_clips)
+        if live_transform:
+            live_items.update(getattr(preview, "_live_transform_effects", {}))
         _ = app._tr
         refreshed = False
 
@@ -1850,7 +1853,7 @@ class PropertiesModel(updates.UpdateInterface):
                 self._edit_source_data = None
                 if len(self.selected) == 1 and not auto_keyframes_enabled(app.window):
                     getter = {"clip": Clip.get, "transition": Transition.get, "effect": Effect.get}.get(item_type)
-                    source = live_clips.get(c.Id()) or (getter(id=c.Id()) if getter else None)
+                    source = live_items.get(c.Id()) or (getter(id=c.Id()) if getter else None)
                     # Project curves are authoritative for edits. Serializing the
                     # whole native object here makes refresh cost grow with every keyframe.
                     data = getattr(source, "data", None)
@@ -1908,6 +1911,14 @@ class PropertiesModel(updates.UpdateInterface):
                             shared[key] = new_prop
 
                     raw_properties = shared
+
+                # Distort exposes only the selected point's coordinate curves.
+                # Rebuild when that selection changes so stale point rows disappear.
+                if "selected_point" in raw_properties and "preset" in raw_properties:
+                    point_schema = tuple(sorted(k for k in raw_properties if k.startswith("point_")))
+                    if point_schema != getattr(self, "_distort_point_schema", None):
+                        self._distort_point_schema = point_schema
+                        self.new_item = True
 
                 # Sort all properties (by 'name')
                 all_properties = OrderedDict(sorted(raw_properties.items(), key=lambda x: x[1]['name']))

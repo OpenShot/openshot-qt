@@ -3557,4 +3557,7 @@ class KeyframePanelMixin:
                     continue
                 filtered_manual[track_key] = entry
             self._panel_manual_properties = filtered_manual
+        sync_parent_selection = getattr(self, "_sync_panel_selection_from_clip_markers", None)
+        if callable(sync_parent_selection):
+            sync_parent_selection()
         return changed

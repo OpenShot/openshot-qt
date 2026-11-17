@@ -53,6 +53,25 @@ class LivePropertyUpdateTests(unittest.TestCase):
         self.addCleanup(cleanup)
         return model, raw, context
 
+    def test_distort_selection_replaces_coordinate_rows(self):
+        import openshot
+        if not hasattr(openshot, "Distort"):
+            self.skipTest("Requires libopenshot Distort")
+        model, raw, app = self.make_transform_model()
+        effect = openshot.Distort()
+        native = types.SimpleNamespace(Id=lambda: "effect", PropertiesJSON=effect.PropertiesJSON)
+        model.selected = [(native, "effect")]
+        with patch.object(properties_model, "get_app", new=lambda: app):
+            model.update_model(live_transform=True)
+            self.assertIn("point_5_x", model.items)
+            self.assertNotIn("point_6_x", model.items)
+            count = model.model.rowCount()
+            effect.SetJson(json.dumps({"selected_point": 6}))
+            model.update_model(live_transform=True)
+            self.assertNotIn("point_5_x", model.items)
+            self.assertIn("point_6_x", model.items)
+            self.assertEqual(model.model.rowCount(), count)
+
     def test_equal_property_metadata_does_not_notify_the_view(self):
         model, raw, app = self.make_transform_model()
         with patch.object(properties_model, "get_app", new=lambda: app):

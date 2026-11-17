@@ -48,6 +48,7 @@ _EFFECT_COLORS: Dict[str, str] = {
     "Deinterlace":        "#006001",
     "Delay":              "#ff4dd4",
     "Displace":           "#2a8090",
+    "Distort":            "#537bb5",
     "Distortion":         "#7393B3",
     "Echo":               "#5C4033",
     "Expander":           "#C4A484",

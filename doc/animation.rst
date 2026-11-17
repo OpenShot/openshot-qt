@@ -119,6 +119,25 @@ You can also build an animation by placing keyframes yourself, with Auto Keyfram
 Repeat these steps to add more changes to the animation. See :ref:`split_clip_ref` for preparing shorter
 segments with their own starting keyframes.
 
+Animating in the preview
+------------------------
+With Auto Keyframes on, you can record movements during playback. Select a clip
+and use its Transform handles, or select a :ref:`Distort effect <distort_ref>`
+and drag its grid points. Start playback, then drag to record your changes at
+the moving playhead. Keyframe icons appear on the clip as you work.
+
+Stop playback to review the result and adjust its timing. With Distort, you can
+select several grid points with a rectangle, or hold :kbd:`Ctrl` or :kbd:`Shift`
+and click points to change the selection, then animate them together. To return
+points to their normal positions, right-click the preview and choose
+:guilabel:`Reset Selected Points`, or clear the selection and choose
+:guilabel:`Reset All Points`.
+
+For a quick starting point, the clip's :guilabel:`Motion` menu includes
+:guilabel:`Lens Resolve`, :guilabel:`Ribbon`, and :guilabel:`Wave` entrance and exit
+animations, plus :guilabel:`Emphasis → Wave Pass` for a brief ripple at the
+playhead. See :ref:`clip_presets_ref`.
+
 Timing
 ------
 Changing how fast a clip plays is done with the :guilabel:`Time` property and the :guilabel:`Timing` tool.

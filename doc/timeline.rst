@@ -159,6 +159,18 @@ the playhead to its frame. This leaves the Properties dock open or closed as you
 have arranged it. Double-click the keyframe, or right-click it and choose
 :guilabel:`Properties`, to open the dock.
 
+To select several keyframes on selected clips, drag a rectangle from empty
+space across the keyframe icons along the clip bottoms. Selected icons have an
+outline. Hold :kbd:`Ctrl` to add to the selection. Press :kbd:`Delete` to remove
+the selected keyframes while keeping the clips. Selection includes keys whose
+icons are hidden at the current zoom level. With a keyframe panel open, you can
+drag its selection rectangle upward through the clip-edge icons to select both
+levels together. Selecting an icon on the clip also selects the keyframes at that moment across
+all rows in the panel. The highlighted icons show which keyframes will be affected.
+Drag a selected clip-edge icon to move the selection together, or press
+:kbd:`Delete` to remove it. If your rectangle contains no keyframes, it selects
+clips and transitions instead.
+
 For keyframe concepts and animation examples, see :ref:`animation_ref`.
 
 Next Steps
