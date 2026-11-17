@@ -507,6 +507,15 @@
         "q_factor": "(float, 0 to 20)"
       }
     },
+    "pitchshift": {
+      "description": "Raise or lower audio pitch without changing speed or duration. Pitch uses semitones (+12 is one octave; 0.25 is 25 cents), defaults to 0, and supports keyframes. Mix blends the original and shifted audio from 0 to 1, defaults to 1, and supports keyframes. Preserve Formants defaults to On; Quality defaults to Balanced. These two settings apply to the whole effect and do not support keyframes.",
+      "properties": {
+        "pitch": "(float, -24 to 24)",
+        "mix": "(float, 0 to 1)",
+        "preserve_formants": "(bool)",
+        "quality": "(int, choices: ['Fast', 'Balanced', 'High'])"
+      }
+    },
     "robotization": {
       "description": "The Robotization effect transforms the audio to sound mechanical or robotic, by applying a combination of pitch\nmodulation and synthesis techniques. This effect is widely used for character voices in media, creative music\nproduction, and sound design.",
       "properties": {
