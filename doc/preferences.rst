@@ -260,13 +260,36 @@ Recovery
 reduce the risk of data loss. The recovery folder is located at ``~/.openshot_qt/recovery/`` or
 ``C:\Users\USERNAME\.openshot_qt\recovery``.
 
-To recover a corrupt or broken ``*.osp`` project file, use the :guilabel:`File->Recovery`
-menu on the main window after opening your project. If available, a list of matching project versions from
-the recovery folder are listed in chronological order (most recent one at the top). This will
-automatically rename your current project file to ``{project-name}-{time}-backup.osp``, and
-replace it with the recovery project file. You can repeat this process until you find
-the correct recovery project. NOTE: If for some unexpected reason the recovery process fails, you can always rename
-the "-backup.osp" file to the original project file name to restore it.
+When a project cannot open, choose :guilabel:`Repair Project` or select a dated
+backup and choose :guilabel:`Restore Backup`. Both actions operate from the same
+dialog. If there are no matching backups, the list says :guilabel:`No backups
+available` and Restore Backup is disabled.
+
+A failed attempt displays its error in this dialog. Repair is disabled after a
+failed repair; a failed backup is disabled while other backups remain selectable.
+Write failures keep the options available for retry. Cancel closes the dialog.
+
+A successful attempt creates a **separate project** with an automatically chosen,
+unused filename beside the original and attempts to open it. There is no filename
+picker or success confirmation. Repairs show a modeless report of their changes,
+including omitted incomplete clips, while the user can continue editing. The report
+is resizable and scrolls vertically through long lists; Close stays outside the
+scrolling area.
+
+Repairs can remove a UTF-8 byte-order mark, trailing commas outside strings, or
+incomplete clip records, and quote damaged keys in OpenShot 2.6.0 projects. This does not establish that omitted clips are
+unrecoverable by other means, or that all remaining edits and media will work.
+Check the timeline, relink missing media, and test playback and export. A project
+backup cannot restore deleted media. Recovery copies may also be incomplete,
+damaged, or missing recent changes.
+
+The :guilabel:`File->Recovery` menu uses the same backup matching and dates, and
+also chooses a separate filename automatically. Older archives identify projects
+by filename rather than their original folder; check the contents if different
+projects shared the same filename.
+
+OpenShot 1.x pickle projects are no longer opened because that format can execute
+code. Modern JSON ``*.osp`` projects remain supported.
 
 To **manually** recover a corrupt or broken ``*.osp``
 project file, please find the most recent copy in the recovery folder, and copy/paste the file

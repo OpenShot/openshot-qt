@@ -5,7 +5,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2024 OpenShot Studios, LLC
+ Copyright (c) 2008-2026 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -153,12 +153,14 @@ QPushButton#recordingSegment:checked {
     border: 1px solid #2f8cff;
 }
 
+QDialog#projectRecoveryDialog,
 QMessageBox {
     background-color: #292929;
 }
 QMessageBox QLabel#qt_msgbox_label {
     color: #f2f2f2;
 }
+QDialog#projectRecoveryDialog QPushButton[dialogRole="primary"],
 QMessageBox QPushButton[dialogRole="primary"],
 QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled,
 QWidget#exportResult QPushButton[dialogRole="primary"]:enabled {
@@ -167,6 +169,7 @@ QWidget#exportResult QPushButton[dialogRole="primary"]:enabled {
     background-color: #287dcc;
     border: 1px solid #348de0;
 }
+QDialog#projectRecoveryDialog QPushButton[dialogRole="primary"]:hover,
 QMessageBox QPushButton[dialogRole="primary"]:hover,
 QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:hover,
 QWidget#exportResult QPushButton[dialogRole="primary"]:enabled:hover,
@@ -422,12 +425,14 @@ QPushButton#recordingSegment:checked {
     border: 1px solid #287dcc;
 }
 
+QDialog#projectRecoveryDialog,
 QMessageBox {
     background-color: #f7f7f7;
 }
 QMessageBox QLabel#qt_msgbox_label {
     color: #25282d;
 }
+QDialog#projectRecoveryDialog QPushButton[dialogRole="primary"],
 QMessageBox QPushButton[dialogRole="primary"],
 QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled,
 QWidget#exportResult QPushButton[dialogRole="primary"]:enabled {
@@ -436,6 +441,7 @@ QWidget#exportResult QPushButton[dialogRole="primary"]:enabled {
     background-color: #287dcc;
     border: 1px solid #176fba;
 }
+QDialog#projectRecoveryDialog QPushButton[dialogRole="primary"]:hover,
 QMessageBox QPushButton[dialogRole="primary"]:hover,
 QDialog#sourcePreviewDialog QPushButton[dialogRole="primary"]:enabled:hover,
 QWidget#exportResult QPushButton[dialogRole="primary"]:enabled:hover,

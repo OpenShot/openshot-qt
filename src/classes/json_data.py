@@ -7,7 +7,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2018 OpenShot Studios, LLC
+ Copyright (c) 2008-2026 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -40,7 +40,6 @@ from classes.app import get_app
 
 # Compiled path regex
 path_regex = re.compile(r'"(image|path|resource|protobuf_data_path|lut_path)"\s*:\s*"(.*?)"')
-path_context = {}
 
 # Determine regex pattern type (compatible with older Python versions)
 try:
@@ -57,6 +56,7 @@ class JsonDataStore:
 
     # Create default data storage and default data type for logging messages
     def __init__(self):
+        self._path_context = {}
         self._data = {}  # Private data store, accessible through the get and set methods
         self.data_type = "json data"
 
@@ -211,11 +211,13 @@ class JsonDataStore:
             raise Exception(msg) from ex
         raise Exception("Unknown error (should be unreachable)")
 
-    def write_to_file(self, file_path, data, path_mode="ignore", previous_path=None):
+    def write_to_file(self, file_path, data, path_mode="ignore", previous_path=None, compact=False):
         """ Save JSON settings to a file """
         from qt_api import write_file_chunks, is_content_uri
         try:
-            chunks = json.JSONEncoder(ensure_ascii=False, indent=1).iterencode(data)
+            chunks = json.JSONEncoder(
+                ensure_ascii=False, indent=None if compact else 1,
+                separators=(",", ":") if compact else None, allow_nan=False).iterencode(data)
             # Path conversion is only meaningful for local filesystem paths.
             if path_mode == "relative" and not is_content_uri(file_path):
                 contents = self.convert_paths_to_relative(file_path, previous_path, "".join(chunks))
@@ -258,13 +260,13 @@ class JsonDataStore:
             return '"%s": %s' % (key, new_path)
 
         elif "@assets" in path:
-            new_path = path.replace("@assets", path_context["new_project_assets"])
+            new_path = path.replace("@assets", self._path_context["new_project_assets"])
             new_path = json.dumps(new_path, ensure_ascii=False)
             return '"%s": %s' % (key, new_path)
 
         else:
             # Convert path to the correct relative path
-            new_path = os.path.abspath(os.path.join(path_context.get("new_project_folder", ""), path))
+            new_path = os.path.abspath(os.path.join(self._path_context.get("new_project_folder", ""), path))
             new_path = json.dumps(new_path, ensure_ascii=False)
             return '"%s": %s' % (key, new_path)
 
@@ -272,10 +274,10 @@ class JsonDataStore:
         """ Convert all paths to absolute using regex """
         try:
             # Get project folder
-            path_context["new_project_folder"] = os.path.dirname(file_path)
-            path_context["existing_project_folder"] = os.path.dirname(file_path)
-            path_context["new_project_assets"] = get_assets_path(file_path, create_paths=False)
-            path_context["existing_project_assets"] = get_assets_path(file_path, create_paths=False)
+            self._path_context["new_project_folder"] = os.path.dirname(file_path)
+            self._path_context["existing_project_folder"] = os.path.dirname(file_path)
+            self._path_context["new_project_assets"] = get_assets_path(file_path, create_paths=False)
+            self._path_context["existing_project_assets"] = get_assets_path(file_path, create_paths=False)
 
             # Optimized regex replacement
             data = re.sub(path_regex, self.replace_string_to_absolute, data)
@@ -336,9 +338,9 @@ class JsonDataStore:
             return '"%s": %s' % (key, new_path)
 
         # Determine if @assets path is found
-        elif path_context["new_project_assets"] in folder_path:
+        elif self._path_context["new_project_assets"] in folder_path:
             log.debug("Replacing path to %s in %s", file_path, folder_path)
-            folder_path = folder_path.replace(path_context["new_project_assets"], "@assets")
+            folder_path = folder_path.replace(self._path_context["new_project_assets"], "@assets")
 
             # Convert path to @assets/ path
             new_path = os.path.join(folder_path, file_path).replace("\\", "/")
@@ -351,7 +353,7 @@ class JsonDataStore:
             orig_abs_path = os.path.abspath(path)
 
             # Determine windows drives that the project and file are on
-            project_win_drive = os.path.splitdrive(path_context.get("new_project_folder", ""))[0]
+            project_win_drive = os.path.splitdrive(self._path_context.get("new_project_folder", ""))[0]
             file_win_drive = os.path.splitdrive(path)[0]
             if file_win_drive != project_win_drive:
                 log.debug("Drive mismatch, not making path relative: %s", orig_abs_path)
@@ -364,7 +366,7 @@ class JsonDataStore:
             orig_abs_folder = os.path.dirname(orig_abs_path)
 
             log.debug("Generating new relative path for %s", orig_abs_path)
-            new_rel_path_folder = os.path.relpath(orig_abs_folder, path_context.get("new_project_folder", ""))
+            new_rel_path_folder = os.path.relpath(orig_abs_folder, self._path_context.get("new_project_folder", ""))
             new_rel_path = os.path.join(new_rel_path_folder, file_path).replace("\\", "/")
             new_rel_path = json.dumps(new_rel_path, ensure_ascii=False)
             return '"%s": %s' % (key, new_rel_path)
@@ -373,13 +375,13 @@ class JsonDataStore:
         """ Convert all paths relative to this filepath """
         try:
             # Get project folder
-            path_context["new_project_folder"] = os.path.dirname(file_path)
-            path_context["new_project_assets"] = get_assets_path(file_path, create_paths=False)
-            path_context["existing_project_folder"] = os.path.dirname(file_path)
-            path_context["existing_project_assets"] = get_assets_path(file_path, create_paths=False)
+            self._path_context["new_project_folder"] = os.path.dirname(file_path)
+            self._path_context["new_project_assets"] = get_assets_path(file_path, create_paths=False)
+            self._path_context["existing_project_folder"] = os.path.dirname(file_path)
+            self._path_context["existing_project_assets"] = get_assets_path(file_path, create_paths=False)
             if previous_path and file_path != previous_path:
-                path_context["existing_project_folder"] = os.path.dirname(previous_path)
-                path_context["existing_project_assets"] = get_assets_path(previous_path, create_paths=False)
+                self._path_context["existing_project_folder"] = os.path.dirname(previous_path)
+                self._path_context["existing_project_assets"] = get_assets_path(previous_path, create_paths=False)
 
             # Optimized regex replacement
             data = re.sub(path_regex, self.replace_string_to_relative, data)

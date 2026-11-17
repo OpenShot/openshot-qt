@@ -215,6 +215,142 @@ class ProjectDataTests(unittest.TestCase):
         finally:
             native.Close()
 
+    def test_mutable_assets_update_checkpoint_and_manual_save(self):
+        store = make_store()
+        with tempfile.TemporaryDirectory() as directory:
+            source = os.path.join(directory, "runtime")
+            target = os.path.join(directory, "checkpoint")
+            os.mkdir(source)
+            title = os.path.join(source, "title.svg")
+            checkpoint = os.path.join(target, "title.svg")
+            for content, move in (("first title", False), ("edited title", False), ("final title", True)):
+                with open(title, "w", encoding="utf-8") as stream:
+                    stream.write(content)
+                store._sync_asset_root(source, target, move=move, overwrite_files=True)
+                with open(checkpoint, encoding="utf-8") as stream:
+                    self.assertEqual(stream.read(), content)
+            self.assertFalse(os.path.exists(title))
+
+    def test_mutable_asset_copy_failure_preserves_checkpoint_and_source(self):
+        store = make_store()
+        with tempfile.TemporaryDirectory() as directory:
+            source = os.path.join(directory, "runtime")
+            target = os.path.join(directory, "checkpoint")
+            os.mkdir(source)
+            os.mkdir(target)
+            for folder, text in ((source, "new title"), (target, "last title")):
+                with open(os.path.join(folder, "title.svg"), "w", encoding="utf-8") as stream:
+                    stream.write(text)
+            with patch("classes.project_data.shutil.copy2", side_effect=OSError("disk full")):
+                with self.assertRaisesRegex(OSError, "disk full"):
+                    store._sync_asset_root(source, target, move=True, overwrite_files=True)
+            with open(os.path.join(source, "title.svg"), encoding="utf-8") as stream:
+                self.assertEqual(stream.read(), "new title")
+            with open(os.path.join(target, "title.svg"), encoding="utf-8") as stream:
+                self.assertEqual(stream.read(), "last title")
+            self.assertEqual(os.listdir(target), ["title.svg"])
+
+    def test_invalid_candidate_preserves_active_data_and_never_resets(self):
+        store = make_store()
+        active = store._data
+        with patch.object(store, "read_from_file", return_value={"clips": [{"id": "bad"}], "files": [], "layers": []}), \
+                patch.object(store, "new") as reset:
+            with self.assertRaisesRegex(ValueError, "bad"):
+                store.load("broken.osp")
+            reset.assert_not_called()
+            self.assertIs(store._data, active)
+
+    def test_save_rejects_incomplete_clip_before_moving_assets_or_writing(self):
+        store = make_store()
+        store._data = {"clips": [{"id": "bad"}], "files": [], "layers": []}
+        with patch.object(store, "move_temp_paths_to_project_folder") as move, \
+                patch.object(store, "write_to_file") as write:
+            with self.assertRaisesRegex(ValueError, "bad"):
+                store.save("existing.osp")
+            move.assert_not_called()
+            write.assert_not_called()
+
+    def test_snapshot_copies_assets_and_keeps_live_project_and_runtime_roots(self):
+        from classes import info
+        from classes.assets import get_assets_path
+        with tempfile.TemporaryDirectory() as directory:
+            runtime = os.path.join(directory, "runtime")
+            roots = {name: os.path.join(runtime, folder) for name, folder in (
+                ("THUMBNAIL_PATH", "thumbnail"), ("TITLE_PATH", "title"),
+                ("BLENDER_PATH", "blender"), ("PROTOBUF_DATA_PATH", "protobuf_data"),
+                ("CLIPBOARD_PATH", "clipboard"), ("COMFYUI_OUTPUT_PATH", "comfyui-output"),
+                ("PROXY_PATH", "optimized"))}
+            roots.update(USER_PATH=runtime, ASSETS_PATH=runtime)
+            for path in roots.values():
+                os.makedirs(path, exist_ok=True)
+            title = os.path.join(roots["TITLE_PATH"], "title.svg")
+            proxy = os.path.join(roots["PROXY_PATH"], "proxy.mp4")
+            recording = os.path.join(runtime, "recordings", "audio.flac")
+            protobuf = os.path.join(roots["PROTOBUF_DATA_PATH"], "effect.proto")
+            for path in (title, proxy, recording, protobuf):
+                os.makedirs(os.path.dirname(path), exist_ok=True)
+                with open(path, "w") as stream:
+                    stream.write("fixture " + os.path.basename(path))
+            store = make_store()
+            store.current_filepath = os.path.join(directory, "project.osp")
+            store.has_unsaved_changes = True
+            store._data = {
+                "files": [{"id": "F1", "path": title, "proxy_reader": {"path": proxy}},
+                          {"id": "F2", "path": recording}],
+                "layers": [],
+                "clips": [{"id": "C1", "file_id": "F1", "position": 0, "start": 0, "end": 5,
+                           "layer": 1000000, "reader": {"id": "F1", "type": "QtImageReader", "path": title},
+                           "effects": [{"protobuf_data_path": protobuf}]}],
+                "unknown": {"keep": [1, "日本語"]}}
+            original = copy.deepcopy(store._data)
+            history = {"undo": [{"key": ["clips"], "value": copy.deepcopy(store._data["clips"])}], "redo": []}
+            with patch.multiple(info, **roots):
+                paths = store.capture_asset_paths()
+                contents = store.capture_save_snapshot(history)
+                ProjectDataStore.write_save_snapshot(store.current_filepath, contents, paths)
+                with open(store.current_filepath, encoding="utf-8") as stream:
+                    self.assertNotIn("\n", stream.read())
+                self.assertEqual({key: getattr(info, key) for key in roots}, roots)
+                saved = JsonDataStore().read_from_file(store.current_filepath, path_mode="absolute")
+            assets = get_assets_path(store.current_filepath, create_paths=False)
+            for source, folder in ((title, "title"), (proxy, "optimized"),
+                                   (recording, "recordings"), (protobuf, "protobuf_data")):
+                self.assertTrue(os.path.exists(source))
+                self.assertTrue(os.path.exists(os.path.join(assets, folder, os.path.basename(source))))
+            self.assertEqual(saved["files"][0]["path"], os.path.join(assets, "title", "title.svg"))
+            self.assertEqual(saved["clips"][0]["reader"]["path"], saved["files"][0]["path"])
+            self.assertEqual(saved["unknown"], original["unknown"])
+            self.assertEqual(store._data, original)
+            self.assertTrue(store.has_unsaved_changes)
+
+    def test_snapshot_asset_copy_failure_preserves_existing_project(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = os.path.join(directory, "project.osp")
+            with open(path, "w") as stream:
+                stream.write('{"last_good": true}')
+            runtime = os.path.join(directory, "runtime")
+            os.mkdir(runtime)
+            store = make_store()
+            store._data = {"files": [], "clips": [], "layers": []}
+            paths = store.capture_asset_paths()
+            for name in vars(paths):
+                setattr(paths, name, runtime)
+            with patch.object(ProjectDataStore, "_sync_asset_root", side_effect=OSError("disk full")):
+                with self.assertRaises(OSError):
+                    ProjectDataStore.write_save_snapshot(path, store.capture_save_snapshot({}), paths)
+            with open(path) as stream:
+                self.assertEqual(json.load(stream), {"last_good": True})
+
+    def test_export_history_is_detached_and_does_not_increment_revision(self):
+        from classes.updates import UpdateAction
+        manager = UpdateManager()
+        manager.data_version = 42
+        manager.actionHistory = [UpdateAction("update", ["clips"], {"nested": [1, 2]})]
+        exported = manager.export_history(20)
+        exported["undo"][0]["value"]["nested"].append(3)
+        self.assertEqual(manager.actionHistory[0].values, {"nested": [1, 2]})
+        self.assertEqual(manager.data_version, 42)
+
     def test_point_patches_commit_full_history_and_round_trip_undo(self):
         from classes.keyframe_editing import is_keyframe_patch
         manager = UpdateManager()
@@ -287,7 +423,7 @@ class ProjectDataTests(unittest.TestCase):
                 else:
                     self.assertIn("no data", str(caught.exception))
 
-    def test_binary_and_text_pickles_still_reach_legacy_loader(self):
+    def test_binary_and_text_pickles_are_rejected_before_reset(self):
         for protocol in (0, 2):
             with self.subTest(protocol=protocol), tempfile.TemporaryDirectory() as directory:
                 path = os.path.join(directory, "legacy.osp")
@@ -295,20 +431,19 @@ class ProjectDataTests(unittest.TestCase):
                     pickle.dump({"legacy": True}, stream, protocol=protocol)
                 store = make_store()
                 JsonDataStore.__init__(store)
-                sentinel = RuntimeError("legacy loader reached")
-                with patch.object(store, "new"), \
-                        patch.object(store, "read_legacy_project_file", side_effect=sentinel) as legacy:
-                    with self.assertRaises(RuntimeError) as caught:
+                with patch.object(store, "new") as reset, \
+                        patch.object(store, "read_legacy_project_file") as legacy:
+                    with self.assertRaises(Exception):
                         store.load(path)
-                    self.assertIs(caught.exception, sentinel)
-                    legacy.assert_called_once_with(path)
+                    reset.assert_not_called()
+                    legacy.assert_not_called()
 
     def test_post_decode_failure_is_not_misreported_as_legacy_project(self):
         store = make_store()
         with patch.object(store, "new"), \
                 patch.object(store, "read_from_file", return_value=[]), \
                 patch.object(store, "read_legacy_project_file") as legacy:
-            with self.assertRaises(AttributeError):
+            with self.assertRaises(ValueError):
                 store.load("modern.osp")
             legacy.assert_not_called()
 
@@ -1232,7 +1367,7 @@ class ProjectDataTests(unittest.TestCase):
                 handle.write("thumb")
 
             store = make_store()
-            store._data = {"files": [], "clips": []}
+            store._data = {"files": [], "clips": [], "layers": []}
 
             target_assets = os.path.join(tmpdir, "project_assets")
             project_file = os.path.join(tmpdir, "project.osp")
@@ -1665,7 +1800,7 @@ class ProjectDataTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmpdir:
             project_path = os.path.join(tmpdir, "example.osp")
             asset_path = os.path.join(tmpdir, "example_assets")
-            store._data = {"files": [], "effects": [], "clips": []}
+            store._data = {"files": [], "effects": [], "clips": [], "layers": []}
 
             with ExitStack() as stack:
                 stack.enter_context(patch("classes.project_data.get_assets_path", lambda path, create_paths=True: asset_path))

@@ -7,7 +7,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2018 OpenShot Studios, LLC
+ Copyright (c) 2008-2026 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -37,7 +37,7 @@ import webbrowser
 from time import sleep, time
 from datetime import datetime
 from uuid import uuid4
-import zipfile
+from types import SimpleNamespace
 import threading
 
 import openshot  # Python module for libopenshot (required video editing module installed separately)
@@ -51,8 +51,8 @@ from qt_api import is_content_uri
 from qt_api import (
     QMainWindow, QWidget, QDockWidget,
     QApplication, QMenu, QMessageBox, QDialog, QFileDialog, QInputDialog,
-    QAction, QActionGroup, QSizePolicy,
-    QStatusBar, QToolBar, QToolButton,
+    QAction, QActionGroup,
+    QStatusBar, QToolBar,
     QLineEdit, QComboBox, QTextEdit, QShortcut, QTabBar, QTabWidget, QAbstractButton,
     QPlainTextEdit, QSpinBox, QDoubleSpinBox
 )
@@ -152,9 +152,13 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
     ThemeChangedSignal = pyqtSignal(object)     # Signal when theme is changed
     ProjectSaved = pyqtSignal(str)
     ProjectSaveFailed = pyqtSignal(str, str)
+    AutoSaveFinished = pyqtSignal(object, str)
 
     # Save window settings on close
     def closeEvent(self, event):
+        if MainWindow._defer_during_autosave(self, lambda: self.close()):
+            event.ignore()
+            return
         app = get_app()
         save_geometry = getattr(self, "saveGeometry", None)
         if callable(save_geometry):
@@ -178,6 +182,9 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
             if ret == QMessageBox.Yes:
                 # Save project
                 self.actionSave_trigger()
+                if app.project.needs_save():
+                    event.ignore()
+                    return
                 event.accept()
             elif ret == QMessageBox.Cancel:
                 # Show tutorial again, if any
@@ -199,7 +206,11 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
     def _shutdown(self):
         """Perform shutdown without prompting (used by closeEvent and app cleanup)."""
-        app = get_app()
+        # Emergency/application-driven shutdown may bypass closeEvent. Keep
+        # source assets alive until the worker has finished its checkpoint.
+        job = getattr(self, "_autosave_job", None)
+        if job is not None:
+            job.thread.join()
         if self.shutting_down:
             log.debug("Already shutting down, skipping the shutdown routine")
             return
@@ -392,6 +403,8 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                 sleep(0.25)
 
     def actionNew_trigger(self):
+        if MainWindow._defer_during_autosave(self, lambda: self.actionNew_trigger()):
+            return
 
         app = get_app()
         _ = app._tr  # Get translation function
@@ -406,6 +419,8 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
             if ret == QMessageBox.Yes:
                 # Save project
                 self.actionSave_trigger()
+                if app.project.needs_save():
+                    return
             elif ret == QMessageBox.Cancel:
                 # User canceled prompt
                 return
@@ -611,8 +626,15 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.actionClearOptimizedFiles.setEnabled(has_internal_optimized)
 
     def save_project(self, file_path):
-        """ Save a project to a file path, and refresh the screen """
+        """Save through the existing manual-save path and report success."""
+        if MainWindow._defer_during_autosave(self, lambda: self.save_project(file_path)):
+            return False
+        # Error dialogs can run a nested event loop. Do not start another save
+        # while one is still completing (or waiting for its error dialog).
+        if getattr(self, "_saving_project", False):
+            return False
         with self.lock:
+            self._saving_project = True
             app = get_app()
             _ = app._tr  # Get translation function
 
@@ -629,10 +651,14 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
                 log.info("Saved project %s", file_path)
                 self.ProjectSaved.emit(file_path)
+                return True
 
             except Exception as ex:
                 log.error("Couldn't save project %s", file_path, exc_info=1)
                 self.ProjectSaveFailed.emit(file_path, str(ex))
+                return False
+            finally:
+                self._saving_project = False
 
     @pyqtSlot(str)
     def _on_project_saved(self, file_path):
@@ -644,13 +670,19 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
     def _on_project_save_failed(self, file_path, error_message):
         """Show save errors on the UI thread."""
         _ = get_app()._tr
-        QMessageBox.warning(self, _("Error Saving Project"), error_message)
+        previous_saving = getattr(self, "_saving_project", False)
+        self._saving_project = True
+        try:
+            QMessageBox.warning(self, _("Error Saving Project"), error_message)
+        finally:
+            self._saving_project = previous_saving
 
-    def save_recovery(self, file_path):
+    def save_recovery(self, file_path, max_files=None):
         """Saves the project and manages recovery files based on configured limits."""
-        app = get_app()
-        s = app.get_settings()
-        max_files = s.get("recovery-limit")
+        if max_files is None:
+            max_files = get_app().get_settings().get("recovery-limit")
+        if max_files <= 0:
+            return
         daily_limit = int(max_files * 0.7)
         historical_limit = max_files - daily_limit  # Remaining for previous days
 
@@ -660,19 +692,17 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         folder_path, file_name = os.path.split(file_path)
         file_name, file_ext = os.path.splitext(file_name)
 
-        timestamp = int(time())
-        recovery_filename = f"{timestamp}-{file_name}.zip"
-        recovery_path = os.path.join(info.RECOVERY_PATH, recovery_filename)
-
+        from classes.project_recovery import archive_previous_version
+        # Failure must reach the save caller: never overwrite the project after
+        # silently failing to preserve its previous version.
+        recovery_path = archive_previous_version(file_path, info.RECOVERY_PATH, int(time()))
+        log.debug("Zipped recovery file created: %s", recovery_path)
         try:
-            with zipfile.ZipFile(recovery_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
-                zipf.write(file_path, os.path.basename(file_path))
-            log.debug(f"Zipped recovery file created: {recovery_path}")
-            self.manage_recovery_files(daily_limit, historical_limit, file_name)
-        except Exception as e:
-            log.error(f"Failed to create zipped recovery file {recovery_path}: {e}")
+            self.manage_recovery_files(daily_limit, historical_limit, file_name, source_path=file_path)
+        except OSError:
+            log.warning("Could not prune recovery files", exc_info=True)
 
-    def manage_recovery_files(self, daily_limit, historical_limit, file_name):
+    def manage_recovery_files(self, daily_limit, historical_limit, file_name, source_path=None):
         """Ensures recovery files adhere to the configured daily and historical limits."""
         recovery_files = sorted(
             ((f, os.path.getmtime(os.path.join(info.RECOVERY_PATH, f)))
@@ -681,9 +711,16 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
             reverse=True
         )
 
+        if source_path:
+            from classes.project_recovery import previous_versions
+            matching = {os.path.basename(path) for path in previous_versions(source_path, info.RECOVERY_PATH)}
+        else:
+            matching = {name for name, _modified in recovery_files
+                        if name.partition("-")[2] in (file_name + ".zip", file_name + ".osp")}
+
         project_recovery_files = [
             (f, mod_time) for f, mod_time in recovery_files
-            if f"-{file_name}" in f
+            if f in matching
         ]
 
         daily_files = []
@@ -711,8 +748,13 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                 except Exception as e:
                     log.error(f"Failed to delete file {file_path}: {e}")
 
-    def open_project(self, file_path, clear_thumbnails=True, interactive=True):
+    def open_project(self, file_path, clear_thumbnails=True, interactive=True, recovering=False):
         """ Open a project from a file path, and refresh the screen """
+        if interactive and MainWindow._defer_during_autosave(
+                self, lambda: self.open_project(file_path, clear_thumbnails, interactive, recovering=recovering)):
+            return False
+        if not interactive and getattr(self, "_autosave_job", None) is not None:
+            raise RuntimeError("Project autosave is still in progress; retry opening after it completes")
 
         app = get_app()
         settings = app.get_settings()
@@ -723,7 +765,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         # First check for empty file_path (probably user cancellation)
         if not file_path:
             # Ignore the request
-            return
+            return False
 
         # Reject media passed through Open Project (including command-line
         # arguments) before clearing the current project or its temporary files.
@@ -731,13 +773,26 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         # Android document URIs do not expose a filename extension.
         if not is_content_uri(file_path) and not re.search(
                 r"\.osp(?:\.bak(?:\.[0-9]+)?)?\Z", os.path.basename(file_path), re.IGNORECASE):
-            if not interactive:
+            if not interactive or recovering:
                 raise ValueError("Expected an OpenShot .osp project file")
             QMessageBox.warning(
                 self,
                 _("Invalid Project File"),
                 _("Please select an OpenShot project (.osp). To add video, audio, or images, use Import Files."))
-            return
+            return False
+
+        # Recovery runs before changing the active project or temporary assets.
+        candidate = None
+        if file_exists(file_path):
+            try:
+                from classes.project_recovery import validate_project
+                candidate = app.project.read_from_file(file_path, path_mode="absolute")
+                validate_project(candidate)
+            except Exception as error:
+                if not interactive or recovering:
+                    raise
+                MainWindow._offer_project_recovery(self, file_path, error)
+                return False
 
         # Stop preview thread
         self.SpeedSignal.emit(0)
@@ -762,9 +817,14 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
             if ret == QMessageBox.Yes:
                 # Save project
                 self.actionSave_trigger()
+                if app.project.needs_save():
+                    return False
+                # The save may have changed the file we are about to open.
+                # Re-enter to validate its new contents before clearing anything.
+                return self.open_project(file_path, clear_thumbnails, interactive, recovering=recovering)
             elif ret == QMessageBox.Cancel:
                 # User canceled prompt
-                return
+                return False
 
         # Set cursor to waiting
         app.setOverrideCursor(QCursor(Qt.WaitCursor))
@@ -783,7 +843,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                     self.clear_temporary_files()
 
                 # Load project file
-                app.project.load(file_path, clear_thumbnails, interactive=interactive)
+                app.project.load(file_path, clear_thumbnails, interactive=interactive, candidate=candidate)
 
                 # Set Window title
                 self.SetWindowTitle()
@@ -820,7 +880,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
         except Exception as ex:
             log.error("Couldn't open project %s.", file_path, exc_info=1)
-            if not interactive:
+            if not interactive or recovering:
                 raise
             QMessageBox.warning(self, _("Error Opening Project"), str(ex))
         finally:
@@ -831,7 +891,38 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
             if self._pending_project_open_refresh:
                 self._pending_project_open_refresh = False
                 QTimer.singleShot(0, lambda: self.refreshFrameSignal.emit())
+        return loaded_project
 
+    def _offer_project_recovery(self, file_path, error):
+        """Attempt repair or a selected backup without leaving this dialog."""
+        from classes.project_recovery import parse_project, previous_versions, read_version, save_recovery_automatically
+        from windows.project_recovery import ProjectRecoveryDialog, RepairReport
+        from qt_api import read_file_text
+        versions = [] if is_content_uri(file_path) else previous_versions(file_path, info.RECOVERY_PATH)
+        dialog = ProjectRecoveryDialog(self, file_path, error, versions,
+            repair=lambda: parse_project(read_file_text(file_path), repair=True),
+            restore=lambda path: parse_project(read_version(path, file_path)),
+            save=lambda data: save_recovery_automatically(data, file_path),
+            open_project=lambda path: self.open_project(path, recovering=True))
+        previous_recovery = getattr(self, '_project_recovery_active', False)
+        self._project_recovery_active = True
+        try:
+            if dialog.exec_() and dialog.changes:
+                previous_report = getattr(self, '_repair_report', None)
+                if previous_report:
+                    previous_report.close()
+                report = RepairReport(self, dialog.recovered_path, dialog.changes)
+                self._repair_report = report
+                report.finished.connect(lambda: setattr(self, '_repair_report', None))
+                report.show()
+        finally:
+            self._project_recovery_active = previous_recovery
+
+    def _save_recovered_project(self, file_path, data):
+        """File > Recovery also chooses its copy's filename automatically."""
+        from classes.project_recovery import save_recovery_automatically
+        destination = save_recovery_automatically(data, file_path)
+        return self.open_project(destination, recovering=True)
 
     def clear_temporary_files(self):
         """Clear all user thumbnails"""
@@ -905,6 +996,8 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
             _show_open_dialog()
 
     def actionSave_trigger(self):
+        if MainWindow._defer_during_autosave(self, lambda: self.actionSave_trigger()):
+            return
         app = get_app()
         s = app.get_settings()
         _ = app._tr
@@ -937,58 +1030,95 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         )
 
     def auto_save_project(self):
-        """Auto save the project"""
-        # Missing-file dialogs run an event loop before project loading finishes.
-        if getattr(self, "_project_loading", False):
+        """Capture one checkpoint on the UI thread, then write it in a worker."""
+        manual_thread = getattr(self, "_manual_save_thread", None)
+        if (getattr(self, "_project_loading", False)
+                or getattr(self, "_project_recovery_active", False)
+                or getattr(self, "_saving_project", False)
+                or getattr(self, "_autosave_job", None) is not None
+                or (manual_thread is not None and manual_thread.is_alive())
+                or getattr(self, "shutting_down", False)):
             return
         app = get_app()
-        current_data_version = app.updates.data_version
-
-        # Get current filepath (if any)
-        file_path = app.project.current_filepath
         if not app.project.needs_save():
             return
-
-        # Skip if no project mutations happened since the last autosave.
-        # This avoids rewriting the same backup.osp on every timer tick for
-        # untitled/recovered projects that remain "unsaved" by design.
-        if current_data_version == self.last_auto_save_data_version:
-            return
-
-        if file_path:
-            # A Real project file exists
-            file_path = ensure_extension(file_path, ".osp")
-
-            # Save project
-            log.info("Auto save project file: %s", file_path)
-            threading.Thread(target=self.save_project, args=(file_path,), daemon=True).start()
-
-            # Remove backup.osp (if any)
-            if os.path.exists(info.BACKUP_FILE):
-                try:
-                    # Delete backup.osp since we just saved the actual project
-                    os.unlink(info.BACKUP_FILE)
-                    log.info(f"Deleted backup file: {info.BACKUP_FILE}")
-                except PermissionError:
-                    log.warning(f"Permission denied: {info.BACKUP_FILE}. Unable to delete.")
-                except Exception as e:
-                    log.error(f"Error deleting file {info.BACKUP_FILE}: {e}", exc_info=True)
-
-        else:
-            # No saved project found
-            log.info("Creating backup of project file: %s", info.BACKUP_FILE)
-            try:
-                app.project.save(info.BACKUP_FILE, backup_only=True)
-            except Exception as ex:
-                log.error("Couldn't save backup %s", info.BACKUP_FILE, exc_info=True)
-                message = (app._tr("Not enough memory to save the project.")
-                           if isinstance(ex, MemoryError) else str(ex))
-                self.ProjectSaveFailed.emit(info.BACKUP_FILE, message)
+        source_path = app.project.current_filepath
+        file_path = ensure_extension(source_path, ".osp") if source_path else info.BACKUP_FILE
+        try:
+            settings = app.get_settings()
+            history = app.updates.export_history(settings.get("history-limit"))
+            snapshot = app.project.capture_save_snapshot(history)
+            digest = snapshot.digest()
+            # Direct nested edits do not always increment data_version. Compare
+            # captured content, and never mark live data clean from a checkpoint.
+            key = (file_path, app.updates.data_version, digest)
+            if key == getattr(self, "_last_autosave_snapshot", None):
                 return
+            job = SimpleNamespace(
+                project=app.project, root=app.project._data, source_path=source_path,
+                file_path=file_path, snapshot=snapshot, key=key,
+                version=app.updates.data_version, backup_path=info.BACKUP_FILE,
+                asset_paths=app.project.capture_asset_paths(),
+                recovery_limit=settings.get("recovery-limit"))
+            job.thread = threading.Thread(target=MainWindow._write_autosave, args=(self, job), daemon=True)
+            self._autosave_job = job
+            job.thread.start()
+        except Exception as ex:
+            self._autosave_job = None
+            log.error("Couldn't capture/start autosave %s", file_path, exc_info=True)
+            message = (app._tr("Not enough memory to save the project.")
+                       if isinstance(ex, MemoryError) else str(ex))
+            self.ProjectSaveFailed.emit(file_path, message)
 
-        self.last_auto_save_data_version = current_data_version
+    def _write_autosave(self, job):
+        """Worker: use captured inputs only; completion is published on the UI thread."""
+        error = ""
+        try:
+            if job.source_path:
+                self.save_recovery(job.file_path, job.recovery_limit)
+            from classes.project_data import ProjectDataStore
+            ProjectDataStore.write_save_snapshot(
+                job.file_path, job.snapshot, job.asset_paths, backup_only=not job.source_path)
+        except Exception as ex:
+            log.error("Couldn't autosave %s", job.file_path, exc_info=True)
+            error = str(ex) or type(ex).__name__
+        self.AutoSaveFinished.emit(job, error)
+
+    @pyqtSlot(object, str)
+    def _on_autosave_finished(self, job, error):
+        if getattr(self, "_autosave_job", None) is not job:
+            return
+        self._autosave_job = None
+        app = get_app()
+        if (app.project is not job.project or app.project._data is not job.root
+                or app.project.current_filepath != job.source_path):
+            return
+        if error:
+            if error == "MemoryError":
+                error = app._tr("Not enough memory to save the project.")
+            self.ProjectSaveFailed.emit(job.file_path, error)
+            return
+        self.last_auto_save_data_version = job.version
+        self._last_autosave_snapshot = job.key
+        if job.source_path:
+            try:
+                os.unlink(job.backup_path)
+            except FileNotFoundError:
+                pass
+            except OSError:
+                log.warning("Unable to retire backup %s", job.backup_path, exc_info=True)
+            self.ProjectSaved.emit(job.file_path)
+
+    def _defer_during_autosave(self, callback):
+        """Allow the UI to run while saves finish before changing project/assets."""
+        if getattr(self, "_autosave_job", None) is None:
+            return False
+        QTimer.singleShot(50, callback)
+        return True
 
     def actionSaveAs_trigger(self):
+        if MainWindow._defer_during_autosave(self, lambda: self.actionSaveAs_trigger()):
+            return
         app = get_app()
         s = app.get_settings()
         _ = app._tr
@@ -999,8 +1129,12 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         def _on_path(path):
             if not path:
                 return
+            if MainWindow._defer_during_autosave(self, lambda: _on_path(path)):
+                return
             s.setDefaultPath(s.actionType.SAVE, path)
-            threading.Thread(target=self.save_project, args=(ensure_extension(path, ".osp"),), daemon=True).start()
+            self._manual_save_thread = threading.Thread(
+                target=self.save_project, args=(ensure_extension(path, ".osp"),), daemon=True)
+            self._manual_save_thread.start()
 
         recommended_folder = s.getDefaultPath(s.actionType.SAVE)
         show_save_file_dialog(
@@ -4169,14 +4303,11 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         # Clear the existing children
         self.restore_menu.clear()
 
-        # Get a list of recovery files matching the current project
-        recovery_files = []
-        if current_filepath:
-            recovery_dir = info.RECOVERY_PATH
-            recovery_files = [
-                f for f in os.listdir(recovery_dir)
-                if (f.endswith(".osp") or f.endswith(".zip")) and "-" in f and current_filepath and f.split("-", 1)[1].startswith(os.path.basename(current_filepath).replace(".osp", ""))
-            ]
+        # Match exact filenames and provenance when an archive provides it.
+        from classes.project_recovery import previous_versions
+        recovery_dir = info.RECOVERY_PATH
+        recovery_files = ([os.path.basename(path) for path in previous_versions(current_filepath, recovery_dir)]
+                          if current_filepath else [])
 
         # Show just a placeholder menu, if we have no recovery files
         if not recovery_files:
@@ -4202,37 +4333,16 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
     def restore_version_clicked(self, file_path):
         """Restore a previous project file from the recovery folder"""
-        with self.lock:
-            app = get_app()
-            current_filepath = app.project.current_filepath if app.project else None
-            _ = get_app()._tr
-
-            try:
-                # Rename the original project file
-                recovered_filename = os.path.splitext(os.path.basename(current_filepath))[0] + f"-{int(time())}-backup.osp"
-                recovered_filepath = os.path.join(os.path.dirname(current_filepath), recovered_filename)
-                if os.path.exists(current_filepath):
-                    shutil.move(current_filepath, recovered_filepath)
-                    log.info(f"Backup current project to: {recovered_filepath}")
-
-                # Unzip if the selected recovery file is a .zip file
-                if file_path.endswith(".zip"):
-                    with zipfile.ZipFile(file_path, 'r') as zipf:
-                        # Extract over top original project *.osp file
-                        zipf.extractall(os.path.dirname(current_filepath))
-                        extracted_files = zipf.namelist()
-                        if len(extracted_files) != 1:
-                            raise ValueError("Unexpected number of files in recovery zip.")
-                else:
-                    # Replace the original *.osp project file with the recovery file *.osp
-                    shutil.copyfile(file_path, current_filepath)
-                log.info(f"Recovery file `{file_path}` restored to: `{current_filepath}`")
-
-                # Open the recovered project
-                self.OpenProjectSignal.emit(current_filepath)
-
-            except Exception as ex:
-                log.error(f"Error recovering project from `{file_path}` to `{current_filepath}`: {ex}", exc_info=True)
+        if MainWindow._defer_during_autosave(self, lambda: self.restore_version_clicked(file_path)):
+            return
+        from classes.project_recovery import parse_project, read_version
+        original_path = get_app().project.current_filepath
+        _ = get_app()._tr
+        try:
+            data, _changes = parse_project(read_version(file_path, original_path))
+            MainWindow._save_recovered_project(self, original_path, data)
+        except Exception as error:
+            QMessageBox.warning(self, _("Recovery Could Not Be Completed"), str(error))
 
     def remove_recent_project(self, file_path):
         """Remove a project from the Recent menu if OpenShot can't find it"""
@@ -5867,6 +5977,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.ThemeChangedSignal.connect(lambda _=None: self._schedule_dock_style_update(theme_changed=True))
         self.ProjectSaved.connect(self._on_project_saved, Qt.QueuedConnection)
         self.ProjectSaveFailed.connect(self._on_project_save_failed, Qt.QueuedConnection)
+        self.AutoSaveFinished.connect(self._on_autosave_finished, Qt.QueuedConnection)
 
         # Connect the signals for each dock widget from self.getDocks()
         for dock_widget in self.getDocks():

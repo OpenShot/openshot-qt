@@ -7,7 +7,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2018 OpenShot Studios, LLC
+ Copyright (c) 2008-2026 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -39,8 +39,8 @@ from operator import itemgetter
 import openshot
 from qt_api import pyqtSlot, Qt, QCoreApplication, QTimer, pyqtSignal, QPointF
 from qt_api import modifiers_has
-from qt_api import QCursor, QKeySequence, QIcon
-from qt_api import QDialog
+from qt_api import QCursor, QIcon
+from qt_api import QDialog, QMessageBox
 
 from classes import info, updates
 from classes.app import get_app
@@ -462,6 +462,15 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 copied_object = [copied_object]
 
             if isinstance(copied_object, list):
+                # Validate every record before creating layers or inserting anything.
+                from classes.project_recovery import clip_problem
+                for item in copied_object:
+                    problem = (clip_problem(item.data) if isinstance(item, (Clip, Transition))
+                               else "clipboard item is not a clip or transition")
+                    if problem:
+                        QMessageBox.warning(self, get_app()._tr("Cannot Paste Clips"),
+                            get_app()._tr("No clips were pasted. The clipboard contains an incomplete item:") + "\n" + problem)
+                        return
                 adjust_positions_and_layers(copied_object, position, layer_id)
                 inserted_new_items = True
 
@@ -981,12 +990,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             transition_data["start"] = 0.0
             transition_data["end"] = duration
             brightness, contrast = self._build_transition_default_keyframes(duration, 1.0, -1.0, 3.0)
-            mode = "static"
         else:
             transition_data["start"] = start
             transition_data["end"] = end
             brightness, contrast = self._build_transition_default_keyframes(duration, 0.0, 0.0, 0.0)
-            mode = "animated"
 
         transition_data["duration"] = max(
             0.0,

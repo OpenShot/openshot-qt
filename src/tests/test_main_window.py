@@ -31,12 +31,13 @@ import os
 import sys
 import tempfile
 import threading
+import time
 import types
 import unittest
 import zipfile
 from contextlib import ExitStack
 from datetime import datetime, timedelta
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, Mock, patch
 
 import openshot
 
@@ -47,6 +48,7 @@ if PATH not in sys.path:
 from qt_api import QByteArray, QCoreApplication, QEvent, QKeySequence, Qt
 from qt_api import QContextMenuEvent, QMouseEvent, QPoint, QPointF, QRect, QTabBar
 from qt_api import QApplication, QDialog, QDockWidget, QMainWindow, QMenu, QStandardItem, QStandardItemModel
+from qt_api import QObject, pyqtSignal, pyqtSlot
 
 from classes import qt_types
 from classes.project_data import ProjectDataStore
@@ -201,6 +203,103 @@ class MainWindowTests(unittest.TestCase):
         cls.properties_tableview_module = importlib.import_module("windows.views.properties_tableview")
         cls.properties_model_module = importlib.import_module("windows.models.properties_model")
 
+    def test_close_does_not_discard_project_after_failed_or_cancelled_save(self):
+        self.app.project = types.SimpleNamespace(needs_save=lambda: True)
+        event = types.SimpleNamespace(accept=Mock(), ignore=Mock())
+        window = types.SimpleNamespace(actionSave_trigger=Mock(), shutting_down=False)
+        with patch.object(self.main_window_module.QMessageBox, "question", return_value=self.main_window_module.QMessageBox.Yes), \
+                patch.object(self.main_window_module.MainWindow, "_shutdown") as shutdown:
+            self.main_window_module.MainWindow.closeEvent(window, event)
+            shutdown.assert_not_called()
+        event.ignore.assert_called_once()
+        event.accept.assert_not_called()
+
+    def test_recovery_pruning_preserves_same_basename_from_another_folder(self):
+        from classes.project_recovery import archive_previous_version
+        with tempfile.TemporaryDirectory() as directory:
+            recovery = os.path.join(directory, "recovery")
+            projects = []
+            for name in ("first", "second"):
+                folder = os.path.join(directory, name)
+                os.mkdir(folder)
+                path = os.path.join(folder, "project.osp")
+                with open(path, "w") as stream:
+                    stream.write('{}')
+                projects.append(path)
+            first = archive_previous_version(projects[0], recovery, 100)
+            second = archive_previous_version(projects[1], recovery, 200)
+            with patch.object(self.main_window_module.info, "RECOVERY_PATH", recovery):
+                self.main_window_module.MainWindow.manage_recovery_files(
+                    types.SimpleNamespace(), 0, 0, "project", source_path=projects[0])
+            self.assertFalse(os.path.exists(first))
+            self.assertTrue(os.path.exists(second))
+
+    def test_disabled_recovery_does_not_create_or_prune_archives(self):
+        with patch("classes.project_recovery.archive_previous_version") as archive:
+            self.main_window_module.MainWindow.save_recovery(types.SimpleNamespace(), "existing.osp", 0)
+        archive.assert_not_called()
+
+    def test_save_stops_when_previous_version_cannot_be_archived(self):
+        self.app.project = types.SimpleNamespace(save=Mock())
+        self.app.updates = types.SimpleNamespace(save_history=Mock())
+        window = types.SimpleNamespace(lock=threading.Lock(),
+            save_recovery=Mock(side_effect=OSError("disk full")),
+            ProjectSaved=SignalRecorder(), ProjectSaveFailed=SignalRecorder())
+        result = self.main_window_module.MainWindow.save_project(window, "existing.osp")
+        self.assertFalse(result)
+        self.app.project.save.assert_not_called()
+        self.assertFalse(window._saving_project)
+
+    def test_failed_open_offers_recovery_before_touching_active_project(self):
+        active = {"keep": "active project"}
+        self.app.project = types.SimpleNamespace(
+            _data=active, read_from_file=Mock(side_effect=ValueError("line 4, column 2")))
+        window = types.SimpleNamespace(clear_temporary_files=Mock())
+        with tempfile.TemporaryDirectory() as directory:
+            path = os.path.join(directory, "broken.osp")
+            with open(path, "w") as stream:
+                stream.write('{"clips": [')
+            with patch.object(self.main_window_module.MainWindow, "_offer_project_recovery") as offer:
+                self.main_window_module.MainWindow.open_project(window, path)
+            offer.assert_called_once()
+            self.assertEqual(offer.call_args[0][1], path)
+        window.clear_temporary_files.assert_not_called()
+        self.assertIs(self.app.project._data, active)
+
+    def test_recovery_copy_chooses_filename_and_attempts_open_without_a_file_dialog(self):
+        data = {"clips": [], "files": [], "layers": []}
+        window = types.SimpleNamespace(open_project=Mock(return_value=True))
+        module = self.main_window_module
+        with patch.object(module, "show_save_file_dialog") as picker, \
+                patch("classes.project_recovery.save_recovery_automatically", return_value="/tmp/recovered.osp") as save:
+            self.assertTrue(module.MainWindow._save_recovered_project(window, "/tmp/broken.osp", data))
+            save.assert_called_once_with(data, "/tmp/broken.osp")
+            window.open_project.assert_called_once_with("/tmp/recovered.osp", recovering=True)
+            picker.assert_not_called()
+
+    def test_failed_recovery_write_does_not_attempt_to_open_the_destination(self):
+        window = types.SimpleNamespace(open_project=Mock())
+        with patch("classes.project_recovery.save_recovery_automatically", side_effect=OSError("disk full")):
+            with self.assertRaisesRegex(OSError, "disk full"):
+                self.main_window_module.MainWindow._save_recovered_project(window, "/tmp/broken.osp", {})
+        window.open_project.assert_not_called()
+
+    def test_failed_open_connects_inline_backup_choice_to_archive_validation(self):
+        module = self.main_window_module
+        with tempfile.TemporaryDirectory() as directory:
+            original = os.path.join(directory, "broken.osp")
+            archive = os.path.join(directory, "123-broken.zip")
+            data = {"clips": [], "files": [], "layers": []}
+            with zipfile.ZipFile(archive, "w") as stream:
+                stream.writestr("broken.osp", json.dumps(data))
+            with patch("windows.project_recovery.ProjectRecoveryDialog") as dialog, \
+                    patch("classes.project_recovery.previous_versions", return_value=[archive]):
+                dialog.return_value.exec_.return_value = False
+                window = types.SimpleNamespace()
+                module.MainWindow._offer_project_recovery(window, original, ValueError("Invalid JSON"))
+                self.assertEqual(dialog.call_args.kwargs['restore'](archive), (data, []))
+            self.assertFalse(os.path.exists(original))
+
     def test_project_loading_blocks_autosave_and_scope_dispatch(self):
         module = self.main_window_module
         window = types.SimpleNamespace(_project_loading=True)
@@ -214,26 +313,228 @@ class MainWindowTests(unittest.TestCase):
         worker = types.SimpleNamespace(parent=types.SimpleNamespace(_project_loading=True))
         PlayerWorker.refreshFrame(worker)
 
-    def test_failed_backup_reports_error_and_can_retry_same_revision(self):
+    def _autosave_fixture(self, path):
+        project = self.app.project
+        project.current_filepath = path
+        project.has_unsaved_changes = True
+        project._data["extra"] = {"title": "日本語", "points": [{"x": 1, "y": 2}]}
+        updates = types.SimpleNamespace(data_version=7, export_history=MagicMock(
+            return_value={"undo": [{"value": {"nested": [1, 2]}}], "redo": []}))
+        app = types.SimpleNamespace(project=project, updates=updates,
+                                    get_settings=lambda: DummySettings(), _tr=lambda text: text)
+        window = types.SimpleNamespace(
+            last_auto_save_data_version=6, save_recovery=MagicMock(),
+            ProjectSaved=MagicMock(), ProjectSaveFailed=MagicMock(), AutoSaveFinished=SignalRecorder())
+        return app, window
+
+    def _start_autosave(self, app, window):
         module = self.main_window_module
-        for error in (MemoryError(), OSError("disk full")):
-            with self.subTest(error=type(error).__name__):
-                project = MagicMock(current_filepath=None)
-                project.needs_save.return_value = True
-                project.save.side_effect = [error, None]
-                app = types.SimpleNamespace(project=project,
-                                            updates=types.SimpleNamespace(data_version=7),
-                                            _tr=lambda text: text)
-                window = types.SimpleNamespace(last_auto_save_data_version=6,
-                                               ProjectSaveFailed=MagicMock())
-                with patch.object(module, "get_app", return_value=app):
-                    module.MainWindow.auto_save_project(window)
+        backup = (os.path.join(os.path.dirname(app.project.current_filepath), "backup.osp")
+                  if app.project.current_filepath else module.info.BACKUP_FILE)
+        with patch.object(module, "get_app", return_value=app), patch.object(module.threading, "Thread"), patch.object(
+                module.info, "BACKUP_FILE", backup):
+            module.MainWindow.auto_save_project(window)
+        return getattr(window, "_autosave_job", None)
+
+    def _finish_autosave(self, app, window, job, error=""):
+        with patch.object(self.main_window_module, "get_app", return_value=app):
+            self.main_window_module.MainWindow._on_autosave_finished(window, job, error)
+
+    def test_autosave_failures_preserve_backup_and_retry_without_an_edit(self):
+        module = self.main_window_module
+        for named in (False, True):
+            for stage in ("capture", "start", "write"):
+                with self.subTest(named=named, stage=stage), tempfile.TemporaryDirectory() as directory:
+                    path = os.path.join(directory, "project.osp") if named else None
+                    backup = os.path.join(directory, "backup.osp")
+                    for filename in [backup] + ([path] if path else []):
+                        with open(filename, "w") as stream:
+                            stream.write('{"last_good": true}')
+                    app, window = self._autosave_fixture(path)
+                    with patch.object(module.info, "BACKUP_FILE", backup):
+                        if stage == "capture":
+                            with patch.object(app.project, "capture_save_snapshot", side_effect=MemoryError()):
+                                self._start_autosave(app, window)
+                        elif stage == "start":
+                            with patch.object(module, "get_app", return_value=app), patch.object(
+                                    module.threading.Thread, "start", side_effect=RuntimeError("cannot start")):
+                                module.MainWindow.auto_save_project(window)
+                        else:
+                            job = self._start_autosave(app, window)
+                            self.assertEqual(window.last_auto_save_data_version, 6)
+                            with patch.object(ProjectDataStore, "write_save_snapshot", side_effect=OSError("disk full")):
+                                module.MainWindow._write_autosave(window, job)
+                            completed_job, error = window.AutoSaveFinished.calls[-1]
+                            self._finish_autosave(app, window, completed_job, error)
+                        self.assertIsNone(window._autosave_job)
+                        self.assertEqual(window.last_auto_save_data_version, 6)
+                        window.ProjectSaveFailed.emit.assert_called_once()
+                        window.ProjectSaved.emit.assert_not_called()
+                        for filename in [backup] + ([path] if path else []):
+                            with open(filename) as stream:
+                                self.assertEqual(json.load(stream), {"last_good": True})
+                        job = self._start_autosave(app, window)
+                        self.assertIsNotNone(job)
+                        self._finish_autosave(app, window, job)
+                        self.assertEqual(window.last_auto_save_data_version, 7)
+                        self.assertEqual(os.path.exists(backup), not named)
+                        self.assertIsNone(self._start_autosave(app, window))
+
+    def test_autosave_owns_project_and_history_and_does_not_clear_new_edits(self):
+        module = self.main_window_module
+        with tempfile.TemporaryDirectory() as directory:
+            app, window = self._autosave_fixture(os.path.join(directory, "project.osp"))
+            job = self._start_autosave(app, window)
+            self.assertIs(self._start_autosave(app, window), job)  # one in flight
+            app.project._data["extra"]["points"][0]["y"] = 99  # no revision notification
+            app.updates.export_history.return_value["undo"][0]["value"]["nested"].append(3)
+            snapshot = job.snapshot.decode()
+            self.assertEqual(snapshot["extra"]["points"][0]["y"], 2)
+            self.assertEqual(snapshot["history"]["undo"][0]["value"]["nested"], [1, 2])
+            # Exercise real serialization and atomic replacement on detached data.
+            module.MainWindow._write_autosave(window, job)
+            completed_job, error = window.AutoSaveFinished.calls[-1]
+            self.assertEqual(error, "")
+            with open(job.file_path) as stream:
+                self.assertEqual(json.load(stream)["extra"], snapshot["extra"])
+            self._finish_autosave(app, window, completed_job, error)
+            self.assertTrue(app.project.has_unsaved_changes)
+            next_job = self._start_autosave(app, window)
+            self.assertIsNotNone(next_job)
+            self.assertEqual(next_job.version, job.version)
+            self.assertEqual(next_job.snapshot.decode()["extra"]["points"][0]["y"], 99)
+            app.updates.data_version += 1
+            self._finish_autosave(app, window, next_job)
+            self.assertEqual(window.last_auto_save_data_version, 7)
+            self.assertIsNotNone(self._start_autosave(app, window))
+
+    def test_stale_autosave_completion_cannot_acknowledge_a_different_project(self):
+        for change in ("root", "path", "project"):
+            with self.subTest(change=change), tempfile.TemporaryDirectory() as directory:
+                app, window = self._autosave_fixture(os.path.join(directory, "project.osp"))
+                backup = os.path.join(directory, "backup.osp")
+                with open(backup, "w") as stream:
+                    stream.write("backup")
+                with patch.object(self.main_window_module.info, "BACKUP_FILE", backup):
+                    job = self._start_autosave(app, window)
+                if change == "root":
+                    app.project._data = dict(app.project._data)
+                elif change == "path":
+                    app.project.current_filepath = "other.osp"
+                else:
+                    app.project = types.SimpleNamespace()
+                self._finish_autosave(app, window, job)
+                self.assertEqual(window.last_auto_save_data_version, 6)
+                self.assertTrue(os.path.exists(backup))
+                window.ProjectSaved.emit.assert_not_called()
+                self.assertIsNone(window._autosave_job)
+
+    def test_project_changes_defer_while_autosave_finishes(self):
+        module = self.main_window_module
+        window = types.SimpleNamespace(_autosave_job=object())
+        callback = MagicMock()
+        with patch.object(module.QTimer, "singleShot") as timer:
+            self.assertTrue(module.MainWindow._defer_during_autosave(window, callback))
+            timer.assert_called_once_with(50, callback)
+            callback.assert_not_called()
+            with patch.object(module, "get_app") as app:
+                module.MainWindow.open_project(window, "other.osp")
+                app.assert_not_called()
+                event = MagicMock()
+                module.MainWindow.closeEvent(window, event)
+                event.ignore.assert_called_once()
+            window._autosave_job = None
+            self.assertFalse(module.MainWindow._defer_during_autosave(window, callback))
+
+    def test_autosave_skips_while_a_save_is_in_progress(self):
+        module = self.main_window_module
+        window = types.SimpleNamespace(_saving_project=True)
+        with patch.object(module, "get_app") as app:
+            module.MainWindow.auto_save_project(window)
+            self.assertFalse(module.MainWindow.save_project(window, "project.osp"))
+            app.assert_not_called()
+
+        window = types.SimpleNamespace(_manual_save_thread=MagicMock())
+        window._manual_save_thread.is_alive.return_value = True
+        with patch.object(module, "get_app") as app:
+            module.MainWindow.auto_save_project(window)
+            app.assert_not_called()
+
+    def test_autosave_worker_completion_runs_on_ui_thread_and_keeps_edits_dirty(self):
+        module = self.main_window_module
+        ui_thread = threading.get_ident()
+        entered, release = threading.Event(), threading.Event()
+        observed = []
+
+        class Harness(QObject):
+            AutoSaveFinished = pyqtSignal(object, str)
+            ProjectSaved = pyqtSignal(str)
+            ProjectSaveFailed = pyqtSignal(str, str)
+
+            def __init__(self):
+                super().__init__()
+                self.last_auto_save_data_version = 6
+                self.save_recovery = MagicMock()
+                self.AutoSaveFinished.connect(self.finished, Qt.QueuedConnection)
+
+            @pyqtSlot(object, str)
+            def finished(self, job, error):
+                observed.append(("completion", threading.get_ident(), error))
+                module.MainWindow._on_autosave_finished(self, job, error)
+
+        def write(*args, **kwargs):
+            observed.append(("worker", threading.get_ident()))
+            entered.set()
+            if not release.wait(5):
+                raise RuntimeError("Test did not release worker")
+
+        with tempfile.TemporaryDirectory() as directory:
+            app, _ = self._autosave_fixture(os.path.join(directory, "project.osp"))
+            window = Harness()
+            with patch.object(module, "get_app", return_value=app), patch.object(
+                    module.info, "BACKUP_FILE", os.path.join(directory, "backup.osp")), patch.object(
+                    ProjectDataStore, "write_save_snapshot", side_effect=write):
+                module.MainWindow.auto_save_project(window)
+                try:
+                    self.assertTrue(entered.wait(2))
                     self.assertEqual(window.last_auto_save_data_version, 6)
-                    window.ProjectSaveFailed.emit.assert_called_once()
-                    self.assertTrue(window.ProjectSaveFailed.emit.call_args[0][1])
+                    app.project._data["extra"]["title"] = "edited during write"
+                    app.updates.data_version = 8
+                    job = window._autosave_job
                     module.MainWindow.auto_save_project(window)
-                    self.assertEqual(window.last_auto_save_data_version, 7)
-                    self.assertEqual(project.save.call_count, 2)
+                    self.assertIs(window._autosave_job, job)
+                finally:
+                    release.set()
+                    job.thread.join(5)
+                deadline = time.monotonic() + 5
+                while window._autosave_job is not None and time.monotonic() < deadline:
+                    QCoreApplication.processEvents()
+                self.assertIsNone(window._autosave_job)
+                self.assertNotEqual(observed[0][1], ui_thread)
+                self.assertEqual(observed[1], ("completion", ui_thread, ""))
+                self.assertEqual(window.last_auto_save_data_version, 7)
+                self.assertTrue(app.project.has_unsaved_changes)
+
+    def test_save_as_waits_for_autosave_and_keeps_background_save_behavior(self):
+        module = self.main_window_module
+        window = types.SimpleNamespace(save_project=MagicMock())
+        settings = MagicMock()
+        app = types.SimpleNamespace(project=types.SimpleNamespace(current_filepath=None),
+                                    get_settings=lambda: settings, _tr=lambda text: text)
+        with patch.object(module, "get_app", return_value=app), patch.object(
+                module, "show_save_file_dialog") as dialog, patch.object(
+                module.threading, "Thread") as thread, patch.object(module.QTimer, "singleShot") as timer:
+            module.MainWindow.actionSaveAs_trigger(window)
+            callback = dialog.call_args[0][4]
+            callback("")
+            thread.assert_not_called()
+            window._autosave_job = object()  # timer fired while the dialog was open
+            callback("copy")
+            thread.assert_not_called()
+            window._autosave_job = None
+            timer.call_args[0][1]()
+            thread.assert_called_once_with(target=window.save_project, args=("copy.osp",), daemon=True)
+            thread.return_value.start.assert_called_once()
 
     def test_track_stack_preserves_selected_track_across_renumbering(self):
         module = self.main_window_module
@@ -337,10 +638,10 @@ class MainWindowTests(unittest.TestCase):
                         return now
 
                 files = [
-                    ("100-newest-project.zip", now),
-                    ("090-older-today-project.zip", now - timedelta(hours=1)),
-                    ("080-yesterday-project.zip", now - timedelta(days=1)),
-                    ("070-two-days-project.zip", now - timedelta(days=2)),
+                    ("100-project.zip", now),
+                    ("090-project.zip", now - timedelta(hours=1)),
+                    ("080-project.zip", now - timedelta(days=1)),
+                    ("070-project.zip", now - timedelta(days=2)),
                 ]
                 for name, dt in files:
                     path = os.path.join(recovery_dir, name)
@@ -354,7 +655,7 @@ class MainWindowTests(unittest.TestCase):
                     self.main_window_module.MainWindow.manage_recovery_files(fake_window, 1, 1, "project")
 
                 remaining = sorted(os.listdir(recovery_dir))
-                self.assertEqual(remaining, ["080-yesterday-project.zip", "100-newest-project.zip"])
+                self.assertEqual(remaining, ["080-project.zip", "100-project.zip"])
 
     def test_dock_style_scheduler_ignores_signal_payloads(self):
         starts = []
@@ -867,7 +1168,7 @@ class MainWindowTests(unittest.TestCase):
 
             managed = []
             fake_window = types.SimpleNamespace(
-                manage_recovery_files=lambda daily, historical, name: managed.append((daily, historical, name))
+                manage_recovery_files=lambda daily, historical, name, source_path=None: managed.append((daily, historical, name))
             )
 
             with ExitStack() as stack:
@@ -1060,7 +1361,7 @@ class MainWindowTests(unittest.TestCase):
             timeline_sync=None,
             destroy_lock_file=lambda: calls.append("destroy_lock"),
         )
-        self.app.project = types.SimpleNamespace(needs_save=lambda: True)
+        self.app.project = types.SimpleNamespace(needs_save=Mock(side_effect=[True, False]))
         self.app.logger_libopenshot = None
         event = types.SimpleNamespace(
             accept=lambda: event_calls.append("accept"),
@@ -1275,7 +1576,8 @@ class MainWindowTests(unittest.TestCase):
         history_calls = []
         self.app.project = types.SimpleNamespace(
             needs_save=lambda: False,
-            load=lambda path, clear_thumbnails, interactive=True: load_calls.append((path, clear_thumbnails, interactive)),
+            read_from_file=lambda *args, **kwargs: {"clips": [], "files": [], "layers": []},
+            load=lambda path, clear_thumbnails, interactive=True, candidate=None: load_calls.append((path, clear_thumbnails, interactive)),
         )
         self.app.updates = types.SimpleNamespace(load_history=history_calls.append)
         self.app.window = fake_window
