@@ -53,6 +53,94 @@ class ProjectRecoveryTests(unittest.TestCase):
             with self.subTest(actions=actions), self.assertRaisesRegex(ValueError, 'history entry'):
                 parse_project(json.dumps(project))
 
+    def test_repair_only_discards_nonfinite_waveform_caches(self):
+        data = self.project()
+        data["files"] = [{"ui": {"audio_data": [0.5, float("nan")],
+                                  "audio_data_rms": [float("inf")]}}]
+        text = json.dumps(data)
+        with self.assertRaises(ValueError):
+            parse_project(text)
+        repaired, changes = parse_project(text, repair=True)
+        self.assertEqual(repaired["files"][0]["ui"], {"audio_data": [], "audio_data_rms": []})
+        self.assertEqual(repaired["clips"], data["clips"])
+        self.assertEqual(len(changes), 2)
+        for value in (float("nan"), float("inf"), -float("inf")):
+            data["clips"][0]["position"] = value
+            with self.assertRaises(ValueError):
+                parse_project(json.dumps(data), repair=True)
+        with self.assertRaises(ValueError):
+            parse_project('{"files": [], "files": [], "clips": [], "layers": []}', repair=True)
+
+    def test_history_repair_keeps_reachable_suffix_and_whole_transactions(self):
+        def action(transaction):
+            return {"type": "update", "key": ["clips"], "transaction": transaction}
+        data = self.project()
+        # A is non-contiguous. Removing its older part must remove its newer
+        # part too; this also crosses B, so only C remains reachable.
+        actions = [action("A"), None, action("B"), action("A"), action("B"), action("C")]
+        data["history"] = {"undo": actions, "redo": [action("R")]}
+        repaired, changes = parse_project(json.dumps(data), repair=True)
+        self.assertEqual(repaired["history"], {"undo": [action("C")], "redo": [action("R")]})
+        self.assertIn("discarded 5 of 6", changes[0])
+        data["history"]["redo"] = [action("R"), None]
+        repaired, _ = parse_project(json.dumps(data), repair=True)
+        self.assertEqual(repaired["history"]["redo"], [])
+        self.assertEqual(repaired["clips"], data["clips"])
+
+    def test_unreadable_history_requires_complete_current_collections(self):
+        data = self.project()
+        prefix = json.dumps(data)[:-1]
+        damaged = prefix + ', "history": {"undo": [{"key": ['
+        repaired, changes = parse_project(damaged, repair=True)
+        self.assertEqual(repaired, dict(data, history={"undo": [], "redo": []}))
+        self.assertIn("unreadable remainder", changes[0])
+        for text in ('{"history": {"undo": [',
+                     prefix + ', "unknown": {"bad": [',
+                     damaged.replace('"files": []', '"files": null'),
+                     prefix + ', "history": {}, "tail": ['):
+            with self.subTest(text=text), self.assertRaises(ValueError):
+                parse_project(text, repair=True)
+
+    def test_filename_quote_repair_requires_one_existing_file(self):
+        with tempfile.TemporaryDirectory() as root:
+            original = os.path.join(root, "movie.osp")
+            filename = 'say "hello".svg'
+            data = self.project()
+            data["clips"][0]["reader"]["path"] = './' + filename
+            text = json.dumps(data, indent=1)
+            damaged = text.replace('say \\"hello', 'say /"hello')
+            self.assertNotEqual(text, damaged)
+            with self.assertRaises(ValueError):
+                parse_project(damaged, repair=True, original_path=original)
+            with open(os.path.join(root, filename), "w") as stream:
+                stream.write("<svg/>")
+            repaired, changes = parse_project(damaged, repair=True, original_path=original)
+            self.assertEqual(repaired, data)
+            self.assertIn("verified existing file", changes[0])
+            # Both interpretations exist: do not choose one.
+            os.mkdir(os.path.join(root, 'say '))
+            with open(os.path.join(root, 'say ', '"hello".svg'), "w") as stream:
+                stream.write("<svg/>")
+            with self.assertRaisesRegex(ValueError, "found 2"):
+                parse_project(damaged, repair=True, original_path=original)
+
+    def test_filename_quote_repair_resolves_project_assets(self):
+        with tempfile.TemporaryDirectory() as root:
+            original = os.path.join(root, "movie.osp")
+            assets = os.path.join(root, "movie_assets", "title")
+            os.makedirs(assets)
+            filename = '"hello".svg'
+            with open(os.path.join(assets, filename), "w") as stream:
+                stream.write("<svg/>")
+            data = self.project()
+            data["clips"][0]["reader"]["path"] = "@assets/title/" + filename
+            text = json.dumps(data, indent=1)
+            damaged = text.replace('title/\\"hello', 'title//"hello')
+            repaired, changes = parse_project(damaged, repair=True, original_path=original)
+            self.assertEqual(repaired, data)
+            self.assertEqual(len(changes), 1)
+            self.assertEqual(parse_project(text, repair=True, original_path=original), (data, []))
+
     def test_automatic_recovery_naming_skips_existing_files_and_asset_folders(self):
         from classes.project_recovery import save_recovery_automatically
         with tempfile.TemporaryDirectory() as root:

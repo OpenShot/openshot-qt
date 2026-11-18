@@ -900,7 +900,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         from qt_api import read_file_text
         versions = [] if is_content_uri(file_path) else previous_versions(file_path, info.RECOVERY_PATH)
         dialog = ProjectRecoveryDialog(self, file_path, error, versions,
-            repair=lambda: parse_project(read_file_text(file_path), repair=True),
+            repair=lambda: parse_project(read_file_text(file_path), repair=True, original_path=file_path),
             restore=lambda path: parse_project(read_version(path, file_path)),
             save=lambda data: save_recovery_automatically(data, file_path),
             open_project=lambda path: self.open_project(path, recovering=True))

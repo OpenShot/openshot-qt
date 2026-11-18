@@ -23,7 +23,7 @@ import re
 import zipfile
 
 
-def decode_json(text):
+def _json_decoder(repair_numbers=False):
     def unique_object(pairs):
         result = {}
         for key, value in pairs:
@@ -42,8 +42,13 @@ def decode_json(text):
             raise ValueError("Invalid JSON number: " + value)
         return number
 
-    return json.loads(text, object_pairs_hook=unique_object,
-                      parse_constant=invalid_constant, parse_float=finite_float)
+    return json.JSONDecoder(object_pairs_hook=unique_object,
+                            parse_constant=float if repair_numbers else invalid_constant,
+                            parse_float=float if repair_numbers else finite_float)
+
+
+def decode_json(text):
+    return _json_decoder().decode(text)
 
 
 def clip_problem(clip):
@@ -83,9 +88,7 @@ def validate_project(data):
     if isinstance(history, dict):
         for collection in ('undo', 'redo'):
             for index, action in enumerate(history.get(collection, [])):
-                if (not isinstance(action, dict)
-                        or (action.get('type') != 'load' and not isinstance(action.get('key'), list))
-                        or (action.get('type') != 'load' and not action.get('key'))):
+                if _history_problem(action):
                     raise ValueError("Invalid {} history entry {}. Try a previous version.".format(
                         collection, index + 1))
     fps = data.get("fps", {"num": 30, "den": 1})
@@ -127,7 +130,146 @@ def _quote_legacy_keys(text):
     return repaired, quoted
 
 
-def parse_project(text, repair=False):
+def _clean_waveforms(value, changes, location="project"):
+    """Only regenerable UI envelopes may contain nonfinite numbers in recovery."""
+    if isinstance(value, dict):
+        for key, child in value.items():
+            if key == "ui" and isinstance(child, dict):
+                for cache in ("audio_data", "audio_data_rms"):
+                    samples = child.get(cache)
+                    if isinstance(samples, list) and any(
+                            isinstance(v, float) and not math.isfinite(v) for v in samples):
+                        child[cache] = []
+                        changes.append("Discarded invalid waveform cache at {}/ui/{}; it can be regenerated.".format(
+                            location, cache))
+            _clean_waveforms(child, changes, location + "/" + key)
+    elif isinstance(value, list):
+        for index, child in enumerate(value):
+            _clean_waveforms(child, changes, location + "/" + str(index))
+
+
+def _history_problem(action):
+    return (not isinstance(action, dict)
+            or action.get("type") not in ("load", "insert", "update", "delete")
+            or (action.get("type") != "load" and (
+                not isinstance(action.get("key"), list) or not action["key"]))
+            or ("transaction" in action and not isinstance(action["transaction"], str)))
+
+
+def _repair_history(data, changes):
+    history = data.get("history")
+    if history is None:
+        return
+    if not isinstance(history, dict):
+        data["history"] = {"undo": [], "redo": []}
+        changes.append("Discarded invalid undo/redo history; current project edits were retained.")
+        return
+    for side in ("undo", "redo"):
+        actions = history.get(side, [])
+        if not isinstance(actions, list):
+            history[side] = []
+            changes.append("Discarded invalid {} history stack.".format(side))
+            continue
+        bad = [i for i, action in enumerate(actions) if _history_problem(action)]
+        if not bad:
+            continue
+        # Both stacks pop from the end. Retain a reachable suffix, never jump
+        # over a broken action or split an async/non-contiguous transaction.
+        cutoff = max(bad) + 1
+        while cutoff < len(actions):
+            removed = {a.get("transaction") for a in actions[:cutoff]
+                       if isinstance(a, dict) and isinstance(a.get("transaction"), str)}
+            crossing = [i for i in range(cutoff, len(actions))
+                        if actions[i].get("transaction") in removed]
+            if not crossing:
+                break
+            cutoff = max(crossing) + 1
+        history[side] = actions[cutoff:]
+        changes.append("Truncated {} history: discarded {} of {} actions through the damaged transaction; retained {} recent actions.".format(
+            side, cutoff, len(actions), len(actions) - cutoff))
+
+
+def _recover_before_history(text, changes):
+    """Read complete root fields only; never synthesize partial current edits."""
+    decoder = _json_decoder(repair_numbers=True)
+    pos = len(text) - len(text.lstrip())
+    if text[pos:pos + 1] != "{":
+        raise ValueError("No complete project before damaged history.")
+    pos += 1
+    data = {}
+    while True:
+        while pos < len(text) and text[pos].isspace():
+            pos += 1
+        key, pos = decoder.raw_decode(text, pos)
+        if not isinstance(key, str) or key in data:
+            raise ValueError("Invalid or duplicate project field before history.")
+        while pos < len(text) and text[pos].isspace():
+            pos += 1
+        if text[pos:pos + 1] != ":":
+            raise ValueError("Invalid project field before history.")
+        pos += 1
+        while pos < len(text) and text[pos].isspace():
+            pos += 1
+        try:
+            value, end = decoder.raw_decode(text, pos)
+        except json.JSONDecodeError:
+            if key != "history":
+                raise
+            # Validation below requires complete clips, files, layers and all
+            # other current fields encountered before history.
+            validate_project(data)
+            data["history"] = {"undo": [], "redo": []}
+            changes.append("Discarded unreadable undo/redo history and the unreadable remainder of the file (which may include version metadata); retained complete current project fields preceding history.")
+            return data
+        data[key] = value
+        pos = end
+        while pos < len(text) and text[pos].isspace():
+            pos += 1
+        if text[pos:pos + 1] != ",":
+            raise ValueError("Damage is outside undo/redo history.")
+        pos += 1
+
+
+def _repair_path_quotes(text, original_path, changes):
+    """Correct only invalid, line-delimited path strings verified on disk."""
+    def replace(match):
+        line = match.group(0)
+        try:
+            decode_json("{" + line.strip().rstrip(",") + "}")
+            return line
+        except ValueError:
+            pass
+        if not original_path or str(original_path).startswith("content://"):
+            raise ValueError("Filename quote repair requires a local project path to verify the media exists.")
+        body = match.group(2)
+        # Historical path normalization changed escaped opening quotes into
+        # /". Also consider literal slashes so a real subdirectory is retained.
+        candidates = {}
+        for raw in (body, body.replace('/"', '\\"')):
+            raw = raw.replace('\\\\"', '\\"')
+            raw = re.sub(r'(?<!\\)"', r'\\"', raw)
+            try:
+                path = decode_json('"' + raw + '"')
+            except ValueError:
+                continue
+            if "@assets" in path:
+                from classes.assets import get_assets_path
+                resolved = path.replace("@assets", get_assets_path(original_path, create_paths=False))
+            elif path.startswith("@"):
+                continue
+            else:
+                resolved = os.path.join(os.path.dirname(os.path.abspath(original_path)), path)
+            if os.path.isfile(resolved):
+                candidates[os.path.realpath(resolved)] = path
+        if len(candidates) != 1:
+            raise ValueError("Cannot safely repair filename quotes: expected one existing file, found {}.".format(len(candidates)))
+        path = next(iter(candidates.values()))
+        changes.append("Repaired filename quote escaping and verified existing file: " + path)
+        return match.group(1) + json.dumps(path, ensure_ascii=False)[1:-1] + match.group(3)
+    return re.sub(r'(^[ \t]*"path"[ \t]*:[ \t]*")(.*)(",?[ \t]*\r?$)', replace, text, flags=re.M)
+
+
+def parse_project(text, repair=False, original_path=None):
     changes = []
     if repair:
         if re.search(r'"openshot-qt"\s*:\s*"2\.6\.0"', text):
@@ -167,10 +309,26 @@ def parse_project(text, repair=False):
         if removed:
             changes.append("Removed {} trailing comma(s).".format(removed))
     try:
-        data = decode_json(text)
+        data = _json_decoder(repair_numbers=repair).decode(text)
     except json.JSONDecodeError as error:
-        message = "Invalid JSON at line {}, column {}: {}. Try a previous version instead of guessing missing edits."
-        raise ValueError(message.format(error.lineno, error.colno, error.msg)) from error
+        if repair:
+            try:
+                text = _repair_path_quotes(text, original_path, changes)
+                try:
+                    data = _json_decoder(repair_numbers=True).decode(text)
+                except json.JSONDecodeError:
+                    data = _recover_before_history(text, changes)
+            except ValueError as recovery_error:
+                raise ValueError("Unable to repair project: " + str(recovery_error)) from recovery_error
+        else:
+            raise ValueError("Invalid JSON at line {}, column {}: {}. Try a previous version instead of guessing missing edits.".format(
+                error.lineno, error.colno, error.msg)) from error
+    if repair:
+        _clean_waveforms(data, changes)
+        # Nonfinite data outside a discarded waveform cache is never accepted.
+        decode_json(json.dumps(data))
+        if isinstance(data, dict):
+            _repair_history(data, changes)
     if repair and isinstance(data, dict) and isinstance(data.get("clips"), list):
         kept = []
         for index, clip in enumerate(data["clips"]):

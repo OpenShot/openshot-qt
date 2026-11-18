@@ -277,8 +277,18 @@ is resizable and scrolls vertically through long lists; Close stays outside the
 scrolling area.
 
 Repairs can remove a UTF-8 byte-order mark, trailing commas outside strings, or
-incomplete clip records, and quote damaged keys in OpenShot 2.6.0 projects. This does not establish that omitted clips are
-unrecoverable by other means, or that all remaining edits and media will work.
+incomplete clip records, and quote damaged keys in OpenShot 2.6.0 projects.
+They can also discard invalid waveform caches, which can be regenerated, and repair
+filename quote escaping when exactly one corrected path identifies an existing file.
+Missing or ambiguous files prevent filename repair.
+
+For damaged undo/redo entries, repair retains the reachable recent actions in each
+stack, truncating at the damaged transaction without splitting transactions. If the
+history JSON is unreadable but the preceding current project fields are complete,
+repair discards history and the unreadable remainder of the file. The report explains
+this loss; current clips are not reconstructed from history.
+
+This does not establish that omitted clips are unrecoverable by other means, or that all remaining edits and media will work.
 Check the timeline, relink missing media, and test playback and export. A project
 backup cannot restore deleted media. Recovery copies may also be incomplete,
 damaged, or missing recent changes.
