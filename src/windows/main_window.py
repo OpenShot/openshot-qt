@@ -778,12 +778,12 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         loaded_project = False
         try:
             if file_exists(file_path):
-                # Clear any previous thumbnails
+                # Load before deleting temporary assets or recovery backups: a
+                # rejected project must not discard the current project's data.
+                app.project.load(file_path, clear_thumbnails, interactive=interactive)
+
                 if clear_thumbnails:
                     self.clear_temporary_files()
-
-                # Load project file
-                app.project.load(file_path, clear_thumbnails, interactive=interactive)
 
                 # Set Window title
                 self.SetWindowTitle()

@@ -270,47 +270,164 @@ class ProjectDataTests(unittest.TestCase):
             store.load('')
         measurements.reset.assert_called_once_with()
 
-    def test_broken_json_and_empty_projects_do_not_fall_back_to_pickle(self):
-        for contents in ('{"clips": [', '', '  [1,'):
-            with self.subTest(contents=contents), tempfile.TemporaryDirectory() as directory:
-                path = os.path.join(directory, "broken.osp")
-                with open(path, "w") as stream:
-                    stream.write(contents)
-                store = make_store()
-                JsonDataStore.__init__(store)
-                with patch.object(store, "new"), patch.object(store, "read_legacy_project_file") as legacy:
-                    with self.assertRaises(Exception) as caught:
-                        store.load(path)
-                    legacy.assert_not_called()
-                if contents:
-                    self.assertIsInstance(caught.exception.__cause__, json.JSONDecodeError)
-                else:
-                    self.assertIn("no data", str(caught.exception))
+    def test_invalid_projects_preserve_active_project_without_unrestricted_unpickling(self):
+        fixtures = [b'{"clips": [', b'', b'  [1,', b'\xff',
+                    b'[]', b'null', b'42', b'"text"']
+        fixtures += [pickle.dumps({"legacy": True}, protocol=protocol)
+                     for protocol in range(pickle.HIGHEST_PROTOCOL + 1)]
+        for interactive in (True, False):
+            for contents in fixtures:
+                with self.subTest(interactive=interactive, contents=contents), \
+                        tempfile.TemporaryDirectory() as directory:
+                    path = os.path.join(directory, "invalid.osp")
+                    with open(path, "wb") as stream:
+                        stream.write(contents)
+                    store = make_store()
+                    JsonDataStore.__init__(store)
+                    active = {"clips": [{"id": "unsaved"}]}
+                    store._data = active
+                    store.current_filepath = "current.osp"
+                    store.has_unsaved_changes = True
+                    with patch.object(store, "new") as new, \
+                            patch("pickle.load") as load, patch("pickle.loads") as loads:
+                        with self.assertRaises(Exception):
+                            store.load(path, interactive=interactive)
+                        new.assert_not_called()
+                        load.assert_not_called()
+                        loads.assert_not_called()
+                    self.assertIs(store._data, active)
+                    self.assertEqual(store.current_filepath, "current.osp")
+                    self.assertTrue(store.has_unsaved_changes)
+                    with open(path, "rb") as stream:
+                        self.assertEqual(stream.read(), contents)
 
-    def test_binary_and_text_pickles_still_reach_legacy_loader(self):
+    def test_legacy_fixtures_convert_and_save_as_modern_json(self):
+        fixtures = source_path("src/tests/fixtures/legacy")
+        previous_cwd = os.getcwd()
+        try:
+            for fixture in sorted(fixtures.glob("*.osp")):
+                for interactive in (True, False):
+                    with self.subTest(fixture=fixture.name, interactive=interactive), \
+                            tempfile.TemporaryDirectory() as folder:
+                        import shutil
+                        shutil.copy(fixtures / "legacy.ppm", folder)
+                        project_path = os.path.join(folder, fixture.name)
+                        shutil.copy(fixture, project_path)
+                        original_bytes = fixture.read_bytes()
+                        os.chdir(folder)
+                        store = ProjectDataStore()
+                        self.app.project = store
+                        self.app.updates = UpdateManager()
+                        self.app.updates.add_listener(store)
+                        with patch.object(store, "add_to_recent_files"), \
+                                patch("pickle.load") as unrestricted_load, \
+                                patch("pickle.loads") as unrestricted_loads:
+                            store.load(project_path, clear_thumbnails=False, interactive=interactive)
+                            unrestricted_load.assert_not_called()
+                            unrestricted_loads.assert_not_called()
+                            self.assertEqual(len(store.get("files")), 1)
+                            self.assertEqual(len(store.get("clips")), 1)
+                            self.assertEqual(len(store.get("effects")), 1)
+                            self.assertEqual(store.get("layers")[0]["label"], "Track 1")
+                            clip = store.get("clips")[0]
+                            self.assertEqual((clip["start"], clip["end"], clip["position"]), (1.0, 4.0, 2.0))
+                            self.assertEqual(len(clip["alpha"]["Points"]),
+                                             1 if "audio-only" in fixture.name else 4)
+                            self.assertEqual(len(clip["volume"]["Points"]), 4)
+                            shared_audio = fixture.name in ("project-v1-obj.osp", "project-v1-audio-only.osp")
+                            self.assertEqual(clip["volume"]["Points"][1]["co"]["X"], 39 if shared_audio else 46)
+                            self.assertEqual(clip["volume"]["Points"][2]["co"]["X"], 113 if shared_audio else 106)
+                            self.assertEqual(clip["volume"]["Points"][1]["co"]["Y"], 0.75)
+                            self.assertEqual(store.get("effects")[0]["end"], 1.0)
+                            saved = os.path.join(folder, "converted.osp")
+                            store.save(saved)
+                            with open(saved, encoding="utf-8") as stream:
+                                modern = json.load(stream)
+                            self.assertEqual(modern["clips"][0]["position"], 2.0)
+                            store.load(saved, clear_thumbnails=False, interactive=interactive)
+                            self.assertEqual(store.get("clips")[0]["file_id"], store.get("files")[0]["id"])
+                            with open(project_path, "rb") as stream:
+                                self.assertEqual(stream.read(), original_bytes)
+                        os.chdir(previous_cwd)
+        finally:
+            os.chdir(previous_cwd)
+
+    def test_legacy_callable_rejected_before_conversion_or_project_reset(self):
+        class Payload:
+            def __reduce__(self):
+                return (print, ("benign regression fixture",))
         for protocol in (0, 2):
-            with self.subTest(protocol=protocol), tempfile.TemporaryDirectory() as directory:
-                path = os.path.join(directory, "legacy.osp")
-                with open(path, "wb") as stream:
-                    pickle.dump({"legacy": True}, stream, protocol=protocol)
-                store = make_store()
-                JsonDataStore.__init__(store)
-                sentinel = RuntimeError("legacy loader reached")
-                with patch.object(store, "new"), \
-                        patch.object(store, "read_legacy_project_file", side_effect=sentinel) as legacy:
-                    with self.assertRaises(RuntimeError) as caught:
-                        store.load(path)
-                    self.assertIs(caught.exception, sentinel)
-                    legacy.assert_called_once_with(path)
+            contents = pickle.dumps(Payload(), protocol=protocol)
+            for interactive in (True, False):
+                with self.subTest(protocol=protocol, interactive=interactive), \
+                        tempfile.TemporaryDirectory() as folder:
+                    path = os.path.join(folder, "untrusted.osp")
+                    with open(path, "wb") as stream:
+                        stream.write(contents)
+                    store = ProjectDataStore()
+                    active = store._data
+                    with patch("builtins.print") as called, patch.object(store, "new") as new, \
+                            patch("classes.json_data.log.error"), \
+                            patch.object(store, "read_legacy_project_file") as convert:
+                        with self.assertRaises(pickle.UnpicklingError):
+                            store.load(path, interactive=interactive)
+                        called.assert_not_called()
+                        new.assert_not_called()
+                        convert.assert_not_called()
+                        self.assertIs(store._data, active)
 
-    def test_post_decode_failure_is_not_misreported_as_legacy_project(self):
+    def test_noninteractive_legacy_missing_media_preserves_project(self):
+        fixture = source_path("src/tests/fixtures/legacy/project-v1-protocol2.osp")
+        previous_cwd = os.getcwd()
+        try:
+            with tempfile.TemporaryDirectory() as folder:
+                os.chdir(folder)
+                store = ProjectDataStore()
+                active = store._data
+                with patch.object(store, "new") as new:
+                    with self.assertRaises(FileNotFoundError):
+                        store.load(str(fixture), interactive=False)
+                    new.assert_not_called()
+                    self.assertIs(store._data, active)
+        finally:
+            os.chdir(previous_cwd)
+
+    def test_modern_json_loads_in_both_modes(self):
+        for interactive in (True, False):
+            with self.subTest(interactive=interactive), tempfile.TemporaryDirectory() as directory:
+                store = ProjectDataStore()
+                self.app.updates = types.SimpleNamespace(load=Mock())
+                path = os.path.join(directory, "modern.osp")
+                project = copy.deepcopy(store._data)
+                project["clips"] = []
+                project["files"] = []
+                project["history"] = {"undo": [], "redo": []}
+                project["profile"] = "HD 720p 25 fps"
+                with open(path, "w", encoding="utf-8") as stream:
+                    json.dump(project, stream)
+                with patch.object(store, "check_if_paths_are_valid") as validate, \
+                        patch.object(store, "add_to_recent_files"), \
+                        patch("pickle.load") as load, patch("pickle.loads") as loads:
+                    store.load(path, clear_thumbnails=False, interactive=interactive)
+                    self.assertEqual(validate.call_count, int(interactive))
+                    load.assert_not_called()
+                    loads.assert_not_called()
+                self.assertEqual(store.current_filepath, path)
+                self.assertEqual(store.get("profile"), "HD 720p 25 fps")
+                self.assertFalse(store.has_unsaved_changes)
+                self.app.updates.load.assert_called_once_with(store._data)
+
+    def test_post_decode_failure_retains_its_cause(self):
         store = make_store()
-        with patch.object(store, "new"), \
-                patch.object(store, "read_from_file", return_value=[]), \
-                patch.object(store, "read_legacy_project_file") as legacy:
-            with self.assertRaises(AttributeError):
-                store.load("modern.osp")
-            legacy.assert_not_called()
+        sentinel = RuntimeError("waveform import failed")
+        for interactive in (True, False):
+            with self.subTest(interactive=interactive), \
+                    patch.object(store, "new") as new, \
+                    patch.object(store, "read_from_file", side_effect=sentinel):
+                with self.assertRaises(RuntimeError) as caught:
+                    store.load("modern.osp", interactive=interactive)
+                self.assertIs(caught.exception, sentinel)
+                new.assert_not_called()
 
     def test_new_project_uses_default_track_count(self):
         with tempfile.TemporaryDirectory() as tmpdir, \
