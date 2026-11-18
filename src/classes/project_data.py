@@ -871,7 +871,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
     def write_save_snapshot(cls, file_path, snapshot, asset_paths, backup_only=False):
         """Write detached data in a worker, without modifying the active project."""
         from qt_api import write_file_chunks, is_content_uri
-        project = cls.__new__(cls)
+        project = object.__new__(cls)
         JsonDataStore.__init__(project)
         project.data_type = "project data"
         project._data = snapshot.decode(exclude=("clips",))

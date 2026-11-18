@@ -321,7 +321,7 @@ class MainWindowTests(unittest.TestCase):
         updates = types.SimpleNamespace(data_version=7, export_history=MagicMock(
             return_value={"undo": [{"value": {"nested": [1, 2]}}], "redo": []}))
         app = types.SimpleNamespace(project=project, updates=updates,
-                                    get_settings=lambda: DummySettings(), _tr=lambda text: text)
+                                    get_settings=DummySettings, _tr=lambda text: text)
         window = types.SimpleNamespace(
             last_auto_save_data_version=6, save_recovery=MagicMock(),
             ProjectSaved=MagicMock(), ProjectSaveFailed=MagicMock(), AutoSaveFinished=SignalRecorder())

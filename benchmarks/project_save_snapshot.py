@@ -105,7 +105,8 @@ def main():
         image_path = runtime / "fixture.png"
         image = QImage(16, 16, QImage.Format_ARGB32)
         image.fill(QColor("blue"))
-        assert image.save(str(image_path))
+        if not image.save(str(image_path)):
+            raise OSError("Could not create the benchmark image.")
         template = json.loads(openshot.Clip(str(image_path)).Json())
         reader = dict(template["reader"], id="F0", media_type="image")
         fields = {"USER_PATH": str(runtime), "ASSETS_PATH": str(runtime),
@@ -210,9 +211,12 @@ def main():
                         phases["file_mib"] = Path(project.current_filepath).stat().st_size / (1024 * 1024)
                         # Read through the real reader, including relative-path conversion.
                         reopened = project.read_from_file(project.current_filepath, path_mode="absolute")
-                        assert len(reopened["clips"]) == count
-                        assert reopened["clips"][-1]["alpha"] == project._data["clips"][-1]["alpha"]
-                        assert reopened["files"][0]["path"] == str(image_path)
+                        if len(reopened["clips"]) != count:
+                            raise RuntimeError("Saved project did not retain the expected clip count.")
+                        if reopened["clips"][-1]["alpha"] != project._data["clips"][-1]["alpha"]:
+                            raise RuntimeError("Saved project changed the sampled clip's keyframes.")
+                        if reopened["files"][0]["path"] != str(image_path):
+                            raise RuntimeError("Saved project did not preserve its media path.")
                         del reopened
                         trials.append(phases)
                         message = ("%d clips / %d keyframes, run %d: UI %.1f ms, "
