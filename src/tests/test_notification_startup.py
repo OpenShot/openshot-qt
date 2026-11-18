@@ -150,8 +150,10 @@ def verify():
     finally:
         app.quit()
 
-distribution = ({"platform": "windows", "package_type": "msix", "official": True}
-                if os.environ["TEST_STORE_INSTALL"] == "1" else {})
+from classes.distribution import get_distribution_info
+distribution = get_distribution_info()
+if os.environ["TEST_STORE_INSTALL"] == "1":
+    distribution.update(platform="windows", package_type="msix", official=True)
 # These keyboard checks need focus on the main window, even on runners
 # without an audio output. Audio failure behavior has its own regression tests.
 with patch("windows.feedback.get_distribution_info", return_value=distribution), \
