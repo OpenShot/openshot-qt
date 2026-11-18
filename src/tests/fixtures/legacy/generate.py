@@ -5,7 +5,8 @@ Uses the bundled 1.x record classes, without running their constructors (some
 legacy constructors assume GTK/old package imports). No executable payloads.
 """
 import importlib
-import pickle
+# Writes controlled compatibility fixtures; never loads pickle.
+import pickle  # nosec B403
 from pathlib import Path
 import sys
 
@@ -65,20 +66,20 @@ use_obj = False
 def old_style(value):
     if value is None:
         return b'N'
-    if type(value) is bool:
+    if isinstance(value, bool):
         return b'I01\n' if value else b'I00\n'
-    if type(value) in (int, float):
-        return (('I' if type(value) is int else 'F') + repr(value) + '\n').encode('ascii')
-    if type(value) is str:
+    if isinstance(value, (int, float)):
+        return (('I' if isinstance(value, int) else 'F') + repr(value) + '\n').encode('ascii')
+    if isinstance(value, str):
         return b'V' + value.encode('raw-unicode-escape') + b'\n'
     if id(value) in memo:
         return ('g%d\n' % memo[id(value)]).encode('ascii')
     index = len(memo)
     memo[id(value)] = index
     put = ('p%d\n' % index).encode('ascii')
-    if type(value) is list:
+    if isinstance(value, list):
         return b'(l' + put + b''.join(old_style(item) + b'a' for item in value)
-    if type(value) is dict:
+    if isinstance(value, dict):
         return b'(d' + put + b''.join(old_style(key) + old_style(item) + b's' for key, item in value.items())
     cls = type(value)
     prefix = ('(c%s\n%s\no' if use_obj else '(i%s\n%s\n') % (cls.__module__, cls.__name__)

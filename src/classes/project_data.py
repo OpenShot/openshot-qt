@@ -553,7 +553,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             if legacy_data is not None:
                 from classes.legacy_project import _RECORDS
                 for item in legacy_data.project_folder.items:
-                    if type(item) is _RECORDS["OpenShotFile"] and not os.path.exists(item.name):
+                    if isinstance(item, _RECORDS["OpenShotFile"]) and not os.path.exists(item.name):
                         raise FileNotFoundError("Missing project asset: " + item.name)
         self.new()
         measurements = getattr(get_app(), 'gpu_measurements', None)
@@ -680,7 +680,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # Loop through files
             for item in v1_data.project_folder.items:
                 # Is this item a File (i.e. ignore folders)
-                if type(item) is _RECORDS["OpenShotFile"]:
+                if isinstance(item, _RECORDS["OpenShotFile"]):
                     # Create file
                     try:
                         clip = openshot.Clip(item.name)

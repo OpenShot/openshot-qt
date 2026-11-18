@@ -7,8 +7,10 @@ persistent objects, and extension-registry globals are never resolved.
 
 import io
 import math
-import pickle
-import pickletools
+# Only the restricted Unpickler below executes pickle opcodes.
+import pickle  # nosec B403
+# Disassembles the stream without executing it.
+import pickletools  # nosec B403
 
 
 class _Record:
@@ -18,8 +20,8 @@ class _Record:
         return object.__new__(cls)
 
     def __setstate__(self, state):
-        if type(state) is not dict or any(
-                type(key) is not str or key.startswith('__') for key in state):
+        if not isinstance(state, dict) or any(
+                not isinstance(key, str) or key.startswith('__') for key in state):
             raise pickle.UnpicklingError("Invalid legacy object state")
         self.__dict__.update(state)
 
@@ -58,7 +60,7 @@ class LegacyProjectUnpickler(pickle.Unpickler):
         # this same immutable byte stream before initializing the pickle VM.
         try:
             end = -1
-            for opcode, argument, position in pickletools.genops(contents):
+            for opcode, _argument, position in pickletools.genops(contents):
                 if opcode.name in ('EXT1', 'EXT2', 'EXT4', 'PERSID', 'BINPERSID'):
                     raise pickle.UnpicklingError("Unsupported legacy opcode: " + opcode.name)
                 end = position
@@ -121,7 +123,9 @@ def _validate_graph(root):
 def _validate_project(project):
     """Validate the fields the existing converter consumes before it mutates UI data."""
     def record(value, name):
-        if type(value) is not _RECORDS[name]:
+        # _validate_graph already requires exact registered record types; none
+        # of those types derive from another registered record type.
+        if not isinstance(value, _RECORDS[name]):
             raise pickle.UnpicklingError("Invalid legacy " + name)
 
     def sequence(value):
@@ -138,7 +142,7 @@ def _validate_project(project):
     record(project, 'project')
     record(getattr(project, 'project_folder', None), 'OpenShotFolder')
     for item in sequence(getattr(project.project_folder, 'items', None)):
-        if type(item) is _RECORDS['OpenShotFolder']:
+        if isinstance(item, _RECORDS['OpenShotFolder']):
             continue  # The existing importer skips subfolders.
         record(item, 'OpenShotFile')
         field(item, 'name', (str,))

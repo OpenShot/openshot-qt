@@ -68,7 +68,7 @@ class ClipboardManager:
         try:
             metadata = []
             for item in items:
-                kind = next((name for name, cls in _TYPES.items() if type(item) is cls), None)
+                kind = next((name for name, cls in _TYPES.items() if isinstance(item, cls)), None)
                 if kind is None or (item.id is not None and not isinstance(item.id, str)):
                     raise ValueError("Unsupported clipboard object")
                 _validate_data(item.data)
@@ -91,8 +91,8 @@ class ClipboardManager:
                 return None
             metadata = _json_loads(bytes(mime_data.data(_MIME)).decode("utf-8"))
             data = _json_loads(mime_data.text())
-            if (not isinstance(metadata, dict) or type(metadata.get("version")) is not int
-                    or metadata["version"] != 1 or not isinstance(metadata.get("items"), list)):
+            if (not isinstance(metadata, dict) or not isinstance(metadata.get("version"), int)
+                    or isinstance(metadata.get("version"), bool) or metadata["version"] != 1 or not isinstance(metadata.get("items"), list)):
                 return None
             items = data if isinstance(data, list) else [data]
             if len(items) != len(metadata["items"]):
