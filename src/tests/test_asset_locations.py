@@ -192,8 +192,8 @@ class AssetLocationTests(unittest.TestCase):
                        'effects': []}
                       for i, p in enumerate((title, frame, recording))],
             'layers': [], 'effects': [],
-            'history': {'undo': [{'key': ['files'], 'value': {'path': str(title)}}],
-                        'redo': [{'key': ['files'], 'value': {'path': str(frame)}}]},
+            'history': {'undo': [{'type': 'update', 'key': ['files'], 'value': {'path': str(title)}}],
+                        'redo': [{'type': 'update', 'key': ['files'], 'value': {'path': str(frame)}}]},
         }
         first = self.home / 'first.osp'
         second = self.home / 'second.osp'

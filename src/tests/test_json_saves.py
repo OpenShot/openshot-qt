@@ -27,6 +27,19 @@ from classes.json_data import JsonDataStore
 
 
 class JsonSaveTests(unittest.TestCase):
+    def test_quoted_media_paths_survive_relative_and_absolute_conversion(self):
+        with tempfile.TemporaryDirectory() as directory:
+            project = str(Path(directory) / 'project.osp')
+            expected = str(Path(directory) / 'say "hello" 日本語.png')
+            keys = ('image', 'path', 'resource', 'protobuf_data_path', 'lut_path')
+            data = dict.fromkeys(keys, expected)
+            data['text'] = 'Keep "quoted" captions unchanged'
+            store = JsonDataStore()
+            relative = store.convert_paths_to_relative(project, project, json.dumps(data, ensure_ascii=False))
+            self.assertEqual(json.loads(relative)['path'], './say "hello" 日本語.png')
+            restored = store.convert_paths_to_absolute(project, relative)
+            self.assertEqual(json.loads(restored), data)
+
     def test_path_conversion_context_is_private_to_each_store(self):
         first, second = JsonDataStore(), JsonDataStore()
         original = first.replace_string_to_absolute

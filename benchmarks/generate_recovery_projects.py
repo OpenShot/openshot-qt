@@ -44,7 +44,15 @@ CASES = {
     'no_backup': '05 - Truncated JSON - no backups.osp',
     'bom': '06 - UTF-8 BOM.osp',
     'legacy': '07 - Legacy 2.6.0 key quoting.osp',
+    'waveform': '08 - Invalid waveform data.osp',
+    'history': '09 - Corrupt undo history.osp',
+    'unreadable_history': '10 - Unreadable history JSON.osp',
+    'quotes': '11 - Quoted filename - Linux and macOS.osp',
 }
+
+
+QUOTED_MEDIA_ARCHIVE = 'Quoted Filename Media (Linux and macOS).zip'
+QUOTED_MEDIA_NAME = 'Recovery "quoted" title.png'
 
 
 INSTRUCTIONS = '''OPENSHOT PROJECT RECOVERY TEST PACK
@@ -56,7 +64,8 @@ INSTRUCTIONS = '''OPENSHOT PROJECT RECOVERY TEST PACK
    - Without Python: copy the ZIP files inside Backups into your OpenShot recovery
      directory, usually ~/.openshot_qt/recovery or %USERPROFILE%\\.openshot_qt\\recovery.
      The supplied archives deliberately omit folder metadata so this fallback is portable.
-3. In the OpenShot checkout/build being reviewed, use File > Open on these samples.
+3. New cases 08-11 require a build containing commit 42f83577f or newer.
+   In the OpenShot checkout/build being reviewed, use File > Open on these samples.
    These fixtures do not change which OpenShot executable your OS opens by default.
 
 00 - Valid project
@@ -79,6 +88,23 @@ INSTRUCTIONS = '''OPENSHOT PROJECT RECOVERY TEST PACK
   Repair should remove the byte-order mark and open a copy.
 07 - Legacy 2.6.0 key quoting
   Repair should quote the damaged key and preserve strings and media paths.
+08 - Invalid waveform data
+  Repair should discard the two invalid waveform caches and retain the title clip.
+  The report should explain that these caches can be regenerated. This image-only
+  sample tests cache cleanup; test audio waveform regeneration with a real audio clip.
+09 - Corrupt undo history
+  Repair should report discarding two of three undo actions, retaining the newest.
+  The title stays at 0 seconds. Undo should move it to 1 second; Redo returns it to 0.
+10 - Unreadable history JSON
+  Repair should retain the complete title project, discard unreadable history and
+  the remaining file, and report that loss. Undo/Redo should initially be disabled.
+11 - Quoted filename (Linux/macOS only)
+  First extract "Quoted Filename Media (Linux and macOS).zip" into this same folder,
+  so its image joins the existing Media folder. Then open 11 and choose Repair.
+  It should correct the two path strings, verify the file, and open the title image.
+  Without that image, repair should fail rather than guess a filename.
+  Windows filenames cannot contain double quotes: skip 11 and do not extract the
+  separate quoted-media ZIP on Windows. The main test pack has portable filenames.
 
 CHECKS FOR EVERY THEME
   Try Cosmic Dusk, Humanity: Dark, and Retro. Check disabled entries in the OPEN
@@ -146,6 +172,27 @@ def generate(output):
     legacy['version']['openshot-qt'] = '2.6.0'
     legacy_text = json.dumps(legacy, indent=1).replace('"files":', 'files:', 1)
     (output / CASES['legacy']).write_text(legacy_text, encoding='utf-8')
+    waveform = copy.deepcopy(project)
+    waveform['files'][0]['ui'] = {'audio_data': [.5, float('nan')], 'audio_data_rms': [float('inf')]}
+    (output / CASES['waveform']).write_text(json.dumps(waveform, indent=1), encoding='utf-8')
+    history = copy.deepcopy(project)
+    recent = {'type': 'update', 'key': ['clips', {'id': clip['id']}], 'value': copy.deepcopy(clip),
+              'old_values': dict(copy.deepcopy(clip), position=1), 'transaction': 'recent-move'}
+    older = dict(copy.deepcopy(recent), transaction='older-move')
+    history['history'] = {'undo': [older, None, recent], 'redo': []}
+    (output / CASES['history']).write_text(json.dumps(history, indent=1), encoding='utf-8')
+    current = {key: value for key, value in project.items() if key != 'history'}
+    unreadable = json.dumps(current, indent=1)[:-1] + ', "history": {"undo": [{"key": ['
+    (output / CASES['unreadable_history']).write_text(unreadable, encoding='utf-8')
+    quoted = copy.deepcopy(project)
+    quoted['clips'][0]['reader']['path'] = 'Media/' + QUOTED_MEDIA_NAME
+    quoted['files'][0]['path'] = 'Media/' + QUOTED_MEDIA_NAME
+    quoted_text = json.dumps(quoted, ensure_ascii=False, indent=1).replace(r'\"', '/"')
+    (output / CASES['quotes']).write_text(quoted_text, encoding='utf-8')
+    # Literal quotes are illegal Windows filenames. Keep that one media asset in
+    # a separate archive so the outer pack extracts normally on every platform.
+    with zipfile.ZipFile(output / QUOTED_MEDIA_ARCHIVE, 'w', zipfile.ZIP_DEFLATED) as archive:
+        archive.write(image_path, 'Media/' + QUOTED_MEDIA_NAME)
     backups = output / 'Backups'
     backups.mkdir()
     entries = []

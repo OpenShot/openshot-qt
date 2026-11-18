@@ -18,7 +18,9 @@
 """Generated recovery packs work after extraction to a different directory."""
 import importlib.util
 import json
+import os
 from pathlib import Path
+from unittest.mock import patch
 import shutil
 import tempfile
 import unittest
@@ -56,13 +58,23 @@ class RecoveryTestPackTests(unittest.TestCase):
             relocated = Path(directory) / 'extracted elsewhere 日本語'
             shutil.move(str(original), relocated)
             manifest = json.loads((relocated / 'manifest.json').read_text(encoding='utf-8'))
-            for key in ('valid', 'comma', 'many', 'bom', 'legacy'):
+            for key in ('valid', 'comma', 'many', 'bom', 'legacy', 'waveform', 'history', 'unreadable_history'):
                 source = relocated / manifest['cases'][key]
-                data, changes = parse_project(source.read_text(encoding='utf-8'), repair=key != 'valid')
+                data, changes = parse_project(
+                    source.read_text(encoding='utf-8'), repair=key != 'valid', original_path=str(source))
                 self.assertEqual(len(data['clips']), 1)
                 self.assertNotIn(str(original), json.dumps(data))
                 if key == 'many':
                     self.assertEqual(sum(change.startswith('Omit clip ') for change in changes), 48)
+                if key == 'waveform':
+                    self.assertEqual(data['files'][0]['ui'], {'audio_data': [], 'audio_data_rms': []})
+                    self.assertEqual(sum('waveform cache' in change for change in changes), 2)
+                elif key == 'history':
+                    self.assertEqual(len(data['history']['undo']), 1)
+                    self.assertIn('discarded 2 of 3', changes[0])
+                elif key == 'unreadable_history':
+                    self.assertEqual(data['history'], {'undo': [], 'redo': []})
+                    self.assertIn('unreadable remainder', changes[0])
                 destination = relocated / (key + '-recovered.osp')
                 save_recovered_copy(data, str(source), str(destination))
                 reopened = JsonDataStore().read_from_file(str(destination), path_mode='absolute')
@@ -85,6 +97,57 @@ class RecoveryTestPackTests(unittest.TestCase):
             installed_again = self.installer.install_backups(relocated, recovery)
             self.assertFalse(set(installed) & set(installed_again))
             self.assertTrue(all(path.exists() for path in installed))
+
+    def test_history_sample_has_working_undo_and_redo_after_repair(self):
+        from classes.updates import UpdateManager
+        from tests.test_project_data import make_store
+        with tempfile.TemporaryDirectory() as directory:
+            root = self.generator.generate(Path(directory) / 'pack')
+            source = root / self.generator.CASES['history']
+            data, _ = parse_project(source.read_text(), repair=True)
+            store = make_store()
+            store._data = data
+            manager = UpdateManager()
+            manager.add_listener(store)
+            with patch.object(self.app, 'window', None, create=True), \
+                    patch.object(self.app, 'updates', manager, create=True), \
+                    patch.object(self.app, 'project', store, create=True):
+                manager.load_history(store)
+                manager.undo()
+                self.assertEqual(store._data['clips'][0]['position'], 1)
+                manager.redo()
+                self.assertEqual(store._data['clips'][0]['position'], 0)
+
+    @unittest.skipIf(os.name == 'nt', 'Windows filenames cannot contain double quotes')
+    def test_quoted_filename_case_repairs_only_after_media_is_extracted(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = self.generator.generate(Path(directory) / 'original')
+            relocated = Path(directory) / 'moved pack 日本語'
+            shutil.move(str(root), relocated)
+            # The main folder and ZIP remain extractable on Windows.
+            self.assertTrue(all('"' not in path.name for path in relocated.rglob('*')))
+            source = relocated / self.generator.CASES['quotes']
+            text = source.read_text(encoding='utf-8')
+            with self.assertRaisesRegex(ValueError, 'expected one existing file, found 0'):
+                parse_project(text, repair=True, original_path=str(source))
+            with zipfile.ZipFile(relocated / self.generator.QUOTED_MEDIA_ARCHIVE) as archive:
+                archive.extractall(relocated)
+            data, changes = parse_project(text, repair=True, original_path=str(source))
+            self.assertEqual(sum('filename quote' in change for change in changes), 2)
+            self.assertEqual(data['files'][0]['path'], 'Media/' + self.generator.QUOTED_MEDIA_NAME)
+            self.assertEqual(data['clips'][0]['reader']['path'], data['files'][0]['path'])
+            destination = relocated / 'quotes-recovered.osp'
+            save_recovered_copy(data, str(source), str(destination))
+            reopened = JsonDataStore().read_from_file(str(destination), path_mode='absolute')
+            media_path = reopened['clips'][0]['reader']['path']
+            self.assertTrue(Path(media_path).is_file())
+            native = self.generator.openshot.Clip(media_path)
+            native.Open()
+            try:
+                self.assertEqual(native.GetFrame(1).GetWidth(), 1280)
+            finally:
+                native.Close()
+            self.assertEqual(source.read_text(encoding='utf-8'), text)
 
     def test_generator_refuses_to_overwrite_existing_test_data(self):
         with tempfile.TemporaryDirectory() as directory:

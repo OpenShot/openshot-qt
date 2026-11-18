@@ -39,7 +39,7 @@ from classes import info
 from classes.app import get_app
 
 # Compiled path regex
-path_regex = re.compile(r'"(image|path|resource|protobuf_data_path|lut_path)"\s*:\s*"(.*?)"')
+path_regex = re.compile(r'"(image|path|resource|protobuf_data_path|lut_path)"\s*:\s*"((?:[^"\\]|\\.)*)"')
 
 # Determine regex pattern type (compatible with older Python versions)
 try:
