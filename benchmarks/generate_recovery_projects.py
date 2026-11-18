@@ -64,7 +64,8 @@ INSTRUCTIONS = '''OPENSHOT PROJECT RECOVERY TEST PACK
    - Without Python: copy the ZIP files inside Backups into your OpenShot recovery
      directory, usually ~/.openshot_qt/recovery or %USERPROFILE%\\.openshot_qt\\recovery.
      The supplied archives deliberately omit folder metadata so this fallback is portable.
-3. New cases 08-11 require a build containing commit 42f83577f or newer.
+3. New cases 08-11 require a build containing commit 23dbd63ae or newer.
+   Build 19098 covers the original cases 00-07 only.
    In the OpenShot checkout/build being reviewed, use File > Open on these samples.
    These fixtures do not change which OpenShot executable your OS opens by default.
 
