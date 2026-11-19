@@ -7,6 +7,8 @@ persistent objects, and extension-registry globals are never resolved.
 
 import io
 import math
+import ntpath
+import os
 # Only the restricted Unpickler below executes pickle opcodes.
 import pickle  # nosec B403
 # Disassembles the stream without executing it.
@@ -178,3 +180,11 @@ def _validate_project(project):
                 field(transition, 'reverse', (bool, int))
                 for key in ('length', 'position_on_track', 'softness'):
                     field(transition, key, (int, float))
+
+
+def legacy_media_path(project_path, media_path):
+    """Resolve portable relative media beside the project, retaining absolute paths."""
+    if (not media_path or os.path.isabs(media_path)
+            or ntpath.splitdrive(media_path)[0] or ntpath.isabs(media_path)):
+        return media_path
+    return os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(project_path)), media_path))

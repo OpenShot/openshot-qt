@@ -551,10 +551,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         check_paths(child)
             check_paths(candidate)
             if legacy_data is not None:
-                from classes.legacy_project import _RECORDS
+                from classes.legacy_project import _RECORDS, legacy_media_path
                 for item in legacy_data.project_folder.items:
-                    if isinstance(item, _RECORDS["OpenShotFile"]) and not os.path.exists(item.name):
-                        raise FileNotFoundError("Missing project asset: " + item.name)
+                    if isinstance(item, _RECORDS["OpenShotFile"]):
+                        if not os.path.exists(legacy_media_path(file_path, item.name)):
+                            raise FileNotFoundError("Missing project asset: " + item.name)
         self.new()
         measurements = getattr(get_app(), 'gpu_measurements', None)
         if measurements:
@@ -666,7 +667,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
 
-        from classes.legacy_project import read_legacy_project, _RECORDS
+        from classes.legacy_project import read_legacy_project, _RECORDS, legacy_media_path
         if legacy_data is None:
             legacy_data = read_legacy_project(file_path)
 
@@ -683,7 +684,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 if isinstance(item, _RECORDS["OpenShotFile"]):
                     # Create file
                     try:
-                        clip = openshot.Clip(item.name)
+                        clip = openshot.Clip(legacy_media_path(file_path, item.name))
                         reader = clip.Reader()
                         file_data = json.loads(reader.Json(), strict=False)
 
@@ -742,10 +743,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         # Get file name
                         filename = os.path.basename(file.data["path"])
 
-                        file_path = file.absolute_path()
+                        media_path = file.absolute_path()
 
                         # Create clip object for this file
-                        c = openshot.Clip(file_path)
+                        c = openshot.Clip(media_path)
 
                         # Append missing attributes to Clip JSON
                         new_clip = json.loads(c.Json(), strict=False)

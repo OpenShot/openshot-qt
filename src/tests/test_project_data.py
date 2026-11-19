@@ -314,7 +314,8 @@ class ProjectDataTests(unittest.TestCase):
                         project_path = os.path.join(folder, fixture.name)
                         shutil.copy(fixture, project_path)
                         original_bytes = fixture.read_bytes()
-                        os.chdir(folder)
+                        # Open from an unrelated CWD, as the desktop file dialog does.
+                        os.chdir(previous_cwd)
                         store = ProjectDataStore()
                         self.app.project = store
                         self.app.updates = UpdateManager()
@@ -384,9 +385,12 @@ class ProjectDataTests(unittest.TestCase):
                 os.chdir(folder)
                 store = ProjectDataStore()
                 active = store._data
+                missing_media_project = os.path.join(folder, "missing-media.osp")
+                with open(missing_media_project, "wb") as stream:
+                    stream.write(fixture.read_bytes())
                 with patch.object(store, "new") as new:
                     with self.assertRaises(FileNotFoundError):
-                        store.load(str(fixture), interactive=False)
+                        store.load(missing_media_project, interactive=False)
                     new.assert_not_called()
                     self.assertIs(store._data, active)
         finally:

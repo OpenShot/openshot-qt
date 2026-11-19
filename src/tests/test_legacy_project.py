@@ -8,7 +8,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from classes.legacy_project import LegacyProjectUnpickler, read_legacy_project, _RECORDS, _reconstruct
+from classes.legacy_project import LegacyProjectUnpickler, read_legacy_project, _RECORDS, _reconstruct, legacy_media_path
 from tests.source_tree import source_path
 
 FIXTURES = source_path('src/tests/fixtures/legacy')
@@ -143,3 +143,11 @@ class LegacyProjectTests(unittest.TestCase):
         clip = self.read_bytes(missing.replace(b'I01\n', b'I00\n')).sequences[0].tracks[0].clips[0]
         self.assertFalse(clip.video_fade_in)
         self.assertFalse(hasattr(clip, 'video_fade_in_amount'))
+
+    def test_relative_media_resolves_beside_project_without_rewriting_absolute_paths(self):
+        project = Path('/tmp/extracted pack/example.osp')
+        self.assertEqual(legacy_media_path(project, 'Media/red.png'),
+                         str(project.parent / 'Media' / 'red.png'))
+        for path in ('', '/original/media.png', r'C:\Original\media.png', r'\\server\media.png'):
+            with self.subTest(path=path):
+                self.assertEqual(legacy_media_path(project, path), path)
