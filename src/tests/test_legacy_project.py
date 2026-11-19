@@ -145,7 +145,7 @@ class LegacyProjectTests(unittest.TestCase):
         self.assertFalse(hasattr(clip, 'video_fade_in_amount'))
 
     def test_relative_media_resolves_beside_project_without_rewriting_absolute_paths(self):
-        project = Path('/tmp/extracted pack/example.osp')
+        project = Path(tempfile.gettempdir()) / 'extracted pack' / 'example.osp'
         self.assertEqual(legacy_media_path(project, 'Media/red.png'),
                          str(project.parent / 'Media' / 'red.png'))
         for path in ('', '/original/media.png', r'C:\Original\media.png', r'\\server\media.png'):

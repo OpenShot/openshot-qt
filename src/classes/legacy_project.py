@@ -184,7 +184,7 @@ def _validate_project(project):
 
 def legacy_media_path(project_path, media_path):
     """Resolve portable relative media beside the project, retaining absolute paths."""
-    if (not media_path or os.path.isabs(media_path)
-            or ntpath.splitdrive(media_path)[0] or ntpath.isabs(media_path)):
+    if (not media_path or media_path.startswith(("/", "\\"))
+            or ntpath.splitdrive(media_path)[0]):
         return media_path
     return os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(project_path)), media_path))
