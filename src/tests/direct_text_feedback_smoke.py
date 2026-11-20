@@ -15,7 +15,7 @@ from classes.app import OpenShotApp
 from classes import version
 # UI workflow checks must not depend on the external update service.
 version.get_current_Version = lambda: None
-from classes.query import Clip
+from classes.query import Clip, File
 from qt_api import QColor, QFont, QFontInfo, QImage, QPoint, Qt, QTimer, QT_API
 QTest = importlib.import_module({"pyqt5": "PyQt5", "pyqt6": "PyQt6", "pyside6": "PySide6"}[QT_API] + ".QtTest").QTest
 
@@ -228,6 +228,28 @@ def verify():
         checks.assertEqual(Clip.get(id=target).data["text_color"], Clip.get(id=source).data["text_color"])
         window.timeline._handle_paste_callback([video["id"]], [], {"position": 0, "track": layer})
         checks.assertFalse([key for key in Clip.get(id=video["id"]).data if key.startswith("text_")])
+
+        # Copying and pasting a whole text clip creates an independent text
+        # asset that inherits the original clip's properties without linking them.
+        files_before_copy = len(File.filter())
+        window.timeline.Copy_Triggered(MenuCopy.CLIP, [source], [], [])
+        window.timeline._handle_paste_callback([], [], {"position": 60, "track": layer})
+        copied_clip_id = window.selected_clips[0]
+        copied_clip = Clip.get(id=copied_clip_id)
+        checks.assertNotEqual(copied_clip.id, source)
+        checks.assertNotEqual(copied_clip.data["file_id"], Clip.get(id=source).data["file_id"])
+        checks.assertEqual(len(File.filter()), files_before_copy + 1)
+        checks.assertEqual(copied_clip.data["direct_text"], Clip.get(id=source).data["direct_text"])
+        checks.assertEqual(copied_clip.data["text_style_overrides"], ["color"])
+        checks.assertEqual(copied_clip.data["text_color"], Clip.get(id=source).data["text_color"])
+        controller.apply_property(copied_clip.id, "direct_text.text", "Copied only")
+        checks.assertEqual(Clip.get(id=copied_clip.id).data["direct_text"]["text"], "Copied only")
+        checks.assertEqual(Clip.get(id=source).data["direct_text"]["text"], "Source")
+        app.updates.undo()
+        checks.assertEqual(Clip.get(id=copied_clip.id).data["direct_text"]["text"], "Source")
+        app.updates.undo()
+        checks.assertIsNone(Clip.get(id=copied_clip_id))
+        checks.assertEqual(len(File.filter()), files_before_copy)
 
         # Choosing a color for a transparent background starts opaque.
         # Dialogs left for interpreter exit intermittently crash PyQt5's

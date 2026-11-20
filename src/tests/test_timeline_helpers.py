@@ -7875,6 +7875,75 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(helper._extend_timeline_to_fit_items_calls, [True])
         self.assertIsNone(app.updates.transaction_id)
 
+    def test_handle_paste_callback_creates_independent_text_asset_for_text_clip(self):
+        saved = []
+        created_assets = []
+
+        class FakeClip:
+            def __init__(self, clip_id, data):
+                self.id = clip_id
+                self.type = "copy"
+                self.data = data
+
+            def save(self):
+                self.id = "C-text-copy"
+                self.data["id"] = self.id
+                saved.append(copy.deepcopy(self.data))
+
+        def fake_save_text_asset(style, file_id=None):
+            created_assets.append((copy.deepcopy(style), file_id))
+            return types.SimpleNamespace(
+                id="F-text-new",
+                data={"id": "F-text-new", "type": "QtTextReader", "direct_text": copy.deepcopy(style)},
+            )
+
+        def clipboard_stub():
+            return types.SimpleNamespace(mimeData=object)
+
+        copied_clip = FakeClip(
+            "C-text-1",
+            {
+                "id": "C-text-1",
+                "file_id": "F-text-orig",
+                "position": 2.0,
+                "layer": 1,
+                "start": 0.0,
+                "end": 5.0,
+                "direct_text": {"text": "Hello", "font_size": 48},
+                "reader": {"id": "F-text-orig", "type": "QtTextReader"},
+            },
+        )
+        app = types.SimpleNamespace(
+            clipboard=clipboard_stub,
+            updates=types.SimpleNamespace(transaction_id=None),
+            window=types.SimpleNamespace(ensure_tracks_for_layers=lambda layers: None),
+        )
+        helper = types.SimpleNamespace(
+            get_uuid=lambda: "tx-paste-text",
+            _assign_new_effect_ids=lambda data: self.timeline_module.TimelineView._assign_new_effect_ids(helper, data),
+            _extend_timeline_to_fit_items=lambda: None,
+            _select_inserted_paste_items=lambda items: None,
+        )
+
+        with ExitStack() as stack:
+            stack.enter_context(patch.object(self.timeline_module.ClipboardManager, "from_mime", return_value=copied_clip))
+            stack.enter_context(patch.object(self.timeline_module, "Clip", FakeClip))
+            stack.enter_context(patch.object(self.timeline_module, "save_text_asset", side_effect=fake_save_text_asset))
+            stack.enter_context(patch.object(self.timeline_module, "get_app", return_value=app))
+            self.timeline_module.TimelineView._handle_paste_callback(
+                helper,
+                ["C-text-1"],
+                [],
+                {"position": 10.0, "track": 1},
+            )
+
+        self.assertEqual(created_assets, [({"text": "Hello", "font_size": 48}, None)])
+        self.assertEqual(len(saved), 1)
+        self.assertEqual(saved[0]["id"], "C-text-copy")
+        self.assertEqual(saved[0]["file_id"], "F-text-new")
+        self.assertEqual(saved[0]["reader"]["id"], "F-text-new")
+        self.assertEqual(saved[0]["position"], 10.0)
+
     def test_qwidget_paste_coordinates_uses_viewport_adjusted_tracks(self):
         helper = types.SimpleNamespace(
             _seconds_from_x=lambda x: float(x) / 10.0,
