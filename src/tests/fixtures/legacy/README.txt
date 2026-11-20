@@ -1,12 +1,5 @@
 Controlled OpenShot 1.x project fixtures
 
-openshot-1.4.3/ contains an additional REAL application-saved project, generated
-with the official 1.4.3 PPA package in an isolated historical Ubuntu container.
-It samples animated geometry, effects, mute/hide, volume, fades, transitions,
-markers, and project settings. See its README.txt for provenance, reproduction,
-the original native-save hash, and current modern conversion limitations.
-The descriptions below apply to the older synthetic fixtures in THIS folder.
-
 project-v1-protocol0.osp and project-v1-protocol2.osp are generated from the
 bundled legacy class definitions using historical classes.* module names.
 Protocol 0 exercises copy_reg._reconstructor and __builtin__.object; protocol 2
