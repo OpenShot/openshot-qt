@@ -44,7 +44,7 @@ Overview
    8   Timeline            The timeline visualizes your video project, and each clip and transition in your project. You can drag the mouse to select, move, or delete multiple items.
    9   Filter              Filter the list of items shown (project files, transitions, effects, and emojis) by using these buttons and filter textbox. Enter a few letters of what you are looking for, and the results will be shown.
    10  Playback            Left to Right: Jump to Start, Rewind, Play/Pause, Fast Forward, and Jump to End
-   11  Track               Track area containing the track name, track menu, and per-track controls such as lock and keyframe panel icons.
+   11  Track Header        Area to the left of each track containing its name, track menu, and per-track controls such as lock and keyframe panel icons.
    ==  ==================  ============
 
 For step-by-step instructions on the basic usage of OpenShot, be sure to read the
@@ -183,7 +183,7 @@ are renamed and/or rearranged.
        - :guilabel:`Save Project` Save the current project.
        - :guilabel:`Import Files` Import media files into the project.
        - :guilabel:`Choose Profile` Select a project profile (*i.e. 1080p @ 30fps, 720p @ 24fps, ...*).
-       - :guilabel:`Save Current Frame` Save the current preview video frame as an image (sometimes represented with a camera icon).
+       - :guilabel:`Save Current Frame` Save the current preview video frame as an image.
        - :guilabel:`Import Project` Import another project into the current project (*Adobe and Final Cut Pro formats partially supported*).
        - :guilabel:`Export Project` Export the current project to a specified format (*EDL, Adobe, and Final Cut Pro formats partially supported*).
        - :guilabel:`Quit` Exit the application.
