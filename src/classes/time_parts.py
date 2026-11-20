@@ -49,9 +49,12 @@ def secondsToTime(secs, fps_num=30, fps_den=1):
     day = day % 7
 
     fps_float = (float(fps_num) / float(fps_den)) if fps_den else 0.0
-    frame = int(round((milli / 1000.0) * fps_float))
+    # Count whole frames into the second, like the seconds above. Rounding
+    # here would skip or repeat frame numbers at fractional rates (29.97 fps).
+    frame = int(math.floor((milli / 1000.0) * fps_float + 1e-6))
     if fps_float > 0:
-        frame = max(0, min(frame, int(fps_float) - 1))
+        # A second at 29.97 fps holds frames 00-29, so round the rate up
+        frame = max(0, min(frame, math.ceil(fps_float) - 1))
     return {"week": padNumber(week, 2), "day": padNumber(day, 2), "hour": padNumber(hour, 2),
             "min": padNumber(minute, 2), "sec": padNumber(sec, 2), "milli": padNumber(milli, 3),
             "frame": padNumber(frame, 2)}
