@@ -26,137 +26,108 @@ the following sections will explain how to get started and get involved!
 
 The Big Picture
 ---------------
-OpenShot Video Editor has 3 main components, a Python & PyQt user interface
+OpenShot Video Editor has 3 main components, a Python and Qt user interface
 (:openshot-github:`openshot-qt`), a C++ audio library
 (:openshot-github:`libopenshot-audio`) and a C++ video library
 (:openshot-github:`libopenshot`). If you are not familiar with Python,
-PyQt, or C++, those would be great topics to research and learn more about at this point.
+Qt, or C++, those would be great topics to research and learn more about at this point.
 
-However, many bugs can be fixed and new features added with only Python knowledge, since the C++
-components are not involved in the user interface at all. Python is an amazing language, and
-is super fun to learn, and is the only prerequisite skill needed to become an OpenShot
-developer!
+Many interface changes need only Python. Video processing, effects, text rendering, and playback also use the
+C++ libraries, so changes to those features may require work in more than one repository.
 
-.. warning::
+In ``openshot-qt``, window and dialog code is under ``src/windows``, shared application logic is under
+``src/classes``, and tests are under ``src/tests``. Import Qt classes through ``qt_api`` rather than directly
+from PyQt or PySide, so changes work with all supported bindings.
 
-    The instructions that follow are for Ubuntu Linux,
-    which is the easiest environment to configure for OpenShot development.
-    If you are using another OS,
-    I suggest running a virtual machine with Ubuntu LTS before continuing any further.
+The examples below use Ubuntu 24.04 LTS with Qt5/PyQt5. For platform-specific dependencies and build options, see:
 
-    If you must use a Windows or Mac system for development,
-    start by referring to the build notes in the ``libopenshot`` wiki.
-    Building the library with all of its dependencies is the most challenging part of the process.
-    
-    * :libopenshot-wiki:`Windows Build Instructions <Windows-Build-Instructions>`
-    * :libopenshot-wiki:`Mac Build Instructions <Mac-Build-Instructions>`
+* :libopenshot-wiki:`Linux Build Instructions <Linux-Build-Instructions>`
+* :libopenshot-wiki:`Windows Build Instructions <Windows-Build-Instructions>`
+* :libopenshot-wiki:`Mac Build Instructions <Mac-Build-Instructions>`
 
 Getting the Latest Source Code
 ------------------------------
 Before we can fix any bugs or add any features, we need to get the source code onto your
 computer.
 
-Use git to clone our 3 repositories:
+Clone the ``develop`` branch of each repository into the same parent directory:
 
 .. code-block:: bash
 
-   git clone https://github.com/OpenShot/libopenshot-audio.git
-   git clone https://github.com/OpenShot/libopenshot.git
-   git clone https://github.com/OpenShot/openshot-qt.git
+   git clone --branch develop https://github.com/OpenShot/libopenshot-audio.git
+   git clone --branch develop https://github.com/OpenShot/libopenshot.git
+   git clone --branch develop https://github.com/OpenShot/openshot-qt.git
 
 Configuring your Development Environment
 -----------------------------------------
-In order to actually compile or run OpenShot, we need to install some dependencies on your system. The
-easiest way to accomplish this is with our `Daily PPA <https://www.openshot.org/ppa/>`_. A PPA is an
-unofficial Ubuntu repository, which has our software packages available to download and install.
+Install the compiler, native-library dependencies, and Python runtime packages. The following is a Qt5 starting
+point, including Wayland screen-capture dependencies. Package requirements for supported Ubuntu releases are maintained
+in the `OpenShot packaging repository <https://git.launchpad.net/openshot-packaging/tree/>`_
+under each component's ``debian/control`` and ``debian/rules``. Automated build examples are also available in
+the source repositories' ``.github/workflows`` and ``.gitlab-ci.yml`` files.
 
 .. code-block:: bash
 
-   sudo add-apt-repository ppa:openshot.developers/libopenshot-daily
-   sudo apt-get update
-   sudo apt-get install openshot-qt \
-                        build-essential \
-                        cmake \
-                        catch2 \
-                        libx11-dev \
-                        libasound2-dev \
-                        libavcodec-dev \
-                        libavdevice-dev \
-                        libavfilter-dev \
-                        libavformat-dev \
-                        libavresample-dev \
-                        libavutil-dev \
-                        libfdk-aac-dev \
-                        libfreetype6-dev \
-                        libjsoncpp-dev \
-                        libmagick++-dev \
-                        libopenshot-audio-dev \
-                        libprotobuf-dev \
-                        libqt5svg5-dev \
-                        libswscale-dev \
-                        libunittest++-dev \
-                        libxcursor-dev \
-                        libxinerama-dev \
-                        libxrandr-dev \
-                        pkg-config \
-                        python3-dev \
-                        protobuf-compiler \
-                        qtbase5-dev \
-                        libqt5svg5-dev \
-                        libxcb-xfixes0-dev \
-                        qtmultimedia5-dev \
-                        swig
+   sudo apt update
+   sudo apt install build-essential cmake pkg-config swig catch2 zlib1g-dev \
+       libasound2-dev libx11-dev libxcursor-dev libxinerama-dev libxrandr-dev \
+       libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev \
+       libavutil-dev libswscale-dev libswresample-dev \
+       libbabl-dev libopencv-dev libprotobuf-dev protobuf-compiler libjsoncpp-dev \
+       libmagick++-dev libglib2.0-dev libpipewire-0.3-dev libspa-0.2-dev \
+       qtbase5-dev libqt5svg5-dev qtmultimedia5-dev \
+       python3-dev python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtopengl \
+       python3-xdg python3-requests python3-distro python3-defusedxml python3-dbus-next \
+       python3-sentry-sdk qttranslations5-l10n
+
+This source-build recipe does not need Debian package-building tools such as ``debhelper`` or ``dh-python``,
+or the packaged OpenShot libraries: the following steps build those libraries from source. Optional FFmpeg encoders
+depend on how FFmpeg itself was built; installing an encoder's development package does not enable it in an
+already-built FFmpeg library.
 
 OpenShot supports PyQt5, PyQt6, and PySide6. libopenshot must be built
 against the correct Qt version for the binding you are using
 (Qt5: PyQt5, Qt6: PyQt6 or PySide6).
+Select the Python binding with ``OPENSHOT_QT_API=pyqt5``, ``pyqt6``, or ``pyside6``.
+Use ``-DUSE_QT6=OFF`` for Qt5 or ``-DUSE_QT6=ON`` for Qt6 when configuring libopenshot.
+Use the same Python interpreter to build the native bindings and launch OpenShot.
 
-For PySide6 (Qt6) bindings, install these packages:
+For Qt6 development, use a complete PyQt6 or PySide6 environment and build libopenshot against its matching
+Qt6 development libraries. Required Python modules include ``QtCore``, ``QtGui``, ``QtWidgets``, ``QtSvg``, and
+``QtStateMachine``, plus ``uic`` for PyQt or ``QtUiTools`` for PySide. Avoid mixing Qt libraries from different
+installations.
 
-.. code-block:: bash
-
-   sudo apt-get install \
-                        python3-pyside6.qtcore \
-                        python3-pyside6.qtgui \
-                        python3-pyside6.qtwidgets \
-                        python3-pyside6.qtstatemachine \
-                        python3-pyside6.qtsvg \
-                        python3-pyside6.qtuitools \
-                        shiboken6
-
-For PyQt6, install these packages:
+On **Ubuntu 26.04 or newer**, the following commands can also be used for Qt6 development. Install the Qt6
+development libraries, then choose one Python binding:
 
 .. code-block:: bash
 
-   sudo apt-get install \
-                        qt6-base-dev \
-                        qt6-base-dev-tools \
-                        qt6-tools-dev \
-                        qt6-svg-dev
+   sudo apt install qt6-base-dev qt6-base-dev-tools qt6-tools-dev qt6-svg-dev
 
-The PyQt6 runtime must provide ``QtCore``, ``QtGui``, ``QtWidgets``,
-``QtSvg``, ``QtStateMachine``, and ``uic``. Some distributions split these
-modules into separate packages. In particular, Ubuntu 24.04's
-``python3-pyqt6`` package does not include ``QtStateMachine``. On that
-release, use the PySide6 packages above or install the complete PyQt6 wheel
-in a Python virtual environment:
+For **PyQt6**:
 
 .. code-block:: bash
 
-   python3 -m venv .venv
-   .venv/bin/python -m pip install PyQt6
+   sudo apt install python3-pyqt6 python3-pyqt6.qtsvg python3-pyqt6.qtstatemachine
 
-Verify the selected Qt binding and its required modules before launching
-OpenShot:
+For **PySide6**:
 
 .. code-block:: bash
 
-   PYTHONPATH=src OPENSHOT_QT_API=pyqt6 .venv/bin/python -c \
-       "from qt_api import QT_API, QStateMachine; print(QT_API, QStateMachine)"
+   sudo apt install python3-pyside6.qtcore python3-pyside6.qtgui \
+       python3-pyside6.qtwidgets python3-pyside6.qtstatemachine \
+       python3-pyside6.qtsvg python3-pyside6.qtuitools shiboken6
 
-At this point, you should have all 3 OpenShot components source code cloned into local folders, the OpenShot
-daily PPA installed, and all of the required development and runtime dependencies installed. This is a
-great start, and we are now ready to start compiling some code!
+When following the build steps below, use a separate Qt6 build directory and installation prefix, replace
+``-DUSE_QT6=OFF`` with ``-DUSE_QT6=ON``, and select ``OPENSHOT_QT_API=pyqt6`` or ``pyside6`` when launching.
+The main examples below continue to use Qt5/PyQt5.
+
+The build commands below run from the parent directory containing all three checkouts. Install the libraries
+into a private prefix so development builds do not replace your system libraries:
+
+.. code-block:: bash
+
+   export OPENSHOT_DEV_PREFIX="$PWD/openshot-install"
 
 libopenshot-audio (Build Instructions)
 --------------------------------------
@@ -166,19 +137,12 @@ Here are the commands to build it:
 
 .. code-block:: bash
 
-   cd libopenshot-audio
-   mkdir build
-   cd build
-   cmake -DCMAKE_INSTALL_PREFIX=dist ..
-   make
-   make install
+   cmake -S libopenshot-audio -B libopenshot-audio/build \
+       -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$OPENSHOT_DEV_PREFIX"
+   cmake --build libopenshot-audio/build --parallel 2
+   cmake --install libopenshot-audio/build
 
-Essentially, we are switching to the ``libopenshot-audio/build`` folder,
-then running ``cmake ..`` on the parent folder.
-This finds dependencies and creates all the needed Makefiles used to compile this library.
-Then ``make`` uses those Makefiles to compile this library,
-and ``make install`` installs them in the location we specified.
-If ``CMAKE_INSTALL_PREFIX`` isn't set, the files will install to ``/usr/local/`` (by default) and ``make install`` will require administrative privileges to run.
+The private installation does not require administrator permissions. Adjust the parallel build count for your computer.
 
 libopenshot (Build Instructions)
 --------------------------------
@@ -188,21 +152,37 @@ Here are the commands to build it:
 
 .. code-block:: bash
 
-   cd libopenshot
-   mkdir build
-   cd build
-   cmake -DLIBOPENSHOT_AUDIO_DIR=../../libopenshot-audio/build/dist ..
-   make
+   cmake -S libopenshot -B libopenshot/build \
+       -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$OPENSHOT_DEV_PREFIX" \
+       -DCMAKE_PREFIX_PATH="$OPENSHOT_DEV_PREFIX" -DPYTHON_MODULE_PATH=python \
+       -DPYTHON_EXECUTABLE=/usr/bin/python3 -DUSE_QT6=OFF \
+       -DENABLE_RUBY=OFF -DENABLE_LIB_DOCS=OFF -DBUILD_TESTING=ON
+   cmake --build libopenshot/build --parallel 2
+   cmake --install libopenshot/build
 
-Essentially, we are switching to the ``libopenshot/build`` folder,
-then running ``cmake ..`` on the parent folder.
-This finds dependencies and creates all the needed Makefiles used to compile this library.
-Then ``make`` uses those Makefiles to compile this library.
-Because we provided the location of our compiled ``libopenshot-audio`` installation,
-that version of the library will be used instead of the system version (if any).
+``CMAKE_PREFIX_PATH`` selects the audio library installed above. Python bindings are installed under
+``$OPENSHOT_DEV_PREFIX/python``. If you use another Python interpreter, replace ``/usr/bin/python3`` accordingly.
 
-We don't install our ``libopenshot`` after building, because we don't need to.
-For testing purposes, we can tell OpenShot to use ``libopenshot`` right from our ``build`` directory.
+Vulkan Development
+~~~~~~~~~~~~~~~~~~
+
+The packaging rules enable GPU frame processing with FFmpeg 6.1 or newer, Vulkan development files version
+1.3.275 or newer, and ``glslangValidator``. Ubuntu 24.04 provides this baseline. Stock Ubuntu 22.04 packages are
+older; use the CPU build above or supply a newer compatible dependency stack.
+
+To include GPU frame processing on Ubuntu 24.04, install Vulkan headers and the shader compiler, then enable it
+in the same build:
+
+.. code-block:: bash
+
+   sudo apt install libvulkan-dev glslang-tools
+   cmake -S libopenshot -B libopenshot/build -DENABLE_GPU_FRAME=ON
+   cmake --build libopenshot/build --parallel 2
+   cmake --install libopenshot/build
+
+Running this path also requires a compatible GPU and driver. Hardware decoding and encoding depend on the FFmpeg
+build as well. Check :ref:`gpu_inspector_ref` for actual activity; compiling Vulkan support alone does not mean
+every processing stage uses the GPU.
 
 Language Bindings
 -----------------
@@ -213,16 +193,19 @@ these bindings map to the same C++ codebase so you can edit video from the envir
 
 openshot-qt (Launch Instructions)
 ---------------------------------
-This is our main PyQt Python application.
-Because it is written in Python, it does not require any compiling to run.
+This is our main Python/Qt application. Python and UI-file changes do not require compiling the application;
+native-library changes require rebuilding and reinstalling the affected library.
 To launch OpenShot from the source code with our newly-built
 ``libopenshot-audio`` and ``libopenshot`` libraries, use the following commands:
 
 .. code-block:: bash
 
    cd openshot-qt
-   PYTHONPATH=../libopenshot/build/src/bindings/python
-   python3 src/launch.py
+   export PYTHONPATH="$OPENSHOT_DEV_PREFIX/python"
+   export LD_LIBRARY_PATH="$OPENSHOT_DEV_PREFIX/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+   export OPENSHOT_QT_API=pyqt5
+   /usr/bin/python3 -c "import openshot; print(openshot.__file__, openshot.OPENSHOT_VERSION_FULL)"
+   /usr/bin/python3 src/launch.py
 
 This should launch the OpenShot user interface.
 Any changes you have made to the source code files
@@ -230,10 +213,44 @@ Any changes you have made to the source code files
 This requires the ``libopenshot-audio`` and ``libopenshot`` libraries,
 and if anything went wrong with the steps above, OpenShot will likely not launch.
 
-If OpenShot launches at this point, congratulations!
-You now have a working local version of OpenShot, which is running off your local source code.
-Try making some changes to the source code and re-launch OpenShot...
-you should now see your changes!
+If you prefer to run without installing libopenshot, its build-tree Python bindings are under
+``libopenshot/build/bindings/python``. Set ``PYTHONPATH`` to that directory and make the matching native libraries
+available to the loader. Check ``openshot.__file__`` to confirm which build Python actually imported.
+
+Testing Changes
+---------------
+
+From the ``openshot-qt`` checkout, using the same interpreter and library environment as the launch command:
+
+.. code-block:: bash
+
+   QT_QPA_PLATFORM=offscreen /usr/bin/python3 -m unittest discover -s src/tests -t src/tests --quiet
+
+For a focused change, run the relevant test module instead, for example
+``PYTHONPATH="src:$PYTHONPATH" /usr/bin/python3 -m unittest tests.test_agent_cli.HelpTests``.
+Some tests need native libraries, optional dependencies, or a working GPU. Offscreen tests do not replace
+checking changed interactions in the editor. For engine changes, also run the libopenshot tests:
+
+.. code-block:: bash
+
+   ctest --test-dir ../libopenshot/build --output-on-failure
+
+Catch2 must be available when configuring libopenshot to build its tests. For GPU changes, compare CPU and Vulkan
+results and check transfers with GPU Inspector where applicable.
+
+Building the User Guide
+-----------------------
+
+Documentation-only changes do not need the video libraries. From ``openshot-qt``, install Sphinx and the theme
+dependencies in a Python environment, then build the English guide:
+
+.. code-block:: bash
+
+   python3 -m pip install sphinx -r doc/requirements.txt
+   python3 -m sphinx -W -b html -D language=en doc doc/_build/html
+
+Open ``doc/_build/html/index.html`` to review the result. Keep user-facing instructions clear and concise;
+translation updates and localized builds are described in ``doc/README.md``.
 
 .. _launch_options_ref:
 
@@ -318,12 +335,13 @@ and introduce yourself!
 
 Share your Changes
 ------------------
-Once you have fixed a bug or added an amazing new feature, be sure to share it with the OpenShot team.
-Ideally, we can merge this into our main source code branch.
+Create a descriptive branch from ``develop`` in your fork, make your changes, and include relevant tests and
+documentation. See `CONTRIBUTING.md <https://github.com/OpenShot/openshot-qt/blob/develop/CONTRIBUTING.md>`_
+for the contribution workflow.
 The easiest way to share your changes is by creating a fork of our repo,
 pushing your changes back to GitHub, and creating a `Pull Request`_.
 A Pull Request lets the OpenShot team know you have changes ready to be merged.
-Then we can review things, give feedback, and hopefully merge your changes into the main branch.
+Target the ``develop`` branch, explain what changed and why, link related issues, and address any failing checks.
 
 .. _Pull Request: https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/proposing-changes-to-your-work-with-pull-requests
 .. _OpenShot Issues: https://github.com/OpenShot/openshot-qt/issues/

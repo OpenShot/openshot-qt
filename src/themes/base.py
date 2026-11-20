@@ -5,7 +5,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2024 OpenShot Studios, LLC
+ Copyright (c) 2008-2026 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -199,6 +199,7 @@ QMessageBox QLabel#qt_msgbox_label {
     font-size: 14px;
     padding: 0;
 }
+QDialog#projectRecoveryDialog QPushButton,
 QMessageBox QDialogButtonBox#qt_msgbox_buttonbox QPushButton {
     min-width: 72px;
     padding: 7px 14px;

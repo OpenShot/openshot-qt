@@ -25,6 +25,18 @@ Troubleshooting
 If you are experiencing an issue with OpenShot, such as a freeze, crash, or error message, there are many different
 techniques which can be useful for troubleshooting the issue.
 
+GPU Playback Problems
+---------------------
+
+If playback shows corrupted images or becomes unstable, try :guilabel:`Edit → Preferences → Performance →
+GPU processing → CPU compatibility mode`, then restart OpenShot. Compare the same clip and effect. You can
+return to :guilabel:`Automatic (Vulkan)` after updating your graphics driver. On computers with multiple GPUs,
+also check :guilabel:`Preferred GPU`. See :ref:`preferences_performance_ref`.
+
+If memory use is high, reduce the preview size or :guilabel:`Cache Limit (MB)` and close other GPU-heavy
+applications. Both system RAM and GPU memory matter; see :ref:`preferences_cache_ref`. When reporting a problem,
+include the processing mode, GPU and driver, and the report from :guilabel:`Help → About OpenShot → Copy Version Info`.
+
 .. _large_waveform_projects_ref:
 
 Large or Slow Project Files with Audio Waveforms

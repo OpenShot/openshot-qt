@@ -46,12 +46,12 @@ class TimelineClipboardTests(unittest.TestCase):
 
     def clip(self, clip_id, position, layer):
         return {'id': clip_id, 'position': position, 'layer': layer, 'start': 1.0, 'end': 5.0,
-                'reader': {'path': 'movie.mp4'}, 'alpha': {'Points': [{'co': {'X': 1, 'Y': 0.5}}]},
+                'reader': {'type': 'FFmpegReader', 'path': 'movie.mp4'}, 'alpha': {'Points': [{'co': {'X': 1, 'Y': 0.5}}]},
                 'effects': [{'id': 'E-' + clip_id, 'class_name': 'Blur', 'radius': {'Points': []}}]}
 
     def transition(self, transition_id, position):
         return {'id': transition_id, 'position': position, 'layer': 3000000, 'start': 0.0, 'end': 2.0,
-                'reader': {'path': 'fade.svg'}, 'brightness': {'Points': [{'co': {'X': 1, 'Y': 0.2}}]},
+                'reader': {'type': 'QtImageReader', 'path': 'fade.svg'}, 'brightness': {'Points': [{'co': {'X': 1, 'Y': 0.2}}]},
                 'contrast': {'Points': []}}
 
     def copy_items(self, action, clips=None, transitions=None, effects=None):

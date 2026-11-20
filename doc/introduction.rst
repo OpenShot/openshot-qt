@@ -24,7 +24,8 @@ OpenShot Video Editor is an award-winning, open-source video editor, available o
 Linux, macOS, Chrome OS, and Windows. OpenShot can create stunning videos, films, and animations with an
 easy-to-use interface and rich feature-set.
 
-.. image:: images/openshot-banner.jpg
+.. image:: images/about.png
+   :alt: About OpenShot
 
 Features
 --------
@@ -98,6 +99,9 @@ Minimum Specifications
 - 1 GB of hard-disk space for installation & usage (*recommended: 50+ GB available hard-disk space for media, videos, images, and storage*)
 - Optional: Solid-state drive (SSD), if utilizing disk-caching add an additional 10GB of hard-disk space
 - For factors related to real-time previews, see :ref:`playback_ref`.
+
+Vulkan acceleration needs compatible graphics hardware and drivers. CPU compatibility mode is available when
+GPU processing is unsupported. See :ref:`preferences_performance_ref` for these settings.
 
 License
 -------

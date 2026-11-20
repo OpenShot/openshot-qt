@@ -35,7 +35,7 @@ adjust the audio settings under the Preview tab.
 General
 -------
 
-.. image:: images/preferences-1-general.jpg
+.. image:: images/preferences-1-general.png
 
 The General tab of the Preferences window allows you to modify the settings that apply to OpenShot as a whole.
 
@@ -98,7 +98,7 @@ to reset certain preferences without affecting others.
 Timeline
 --------
 
-.. image:: images/preferences-timeline.jpg
+.. image:: images/preferences-timeline.png
 
 The Timeline tab controls default timeline behavior and clip/transition insertion defaults.
 
@@ -108,6 +108,7 @@ The Timeline tab controls default timeline behavior and clip/transition insertio
    ===================================  ==================  ===========
    Setting                              Default             Description
    ===================================  ==================  ===========
+   Default Number of Tracks             5                   Number of tracks in a new project
    Track Size                           Default             Theme-specific track sizing: Minimal, Compact, Default, or Relaxed
    Thumbnail Style                      Entire Clip         Thumbnail density for the timeline
    Image Length (seconds)               10.00               Default duration for still images added to the timeline
@@ -158,7 +159,7 @@ video. Select **Default** at any time to restore the current theme's original si
 Preview
 -------
 
-.. image:: images/preferences-2-preview.jpg
+.. image:: images/preferences-2-preview.png
 
 The Preview tab of the Preferences window controls real-time preview audio behavior,
 including device selection, sample rate, channels, buffering, and playback volume.
@@ -180,6 +181,9 @@ including device selection, sample rate, channels, buffering, and playback volum
 
 Optimize
 --------
+
+.. image:: images/preferences-optimize.png
+   :alt: Optimize preferences for creating smaller preview copies
 
 The Optimize tab controls automatic suggestions and the smaller preview copies used
 for smoother editing. Original files and export quality stay unchanged.
@@ -235,7 +239,7 @@ and manual optimization options.
 Autosave
 --------
 
-.. image:: images/preferences-3-autosave.jpg
+.. image:: images/preferences-3-autosave.png
 
 Autosave is a feature in OpenShot which automatically saves the current changes to your project after
 a specific number of minutes, helping to reduce the risk or impact of data loss in case of a crash, freeze
@@ -260,13 +264,46 @@ Recovery
 reduce the risk of data loss. The recovery folder is located at ``~/.openshot_qt/recovery/`` or
 ``C:\Users\USERNAME\.openshot_qt\recovery``.
 
-To recover a corrupt or broken ``*.osp`` project file, use the :guilabel:`File->Recovery`
-menu on the main window after opening your project. If available, a list of matching project versions from
-the recovery folder are listed in chronological order (most recent one at the top). This will
-automatically rename your current project file to ``{project-name}-{time}-backup.osp``, and
-replace it with the recovery project file. You can repeat this process until you find
-the correct recovery project. NOTE: If for some unexpected reason the recovery process fails, you can always rename
-the "-backup.osp" file to the original project file name to restore it.
+When a project cannot open, choose :guilabel:`Repair Project` or select a dated
+backup and choose :guilabel:`Restore Backup`. Both actions operate from the same
+dialog. If there are no matching backups, the list says :guilabel:`No backups
+available` and Restore Backup is disabled.
+
+A failed attempt displays its error in this dialog. Repair is disabled after a
+failed repair; a failed backup is disabled while other backups remain selectable.
+Write failures keep the options available for retry. Cancel closes the dialog.
+
+A successful attempt creates a **separate project** with an automatically chosen,
+unused filename beside the original and attempts to open it. There is no filename
+picker or success confirmation. Repairs show a modeless report of their changes,
+including omitted incomplete clips, while the user can continue editing. The report
+is resizable and scrolls vertically through long lists; Close stays outside the
+scrolling area.
+
+Repairs can remove a UTF-8 byte-order mark, trailing commas outside strings, or
+incomplete clip records, and quote damaged keys in OpenShot 2.6.0 projects.
+They can also discard invalid waveform caches, which can be regenerated, and repair
+filename quote escaping when exactly one corrected path identifies an existing file.
+Missing or ambiguous files prevent filename repair.
+
+For damaged undo/redo entries, repair retains the reachable recent actions in each
+stack, truncating at the damaged transaction without splitting transactions. If the
+history JSON is unreadable but the preceding current project fields are complete,
+repair discards history and the unreadable remainder of the file. The report explains
+this loss; current clips are not reconstructed from history.
+
+This does not establish that omitted clips are unrecoverable by other means, or that all remaining edits and media will work.
+Check the timeline, relink missing media, and test playback and export. A project
+backup cannot restore deleted media. Recovery copies may also be incomplete,
+damaged, or missing recent changes.
+
+The :guilabel:`File->Recovery` menu uses the same backup matching and dates, and
+also chooses a separate filename automatically. Older archives identify projects
+by filename rather than their original folder; check the contents if different
+projects shared the same filename.
+
+OpenShot 1.x pickle projects are no longer opened because that format can execute
+code. Modern JSON ``*.osp`` projects remain supported.
 
 To **manually** recover a corrupt or broken ``*.osp``
 project file, please find the most recent copy in the recovery folder, and copy/paste the file
@@ -280,13 +317,16 @@ copy it into your project folder. Recovery files are named ``{time}-{project-nam
 Cache
 -----
 
-.. image:: images/preferences-4-cache.jpg
+.. image:: images/preferences-4-cache.png
 
-Cache settings can be adjusted to make real-time playback faster or less CPU intensive. The cache is used
-to store image and audio data for each frame of video requested. The more frames that are cached, the
-smoother the real-time playback will be. However, the more that needs to be cached requires more
-CPU to generate the cache. There is a balance, and the default settings provide a generally sane
-set of cache values, which should allow most computers to playback video and audio smoothly. See :ref:`playback_ref`.
+The playback cache stores prepared video frames and audio so they can be reused. A larger cache can help absorb
+short slowdowns, but cannot make a demanding effect render faster. Start with the defaults and reduce the preview
+size or use optimized videos if playback cannot keep up. See :ref:`playback_ref`.
+
+With Vulkan processing, cached video frames can stay in graphics memory (**VRAM**). CPU-rendered frames and audio
+use system **RAM**; integrated GPUs usually share system memory. :guilabel:`Cache Limit (MB)` is a budget for the
+playback cache, not a limit on OpenShot's total RAM or VRAM use. Decoding and effects also need working memory.
+Leave room for those operations and other applications, especially with 4K video or several layers.
 
 .. table::
    :widths: 36 80
@@ -294,29 +334,33 @@ set of cache values, which should allow most computers to playback video and aud
    ================================  ==================
    Setting                           Description
    ================================  ==================
-   Cache Mode                        Choose between Memory or Disk caching (memory caching is preferred). Disk caching writes image data to the hard disk for later retrieving, and works best with an SSD.
-   Cache Limit (MB)                  How many MB are set aside for cache related data. Larger numbers are not always better, since it takes more CPU to generate more frames to fill the cache.
+   Cache Mode                        Memory keeps frames in RAM or GPU memory and is recommended for Vulkan. Disk saves frames to storage, requiring extra image transfers when using Vulkan; an SSD is preferable.
+   Cache Limit (MB)                  Memory or disk-space budget for cached playback frames. This is not memory reserved in advance. Higher values do not always improve playback.
    Image Format (Disk Only)          Image format to store disk cache image data
    Scale Factor (Disk Only)          Percentage (0.1 to 1.0) to reduce the size of disk based image files stored in the disk cache. Smaller numbers make writing and reading cached image files faster.
    Image Quality (Disk Only)         Quality of the image files used in disk cache. The higher compression can cause more slowness, but results in smaller file sizes.
-   Cache Pre-roll: Min Frames:       Minimum # of frames that must be cached before playback begins. The larger the #, the larger the wait before playback begins.
-   Cache Pre-roll: Max Frames:       Maximum # of frames that can be cached during playback (in front of the playhead). The larger the #, the more CPU is required to cache ahead - vs display the already cached frames.
-   Cache Ahead (Percent):            Between 0.0 and 1.0. This represents how much % we cache ahead of the playhead. For example, 0.5 would cache 50% behind and 50% ahead of the playhead. 0.8 would cache 20% behind and 80% ahead of the playhead.
-   Cache Max Frames:                 This is an override on the total allowed frames that can be cached by our caching thread. It defaults to 900 frames, but even if you give a huge amount of RAM to OpenShot's cache size, this will override the max # of frames cached. The reason is... sometimes when the preview window is very small, and the cache size is set very high, OpenShot might calculate that we can cache 30,000 frames, or something silly which will take a huge amount of CPU, lagging the system. This setting is designed to clamp the upper limit of the cache to something reasonable... even on systems that give OpenShot huge amounts of RAM to work with.
+   Cache Pre-roll: Min Frames:       Starting buffer target before playback. OpenShot adjusts buffering to playback conditions and available cache space.
+   Cache Pre-roll: Max Frames:       Upper limit for the pre-roll target, not the total number of frames cached ahead. Larger buffers can mean a longer wait before playback.
+   Cache Ahead (Percent):            Fraction of cache capacity used to prepare frames in the playback direction. For example, 0.7 requests up to 70% ahead; it does not guarantee that the remaining 30% stays cached behind.
+   Cache Max Frames:                 Maximum number of frames the playback caching thread prepares, even when the memory budget could hold more.
    ================================  ==================
 
-OpenShot's default cache settings now target a balanced preview experience:
-roughly **50% behind / 50% ahead** of the playhead, **768 MB** cache memory,
-and **900** max frames. In practice, this improves scrubbing and seek behavior
-while reducing stale preview frames on slower systems.
+The default memory budget is **768 MB**, with **900** max frames. The memory budget, frame-count limit, preview
+size, and remaining video all affect how far ahead OpenShot can cache. Increasing only the memory budget may not
+lengthen the cached region. Larger previews need more memory per frame in both CPU and Vulkan modes.
+
+.. _preferences_performance_ref:
 
 Performance
 -----------
-.. image:: images/preferences-6-performance.jpg
+.. image:: images/preferences-6-performance.png
 
-Please keep in mind that GPU hardware acceleration is experimental at the moment. OpenShot supports both decoding and
-encoding acceleration. For more information take a look at our `Github HW-ACCEL Doc <https://github.com/OpenShot/libopenshot/blob/develop/doc/HW-ACCEL.md>`_.
-NOTE: On systems with older graphics cards, hardware acceleration may not always be faster than CPU encoding.
+Use :guilabel:`Automatic (Vulkan)` to let OpenShot use a supported GPU for video processing, with CPU fallback
+where needed. Availability depends on your graphics hardware, driver, and OpenShot build. Keep your graphics driver
+up to date. See :ref:`gpu_inspector_ref` to check actual playback activity.
+
+Reading video, applying effects, and encoding an export are separate steps. Accelerating one does not guarantee
+that the others use the GPU. Export encoding is selected separately; see :ref:`export_hardware_accel_ref`.
 
 .. list-table::
    :widths: 36 80
@@ -324,20 +368,14 @@ NOTE: On systems with older graphics cards, hardware acceleration may not always
 
    * - Setting
      - Description
-   * - Hardware Decoder Mode
-     - Select the hardware decoding backend to use. Use :guilabel:`Test` to verify the selected decoder mode.
-   * - Hardware Decoder Graphics Card
-     - Choose which GPU device is used for hardware decoding.
-   * - Hardware Encoder Graphics Card
-     - Choose which GPU device is used for hardware encoding.
-   * - OMP Threads
-     - Number of OpenMP worker threads used by performance-sensitive processing.
-   * - FFmpeg Threads
-     - Number of FFmpeg threads used for decoding/encoding.
-   * - Hardware Decoder Max Width (0 = Default)
-     - Optional maximum width for hardware decoding. Use ``0`` for no explicit limit.
-   * - Hardware Decoder Max Height (0 = Default)
-     - Optional maximum height for hardware decoding. Use ``0`` for no explicit limit.
+   * - GPU processing
+     - Automatic (Vulkan) enables supported GPU video processing. CPU compatibility mode uses CPU video processing. Restart after changing this setting.
+   * - Preferred GPU
+     - Select a GPU for Vulkan video processing, or leave Automatic selected. Useful on computers with multiple GPUs. Restart after changing this setting.
+   * - CPU Processing Threads
+     - Number of CPU workers used for effects and other processing. More threads are not always faster.
+   * - CPU Video Codec Threads
+     - Number of CPU workers used by video codecs for decoding and encoding.
    * - Use Blender GPU rendering for Animated Titles
      - Enable GPU rendering for Blender-based animated titles.
 
@@ -345,7 +383,7 @@ NOTE: On systems with older graphics cards, hardware acceleration may not always
 
 Keyboard
 --------
-.. image:: images/preferences-7-keyboard.jpg
+.. image:: images/preferences-7-keyboard.png
 
 This section allows you to view and customize hotkeys for various actions in the application.
 Here, you can assign and manage multiple shortcuts for the same action and restore default shortcuts if needed.
@@ -368,7 +406,7 @@ For more detailed information on how to use and customize keyboard shortcuts, se
 Location
 --------
 
-.. image:: images/preferences-8-location.jpg
+.. image:: images/preferences-8-location.png
 
 Default file path locations for saving/opening projects, importing files, and exporting videos can
 be configured here. This can save you time by defaulting the open/save file dialogs to the most appropriate
@@ -409,7 +447,7 @@ crash recovery, so do not delete the folder as ordinary disposable cache data.
 Advanced
 --------
 
-.. image:: images/preferences-5-debug.jpg
+.. image:: images/preferences-5-debug.png
 
 The Advanced tab includes ComfyUI integration and debugging options.
 

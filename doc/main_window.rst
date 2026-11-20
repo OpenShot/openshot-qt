@@ -44,11 +44,14 @@ Overview
    8   Timeline            The timeline visualizes your video project, and each clip and transition in your project. You can drag the mouse to select, move, or delete multiple items.
    9   Filter              Filter the list of items shown (project files, transitions, effects, and emojis) by using these buttons and filter textbox. Enter a few letters of what you are looking for, and the results will be shown.
    10  Playback            Left to Right: Jump to Start, Rewind, Play/Pause, Fast Forward, and Jump to End
-   11  Track               Track area containing the track name, track menu, and per-track controls such as lock and keyframe panel icons.
+   11  Track Header        Area to the left of each track containing its name, track menu, and per-track controls such as lock and keyframe panel icons.
    ==  ==================  ============
 
 For step-by-step instructions on the basic usage of OpenShot, be sure to read the
 :ref:`quick_tutorial_ref`.
+
+The four GPU indicators at the bottom of the :guilabel:`Video Preview` dock show acceleration activity.
+Click them to open :ref:`gpu_inspector_ref`.
 
 Built-in Tutorial
 -----------------
@@ -180,7 +183,7 @@ are renamed and/or rearranged.
        - :guilabel:`Save Project` Save the current project.
        - :guilabel:`Import Files` Import media files into the project.
        - :guilabel:`Choose Profile` Select a project profile (*i.e. 1080p @ 30fps, 720p @ 24fps, ...*).
-       - :guilabel:`Save Current Frame` Save the current preview video frame as an image (sometimes represented with a camera icon).
+       - :guilabel:`Save Current Frame` Save the current preview video frame as an image.
        - :guilabel:`Import Project` Import another project into the current project (*Adobe and Final Cut Pro formats partially supported*).
        - :guilabel:`Export Project` Export the current project to a specified format (*EDL, Adobe, and Final Cut Pro formats partially supported*).
        - :guilabel:`Quit` Exit the application.
@@ -228,22 +231,14 @@ You can open it from the notice or dismiss the invitation. At any time, choose
 
 About OpenShot
 --------------
-Use :guilabel:`Help→About OpenShot` to check your OpenShot version. Click
-:guilabel:`Copy` next to the version number to copy a short version and system
-details report, including how OpenShot was installed. This is a useful way to
-share the information when reporting a bug or asking for help.
+Use :guilabel:`Help→About OpenShot` to check your OpenShot version, library versions, and build details.
 
-Example output:
+.. image:: images/about.png
+   :alt: About OpenShot showing version and build details and the Copy Version Info button
 
-.. code-block:: text
-
-   **OpenShot Version Info**
-   Version: 4.0.1 | libopenshot: 1.0.1
-   Distribution: appimage | Official distribution: yes
-   OS: Ubuntu 24.04
-   CPU: AMD Ryzen 7 8840HS w/ Radeon 780M Graphics (16 threads) | RAM: 15 GB
-   Cache: Memory, 900 MB, 905 frames, ahead 50%, pre-roll 24/48
-   Performance: Threads: OMP 16 | FFmpeg 16, Cards: Decode: None (0) | Encode: 0
+Click :guilabel:`Copy Version Info` to copy a report you can paste into a bug report or support request.
+It includes version and system details, cache and performance settings, and GPU diagnostics to help
+identify your setup.
 
 .. _views_ref:
 
