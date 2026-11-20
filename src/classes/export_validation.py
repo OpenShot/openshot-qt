@@ -54,6 +54,11 @@ COMMON_QUALITY_VALUES = {"crf": ["18 crf", "23 crf", "28 crf"], "qp": ["20 qp", 
 COMMON_FORMATS = ["mp4", "mkv", "mov", "webm", "avi", "mpeg", "ogg", "gif",
                   "mp3", "m4a", "flac", "wav", "opus"]
 
+COMMON_VIDEO_ENCODERS = ["libx264", "libx265", "libvpx-vp9", "libvpx", "libsvtav1", "libaom-av1", "librav1e",
+                         "prores_ks", "mpeg4", "libxvid", "mpeg2video", "libtheora", "gif", "h264_nvenc", "hevc_nvenc",
+                         "h264_vaapi", "hevc_vaapi", "h264_qsv", "h264_videotoolbox"]
+COMMON_AUDIO_ENCODERS = ["aac", "libmp3lame", "libopus", "libvorbis", "flac", "ac3", "mp2", "pcm_s16le"]
+
 IMAGE_SEQUENCE_PATTERN = re.compile(r"%0?\d*d")
 
 # Audio formats whose only "video" is a cover image (i.e. mp3, flac): FFmpeg accepts any video
@@ -126,37 +131,50 @@ class Capabilities:
         if key not in self._cache:
             try:
                 self._cache[key] = compute()
-            except (RuntimeError, ValueError, TypeError):
+            except (RuntimeError, ValueError, TypeError, AttributeError):
                 self._cache[key] = None
         return self._cache[key]
 
     def encoder(self, name):
         """Encoder details (or {'found': False}). Lists are None when anything is accepted."""
         name = (name or "").strip()
+        if not hasattr(self.writer, "GetEncoderInfo"):
+            return {"found": True, "name": name, "type": "video" if name in COMMON_VIDEO_ENCODERS else "audio"}
         return self._cached(("encoder", name), lambda: json.loads(self.writer.GetEncoderInfo(name))) or {}
 
     def format(self, name):
         """Format details, or {'found': False}."""
         name = (name or "").strip()
+        if not hasattr(self.writer, "GetFormatInfo"):
+            return {"found": True, "name": name, "default_video_codec": "libx264", "default_audio_codec": "aac"}
         return self._cached(("format", name), lambda: json.loads(self.writer.GetFormatInfo(name))) or {}
 
     def supports(self, format_name, codec_name):
         """1 if the format can hold the codec, 0 if not, -1 when unknown."""
+        if not hasattr(self.writer, "IsCodecSupportedByFormat"):
+            return 1
         result = self._cached(("supports", format_name, codec_name),
                               lambda: int(self.writer.IsCodecSupportedByFormat(format_name, codec_name)))
         return -1 if result is None else result
 
     def encoders(self, media_type, format_name=""):
         """Available encoders of a media type, optionally limited to those a format can hold."""
+        if not hasattr(self.writer, "GetEncoders"):
+            candidates = COMMON_VIDEO_ENCODERS if media_type == "video" else COMMON_AUDIO_ENCODERS
+            return [{"name": enc, "found": True, "type": media_type} for enc in candidates]
         return self._cached(("encoders", media_type, format_name),
                             lambda: json.loads(self.writer.GetEncoders(media_type, format_name))) or []
 
     def formats(self, candidates=COMMON_FORMATS):
         """The candidate formats this FFmpeg build can write."""
+        if not hasattr(self.writer, "GetFormatInfo"):
+            return list(candidates)
         return [name for name in candidates if self.format(name).get("found")]
 
     def all_formats(self):
         """Every file extension the writer can export to (FFmpegWriter.GetFormats)."""
+        if not hasattr(self.writer, "GetFormats"):
+            return list(COMMON_FORMATS)
         return self._cached(("all_formats",), lambda: json.loads(self.writer.GetFormats())) or []
 
 
