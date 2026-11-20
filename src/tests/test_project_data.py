@@ -331,6 +331,9 @@ class ProjectDataTests(unittest.TestCase):
                             self.assertEqual(len(store.get("clips")), 1)
                             self.assertEqual(len(store.get("effects")), 1)
                             self.assertEqual(store.get("layers")[0]["label"], "Track 1")
+                            self.assertEqual(store.get("layers")[0]["number"], 1000000)
+                            self.assertEqual(store.get("clips")[0]["layer"], 1000000)
+                            self.assertEqual(store.get("effects")[0]["layer"], 1000000)
                             clip = store.get("clips")[0]
                             self.assertEqual((clip["start"], clip["end"], clip["position"]), (1.0, 4.0, 2.0))
                             self.assertEqual(len(clip["alpha"]["Points"]),
@@ -391,6 +394,47 @@ class ProjectDataTests(unittest.TestCase):
                     self.assertEqual(stream.read(), original_bytes)
             finally:
                 self.app.window = None
+
+    def test_native_143_import_preserves_track_order_and_clip_assignments(self):
+        from classes.legacy_project import read_legacy_project
+
+        fixture = source_path('src/tests/fixtures/legacy/native-1-4-3.osp')
+        original = fixture.read_bytes()
+        legacy = read_legacy_project(fixture)
+        tracks = list(reversed(legacy.sequences[0].tracks))
+        self.assertEqual(len(tracks), 5)
+        self.assertEqual([len(track.clips) for track in tracks], [1, 1, 4, 1, 1])
+        # This test checks track mapping only; use the existing tiny image in
+        # place of the historical absolute media paths, without editing the pickle.
+        for item in legacy.project_folder.items:
+            item.name = str(source_path('src/tests/fixtures/legacy/legacy.ppm'))
+        store = ProjectDataStore()
+        self.app.project = store
+        self.app.updates = UpdateManager()
+        self.app.updates.add_listener(store)
+        with tempfile.TemporaryDirectory() as folder, \
+                patch('classes.legacy_project.read_legacy_project', return_value=legacy), \
+                patch.object(store, 'add_to_recent_files'):
+            store.load(str(fixture), clear_thumbnails=False, interactive=False)
+            file_ids = {old.unique_id: new['id'] for old, new in
+                        zip(legacy.project_folder.items, store.get('files'))}
+            expected_layers = [(track.name, (index + 1) * 1000000) for index, track in enumerate(tracks)]
+            for path in (None, os.path.join(folder, 'converted.osp')):
+                if path:
+                    store.save(path)
+                    store.load(path, clear_thumbnails=False, interactive=False)
+                self.assertEqual([(layer['label'], layer['number']) for layer in store.get('layers')], expected_layers)
+                self.assertEqual(len(store.get('clips')), 8)
+                for track, (_name, number) in zip(tracks, expected_layers):
+                    self.assertEqual(sorted((clip['position'], clip['start'], clip['end'], clip['file_id'])
+                                            for clip in store.get('clips') if clip['layer'] == number),
+                                     sorted((clip.position_on_track, clip.start_time, clip.end_time,
+                                             file_ids[clip.file_object.unique_id]) for clip in track.clips))
+                    self.assertEqual(sorted((effect['position'], effect['end']) for effect in store.get('effects')
+                                            if effect['layer'] == number),
+                                     sorted((transition.position_on_track, transition.length)
+                                            for transition in track.transitions))
+        self.assertEqual(fixture.read_bytes(), original)
 
     def test_legacy_callable_rejected_before_conversion_or_project_reset(self):
         class Payload:

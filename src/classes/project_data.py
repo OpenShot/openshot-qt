@@ -710,17 +710,17 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             for track in track_list:
                 track.delete()
 
-            # Create new tracks
-            track_counter = 0
+            # Use the same positive track numbers as newly created projects.
+            track_counter = 1000000
             for legacy_t in reversed(v1_data.sequences[0].tracks):
                 t = Track()
                 t.data = {"number": track_counter, "y": 0, "label": legacy_t.name}
                 t.save()
 
-                track_counter += 1
+                track_counter += 1000000
 
             # Loop through clips
-            track_counter = 0
+            track_counter = 1000000
             for sequence in v1_data.sequences:
                 for track in reversed(sequence.tracks):
                     for clip in track.clips:
@@ -857,7 +857,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         t.save()
 
                     # Increment track counter
-                    track_counter += 1
+                    track_counter += 1000000
 
         except Exception as ex:
             # Error parsing legacy contents

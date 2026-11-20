@@ -66,6 +66,41 @@ class TimelineClipboardTests(unittest.TestCase):
             self.host, clips or [], transitions or [], {'position': position, 'track': layer})
         self.assertIsNone(self.app.updates.transaction_id)
 
+    def test_imported_legacy_clip_paste_keeps_existing_track(self):
+        import tempfile
+        import zipfile
+        from pathlib import Path
+        from unittest.mock import patch
+        from tests.source_tree import source_path
+        from windows.main_window import MainWindow
+
+        window = self.app.window
+        window.actionClearWaveformData = Mock()
+        window.removeSelection = Mock()
+        window.show_property_timer = Mock()
+        window.selection_timer = Mock()
+        # Exercise real track allocation: mocking it hides zero-numbered tracks.
+        for name in ('_track_numbers', '_create_track', 'create_track_below',
+                     'track_stack_from', 'ensure_tracks_for_layers'):
+            setattr(window, name, types.MethodType(getattr(MainWindow, name), window))
+        fixture = source_path('src/tests/fixtures/legacy/manual/Legacy Pickle Test Pack.zip')
+        with tempfile.TemporaryDirectory() as folder:
+            with zipfile.ZipFile(fixture) as archive:
+                archive.extractall(folder)
+            path = str(Path(folder) / 'Legacy Pickle Test Pack' / 'Legacy PNG Test.osp')
+            with patch.object(self.store, 'add_to_recent_files'):
+                self.store.load(path, clear_thumbnails=False, interactive=False)
+            original_layers = copy.deepcopy(self.store.get('layers'))
+            source = self.store.get('clips')[0]
+            self.copy_items(self.timeline.MenuCopy.CLIP, clips=[source['id']])
+            self.paste(position=8.0, layer=source['layer'])
+            self.assertEqual(self.store.get('layers'), original_layers)
+            self.assertEqual(len(self.store.get('clips')), 4)
+            self.assertEqual(self.store.get('clips')[-1]['layer'], source['layer'])
+            self.app.updates.undo()
+            self.assertEqual(len(self.store.get('clips')), 3)
+            self.assertEqual(self.store.get('layers'), original_layers)
+
     def test_partial_clip_copy_keeps_source_identity_and_target_timing(self):
         before = copy.deepcopy(self.store._data['clips'])
         text = self.copy_items(self.timeline.MenuCopy.KEYFRAMES_ALPHA, clips=['C1'])
