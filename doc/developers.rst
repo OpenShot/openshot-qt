@@ -97,8 +97,30 @@ Qt6 development libraries. Required Python modules include ``QtCore``, ``QtGui``
 ``QtStateMachine``, plus ``uic`` for PyQt or ``QtUiTools`` for PySide. Avoid mixing Qt libraries from different
 installations.
 
-Qt6 package availability varies by distribution; Ubuntu 24.04 does not package PySide6. Verify that your chosen
-environment includes all required modules, or use the Qt5/PyQt5 recipe below.
+On **Ubuntu 26.04 or newer**, the following commands can also be used for Qt6 development. Install the Qt6
+development libraries, then choose one Python binding:
+
+.. code-block:: bash
+
+   sudo apt install qt6-base-dev qt6-base-dev-tools qt6-tools-dev qt6-svg-dev
+
+For **PyQt6**:
+
+.. code-block:: bash
+
+   sudo apt install python3-pyqt6 python3-pyqt6.qtsvg python3-pyqt6.qtstatemachine
+
+For **PySide6**:
+
+.. code-block:: bash
+
+   sudo apt install python3-pyside6.qtcore python3-pyside6.qtgui \
+       python3-pyside6.qtwidgets python3-pyside6.qtstatemachine \
+       python3-pyside6.qtsvg python3-pyside6.qtuitools shiboken6
+
+When following the build steps below, use a separate Qt6 build directory and installation prefix, replace
+``-DUSE_QT6=OFF`` with ``-DUSE_QT6=ON``, and select ``OPENSHOT_QT_API=pyqt6`` or ``pyside6`` when launching.
+The main examples below continue to use Qt5/PyQt5.
 
 The build commands below run from the parent directory containing all three checkouts. Install the libraries
 into a private prefix so development builds do not replace your system libraries:
