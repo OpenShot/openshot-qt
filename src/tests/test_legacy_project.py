@@ -15,6 +15,78 @@ FIXTURES = source_path('src/tests/fixtures/legacy')
 
 
 class LegacyProjectTests(unittest.TestCase):
+    def test_native_143_project_profile_tracks_and_shared_media(self):
+        project = read_legacy_project(FIXTURES / 'openshot-1.4.3/settings-sampler.osp')
+        self.assertEqual(project.name, 'OpenShot 1.4.3 settings sampler')
+        self.assertEqual(project.project_type, 'HD 720p 25 fps')
+        self.assertEqual(project.file_type, 'ascii')
+        self.assertIsNone(project.form)
+        self.assertIsNone(project.thumbnailer)
+        seq = project.sequences[0]
+        self.assertIs(project.tabs[0], seq)
+        self.assertIs(seq.project, project)
+        self.assertEqual((seq.length, seq.scale, seq.tick_pixels), (30.0, 1.0, 100))
+        self.assertEqual([track.name for track in seq.tracks],
+                         ['Hidden track', 'Muted track', 'Animated overlay', 'Background', 'Audio bed'])
+        self.assertFalse(seq.tracks[0].play_video)
+        self.assertFalse(seq.tracks[1].play_audio)
+        self.assertEqual([(marker.name, marker.position_on_track) for marker in seq.markers],
+                         [('Scale animation', 0.0), ('Fades and effects', 4.0), ('Mute and hide', 8.0)])
+        media = project.project_folder.items
+        self.assertEqual([Path(item.name).name for item in media],
+                         ['red.png', 'green.png', 'blue.png', 'tone.wav', 'pattern.mp4'])
+        clips = [clip for track in seq.tracks for clip in track.clips]
+        self.assertEqual(len(clips), 8)
+        for track in seq.tracks:
+            self.assertIs(track.parent, seq)
+            for clip in track.clips:
+                self.assertIs(clip.parent, track)
+                self.assertTrue(any(clip.file_object is item for item in media))
+        self.assertIs(seq.tracks[0].clips[0].file_object, seq.tracks[2].clips[2].file_object)
+
+    def test_native_143_animated_properties_and_effect_parameters(self):
+        project = read_legacy_project(FIXTURES / 'openshot-1.4.3/settings-sampler.osp')
+        overlay = project.sequences[0].tracks[2]
+        red, blue, silent, invisible = overlay.clips
+        for key, expected in (('start', (0, 75.0, 50.0, -20.0, 10.0, 0.6)),
+                              ('end', (-1, 110.0, 125.0, 20.0, -10.0, 1.0))):
+            frame = red.keyframes[key]
+            self.assertIs(type(frame), _RECORDS['keyframe'])
+            self.assertEqual((frame.frame, frame.height, frame.width, frame.x, frame.y, frame.alpha), expected)
+        self.assertFalse(red.fill)
+        self.assertEqual((red.halign, red.valign, red.volume), ('left', 'top', 80.0))
+        self.assertEqual(red.effects[0].service, 'brightness')
+        self.assertEqual(red.effects[0].paramaters, [{'start': '0.75'}, {'end': '1.25'}])
+        self.assertEqual(blue.rotation, 12.0)
+        self.assertTrue(blue.distort)
+        self.assertEqual(blue.effects[0].service, 'frei0r.saturat0r')
+        self.assertEqual(blue.effects[0].paramaters, [{'Saturation': '0.2'}])
+        self.assertFalse(silent.play_audio)
+        self.assertTrue(silent.play_video)
+        self.assertFalse(invisible.play_video)
+        self.assertTrue(invisible.play_audio)
+        self.assertEqual((silent.volume, invisible.volume), (65.0, 20.0))
+
+    def test_native_143_fades_and_transitions(self):
+        project = read_legacy_project(FIXTURES / 'openshot-1.4.3/settings-sampler.osp')
+        seq = project.sequences[0]
+        blue = seq.tracks[2].clips[1]
+        self.assertEqual((blue.start_time, blue.end_time, blue.position_on_track), (1.0, 5.0, 4.0))
+        for stream, amounts in (('video', (0.75, 1.25)), ('audio', (0.25, 0.5))):
+            self.assertTrue(getattr(blue, stream + '_fade_in'))
+            self.assertTrue(getattr(blue, stream + '_fade_out'))
+            self.assertEqual((getattr(blue, stream + '_fade_in_amount'),
+                              getattr(blue, stream + '_fade_out_amount')), amounts)
+        tone = seq.tracks[4].clips[0]
+        self.assertEqual((tone.volume, tone.audio_fade_in_amount, tone.audio_fade_out_amount), (35.0, 0.5, 1.5))
+        self.assertFalse(tone.video_fade_in)
+        wipe, dissolve = seq.tracks[2].transitions
+        self.assertEqual((wipe.position_on_track, wipe.length, wipe.softness, wipe.reverse), (3.5, 1.0, 0.15, True))
+        self.assertEqual(Path(wipe.resource).name, 'wipe.svg')
+        self.assertEqual((dissolve.position_on_track, dissolve.length, dissolve.softness, dissolve.reverse),
+                         (7.5, 0.5, 0.7, False))
+        self.assertEqual(dissolve.resource, '')
+
     def read_bytes(self, contents):
         with tempfile.TemporaryDirectory() as folder:
             path = Path(folder) / 'test.osp'
