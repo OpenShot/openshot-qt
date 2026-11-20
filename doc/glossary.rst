@@ -223,7 +223,8 @@ High Definition (HD):
 HDMI:
    High Definition Multimedia Interface.  Interface for transmitting high definition digital audio and video data.
 HDR:
-   HDR (high dynamic range) is the compositing of two images, one that correctly exposes the highlights, and another that properly exposes the dark areas.  When composited together, you get a properly exposed image.
+   High dynamic range. Video that can represent a wider range of brightness than standard dynamic range (SDR),
+   retaining detail in bright highlights and dark areas. HDR viewing requires a compatible display and playback workflow.
 HDTV:
    High Definition TV.  A broadcast format that allows for a higher resolution signal than the traditional formats, NTSC, PAL, and SECAM.
 HDV:

@@ -37,6 +37,29 @@ you are fixing a problem shot or building a cinematic look from scratch.
    :ref:`effects_color_grade` in :doc:`effects` — full property reference and keyframe details for the
    Color Grade effect.
 
+Color Profiles and Conversion
+-----------------------------
+
+A color profile describes how recorded color values should be interpreted. OpenShot uses the video's color
+metadata to interpret its colors and full or limited brightness range automatically. Missing or incorrect
+metadata can make footage look different from what you expect.
+
+OpenShot edits video in **SDR Rec. 709**, the color space commonly used for HD video. CPU and Vulkan processing
+target the same SDR color space. A project profile such as :guilabel:`HD 720p 30 fps` sets the video format;
+it is not a camera color profile or a choice of color-grading workspace.
+
+Use the Color Grade effect to adjust the converted image. Scopes show these processed image values, while your
+display settings and calibration affect how the preview looks. Check a short export in your intended player
+before finishing a large project.
+
+HDR Footage
+-----------
+
+OpenShot converts HDR video, such as HDR phone recordings, to standard dynamic range (SDR) for editing.
+Bright highlights and wide colors are adjusted for SDR viewing; this is not an HDR-preserving editing or export
+workflow. A higher export resolution does not restore the source's HDR range. Judge the result in OpenShot and
+check a short export before processing a long project.
+
 .. _color_basics_ref:
 
 Understanding Color

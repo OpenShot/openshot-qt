@@ -31,9 +31,17 @@ build).
 Clean Install
 ^^^^^^^^^^^^^
 
-If you are upgrading from a previous version of OpenShot or are experiencing a crash or error
-message after launching OpenShot, please see :ref:`preferences_reset_ref` for instructions on clearing
-the previous ``openshot.settings`` file (for a clean install with **default preferences**).
+Upgrading normally preserves your preferences. If OpenShot fails to launch or you want to start with
+**default preferences**, see :ref:`preferences_reset_ref`. A reset is not required for a normal upgrade.
+
+Windows (Microsoft Store)
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+On Windows 10 or 11, open the official `OpenShot Microsoft Store listing
+<https://apps.microsoft.com/detail/9P6R2PMH4C04>`_, complete the purchase, and install OpenShot.
+Launch it from the Start menu. The Store handles updates automatically.
+
+The Store purchase supports OpenShot development. The free installer below provides the same editing features.
 
 Windows (Installer)
 ^^^^^^^^^^^^^^^^^^^
@@ -41,7 +49,7 @@ Windows (Installer)
 Download the Windows installer from the `official download page
 <https://www.openshot.org/download/>`_ (the download page contains both 64-bit and
 32-bit versions), double click it, and follow the directions on screen. Once completed,
-OpenShot will be installed and available in your Start menu.
+OpenShot will be installed and available in your Start menu. To update, download and run a newer installer.
 
 .. image:: images/windows-installer-language.jpg
 .. image:: images/windows-installer-tasks.jpg
@@ -52,14 +60,12 @@ Windows (Portable)
 If you need to install OpenShot on Windows without Administrator permissions,
 we also support a portable installation process. Download the Windows installer
 from the `official download page <https://www.openshot.org/download/>`_, open the command prompt,
-and type the following commands:
+and type the following commands. Replace ``OpenShot-installer.exe`` with the name of the downloaded file:
 
 ..  code-block:: console
 
-    :caption: Install portable version of OpenShot (no administrator permissions required)
-
-    cd C:\Users\USER\Downloads\
-    OpenShot-v2.6.1-x86_64.exe /portable=1 /currentuser /noicons
+    cd /d "%USERPROFILE%\Downloads"
+    OpenShot-installer.exe /portable=1 /currentuser /noicons
 
 .. image:: images/windows-installer-portable.jpg
 
@@ -72,19 +78,41 @@ icon into your **Applications** shortcut. This is very similar to how most Mac a
 installed. Now launch OpenShot from `Launchpad` or `Applications` in Finder.
 
 The current Mac download is built for Intel Macs. On an Apple Silicon Mac, you
-can run this Intel version using Rosetta. A native Apple Silicon version is not
-currently available.
+can run this Intel version using Rosetta. A native Apple Silicon version is planned
+for a future release.
 
 .. image:: images/mac-installer-dmg.jpg
+
+Linux (Snap)
+^^^^^^^^^^^^
+
+Install the official ``openshot-qt`` package from the `Snap Store <https://snapcraft.io/openshot-qt>`_,
+or run the command below. If your distribution does not include Snap support, first follow the
+`snapd setup instructions <https://snapcraft.io/docs/installing-snapd/>`_.
+
+.. code-block:: console
+
+    sudo snap install openshot-qt
+
+Launch OpenShot from your applications menu. Snap handles updates automatically.
+
+If external drives, microphone recording, or webcam capture are unavailable, enable the corresponding
+permissions in your software manager. You can also grant the permissions you need in a terminal:
+
+.. code-block:: console
+
+    sudo snap connect openshot-qt:removable-media
+    sudo snap connect openshot-qt:audio-record
+    sudo snap connect openshot-qt:camera
 
 Linux (AppImage)
 ^^^^^^^^^^^^^^^^
 
 Most Linux distributions have a version of OpenShot in their software
 repositories, which can be installed using your package manager / software store.
-However, these packaged versions are often very outdated (be sure to check the version number:
-:guilabel:`Help→About OpenShot`). For this reason, we recommend installing an AppImage from the
-`official download page <https://www.openshot.org/download/>`_.
+These versions can differ from the current OpenShot release; check :guilabel:`Help→About OpenShot`.
+For a portable version you can run without installing, download an AppImage from the
+`official download page <https://www.openshot.org/download/>`_. To update, download a newer AppImage.
 
 Once downloaded, right click on the AppImage, choose Properties, and mark the file as **Executable**.
 Finally, double click the AppImage to launch OpenShot. If double clicking does not launch OpenShot, you can also
@@ -96,26 +124,21 @@ and creating a launcher for it, see our
 
 Unable to Launch AppImage?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
-Please verify that the ``libfuse2`` library is installed, which is required to mount and read an AppImage.
-On newer versions of Ubuntu (i.e. 22.04+), ``libfuse2`` is not installed by default. You can install it with
-the following command:
+If an AppImage reports a missing FUSE library, install the FUSE 2 compatibility library.
+On Ubuntu 24.04 and newer:
 
 ..  code-block:: console
 
-    sudo apt install libfuse2
+    sudo apt install libfuse2t64
+
+On Ubuntu 22.04, use ``sudo apt install libfuse2``. For other distributions, see the
+`AppImage FUSE instructions <https://docs.appimage.org/user-guide/troubleshooting/fuse.html>`_.
 
 Install AppImage Launcher
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 If you plan on using OpenShot often, you will probably want an integrated launcher for our AppImage.
-We recommend using AppImageLauncher, which is the officially supported way to launch (and manage) AppImage files on
-your Linux desktop. If you are on a Debian-based distro (Ubuntu, Mint, etc...), there is an official
-AppImageLauncher PPA:
-
-..  code-block:: console
-
-    sudo add-apt-repository ppa:appimagelauncher-team/stable
-    sudo apt update
-    sudo apt install appimagelauncher
+`AppImageLauncher <https://github.com/TheAssassin/AppImageLauncher>`_ is an optional tool for adding
+AppImages to your applications menu. Follow its installation instructions for your distribution.
 
 For command-line editing and automation, see :ref:`cli_ref`. If AppImageLauncher
 shows integration dialogs when using ``--cli``, follow the environment-variable
@@ -124,9 +147,10 @@ instructions in :ref:`cli_appimage_ref`.
 Linux (PPA)
 ^^^^^^^^^^^
 
-For Debian-based Linux distributions (Ubuntu, Mint, etc...), we also have a PPA
+For supported Ubuntu versions and compatible derivatives such as Linux Mint, we also have a PPA
 (Personal Package Archive), which adds our official OpenShot software repository to your package
-manager, making it possible to install our latest version, without relying on our AppImages.
+manager. Check the `PPA's available packages <https://launchpad.net/~openshot.developers/+archive/ubuntu/ppa>`_
+for your Ubuntu version; package versions may differ from the AppImage and Snap releases.
 
 Stable PPA (Contains only official releases)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -155,9 +179,12 @@ Chromebook. The command below will download our AppImage and configure your syst
 OpenShot successfully.
 
 - Navigate to *chrome://os-settings/crostini* (Copy/Paste)
-- Under "Linux (Beta)" select "Turn On". Default values are fine.
-- When the Terminal appears (i.e. black window), Copy/Paste the following command:
-    - ``bash <(wget -O - http://openshot.org/files/chromeos/install-stable.sh)``
+- Under :guilabel:`Linux development environment`, select :guilabel:`Set up`.
+- When the Terminal appears, run:
+
+.. code-block:: console
+
+    bash <(wget -O - https://www.openshot.org/files/chromeos/install-stable.sh)
 
 Previous Versions
 ^^^^^^^^^^^^^^^^^
@@ -172,18 +199,18 @@ NOTE: Projects (\*.osp) made with newer versions of OpenShot Video Editor might 
 Uninstall
 ^^^^^^^^^
 
-To fully uninstall OpenShot from your system, you must **manually delete** the ``.openshot_qt`` folder:
-``~/.openshot_qt/`` or ``C:\Users\USERNAME\.openshot_qt\``, which contains all
-settings and files used by OpenShot. Be sure to **backup** any recovery files of your existing
-projects first (\*.osp files). Please see :ref:`preferences_reset_ref` for instructions on clearing
-the previous ``openshot.settings`` file (for a clean install with **default preferences**).
+Remove OpenShot using the method you used to install it. You do not need to delete your projects or media.
+Preferences and recovery files may remain after uninstalling. If you also want to remove those, first back up
+any recovery files you need, then see :ref:`preferences_reset_ref` for the settings folder location.
 
 Windows
 ~~~~~~~
 
-#. Open **Control Panel** from the Start menu
-#. Click on **Programs and Features**
-#. Select OpenShot Video Editor, then click **Uninstall**
+#. Open **Settings** from the Start menu
+#. Go to **Apps** and find OpenShot Video Editor
+#. Choose **Uninstall** (works for both the Store version and the regular installer)
+
+For a portable installation, delete the folder where you installed OpenShot.
 
 Mac
 ~~~
@@ -192,9 +219,9 @@ Mac
 #. Drag the OpenShot Video Editor icon to the **Trash** in the Dock
 #. Right-click **Trash** and choose **Empty Trash**
 
-Ubuntu (Linux)
-~~~~~~~~~~~~~~
+Linux
+~~~~~
 
-#. Open up **Files**
-#. Locate the ``*.AppImage`` and delete the file
-#. OR click Activities, Right-click on OpenShot Video Editor icon, and choose **Remove AppImage from System**
+- **Snap:** remove it in your software manager, or run ``sudo snap remove openshot-qt``.
+- **AppImage:** delete the ``*.AppImage`` file. If you used AppImageLauncher, choose **Remove AppImage from System**.
+- **PPA or distribution package:** remove OpenShot in your package manager, or run ``sudo apt remove openshot-qt`` on Ubuntu.
