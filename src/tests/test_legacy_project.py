@@ -15,6 +15,50 @@ FIXTURES = source_path('src/tests/fixtures/legacy')
 
 
 class LegacyProjectTests(unittest.TestCase):
+    # Saved and reopened by the official 1.4.3-1 PPA application in Ubuntu 12.04.
+    # Decoding needs no media. Conversion still omits transforms, clip effects,
+    # mute/hide and the project profile; keep this fixture for future import work.
+    def test_native_143_project_and_shared_references(self):
+        project = read_legacy_project(FIXTURES / 'native-1-4-3.osp')
+        self.assertEqual(project.project_type, 'HD 720p 25 fps')
+        seq = project.sequences[0]
+        self.assertIs(seq.project, project)
+        self.assertIs(project.tabs[0], seq)
+        self.assertEqual(len(project.project_folder.items), 5)
+        self.assertEqual(len(seq.tracks), 5)
+        self.assertEqual(sum(len(track.clips) for track in seq.tracks), 8)
+        self.assertFalse(seq.tracks[0].play_video)
+        self.assertFalse(seq.tracks[1].play_audio)
+        self.assertIs(seq.tracks[0].clips[0].file_object, seq.tracks[2].clips[2].file_object)
+
+    def test_native_143_animation_effects_and_clip_flags(self):
+        project = read_legacy_project(FIXTURES / 'native-1-4-3.osp')
+        red, blue, silent, hidden = project.sequences[0].tracks[2].clips
+        for key, expected in (('start', (50.0, 75.0, -20.0, 10.0, 0.6)),
+                              ('end', (125.0, 110.0, 20.0, -10.0, 1.0))):
+            frame = red.keyframes[key]
+            self.assertEqual((frame.width, frame.height, frame.x, frame.y, frame.alpha), expected)
+        self.assertEqual(red.effects[0].service, 'brightness')
+        self.assertEqual(red.effects[0].paramaters, [{'start': '0.75'}, {'end': '1.25'}])
+        self.assertEqual(blue.effects[0].service, 'frei0r.saturat0r')
+        self.assertEqual(blue.effects[0].paramaters, [{'Saturation': '0.2'}])
+        self.assertEqual(blue.rotation, 12.0)
+        self.assertFalse(silent.play_audio)
+        self.assertFalse(hidden.play_video)
+
+    def test_native_143_fades_volume_and_transitions(self):
+        project = read_legacy_project(FIXTURES / 'native-1-4-3.osp')
+        seq = project.sequences[0]
+        blue = seq.tracks[2].clips[1]
+        self.assertEqual((blue.video_fade_in_amount, blue.video_fade_out_amount), (0.75, 1.25))
+        self.assertEqual((blue.audio_fade_in_amount, blue.audio_fade_out_amount), (0.25, 0.5))
+        tone = seq.tracks[4].clips[0]
+        self.assertEqual((tone.volume, tone.audio_fade_in_amount, tone.audio_fade_out_amount), (35.0, 0.5, 1.5))
+        wipe, dissolve = seq.tracks[2].transitions
+        self.assertEqual((wipe.position_on_track, wipe.length, wipe.softness, wipe.reverse), (3.5, 1.0, 0.15, True))
+        self.assertEqual((dissolve.position_on_track, dissolve.length, dissolve.softness, dissolve.reverse),
+                         (7.5, 0.5, 0.7, False))
+
     def read_bytes(self, contents):
         with tempfile.TemporaryDirectory() as folder:
             path = Path(folder) / 'test.osp'
@@ -22,7 +66,7 @@ class LegacyProjectTests(unittest.TestCase):
             return read_legacy_project(path)
 
     def test_legacy_projects_and_module_aliases(self):
-        for fixture in sorted(FIXTURES.glob('*.osp')):
+        for fixture in sorted(FIXTURES.glob('project-v1-*.osp')):
             data = fixture.read_bytes()
             for prefix in (b'classes.', b'openshot.classes.', b'classes.legacy.openshot.classes.'):
                 # GLOBAL/INST module names are newline-delimited in these protocols.

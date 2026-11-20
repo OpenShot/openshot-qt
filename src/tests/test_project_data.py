@@ -306,7 +306,7 @@ class ProjectDataTests(unittest.TestCase):
         fixtures = source_path("src/tests/fixtures/legacy")
         previous_cwd = os.getcwd()
         try:
-            for fixture in sorted(fixtures.glob("*.osp")):
+            for fixture in sorted(fixtures.glob("project-v1-*.osp")):
                 for interactive in (True, False):
                     with self.subTest(fixture=fixture.name, interactive=interactive), \
                             tempfile.TemporaryDirectory() as folder:
