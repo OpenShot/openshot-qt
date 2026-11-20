@@ -136,6 +136,7 @@ class HumanityDarkTimelineTheme(TimelineTheme):
         self.marker_icon_offset_y    = 0
 
         self.track_keyframe_panel_disabled_icon = _icon(_h + "humanity-dark-track-keyframe-panel-show-disabled.svg")
+        self.track_control_color = QColor("#4B92AD")
         self.track_keyframe_panel_enabled_icon  = _icon(_h + "humanity-dark-track-keyframe-panel-show-enabled.svg")
         self.track_keyframe_panel_hide_disabled_icon = _icon(_h + "humanity-dark-track-keyframe-panel-hide-disabled.svg")
         self.track_keyframe_panel_hide_enabled_icon = _icon(_h + "humanity-dark-track-keyframe-panel-hide-enabled.svg")
@@ -210,6 +211,7 @@ class RetroTimelineTheme(HumanityDarkTimelineTheme):
         _h = "themes/humanity/images/"
 
         self.track_keyframe_panel_disabled_icon = _icon(_h + "retro-track-keyframe-panel-show-disabled.svg")
+        self.track_control_color = QColor("#2F3847")
         self.track_keyframe_panel_enabled_icon  = _icon(_h + "retro-track-keyframe-panel-show-enabled.svg")
         self.track_keyframe_panel_hide_disabled_icon = _icon(_h + "retro-track-keyframe-panel-hide-disabled.svg")
         self.track_keyframe_panel_hide_enabled_icon = _icon(_h + "retro-track-keyframe-panel-hide-enabled.svg")

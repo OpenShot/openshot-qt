@@ -246,6 +246,11 @@ class TrackInteractionMixin:
             pix = pixmaps.get(state) or pixmaps.get("enabled") or pixmaps.get("disabled")
             return pix
 
+        if key == "effects-tray":
+            panel = getattr(self, "_effects_tray", None)
+            if panel and panel.track_id == track.id:
+                return pixmaps.get("active")
+
         state = "enabled" if (hovered or pressed) else "disabled"
         pix = pixmaps.get(state) or pixmaps.get("enabled") or pixmaps.get("disabled")
         return pix

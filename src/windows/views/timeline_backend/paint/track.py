@@ -153,20 +153,33 @@ class TrackPainter(BasePainter):
             }
 
         size = max(12, round(self.w.theme.track_control_size))
-        badge = QPixmap(size * 2, size * 2)
-        badge.setDevicePixelRatio(2)
-        badge.fill(Qt.transparent)
-        painter = QPainter(badge)
-        painter.setRenderHint(QPainter.Antialiasing)
-        painter.setPen(QColor(self.w.theme.track.font_color))
+        accent = QColor(self.w.theme.track_control_color)
+        if not accent.isValid():
+            accent = QColor(self.w.theme.track.font_color)
         font = QFont(self.w.font())
         font.setBold(True)
         font.setPixelSize(max(8, round(size * 0.57)))
-        painter.setFont(font)
-        painter.drawRoundedRect(QRectF(1, 1, size - 2, size - 2), 3, 3)
-        painter.drawText(QRectF(0, 0, size, size), Qt.AlignCenter, "FX")
-        painter.end()
-        toolbar["effects-tray"] = {"enabled": badge, "disabled": badge}
+        badge_states = {}
+        for state in ("disabled", "enabled", "active"):
+            badge = QPixmap(size * 2, size * 2)
+            badge.setDevicePixelRatio(2)
+            badge.fill(Qt.transparent)
+            painter = QPainter(badge)
+            painter.setRenderHint(QPainter.Antialiasing)
+            color = QColor(accent)
+            if state == "disabled":
+                color.setAlphaF(0.55)
+            if state == "active":
+                fill = QColor(accent)
+                fill.setAlphaF(0.22)
+                painter.setBrush(fill)
+            painter.setPen(color)
+            painter.setFont(font)
+            painter.drawRoundedRect(QRectF(1, 1, size - 2, size - 2), 3, 3)
+            painter.drawText(QRectF(0, 0, size, size), Qt.AlignCenter, "FX")
+            painter.end()
+            badge_states[state] = badge
+        toolbar["effects-tray"] = badge_states
         self.toolbar_pixmaps = toolbar
 
     def track_title_geometry(self, name_rect, track=None, *, painter=None):

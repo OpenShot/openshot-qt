@@ -4,15 +4,13 @@ import json
 import uuid
 
 import openshot
-from qt_api import (
-    QCheckBox, QComboBox, QDialog, QDialogButtonBox, QDockWidget, QFormLayout,
-    QHBoxLayout, QLabel, QPushButton, QSpinBox, QTimer, QTreeWidget,
-    QTreeWidgetItem, QVBoxLayout, QWidget,
-)
+from qt_api import QApplication, QColor, QFont, QFontMetrics, QObject, QPointF, QRectF, Qt
 
 from classes.app import get_app
 from classes.effect_init import effect_options
 from classes.query import Clip, Effect, Track, Transition
+from classes.qt_types import font_metrics_horizontal_advance
+from windows.views.menu import StyledContextMenu
 
 
 def clip_effect_sort_key(effect):
@@ -24,220 +22,456 @@ def clip_effect_sort_key(effect):
     return phase, 1, effect.get("layer", 0), effect.get("position", 0), -effect.get("order", 0)
 
 
-class EffectsTray(QDockWidget):
+class EffectsTray(QObject):
+    """An expandable timeline panel with fixed labels and time-aligned bars."""
+
+    header_height = 31
+    row_height = 29
+    bottom_padding = 5
+
     def __init__(self, timeline):
-        app = get_app()
-        _ = app._tr
-        super().__init__(_("Effects and Transitions"), timeline.window)
+        super().__init__(timeline)
         self.timeline = timeline
-        self.app = app
-        self.translate = _
-        self.setObjectName("dockTimelineEffects")
+        self.app = get_app()
+        self.translate = self.app._tr
         self.track_id = None
-        self._rows = []
+        self.track_number = None
+        self.rows = []
+        self.selected_id = None
+        self.locked = False
+        self._press = None
+        self._preview = None
 
-        body = QWidget(self)
-        layout = QVBoxLayout(body)
-        controls = QHBoxLayout()
-        self.video = QCheckBox(_("Show video"))
-        self.audio = QCheckBox(_("Play audio"))
-        self.video.clicked.connect(lambda checked: self._set_track("hidden", not checked))
-        self.audio.clicked.connect(lambda checked: self._set_track("muted", not checked))
-        controls.addWidget(self.video)
-        controls.addWidget(self.audio)
-        controls.addStretch(1)
-
-        self.catalog = QComboBox()
-        supported = [
-            (_(effect["name"]), effect["class_name"])
-            for effect in json.loads(openshot.EffectInfo.Json())
-            if effect["class_name"] not in effect_options
-            and not effect.get("has_tracked_object")
-            and effect["class_name"] not in {"ObjectMask", "PitchShift"}
-        ]
-        for title, name in sorted(supported):
-            self.catalog.addItem(title, name)
-        controls.addWidget(self.catalog)
-        self.add_button = self._button(controls, _("Add track effect"), self._add_effect)
-        layout.addLayout(controls)
-
-        self.list = QTreeWidget()
-        self.list.setRootIsDecorated(False)
-        self.list.setAlternatingRowColors(True)
-        self.list.setHeaderLabels([_("Effect"), _("Applies to"), _("Timeline frames")])
-        self.list.currentItemChanged.connect(self._update_buttons)
-        self.list.itemDoubleClicked.connect(lambda *_: self._show_properties())
-        layout.addWidget(self.list)
-
-        actions = QHBoxLayout()
-        self.up_button = self._button(actions, _("Move Up"), lambda: self._move(-1))
-        self.down_button = self._button(actions, _("Move Down"), lambda: self._move(1))
-        self.range_button = self._button(actions, _("Trim Effect"), self._edit_range)
-        self.properties_button = self._button(actions, _("Properties"), self._show_properties)
-        self.remove_button = self._button(actions, _("Remove Effect"), self._remove)
-        actions.addStretch(1)
-        layout.addLayout(actions)
-
-        self.setWidget(body)
-        self._refresh_timer = QTimer(self)
-        self._refresh_timer.setSingleShot(True)
-        self._refresh_timer.timeout.connect(self.refresh)
-        self.app.updates.add_listener(self)
-
-    @staticmethod
-    def _button(layout, label, callback):
-        button = QPushButton(label)
-        button.clicked.connect(callback)
-        layout.addWidget(button)
-        return button
-
-    def open_track(self, track_id, clip_id=None, effect_id=None):
+    def open_track(self, track_id):
+        if track_id == self.track_id:
+            self.close()
+            return
         self.track_id = track_id
-        self.refresh(clip_id=clip_id, effect_id=effect_id)
-        self.show()
-        self.raise_()
+        self.selected_id = None
+        self.refresh()
+        self._invalidate()
 
-    def changed(self, action):
-        if action.type == "load":
-            self.hide()
-            self.track_id = None
-        elif self.isVisible() and action.key and action.key[0] in {"layers", "clips", "effects", "fps"}:
-            self._refresh_timer.start(0)
+    def close(self):
+        self.track_id = None
+        self.track_number = None
+        self.rows = []
+        self.selected_id = None
+        self._press = self._preview = None
+        self._invalidate()
+
+    def _invalidate(self):
+        self.timeline.geometry.mark_dirty()
+        self.timeline.update()
+
+    def height(self, track_number):
+        if self.track_id is None or self.track_number != track_number:
+            return 0
+        return self.header_height + max(1, len(self.rows)) * self.row_height + self.bottom_padding
 
     def _track(self):
         return Track.get(id=self.track_id) if self.track_id else None
 
     def _selected(self):
-        item = self.list.currentItem()
-        index = self.list.indexOfTopLevelItem(item) if item is not None else -1
-        return self._rows[index] if 0 <= index < len(self._rows) else None
+        return next((row[:3] for row in self.rows if row[2]["id"] == self.selected_id), None)
 
     def _frame_rate(self):
         fps = self.app.project.get("fps")
         return fps["num"] / fps["den"]
 
-    def refresh(self, clip_id=None, effect_id=None):
+    def refresh(self):
         track = self._track()
         if not track:
-            self.list.clear()
-            self._rows.clear()
-            self.hide()
+            if self.track_id:
+                self.close()
             return
-        _ = self.translate
-        row = self._selected()
-        if row and effect_id is None and clip_id is None:
-            effect_id = row[2]["id"]
-
-        self.setWindowTitle(_("Effects and Transitions") + " — " + self.timeline._track_display_label(track))
-        locked = bool(track.data.get("lock"))
-        self.video.setChecked(not track.data.get("hidden"))
-        self.audio.setChecked(not track.data.get("muted"))
-        for control in (self.add_button, self.video, self.audio, self.catalog):
-            control.setEnabled(not locked)
-        self.list.clear()
-        self._rows = []
-        selected = None
-
-        def add(kind, owner, effect, scope, span):
-            nonlocal selected
-            title = effect.get("name") or effect.get("type") or _("Transition")
-            item = QTreeWidgetItem([_(title), scope, span])
-            self._rows.append((kind, owner, effect))
-            self.list.addTopLevelItem(item)
-            if effect["id"] == effect_id or (selected is None and kind == "clip" and owner.id == clip_id):
-                selected = item
-
+        self.locked = bool(track.data.get("lock"))
         layer = track.data["number"]
-        for effect in track.data.get("effects") or []:
-            add("track", track, effect, _("Track"), _("Entire track"))
-
-        clips = sorted(Clip.filter(layer=layer), key=lambda clip: clip.data.get("position", 0.0))
-        fps = self._frame_rate()
-        for clip in clips:
-            for effect in sorted(clip.data.get("effects") or [], key=clip_effect_sort_key):
-                clip_range = effect.get("clip_range") or {}
-                position = clip.data["position"]
-                start = clip.data["start"]
-                end = clip.data["end"]
-                first = max(start, clip_range.get("start", start))
-                last = min(end, clip_range.get("end", end))
-                if first >= last:
-                    span = _("Outside clip")
-                elif not clip_range:
-                    span = _("Entire clip")
-                else:
-                    span = self._span(position + first - start, position + last - start, fps)
-                add("clip", clip, effect, _("Clip") + " · " + clip.title(), span)
-
+        self.track_number = self.timeline.normalize_track_number(layer)
+        rows = [("track", track, effect, 0.0, None) for effect in track.data.get("effects") or []]
+        for clip in sorted(Clip.filter(layer=layer), key=lambda item: item.data["position"]):
+            data = clip.data
+            start, end, position = data["start"], data["end"], data["position"]
+            for effect in sorted(data.get("effects") or [], key=clip_effect_sort_key):
+                trim = effect.get("clip_range") or {}
+                first = max(start, trim.get("start", start))
+                last = min(end, trim.get("end", end))
+                rows.append(("clip", clip, effect, position + first - start, position + last - start))
         for transition in sorted(Transition.filter(layer=layer), key=lambda item: item.data["position"]):
             data = transition.data
             first = data["position"]
-            last = first + data["end"] - data["start"]
-            add("transition", transition, data, _("Transition"), self._span(first, last, fps))
+            rows.append(("transition", transition, data, first, first + data["end"] - data["start"]))
+        if rows != self.rows:
+            self._press = self._preview = None
+        self.rows = rows
 
-        if selected is not None:
-            self.list.setCurrentItem(selected)
-        for column in (0, 1):
-            self.list.resizeColumnToContents(column)
-        self._update_buttons()
+    def _bounds(self):
+        w = self.timeline
+        if self.track_id is None:
+            return QRectF(), QRectF(), QRectF()
+        for _, track, name in w.geometry.iter_tracks():
+            if track.id != self.track_id:
+                continue
+            y = name.top() + w.vertical_factor
+            right = w.width() - w.scroll_bar_thickness
+            lane = QRectF(w.track_name_width, y, max(0.0, right - w.track_name_width), self.height(self.track_number))
+            panel = QRectF(0, y, right, lane.height())
+            visible = panel.intersected(QRectF(0, w.ruler_height, right, w.height() - w.ruler_height - w.scroll_bar_thickness))
+            return panel, lane, visible
+        return QRectF(), QRectF(), QRectF()
 
-    @staticmethod
-    def _span(start, end, fps):
-        return f"{round(start * fps) + 1}–{round(end * fps)}"
+    def _heading_rect(self, lane):
+        font = QFont(self.timeline.font())
+        font.setBold(True)
+        text_width = font_metrics_horizontal_advance(QFontMetrics(font), self.translate("Effects and Transitions"))
+        width = max(0.0, min(text_width + 21, lane.right() - 46))
+        return QRectF(10, lane.top(), width, self.header_height)
+
+    def _add_rect(self, lane):
+        heading = self._heading_rect(lane)
+        return QRectF(heading.right() + 9, lane.top() + 5, 24, 22)
+
+    def _row_controls(self, index, lane):
+        kind, owner, effect, _, _ = self.rows[index]
+        if self.locked or self.selected_id != effect["id"] or kind == "transition":
+            return ()
+        rect = self._row_rect(index, lane)
+        left = max(0.0, lane.left() - 66)
+        return tuple(
+            (name, glyph, QRectF(left + offset * 20, rect.y(), 18, rect.height()), enabled)
+            for offset, (name, glyph, enabled) in enumerate((
+                ("up", "↑", self._reorder_indices(kind, owner, effect, -1) is not None),
+                ("down", "↓", self._reorder_indices(kind, owner, effect, 1) is not None),
+                ("delete", "×", True),
+            ))
+        )
+
+    def _row_rect(self, index, lane):
+        top = lane.top() + self.header_height + index * self.row_height
+        return QRectF(lane.left(), top + 3, max(0.0, lane.width() - 8), self.row_height - 9)
+
+    def _bar_rect(self, index, lane):
+        kind, _, effect, first, last = self.rows[index]
+        row = self._row_rect(index, lane)
+        w = self.timeline
+        scale = w.pixels_per_second
+        origin = lane.left() - w.h_scroll_offset
+        if self._preview and self.selected_id == effect["id"]:
+            first, last = self._preview
+        x = origin + first * scale
+        end = origin + last * scale if last is not None else row.right()
+        if end <= x:
+            return QRectF()
+        return QRectF(x, row.top(), max(2.0, end - x), row.height())
+
+    def _title(self, row):
+        kind, owner, effect, _, _ = row
+        if kind == "transition":
+            return owner.title() or self.translate("Transition")
+        return self.translate(effect.get("name") or effect.get("type") or "")
+
+    def paint(self, painter):
+        panel, lane, visible = self._bounds()
+        if visible.isEmpty():
+            return
+        theme = self.timeline.theme
+        accent = QColor(theme.track_control_color)
+        if not accent.isValid():
+            accent = QColor("#619ee8")
+        background = QColor(theme.track.name_background)
+        if not background.isValid():
+            background = QColor(theme.track.background)
+        well = QColor(theme.track.background)
+        label = QColor(theme.track.font_color)
+        detail = QColor(label)
+        detail.setAlphaF(0.68)
+        painter.save()
+        painter.setClipRect(visible, Qt.IntersectClip)
+        painter.fillRect(panel, background)
+        painter.setPen(Qt.NoPen)
+        painter.setBrush(well)
+        if not self.locked:
+            painter.drawRoundedRect(self._add_rect(lane), 5, 5)
+            painter.setPen(accent)
+            painter.drawText(self._add_rect(lane), Qt.AlignCenter, "+")
+        painter.setPen(accent)
+        heading = self._heading_rect(lane)
+        heading_text = self.translate("Effects and Transitions")
+        font = QFont(painter.font())
+        font.setBold(True)
+        painter.setFont(font)
+        title_width = max(0, int(heading.width()) - 17)
+        painter.drawText(heading, Qt.AlignVCenter | Qt.AlignLeft,
+                         painter.fontMetrics().elidedText(heading_text, Qt.ElideRight, title_width))
+        painter.drawText(heading, Qt.AlignVCenter | Qt.AlignRight, "⌄")
+        font.setBold(False)
+        painter.setFont(font)
+
+        for index, row in enumerate(self.rows):
+            well_rect = self._row_rect(index, lane)
+            if not well_rect.intersects(visible):
+                continue
+            kind, owner, effect, _, _ = row
+            title = self._title(row)
+            painter.setPen(label)
+            controls = self._row_controls(index, lane)
+            label_end = controls[0][2].left() if controls else lane.left()
+            name = QRectF(10, well_rect.top(), max(0.0, label_end - 15), well_rect.height())
+            painter.drawText(name, Qt.AlignVCenter | Qt.AlignLeft,
+                             painter.fontMetrics().elidedText(title, Qt.ElideRight, int(name.width())))
+            for _, glyph, control, enabled in controls:
+                painter.setPen(Qt.NoPen)
+                painter.setBrush(well)
+                painter.drawRoundedRect(control, 4, 4)
+                color = QColor(accent)
+                if not enabled:
+                    color.setAlphaF(0.42)
+                painter.setPen(color)
+                painter.drawText(control, Qt.AlignCenter, glyph)
+            painter.setPen(Qt.NoPen)
+            painter.setBrush(well)
+            painter.drawRoundedRect(well_rect, 5, 5)
+            bar = self._bar_rect(index, lane).intersected(well_rect)
+            if bar.isEmpty():
+                continue
+            chosen = self.selected_id == effect["id"]
+            painter.setBrush(QColor("#f9fbff") if not chosen else QColor("#dcecff"))
+            painter.setPen(accent if chosen else Qt.NoPen)
+            painter.drawRoundedRect(bar, 4, 4)
+            painter.setPen(QColor("#955010") if kind == "track" else QColor("#1557a7"))
+            margin = 10 if chosen and kind == "clip" else 4
+            pill_text = painter.fontMetrics().elidedText(title, Qt.ElideRight, max(0, int(bar.width()) - 2 * margin))
+            painter.drawText(bar.adjusted(margin, 0, -margin, 0), Qt.AlignCenter, pill_text)
+            if chosen and kind == "clip" and not self.locked:
+                full = self._bar_rect(index, lane)
+                for edge in (full.left(), full.right()):
+                    if well_rect.left() <= edge <= well_rect.right():
+                        x = min(max(edge, bar.left() + 3), bar.right() - 3)
+                        painter.drawLine(QPointF(x, bar.center().y() - 4), QPointF(x, bar.center().y() + 4))
+
+        if not self.rows:
+            painter.setPen(detail)
+            painter.drawText(self._row_rect(0, lane).adjusted(10, 0, 0, 0),
+                             Qt.AlignLeft | Qt.AlignVCenter, self.translate("Add a track effect with +"))
+        painter.restore()
+
+    def _hit(self, pos):
+        panel, lane, visible = self._bounds()
+        if not visible.contains(pos):
+            return None
+        if pos.y() < panel.top() + self.header_height:
+            if not self.locked and self._add_rect(lane).contains(pos):
+                return ("add", None)
+            return ("close" if self._heading_rect(lane).contains(pos) else "blank", None)
+        index = int((pos.y() - panel.top() - self.header_height) // self.row_height)
+        if 0 <= index < len(self.rows):
+            for name, _, rect, enabled in self._row_controls(index, lane):
+                if rect.contains(pos):
+                    return (name if enabled else "blank", index)
+            bar = self._bar_rect(index, lane)
+            well = self._row_rect(index, lane)
+            if pos.x() < lane.left() or bar.intersected(well).contains(pos):
+                return ("row", index)
+        return ("blank", None)
+
+    def _trim_edge(self, index, pos):
+        kind, _, effect, _, _ = self.rows[index]
+        if kind != "clip" or self.selected_id != effect["id"] or self.locked:
+            return None
+        _, lane, _ = self._bounds()
+        bar = self._bar_rect(index, lane)
+        if pos.x() < lane.left() or not bar.contains(pos):
+            return None
+        distances = (abs(pos.x() - bar.left()), abs(pos.x() - bar.right()))
+        if min(distances) <= 7:
+            return 0 if distances[0] < distances[1] else 1
+        return None
+
+    def cursor(self, pos):
+        hit = self._hit(pos)
+        if not hit:
+            return None
+        target, index = hit
+        if target == "row" and self._trim_edge(index, pos) is not None:
+            return Qt.SizeHorCursor
+        return Qt.ArrowCursor if target == "blank" else Qt.PointingHandCursor
+
+    def press(self, pos, button):
+        hit = self._hit(pos)
+        if hit is None or button not in (Qt.LeftButton, Qt.RightButton):
+            return False
+        target, index = hit
+        if button == Qt.RightButton:
+            if target == "row":
+                self._select_row(index)
+                self.timeline.update()
+                self._show_menu(pos)
+            return True
+        edge = self._trim_edge(index, pos) if target == "row" else None
+        self._press = (hit, QPointF(pos), edge)
+        return True
+
+    def move(self, pos):
+        if self._press is None:
+            return False
+        (_, index), anchor, edge = self._press
+        if edge is not None and (pos - anchor).manhattanLength() >= QApplication.startDragDistance():
+            _, clip, _, first, last = self.rows[index]
+            fps = self._frame_rate()
+            scale = self.timeline.pixels_per_second
+            if scale > 0 and last > first:
+                delta = round((pos.x() - anchor.x()) / scale * fps)
+                start = round(clip.data["position"] * fps)
+                end = start + round((clip.data["end"] - clip.data["start"]) * fps)
+                first, last = round(first * fps), round(last * fps)
+                if edge == 0:
+                    first = min(max(start, first + delta), last - 1)
+                else:
+                    last = max(min(end, last + delta), first + 1)
+                self._preview = (first / fps, last / fps)
+                self.timeline.update()
+        return True
+
+    def release(self, pos):
+        if self._press is None:
+            return False
+        self.move(pos)
+        hit, anchor, _ = self._press
+        preview = self._preview
+        self._press = self._preview = None
+        target, index = hit
+        if preview is not None:
+            _, clip, effect, first, last = self.rows[index]
+            if preview != (first, last):
+                position = clip.data["position"]
+                start = clip.data["start"]
+                self._save_range(effect["id"], {key: start + value - position
+                                 for key, value in zip(("start", "end"), preview)})
+        elif self._hit(pos) == hit and (pos - anchor).manhattanLength() < QApplication.startDragDistance():
+            if target == "close":
+                self.close()
+            elif target == "add":
+                self._add_menu(pos)
+            elif target in ("up", "down"):
+                self._move(-1 if target == "up" else 1)
+            elif target == "delete":
+                self._remove()
+            elif target == "row":
+                self._select_row(index)
+        self.timeline.update()
+        return True
+
+    def _select_row(self, index):
+        kind, _, effect, _, _ = self.rows[index]
+        self.selected_id = effect["id"]
+        selection_kind = "transition" if kind == "transition" else "effect"
+        self.timeline.window.addSelection(self.selected_id, selection_kind, True)
+
+    def double_click(self, pos):
+        hit = self._hit(pos)
+        if hit is None:
+            return False
+        if hit[0] == "row":
+            self._select_row(hit[1])
+            self._show_properties()
+        return True
+
+    def tooltip(self, pos):
+        hit = self._hit(pos)
+        if hit is None:
+            return ""
+        target, index = hit
+        _ = self.translate
+        if target == "add":
+            return _("Add track effect")
+        if target == "close":
+            return _("Hide effects and transitions")
+        if target in ("up", "down", "delete"):
+            return {"up": _("Move Up"), "down": _("Move Down"), "delete": _("Remove Effect")}[target]
+        if target == "row":
+            row = self.rows[index]
+            kind, owner, _, _, _ = row
+            if kind == "clip":
+                return self._title(row) + " · " + owner.title()
+            if kind == "track":
+                return self._title(row) + " · " + _("Track effect")
+            return self._title(row) + " · " + _("Transition")
+        return ""
+
+    def drop(self, pos, effect_name):
+        hit = self._hit(pos)
+        if hit is None:
+            return False
+        if hit[0] == "add":
+            self._add_effect(effect_name)
+        return True
+
+    def _can_add(self, name):
+        # Source-dependent effects need a clip reader or tracked objects.
+        return name not in effect_options and name not in {"ObjectMask", "PitchShift"}
+
+    def _add_menu(self, pos):
+        track = self._track()
+        if not track or track.data.get("lock"):
+            return
+        _ = self.translate
+        menu = StyledContextMenu(parent=self.timeline)
+        for data in sorted(json.loads(openshot.EffectInfo.Json()), key=lambda item: _(item["name"])):
+            name = data["class_name"]
+            if self._can_add(name) and not data.get("has_tracked_object"):
+                menu.addAction(_(data["name"]), lambda checked=False, value=name: self._add_effect(value))
+        menu.show_at(self.timeline.mapToGlobal(pos.toPoint()))
+
+    def _show_menu(self, pos):
+        if self._selected():
+            menu = StyledContextMenu(parent=self.timeline)
+            menu.addAction(self.translate("Properties"), self._show_properties)
+            menu.show_at(self.timeline.mapToGlobal(pos.toPoint()))
 
     def _stack(self, kind, owner):
         effects = owner.data.get("effects") or []
         return sorted(effects, key=clip_effect_sort_key) if kind == "clip" else list(effects)
 
-    def _update_buttons(self, *_):
-        row = self._selected()
-        track = self._track()
-        editable = bool(row and track and not track.data.get("lock"))
-        kind, owner, effect = row or (None, None, None)
-        self.properties_button.setEnabled(editable)
-        self.range_button.setEnabled(editable and kind == "clip")
-        self.remove_button.setEnabled(editable and kind != "transition")
-        stack = self._stack(kind, owner) if editable and kind != "transition" else []
+    def _reorder_indices(self, kind, owner, effect, step):
+        stack = self._stack(kind, owner)
         index = next((i for i, entry in enumerate(stack) if entry["id"] == effect["id"]), -1)
-        for step, button in ((-1, self.up_button), (1, self.down_button)):
-            neighbor = index + step
-            same_phase = (
-                kind != "clip" or (0 <= neighbor < len(stack) and
-                stack[neighbor].get("apply_before_clip", True) == effect.get("apply_before_clip", True))
-            )
-            button.setEnabled(index >= 0 and 0 <= neighbor < len(stack) and same_phase)
-
-    def _set_track(self, name, value):
-        self.timeline.set_track_render_setting(self.track_id, name, value)
+        neighbor = index + step
+        if index < 0 or not 0 <= neighbor < len(stack):
+            return None
+        if kind == "clip" and stack[neighbor].get("apply_before_clip", True) != effect.get("apply_before_clip", True):
+            return None
+        return index, neighbor
 
     def _save_stack(self, owner, effects):
         owner.data = {"effects": effects}
         owner.save()
         self.timeline.window.refreshFrameSignal.emit()
 
-    def _add_effect(self):
+    def _add_effect(self, name):
         track = self._track()
-        if not track or track.data.get("lock"):
+        if not track or track.data.get("lock") or not self._can_add(name):
             return
-        effect = openshot.EffectInfo().CreateEffect(self.catalog.currentData())
+        effect = openshot.EffectInfo().CreateEffect(name)
         if effect is None:
             return
-        effect.Id(self.app.project.generate_id())
-        self._save_stack(track, self._stack("track", track) + [json.loads(effect.Json())])
-        self.refresh(effect_id=effect.Id())
+        data = json.loads(effect.Json())
+        if data.get("has_tracked_object"):
+            return
+        self.selected_id = data["id"] = self.app.project.generate_id()
+        self._save_stack(track, self._stack("track", track) + [data])
 
     def _move(self, step):
-        if not (self.up_button if step < 0 else self.down_button).isEnabled():
+        row = self._selected()
+        if row is None or self.locked:
             return
-        kind, owner, effect = self._selected()
+        kind, owner, effect = row
         owner = (Clip if kind == "clip" else Track).get(id=owner.id)
         if owner is None:
             return
-        stack = self._stack(kind, owner)
-        index = next((i for i, entry in enumerate(stack) if entry["id"] == effect["id"]), -1)
-        neighbor = index + step
-        if index < 0 or not 0 <= neighbor < len(stack):
+        indices = self._reorder_indices(kind, owner, effect, step)
+        if indices is None:
             return
+        index, neighbor = indices
+        stack = self._stack(kind, owner)
         stack[index], stack[neighbor] = stack[neighbor], stack[index]
         if kind == "track":
             self._save_stack(owner, stack)
@@ -256,67 +490,27 @@ class EffectsTray(QDockWidget):
         self.timeline.window.refreshFrameSignal.emit()
 
     def _show_properties(self):
-        if not self.properties_button.isEnabled():
+        row = self._selected()
+        if row is None:
             return
-        kind, _, effect = self._selected()
+        kind, _, effect = row
         self.timeline.window.addSelection(effect["id"], "transition" if kind == "transition" else "effect", True)
         self.timeline.window.actionProperties_trigger()
 
     def _remove(self):
-        if not self.remove_button.isEnabled():
+        row = self._selected()
+        if row is None or self.locked:
             return
-        kind, owner, effect = self._selected()
+        kind, owner, effect = row
         owner = (Clip if kind == "clip" else Track).get(id=owner.id)
         if owner is not None:
             stack = [entry for entry in self._stack(kind, owner) if entry["id"] != effect["id"]]
             self._save_stack(owner, stack)
             self.timeline.window.removeSelection(effect["id"], "effect")
 
-    def _edit_range(self):
-        if not self.range_button.isEnabled():
-            return
-        _, clip, effect = self._selected()
-        _ = self.translate
-        fps = self._frame_rate()
-        first = round(clip.data["start"] * fps)
-        last = round(clip.data["end"] * fps)
-        length = last - first
-        if length < 1:
-            return
-
-        dialog = QDialog(self)
-        dialog.setWindowTitle(_("Trim Effect"))
-        layout = QFormLayout(dialog)
-        entire = QCheckBox(_("Entire clip"))
-        clip_range = effect.get("clip_range") or {}
-        entire.setChecked(not clip_range)
-        start = QSpinBox()
-        end = QSpinBox()
-        start.setRange(1, length)
-        end.setRange(1, length)
-        start.setValue(round(clip_range.get("start", clip.data["start"]) * fps) - first + 1)
-        end.setValue(round(clip_range.get("end", clip.data["end"]) * fps) - first)
-        end.setValue(max(start.value(), end.value()))
-        start.valueChanged.connect(lambda value: end.setValue(max(value, end.value())))
-        end.valueChanged.connect(lambda value: start.setValue(min(value, start.value())))
-        for spin in (start, end):
-            spin.setDisabled(entire.isChecked())
-            entire.toggled.connect(spin.setDisabled)
-        layout.addRow(entire)
-        layout.addRow(QLabel(_("Frame numbers are relative to the visible clip.")))
-        layout.addRow(_("First frame"), start)
-        layout.addRow(_("Last frame"), end)
-        buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        buttons.accepted.connect(dialog.accept)
-        buttons.rejected.connect(dialog.reject)
-        layout.addRow(buttons)
-        if dialog.exec_() != QDialog.Accepted:
-            return
-        current = Effect.get(id=effect["id"])
+    def _save_range(self, effect_id, clip_range):
+        current = Effect.get(id=effect_id)
         if current:
-            current.data = {"clip_range": None if entire.isChecked() else {
-                "start": (first + start.value() - 1) / fps,
-                "end": (first + end.value()) / fps,
-            }}
+            current.data = {"clip_range": clip_range}
             current.save()
             self.timeline.window.refreshFrameSignal.emit()

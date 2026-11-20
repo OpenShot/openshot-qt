@@ -119,6 +119,7 @@ class TimelineTheme:
         self.track_size_presets = {}
         self.compact_track_headers = False
         self.track_control_size = 16
+        self.track_control_color = QColor()
         self.label_font_scale: float = 1.0
         self.ruler_time_font_size: int = 0
         self.menu_icon: Optional[QPixmap] = None

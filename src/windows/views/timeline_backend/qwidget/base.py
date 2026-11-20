@@ -1031,6 +1031,13 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             self._pending_clip_overrides.clear()
             self._pending_transition_overrides.clear()
 
+        effects_tray = getattr(self, "_effects_tray", None)
+        if effects_tray:
+            if action and action.type == "load":
+                effects_tray.close()
+            else:
+                effects_tray.refresh()
+
         # Skip panel property rebuild during an active keyframe drag
         # to prevent stale point references.
         if not self._dragging_panel_keyframes and not self._dragging_keyframe:
@@ -1110,6 +1117,9 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             self.keyframe_painter.paint(painter)
             self.track_painter.paint_names(painter)
             self.keyframe_panel_painter.paint(painter, mode="overlay")
+            effects_tray = getattr(self, "_effects_tray", None)
+            if effects_tray:
+                effects_tray.paint(painter)
             self.hover_feedback.paint(painter)
             self.track_painter.paint_divider(painter)
             self.selection_painter.paint(painter)
@@ -1451,6 +1461,11 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         if not file_ids and not effect_names:
             if os_drop_tid:
                 get_app().updates.transaction_id = None
+            self._reset_drag_preview()
+            return
+
+        effects_tray = getattr(self, "_effects_tray", None)
+        if effect_names and effects_tray and effects_tray.drop(_event_posf(event), effect_names[0]):
             self._reset_drag_preview()
             return
 
@@ -3022,7 +3037,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             locked = bool(getattr(track, "data", {}).get("lock")) if track else False
             return _("Unlock track") if locked else _("Lock track")
         if key == "effects-tray":
-            return _("Manage Effects")
+            return _("Effects and Transitions")
         if key == "keyframe-panel":
             track_num = button.get("track_num")
             enabled = bool(self._track_panel_enabled.get(track_num, False))
@@ -3034,6 +3049,9 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         if not self._is_timeline_content_pos(pos):
             return ""
 
+        effects_tray = getattr(self, "_effects_tray", None)
+        if effects_tray and effects_tray._hit(pos):
+            return effects_tray.tooltip(pos)
         button = self._track_toolbar_button_at(pos)
         if button:
             return self._track_button_tooltip(button)
@@ -3231,6 +3249,12 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
             pos = QPointF(pos)
             self.geometry.ensure()
+            effects_tray = getattr(self, "_effects_tray", None)
+            if effects_tray:
+                cursor = effects_tray.cursor(pos)
+                if cursor is not None:
+                    self.setCursor(cursor)
+                    return
 
             if (
                 getattr(self, "playhead_time_editor", None)
@@ -3347,6 +3371,10 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                 hover.commit()
 
     def mouseDoubleClickEvent(self, event):
+        effects_tray = getattr(self, "_effects_tray", None)
+        if event.button() == Qt.LeftButton and effects_tray and effects_tray.double_click(_event_posf(event)):
+            event.accept()
+            return
         if self.enable_razor and event.button() == Qt.LeftButton:
             event.accept()
             return
@@ -3399,6 +3427,10 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         posf = _event_posf(event)
         pos = posf
         content_pos = self._is_timeline_content_pos(pos)
+        effects_tray = getattr(self, "_effects_tray", None)
+        if content_pos and effects_tray and effects_tray.press(pos, event.button()):
+            event.accept()
+            return
         if event.button() == Qt.RightButton:
             self._last_event = event
             keyframe_marker = self._get_keyframe_at(posf) if content_pos else None
@@ -3739,6 +3771,10 @@ class TimelineWidgetBase(RazorMixin, QWidget):
     def mouseMoveEvent(self, event):
         self._last_event = event
         posf = _event_posf(event)
+        effects_tray = getattr(self, "_effects_tray", None)
+        if effects_tray and effects_tray.move(posf):
+            event.accept()
+            return
         self._update_pending_clip_menu_drag(posf)
         self._update_pending_transition_menu_drag(posf)
 
@@ -3809,6 +3845,11 @@ class TimelineWidgetBase(RazorMixin, QWidget):
     def mouseReleaseEvent(self, event):
         self._last_event = event
         posf = _event_posf(event)
+
+        effects_tray = getattr(self, "_effects_tray", None)
+        if event.button() == Qt.LeftButton and effects_tray and effects_tray.release(posf):
+            event.accept()
+            return
 
         if event.button() == Qt.LeftButton and self._press_hit == "razor":
             self._press_hit = None
@@ -3938,6 +3979,10 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
     def contextMenuEvent(self, event):
         posf = _event_posf(event)
+        effects_tray = getattr(self, "_effects_tray", None)
+        if effects_tray and effects_tray._hit(posf):
+            event.accept()
+            return
         keyframe_marker = self._get_keyframe_at(posf)
         if keyframe_marker:
             self._active_keyframe_marker = keyframe_marker

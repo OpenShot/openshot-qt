@@ -50,6 +50,7 @@ class TrackGeometryMixin:
         self.panel_rects = {}
         track_entries = []
         track_offsets = []
+        effects_tray = getattr(w, "_effects_tray", None)
         for track in self.track_list:
             track_num = w.normalize_track_number(track.data.get("number"))
             layer_index = layers.get(track.data.get("number"), 0)
@@ -68,11 +69,12 @@ class TrackGeometryMixin:
             name_rect = QRectF(0, y, w.track_name_width, track_height)
             track_entries.append((track_rect, track, name_rect))
 
-            panel_height = max(0.0, track_height - w.vertical_factor)
+            effects_height = effects_tray.height(track_num) if effects_tray else 0
+            panel_height = max(0.0, track_height - w.vertical_factor - effects_height)
             if panel_height > 0.0:
                 panel_rect = QRectF(
                     track_rect.x(),
-                    y + w.vertical_factor,
+                    y + w.vertical_factor + effects_height,
                     track_rect.width(),
                     panel_height,
                 )

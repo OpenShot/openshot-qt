@@ -231,12 +231,15 @@ class GeometryBase:
         track_heights = {}
         cumulative = 0.0
         base_height = float(self.widget.vertical_factor or 0.0)
+        effects_tray = getattr(w, "_effects_tray", None)
         for idx, track in enumerate(self.track_list):
             if idx > 0:
                 cumulative += track_gap
             track_num = w.normalize_track_number(track.data.get("number"))
             extra = float(w.get_track_panel_height(track_num))
             extra = max(0.0, extra)
+            if effects_tray:
+                extra += effects_tray.height(track_num)
             track_offsets[track_num] = cumulative
             track_height = base_height + extra
             track_heights[track_num] = track_height

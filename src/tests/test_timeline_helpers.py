@@ -667,7 +667,7 @@ class TimelineHelperTests(unittest.TestCase):
                             if kind != "Effect":
                                 self.assertTrue({"Cut", "Paste", "Slice"} <= labels)
                             for action in actions:
-                                expected = not locked or action.text() in ("Copy", "Properties", "Manage Effects")
+                                expected = not locked or action.text() in ("Copy", "Properties")
                                 self.assertEqual(action.isEnabled(), expected, action.text())
                             self.assertTrue(shared_remove.isEnabled())
                             remove_action = next(a for a in actions if a.text() == "Remove " + kind)

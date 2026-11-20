@@ -80,6 +80,8 @@ class CosmicDuskTimelineTheme(HumanityDarkTimelineTheme):
         self.ruler.background  = QColor("#141923")
         self.ruler.background2 = QColor()
 
+        self.track_control_color = QColor("#91C3FF")
+
         # ── Icons ─────────────────────────────────────────────────────────
         _c = "themes/cosmic/images/"
 

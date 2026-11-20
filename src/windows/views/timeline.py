@@ -1296,13 +1296,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.context_menu_cursor_position = QCursor.pos()
             return menu.show_at(self.context_menu_cursor_position)
 
-    def show_effects_tray(self, track_id, clip_id=None, effect_id=None):
+    def show_effects_tray(self, track_id):
         from windows.effects_tray import EffectsTray
 
         if not getattr(self, "_effects_tray", None):
             self._effects_tray = EffectsTray(self)
-            self.window.addDockWidget(Qt.BottomDockWidgetArea, self._effects_tray)
-        self._effects_tray.open_track(track_id, clip_id, effect_id)
+        self._effects_tray.open_track(track_id)
 
     @pyqtSlot(str)
     def ShowEffectMenu(self, effect_id=None):
@@ -1326,9 +1325,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         Copy_Effect.setShortcuts(self.window.getShortcutByName("copyAll"))
         Copy_Effect.triggered.connect(partial(self.Copy_Triggered, MenuCopy.EFFECT, [], [], [effect_id]))
         menu.addMenu(Copy_Menu)
-
-        if track:
-            menu.addAction(_("Manage Effects"), partial(self.show_effects_tray, track.id, effect_id=effect_id))
 
         # Properties
         menu.addAction(self.window.actionProperties)
@@ -2172,9 +2168,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             for action in menu.actions():
                 if action != copy_action and not action.isSeparator():
                     action.setEnabled(False)
-
-        if track:
-            menu.addAction(_("Manage Effects"), partial(self.show_effects_tray, track.id, clip.id))
 
         # Source preview and Properties remain available on locked tracks.
         menu.addSeparator()
@@ -4123,7 +4116,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addAction(self.window.actionAddTrackAbove)
         menu.addAction(self.window.actionAddTrackBelow)
         menu.addAction(self.window.actionRenameTrack)
-        menu.addAction(_("Manage Effects"), partial(self.show_effects_tray, track.id))
         for label, key in ((_("Mute Audio"), "muted"), (_("Hide Video"), "hidden")):
             toggle = menu.addAction(label)
             toggle.setCheckable(True)
@@ -4419,11 +4411,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Get access to timeline scope and set scale to zoom slider value (passed in)
         self.run_js(JS_SCOPE_SELECTOR + ".movePlayheadToFrame(%s);" % (str(position_frames)))
 
-    @pyqtSlot()
     def reset_new_project_view(self):
         tray = getattr(self, "_effects_tray", None)
         if tray:
-            tray.hide()
+            tray.close()
         if ViewClass == TimelineWidget:
             self._track_panel_enabled.clear()
             self._panel_manual_properties.clear()
