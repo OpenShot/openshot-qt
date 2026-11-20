@@ -32,8 +32,8 @@ See :ref:`source_preview_ref`.
 
 Real-Time Preview
 -----------------
-Many factors affect how smoothly the **real-time video preview** can playback on your computer. This requires a fast, modern
-multi-threaded CPU, lots of RAM (memory), and a modern GPU. We have listed many of the important factors below.
+Many factors affect how smoothly the **real-time video preview** plays, including CPU speed, available memory,
+and GPU support. The important factors are listed below.
 
 .. table::
    :widths: 22 80
@@ -47,37 +47,25 @@ multi-threaded CPU, lots of RAM (memory), and a modern GPU. We have listed many 
    Memory              If your available RAM memory is too limited, you will likely see huge drops in real-time
                        performance, and your entire system will lag. We recommend installing additional RAM in your
                        computer, if possible. See :ref:`min_system_req_ref`.
-   Cache               Your cache settings in the OpenShot Preferences are very important for determining how many
-                       frames to processes in advance. A value too low or too high can cause lag during the real-time
-                       video preview. The cache is also related to the available RAM. The higher the cache values, the more
-                       RAM and CPU is needed. We recommend experimenting with the Cache Preferences in OpenShot if you are
-                       experiencing issues with smooth playback. This same caching system also prepares frames ahead of time
-                       during export, speeding up the final render. See :ref:`preferences_cache_ref`.
+   Cache               Caching prepares frames ahead of playback. It can absorb short slowdowns, but cannot sustain smooth
+                       playback if frames take too long to render. Vulkan can keep video frames in GPU memory; CPU processing
+                       uses system RAM. See :ref:`preferences_cache_ref` for memory budgets and buffering controls.
    Preview Size        The height x width of your preview dock (widget) is very important for smooth real-time previews.
                        The larger the window size, the more pixels must be rendered per frame, and the more CPU and RAM
-                       are required. It is recommended to keep reducing the preview window size until you achieve smooth
+                       are required, along with GPU memory when using Vulkan. It is recommended to keep reducing the preview window size until you achieve smooth
                        video playback. On a slower computer, the preview window size might need to be very small for
                        real-time previews (i.e. 320 x 240).
-   Profile             Your project profile determines which size (width x height) and frame rate (FPS) are used during both
-                       playback and exporting. For example, if you are using a FHD 1920x1080 sized profile, you can also choose a
-                       smaller profile with the same aspect ratio (``16x9`` in this example), to improve the preview speed
-                       on slower computers. See :ref:`profiles_ref` for more information on available profiles.
+   Profile             Choose the project profile for your intended video. To improve editing speed, try a smaller preview
+                       or optimized videos before changing the project's resolution or frame rate. See :ref:`profiles_ref`.
    FPS (Frame Rate)    The FPS of your project is also very important, and a large factor for smooth video playback. For
-                       example, a 60 FPS video must render twice the number of frames, compared to a 30 FPS video. If
-                       you are experiencing slow downs in real-time performance, it can be helpful to reduce your project's
-                       FPS to a lower value, such as 30 or 24.
-   Matching Rates      It is very important to match your source assets FPS and Sample Rate with your Project FPS and Project
-                       sample rate. If either rate does not match exactly, it requires lots of additional CPU and RAM for
-                       OpenShot to normalize the mismatching rates. This can lead to audio pops, mis-alignments, duplicate frames, and extra
-                       lag in the real-time video preview. You can right-click a file and choose :guilabel:`File Properties`, to
-                       inspect the source asset rates, and ensure they match your Project settings (shown at the top of OpenShot).
-                       See :ref:`file_properties_ref`.
-   Source Assets       For example, if you are editing 4K 60 FPS source assets, this is likely going to put a strain on your system. A
-                       common solution is using another tool (such as FFmpeg) to create a copy (or proxy) of all your source assets,
-                       at a lower resolution (and maybe even a lower FPS). It is recommended to keep these proxy video files
-                       in their own folder, separate from the original video files. Once you have completed your video editing with
-                       the proxy files, simply copy/paste your `*.osp` project file back into the original folder, and export
-                       the higher quality, original files.
+                       example, a 60 FPS video must render twice the number of frames, compared to a 30 FPS video.
+                       Choose a lower project FPS only if it suits your final video; it changes how smooth motion looks.
+   Matching Rates      OpenShot converts source frame rates and audio sample rates to the project settings when needed.
+                       Matching your main footage can reduce conversion work. Check source rates under
+                       :guilabel:`File Properties`; see :ref:`file_properties_ref`.
+   Source Assets       Large or difficult-to-decode videos, such as 4K 60 FPS footage, can strain your system. Use
+                       :guilabel:`Optimize` or :guilabel:`File → Auto-Optimize` to create smaller editing copies.
+                       Exports still use the originals. See :ref:`optimize_ref`.
    Audio Device        If you are still having issues with audio lag or sync, please verify you are using the correct
                        :guilabel:`Playback Audio Device` for playback (in the OpenShot Preferences). See :ref:`preferences_preview_ref`. Verify
                        your default audio device (on your operating system) is using the same sample rate and all *Audio Enhancements* are disabled. On
@@ -88,6 +76,29 @@ multi-threaded CPU, lots of RAM (memory), and a modern GPU. We have listed many 
                        might need to lower (or raise) this value for smooth and lag-free audio playback. Be sure to restart
                        OpenShot after changing the audio playback settings.
    ==================  ============
+
+.. _gpu_inspector_ref:
+
+GPU Inspector
+-------------
+
+Click the four GPU indicators below the video preview to open :guilabel:`GPU Inspector`. Play a few seconds to
+collect measurements. :guilabel:`Reset` clears the measurements so you can check a different clip or effect.
+
+.. image:: images/gpu-inspector-detail.png
+   :alt: GPU Inspector's processing stages and transfer counters
+
+- **Read / Decode** shows GPU video decoding; **Process / Render** shows GPU video rendering.
+- **Copy-free** shows how much measured work avoids image transfers between GPU and CPU.
+- **Display** shows GPU presentation of the preview. During export, **Encode** replaces Display.
+
+Green indicates mostly GPU work, amber indicates CPU involvement, and gray means there is not enough data yet or
+measurements are unavailable. These percentages describe observed work, not GPU load or a speed increase.
+:guilabel:`Readbacks` copy images from GPU to CPU; :guilabel:`Uploads` copy images in the other direction.
+Software-decoded video, images, and changing text can need uploads, so CPU involvement is not automatically a problem.
+
+GPU video processing does not move audio processing or initial tracking and object analysis onto Vulkan.
+Those tasks can still use the CPU or their own processing-device settings.
 
 Audio Troubleshooting
 ---------------------

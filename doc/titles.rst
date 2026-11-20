@@ -22,15 +22,12 @@
 Text & Titles
 =============
 
-Adding text overlays, lower thirds, and titles is an important aspect of video editing, and OpenShot comes with an easy-to-use Title Editor. Use
-the Title menu (located in the main menu of OpenShot) to launch the Title Editor. You can also use the keyboard shortcut
-:kbd:`Ctrl+T`.
+For most headings, labels, and lower thirds, **edit text directly in the preview**. This is the recommended way
+to add text: type your words, adjust their style, and position them over your video.
 
-Titles are simply vector image files with transparent backgrounds (``*.svg``). OpenShot comes with many easy-to-use
-templates, but you can also create your own or import new templates into OpenShot. These templates allow you to quickly
-change the text, font, size, color, and background color. You can also launch an advanced, external SVG editor for
-further customizations (if needed). Once the title is added to your project, drag and drop the title on a
-Track above a video clip. The transparent background will allow the video below to appear behind the text.
+For timed subtitles or dialogue, use the :ref:`Caption effect <caption_effect_ref>`, which supports SRT and VTT
+captions and an editor for their timing. For more graphical designs, use :ref:`title templates <title_editor_ref>`:
+customizable layouts with text, shapes, and artwork. See :ref:`animated_titles_ref` for Blender-based 3D titles.
 
 .. _direct_text_ref:
 
@@ -38,6 +35,9 @@ Edit text directly in the preview
 ---------------------------------
 
 The quickest way to add text is to type it straight onto the video preview.
+
+.. image:: images/text-timeline-toolbar.png
+   :alt: Timeline toolbar with the Tt Add Text button
 
 1. Click **Tt** in the **Timeline** toolbar, choose **Title → Text**, or press :kbd:`Shift+T`.
    A text clip is added at the playhead, above the clips already there, and its placeholder
@@ -52,8 +52,10 @@ The quickest way to add text is to type it straight onto the video preview.
 
 To edit an existing text, double-click it in the preview, select its clip and press
 :kbd:`Enter`, or right-click the clip and choose **Text → Edit Text**. All of its text is
-selected, so typing replaces it. Starting playback or seeking ends editing without keeping
-unfinished changes, so press :kbd:`Enter` first to keep them.
+selected, so typing replaces it.
+
+.. image:: images/text-preview-editing.png
+   :alt: Editing a text clip directly in the Video Preview with the floating style bar visible
 
 .. _text_style_bar_ref:
 
@@ -61,6 +63,9 @@ Text style bar
 ^^^^^^^^^^^^^^
 
 While you type, a small style bar floats over the video preview:
+
+.. image:: images/text-style-toolbar.png
+   :alt: Text style bar with font, size, bold, italic, color, alignment, and More controls
 
 .. table::
    :widths: 25 75
@@ -96,6 +101,9 @@ from **Text → Edit Style…** on a clip's context menu, or with **Edit Text…
 The preview at the top shows changes as you make them. Press :kbd:`Ctrl+Enter` or click
 **Apply** to keep them; :kbd:`Enter` adds a new line, and **Cancel** discards the changes.
 **Restore Defaults** returns everything except the text to the default style.
+
+.. image:: images/text-edit-style.png
+   :alt: Edit Style dialog with text, font, outline, spacing, and background controls
 
 **Line spacing** sets the distance between lines as a multiple of the normal distance: 1.0 is
 normal, 1.5 adds half a line of space, and values below 1.0 pull lines closer together.
@@ -149,12 +157,18 @@ same fonts there. One style applies to all of a text's lines.
 
 Text can also be added and styled from the command line; see :ref:`cli_text_ref`.
 
-The **Title** editor (SVG templates and animated titles) and **Captions** (timed subtitles)
-remain available for more elaborate designs.
+.. _title_editor_ref:
 
+Title Editor
+------------
 
-Overview
---------
+Use :guilabel:`Title → Title` or press :kbd:`Ctrl+T` to open the Title Editor.
+Title templates are vector image files with transparent backgrounds (``*.svg``). Choose a template and change
+its text, font, size, and colors. For more customization, open it in an external SVG editor such as Inkscape.
+You can also create or import your own templates.
+
+Once the title is added to your project, drag it onto a track above a video clip. Its transparent background
+allows the video below to appear behind the design.
 
 .. image:: images/title-editor.jpg
 

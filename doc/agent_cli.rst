@@ -102,6 +102,10 @@ command above, such as ``snap run openshot-qt --cli`` or
 command directly. When running from source, use ``python3 src/launch.py --cli``
 in OpenShot's Python environment.
 
+Examples with inline JSON and ``\`` line continuations use Bash syntax. In PowerShell, use the Windows
+executable shown above; for longer JSON values, save them in a file and pass ``--json "@edits.json"``
+to avoid shell quoting differences. Replace example paths, object IDs, and layer numbers with your own.
+
 Bare ``--cli``, ``--cli help``, and ``--cli --help`` show the same overview.
 Help becomes more specific as you navigate commands::
 
@@ -521,7 +525,10 @@ thread counts.
 
 For example, select an encoder option through advanced JSON::
 
-   openshot-cli export start /tmp/small.mp4 --profile builtin:00640x0360p0030_16-09 --json '{"video_options":{"preset":"fast"}}' --wait
+   openshot-cli export start /tmp/small.mp4 --encoder software --profile builtin:00640x0360p0030_16-09 --json '{"video_options":{"preset":"fast"}}' --wait
+
+This example uses the software H.264 encoder's ``preset`` option. Codec options differ between encoders;
+do not assume an option for a CPU encoder also applies to Vulkan or another hardware encoder.
 
 Validating export settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -584,6 +591,26 @@ suppresses video, including embedded cover art in music files. To use that clip
 for Audio Visualization instead, enable its video and audio, and follow the
 effect's help for transparent overlays and layer placement.
 
+Inspecting and removing objects
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+List objects to find their IDs, inspect them before editing, and use ``properties`` to discover editable values::
+
+   openshot-cli file list
+   openshot-cli clip list
+   openshot-cli clip get CLIP_ID
+   openshot-cli clip properties CLIP_ID
+   openshot-cli effects instances
+   openshot-cli effects properties EFFECT_ID
+
+To remove an effect, clip, or unused source from the project::
+
+   openshot-cli effects remove EFFECT_ID
+   openshot-cli clip remove CLIP_ID
+   openshot-cli file remove FILE_ID
+
+Removing a source does not delete the media from disk. A file cannot be removed while clips still reference it.
+
 Understanding clip timing
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -619,6 +646,11 @@ remains available for scripts using that form.
 Adding fades
 ~~~~~~~~~~~~
 
+Fade video or audio over the first and last half-second of a clip::
+
+   openshot-cli clip fade CLIP_ID --in 0.5 --out 0.5
+   openshot-cli clip fade CLIP_ID --property volume --in 0.5 --out 0.5 --value 0.25
+
 ``clip fade ID --in 0.5 --out 0.5`` calculates source-trim keyframe coordinates
 automatically. It replaces the alpha curve; ``--property volume --value 0.25``
 instead creates an audio fade with a 0.25 peak gain. Durations must fit between
@@ -626,6 +658,10 @@ the first and last visible frames; fade-out reaches zero on the last frame.
 
 Splitting clips
 ~~~~~~~~~~~~~~~
+
+Split at a timeline position, using a time inside the clip::
+
+   openshot-cli clip split CLIP_ID --at 6.5
 
 ``clip split ID --at 6.5`` uses timeline seconds, snaps to the nearest project
 frame, and keeps both halves. It retains source-coordinate curves and duplicates
@@ -658,6 +694,21 @@ keyframe and change the clip's length; ``clip speed --mode reset`` restores
 normal speed. Other menu actions are plain edits: rotate and layout with
 ``clip set``, crop with ``effects add Crop``. The commands also work in
 ``edit apply`` and ``edit bulk``.
+
+Adding transitions
+~~~~~~~~~~~~~~~~~~
+
+For a simple fade, use ``clip fade`` above. For a wipe, supply a local grayscale mask image or SVG.
+Place the transition on the same layer as the clip you want to reveal, during that clip's visible range::
+
+   openshot-cli transition add --mask "/path/wipe.svg" --layer 2000000 --position 3 --duration 1
+   openshot-cli transition list
+   openshot-cli transition properties TRANSITION_ID
+   openshot-cli transition set TRANSITION_ID --json '{"contrast":4}'
+
+The default transition reveals the clip; add ``--reverse`` when creating it to hide the clip instead.
+To dissolve between two videos, overlap them on separate layers and fade the upper clip. Transitions also
+support the keyframe commands described below. See :ref:`transitions_ref` for choosing masks.
 
 .. _cli_text_ref:
 
@@ -715,8 +766,8 @@ removes the clip's own animation. To style many texts at once, select them with
 Applying a batch of edits
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``edit apply --json @edits.json --expect-revision 12`` accepts up to 256 ordered
-mutation commands, using dotted command names such as ``clip.set`` and
+Save the following array as ``edits.json``, replacing the media path and layer number for your project.
+A batch accepts up to 256 ordered mutation commands, using dotted command names such as ``clip.set`` and
 ``effects.add`` (the older ``effect.add`` spelling also works)::
 
    [
@@ -725,6 +776,13 @@ mutation commands, using dotted command names such as ``clip.set`` and
      {"method":"clip.add","as":"shot","params":{"file_id":{"$ref":"media.id"},"layer":1000000,"start":10,"end":15}},
      {"method":"clip.fade","params":{"id":{"$ref":"shot.id"},"fade_in":0.5,"fade_out":0.5}}
    ]
+
+Validate first, then apply. Replace ``12`` with the current revision from ``project get``; use media at least
+15 seconds long for this example's trim range::
+
+   openshot-cli project get
+   openshot-cli edit apply --json "@edits.json" --dry-run
+   openshot-cli edit apply --json "@edits.json" --expect-revision 12
 
 The optional ``as`` binds a result for later commands in the same batch. A
 ``{"$ref":"shot.id"}`` object substitutes that result's field. References only
@@ -735,6 +793,17 @@ fail before live updates. The response includes ordered compact results and a
 exporting, and inspection commands stay outside edit batches. Each
 command's help lists its JSON parameter names, including the underscore spelling
 of shell flags (for example, ``--fps-num`` becomes ``fps_num``).
+
+Undoing and redoing edits
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CLI edits share the selected session's undo history with the editor::
+
+   openshot-cli history undo
+   openshot-cli history redo
+
+Each command reverses or reapplies the most recent transaction. A successful ``edit apply`` or ``edit bulk``
+batch is one transaction, so one undo reverses the whole batch.
 
 Validating batches and handling errors
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -311,6 +311,17 @@ The first recording may trigger Screen Recording, Microphone, Camera, or desktop
 the requested source, then restart OpenShot if the operating system requires it. A disabled source card or option is
 preferable to a recording that silently omits an unsupported source.
 
+Recording Performance and GPU Acceleration
+------------------------------------------
+
+Screen and webcam recording automatically use a supported H.264 hardware encoder when available, including
+Vulkan or other GPU encoders. Otherwise, OpenShot uses CPU encoding. Availability depends on your OpenShot build,
+graphics hardware, and driver. The Export window's encoder setting does not select the recording encoder.
+
+Timeline preview during recording uses your :ref:`GPU processing preference <preferences_performance_ref>`.
+If recording is choppy, try :guilabel:`Half`, :guilabel:`Quarter`, or :guilabel:`Off` for the timeline Preview,
+or reduce the capture resolution or FPS. GPU video acceleration does not accelerate microphone audio processing.
+
 Troubleshooting Recording
 -------------------------
 

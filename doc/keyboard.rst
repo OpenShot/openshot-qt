@@ -9,10 +9,6 @@ default assignments; customize them in :guilabel:`Edit → Preferences → Keybo
 
 On macOS, use Command for shortcuts shown with Ctrl.
 
-.. contents:: On this page
-   :local:
-   :depth: 2
-
 .. _timeline_keyboard_ref:
 
 Using the timeline with a keyboard

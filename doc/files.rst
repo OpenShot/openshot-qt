@@ -57,6 +57,16 @@ is not currently visible, OpenShot will automatically display the panel.
 
 .. image:: images/quick-start-drop-files.jpg
 
+Common Media Formats
+^^^^^^^^^^^^^^^^^^^^
+
+Common inputs include **MP4, MOV, MKV, AVI, and WebM** video; **WAV, MP3, AAC, FLAC, and Ogg** audio;
+and **PNG, JPEG, and SVG** images. Available support depends on the OpenShot build and the codec inside the
+file, not just its extension. Renaming a file does not convert its format.
+
+For numbered images, see :ref:`animation_image_seq_ref`. For SRT or VTT subtitles, use the
+:ref:`Caption effect <caption_effect_ref>`.
+
 .. _paste_from_clipboard_ref:
 
 Paste from Clipboard

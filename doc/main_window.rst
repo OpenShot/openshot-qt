@@ -50,6 +50,9 @@ Overview
 For step-by-step instructions on the basic usage of OpenShot, be sure to read the
 :ref:`quick_tutorial_ref`.
 
+The four GPU indicators at the bottom of the :guilabel:`Video Preview` dock show acceleration activity.
+Click them to open :ref:`gpu_inspector_ref`.
+
 Built-in Tutorial
 -----------------
 When you first launch OpenShot, you will be presented with a friendly built-in tutorial. It will demonstrate and explain
@@ -228,22 +231,14 @@ You can open it from the notice or dismiss the invitation. At any time, choose
 
 About OpenShot
 --------------
-Use :guilabel:`Help→About OpenShot` to check your OpenShot version. Click
-:guilabel:`Copy` next to the version number to copy a short version and system
-details report, including how OpenShot was installed. This is a useful way to
-share the information when reporting a bug or asking for help.
+Use :guilabel:`Help→About OpenShot` to check your OpenShot version, library versions, and build details.
 
-Example output:
+.. image:: images/about.png
+   :alt: About OpenShot showing version and build details and the Copy Version Info button
 
-.. code-block:: text
-
-   **OpenShot Version Info**
-   Version: 4.0.1 | libopenshot: 1.0.1
-   Distribution: appimage | Official distribution: yes
-   OS: Ubuntu 24.04
-   CPU: AMD Ryzen 7 8840HS w/ Radeon 780M Graphics (16 threads) | RAM: 15 GB
-   Cache: Memory, 900 MB, 905 frames, ahead 50%, pre-roll 24/48
-   Performance: Threads: OMP 16 | FFmpeg 16, Cards: Decode: None (0) | Encode: 0
+Click :guilabel:`Copy Version Info` to copy a report you can paste into a bug report or support request.
+It includes version and system details, cache and performance settings, and GPU diagnostics to help
+identify your setup.
 
 .. _views_ref:
 

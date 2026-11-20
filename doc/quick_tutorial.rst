@@ -117,11 +117,12 @@ the project. Exporting converts your OpenShot project into a single video output
 file. By using the default settings, the video works on most media players
 (such as VLC) or websites (such as YouTube, Vimeo, …).
 
-Click on the Export Video icon at the top of the screen (or use the :guilabel:`File→Export Video` menu).
+Click on the Export Video icon at the top of the screen (or use :guilabel:`File → Export Project → Export Video`).
 The default values will work fine, so just click the :guilabel:`Export Video` button to render your
 new video.
 
-.. image:: images/quick-start-export.jpg
+.. image:: images/export-simple.png
+   :alt: Export Video window with the Simple tab selected
 
 Conclusion
 ----------

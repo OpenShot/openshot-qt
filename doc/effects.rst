@@ -40,7 +40,7 @@ effect icons to select them all, the Properties dock will show an entry such as
 Masks and Effects
 -----------------
 
-All effects can now use a **static or animated mask** to limit where the effect
+Video effects can use a **static or animated mask** to limit where the effect
 is applied. This makes effects much more precise, because you can target only
 the subject or region you care about and blend the result smoothly into the
 original image.
@@ -55,12 +55,12 @@ How to use effect masks:
 
 1. Add an effect to a clip.
 2. Open the effect :guilabel:`Properties`.
-3. Choose a :guilabel:`Mask: Source` (static image, animated mask video, :guilabel:`Tracker`, or
-   :guilabel:`Object Detector`).
-4. Adjust :guilabel:`Mask Mode` (for example, *Limit to Mask* or *Vary Strength*).
+3. Choose :guilabel:`Mask: Source` to use an imported image or video, or :guilabel:`Mask: Effect Source`
+   to use a mask from :guilabel:`Tracker`, :guilabel:`Object Detector`, or :guilabel:`Object Mask`.
+4. Preview the result. Use :guilabel:`Mask: Invert` to affect the area outside the mask instead.
 
 For quick rectangular masks, add a :guilabel:`Tracker` effect to the clip, draw a box around the area you want to
-affect, then choose that tracker as the :guilabel:`Mask: Source` for another effect, such as
+affect, then choose that tracker as the :guilabel:`Mask: Effect Source` for another effect, such as
 :guilabel:`Blur` or :guilabel:`Pixelate`. The tracker box can be moved or resized directly in the video preview while
 the Tracker effect is selected, and those box changes can be keyframed over time. Tracker boxes also work on static
 photos, so the same workflow can limit an effect to one region of an image.
@@ -353,14 +353,14 @@ more information on individual effects and their unique properties.
    ======================  ==========  ============
    Effect Property Name    Type        Description
    ======================  ==========  ============
-   Apply Before Clip       Boolean     Apply this effect before the Clip processes keyframes? (default is Yes)
+   Apply to Source         Boolean     Apply the effect before the clip's transforms (Yes), or after them (No). Defaults to Yes.
    Duration                Float       The length of the effect (in seconds). Read-only property. Most effects default to the length of a clip. This property is hidden when an effect belongs to a clip.
    End                     Float       The end trimming position of the effect (in seconds). This property is hidden when an effect belongs to a clip.
    ID                      String      A randomly generated GUID (globally unique identifier) assigned to each effect. Read-only property.
    Mask: Invert            Bool        Invert the mask source so light areas become dark and dark areas become light.
-   Mask: Loop              Bool        Loop an animated mask source when the effect is longer than the source.
-   Mask Mode               Enum        Controls how the mask limits or varies the strength of the effect.
-   Mask: Source            Reader      The image, image sequence, video, Tracker, or Object Detector used as the effect's grayscale mask source.
+   Mask: Loop              Enum        Play an animated mask once, repeat it, or alternate forward and backward playback.
+   Mask: Source            Reader      An imported image, image sequence, or video used to control where the effect is applied.
+   Mask: Effect Source     String      A Tracker, Object Detector, or Object Mask effect that supplies the mask.
    Mask: Time Mode         Enum        Controls how OpenShot maps effect time to an animated mask source.
    Parent                  String      The parent object to this effect, which makes many of these keyframe values initialize to the parent value.
    Position                Float       The position of the effect on the timeline (in seconds). This property is hidden when an effect belongs to a clip.
@@ -389,12 +389,21 @@ ensuring its uniqueness. This is a Read-only property, and assigned by OpenShot 
 
 Mask Properties
 """""""""""""""
-The :guilabel:`Mask: Source`, :guilabel:`Mask Mode`, :guilabel:`Mask: Time Mode`, :guilabel:`Mask: Loop`, and
-:guilabel:`Mask: Invert` properties limit where an effect is applied. The mask source can be a static image, image
-sequence, video, :guilabel:`Tracker`, or :guilabel:`Object Detector`. Light areas of the mask usually apply more of
-the effect, while dark areas apply less; use :guilabel:`Mask: Invert` when you need the opposite result. Tracker and
-Object Detector sources use their bounding boxes as the masked region, which is useful for limiting effects such as
-blur, pixelation, color correction, or sharpening to a specific subject.
+Masks control where an effect is applied. Choose the source in the properties of the effect you want to limit:
+
+- :guilabel:`Mask: Source` uses an imported image or video. For example, a white circle on a black background
+  makes Blur affect only the circle. White areas apply the effect; black areas leave the clip unchanged, and gray
+  areas blend between the two.
+- :guilabel:`Mask: Effect Source` uses a mask from another effect. For example, select a processed Object Mask
+  to blur only the person it follows. Tracker supplies a rectangular region; Object Mask supplies the subject's outline.
+
+Use :guilabel:`Mask: Invert` to swap the affected and unaffected areas. For example, invert a person's mask to
+blur the background instead. For an animated mask file, :guilabel:`Mask: Time Mode` and :guilabel:`Mask: Loop`
+control its playback. To return from a generated mask to a file mask, set :guilabel:`Mask: Effect Source` to
+:guilabel:`None`, then choose the file under :guilabel:`Mask: Source`.
+
+Blur also has a :guilabel:`Mask Mode` control. :guilabel:`Limit to Mask` blends the blurred image through the mask;
+:guilabel:`Vary Strength` uses the mask to vary the amount of blur across the image.
 
 Track
 """""
@@ -1096,9 +1105,17 @@ you can adjust the crop visually.
 
 Deinterlace
 """""""""""
-The Deinterlace effect is used to remove interlacing artifacts from video footage, which are commonly seen as
-horizontal lines across moving objects. This effect is essential for converting interlaced video (such as from
-older video cameras or broadcast sources) into a progressive format suitable for modern displays.
+Deinterlace reduces comb-like horizontal lines along moving edges in interlaced footage, such as older camera
+recordings or broadcast video.
+
+To try it, pause on a moving subject with visible comb-like lines along its edges. Add :guilabel:`Deinterlace`
+and compare :guilabel:`Is Odd Frame` set to :guilabel:`Yes` and :guilabel:`No`. Yes keeps the odd rows; No keeps
+the even rows. Each setting fills the missing rows using the rows it keeps. Choose the result with cleaner edges.
+The control selects rows within each picture, not odd- or even-numbered video frames.
+
+Use a large preview and a project profile matching the source video when judging the result. Resizing in a small
+preview can make it harder to judge which rows to keep. Ordinary progressive footage may show little improvement
+and can lose vertical detail, so use this effect on footage with visible interlacing.
 
 .. table::
    :widths: 26 80
@@ -1106,7 +1123,7 @@ older video cameras or broadcast sources) into a progressive format suitable for
    ==========================  ============
    Property Name               Description
    ==========================  ============
-   isOdd                       ``(bool, choices: ['Yes', 'No'])`` Use odd or even lines
+   isOdd                       ``(bool, choices: ['Yes', 'No'])`` **Is Odd Frame.** Yes keeps odd rows; No keeps even rows.
    ==========================  ============
 
 Denoise Image
@@ -1195,6 +1212,11 @@ Usage Notes
 - **Brightness** and **Contrast** reshape the map before displacement, which can make the warp subtler or more dramatic.
 - **Map: Invert** flips the direction driven by light and dark areas.
 - **Replace Image** is a debug preview that shows the processed map instead of the warped frame.
+
+For a simple example, import a black-to-white gradient image and add :guilabel:`Displacement Map` to a video clip.
+Select the gradient under :guilabel:`Map: Source`, set :guilabel:`Vertical` to ``0``, and try :guilabel:`Horizontal`
+at ``0.05`` with :guilabel:`Strength` at ``1``. The gradient shifts parts of the picture left or right. Lower the
+horizontal value for a gentler warp, or choose a moving grayscale video to animate the distortion.
 
 .. table::
    :widths: 26 80
@@ -1418,7 +1440,7 @@ Object Mask
 The Object Mask effect creates a detailed, animated mask around a subject that you identify. Instead of drawing a
 rectangular tracking box, you mark the subject with points or rectangles and OpenShot follows its visible outline
 through the clip. Use it to highlight a person or product, create a colored cutout or outline, or provide the
-:guilabel:`Mask: Source` for another effect such as Blur, Pixelate, or Color Grade.
+:guilabel:`Mask: Effect Source` for another effect such as Blur, Pixelate, or Color Grade.
 
 Object Mask runs locally in OpenShot and does not require a ComfyUI server. OpenShot uses an
 `EfficientSAM model <https://github.com/OpenShot/openshot-onnx/tree/main/efficient-sam>`_ to turn your prompts into a
@@ -1444,8 +1466,12 @@ Creating an Object Mask
    effect. Cancel the job if you need to revise the prompts or settings.
 
 After processing, select the Object Mask effect to change its fill and outline. To apply another effect only inside
-the detected subject, add that effect to the same clip and select Object Mask under its :guilabel:`Mask: Source`
+the detected subject, add that effect to the same clip and select Object Mask under its :guilabel:`Mask: Effect Source`
 property. Use :guilabel:`Mask: Invert` on the other effect when you want to modify the background instead.
+
+All subjects selected within one Object Mask effect share one combined mask and the same fill and outline settings.
+For example, selecting two heads lets you blur both together. To style them separately, add a separate Object Mask
+effect for each person and select only that person in each effect.
 
 Object Mask and Advanced AI
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1477,7 +1503,7 @@ Object Detector
 The Object Detector effect automatically finds and follows known classes of objects throughout a video. Depending
 on the selected YOLO model, these can include people, vehicles, animals, and many common objects. OpenShot stores each
 detection as a tracked object, allowing you to display boxes and labels, customize individual detections, parent
-another clip to a detected object, or use detections as the :guilabel:`Mask: Source` for another effect.
+another clip to a detected object, or use detections as the :guilabel:`Mask: Effect Source` for another effect.
 
 Unlike Object Mask, Object Detector does not require you to mark a particular subject first. It scans the clip for
 all object classes known by the selected model. Use Object Detector when you want automatic discovery or several
@@ -1725,7 +1751,10 @@ pick a projection mode for the output, and select a sampling mode that balances 
 - **Create a fisheye output:**
   Choose one of the **Fisheye** projection modes (2..5). **Out FOV** controls disk coverage (180 gives a classic circular fisheye).
 - If the image looks mirrored, turn **Invert** off. If you need the back view on equirect, use **Invert** or add +180 to **Yaw**.
-- If the output looks soft or aliased, reduce **Out FOV** or increase export resolution. **Auto** interpolation adapts the filter to scaling.
+- For a normal view of a 360° clip, a smaller **Out FOV** zooms in and a larger value shows more of the scene.
+  Zooming in stretches a smaller part of the source across the output, which can make it look soft. Try a wider
+  field of view or higher-resolution source footage if you need more detail. **Auto** interpolation smooths the
+  result, but cannot restore detail missing from the source. Judge sharpness in a large preview or a short export.
 
 Stabilizer
 """"""""""
@@ -1803,11 +1832,11 @@ then follows this object from frame to frame, recording its position, scale, and
 
 The tracked box can also be used as a live mask source for any other effect. For example, add a
 :guilabel:`Tracker` effect, draw a box around a face or license plate, add a :guilabel:`Blur` or
-:guilabel:`Pixelate` effect to the same clip, and set that effect's :guilabel:`Mask: Source` to the tracker. The blur
+:guilabel:`Pixelate` effect to the same clip, and set that effect's :guilabel:`Mask: Effect Source` to the tracker. The blur
 or pixelation is then limited to the tracked box and updates in the video preview as you adjust it.
 
 Tracker boxes are not limited to moving video. You can add a Tracker effect to a static photo, use its box as the
-:guilabel:`Mask: Source` for another effect, and keyframe the box position or size if the masked region should move
+:guilabel:`Mask: Effect Source` for another effect, and keyframe the box position or size if the masked region should move
 over time. Select the Tracker effect, then use the video preview transform handles to move or resize the box; OpenShot
 updates the box properties such as ``x1``, ``y1``, ``x2``, and ``y2`` so the masked effect follows the adjusted region.
 
