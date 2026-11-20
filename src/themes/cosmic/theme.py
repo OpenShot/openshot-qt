@@ -5,7 +5,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2024 OpenShot Studios, LLC
+ Copyright (c) 2008-2026 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -1046,6 +1046,7 @@ QWidget#videoPreview {
         """
         path_unix_slashes = PATH.replace("\\", "/")
         self.style_sheet = f"""
+QDialog#projectRecoveryDialog,
 QMessageBox {{
     background: qlineargradient(
         x1: 0, y1: 0, x2: 0, y2: 1,
@@ -1059,6 +1060,7 @@ QMessageBox QLabel#qt_msgbox_label {{
     color: #f4f7ff;
     font-size: 12px;
 }}
+QDialog#projectRecoveryDialog QPushButton[dialogRole="primary"],
 QMessageBox QPushButton[dialogRole="primary"] {{
     background: qlineargradient(
         x1: 0, y1: 0, x2: 0, y2: 1,
@@ -1068,6 +1070,7 @@ QMessageBox QPushButton[dialogRole="primary"] {{
     color: #FFFFFF;
     border: 1px solid #3398ff;
 }}
+QDialog#projectRecoveryDialog QPushButton[dialogRole="primary"]:hover,
 QMessageBox QPushButton[dialogRole="primary"]:hover {{
     background: qlineargradient(
         x1: 0, y1: 0, x2: 0, y2: 1,

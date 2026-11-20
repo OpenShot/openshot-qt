@@ -7664,6 +7664,26 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(pasted, [([], [], {"position": 12.5, "track": 4})])
         self.assertIsNone(helper._context_menu_paste_data)
 
+    def test_paste_rejects_mixed_incomplete_batch_before_any_insertion(self):
+        from classes.query import Clip
+        valid, invalid = Clip(), Clip()
+        valid.id, invalid.id = "valid", "invalid"
+        valid.data = {"id": "valid", "position": 0, "start": 0, "end": 5,
+                      "layer": 1000000, "reader": {"type": "QtImageReader"}}
+        invalid.data = {"id": "invalid", "scale_x": {"Points": []}}
+        app = types.SimpleNamespace(clipboard=lambda: types.SimpleNamespace(mimeData=lambda: None),
+            updates=types.SimpleNamespace(transaction_id=None), _tr=lambda text: text)
+        helper = types.SimpleNamespace(get_uuid=lambda: "paste-test")
+        with patch.object(self.timeline_module.ClipboardManager, "from_mime", return_value=[valid, invalid]), \
+                patch.object(self.timeline_module, "get_app", return_value=app), \
+                patch.object(Clip, "save") as save, \
+                patch.object(self.timeline_module.QMessageBox, "warning") as warning:
+            self.timeline_module.TimelineView._handle_paste_callback(helper, [], [], {})
+            save.assert_not_called()
+            warning.assert_called_once()
+        self.assertEqual(valid.data["id"], "valid")
+        self.assertIsNone(app.updates.transaction_id)
+
     def test_handle_paste_callback_extends_project_duration_for_inserted_items(self):
         saved = []
         inserted_clip = None
@@ -7684,7 +7704,7 @@ class TimelineHelperTests(unittest.TestCase):
 
         inserted_clip = FakeClip(
             "C1",
-            {"id": "C1", "position": 5.0, "layer": 2, "start": 0.0, "end": 4.0},
+            {"id": "C1", "position": 5.0, "layer": 2, "start": 0.0, "end": 4.0, "reader": {"type": "QtImageReader"}},
         )
         inserted_clip.save = save_inserted_clip
         copied_objects = [inserted_clip]
@@ -7720,7 +7740,7 @@ class TimelineHelperTests(unittest.TestCase):
                 {"position": 20.0, "track": 4},
             )
 
-        self.assertEqual(saved, [{"id": "C1-copy", "position": 20.0, "layer": 4, "start": 0.0, "end": 4.0}])
+        self.assertEqual(saved, [{"id": "C1-copy", "position": 20.0, "layer": 4, "start": 0.0, "end": 4.0, "reader": {"type": "QtImageReader"}}])
         self.assertEqual(ensured_layers, [4])
         self.assertEqual(helper._extend_timeline_to_fit_items_calls, [True])
         self.assertEqual(helper._select_inserted_paste_items_calls, [[("C1-copy", "clip")]])
@@ -7817,9 +7837,9 @@ class TimelineHelperTests(unittest.TestCase):
             return types.SimpleNamespace(mimeData=object)
 
         copied_objects = [
-            FakeClip("top", {"id": "top", "title": "top", "position": 5.0, "layer": 3000000, "start": 0.0, "end": 4.0}),
-            FakeClip("mid", {"id": "mid", "title": "mid", "position": 5.0, "layer": 2000000, "start": 0.0, "end": 4.0}),
-            FakeClip("bot", {"id": "bot", "title": "bot", "position": 5.0, "layer": 1000000, "start": 0.0, "end": 4.0}),
+            FakeClip("top", {"id": "top", "title": "top", "position": 5.0, "layer": 3000000, "start": 0.0, "end": 4.0, "reader": {"type": "QtImageReader"}}),
+            FakeClip("mid", {"id": "mid", "title": "mid", "position": 5.0, "layer": 2000000, "start": 0.0, "end": 4.0, "reader": {"type": "QtImageReader"}}),
+            FakeClip("bot", {"id": "bot", "title": "bot", "position": 5.0, "layer": 1000000, "start": 0.0, "end": 4.0, "reader": {"type": "QtImageReader"}}),
         ]
         ensured_layers = []
         app = types.SimpleNamespace(

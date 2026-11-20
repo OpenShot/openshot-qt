@@ -5,7 +5,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2024 OpenShot Studios, LLC
+ Copyright (c) 2008-2026 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -26,9 +26,21 @@
  """
 
 import pickle
+import io
 import json
 from qt_api import QMimeData
 from classes.query import QueryObject
+
+
+class ClipboardUnpickler(pickle.Unpickler):
+    """Allow existing clipboard records without importing executable globals."""
+
+    def find_class(self, module, name):
+        if module == "classes.query" and name in (
+                "QueryObject", "Clip", "Transition", "File", "Marker", "Track", "Effect"):
+            from classes import query
+            return getattr(query, name)
+        raise pickle.UnpicklingError("Unsupported clipboard object")
 
 
 class ClipboardManager:
@@ -78,7 +90,7 @@ class ClipboardManager:
         if mime_data.hasFormat("application/x-openshot-generic"):
             try:
                 pickled_data = mime_data.data("application/x-openshot-generic").data()
-                return pickle.loads(pickled_data)
+                return ClipboardUnpickler(io.BytesIO(pickled_data)).load()
             except (pickle.UnpicklingError, EOFError, AttributeError) as e:
                 print(f"Error unpickling data: {e}")
 

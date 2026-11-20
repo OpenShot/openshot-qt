@@ -1,3 +1,21 @@
+# Copyright (c) 2026 OpenShot Studios, LLC
+# This file is part of OpenShot Video Editor (https://www.openshot.org).
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# OpenShot Video Editor is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# OpenShot Video Editor is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with OpenShot Video Editor. If not, see <https://www.gnu.org/licenses/>.
+
+
 """Cross-layer coverage for the committed September Sentry fixes."""
 
 import copy
@@ -130,8 +148,13 @@ class SentryWorkflowAuditTests(unittest.TestCase):
             title = json.loads(openshot.Clip(title_path).Json())
             title.update(id='title', file_id='F1', position=10, start=0, end=10, duration=10, layer=2)
             store._data = {'files': [{'id': 'F1', 'path': title_path}, {'id': 'F2', 'path': recording_path}],
-                           'clips': [title, {'id': 'recording', 'file_id': 'F2', 'reader': {'path': recording_path}, 'effects': []},
-                                     {'id': 'generated', 'reader': {}, 'effects': [{'protobuf_data_path': tracking_path}]}]}
+                           'layers': [],
+                           'clips': [title, {'id': 'recording', 'file_id': 'F2',
+                                             'position': 0, 'start': 0, 'end': 10, 'layer': 1000000,
+                                             'reader': {'type': 'FFmpegReader', 'path': recording_path}, 'effects': []},
+                                     {'id': 'generated', 'position': 0, 'start': 0, 'end': 10, 'layer': 1000000,
+                                      'reader': {'type': 'DummyReader'},
+                                      'effects': [{'protobuf_data_path': tracking_path}]}]}
             stack.enter_context(patch.object(store, 'add_to_recent_files'))
             stack.enter_context(patch.object(self.app, 'project', store))
             manager = UpdateManager()
@@ -139,7 +162,7 @@ class SentryWorkflowAuditTests(unittest.TestCase):
             stack.enter_context(patch.object(self.app, 'updates', manager))
             stack.enter_context(patch.object(self.app, 'window', Mock()))
             initial = store._data
-            store._data = {'files': [], 'clips': [], 'history': {'undo': [], 'redo': []}}
+            store._data = {'files': [], 'clips': [], 'layers': [], 'history': {'undo': [], 'redo': []}}
             for collection in ('files', 'clips'):
                 for value in initial[collection]:
                     manager.insert([collection], value)

@@ -1,3 +1,21 @@
+# Copyright (c) 2026 OpenShot Studios, LLC
+# This file is part of OpenShot Video Editor (https://www.openshot.org).
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# OpenShot Video Editor is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# OpenShot Video Editor is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with OpenShot Video Editor. If not, see <https://www.gnu.org/licenses/>.
+
+
 """Waveform storage remains compact, portable, and independent of project JSON."""
 import copy
 import json
@@ -24,6 +42,39 @@ class WaveformCacheTests(unittest.TestCase):
     def clear_memory(self):
         cache._buffers.clear()
         cache._buffer_bytes = 0
+
+    def test_preparation_preserves_channel_and_partial_history_waveforms(self):
+        reference = cache.store_samples([.75] * 3)
+        data = {
+            'files': [{'ui': {'audio_data_channels': [
+                {'audio_data': [.25] * 4, 'audio_data_rms': [.125] * 4}]}}],
+            'history': {
+                'undo': [{'key': ['clips', {'id': 'C1'}, 'ui', 'audio_data'], 'value': reference}],
+                'redo': [{'old_values': {'ui': {'audio_data': [.5] * 2}}}]}}
+        assets = self.root / 'project_assets' / 'waveforms'
+        self.assertIs(cache.prepare(data, str(assets)), data)
+        self.assertEqual(len(list(assets.glob('*.wfc'))), 4)
+        self.directory = self.root / 'different-user'
+        self.clear_memory()
+        cache.prepare(data, str(assets), importing=True)
+        channel = data['files'][0]['ui']['audio_data_channels'][0]
+        self.assertEqual(list(cache.samples(channel['audio_data'])), [.25] * 4)
+        self.assertEqual(list(cache.samples(channel['audio_data_rms'])), [.125] * 4)
+        self.assertEqual(list(cache.samples(data['history']['undo'][0]['value'])), [.75] * 3)
+        redo = data['history']['redo'][0]['old_values']['ui']['audio_data']
+        self.assertEqual(list(cache.samples(redo)), [.5] * 2)
+
+    def test_waveform_operations_do_not_visit_keyframe_points(self):
+        class Points(list):
+            def __iter__(self):
+                raise AssertionError('Keyframe points must not be scanned for waveforms')
+        data = {'clips': [{'alpha': {'Points': Points([{'co': {'X': 1, 'Y': 0}}])},
+                           'ui': {'audio_data': [.25] * 4}}]}
+        assets = str(self.root / 'assets')
+        cache.externalize(data)
+        cache.transfer(data, assets)
+        cache.prepare(data, assets)
+        self.assertEqual(len(list(Path(assets).glob('*.wfc'))), 1)
 
     def test_float32_roundtrip_dedup_and_immutable_shared_buffer(self):
         values = [-1.0, 0.0, .000001, .23, 1.0, 4.5]
@@ -110,13 +161,15 @@ class WaveformCacheTests(unittest.TestCase):
         path = str(self.root / 'example.osp')
         project.write_to_file(path, data)
         saved = json.loads(Path(path).read_text())
+        self.assertNotIn('\n', Path(path).read_text())
         self.assertTrue(cache.is_reference(saved['clips'][0]['ui']['audio_data']))
         self.assertEqual(len(list((self.root / 'example_assets' / 'waveforms').iterdir())), 2)
         self.directory = self.root / 'new-user-cache'
         self.clear_memory()
         reopened = project.read_from_file(path)
         self.assertEqual(list(cache.samples(reopened['clips'][0]['ui']['audio_data'])), [.5] * 100)
-        self.assertEqual(list(cache.samples(reopened['history']['undo'][0]['value']['ui']['audio_data_rms'])), [.25] * 100)
+        restored = reopened['history']['undo'][0]['value']['ui']['audio_data_rms']
+        self.assertEqual(list(cache.samples(restored)), [.25] * 100)
 
     def test_missing_visible_cache_requests_one_background_rebuild(self):
         from types import SimpleNamespace

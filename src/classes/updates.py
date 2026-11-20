@@ -7,7 +7,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2018 OpenShot Studios, LLC
+ Copyright (c) 2008-2026 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -190,6 +190,10 @@ class UpdateManager:
 
     def save_history(self, project, history_length):
         """Save history to project"""
+        self.update_untracked(["history"], self.export_history(history_length))
+
+    def export_history(self, history_length):
+        """Return detached history without changing the project or revision."""
         redo_list = []
         undo_list = []
 
@@ -197,8 +201,8 @@ class UpdateManager:
         # Ignore any load actions or history update actions
         history_length_int = int(history_length)
         if history_length_int <= 0:
-            self.update_untracked(["history"], {"redo": [], "undo": []})
-            return
+            return {"redo": [], "undo": []}
+
         def complete_transactions(history):
             eligible = [action for action in history
                         if action.type != "load" and action.key and action.key[0] != "history"]
@@ -211,8 +215,7 @@ class UpdateManager:
         redo_list = complete_transactions(self.redoHistory)
         undo_list = complete_transactions(self.actionHistory)
 
-        # Set history data in project
-        self.update_untracked(["history"], {"redo": redo_list, "undo": undo_list})
+        return {"redo": redo_list, "undo": undo_list}
 
     def reset(self):
         """ Reset the UpdateManager, and clear all UpdateActions and History.

@@ -7,7 +7,7 @@
 
  @section LICENSE
 
- Copyright (c) 2008-2018 OpenShot Studios, LLC
+ Copyright (c) 2008-2026 OpenShot Studios, LLC
  (http://www.openshotstudios.com). This file is part of
  OpenShot Video Editor (http://www.openshot.org), an open-source project
  dedicated to delivering high quality video editing and animation solutions
@@ -29,19 +29,20 @@
 
 import copy
 import errno
-import glob
 import os
 import random
 import re
 import shutil
 import json
 import tempfile
+from types import SimpleNamespace
 
 from classes import info
 from classes.app import get_app
 from classes.keyframe_editing import is_keyframe_patch, apply_keyframe_patch
 from classes.image_types import get_media_type
 from classes.json_data import JsonDataStore
+from classes.project_snapshot import ProjectSnapshot
 from classes.logger import log
 from classes.thumbnail import MigrateThumbnailLayout
 from classes.updates import UpdateInterface
@@ -72,19 +73,36 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # Load default project data on creation
         self.new()
 
-    def read_from_file(self, file_path, path_mode="ignore"):
-        """Import waveform assets and migrate legacy arrays before project copies."""
-        from classes.waveform_cache import externalize, transfer
-        data = super().read_from_file(file_path, path_mode)
-        transfer(data, os.path.join(get_assets_path(file_path, create_paths=False), "waveforms"), importing=True)
-        return externalize(data)
-
     def write_to_file(self, file_path, data, path_mode="ignore", previous_path=None):
         """Save waveform assets before writing references into project JSON."""
-        from classes.waveform_cache import externalize, transfer
-        externalize(data)
-        transfer(data, os.path.join(get_assets_path(file_path, create_paths=False), "waveforms"))
-        return super().write_to_file(file_path, data, path_mode, previous_path)
+        self._save_waveform_assets(file_path, data)
+        return super().write_to_file(file_path, data, path_mode, previous_path, compact=True)
+
+    @staticmethod
+    def _save_waveform_assets(file_path, data):
+        from classes.waveform_cache import prepare
+        prepare(data, os.path.join(get_assets_path(file_path, create_paths=False), "waveforms"))
+
+    def read_from_file(self, file_path, path_mode="ignore"):
+        """Read project JSON without in-place repairs or executable fallbacks."""
+        from qt_api import read_file_text, is_content_uri
+        from classes.project_recovery import decode_json
+        try:
+            contents = read_file_text(file_path)
+        except UnicodeError as error:
+            raise ValueError(
+                "The project is not UTF-8 JSON. OpenShot 1.x pickle projects are no longer supported.") from error
+        if not contents:
+            raise ValueError("Couldn't load project file, no data. Try a previous version.")
+        try:
+            data = decode_json(contents)
+        except json.JSONDecodeError as error:
+            raise ValueError("Invalid project JSON at line {}, column {}: {}".format(
+                error.lineno, error.colno, error.msg)) from error
+        if path_mode == "absolute" and not is_content_uri(file_path):
+            data = json.loads(self.convert_paths_to_absolute(file_path, json.dumps(data, ensure_ascii=False)))
+        from classes.waveform_cache import prepare
+        return prepare(data, os.path.join(get_assets_path(file_path, create_paths=False), "waveforms"), importing=True)
 
     def needs_save(self):
         """Returns if project data has unsaved changes"""
@@ -362,8 +380,6 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
     # Load default project data
     def new(self):
         """ Try to load default project settings file, will raise error on failure """
-        import openshot
-
         # Try to load user default project
         if os.path.exists(info.USER_DEFAULT_PROJECT):
             try:
@@ -506,13 +522,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         return profile
 
-    def load(self, file_path, clear_thumbnails=True, interactive=True):
+    def load(self, file_path, clear_thumbnails=True, interactive=True, candidate=None):
         """ Load project from file """
 
+        if file_path and candidate is None:
+            candidate = self.read_from_file(file_path, path_mode="absolute")
         if file_path and not interactive:
             # Validate paths before replacing the active project; agents must never
             # open a modal missing-file dialog or silently drop missing media.
-            candidate = self.read_from_file(file_path, path_mode="absolute")
             def check_paths(value):
                 if isinstance(value, dict):
                     self._drop_obsolete_effect_resource(value)
@@ -526,6 +543,11 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     for child in value:
                         check_paths(child)
             check_paths(candidate)
+        # Parse and validate before reset, including interactive opening. Never
+        # dispatch untrusted project bytes to the legacy pickle importer.
+        if file_path:
+            from classes.project_recovery import validate_project
+            validate_project(candidate)
         self.new()
         measurements = getattr(get_app(), 'gpu_measurements', None)
         if measurements:
@@ -537,27 +559,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # Default project data
             default_project = self._data
 
-            try:
-                # Attempt to load v2.X project file
-                project_data = (self.read_from_file(file_path, path_mode="absolute")
-                                if interactive else candidate)
-
-            except Exception as ex:
-                # Only decoding failures can indicate a legacy pickle. Errors
-                # processing modern project data must retain their real cause.
-                cause = ex
-                while cause.__cause__ is not None:
-                    cause = cause.__cause__
-                if not isinstance(cause, (json.JSONDecodeError, UnicodeDecodeError)):
-                    raise
-                from qt_api import is_content_uri
-                if is_content_uri(file_path):
-                    raise
-                with open(file_path, "rb") as stream:
-                    prefix = stream.read(64).lstrip()
-                if not prefix or prefix.startswith((b"{", b"[", b"\xef\xbb\xbf")):
-                    raise
-                project_data = self.read_legacy_project_file(file_path)
+            project_data = candidate
 
             # Fix history (if broken)
             if not project_data.get("history"):
@@ -642,251 +644,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         scaler(self._data)
 
     def read_legacy_project_file(self, file_path):
-        """Attempt to read a legacy version 1.x openshot project file"""
-        import sys
-        import pickle
-        from classes.query import File, Track, Clip, Transition
-        import openshot
-        import json
-
-        # Get translation method
-        _ = get_app()._tr
-
-        # Append version info
-        project_data = {}
-        project_data["version"] = {"openshot-qt": info.VERSION,
-                                   "libopenshot": openshot.OPENSHOT_VERSION_FULL}
-
-        # Get FPS from project
-        fps = get_app().project.get("fps")
-        fps_float = float(fps["num"]) / float(fps["den"])
-
-        # Import legacy openshot classes (from version 1.X)
-        from classes.legacy.openshot import classes as legacy_classes
-        from classes.legacy.openshot.classes import project as legacy_project
-        from classes.legacy.openshot.classes import sequences as legacy_sequences
-        from classes.legacy.openshot.classes import track as legacy_track
-        from classes.legacy.openshot.classes import clip as legacy_clip
-        from classes.legacy.openshot.classes import keyframe as legacy_keyframe
-        from classes.legacy.openshot.classes import files as legacy_files
-        from classes.legacy.openshot.classes import transition as legacy_transition
-        from classes.legacy.openshot.classes import effect as legacy_effect
-        from classes.legacy.openshot.classes import marker as legacy_marker
-        sys.modules['openshot.classes'] = legacy_classes
-        sys.modules['classes.project'] = legacy_project
-        sys.modules['classes.sequences'] = legacy_sequences
-        sys.modules['classes.track'] = legacy_track
-        sys.modules['classes.clip'] = legacy_clip
-        sys.modules['classes.keyframe'] = legacy_keyframe
-        sys.modules['classes.files'] = legacy_files
-        sys.modules['classes.transition'] = legacy_transition
-        sys.modules['classes.effect'] = legacy_effect
-        sys.modules['classes.marker'] = legacy_marker
-
-        # Keep track of files that failed to load
-        failed_files = []
-
-        with open(os.fsencode(file_path), 'rb') as f:
-            try:
-                # Unpickle legacy openshot project file
-                v1_data = pickle.load(f, fix_imports=True, encoding="UTF-8")
-                file_lookup = {}
-
-                # Loop through files
-                for item in v1_data.project_folder.items:
-                    # Is this item a File (i.e. ignore folders)
-                    if isinstance(item, legacy_files.OpenShotFile):
-                        # Create file
-                        try:
-                            clip = openshot.Clip(item.name)
-                            reader = clip.Reader()
-                            file_data = json.loads(reader.Json(), strict=False)
-
-                            # Determine media type
-                            file_data["media_type"] = get_media_type(file_data)
-
-                            # Save new file to the project data
-                            file = File()
-                            file.data = file_data
-                            file.save()
-
-                            # Keep track of new ids and old ids
-                            file_lookup[item.unique_id] = file
-
-                        except Exception:
-                            log.error("%s is not a valid video, audio, or image file",
-                                      item.name,
-                                      exc_info=1)
-                            failed_files.append(item.name)
-
-                # Delete all tracks
-                track_list = Track.filter()
-                for track in track_list:
-                    track.delete()
-
-                # Create new tracks
-                track_counter = 0
-                for legacy_t in reversed(v1_data.sequences[0].tracks):
-                    t = Track()
-                    t.data = {"number": track_counter, "y": 0, "label": legacy_t.name}
-                    t.save()
-
-                    track_counter += 1
-
-                # Loop through clips
-                track_counter = 0
-                for sequence in v1_data.sequences:
-                    for track in reversed(sequence.tracks):
-                        for clip in track.clips:
-                            # Get associated file for this clip
-                            if clip.file_object.unique_id in file_lookup:
-                                file = file_lookup[clip.file_object.unique_id]
-                            else:
-                                # Skip missing file
-                                log.info("Skipping importing missing file: %s" % clip.file_object.unique_id)
-                                continue
-
-                            # Create clip
-                            if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
-                                # Determine thumb path
-                                thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file.data["id"])
-                            else:
-                                # Audio file
-                                thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.svg")
-
-                            # Get file name
-                            filename = os.path.basename(file.data["path"])
-
-                            file_path = file.absolute_path()
-
-                            # Create clip object for this file
-                            c = openshot.Clip(file_path)
-
-                            # Append missing attributes to Clip JSON
-                            new_clip = json.loads(c.Json(), strict=False)
-                            new_clip["file_id"] = file.id
-                            new_clip["title"] = filename
-
-                            # Check for optional start and end attributes
-                            new_clip["start"] = clip.start_time
-                            new_clip["end"] = clip.end_time
-                            new_clip["position"] = clip.position_on_track
-                            new_clip["layer"] = track_counter
-
-                            # Clear alpha (if needed)
-                            if clip.video_fade_in or clip.video_fade_out:
-                                new_clip["alpha"]["Points"] = []
-
-                            # Video Fade IN
-                            if clip.video_fade_in:
-                                # Add keyframes
-                                start = openshot.Point(round(clip.start_time * fps_float) + 1, 0.0, openshot.BEZIER)
-                                start_object = json.loads(start.Json(), strict=False)
-                                end = openshot.Point(round((clip.start_time + clip.video_fade_in_amount) * fps_float) + 1, 1.0, openshot.BEZIER)
-                                end_object = json.loads(end.Json(), strict=False)
-                                new_clip["alpha"]["Points"].append(start_object)
-                                new_clip["alpha"]["Points"].append(end_object)
-
-                            # Video Fade OUT
-                            if clip.video_fade_out:
-                                # Add keyframes
-                                start = openshot.Point(round((clip.end_time - clip.video_fade_out_amount) * fps_float) + 1, 1.0, openshot.BEZIER)
-                                start_object = json.loads(start.Json(), strict=False)
-                                end = openshot.Point(round(clip.end_time * fps_float) + 1, 0.0, openshot.BEZIER)
-                                end_object = json.loads(end.Json(), strict=False)
-                                new_clip["alpha"]["Points"].append(start_object)
-                                new_clip["alpha"]["Points"].append(end_object)
-
-                            # Clear Audio (if needed)
-                            if clip.audio_fade_in or clip.audio_fade_out:
-                                new_clip["volume"]["Points"] = []
-                            else:
-                                p = openshot.Point(1, clip.volume / 100.0, openshot.BEZIER)
-                                p_object = json.loads(p.Json(), strict=False)
-                                new_clip["volume"] = {"Points": [p_object]}
-
-                            # Audio Fade IN
-                            if clip.audio_fade_in:
-                                # Add keyframes
-                                start = openshot.Point(round(clip.start_time * fps_float) + 1, 0.0, openshot.BEZIER)
-                                start_object = json.loads(start.Json(), strict=False)
-                                end = openshot.Point(round((clip.start_time + clip.video_fade_in_amount) * fps_float) + 1, clip.volume / 100.0, openshot.BEZIER)
-                                end_object = json.loads(end.Json(), strict=False)
-                                new_clip["volume"]["Points"].append(start_object)
-                                new_clip["volume"]["Points"].append(end_object)
-
-                            # Audio Fade OUT
-                            if clip.audio_fade_out:
-                                # Add keyframes
-                                start = openshot.Point(round((clip.end_time - clip.video_fade_out_amount) * fps_float) + 1, clip.volume / 100.0, openshot.BEZIER)
-                                start_object = json.loads(start.Json(), strict=False)
-                                end = openshot.Point(round(clip.end_time * fps_float) + 1, 0.0, openshot.BEZIER)
-                                end_object = json.loads(end.Json(), strict=False)
-                                new_clip["volume"]["Points"].append(start_object)
-                                new_clip["volume"]["Points"].append(end_object)
-
-                            # Save clip
-                            clip_object = Clip()
-                            clip_object.data = new_clip
-                            clip_object.save()
-
-                        # Loop through transitions
-                        for trans in track.transitions:
-                            # Fix default transition
-                            if not trans.resource or not os.path.exists(trans.resource):
-                                trans.resource = os.path.join(info.PATH, "transitions", "common", "fade.svg")
-
-                            # Open up QtImageReader for transition Image
-                            transition_reader = openshot.QtImageReader(trans.resource)
-
-                            trans_begin_value = 1.0
-                            trans_end_value = -1.0
-                            if trans.reverse:
-                                trans_begin_value = -1.0
-                                trans_end_value = 1.0
-
-                            brightness = openshot.Keyframe()
-                            brightness.AddPoint(1, trans_begin_value, openshot.BEZIER)
-                            brightness.AddPoint(round(trans.length * fps_float) + 1, trans_end_value, openshot.BEZIER)
-                            contrast = openshot.Keyframe(trans.softness * 10.0)
-
-                            # Create transition dictionary
-                            transitions_data = {
-                                "id": get_app().project.generate_id(),
-                                "layer": track_counter,
-                                "title": "Transition",
-                                "type": "Mask",
-                                "position": trans.position_on_track,
-                                "start": 0,
-                                "end": trans.length,
-                                "brightness": json.loads(brightness.Json(), strict=False),
-                                "contrast": json.loads(contrast.Json(), strict=False),
-                                "reader": json.loads(transition_reader.Json(), strict=False),
-                                "replace_image": False
-                            }
-
-                            # Save transition
-                            t = Transition()
-                            t.data = transitions_data
-                            t.save()
-
-                        # Increment track counter
-                        track_counter += 1
-
-            except Exception as ex:
-                # Error parsing legacy contents
-                msg = "Failed to load legacy project file %(path)s" % {"path": file_path}
-                log.error(msg, exc_info=1)
-                raise RuntimeError(msg) from ex
-
-        # Show warning if some files failed to load
-        if failed_files:
-            # Throw exception
-            raise RuntimeError("Failed to load the following files:\n%s" % ", ".join(failed_files))
-
-        # Return mostly empty project_data dict (with just the current version #)
-        log.info("Successfully loaded legacy project file: %s", file_path)
-        return project_data
+        """Legacy pickle projects can execute code and must not be deserialized."""
+        raise ValueError("OpenShot 1.x pickle projects are no longer supported. Open a JSON .osp project instead.")
 
     def upgrade_project_data_structures(self):
         """Fix any issues with old project files (if any)"""
@@ -1100,11 +859,75 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             points[0].get("co", {}).get("Y", default_value) != default_value,
         ])
 
+    def capture_save_snapshot(self, history):
+        """Freeze JSON on the UI thread; serialization does not publish history."""
+        from classes.project_recovery import validate_project
+        validate_project(self._data)
+        data = dict(self._data, history=history, version={
+            "openshot-qt": info.VERSION, "libopenshot": openshot.OPENSHOT_VERSION_FULL})
+        return ProjectSnapshot.capture(data)
+
+    @classmethod
+    def write_save_snapshot(cls, file_path, snapshot, asset_paths, backup_only=False):
+        """Write detached data in a worker, without modifying the active project."""
+        from qt_api import write_file_chunks, is_content_uri
+        project = object.__new__(cls)
+        JsonDataStore.__init__(project)
+        project.data_type = "project data"
+        project._data = snapshot.decode(exclude=("clips",))
+        if "clips" in project._data:
+            raise ValueError("Project clips must be a list")
+        entries = dict(snapshot.collections).get("clips", ())
+        # Discover orphaned File records before copying assets. Each decoded
+        # clip is short-lived: never build a second large project object graph.
+        restore_clip = project._restore_clip_file_references(
+            asset_paths.THUMBNAIL_PATH, clips=(json.loads(entry) for entry in entries))
+        project._data["clips"] = []
+        relocate_clip = None
+        if backup_only:
+            project._data["runtime_assets_path"] = os.path.dirname(asset_paths.TITLE_PATH)
+        else:
+            relocate_clip = project.move_temp_paths_to_project_folder(
+                file_path, previous_path=file_path, asset_paths=asset_paths)
+
+        def encode(value):
+            project._save_waveform_assets(file_path, value)
+            text = json.dumps(value, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
+            if not backup_only and not is_content_uri(file_path):
+                text = project.convert_paths_to_relative(file_path, file_path, text)
+            return text
+
+        def chunks():
+            header = dict(project._data)
+            del header["clips"]
+            yield encode(header)[:-1]
+            yield ',"clips": [' if header else '"clips": ['
+            for index, entry in enumerate(entries):
+                clip = json.loads(entry)
+                restore_clip(clip)
+                if relocate_clip:
+                    relocate_clip(clip)
+                if index:
+                    yield ","
+                yield encode(clip)
+            yield "]}"
+
+        write_file_chunks(file_path, chunks())
+
+    @staticmethod
+    def capture_asset_paths():
+        """Capture the runtime roots used by a background save."""
+        return SimpleNamespace(**{name: getattr(info, name) for name in (
+            "USER_PATH", "ASSETS_PATH", "THUMBNAIL_PATH", "TITLE_PATH", "BLENDER_PATH",
+            "PROTOBUF_DATA_PATH", "CLIPBOARD_PATH", "COMFYUI_OUTPUT_PATH", "PROXY_PATH")})
+
     def save(self, file_path, backup_only=False):
         """ Save project file to disk """
         import openshot
 
         log.info("Saving project file: %s", file_path)
+        from classes.project_recovery import validate_project
+        validate_project(self._data)
         self._restore_clip_file_references()
 
         # Move all temp files (i.e. Blender Animations, Titles, Thumbnails, Protobuf files) to the project folder
@@ -1169,7 +992,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         default_root = info.get_default_path(default_name)
         return self._paths_match(source_root, default_root)
 
-    def _sync_asset_entry(self, source_path, target_path, move=False, replace_existing=False):
+    def _sync_asset_entry(self, source_path, target_path, move=False, replace_existing=False, overwrite_files=False):
         """Copy or move a file/folder into the target asset tree."""
         if not os.path.exists(source_path):
             return
@@ -1197,6 +1020,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     os.path.join(target_path, child_name),
                     move=move,
                     replace_existing=replace_existing,
+                    overwrite_files=overwrite_files,
                 )
 
             if move and os.path.isdir(source_path) and not os.listdir(source_path):
@@ -1204,16 +1028,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             return
 
         if os.path.exists(target_path):
-            if replace_existing:
-                if os.path.isdir(target_path):
-                    shutil.rmtree(target_path, True)
-                else:
-                    os.remove(target_path)
+            if overwrite_files or replace_existing:
+                # Keep the last published title/effect until its new bytes exist.
+                self._copy_recording_asset(source_path, target_path, overwrite=True)
+                if move:
+                    os.remove(source_path)
             elif move:
                 os.remove(source_path)
-                return
-            else:
-                return
+            return
 
         parent_path = os.path.dirname(target_path)
         if parent_path:
@@ -1223,7 +1045,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         else:
             shutil.copy2(source_path, target_path)
 
-    def _sync_asset_root(self, source_root, target_root, move=False, replace_existing=False):
+    def _sync_asset_root(self, source_root, target_root, move=False, replace_existing=False, overwrite_files=False):
         """Copy or move all entries from a source asset root into a target root."""
         if not source_root or not os.path.exists(source_root):
             return
@@ -1237,12 +1059,13 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 os.path.join(target_root, entry_name),
                 move=move,
                 replace_existing=replace_existing,
+                overwrite_files=overwrite_files,
             )
 
     @staticmethod
-    def _copy_recording_asset(source_path, target_path):
-        """Publish a complete recording copy before relocating its reader paths."""
-        if os.path.exists(target_path) or not os.path.exists(source_path):
+    def _copy_recording_asset(source_path, target_path, overwrite=False):
+        """Publish a complete asset copy before relocating its reader paths."""
+        if (os.path.exists(target_path) and not overwrite) or not os.path.exists(source_path):
             return
         parent_path = os.path.dirname(target_path)
         os.makedirs(parent_path, exist_ok=True)
@@ -1255,7 +1078,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             if os.path.exists(temporary_path):
                 os.remove(temporary_path)
 
-    def _relocate_history_assets(self, asset_roots):
+    def _relocate_history_assets(self, asset_roots, update_live=True):
         """Keep detached undo/redo snapshots usable after assets move on save."""
         path_keys = {"image", "path", "resource", "protobuf_data_path", "lut_path"}
 
@@ -1292,6 +1115,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     if field in action:
                         action[field] = relocate(action[field], path_key)
 
+        if not update_live:
+            return
         app = get_app()
         if app.project is self:
             updates = app.updates
@@ -1303,8 +1128,14 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 action.values = relocate(action.values, path_key)
                 action.old_values = relocate(action.old_values, path_key)
 
-    def move_temp_paths_to_project_folder(self, file_path, previous_path=None):
-        """ Move all temp files (such as Thumbnails, Titles, and Blender animations) to the project asset folder. """
+    def move_temp_paths_to_project_folder(self, file_path, previous_path=None, asset_paths=None):
+        """Publish assets and return a path updater for additional streamed clips."""
+        paths = asset_paths or info
+        copy_only = asset_paths is not None
+
+        def should_move(root, name):
+            return not copy_only and self._should_move_runtime_assets(root, name)
+
         # Fail the save before relocating media or writing the project when its
         # asset directory cannot be created (permissions, disk full, etc.).
         asset_path = get_assets_path(file_path)
@@ -1335,15 +1166,15 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
             # Update paths (if a previous path exists)
             #   /Project1/ to /Project2/ for example
-            if previous_path:
+            if previous_path and not copy_only:
                 previous_asset_path = get_assets_path(previous_path)
-                info.THUMBNAIL_PATH = os.path.join(previous_asset_path, "thumbnail")
-                info.TITLE_PATH = os.path.join(previous_asset_path, "title")
-                info.BLENDER_PATH = os.path.join(previous_asset_path, "blender")
-                info.PROTOBUF_DATA_PATH = os.path.join(previous_asset_path, "protobuf_data")
-                info.CLIPBOARD_PATH = os.path.join(previous_asset_path, "clipboard")
-                info.COMFYUI_OUTPUT_PATH = os.path.join(previous_asset_path, "comfyui-output")
-                info.PROXY_PATH = os.path.join(previous_asset_path, "optimized")
+                paths.THUMBNAIL_PATH = os.path.join(previous_asset_path, "thumbnail")
+                paths.TITLE_PATH = os.path.join(previous_asset_path, "title")
+                paths.BLENDER_PATH = os.path.join(previous_asset_path, "blender")
+                paths.PROTOBUF_DATA_PATH = os.path.join(previous_asset_path, "protobuf_data")
+                paths.CLIPBOARD_PATH = os.path.join(previous_asset_path, "clipboard")
+                paths.COMFYUI_OUTPUT_PATH = os.path.join(previous_asset_path, "comfyui-output")
+                paths.PROXY_PATH = os.path.join(previous_asset_path, "optimized")
 
             # Track assets we copy/update
             copied_assets = {
@@ -1355,13 +1186,13 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             }
             reader_paths = {}
             recording_roots = [
-                (os.path.join(info.USER_PATH, "recordings"), True),
+                (os.path.join(paths.USER_PATH, "recordings"), not copy_only),
             ]
-            active_recordings = os.path.join(info.ASSETS_PATH, "recordings")
+            active_recordings = os.path.join(paths.ASSETS_PATH, "recordings")
             if not self._paths_match(active_recordings, recording_roots[0][0]):
                 recording_roots.append((
                     active_recordings,
-                    not previous_path and self._should_move_runtime_assets(info.ASSETS_PATH, "ASSETS_PATH"),
+                    not previous_path and should_move(paths.ASSETS_PATH, "ASSETS_PATH"),
                 ))
             if previous_path:
                 previous_recording_path = os.path.join(
@@ -1370,13 +1201,13 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     recording_roots.append((previous_recording_path, False))
 
             history_asset_roots = [
-                (info.THUMBNAIL_PATH, target_thumb_path),
-                (info.TITLE_PATH, target_title_path),
-                (info.BLENDER_PATH, target_blender_path),
-                (info.PROTOBUF_DATA_PATH, target_protobuf_path),
-                (info.CLIPBOARD_PATH, target_clipboard_path),
-                (info.COMFYUI_OUTPUT_PATH, target_comfy_output_path),
-                (info.PROXY_PATH, target_proxy_path),
+                (paths.THUMBNAIL_PATH, target_thumb_path),
+                (paths.TITLE_PATH, target_title_path),
+                (paths.BLENDER_PATH, target_blender_path),
+                (paths.PROTOBUF_DATA_PATH, target_protobuf_path),
+                (paths.CLIPBOARD_PATH, target_clipboard_path),
+                (paths.COMFYUI_OUTPUT_PATH, target_comfy_output_path),
+                (paths.PROXY_PATH, target_proxy_path),
             ] + [(root, target_recording_path) for root, _move in recording_roots]
 
             def relocate_effect_protobuf(effect):
@@ -1393,40 +1224,43 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     log.info("Copied protobuf %s to %s", old_protobuf_path, target_protobuf_path)
 
             self._sync_asset_root(
-                info.THUMBNAIL_PATH,
+                paths.THUMBNAIL_PATH,
                 target_thumb_path,
-                move=self._should_move_runtime_assets(info.THUMBNAIL_PATH, "THUMBNAIL_PATH"),
+                move=should_move(paths.THUMBNAIL_PATH, "THUMBNAIL_PATH"),
             )
             self._sync_asset_root(
-                info.TITLE_PATH,
+                paths.TITLE_PATH,
                 target_title_path,
-                move=self._should_move_runtime_assets(info.TITLE_PATH, "TITLE_PATH"),
+                move=should_move(paths.TITLE_PATH, "TITLE_PATH"),
+                overwrite_files=True,
             )
             self._sync_asset_root(
-                info.BLENDER_PATH,
+                paths.BLENDER_PATH,
                 target_blender_path,
-                move=self._should_move_runtime_assets(info.BLENDER_PATH, "BLENDER_PATH"),
+                move=should_move(paths.BLENDER_PATH, "BLENDER_PATH"),
             )
             self._sync_asset_root(
-                info.CLIPBOARD_PATH,
+                paths.CLIPBOARD_PATH,
                 target_clipboard_path,
-                move=self._should_move_runtime_assets(info.CLIPBOARD_PATH, "CLIPBOARD_PATH"),
+                move=should_move(paths.CLIPBOARD_PATH, "CLIPBOARD_PATH"),
+                overwrite_files=True,
             )
             self._sync_asset_root(
-                info.COMFYUI_OUTPUT_PATH,
+                paths.COMFYUI_OUTPUT_PATH,
                 target_comfy_output_path,
-                move=self._should_move_runtime_assets(info.COMFYUI_OUTPUT_PATH, "COMFYUI_OUTPUT_PATH"),
-                replace_existing=True,
+                move=should_move(paths.COMFYUI_OUTPUT_PATH, "COMFYUI_OUTPUT_PATH"),
+                replace_existing=not copy_only,
             )
             self._sync_asset_root(
-                info.PROTOBUF_DATA_PATH,
+                paths.PROTOBUF_DATA_PATH,
                 target_protobuf_path,
-                move=self._should_move_runtime_assets(info.PROTOBUF_DATA_PATH, "PROTOBUF_DATA_PATH"),
+                move=should_move(paths.PROTOBUF_DATA_PATH, "PROTOBUF_DATA_PATH"),
+                overwrite_files=True,
             )
             self._sync_asset_root(
-                info.PROXY_PATH,
+                paths.PROXY_PATH,
                 target_proxy_path,
-                move=self._should_move_runtime_assets(info.PROXY_PATH, "PROXY_PATH"),
+                move=should_move(paths.PROXY_PATH, "PROXY_PATH"),
             )
 
             # Copy any necessary assets for File records
@@ -1481,20 +1315,20 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             )
                     break
 
-                if info.BLENDER_PATH in path:
+                if paths.BLENDER_PATH in path:
                     path_abs = os.path.abspath(path)
-                    blender_root_abs = os.path.abspath(info.BLENDER_PATH)
+                    blender_root_abs = os.path.abspath(paths.BLENDER_PATH)
                     if path_abs.startswith(blender_root_abs + os.sep):
                         relative_blender_path = os.path.relpath(path_abs, blender_root_abs)
                         blender_root_name = relative_blender_path.split(os.sep, 1)[0]
                         if blender_root_name and blender_root_name not in copied_assets["blender"]:
-                            source_blender_dir = os.path.join(info.BLENDER_PATH, blender_root_name)
+                            source_blender_dir = os.path.join(paths.BLENDER_PATH, blender_root_name)
                             if os.path.abspath(source_blender_dir) != os.path.abspath(target_blender_path):
                                 copied_assets["blender"].add(blender_root_name)
                                 log.info("Copied dir %s to %s", blender_root_name, target_blender_path)
                         new_asset_path = os.path.join(target_blender_path, relative_blender_path)
 
-                if info.TITLE_PATH in path:
+                if paths.TITLE_PATH in path:
                     # Copy title files into assets folder
                     old_dir, asset_name = os.path.split(path)
                     if asset_name not in copied_assets["title"]:
@@ -1504,7 +1338,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             log.info("Copied title %s to %s", asset_name, target_title_path)
                     new_asset_path = os.path.join(target_title_path, asset_name)
 
-                if info.CLIPBOARD_PATH in path:
+                if paths.CLIPBOARD_PATH in path:
                     old_dir, asset_name = os.path.split(path)
                     if asset_name not in copied_assets["clipboard"]:
                         if os.path.abspath(old_dir) != os.path.abspath(target_clipboard_path):
@@ -1512,7 +1346,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             log.info("Copied clipboard %s to %s", asset_name, target_clipboard_path)
                     new_asset_path = os.path.join(target_clipboard_path, asset_name)
 
-                comfy_output_abs = os.path.abspath(info.COMFYUI_OUTPUT_PATH)
+                comfy_output_abs = os.path.abspath(paths.COMFYUI_OUTPUT_PATH)
                 path_abs = os.path.abspath(path)
                 if path_abs.startswith(comfy_output_abs + os.sep):
                     if os.path.abspath(os.path.dirname(path)) != os.path.abspath(target_comfy_output_path):
@@ -1530,7 +1364,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
                 proxy_reader = file.get("proxy_reader")
                 proxy_path = proxy_reader.get("path") if isinstance(proxy_reader, dict) else ""
-                if proxy_path and info.PROXY_PATH in proxy_path:
+                if proxy_path and paths.PROXY_PATH in proxy_path:
                     proxy_dir, proxy_name = os.path.split(proxy_path)
                     if proxy_name not in copied_assets["proxy"]:
                         if os.path.abspath(proxy_dir) != os.path.abspath(target_proxy_path):
@@ -1551,7 +1385,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 relocate_effect_protobuf(effect)
 
             # Copy all Clip thumbnails and update reader paths
-            for clip in self._data["clips"]:
+            def relocate_clip(clip):
                 file_id = clip.get("file_id") or (clip.get("reader") or {}).get("id")
                 clip_id = clip["id"]
 
@@ -1559,7 +1393,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 # The title folder was copied above, including immutable history images.
                 if clip.get("direct_text"):
                     path = (clip.get("reader") or {}).get("path", "")
-                    relative = self._path_relative_to_root(path, info.TITLE_PATH)
+                    relative = self._path_relative_to_root(path, paths.TITLE_PATH)
                     if relative is not None:
                         target = os.path.join(target_title_path, relative)
                         if os.path.exists(target):
@@ -1567,7 +1401,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                             clip["image"] = target
                             # Relocation bypasses updates; discard stale query paths.
                             from classes.query import QueryObject
-                            QueryObject._cache_version = None
+                            if not copy_only:
+                                QueryObject._cache_version = None
 
                 # For now, store thumbnail path for backwards compatibility
                 if file_id:
@@ -1584,13 +1419,19 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 for effect in clip.get("effects", []):
                     relocate_effect_protobuf(effect)
 
+            for clip in self._data["clips"]:
+                relocate_clip(clip)
+            return relocate_clip
+
         except Exception:
             log.error(
                 "Error while moving temp paths to project assets folder %s",
                 asset_path, exc_info=1)
+            if copy_only:
+                raise
         finally:
             # Some assets may already have moved even if a later copy failed.
-            self._relocate_history_assets(history_asset_roots)
+            self._relocate_history_assets(history_asset_roots, update_live=not copy_only)
 
     def add_to_recent_files(self, file_path):
         """ Add this project to the recent files list """
@@ -1622,26 +1463,29 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         s.set("recent_projects", recent_projects)
         s.save()
 
-    def _restore_clip_file_references(self):
+    def _restore_clip_file_references(self, thumbnail_path=None, clips=None):
         """Recover orphaned media references before saving or validating paths.
 
         Clips contain a full reader even when their Project Files entry is
         absent. Reuse a matching file, or restore that entry from the reader,
         so path validation can locate missing media instead of deleting a
         playable clip just because its file ID is unknown.
+
+        Return the same restorer for clips decoded later by the snapshot writer.
         """
         files = self._data.setdefault("files", [])
         by_id = {file.get("id"): file for file in files}
         by_path = {comparable_local_path(file.get("path")): file for file in files
                    if file.get("path")}
-        for clip in self._data.get("clips", []):
+
+        def restore_clip(clip):
             reader = clip.get("reader")
             if not isinstance(reader, dict):
-                continue
+                return
             file_id = clip.get("file_id") or reader.get("id")
             path = reader.get("path")
             if not file_id or file_id in by_id or not path:
-                continue
+                return
             file = by_path.get(comparable_local_path(path))
             if file is None:
                 file = copy.deepcopy(reader)
@@ -1651,7 +1495,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                         file, has_video=file.get("has_video", True),
                         has_audio=file.get("has_audio", False)))
                 file["image"] = clip.get("image") or os.path.join(
-                    info.THUMBNAIL_PATH, "%s.png" % file_id)
+                    thumbnail_path or info.THUMBNAIL_PATH, "%s.png" % file_id)
                 files.append(file)
                 by_id[file_id] = file
                 by_path[comparable_local_path(path)] = file
@@ -1660,6 +1504,10 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             reader["id"] = file["id"]
             if file.get("image"):
                 clip["image"] = file["image"]
+
+        for clip in self._data.get("clips", []) if clips is None else clips:
+            restore_clip(clip)
+        return restore_clip
 
     def check_if_paths_are_valid(self):
         """Check if all paths are valid, and prompt to update them if needed"""

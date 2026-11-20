@@ -1,3 +1,21 @@
+# Copyright (c) 2026 OpenShot Studios, LLC
+# This file is part of OpenShot Video Editor (https://www.openshot.org).
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# OpenShot Video Editor is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# OpenShot Video Editor is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with OpenShot Video Editor. If not, see <https://www.gnu.org/licenses/>.
+
+
 """Content-addressed waveform envelopes, outside project and undo JSON.
 
 Samples are little-endian float32 compressed with zlib. References are portable
@@ -117,35 +135,46 @@ def samples(value):
         return ()
 
 
-def externalize(value):
-    """Replace legacy arrays, including detached undo snapshots, in place."""
+def _process(value, directory=None, importing=False, migrate=False):
+    """Visit waveform payloads, excluding native keyframe point arrays."""
+    if is_reference(value):
+        if directory is not None:
+            name = value[_REF] + ".wfc"
+            source, target = os.path.join(cache_directory(), name), os.path.join(directory, name)
+            if importing:
+                source, target = target, source
+            if os.path.isfile(source) and not os.path.isfile(target):
+                with open(source, "rb") as stream:
+                    _atomic_write(target, stream.read())
+        return
     if isinstance(value, dict):
-        for key, child in list(value.items()):
+        for key, child in value.items():
             if key in _KEYS:
-                value[key] = store_samples(child)
-            elif isinstance(child, (dict, list)):
-                externalize(child)
+                if migrate:
+                    child = value[key] = store_samples(child)
+                # Raw sample arrays contain numbers, not nested waveform references.
+                if isinstance(child, dict):
+                    _process(child, directory, importing, migrate)
+            elif key != "Points" and isinstance(child, (dict, list)):
+                _process(child, directory, importing, migrate)
     elif isinstance(value, list):
         for child in value:
             if isinstance(child, (dict, list)):
-                externalize(child)
+                _process(child, directory, importing, migrate)
+
+
+def externalize(value):
+    """Replace legacy arrays, including detached undo snapshots, in place."""
+    _process(value, migrate=True)
     return value
 
 
 def transfer(value, directory, importing=False):
     """Copy referenced envelopes for open/save/save-as, including history."""
-    if is_reference(value):
-        name = value[_REF] + ".wfc"
-        source, target = os.path.join(cache_directory(), name), os.path.join(directory, name)
-        if importing:
-            source, target = target, source
-        if os.path.isfile(source) and not os.path.isfile(target):
-            with open(source, "rb") as stream:
-                _atomic_write(target, stream.read())
-    elif isinstance(value, dict):
-        for child in value.values():
-            transfer(child, directory, importing)
-    elif isinstance(value, list):
-        for child in value:
-            if isinstance(child, (dict, list)):
-                transfer(child, directory, importing)
+    _process(value, directory, importing)
+
+
+def prepare(value, directory, importing=False):
+    """Migrate samples and copy waveform files in a single traversal."""
+    _process(value, directory, importing, migrate=True)
+    return value
