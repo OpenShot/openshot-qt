@@ -1,0 +1,4552 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../profiles.rst:23 ../profiles.rst:201 ../profiles.rst:225
+#: ../profiles.rst:249 ../profiles.rst:266 ../profiles.rst:290
+#: ../profiles.rst:314 ../profiles.rst:338 ../profiles.rst:362
+#: ../profiles.rst:386 ../profiles.rst:410 ../profiles.rst:434
+#: ../profiles.rst:458 ../profiles.rst:482 ../profiles.rst:506
+#: ../profiles.rst:526 ../profiles.rst:550 ../profiles.rst:574
+#: ../profiles.rst:598 ../profiles.rst:622 ../profiles.rst:646
+#: ../profiles.rst:670 ../profiles.rst:694 ../profiles.rst:718
+#: ../profiles.rst:742 ../profiles.rst:771 ../profiles.rst:795
+#: ../profiles.rst:819 ../profiles.rst:843 ../profiles.rst:867
+#: ../profiles.rst:891 ../profiles.rst:915 ../profiles.rst:939
+#: ../profiles.rst:963 ../profiles.rst:987 ../profiles.rst:1010
+#: ../profiles.rst:1034 ../profiles.rst:1058 ../profiles.rst:1082
+#: ../profiles.rst:1111 ../profiles.rst:1138 ../profiles.rst:1169
+#: ../profiles.rst:1193 ../profiles.rst:1217 ../profiles.rst:1248
+#: ../profiles.rst:1273 ../profiles.rst:1306 ../profiles.rst:1330
+#: ../profiles.rst:1369 ../profiles.rst:1400 ../profiles.rst:1431
+#: ../profiles.rst:1462 ../profiles.rst:1504 ../profiles.rst:1533
+#: ../profiles.rst:1558
+msgid "Profiles"
+msgstr "Προφίλ"
+
+#: ../profiles.rst:25
+msgid ""
+"A video profile is a collection of common video settings (*size, frame rate,"
+" aspect ratio*). Profiles are used during editing, previewing, and exporting"
+" to provide a quick way to switch between common combinations of these "
+"settings."
+msgstr ""
+"Ένα προφίλ βίντεο είναι ένα σύνολο κοινών ρυθμίσεων βίντεο (*μέγεθος, ρυθμός"
+" καρέ, αναλογία διαστάσεων*). Τα προφίλ χρησιμοποιούνται κατά την "
+"επεξεργασία, την προεπισκόπηση και την εξαγωγή, ώστε να υπάρχει ένας "
+"γρήγορος τρόπος εναλλαγής ανάμεσα σε συνηθισμένους συνδυασμούς αυτών των "
+"ρυθμίσεων."
+
+#: ../profiles.rst:29
+msgid ""
+"If you often use the same profile, you can set a default profile: "
+":guilabel:`Edit→Preferences→Preview`."
+msgstr ""
+"Αν χρησιμοποιείτε συχνά το ίδιο προφίλ, μπορείτε να ορίσετε ένα "
+"προεπιλεγμένο προφίλ: :guilabel:`Επεξεργασία→Προτιμήσεις→Προεπισκόπηση` "
+"(Edit→Preferences→Preview)."
+
+#: ../profiles.rst:33
+msgid "Project Profile"
+msgstr "Προφίλ έργου"
+
+#: ../profiles.rst:35
+msgid ""
+"The project profile is used when previewing your project and editing. The "
+"default project profile is ``HD 720p 30fps``. It is best practice to always "
+"switch to your target profile before you begin editing. For example, if you "
+"are targeting 1080p 30fps, switch to that profile before you begin editing "
+"your project. For a full list of included profiles see "
+":ref:`profile_list_ref`."
+msgstr ""
+"Το προφίλ έργου χρησιμοποιείται κατά την προεπισκόπηση και την επεξεργασία "
+"του έργου σας. Το προεπιλεγμένο προφίλ έργου είναι το ``HD 720p 30fps``. Η "
+"καλύτερη πρακτική είναι να αλλάζετε πάντα στο προφίλ-στόχο σας πριν "
+"ξεκινήσετε την επεξεργασία. Για παράδειγμα, αν στοχεύετε σε 1080p 30fps, "
+"αλλάξτε σε αυτό το προφίλ πριν ξεκινήσετε την επεξεργασία του έργου σας. Για"
+" πλήρη λίστα των προφίλ που περιλαμβάνονται, δείτε :ref:`profile_list_ref`."
+
+#: ../profiles.rst:40
+msgid ""
+"**Tip:** To quickly select a profile, you can right-click on any file in "
+"your **Project Files**, and select the :guilabel:`Choose Profile` option "
+"(see :ref:`file_menu_ref`)."
+msgstr ""
+"**Συμβουλή:** Για να επιλέξετε γρήγορα ένα προφίλ, μπορείτε να κάνετε δεξί "
+"κλικ σε οποιοδήποτε αρχείο στα **Αρχεία Έργου** (Project Files) και να "
+"επιλέξετε την επιλογή :guilabel:`Επιλογή Προφίλ` (Choose Profile) (δείτε "
+":ref:`file_menu_ref`)."
+
+#: ../profiles.rst:46 ../profiles.rst:59 ../profiles.rst:86
+#: ../profiles.rst:119
+msgid "#"
+msgstr ""
+
+#: ../profiles.rst:46 ../profiles.rst:59 ../profiles.rst:86
+#: ../profiles.rst:119
+msgid "Name"
+msgstr "Όνομα"
+
+#: ../profiles.rst:46 ../profiles.rst:59 ../profiles.rst:86
+#: ../profiles.rst:119 ../profiles.rst:152 ../profiles.rst:187
+#: ../profiles.rst:211 ../profiles.rst:235 ../profiles.rst:259
+#: ../profiles.rst:276 ../profiles.rst:300 ../profiles.rst:324
+#: ../profiles.rst:348 ../profiles.rst:372 ../profiles.rst:396
+#: ../profiles.rst:420 ../profiles.rst:444 ../profiles.rst:468
+#: ../profiles.rst:492 ../profiles.rst:516 ../profiles.rst:536
+#: ../profiles.rst:560 ../profiles.rst:584 ../profiles.rst:608
+#: ../profiles.rst:632 ../profiles.rst:656 ../profiles.rst:680
+#: ../profiles.rst:704 ../profiles.rst:728 ../profiles.rst:757
+#: ../profiles.rst:781 ../profiles.rst:805 ../profiles.rst:829
+#: ../profiles.rst:853 ../profiles.rst:877 ../profiles.rst:901
+#: ../profiles.rst:925 ../profiles.rst:949 ../profiles.rst:973
+#: ../profiles.rst:1000 ../profiles.rst:1020 ../profiles.rst:1044
+#: ../profiles.rst:1068 ../profiles.rst:1097 ../profiles.rst:1124
+#: ../profiles.rst:1155 ../profiles.rst:1179 ../profiles.rst:1203
+#: ../profiles.rst:1234 ../profiles.rst:1259 ../profiles.rst:1292
+#: ../profiles.rst:1316 ../profiles.rst:1355 ../profiles.rst:1386
+#: ../profiles.rst:1417 ../profiles.rst:1448 ../profiles.rst:1492
+#: ../profiles.rst:1519 ../profiles.rst:1544
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: ../profiles.rst:48 ../profiles.rst:61 ../profiles.rst:88
+#: ../profiles.rst:121
+msgid "1"
+msgstr ""
+
+#: ../profiles.rst:48
+msgid "Title Bar"
+msgstr "Γραμμή τίτλου (Title Bar)"
+
+#: ../profiles.rst:48
+msgid "The title bar of OpenShot displays the current profile"
+msgstr "Η γραμμή τίτλου του OpenShot εμφανίζει το τρέχον προφίλ"
+
+#: ../profiles.rst:49 ../profiles.rst:62 ../profiles.rst:89
+#: ../profiles.rst:122 ../profiles.rst:192 ../profiles.rst:216
+#: ../profiles.rst:240 ../profiles.rst:281 ../profiles.rst:305
+#: ../profiles.rst:329 ../profiles.rst:353 ../profiles.rst:377
+#: ../profiles.rst:401 ../profiles.rst:425 ../profiles.rst:449
+#: ../profiles.rst:473 ../profiles.rst:497 ../profiles.rst:520
+#: ../profiles.rst:541 ../profiles.rst:565 ../profiles.rst:589
+#: ../profiles.rst:613 ../profiles.rst:637 ../profiles.rst:661
+#: ../profiles.rst:685 ../profiles.rst:709 ../profiles.rst:733
+#: ../profiles.rst:762 ../profiles.rst:786 ../profiles.rst:810
+#: ../profiles.rst:834 ../profiles.rst:858 ../profiles.rst:882
+#: ../profiles.rst:906 ../profiles.rst:930 ../profiles.rst:954
+#: ../profiles.rst:978 ../profiles.rst:1005 ../profiles.rst:1025
+#: ../profiles.rst:1049 ../profiles.rst:1073 ../profiles.rst:1102
+#: ../profiles.rst:1129 ../profiles.rst:1160 ../profiles.rst:1184
+#: ../profiles.rst:1208 ../profiles.rst:1239 ../profiles.rst:1264
+#: ../profiles.rst:1297 ../profiles.rst:1321 ../profiles.rst:1360
+#: ../profiles.rst:1391 ../profiles.rst:1422 ../profiles.rst:1453
+#: ../profiles.rst:1497 ../profiles.rst:1524 ../profiles.rst:1549
+msgid "2"
+msgstr ""
+
+#: ../profiles.rst:49
+msgid "Profile Button"
+msgstr "Κουμπί προφίλ (Profile Button)"
+
+#: ../profiles.rst:49
+msgid "Launch the profiles dialog"
+msgstr "Ανοίγει το παράθυρο διαλόγου των προφίλ"
+
+#: ../profiles.rst:50 ../profiles.rst:63 ../profiles.rst:90
+msgid "3"
+msgstr ""
+
+#: ../profiles.rst:50 ../profiles.rst:121
+msgid "Choose Profile"
+msgstr "Επιλογή προφίλ (Choose Profile)"
+
+#: ../profiles.rst:50
+msgid "Select a profile for editing and preview"
+msgstr "Επιλέξτε ένα προφίλ για την επεξεργασία και την προεπισκόπηση"
+
+#: ../profiles.rst:54
+msgid "Choose Profile Dialog"
+msgstr "Παράθυρο διαλόγου Επιλογή προφίλ"
+
+#: ../profiles.rst:61
+msgid "Filter / Search"
+msgstr "Φίλτρο / Αναζήτηση (Filter / Search)"
+
+#: ../profiles.rst:61
+msgid ""
+"Filter the available profiles by typing a few characters (i.e. FHD, 720p, "
+"16:9, etc...)"
+msgstr ""
+"Φιλτράρετε τα διαθέσιμα προφίλ πληκτρολογώντας μερικούς χαρακτήρες (π.χ. "
+"FHD, 720p, 16:9, κ.λπ.)"
+
+#: ../profiles.rst:62
+msgid "Selected Profile"
+msgstr "Επιλεγμένο προφίλ (Selected Profile)"
+
+#: ../profiles.rst:62
+msgid ""
+"Click on the desired profile, and then the :guilabel:`OK` button. You can "
+"also double click a profile to select it."
+msgstr ""
+"Κάντε κλικ στο προφίλ που θέλετε και έπειτα στο κουμπί :guilabel:`OK`. "
+"Μπορείτε επίσης να κάνετε διπλό κλικ σε ένα προφίλ για να το επιλέξετε."
+
+#: ../profiles.rst:63
+msgid "Filtered Count"
+msgstr "Πλήθος φιλτραρισμένων (Filtered Count)"
+
+#: ../profiles.rst:63
+msgid "Count of filtered profiles"
+msgstr "Το πλήθος των φιλτραρισμένων προφίλ"
+
+#: ../profiles.rst:64 ../profiles.rst:91
+msgid "4"
+msgstr ""
+
+#: ../profiles.rst:64
+msgid "Accept Profile"
+msgstr "Αποδοχή προφίλ (Accept Profile)"
+
+#: ../profiles.rst:64
+msgid "Click the :guilabel:`OK` button to switch to the selected profile."
+msgstr ""
+"Κάντε κλικ στο κουμπί :guilabel:`OK` για εναλλαγή στο επιλεγμένο προφίλ."
+
+#: ../profiles.rst:65 ../profiles.rst:92
+msgid "5"
+msgstr ""
+
+#: ../profiles.rst:65
+msgid "Context Menu"
+msgstr "Μενού περιβάλλοντος (Context Menu)"
+
+#: ../profiles.rst:65
+msgid ""
+"Right click on any row to :guilabel:`Set as Default Profile` or "
+":guilabel:`Duplicate` a profile. Duplicated and custom profiles also include"
+" an :guilabel:`Edit` and :guilabel:`Delete` option. **Note**: *The current "
+"profile can not be deleted*."
+msgstr ""
+"Κάντε δεξί κλικ σε οποιαδήποτε γραμμή για να επιλέξετε :guilabel:`Ορισμός ως"
+" προεπιλεγμένου προφίλ` (Set as Default Profile) ή :guilabel:`Διπλότυπο` "
+"(Duplicate) για ένα προφίλ. Τα διπλότυπα και τα προσαρμοσμένα προφίλ "
+"περιλαμβάνουν επίσης τις επιλογές :guilabel:`Επεξεργασία` (Edit) και "
+":guilabel:`Διαγραφή` (Delete). **Σημείωση**: *Το τρέχον προφίλ δεν μπορεί να"
+" διαγραφεί*."
+
+#: ../profiles.rst:71
+msgid "Edit/Duplicate Profile"
+msgstr "Επεξεργασία/δημιουργία διπλότυπου προφίλ"
+
+#: ../profiles.rst:73
+msgid ""
+"To create a custom profile, right-click on any profile in OpenShot and "
+"choose :guilabel:`Duplicate` to open up the Profile Editor. Custom profiles "
+"also include an :guilabel:`Edit` and :guilabel:`Delete` option, if you need "
+"to customize them further. You can edit the description, resolution, frame "
+"rate, aspect ratio, and pixel ratio of the custom profile. **NOTE**: *It is "
+"important that each custom profile has a unique profile name*."
+msgstr ""
+"Για να δημιουργήσετε ένα προσαρμοσμένο προφίλ, κάντε δεξί κλικ σε "
+"οποιοδήποτε προφίλ στο OpenShot και επιλέξτε :guilabel:`Διπλότυπο` "
+"(Duplicate), ώστε να ανοίξει ο Επεξεργαστής προφίλ (Profile Editor). Τα "
+"προσαρμοσμένα προφίλ περιλαμβάνουν επίσης τις επιλογές "
+":guilabel:`Επεξεργασία` (Edit) και :guilabel:`Διαγραφή` (Delete), αν "
+"χρειάζεται να τα προσαρμόσετε περαιτέρω. Μπορείτε να επεξεργαστείτε την "
+"περιγραφή, την ανάλυση, τον ρυθμό καρέ, την αναλογία διαστάσεων και την "
+"αναλογία pixel του προσαρμοσμένου προφίλ. **ΣΗΜΕΙΩΣΗ**: *Είναι σημαντικό "
+"κάθε προσαρμοσμένο προφίλ να έχει μοναδικό όνομα προφίλ*."
+
+#: ../profiles.rst:78
+msgid ""
+"The custom profiles are saved in the ``~/.openshot_qt/profiles/`` or "
+"``C:\\Users\\USERNAME\\.openshot_qt\\profiles`` folder."
+msgstr ""
+"Τα προσαρμοσμένα προφίλ αποθηκεύονται στον φάκελο "
+"``~/.openshot_qt/profiles/`` ή "
+"``C:\\Users\\USERNAME\\.openshot_qt\\profiles``."
+
+#: ../profiles.rst:88
+msgid "**File Path**"
+msgstr "**Διαδρομή αρχείου** (File Path)"
+
+#: ../profiles.rst:88
+msgid "The location on your system where the custom profile is saved."
+msgstr "Η θέση στο σύστημά σας όπου αποθηκεύεται το προσαρμοσμένο προφίλ."
+
+#: ../profiles.rst:89
+msgid "**Description**"
+msgstr "**Περιγραφή** (Description)"
+
+#: ../profiles.rst:89
+msgid ""
+"A text description for your custom profile, which is displayed in OpenShot."
+msgstr ""
+"Μια περιγραφή σε μορφή κειμένου για το προσαρμοσμένο προφίλ σας, η οποία "
+"εμφανίζεται στο OpenShot."
+
+#: ../profiles.rst:90
+msgid "**Width**"
+msgstr "**Πλάτος** (Width)"
+
+#: ../profiles.rst:90
+msgid "The horizontal resolution (in pixels) of the video."
+msgstr "Η οριζόντια ανάλυση (σε pixel) του βίντεο."
+
+#: ../profiles.rst:91
+msgid "**Height**"
+msgstr "**Ύψος** (Height)"
+
+#: ../profiles.rst:91
+msgid "The vertical resolution (in pixels) of the video."
+msgstr "Η κατακόρυφη ανάλυση (σε pixel) του βίντεο."
+
+#: ../profiles.rst:92
+msgid "**Frame Rate**"
+msgstr "**Ρυθμός καρέ** (Frame Rate)"
+
+#: ../profiles.rst:92
+msgid "The frame rate of the video (frames per second)."
+msgstr "Ο ρυθμός καρέ του βίντεο (καρέ ανά δευτερόλεπτο)."
+
+#: ../profiles.rst:93
+msgid "6"
+msgstr ""
+
+#: ../profiles.rst:93
+msgid "**Aspect Ratio**"
+msgstr "**Αναλογία διαστάσεων** (Aspect Ratio)"
+
+#: ../profiles.rst:93
+msgid ""
+"The display aspect ratio of the video (automatically calculated from "
+"width/height and pixel ratio)."
+msgstr ""
+"Η αναλογία διαστάσεων εμφάνισης του βίντεο (υπολογίζεται αυτόματα από το "
+"πλάτος/ύψος και την αναλογία pixel)."
+
+#: ../profiles.rst:94
+msgid "7"
+msgstr ""
+
+#: ../profiles.rst:94
+msgid "**Pixel Ratio**"
+msgstr "**Αναλογία pixel** (Pixel Ratio)"
+
+#: ../profiles.rst:94
+msgid ""
+"The aspect ratio of each pixel in the video. A ratio of 1:1 means square "
+"pixels (default)."
+msgstr ""
+"Η αναλογία διαστάσεων κάθε pixel του βίντεο. Αναλογία 1:1 σημαίνει τετράγωνα"
+" pixel (προεπιλογή)."
+
+#: ../profiles.rst:95
+msgid "8"
+msgstr ""
+
+#: ../profiles.rst:95
+msgid "**Interlaced**"
+msgstr "**Διαπλεκόμενο** (Interlaced)"
+
+#: ../profiles.rst:95
+msgid "Whether the video is interlaced (Yes) or progressive (No)."
+msgstr "Εάν το βίντεο είναι διαπλεκόμενης σάρωσης (Yes) ή προοδευτικής (No)."
+
+#: ../profiles.rst:99
+msgid "Converting Profiles"
+msgstr "Μετατροπή προφίλ"
+
+#: ../profiles.rst:100
+msgid ""
+"When switching profiles (or exporting to a different profile), OpenShot will"
+" do it's best to convert all clip, transition, and keyframe data to the new "
+"framerate (FPS). Certain properties, such as `position`, `start`, `end`, and"
+" `keyframes` will be updated to match the new framerate precision. For "
+"example, if moving from 30 FPS to 25 FPS, these properties will be changed "
+"from increments of 1/30 seconds to increments of 1/25 seconds. In order to "
+"preserve the overall timing accuracy of the timeline, OpenShot will match "
+"the `position` and `start` trim as closely as possible, and any tiny gaps "
+"(1-3 frames big) caused due to rounding or precision changes, will be "
+"resolved automatically by adjusting the `end` trim. This should result in a "
+"seamless conversion for most video projects (with no noticeable black gaps "
+"between clips)."
+msgstr ""
+"Όταν αλλάζετε προφίλ (ή εξάγετε σε διαφορετικό προφίλ), το OpenShot θα κάνει"
+" ό,τι μπορεί για να μετατρέψει όλα τα δεδομένα κλιπ, μεταβάσεων και βασικών "
+"καρέ στον νέο ρυθμό καρέ (FPS). Ορισμένες ιδιότητες, όπως οι `position`, "
+"`start`, `end` και `keyframes`, θα ενημερωθούν ώστε να ταιριάζουν με την "
+"ακρίβεια του νέου ρυθμού καρέ. Για παράδειγμα, αν μεταβείτε από 30 FPS σε 25"
+" FPS, οι ιδιότητες αυτές θα αλλάξουν από βήματα του 1/30 του δευτερολέπτου "
+"σε βήματα του 1/25 του δευτερολέπτου. Για να διατηρηθεί η συνολική ακρίβεια "
+"χρονισμού του χρονολογίου, το OpenShot θα προσεγγίσει όσο το δυνατόν πιο "
+"κοντά τις τιμές `position` και `start` (περικοπή αρχής), και τυχόν "
+"μικροσκοπικά κενά (μεγέθους 1-3 καρέ) που προκαλούνται από στρογγυλοποίηση ή"
+" αλλαγές στην ακρίβεια θα επιλυθούν αυτόματα με προσαρμογή της περικοπής "
+"`end`. Αυτό θα πρέπει να οδηγήσει σε απρόσκοπτη μετατροπή για τα περισσότερα"
+" έργα βίντεο (χωρίς αισθητά μαύρα κενά ανάμεσα στα κλιπ)."
+
+#: ../profiles.rst:108
+msgid ""
+"However, the destructive nature of this conversion is why we recommend "
+"always editing in your target profile, or at least your target FPS, in order"
+" to avoid converting between profiles as much as possible."
+msgstr ""
+"Ωστόσο, ακριβώς λόγω του μη αναστρέψιμου χαρακτήρα αυτής της μετατροπής, "
+"συνιστούμε να επεξεργάζεστε πάντα στο προφίλ-στόχο σας, ή τουλάχιστον στον "
+"ρυθμό καρέ (FPS) στόχο, ώστε να αποφεύγονται όσο το δυνατόν περισσότερο οι "
+"μετατροπές μεταξύ προφίλ."
+
+#: ../profiles.rst:112
+msgid "Export Profile"
+msgstr "Προφίλ εξαγωγής"
+
+#: ../profiles.rst:114
+msgid ""
+"The export profile always defaults to your current project profile, but can "
+"be changed to target different profiles."
+msgstr ""
+"Το προφίλ εξαγωγής έχει πάντα ως προεπιλογή το τρέχον προφίλ του έργου σας, "
+"αλλά μπορεί να αλλάξει ώστε να στοχεύει σε διαφορετικά προφίλ."
+
+#: ../profiles.rst:121
+msgid ""
+"Select an export profile from a dropdown. This list is sorted from largest "
+"resolution at the top, smallest resolution at the bottom."
+msgstr ""
+"Επιλέξτε ένα προφίλ εξαγωγής από την αναπτυσσόμενη λίστα. Η λίστα αυτή είναι"
+" ταξινομημένη με τη μεγαλύτερη ανάλυση στην κορυφή και τη μικρότερη ανάλυση "
+"στο κάτω μέρος."
+
+#: ../profiles.rst:122
+msgid "Search Profiles"
+msgstr "Αναζήτηση προφίλ (Search Profiles)"
+
+#: ../profiles.rst:122
+msgid ""
+"Open Profile dialog to filter and search for an export profile, which can "
+"sometimes be much quicker to find a specific profile."
+msgstr ""
+"Ανοίγει το παράθυρο διαλόγου Προφίλ για φιλτράρισμα και αναζήτηση ενός "
+"προφίλ εξαγωγής, κάτι που μερικές φορές μπορεί να είναι πολύ πιο γρήγορο για"
+" να βρείτε ένα συγκεκριμένο προφίλ."
+
+#: ../profiles.rst:126
+msgid "Custom Profile"
+msgstr "Προσαρμοσμένο προφίλ"
+
+#: ../profiles.rst:127
+msgid ""
+"Although OpenShot has more than 400 profiles (:ref:`profile_list_ref`) "
+"included by default, you can also create your own custom profiles. Create a "
+"new text file in the ``~/.openshot_qt/profiles/`` or "
+"``C:\\Users\\USERNAME\\.openshot_qt\\profiles`` folder."
+msgstr ""
+"Παρότι το OpenShot περιλαμβάνει εξ ορισμού περισσότερα από 400 προφίλ "
+"(:ref:`profile_list_ref`), μπορείτε επίσης να δημιουργήσετε τα δικά σας "
+"προσαρμοσμένα προφίλ. Δημιουργήστε ένα νέο αρχείο κειμένου στον φάκελο "
+"``~/.openshot_qt/profiles/`` ή "
+"``C:\\Users\\USERNAME\\.openshot_qt\\profiles``."
+
+#: ../profiles.rst:131
+msgid ""
+"NOTE: See :ref:`profiles_editor_ref` for an alternative method of "
+"duplicating an existing profile."
+msgstr ""
+"ΣΗΜΕΙΩΣΗ: Δείτε :ref:`profiles_editor_ref` για μια εναλλακτική μέθοδο "
+"δημιουργίας διπλότυπου ενός υπάρχοντος προφίλ."
+
+#: ../profiles.rst:133
+msgid ""
+"Use the following text as your template (*i.e. copy and paste this into the "
+"new file*):"
+msgstr ""
+"Χρησιμοποιήστε το ακόλουθο κείμενο ως πρότυπο (*δηλαδή αντιγράψτε και "
+"επικολλήστε το σε ένα νέο αρχείο*):"
+
+#: ../profiles.rst:152
+msgid "Profile Property"
+msgstr "Ιδιότητα προφίλ"
+
+#: ../profiles.rst:154
+msgid "description"
+msgstr ""
+
+#: ../profiles.rst:154
+msgid ""
+"The friendly name of the profile (this is what OpenShot displays in the user"
+" interface)"
+msgstr ""
+"Το φιλικό όνομα του προφίλ (αυτό είναι που εμφανίζει το OpenShot στη διεπαφή"
+" χρήστη)"
+
+#: ../profiles.rst:155
+msgid "frame_rate_num"
+msgstr ""
+
+#: ../profiles.rst:155
+msgid ""
+"The frame rate numerator. All frame rates are expressed as fractions. For "
+"example, ``30 FPS == 30/1``."
+msgstr ""
+"Ο αριθμητής του ρυθμού καρέ. Όλοι οι ρυθμοί καρέ εκφράζονται ως κλάσματα. "
+"Για παράδειγμα, ``30 FPS == 30/1``."
+
+#: ../profiles.rst:156
+msgid "frame_rate_den"
+msgstr ""
+
+#: ../profiles.rst:156
+msgid ""
+"The frame rate denominator. All frame rates are expressed as fractions. For "
+"example, ``29.97 FPS == 30,000/1001``."
+msgstr ""
+"Ο παρονομαστής του ρυθμού καρέ. Όλοι οι ρυθμοί καρέ εκφράζονται ως κλάσματα."
+" Για παράδειγμα, ``29.97 FPS == 30,000/1001``."
+
+#: ../profiles.rst:157
+msgid "width"
+msgstr ""
+
+#: ../profiles.rst:157
+msgid ""
+"The number of horizontal pixels in the image. By reversing the values for "
+"`width` and `height`, you can create a vertical profile."
+msgstr ""
+"Ο αριθμός των οριζόντιων pixel της εικόνας. Αντιστρέφοντας τις τιμές των "
+"`width` και `height`, μπορείτε να δημιουργήσετε ένα κατακόρυφο προφίλ."
+
+#: ../profiles.rst:158
+msgid "height"
+msgstr ""
+
+#: ../profiles.rst:158
+msgid "The number of vertical pixels in the image"
+msgstr "Ο αριθμός των κατακόρυφων pixel της εικόνας"
+
+#: ../profiles.rst:159
+msgid "progressive"
+msgstr ""
+
+#: ../profiles.rst:159
+msgid ""
+"```(0 or 1)``` If 1, both even and odd rows of pixels are used. If 0, only "
+"odd or even rows of pixels are used."
+msgstr ""
+"```(0 or 1)``` Αν είναι 1, χρησιμοποιούνται και οι άρτιες και οι περιττές "
+"γραμμές pixel. Αν είναι 0, χρησιμοποιούνται μόνο οι περιττές ή μόνο οι "
+"άρτιες γραμμές pixel."
+
+#: ../profiles.rst:160
+msgid "sample_aspect_num"
+msgstr ""
+
+#: ../profiles.rst:160
+msgid ""
+"The numerator of the **SAR** (sample/pixel shape aspect ratio), ``1:1`` "
+"ratio would represent a square pixel, ``2:1`` ratio would represent a "
+"``2x1`` rectangle pixel shape, etc..."
+msgstr ""
+"Ο αριθμητής του **SAR** (αναλογία διαστάσεων σχήματος δείγματος/pixel). Μια "
+"αναλογία ``1:1`` αντιστοιχεί σε τετράγωνο pixel, μια αναλογία ``2:1`` "
+"αντιστοιχεί σε ορθογώνιο pixel διαστάσεων ``2x1``, κ.λπ."
+
+#: ../profiles.rst:161
+msgid "sample_aspect_den"
+msgstr ""
+
+#: ../profiles.rst:161
+msgid "The denominator of the **SAR** (sample/pixel shape aspect ratio)"
+msgstr ""
+"Ο παρονομαστής του **SAR** (αναλογία διαστάσεων σχήματος δείγματος/pixel)"
+
+#: ../profiles.rst:162
+msgid "display_aspect_num"
+msgstr ""
+
+#: ../profiles.rst:162
+msgid ""
+"The numerator of the **DAR** (display aspect ratio), ``(width/height) X "
+"(sample aspect ratio)``. This is the final ratio of the image displayed on "
+"screen, reduced to the smallest fraction possible (common ratios are 16:9 "
+"for wide formats, 4:3 for legacy television formats)."
+msgstr ""
+"Ο αριθμητής του **DAR** (αναλογία διαστάσεων εμφάνισης), ``(width/height) X "
+"(sample aspect ratio)``. Αυτή είναι η τελική αναλογία της εικόνας που "
+"εμφανίζεται στην οθόνη, απλοποιημένη στο μικρότερο δυνατό κλάσμα "
+"(συνηθισμένες αναλογίες είναι το 16:9 για ευρείες μορφές και το 4:3 για τις "
+"παλαιές τηλεοπτικές μορφές)."
+
+#: ../profiles.rst:163
+msgid "display_aspect_den"
+msgstr ""
+
+#: ../profiles.rst:163
+msgid "The denominator of the **DAR** (display aspect ratio)"
+msgstr "Ο παρονομαστής του **DAR** (αναλογία διαστάσεων εμφάνισης)"
+
+#: ../profiles.rst:166
+msgid ""
+"Once you restart OpenShot, you will see your custom profile appear in the "
+"list of Profiles."
+msgstr ""
+"Μόλις επανεκκινήσετε το OpenShot, το προσαρμοσμένο προφίλ σας θα εμφανιστεί "
+"στη λίστα των προφίλ."
+
+#: ../profiles.rst:171
+msgid "Preset List"
+msgstr "Λίστα προρυθμίσεων"
+
+#: ../profiles.rst:173
+msgid ""
+"OpenShot includes many **export presets**, which combine our list of common "
+"profiles and their associated video export settings (``video codec``, "
+"``audio codec``, ``audio channels``, ``audio sample rate``, etc...), which "
+"target specific output formats, websites, and devices. The **default export "
+"preset** used by OpenShot is ``MP4 (h.264 + AAC)``, see "
+":ref:`profiles_mp4_h264_ref`."
+msgstr ""
+"Το OpenShot περιλαμβάνει πολλές **προρυθμίσεις εξαγωγής** (export presets), "
+"οι οποίες συνδυάζουν τη λίστα μας με κοινά προφίλ και τις σχετικές ρυθμίσεις"
+" εξαγωγής βίντεο (``video codec``, ``audio codec``, ``audio channels``, "
+"``audio sample rate``, κ.λπ.), με στόχο συγκεκριμένες μορφές εξόδου, "
+"ιστότοπους και συσκευές. Η **προεπιλεγμένη προρύθμιση εξαγωγής** (default "
+"export preset) που χρησιμοποιεί το OpenShot είναι η ``MP4 (h.264 + AAC)``, "
+"δείτε :ref:`profiles_mp4_h264_ref`."
+
+#: ../profiles.rst:178
+msgid "All Formats"
+msgstr "Όλες οι μορφές"
+
+#: ../profiles.rst:181
+msgid "AVI (h.264)"
+msgstr ""
+
+#: ../profiles.rst:187 ../profiles.rst:211 ../profiles.rst:235
+#: ../profiles.rst:259 ../profiles.rst:276 ../profiles.rst:300
+#: ../profiles.rst:324 ../profiles.rst:348 ../profiles.rst:372
+#: ../profiles.rst:396 ../profiles.rst:420 ../profiles.rst:444
+#: ../profiles.rst:468 ../profiles.rst:492 ../profiles.rst:516
+#: ../profiles.rst:536 ../profiles.rst:560 ../profiles.rst:584
+#: ../profiles.rst:608 ../profiles.rst:632 ../profiles.rst:656
+#: ../profiles.rst:680 ../profiles.rst:704 ../profiles.rst:728
+#: ../profiles.rst:757 ../profiles.rst:781 ../profiles.rst:805
+#: ../profiles.rst:829 ../profiles.rst:853 ../profiles.rst:877
+#: ../profiles.rst:901 ../profiles.rst:925 ../profiles.rst:949
+#: ../profiles.rst:973 ../profiles.rst:1000 ../profiles.rst:1020
+#: ../profiles.rst:1044 ../profiles.rst:1068 ../profiles.rst:1097
+#: ../profiles.rst:1124 ../profiles.rst:1155 ../profiles.rst:1179
+#: ../profiles.rst:1203 ../profiles.rst:1234 ../profiles.rst:1259
+#: ../profiles.rst:1292 ../profiles.rst:1316 ../profiles.rst:1355
+#: ../profiles.rst:1386 ../profiles.rst:1417 ../profiles.rst:1448
+#: ../profiles.rst:1492 ../profiles.rst:1519 ../profiles.rst:1544
+msgid "Preset Attribute"
+msgstr "Χαρακτηριστικό προρύθμισης"
+
+#: ../profiles.rst:189 ../profiles.rst:213 ../profiles.rst:237
+#: ../profiles.rst:261 ../profiles.rst:278 ../profiles.rst:302
+#: ../profiles.rst:326 ../profiles.rst:350 ../profiles.rst:374
+#: ../profiles.rst:398 ../profiles.rst:422 ../profiles.rst:446
+#: ../profiles.rst:470 ../profiles.rst:494 ../profiles.rst:518
+#: ../profiles.rst:538 ../profiles.rst:562 ../profiles.rst:586
+#: ../profiles.rst:610 ../profiles.rst:634 ../profiles.rst:658
+#: ../profiles.rst:682 ../profiles.rst:706 ../profiles.rst:730
+#: ../profiles.rst:759 ../profiles.rst:783 ../profiles.rst:807
+#: ../profiles.rst:831 ../profiles.rst:855 ../profiles.rst:879
+#: ../profiles.rst:903 ../profiles.rst:927 ../profiles.rst:951
+#: ../profiles.rst:975 ../profiles.rst:1002 ../profiles.rst:1022
+#: ../profiles.rst:1046 ../profiles.rst:1070 ../profiles.rst:1099
+#: ../profiles.rst:1126 ../profiles.rst:1157 ../profiles.rst:1181
+#: ../profiles.rst:1205 ../profiles.rst:1236 ../profiles.rst:1261
+#: ../profiles.rst:1294 ../profiles.rst:1318 ../profiles.rst:1357
+#: ../profiles.rst:1388 ../profiles.rst:1419 ../profiles.rst:1450
+#: ../profiles.rst:1494 ../profiles.rst:1521 ../profiles.rst:1546
+msgid "Video Format"
+msgstr "Μορφή βίντεο"
+
+#: ../profiles.rst:189 ../profiles.rst:213 ../profiles.rst:237
+#: ../profiles.rst:1046 ../profiles.rst:1070
+msgid "AVI"
+msgstr ""
+
+#: ../profiles.rst:190 ../profiles.rst:214 ../profiles.rst:238
+#: ../profiles.rst:262 ../profiles.rst:279 ../profiles.rst:303
+#: ../profiles.rst:327 ../profiles.rst:351 ../profiles.rst:375
+#: ../profiles.rst:399 ../profiles.rst:423 ../profiles.rst:447
+#: ../profiles.rst:471 ../profiles.rst:495 ../profiles.rst:539
+#: ../profiles.rst:563 ../profiles.rst:587 ../profiles.rst:611
+#: ../profiles.rst:635 ../profiles.rst:659 ../profiles.rst:683
+#: ../profiles.rst:707 ../profiles.rst:731 ../profiles.rst:760
+#: ../profiles.rst:784 ../profiles.rst:808 ../profiles.rst:832
+#: ../profiles.rst:856 ../profiles.rst:880 ../profiles.rst:904
+#: ../profiles.rst:928 ../profiles.rst:952 ../profiles.rst:976
+#: ../profiles.rst:1003 ../profiles.rst:1023 ../profiles.rst:1047
+#: ../profiles.rst:1071 ../profiles.rst:1100 ../profiles.rst:1127
+#: ../profiles.rst:1158 ../profiles.rst:1182 ../profiles.rst:1206
+#: ../profiles.rst:1237 ../profiles.rst:1262 ../profiles.rst:1295
+#: ../profiles.rst:1319 ../profiles.rst:1358 ../profiles.rst:1389
+#: ../profiles.rst:1420 ../profiles.rst:1451 ../profiles.rst:1495
+#: ../profiles.rst:1522 ../profiles.rst:1547
+msgid "Video Codec"
+msgstr "Κωδικοποιητής βίντεο"
+
+#: ../profiles.rst:190 ../profiles.rst:399 ../profiles.rst:447
+#: ../profiles.rst:760 ../profiles.rst:1003 ../profiles.rst:1100
+#: ../profiles.rst:1127 ../profiles.rst:1182 ../profiles.rst:1206
+#: ../profiles.rst:1237 ../profiles.rst:1262 ../profiles.rst:1319
+#: ../profiles.rst:1358 ../profiles.rst:1389 ../profiles.rst:1420
+#: ../profiles.rst:1451 ../profiles.rst:1495
+msgid "libx264"
+msgstr ""
+
+#: ../profiles.rst:191 ../profiles.rst:215 ../profiles.rst:239
+#: ../profiles.rst:280 ../profiles.rst:304 ../profiles.rst:328
+#: ../profiles.rst:352 ../profiles.rst:376 ../profiles.rst:400
+#: ../profiles.rst:424 ../profiles.rst:448 ../profiles.rst:472
+#: ../profiles.rst:496 ../profiles.rst:519 ../profiles.rst:540
+#: ../profiles.rst:564 ../profiles.rst:588 ../profiles.rst:612
+#: ../profiles.rst:636 ../profiles.rst:660 ../profiles.rst:684
+#: ../profiles.rst:708 ../profiles.rst:732 ../profiles.rst:761
+#: ../profiles.rst:785 ../profiles.rst:809 ../profiles.rst:833
+#: ../profiles.rst:857 ../profiles.rst:881 ../profiles.rst:905
+#: ../profiles.rst:929 ../profiles.rst:953 ../profiles.rst:977
+#: ../profiles.rst:1004 ../profiles.rst:1024 ../profiles.rst:1048
+#: ../profiles.rst:1072 ../profiles.rst:1101 ../profiles.rst:1128
+#: ../profiles.rst:1159 ../profiles.rst:1183 ../profiles.rst:1207
+#: ../profiles.rst:1238 ../profiles.rst:1263 ../profiles.rst:1296
+#: ../profiles.rst:1320 ../profiles.rst:1359 ../profiles.rst:1390
+#: ../profiles.rst:1421 ../profiles.rst:1452 ../profiles.rst:1496
+#: ../profiles.rst:1523 ../profiles.rst:1548
+msgid "Audio Codec"
+msgstr "Κωδικοποιητής ήχου"
+
+#: ../profiles.rst:191 ../profiles.rst:280 ../profiles.rst:304
+#: ../profiles.rst:328 ../profiles.rst:352 ../profiles.rst:376
+#: ../profiles.rst:400 ../profiles.rst:424 ../profiles.rst:448
+#: ../profiles.rst:588 ../profiles.rst:612 ../profiles.rst:636
+#: ../profiles.rst:660 ../profiles.rst:684 ../profiles.rst:708
+#: ../profiles.rst:732 ../profiles.rst:761 ../profiles.rst:785
+#: ../profiles.rst:1004 ../profiles.rst:1048 ../profiles.rst:1072
+#: ../profiles.rst:1101 ../profiles.rst:1128 ../profiles.rst:1207
+#: ../profiles.rst:1496
+msgid "aac"
+msgstr ""
+
+#: ../profiles.rst:192 ../profiles.rst:216 ../profiles.rst:240
+#: ../profiles.rst:281 ../profiles.rst:305 ../profiles.rst:329
+#: ../profiles.rst:353 ../profiles.rst:377 ../profiles.rst:401
+#: ../profiles.rst:425 ../profiles.rst:449 ../profiles.rst:473
+#: ../profiles.rst:497 ../profiles.rst:520 ../profiles.rst:541
+#: ../profiles.rst:565 ../profiles.rst:589 ../profiles.rst:613
+#: ../profiles.rst:637 ../profiles.rst:661 ../profiles.rst:685
+#: ../profiles.rst:709 ../profiles.rst:733 ../profiles.rst:762
+#: ../profiles.rst:786 ../profiles.rst:810 ../profiles.rst:834
+#: ../profiles.rst:858 ../profiles.rst:882 ../profiles.rst:906
+#: ../profiles.rst:930 ../profiles.rst:954 ../profiles.rst:978
+#: ../profiles.rst:1005 ../profiles.rst:1025 ../profiles.rst:1049
+#: ../profiles.rst:1073 ../profiles.rst:1102 ../profiles.rst:1129
+#: ../profiles.rst:1160 ../profiles.rst:1184 ../profiles.rst:1208
+#: ../profiles.rst:1239 ../profiles.rst:1264 ../profiles.rst:1297
+#: ../profiles.rst:1321 ../profiles.rst:1360 ../profiles.rst:1391
+#: ../profiles.rst:1422 ../profiles.rst:1453 ../profiles.rst:1497
+#: ../profiles.rst:1524 ../profiles.rst:1549
+msgid "Audio Channels"
+msgstr "Κανάλια ήχου"
+
+#: ../profiles.rst:193 ../profiles.rst:217 ../profiles.rst:241
+#: ../profiles.rst:282 ../profiles.rst:306 ../profiles.rst:330
+#: ../profiles.rst:354 ../profiles.rst:378 ../profiles.rst:402
+#: ../profiles.rst:426 ../profiles.rst:450 ../profiles.rst:474
+#: ../profiles.rst:498 ../profiles.rst:521 ../profiles.rst:542
+#: ../profiles.rst:566 ../profiles.rst:590 ../profiles.rst:614
+#: ../profiles.rst:638 ../profiles.rst:662 ../profiles.rst:686
+#: ../profiles.rst:710 ../profiles.rst:734 ../profiles.rst:763
+#: ../profiles.rst:787 ../profiles.rst:811 ../profiles.rst:835
+#: ../profiles.rst:859 ../profiles.rst:883 ../profiles.rst:907
+#: ../profiles.rst:931 ../profiles.rst:955 ../profiles.rst:979
+#: ../profiles.rst:1006 ../profiles.rst:1026 ../profiles.rst:1050
+#: ../profiles.rst:1074 ../profiles.rst:1103 ../profiles.rst:1130
+#: ../profiles.rst:1161 ../profiles.rst:1185 ../profiles.rst:1209
+#: ../profiles.rst:1240 ../profiles.rst:1265 ../profiles.rst:1298
+#: ../profiles.rst:1322 ../profiles.rst:1361 ../profiles.rst:1392
+#: ../profiles.rst:1423 ../profiles.rst:1454 ../profiles.rst:1498
+#: ../profiles.rst:1525 ../profiles.rst:1550
+msgid "Audio Channel Layout"
+msgstr "Διάταξη καναλιών ήχου"
+
+#: ../profiles.rst:193 ../profiles.rst:217 ../profiles.rst:241
+#: ../profiles.rst:282 ../profiles.rst:306 ../profiles.rst:330
+#: ../profiles.rst:354 ../profiles.rst:378 ../profiles.rst:402
+#: ../profiles.rst:426 ../profiles.rst:450 ../profiles.rst:474
+#: ../profiles.rst:498 ../profiles.rst:521 ../profiles.rst:542
+#: ../profiles.rst:566 ../profiles.rst:590 ../profiles.rst:614
+#: ../profiles.rst:638 ../profiles.rst:662 ../profiles.rst:686
+#: ../profiles.rst:710 ../profiles.rst:734 ../profiles.rst:763
+#: ../profiles.rst:787 ../profiles.rst:811 ../profiles.rst:835
+#: ../profiles.rst:859 ../profiles.rst:883 ../profiles.rst:907
+#: ../profiles.rst:931 ../profiles.rst:955 ../profiles.rst:979
+#: ../profiles.rst:1006 ../profiles.rst:1026 ../profiles.rst:1050
+#: ../profiles.rst:1074 ../profiles.rst:1103 ../profiles.rst:1130
+#: ../profiles.rst:1161 ../profiles.rst:1185 ../profiles.rst:1209
+#: ../profiles.rst:1240 ../profiles.rst:1265 ../profiles.rst:1298
+#: ../profiles.rst:1322 ../profiles.rst:1361 ../profiles.rst:1392
+#: ../profiles.rst:1423 ../profiles.rst:1454 ../profiles.rst:1498
+#: ../profiles.rst:1525 ../profiles.rst:1550
+msgid "Stereo"
+msgstr ""
+
+#: ../profiles.rst:194 ../profiles.rst:218 ../profiles.rst:242
+#: ../profiles.rst:283 ../profiles.rst:307 ../profiles.rst:331
+#: ../profiles.rst:355 ../profiles.rst:379 ../profiles.rst:403
+#: ../profiles.rst:427 ../profiles.rst:451 ../profiles.rst:475
+#: ../profiles.rst:499 ../profiles.rst:522 ../profiles.rst:543
+#: ../profiles.rst:567 ../profiles.rst:591 ../profiles.rst:615
+#: ../profiles.rst:639 ../profiles.rst:663 ../profiles.rst:687
+#: ../profiles.rst:711 ../profiles.rst:735 ../profiles.rst:764
+#: ../profiles.rst:788 ../profiles.rst:812 ../profiles.rst:836
+#: ../profiles.rst:860 ../profiles.rst:884 ../profiles.rst:908
+#: ../profiles.rst:932 ../profiles.rst:956 ../profiles.rst:980
+#: ../profiles.rst:1007 ../profiles.rst:1027 ../profiles.rst:1051
+#: ../profiles.rst:1075 ../profiles.rst:1104 ../profiles.rst:1131
+#: ../profiles.rst:1162 ../profiles.rst:1186 ../profiles.rst:1210
+#: ../profiles.rst:1241 ../profiles.rst:1266 ../profiles.rst:1299
+#: ../profiles.rst:1323 ../profiles.rst:1362 ../profiles.rst:1393
+#: ../profiles.rst:1424 ../profiles.rst:1455 ../profiles.rst:1499
+#: ../profiles.rst:1526 ../profiles.rst:1551
+msgid "Sample Rate"
+msgstr "Ρυθμός δειγματοληψίας"
+
+#: ../profiles.rst:194 ../profiles.rst:218 ../profiles.rst:242
+#: ../profiles.rst:283 ../profiles.rst:307 ../profiles.rst:331
+#: ../profiles.rst:355 ../profiles.rst:379 ../profiles.rst:403
+#: ../profiles.rst:427 ../profiles.rst:451 ../profiles.rst:475
+#: ../profiles.rst:499 ../profiles.rst:522 ../profiles.rst:543
+#: ../profiles.rst:567 ../profiles.rst:591 ../profiles.rst:615
+#: ../profiles.rst:639 ../profiles.rst:663 ../profiles.rst:687
+#: ../profiles.rst:711 ../profiles.rst:735 ../profiles.rst:764
+#: ../profiles.rst:788 ../profiles.rst:812 ../profiles.rst:836
+#: ../profiles.rst:860 ../profiles.rst:884 ../profiles.rst:908
+#: ../profiles.rst:932 ../profiles.rst:956 ../profiles.rst:980
+#: ../profiles.rst:1007 ../profiles.rst:1027 ../profiles.rst:1051
+#: ../profiles.rst:1075 ../profiles.rst:1104 ../profiles.rst:1131
+#: ../profiles.rst:1210 ../profiles.rst:1241 ../profiles.rst:1266
+#: ../profiles.rst:1299 ../profiles.rst:1323 ../profiles.rst:1362
+#: ../profiles.rst:1393 ../profiles.rst:1424 ../profiles.rst:1455
+#: ../profiles.rst:1499 ../profiles.rst:1526 ../profiles.rst:1551
+msgid "48000"
+msgstr ""
+
+#: ../profiles.rst:195 ../profiles.rst:219 ../profiles.rst:243
+#: ../profiles.rst:263 ../profiles.rst:284 ../profiles.rst:308
+#: ../profiles.rst:332 ../profiles.rst:356 ../profiles.rst:380
+#: ../profiles.rst:404 ../profiles.rst:428 ../profiles.rst:452
+#: ../profiles.rst:476 ../profiles.rst:500 ../profiles.rst:544
+#: ../profiles.rst:568 ../profiles.rst:592 ../profiles.rst:616
+#: ../profiles.rst:640 ../profiles.rst:664 ../profiles.rst:688
+#: ../profiles.rst:712 ../profiles.rst:736 ../profiles.rst:765
+#: ../profiles.rst:789 ../profiles.rst:813 ../profiles.rst:837
+#: ../profiles.rst:861 ../profiles.rst:885 ../profiles.rst:909
+#: ../profiles.rst:933 ../profiles.rst:957 ../profiles.rst:981
+#: ../profiles.rst:1028 ../profiles.rst:1052 ../profiles.rst:1076
+#: ../profiles.rst:1105 ../profiles.rst:1132 ../profiles.rst:1163
+#: ../profiles.rst:1187 ../profiles.rst:1211 ../profiles.rst:1242
+#: ../profiles.rst:1267 ../profiles.rst:1300 ../profiles.rst:1324
+#: ../profiles.rst:1363 ../profiles.rst:1394 ../profiles.rst:1425
+#: ../profiles.rst:1456 ../profiles.rst:1500 ../profiles.rst:1527
+#: ../profiles.rst:1552
+msgid "Video Bitrate (low)"
+msgstr "Ρυθμός bit βίντεο (χαμηλός)"
+
+#: ../profiles.rst:195 ../profiles.rst:219 ../profiles.rst:243
+#: ../profiles.rst:263 ../profiles.rst:284 ../profiles.rst:308
+#: ../profiles.rst:332 ../profiles.rst:356 ../profiles.rst:380
+#: ../profiles.rst:404 ../profiles.rst:452 ../profiles.rst:476
+#: ../profiles.rst:500 ../profiles.rst:592 ../profiles.rst:616
+#: ../profiles.rst:640 ../profiles.rst:664 ../profiles.rst:688
+#: ../profiles.rst:712 ../profiles.rst:736 ../profiles.rst:765
+#: ../profiles.rst:813 ../profiles.rst:837 ../profiles.rst:861
+#: ../profiles.rst:885 ../profiles.rst:957 ../profiles.rst:981
+#: ../profiles.rst:1028 ../profiles.rst:1105 ../profiles.rst:1132
+#: ../profiles.rst:1211 ../profiles.rst:1300
+msgid "384 kb/s"
+msgstr ""
+
+#: ../profiles.rst:196 ../profiles.rst:220 ../profiles.rst:244
+#: ../profiles.rst:264 ../profiles.rst:285 ../profiles.rst:309
+#: ../profiles.rst:333 ../profiles.rst:357 ../profiles.rst:381
+#: ../profiles.rst:405 ../profiles.rst:429 ../profiles.rst:453
+#: ../profiles.rst:477 ../profiles.rst:501 ../profiles.rst:545
+#: ../profiles.rst:569 ../profiles.rst:593 ../profiles.rst:617
+#: ../profiles.rst:641 ../profiles.rst:665 ../profiles.rst:689
+#: ../profiles.rst:713 ../profiles.rst:737 ../profiles.rst:766
+#: ../profiles.rst:790 ../profiles.rst:814 ../profiles.rst:838
+#: ../profiles.rst:862 ../profiles.rst:886 ../profiles.rst:910
+#: ../profiles.rst:934 ../profiles.rst:958 ../profiles.rst:982
+#: ../profiles.rst:1029 ../profiles.rst:1053 ../profiles.rst:1077
+#: ../profiles.rst:1106 ../profiles.rst:1133 ../profiles.rst:1164
+#: ../profiles.rst:1188 ../profiles.rst:1212 ../profiles.rst:1243
+#: ../profiles.rst:1268 ../profiles.rst:1301 ../profiles.rst:1325
+#: ../profiles.rst:1364 ../profiles.rst:1395 ../profiles.rst:1426
+#: ../profiles.rst:1457 ../profiles.rst:1528 ../profiles.rst:1553
+msgid "Video Bitrate (med)"
+msgstr "Ρυθμός bit βίντεο (μεσαίος)"
+
+#: ../profiles.rst:196 ../profiles.rst:220 ../profiles.rst:244
+#: ../profiles.rst:264 ../profiles.rst:285 ../profiles.rst:309
+#: ../profiles.rst:333 ../profiles.rst:357 ../profiles.rst:381
+#: ../profiles.rst:405 ../profiles.rst:453 ../profiles.rst:477
+#: ../profiles.rst:501 ../profiles.rst:593 ../profiles.rst:617
+#: ../profiles.rst:641 ../profiles.rst:665 ../profiles.rst:689
+#: ../profiles.rst:713 ../profiles.rst:737 ../profiles.rst:766
+#: ../profiles.rst:814 ../profiles.rst:838 ../profiles.rst:862
+#: ../profiles.rst:886 ../profiles.rst:958 ../profiles.rst:982
+#: ../profiles.rst:1008 ../profiles.rst:1029 ../profiles.rst:1054
+#: ../profiles.rst:1077 ../profiles.rst:1106 ../profiles.rst:1164
+#: ../profiles.rst:1188 ../profiles.rst:1243 ../profiles.rst:1301
+#: ../profiles.rst:1457 ../profiles.rst:1529 ../profiles.rst:1554
+msgid "5 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:197 ../profiles.rst:221 ../profiles.rst:245
+#: ../profiles.rst:265 ../profiles.rst:286 ../profiles.rst:310
+#: ../profiles.rst:334 ../profiles.rst:358 ../profiles.rst:382
+#: ../profiles.rst:406 ../profiles.rst:430 ../profiles.rst:454
+#: ../profiles.rst:478 ../profiles.rst:502 ../profiles.rst:546
+#: ../profiles.rst:570 ../profiles.rst:594 ../profiles.rst:618
+#: ../profiles.rst:642 ../profiles.rst:666 ../profiles.rst:690
+#: ../profiles.rst:714 ../profiles.rst:738 ../profiles.rst:767
+#: ../profiles.rst:791 ../profiles.rst:815 ../profiles.rst:839
+#: ../profiles.rst:863 ../profiles.rst:887 ../profiles.rst:911
+#: ../profiles.rst:935 ../profiles.rst:959 ../profiles.rst:983
+#: ../profiles.rst:1008 ../profiles.rst:1030 ../profiles.rst:1054
+#: ../profiles.rst:1078 ../profiles.rst:1107 ../profiles.rst:1134
+#: ../profiles.rst:1165 ../profiles.rst:1189 ../profiles.rst:1213
+#: ../profiles.rst:1244 ../profiles.rst:1269 ../profiles.rst:1302
+#: ../profiles.rst:1326 ../profiles.rst:1365 ../profiles.rst:1396
+#: ../profiles.rst:1427 ../profiles.rst:1458 ../profiles.rst:1501
+#: ../profiles.rst:1529 ../profiles.rst:1554
+msgid "Video Bitrate (high)"
+msgstr "Ρυθμός bit βίντεο (υψηλός)"
+
+#: ../profiles.rst:197 ../profiles.rst:221 ../profiles.rst:245
+#: ../profiles.rst:265 ../profiles.rst:286 ../profiles.rst:310
+#: ../profiles.rst:334 ../profiles.rst:358 ../profiles.rst:382
+#: ../profiles.rst:406 ../profiles.rst:454 ../profiles.rst:478
+#: ../profiles.rst:502 ../profiles.rst:594 ../profiles.rst:618
+#: ../profiles.rst:642 ../profiles.rst:666 ../profiles.rst:690
+#: ../profiles.rst:714 ../profiles.rst:738 ../profiles.rst:767
+#: ../profiles.rst:815 ../profiles.rst:839 ../profiles.rst:863
+#: ../profiles.rst:887 ../profiles.rst:959 ../profiles.rst:983
+#: ../profiles.rst:1030 ../profiles.rst:1107 ../profiles.rst:1302
+msgid "15.00 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:198 ../profiles.rst:222 ../profiles.rst:246
+#: ../profiles.rst:287 ../profiles.rst:311 ../profiles.rst:335
+#: ../profiles.rst:359 ../profiles.rst:383 ../profiles.rst:407
+#: ../profiles.rst:431 ../profiles.rst:455 ../profiles.rst:479
+#: ../profiles.rst:503 ../profiles.rst:523 ../profiles.rst:547
+#: ../profiles.rst:571 ../profiles.rst:595 ../profiles.rst:619
+#: ../profiles.rst:643 ../profiles.rst:667 ../profiles.rst:691
+#: ../profiles.rst:715 ../profiles.rst:739 ../profiles.rst:768
+#: ../profiles.rst:792 ../profiles.rst:816 ../profiles.rst:840
+#: ../profiles.rst:864 ../profiles.rst:888 ../profiles.rst:912
+#: ../profiles.rst:936 ../profiles.rst:960 ../profiles.rst:984
+#: ../profiles.rst:1031 ../profiles.rst:1055 ../profiles.rst:1079
+#: ../profiles.rst:1108 ../profiles.rst:1135 ../profiles.rst:1166
+#: ../profiles.rst:1190 ../profiles.rst:1214 ../profiles.rst:1245
+#: ../profiles.rst:1270 ../profiles.rst:1303 ../profiles.rst:1327
+#: ../profiles.rst:1366 ../profiles.rst:1397 ../profiles.rst:1428
+#: ../profiles.rst:1459 ../profiles.rst:1502 ../profiles.rst:1530
+#: ../profiles.rst:1555
+msgid "Audio Bitrate (low)"
+msgstr "Ρυθμός bit ήχου (χαμηλός)"
+
+#: ../profiles.rst:198 ../profiles.rst:222 ../profiles.rst:246
+#: ../profiles.rst:287 ../profiles.rst:311 ../profiles.rst:335
+#: ../profiles.rst:359 ../profiles.rst:383 ../profiles.rst:407
+#: ../profiles.rst:431 ../profiles.rst:455 ../profiles.rst:479
+#: ../profiles.rst:503 ../profiles.rst:523 ../profiles.rst:547
+#: ../profiles.rst:571 ../profiles.rst:595 ../profiles.rst:619
+#: ../profiles.rst:643 ../profiles.rst:667 ../profiles.rst:691
+#: ../profiles.rst:715 ../profiles.rst:739 ../profiles.rst:768
+#: ../profiles.rst:792 ../profiles.rst:816 ../profiles.rst:840
+#: ../profiles.rst:864 ../profiles.rst:888 ../profiles.rst:912
+#: ../profiles.rst:936 ../profiles.rst:960 ../profiles.rst:984
+#: ../profiles.rst:1031 ../profiles.rst:1108 ../profiles.rst:1135
+#: ../profiles.rst:1214 ../profiles.rst:1303
+msgid "96 kb/s"
+msgstr ""
+
+#: ../profiles.rst:199 ../profiles.rst:223 ../profiles.rst:247
+#: ../profiles.rst:288 ../profiles.rst:312 ../profiles.rst:336
+#: ../profiles.rst:360 ../profiles.rst:384 ../profiles.rst:408
+#: ../profiles.rst:432 ../profiles.rst:456 ../profiles.rst:480
+#: ../profiles.rst:504 ../profiles.rst:524 ../profiles.rst:548
+#: ../profiles.rst:572 ../profiles.rst:596 ../profiles.rst:620
+#: ../profiles.rst:644 ../profiles.rst:668 ../profiles.rst:692
+#: ../profiles.rst:716 ../profiles.rst:740 ../profiles.rst:769
+#: ../profiles.rst:793 ../profiles.rst:817 ../profiles.rst:841
+#: ../profiles.rst:865 ../profiles.rst:889 ../profiles.rst:913
+#: ../profiles.rst:937 ../profiles.rst:961 ../profiles.rst:985
+#: ../profiles.rst:1032 ../profiles.rst:1056 ../profiles.rst:1080
+#: ../profiles.rst:1109 ../profiles.rst:1136 ../profiles.rst:1167
+#: ../profiles.rst:1191 ../profiles.rst:1215 ../profiles.rst:1246
+#: ../profiles.rst:1271 ../profiles.rst:1304 ../profiles.rst:1328
+#: ../profiles.rst:1367 ../profiles.rst:1398 ../profiles.rst:1429
+#: ../profiles.rst:1460 ../profiles.rst:1531 ../profiles.rst:1556
+msgid "Audio Bitrate (med)"
+msgstr "Ρυθμός bit ήχου (μεσαίος)"
+
+#: ../profiles.rst:199 ../profiles.rst:223 ../profiles.rst:247
+#: ../profiles.rst:288 ../profiles.rst:312 ../profiles.rst:336
+#: ../profiles.rst:360 ../profiles.rst:384 ../profiles.rst:408
+#: ../profiles.rst:432 ../profiles.rst:456 ../profiles.rst:480
+#: ../profiles.rst:504 ../profiles.rst:524 ../profiles.rst:548
+#: ../profiles.rst:572 ../profiles.rst:596 ../profiles.rst:620
+#: ../profiles.rst:644 ../profiles.rst:668 ../profiles.rst:692
+#: ../profiles.rst:716 ../profiles.rst:740 ../profiles.rst:769
+#: ../profiles.rst:793 ../profiles.rst:817 ../profiles.rst:841
+#: ../profiles.rst:865 ../profiles.rst:889 ../profiles.rst:913
+#: ../profiles.rst:937 ../profiles.rst:961 ../profiles.rst:985
+#: ../profiles.rst:1032 ../profiles.rst:1055 ../profiles.rst:1079
+#: ../profiles.rst:1109 ../profiles.rst:1136 ../profiles.rst:1166
+#: ../profiles.rst:1190 ../profiles.rst:1215 ../profiles.rst:1245
+#: ../profiles.rst:1270 ../profiles.rst:1304 ../profiles.rst:1327
+#: ../profiles.rst:1366 ../profiles.rst:1397 ../profiles.rst:1428
+#: ../profiles.rst:1459 ../profiles.rst:1530 ../profiles.rst:1555
+msgid "128 kb/s"
+msgstr ""
+
+#: ../profiles.rst:200 ../profiles.rst:224 ../profiles.rst:248
+#: ../profiles.rst:289 ../profiles.rst:313 ../profiles.rst:337
+#: ../profiles.rst:361 ../profiles.rst:385 ../profiles.rst:409
+#: ../profiles.rst:433 ../profiles.rst:457 ../profiles.rst:481
+#: ../profiles.rst:505 ../profiles.rst:525 ../profiles.rst:549
+#: ../profiles.rst:573 ../profiles.rst:597 ../profiles.rst:621
+#: ../profiles.rst:645 ../profiles.rst:669 ../profiles.rst:693
+#: ../profiles.rst:717 ../profiles.rst:741 ../profiles.rst:770
+#: ../profiles.rst:794 ../profiles.rst:818 ../profiles.rst:842
+#: ../profiles.rst:866 ../profiles.rst:890 ../profiles.rst:914
+#: ../profiles.rst:938 ../profiles.rst:962 ../profiles.rst:986
+#: ../profiles.rst:1009 ../profiles.rst:1033 ../profiles.rst:1057
+#: ../profiles.rst:1081 ../profiles.rst:1110 ../profiles.rst:1137
+#: ../profiles.rst:1168 ../profiles.rst:1192 ../profiles.rst:1216
+#: ../profiles.rst:1247 ../profiles.rst:1272 ../profiles.rst:1305
+#: ../profiles.rst:1329 ../profiles.rst:1368 ../profiles.rst:1399
+#: ../profiles.rst:1430 ../profiles.rst:1461 ../profiles.rst:1503
+#: ../profiles.rst:1532 ../profiles.rst:1557
+msgid "Audio Bitrate (high)"
+msgstr "Ρυθμός bit ήχου (υψηλός)"
+
+#: ../profiles.rst:200 ../profiles.rst:224 ../profiles.rst:248
+#: ../profiles.rst:289 ../profiles.rst:313 ../profiles.rst:337
+#: ../profiles.rst:361 ../profiles.rst:385 ../profiles.rst:409
+#: ../profiles.rst:433 ../profiles.rst:457 ../profiles.rst:481
+#: ../profiles.rst:505 ../profiles.rst:525 ../profiles.rst:549
+#: ../profiles.rst:573 ../profiles.rst:597 ../profiles.rst:621
+#: ../profiles.rst:645 ../profiles.rst:669 ../profiles.rst:693
+#: ../profiles.rst:717 ../profiles.rst:741 ../profiles.rst:770
+#: ../profiles.rst:794 ../profiles.rst:818 ../profiles.rst:842
+#: ../profiles.rst:866 ../profiles.rst:890 ../profiles.rst:914
+#: ../profiles.rst:938 ../profiles.rst:962 ../profiles.rst:986
+#: ../profiles.rst:1033 ../profiles.rst:1110 ../profiles.rst:1137
+#: ../profiles.rst:1216 ../profiles.rst:1305 ../profiles.rst:1531
+#: ../profiles.rst:1556
+msgid "192 kb/s"
+msgstr ""
+
+#: ../profiles.rst:0
+msgid "All Profiles"
+msgstr "Όλα τα προφίλ"
+
+#: ../profiles.rst:205
+msgid "AVI (mpeg2)"
+msgstr ""
+
+#: ../profiles.rst:214 ../profiles.rst:471 ../profiles.rst:832
+#: ../profiles.rst:1522 ../profiles.rst:1547
+msgid "mpeg2video"
+msgstr ""
+
+#: ../profiles.rst:215 ../profiles.rst:472 ../profiles.rst:833
+msgid "mp2"
+msgstr ""
+
+#: ../profiles.rst:229
+msgid "AVI (mpeg4)"
+msgstr ""
+
+#: ../profiles.rst:238 ../profiles.rst:495 ../profiles.rst:808
+#: ../profiles.rst:1158
+msgid "mpeg4"
+msgstr ""
+
+#: ../profiles.rst:239 ../profiles.rst:496 ../profiles.rst:519
+#: ../profiles.rst:809 ../profiles.rst:1159 ../profiles.rst:1183
+#: ../profiles.rst:1238 ../profiles.rst:1263 ../profiles.rst:1320
+#: ../profiles.rst:1359 ../profiles.rst:1390 ../profiles.rst:1421
+#: ../profiles.rst:1452
+msgid "libmp3lame"
+msgstr ""
+
+#: ../profiles.rst:253
+msgid "GIF (animated)"
+msgstr ""
+
+#: ../profiles.rst:261
+msgid "GIF"
+msgstr ""
+
+#: ../profiles.rst:262
+msgid "gif"
+msgstr ""
+
+#: ../profiles.rst:270
+msgid "MKV (h.264 dx)"
+msgstr ""
+
+#: ../profiles.rst:278 ../profiles.rst:302 ../profiles.rst:326
+#: ../profiles.rst:350 ../profiles.rst:374 ../profiles.rst:398
+#: ../profiles.rst:422
+msgid "MKV"
+msgstr ""
+
+#: ../profiles.rst:279 ../profiles.rst:635
+msgid "h264_dxva2"
+msgstr ""
+
+#: ../profiles.rst:294
+msgid "MKV (h.264 nv)"
+msgstr ""
+
+#: ../profiles.rst:303 ../profiles.rst:659
+msgid "h264_nvenc"
+msgstr ""
+
+#: ../profiles.rst:318
+msgid "MKV (h.264 qsv)"
+msgstr ""
+
+#: ../profiles.rst:327 ../profiles.rst:683
+msgid "h264_qsv"
+msgstr ""
+
+#: ../profiles.rst:342
+msgid "MKV (h.264 va)"
+msgstr ""
+
+#: ../profiles.rst:351 ../profiles.rst:707
+msgid "h264_vaapi"
+msgstr ""
+
+#: ../profiles.rst:366
+msgid "MKV (h.264 videotoolbox)"
+msgstr ""
+
+#: ../profiles.rst:375 ../profiles.rst:731
+msgid "h264_videotoolbox"
+msgstr ""
+
+#: ../profiles.rst:390
+msgid "MKV (h.264)"
+msgstr ""
+
+#: ../profiles.rst:414
+msgid "MKV (h.265)"
+msgstr ""
+
+#: ../profiles.rst:423 ../profiles.rst:784
+msgid "libx265"
+msgstr ""
+
+#: ../profiles.rst:428 ../profiles.rst:789 ../profiles.rst:909
+#: ../profiles.rst:933
+msgid "50 crf"
+msgstr ""
+
+#: ../profiles.rst:429 ../profiles.rst:790 ../profiles.rst:934
+msgid "23 crf"
+msgstr ""
+
+#: ../profiles.rst:430 ../profiles.rst:791 ../profiles.rst:935
+msgid "0 crf"
+msgstr ""
+
+#: ../profiles.rst:438
+msgid "MOV (h.264)"
+msgstr ""
+
+#: ../profiles.rst:446 ../profiles.rst:470 ../profiles.rst:494
+#: ../profiles.rst:1099
+msgid "MOV"
+msgstr ""
+
+#: ../profiles.rst:462
+msgid "MOV (mpeg2)"
+msgstr ""
+
+#: ../profiles.rst:486
+msgid "MOV (mpeg4)"
+msgstr ""
+
+#: ../profiles.rst:510
+msgid "MP3 (audio only)"
+msgstr ""
+
+#: ../profiles.rst:518
+msgid "MP3"
+msgstr ""
+
+#: ../profiles.rst:530
+msgid "MP4 (AV1 rav1e)"
+msgstr ""
+
+#: ../profiles.rst:538 ../profiles.rst:562 ../profiles.rst:586
+#: ../profiles.rst:610 ../profiles.rst:634 ../profiles.rst:658
+#: ../profiles.rst:682 ../profiles.rst:706 ../profiles.rst:730
+#: ../profiles.rst:759 ../profiles.rst:783 ../profiles.rst:807
+#: ../profiles.rst:1002 ../profiles.rst:1126 ../profiles.rst:1157
+#: ../profiles.rst:1181 ../profiles.rst:1205 ../profiles.rst:1236
+#: ../profiles.rst:1261 ../profiles.rst:1318 ../profiles.rst:1357
+#: ../profiles.rst:1388 ../profiles.rst:1419 ../profiles.rst:1450
+#: ../profiles.rst:1494
+msgid "MP4"
+msgstr ""
+
+#: ../profiles.rst:539
+msgid "librav1e"
+msgstr ""
+
+#: ../profiles.rst:540 ../profiles.rst:564 ../profiles.rst:881
+#: ../profiles.rst:905 ../profiles.rst:929 ../profiles.rst:953
+#: ../profiles.rst:1024 ../profiles.rst:1296
+msgid "libvorbis"
+msgstr ""
+
+#: ../profiles.rst:544
+msgid "200 qp"
+msgstr ""
+
+#: ../profiles.rst:545
+msgid "100 qp"
+msgstr ""
+
+#: ../profiles.rst:546 ../profiles.rst:569
+msgid "50 qp"
+msgstr ""
+
+#: ../profiles.rst:554
+msgid "MP4 (AV1 svt)"
+msgstr ""
+
+#: ../profiles.rst:563
+msgid "libsvtav1"
+msgstr ""
+
+#: ../profiles.rst:568
+msgid "60 qp"
+msgstr ""
+
+#: ../profiles.rst:570
+msgid "30 qp"
+msgstr ""
+
+#: ../profiles.rst:578
+msgid "MP4 (HEVC va)"
+msgstr ""
+
+#: ../profiles.rst:587
+msgid "hevc_vaapi"
+msgstr ""
+
+#: ../profiles.rst:602
+msgid "MP4 (Xvid)"
+msgstr ""
+
+#: ../profiles.rst:611 ../profiles.rst:1047 ../profiles.rst:1071
+msgid "libxvid"
+msgstr ""
+
+#: ../profiles.rst:626
+msgid "MP4 (h.264 dx)"
+msgstr ""
+
+#: ../profiles.rst:650
+msgid "MP4 (h.264 nv)"
+msgstr ""
+
+#: ../profiles.rst:674
+msgid "MP4 (h.264 qsv)"
+msgstr ""
+
+#: ../profiles.rst:698
+msgid "MP4 (h.264 va)"
+msgstr ""
+
+#: ../profiles.rst:722
+msgid "MP4 (h.264 videotoolbox)"
+msgstr ""
+
+#: ../profiles.rst:748
+msgid "MP4 (h.264)"
+msgstr ""
+
+#: ../profiles.rst:750
+msgid ""
+"This is the default export preset used by OpenShot. This format is "
+"compatible with most media players (such as VLC) and websites (such as "
+"YouTube, Vimeo, Facebook)."
+msgstr ""
+"Αυτή είναι η προεπιλεγμένη προρύθμιση εξαγωγής που χρησιμοποιεί το OpenShot."
+" Η μορφή αυτή είναι συμβατή με τους περισσότερους αναπαραγωγείς πολυμέσων "
+"(όπως το VLC) και ιστότοπους (όπως το YouTube, το Vimeo, το Facebook)."
+
+#: ../profiles.rst:775
+msgid "MP4 (h.265)"
+msgstr ""
+
+#: ../profiles.rst:799
+msgid "MP4 (mpeg4)"
+msgstr ""
+
+#: ../profiles.rst:823
+msgid "MPEG (mpeg2)"
+msgstr ""
+
+#: ../profiles.rst:831
+msgid "MPEG"
+msgstr ""
+
+#: ../profiles.rst:847
+msgid "OGG (theora/flac)"
+msgstr ""
+
+#: ../profiles.rst:855 ../profiles.rst:879 ../profiles.rst:1294
+msgid "OGG"
+msgstr ""
+
+#: ../profiles.rst:856 ../profiles.rst:880 ../profiles.rst:1295
+msgid "libtheora"
+msgstr ""
+
+#: ../profiles.rst:857
+msgid "flac"
+msgstr ""
+
+#: ../profiles.rst:871
+msgid "OGG (theora/vorbis)"
+msgstr ""
+
+#: ../profiles.rst:895
+msgid "WEBM (vp9)"
+msgstr ""
+
+#: ../profiles.rst:903 ../profiles.rst:927 ../profiles.rst:951
+#: ../profiles.rst:975 ../profiles.rst:1022
+msgid "WEBM"
+msgstr ""
+
+#: ../profiles.rst:904 ../profiles.rst:928
+msgid "libvpx-vp9"
+msgstr ""
+
+#: ../profiles.rst:910
+msgid "30 crf"
+msgstr ""
+
+#: ../profiles.rst:911
+msgid "5 crf"
+msgstr ""
+
+#: ../profiles.rst:919
+msgid "WEBM (vp9) lossless"
+msgstr ""
+
+#: ../profiles.rst:943
+msgid "WEBM (vpx)"
+msgstr ""
+
+#: ../profiles.rst:952 ../profiles.rst:1023
+msgid "libvpx"
+msgstr ""
+
+#: ../profiles.rst:967
+msgid "WEBP (vp9 va)"
+msgstr ""
+
+#: ../profiles.rst:976
+msgid "vp9_vaapi"
+msgstr ""
+
+#: ../profiles.rst:977
+msgid "libopus"
+msgstr ""
+
+#: ../profiles.rst:991
+msgid "Device"
+msgstr "Συσκευές"
+
+#: ../profiles.rst:994
+msgid "Apple TV"
+msgstr ""
+
+#: ../profiles.rst:1009 ../profiles.rst:1056 ../profiles.rst:1080
+#: ../profiles.rst:1167 ../profiles.rst:1191 ../profiles.rst:1246
+#: ../profiles.rst:1271 ../profiles.rst:1328 ../profiles.rst:1367
+#: ../profiles.rst:1398 ../profiles.rst:1429 ../profiles.rst:1460
+#: ../profiles.rst:1502 ../profiles.rst:1503 ../profiles.rst:1532
+#: ../profiles.rst:1557
+msgid "256 kb/s"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1698
+msgid "HD 720p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1014
+msgid "Chromebook"
+msgstr ""
+
+#: ../profiles.rst:1038
+msgid "Nokia nHD"
+msgstr ""
+
+#: ../profiles.rst:1052 ../profiles.rst:1527 ../profiles.rst:1552
+msgid "1 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:1053 ../profiles.rst:1528 ../profiles.rst:1553
+msgid "3 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:1057 ../profiles.rst:1081 ../profiles.rst:1168
+#: ../profiles.rst:1192 ../profiles.rst:1247 ../profiles.rst:1272
+#: ../profiles.rst:1329 ../profiles.rst:1368 ../profiles.rst:1399
+#: ../profiles.rst:1430 ../profiles.rst:1461
+msgid "320 kb/s"
+msgstr ""
+
+#: ../profiles.rst:0
+msgid "NTSC SD 1/4 QVGA 240p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1062
+msgid "Xbox 360"
+msgstr ""
+
+#: ../profiles.rst:1076 ../profiles.rst:1163 ../profiles.rst:1187
+#: ../profiles.rst:1242 ../profiles.rst:1456
+msgid "2 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:1078 ../profiles.rst:1165 ../profiles.rst:1189
+#: ../profiles.rst:1244 ../profiles.rst:1268 ../profiles.rst:1324
+#: ../profiles.rst:1458
+msgid "8 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1657
+msgid "FHD 1080p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1694
+msgid "HD 720p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1836
+msgid "NTSC SD Widescreen Anamorphic 480i 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1088
+msgid "Web"
+msgstr "Διαδίκτυο (Web)"
+
+#: ../profiles.rst:1091
+msgid "Flickr"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1662
+msgid "FHD PAL 1080p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1699
+msgid "HD 720p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1118
+msgid "Instagram"
+msgstr ""
+
+#: ../profiles.rst:1133 ../profiles.rst:1213
+msgid "3.5 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:1134
+msgid "5.50 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1661
+msgid "FHD 1080p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1707
+msgid "FHD Vertical 1080p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1706
+msgid "FHD Vertical 1080p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1797
+msgid "HD Vertical 720p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1796
+msgid "HD Vertical 720p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1149
+msgid "Metacafe"
+msgstr ""
+
+#: ../profiles.rst:1162 ../profiles.rst:1186
+msgid "44100"
+msgstr ""
+
+#: ../profiles.rst:0
+msgid "NTSC SD SQ VGA 480p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1173
+msgid "Picasa"
+msgstr ""
+
+#: ../profiles.rst:1197
+msgid "Twitter"
+msgstr ""
+
+#: ../profiles.rst:1212
+msgid "1.7 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:1228 ../profiles.rst:1253
+msgid "Vimeo"
+msgstr ""
+
+#: ../profiles.rst:0
+msgid "NTSC SD Wide FWVGA 480p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1267
+msgid "4 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:1269 ../profiles.rst:1326
+msgid "12 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1658
+msgid "FHD 1080p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1663
+msgid "FHD 1080p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1695
+msgid "HD 720p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1700
+msgid "HD 720p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1286
+msgid "Wikipedia"
+msgstr ""
+
+#: ../profiles.rst:1310
+msgid "YouTube"
+msgstr ""
+
+#: ../profiles.rst:1325
+msgid "10 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1656
+msgid "FHD 1080p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1659
+msgid "FHD 1080p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1660
+msgid "FHD PAL 1080p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1703
+msgid "FHD Vertical 1080p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1708
+msgid "FHD Vertical 1080p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1702
+msgid "FHD Vertical 1080p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1705
+msgid "FHD Vertical 1080p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1701
+msgid "FHD Vertical 1080p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1704
+msgid "FHD Vertical 1080p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1349
+msgid "YouTube (2K)"
+msgstr ""
+
+#: ../profiles.rst:1363
+msgid "16 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:1364
+msgid "20 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:1365
+msgid "24 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1650
+msgid "2.5K WQHD 1440p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1655
+msgid "2.5K WQHD 1440p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1654
+msgid "2.5K WQHD 1440p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1649
+msgid "2.5K WQHD 1440p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1653
+msgid "2.5K WQHD 1440p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1652
+msgid "2.5K WQHD 1440p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1648
+msgid "2.5K WQHD 1440p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1651
+msgid "2.5K WQHD 1440p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1380
+msgid "YouTube (4K)"
+msgstr ""
+
+#: ../profiles.rst:1394
+msgid "45 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:1395
+msgid "56 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:1396
+msgid "68 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1630
+msgid "4K UHD 2160p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1635
+msgid "4K UHD 2160p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1634
+msgid "4K UHD 2160p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1629
+msgid "4K UHD 2160p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1633
+msgid "4K UHD 2160p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1632
+msgid "4K UHD 2160p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1628
+msgid "4K UHD 2160p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1631
+msgid "4K UHD 2160p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1411
+msgid "YouTube (8K)"
+msgstr ""
+
+#: ../profiles.rst:1425
+msgid "160 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:1426
+msgid "200 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:1427
+msgid "240 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1609
+msgid "8K UHD 4320p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1614
+msgid "8K UHD 4320p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1613
+msgid "8K UHD 4320p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1608
+msgid "8K UHD 4320p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1612
+msgid "8K UHD 4320p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1611
+msgid "8K UHD 4320p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1607
+msgid "8K UHD 4320p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1610
+msgid "8K UHD 4320p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1442
+msgid "YouTube Standard"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1693
+msgid "HD 720p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1696
+msgid "HD 720p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1793
+msgid "HD Vertical 720p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1798
+msgid "HD Vertical 720p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1792
+msgid "HD Vertical 720p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1795
+msgid "HD Vertical 720p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1791
+msgid "HD Vertical 720p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1794
+msgid "HD Vertical 720p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1697
+msgid "PAL HD 720p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:1483
+msgid "Blu-Ray/AVCHD"
+msgstr ""
+
+#: ../profiles.rst:1486
+msgid "AVCHD Disks"
+msgstr "Δίσκοι AVCHD"
+
+#: ../profiles.rst:1500
+msgid "15 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:1501
+msgid "40 Mb/s"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1665
+msgid "FHD 1080i 30 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1666
+msgid "FHD PAL 1080i 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1510 ../profiles.rst:1521 ../profiles.rst:1546
+msgid "DVD"
+msgstr ""
+
+#: ../profiles.rst:1513
+msgid "DVD-NTSC"
+msgstr ""
+
+#: ../profiles.rst:1523 ../profiles.rst:1548
+msgid "ac3"
+msgstr ""
+
+#: ../profiles.rst:0
+msgid "NTSC SD Anamorphic 480i 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1538
+msgid "DVD-PAL"
+msgstr ""
+
+#: ../profiles.rst:0
+msgid "PAL SD Anamorphic 576i 25 fps"
+msgstr ""
+
+#: ../profiles.rst:0 ../profiles.rst:1803
+msgid "PAL SD Widescreen Anamorphic 576i 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1565
+msgid "Profile List"
+msgstr "Λίστα προφίλ"
+
+#: ../profiles.rst:1567
+msgid ""
+"OpenShot includes over 400 built-in video profiles. These profiles match the"
+" most common video project sizes and frame rates used around the world. It "
+"is recommended to edit your project using the same profile as you intend to "
+"export. You can also edit your project with different profiles which match "
+"your target aspect ratio, for example: all ``16:9`` profiles are generally "
+"compatible with each other. Sometimes it can be useful to edit a project in "
+"a lower resolution profile, and export in a higher resolution profile. A "
+"full list of profiles is provided below."
+msgstr ""
+"Το OpenShot περιλαμβάνει πάνω από 400 ενσωματωμένα προφίλ βίντεο. Τα προφίλ "
+"αυτά αντιστοιχούν στα πιο συνηθισμένα μεγέθη και ρυθμούς καρέ έργων βίντεο "
+"που χρησιμοποιούνται σε όλο τον κόσμο. Συνιστάται η επεξεργασία του έργου "
+"σας με το ίδιο προφίλ που σκοπεύετε να χρησιμοποιήσετε για την εξαγωγή. "
+"Μπορείτε επίσης να επεξεργαστείτε το έργο σας με διαφορετικά προφίλ που "
+"ταιριάζουν στην αναλογία διαστάσεων-στόχο σας, για παράδειγμα: όλα τα προφίλ"
+" ``16:9`` είναι γενικά συμβατά μεταξύ τους. Μερικές φορές μπορεί να είναι "
+"χρήσιμο να επεξεργαστείτε ένα έργο σε προφίλ χαμηλότερης ανάλυσης και να το "
+"εξαγάγετε σε προφίλ υψηλότερης ανάλυσης. Ακολουθεί η πλήρης λίστα των "
+"προφίλ."
+
+#: ../profiles.rst:1576
+msgid "Profile Definitions"
+msgstr "Ορισμοί προφίλ"
+
+#: ../profiles.rst:1578
+msgid ""
+"**Profile Name**: Short, friendly name for a video profile (e.g., FHD 1080p "
+"30 fps)"
+msgstr ""
+"**Όνομα προφίλ** (Profile Name): Σύντομο, φιλικό όνομα ενός προφίλ βίντεο "
+"(π.χ., FHD 1080p 30 fps)"
+
+#: ../profiles.rst:1579
+msgid "**FPS**: Frames Per Second"
+msgstr "**FPS**: Καρέ ανά δευτερόλεπτο (Frames Per Second)"
+
+#: ../profiles.rst:1580
+msgid "**DAR**: Display Aspect Ratio (e.g., 1920:1080 becomes 16:9)"
+msgstr ""
+"**DAR**: Αναλογία διαστάσεων εμφάνισης (Display Aspect Ratio) (π.χ., το "
+"1920:1080 γίνεται 16:9)"
+
+#: ../profiles.rst:1581
+msgid ""
+"**SAR**: Sample Aspect Ratio (e.g., 1:1 square pixel, 2:1 horizontal "
+"rectangular pixel). The SAR directly affects the display aspect ratio. For "
+"instance, a 4:3 video can be displayed as 16:9 using rectangular pixels. "
+"Non-square pixels adjust the final display width."
+msgstr ""
+"**SAR**: Αναλογία διαστάσεων δείγματος (Sample Aspect Ratio) (π.χ., 1:1 "
+"τετράγωνο pixel, 2:1 οριζόντιο ορθογώνιο pixel). Το SAR επηρεάζει άμεσα την "
+"αναλογία διαστάσεων εμφάνισης. Για παράδειγμα, ένα βίντεο 4:3 μπορεί να "
+"εμφανιστεί ως 16:9 με χρήση ορθογώνιων pixel. Τα μη τετράγωνα pixel "
+"προσαρμόζουν το τελικό πλάτος εμφάνισης."
+
+#: ../profiles.rst:1582
+msgid "**PAR**: Pixel Aspect Ratio (identical to SAR)"
+msgstr ""
+"**PAR**: Αναλογία διαστάσεων pixel (Pixel Aspect Ratio) (ταυτόσημη με το "
+"SAR)"
+
+#: ../profiles.rst:1583
+msgid "**SAR Adjusted Width**: Final display width considering SAR"
+msgstr ""
+"**Πλάτος προσαρμοσμένο με SAR** (SAR Adjusted Width): Το τελικό πλάτος "
+"εμφάνισης, λαμβάνοντας υπόψη το SAR"
+
+#: ../profiles.rst:1584
+msgid ""
+"**Interlaced**: Alternating odd and even lines, used in analog broadcasting"
+msgstr ""
+"**Διαπλεκόμενο** (Interlaced): Εναλλασσόμενες περιττές και άρτιες γραμμές, "
+"που χρησιμοποιούνται στην αναλογική μετάδοση"
+
+#: ../profiles.rst:1585
+msgid "**NTSC**: Analog TV system in America (usually 29.97 fps)"
+msgstr ""
+"**NTSC**: Αναλογικό τηλεοπτικό σύστημα της Αμερικής (συνήθως 29.97 fps)"
+
+#: ../profiles.rst:1586
+msgid ""
+"**PAL**: Analog TV system in Europe, Australia, and much of the world "
+"(usually 25 fps)"
+msgstr ""
+"**PAL**: Αναλογικό τηλεοπτικό σύστημα της Ευρώπης, της Αυστραλίας και "
+"μεγάλου μέρους του κόσμου (συνήθως 25 fps)"
+
+#: ../profiles.rst:1587
+msgid "**UHD**: Ultra High Definition"
+msgstr "**UHD**: Υπερυψηλή ευκρίνεια (Ultra High Definition)"
+
+#: ../profiles.rst:1588
+msgid "**QHD**: Quad High Definition"
+msgstr "**QHD**: Τετραπλή υψηλή ευκρίνεια (Quad High Definition)"
+
+#: ../profiles.rst:1589
+msgid "**FHD**: Full High Definition"
+msgstr "**FHD**: Πλήρης υψηλή ευκρίνεια (Full High Definition)"
+
+#: ../profiles.rst:1590
+msgid "**HD**: High Definition (equal or greater than 1280x720 pixels)"
+msgstr ""
+"**HD**: Υψηλή ευκρίνεια (High Definition) (ίση ή μεγαλύτερη από 1280x720 "
+"pixel)"
+
+#: ../profiles.rst:1591
+msgid "**SD**: Standard Definition (smaller than 1280x720 pixels)"
+msgstr ""
+"**SD**: Τυπική ευκρίνεια (Standard Definition) (μικρότερη από 1280x720 "
+"pixel)"
+
+#: ../profiles.rst:1597
+msgid "Profile Name"
+msgstr "Όνομα προφίλ"
+
+#: ../profiles.rst:1597
+msgid "Width"
+msgstr "Πλάτος"
+
+#: ../profiles.rst:1597
+msgid "Height"
+msgstr "Ύψος"
+
+#: ../profiles.rst:1597
+msgid "FPS"
+msgstr ""
+
+#: ../profiles.rst:1597
+msgid "DAR"
+msgstr ""
+
+#: ../profiles.rst:1597
+msgid "SAR"
+msgstr ""
+
+#: ../profiles.rst:1597
+msgid "Interlaced"
+msgstr "Διαπλεκόμενο"
+
+#: ../profiles.rst:1597
+msgid "SAR Adjusted Width"
+msgstr "Πλάτος προσαρμοσμένο με SAR"
+
+#: ../profiles.rst:1599
+msgid "16K UHD 8640p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:1599 ../profiles.rst:1600 ../profiles.rst:1601
+#: ../profiles.rst:1602 ../profiles.rst:1603 ../profiles.rst:1604
+#: ../profiles.rst:1605 ../profiles.rst:1606
+msgid "15360"
+msgstr ""
+
+#: ../profiles.rst:1599 ../profiles.rst:1600 ../profiles.rst:1601
+#: ../profiles.rst:1602 ../profiles.rst:1603 ../profiles.rst:1604
+#: ../profiles.rst:1605 ../profiles.rst:1606
+msgid "8640"
+msgstr ""
+
+#: ../profiles.rst:1599 ../profiles.rst:1607 ../profiles.rst:1618
+#: ../profiles.rst:1628 ../profiles.rst:1638 ../profiles.rst:1648
+#: ../profiles.rst:1656 ../profiles.rst:1670 ../profiles.rst:1679
+#: ../profiles.rst:1693 ../profiles.rst:1701 ../profiles.rst:1719
+#: ../profiles.rst:1728 ../profiles.rst:1737 ../profiles.rst:1746
+#: ../profiles.rst:1754 ../profiles.rst:1763 ../profiles.rst:1772
+#: ../profiles.rst:1782 ../profiles.rst:1791 ../profiles.rst:1809
+#: ../profiles.rst:1810 ../profiles.rst:1811 ../profiles.rst:1834
+#: ../profiles.rst:1835 ../profiles.rst:1853 ../profiles.rst:1854
+#: ../profiles.rst:1876 ../profiles.rst:1890 ../profiles.rst:1920
+#: ../profiles.rst:1930 ../profiles.rst:1940 ../profiles.rst:1949
+#: ../profiles.rst:1978 ../profiles.rst:1987 ../profiles.rst:1996
+#: ../profiles.rst:2010
+msgid "59.94"
+msgstr ""
+
+#: ../profiles.rst:1599 ../profiles.rst:1600 ../profiles.rst:1601
+#: ../profiles.rst:1602 ../profiles.rst:1603 ../profiles.rst:1604
+#: ../profiles.rst:1605 ../profiles.rst:1606 ../profiles.rst:1607
+#: ../profiles.rst:1608 ../profiles.rst:1609 ../profiles.rst:1610
+#: ../profiles.rst:1611 ../profiles.rst:1612 ../profiles.rst:1613
+#: ../profiles.rst:1614 ../profiles.rst:1618 ../profiles.rst:1619
+#: ../profiles.rst:1620 ../profiles.rst:1621 ../profiles.rst:1622
+#: ../profiles.rst:1623 ../profiles.rst:1624 ../profiles.rst:1625
+#: ../profiles.rst:1628 ../profiles.rst:1629 ../profiles.rst:1630
+#: ../profiles.rst:1631 ../profiles.rst:1632 ../profiles.rst:1633
+#: ../profiles.rst:1634 ../profiles.rst:1635 ../profiles.rst:1638
+#: ../profiles.rst:1639 ../profiles.rst:1640 ../profiles.rst:1641
+#: ../profiles.rst:1642 ../profiles.rst:1643 ../profiles.rst:1644
+#: ../profiles.rst:1645 ../profiles.rst:1648 ../profiles.rst:1649
+#: ../profiles.rst:1650 ../profiles.rst:1651 ../profiles.rst:1652
+#: ../profiles.rst:1653 ../profiles.rst:1654 ../profiles.rst:1655
+#: ../profiles.rst:1656 ../profiles.rst:1657 ../profiles.rst:1658
+#: ../profiles.rst:1659 ../profiles.rst:1660 ../profiles.rst:1661
+#: ../profiles.rst:1662 ../profiles.rst:1663 ../profiles.rst:1664
+#: ../profiles.rst:1665 ../profiles.rst:1666 ../profiles.rst:1667
+#: ../profiles.rst:1668 ../profiles.rst:1669 ../profiles.rst:1670
+#: ../profiles.rst:1671 ../profiles.rst:1672 ../profiles.rst:1673
+#: ../profiles.rst:1674 ../profiles.rst:1675 ../profiles.rst:1676
+#: ../profiles.rst:1677 ../profiles.rst:1678 ../profiles.rst:1679
+#: ../profiles.rst:1680 ../profiles.rst:1681 ../profiles.rst:1682
+#: ../profiles.rst:1683 ../profiles.rst:1684 ../profiles.rst:1685
+#: ../profiles.rst:1686 ../profiles.rst:1687 ../profiles.rst:1688
+#: ../profiles.rst:1689 ../profiles.rst:1693 ../profiles.rst:1694
+#: ../profiles.rst:1695 ../profiles.rst:1696 ../profiles.rst:1697
+#: ../profiles.rst:1698 ../profiles.rst:1699 ../profiles.rst:1700
+#: ../profiles.rst:1728 ../profiles.rst:1729 ../profiles.rst:1730
+#: ../profiles.rst:1731 ../profiles.rst:1732 ../profiles.rst:1733
+#: ../profiles.rst:1734 ../profiles.rst:1735 ../profiles.rst:1736
+#: ../profiles.rst:1746 ../profiles.rst:1747 ../profiles.rst:1748
+#: ../profiles.rst:1749 ../profiles.rst:1750 ../profiles.rst:1751
+#: ../profiles.rst:1752 ../profiles.rst:1753 ../profiles.rst:1754
+#: ../profiles.rst:1755 ../profiles.rst:1756 ../profiles.rst:1757
+#: ../profiles.rst:1758 ../profiles.rst:1759 ../profiles.rst:1760
+#: ../profiles.rst:1761 ../profiles.rst:1762 ../profiles.rst:1799
+#: ../profiles.rst:1801 ../profiles.rst:1803 ../profiles.rst:1805
+#: ../profiles.rst:1807 ../profiles.rst:1809 ../profiles.rst:1812
+#: ../profiles.rst:1815 ../profiles.rst:1818 ../profiles.rst:1821
+#: ../profiles.rst:1824 ../profiles.rst:1827 ../profiles.rst:1830
+#: ../profiles.rst:1834 ../profiles.rst:1836 ../profiles.rst:1838
+#: ../profiles.rst:1840 ../profiles.rst:1842 ../profiles.rst:1844
+#: ../profiles.rst:1846 ../profiles.rst:1851 ../profiles.rst:1853
+#: ../profiles.rst:1855 ../profiles.rst:1857 ../profiles.rst:1859
+#: ../profiles.rst:1861 ../profiles.rst:1863 ../profiles.rst:1865
+#: ../profiles.rst:1867 ../profiles.rst:1870 ../profiles.rst:1872
+#: ../profiles.rst:1874 ../profiles.rst:1890 ../profiles.rst:1891
+#: ../profiles.rst:1892 ../profiles.rst:1893 ../profiles.rst:1894
+#: ../profiles.rst:1895 ../profiles.rst:1896 ../profiles.rst:1897
+#: ../profiles.rst:1898 ../profiles.rst:1900 ../profiles.rst:1910
+#: ../profiles.rst:1911 ../profiles.rst:1913 ../profiles.rst:1915
+#: ../profiles.rst:1917 ../profiles.rst:1929 ../profiles.rst:1958
+#: ../profiles.rst:1960 ../profiles.rst:1968 ../profiles.rst:1971
+msgid "16:9"
+msgstr ""
+
+#: ../profiles.rst:1599 ../profiles.rst:1600 ../profiles.rst:1601
+#: ../profiles.rst:1602 ../profiles.rst:1603 ../profiles.rst:1604
+#: ../profiles.rst:1605 ../profiles.rst:1606 ../profiles.rst:1607
+#: ../profiles.rst:1608 ../profiles.rst:1609 ../profiles.rst:1610
+#: ../profiles.rst:1611 ../profiles.rst:1612 ../profiles.rst:1613
+#: ../profiles.rst:1614 ../profiles.rst:1615 ../profiles.rst:1616
+#: ../profiles.rst:1617 ../profiles.rst:1618 ../profiles.rst:1619
+#: ../profiles.rst:1620 ../profiles.rst:1621 ../profiles.rst:1622
+#: ../profiles.rst:1623 ../profiles.rst:1624 ../profiles.rst:1625
+#: ../profiles.rst:1626 ../profiles.rst:1627 ../profiles.rst:1628
+#: ../profiles.rst:1629 ../profiles.rst:1630 ../profiles.rst:1631
+#: ../profiles.rst:1632 ../profiles.rst:1633 ../profiles.rst:1634
+#: ../profiles.rst:1635 ../profiles.rst:1636 ../profiles.rst:1637
+#: ../profiles.rst:1638 ../profiles.rst:1639 ../profiles.rst:1640
+#: ../profiles.rst:1641 ../profiles.rst:1642 ../profiles.rst:1643
+#: ../profiles.rst:1644 ../profiles.rst:1645 ../profiles.rst:1646
+#: ../profiles.rst:1647 ../profiles.rst:1648 ../profiles.rst:1649
+#: ../profiles.rst:1650 ../profiles.rst:1651 ../profiles.rst:1652
+#: ../profiles.rst:1653 ../profiles.rst:1654 ../profiles.rst:1655
+#: ../profiles.rst:1656 ../profiles.rst:1657 ../profiles.rst:1658
+#: ../profiles.rst:1659 ../profiles.rst:1660 ../profiles.rst:1661
+#: ../profiles.rst:1662 ../profiles.rst:1663 ../profiles.rst:1664
+#: ../profiles.rst:1665 ../profiles.rst:1666 ../profiles.rst:1670
+#: ../profiles.rst:1671 ../profiles.rst:1672 ../profiles.rst:1673
+#: ../profiles.rst:1674 ../profiles.rst:1675 ../profiles.rst:1676
+#: ../profiles.rst:1677 ../profiles.rst:1693 ../profiles.rst:1694
+#: ../profiles.rst:1695 ../profiles.rst:1696 ../profiles.rst:1697
+#: ../profiles.rst:1698 ../profiles.rst:1699 ../profiles.rst:1700
+#: ../profiles.rst:1701 ../profiles.rst:1702 ../profiles.rst:1703
+#: ../profiles.rst:1704 ../profiles.rst:1705 ../profiles.rst:1706
+#: ../profiles.rst:1707 ../profiles.rst:1708 ../profiles.rst:1709
+#: ../profiles.rst:1710 ../profiles.rst:1711 ../profiles.rst:1712
+#: ../profiles.rst:1713 ../profiles.rst:1714 ../profiles.rst:1715
+#: ../profiles.rst:1716 ../profiles.rst:1717 ../profiles.rst:1718
+#: ../profiles.rst:1719 ../profiles.rst:1720 ../profiles.rst:1721
+#: ../profiles.rst:1722 ../profiles.rst:1723 ../profiles.rst:1724
+#: ../profiles.rst:1725 ../profiles.rst:1726 ../profiles.rst:1727
+#: ../profiles.rst:1728 ../profiles.rst:1729 ../profiles.rst:1730
+#: ../profiles.rst:1731 ../profiles.rst:1732 ../profiles.rst:1733
+#: ../profiles.rst:1734 ../profiles.rst:1735 ../profiles.rst:1736
+#: ../profiles.rst:1737 ../profiles.rst:1738 ../profiles.rst:1739
+#: ../profiles.rst:1740 ../profiles.rst:1741 ../profiles.rst:1742
+#: ../profiles.rst:1743 ../profiles.rst:1744 ../profiles.rst:1745
+#: ../profiles.rst:1746 ../profiles.rst:1747 ../profiles.rst:1748
+#: ../profiles.rst:1749 ../profiles.rst:1750 ../profiles.rst:1751
+#: ../profiles.rst:1752 ../profiles.rst:1753 ../profiles.rst:1754
+#: ../profiles.rst:1755 ../profiles.rst:1756 ../profiles.rst:1757
+#: ../profiles.rst:1758 ../profiles.rst:1759 ../profiles.rst:1760
+#: ../profiles.rst:1761 ../profiles.rst:1762 ../profiles.rst:1763
+#: ../profiles.rst:1764 ../profiles.rst:1765 ../profiles.rst:1766
+#: ../profiles.rst:1767 ../profiles.rst:1768 ../profiles.rst:1769
+#: ../profiles.rst:1770 ../profiles.rst:1771 ../profiles.rst:1772
+#: ../profiles.rst:1773 ../profiles.rst:1774 ../profiles.rst:1775
+#: ../profiles.rst:1776 ../profiles.rst:1777 ../profiles.rst:1778
+#: ../profiles.rst:1779 ../profiles.rst:1780 ../profiles.rst:1781
+#: ../profiles.rst:1782 ../profiles.rst:1783 ../profiles.rst:1784
+#: ../profiles.rst:1785 ../profiles.rst:1786 ../profiles.rst:1787
+#: ../profiles.rst:1788 ../profiles.rst:1789 ../profiles.rst:1790
+#: ../profiles.rst:1791 ../profiles.rst:1792 ../profiles.rst:1793
+#: ../profiles.rst:1794 ../profiles.rst:1795 ../profiles.rst:1796
+#: ../profiles.rst:1797 ../profiles.rst:1798 ../profiles.rst:1811
+#: ../profiles.rst:1814 ../profiles.rst:1817 ../profiles.rst:1820
+#: ../profiles.rst:1823 ../profiles.rst:1826 ../profiles.rst:1829
+#: ../profiles.rst:1832 ../profiles.rst:1833 ../profiles.rst:1876
+#: ../profiles.rst:1877 ../profiles.rst:1878 ../profiles.rst:1879
+#: ../profiles.rst:1880 ../profiles.rst:1881 ../profiles.rst:1882
+#: ../profiles.rst:1883 ../profiles.rst:1884 ../profiles.rst:1885
+#: ../profiles.rst:1886 ../profiles.rst:1887 ../profiles.rst:1888
+#: ../profiles.rst:1889 ../profiles.rst:1890 ../profiles.rst:1891
+#: ../profiles.rst:1892 ../profiles.rst:1893 ../profiles.rst:1894
+#: ../profiles.rst:1895 ../profiles.rst:1896 ../profiles.rst:1897
+#: ../profiles.rst:1910 ../profiles.rst:1920 ../profiles.rst:1921
+#: ../profiles.rst:1922 ../profiles.rst:1923 ../profiles.rst:1924
+#: ../profiles.rst:1925 ../profiles.rst:1926 ../profiles.rst:1927
+#: ../profiles.rst:1928 ../profiles.rst:1929 ../profiles.rst:1930
+#: ../profiles.rst:1931 ../profiles.rst:1932 ../profiles.rst:1933
+#: ../profiles.rst:1934 ../profiles.rst:1935 ../profiles.rst:1936
+#: ../profiles.rst:1937 ../profiles.rst:1938 ../profiles.rst:1939
+#: ../profiles.rst:1940 ../profiles.rst:1941 ../profiles.rst:1942
+#: ../profiles.rst:1943 ../profiles.rst:1944 ../profiles.rst:1945
+#: ../profiles.rst:1946 ../profiles.rst:1947 ../profiles.rst:1948
+#: ../profiles.rst:1949 ../profiles.rst:1950 ../profiles.rst:1951
+#: ../profiles.rst:1952 ../profiles.rst:1953 ../profiles.rst:1954
+#: ../profiles.rst:1955 ../profiles.rst:1956 ../profiles.rst:1957
+#: ../profiles.rst:1978 ../profiles.rst:1979 ../profiles.rst:1980
+#: ../profiles.rst:1981 ../profiles.rst:1982 ../profiles.rst:1983
+#: ../profiles.rst:1984 ../profiles.rst:1985 ../profiles.rst:1986
+#: ../profiles.rst:1987 ../profiles.rst:1988 ../profiles.rst:1989
+#: ../profiles.rst:1990 ../profiles.rst:1991 ../profiles.rst:1992
+#: ../profiles.rst:1993 ../profiles.rst:1994 ../profiles.rst:1995
+#: ../profiles.rst:1996 ../profiles.rst:1997 ../profiles.rst:1998
+#: ../profiles.rst:1999 ../profiles.rst:2000 ../profiles.rst:2001
+#: ../profiles.rst:2002 ../profiles.rst:2003 ../profiles.rst:2004
+#: ../profiles.rst:2010 ../profiles.rst:2011 ../profiles.rst:2012
+#: ../profiles.rst:2013 ../profiles.rst:2014 ../profiles.rst:2015
+#: ../profiles.rst:2016 ../profiles.rst:2017 ../profiles.rst:2018
+#: ../profiles.rst:2019 ../profiles.rst:2020 ../profiles.rst:2021
+msgid "1:1"
+msgstr ""
+
+#: ../profiles.rst:1599 ../profiles.rst:1600 ../profiles.rst:1601
+#: ../profiles.rst:1602 ../profiles.rst:1603 ../profiles.rst:1604
+#: ../profiles.rst:1605 ../profiles.rst:1606 ../profiles.rst:1607
+#: ../profiles.rst:1608 ../profiles.rst:1609 ../profiles.rst:1610
+#: ../profiles.rst:1611 ../profiles.rst:1612 ../profiles.rst:1613
+#: ../profiles.rst:1614 ../profiles.rst:1615 ../profiles.rst:1616
+#: ../profiles.rst:1617 ../profiles.rst:1618 ../profiles.rst:1619
+#: ../profiles.rst:1620 ../profiles.rst:1621 ../profiles.rst:1622
+#: ../profiles.rst:1623 ../profiles.rst:1624 ../profiles.rst:1625
+#: ../profiles.rst:1626 ../profiles.rst:1627 ../profiles.rst:1628
+#: ../profiles.rst:1629 ../profiles.rst:1630 ../profiles.rst:1631
+#: ../profiles.rst:1632 ../profiles.rst:1633 ../profiles.rst:1634
+#: ../profiles.rst:1635 ../profiles.rst:1636 ../profiles.rst:1637
+#: ../profiles.rst:1638 ../profiles.rst:1639 ../profiles.rst:1640
+#: ../profiles.rst:1641 ../profiles.rst:1642 ../profiles.rst:1643
+#: ../profiles.rst:1644 ../profiles.rst:1645 ../profiles.rst:1646
+#: ../profiles.rst:1647 ../profiles.rst:1648 ../profiles.rst:1649
+#: ../profiles.rst:1650 ../profiles.rst:1651 ../profiles.rst:1652
+#: ../profiles.rst:1653 ../profiles.rst:1654 ../profiles.rst:1655
+#: ../profiles.rst:1656 ../profiles.rst:1657 ../profiles.rst:1658
+#: ../profiles.rst:1659 ../profiles.rst:1660 ../profiles.rst:1661
+#: ../profiles.rst:1662 ../profiles.rst:1663 ../profiles.rst:1670
+#: ../profiles.rst:1671 ../profiles.rst:1672 ../profiles.rst:1673
+#: ../profiles.rst:1674 ../profiles.rst:1675 ../profiles.rst:1676
+#: ../profiles.rst:1677 ../profiles.rst:1679 ../profiles.rst:1680
+#: ../profiles.rst:1681 ../profiles.rst:1682 ../profiles.rst:1683
+#: ../profiles.rst:1684 ../profiles.rst:1685 ../profiles.rst:1686
+#: ../profiles.rst:1690 ../profiles.rst:1691 ../profiles.rst:1692
+#: ../profiles.rst:1693 ../profiles.rst:1694 ../profiles.rst:1695
+#: ../profiles.rst:1696 ../profiles.rst:1697 ../profiles.rst:1698
+#: ../profiles.rst:1699 ../profiles.rst:1700 ../profiles.rst:1701
+#: ../profiles.rst:1702 ../profiles.rst:1703 ../profiles.rst:1704
+#: ../profiles.rst:1705 ../profiles.rst:1706 ../profiles.rst:1707
+#: ../profiles.rst:1708 ../profiles.rst:1709 ../profiles.rst:1710
+#: ../profiles.rst:1711 ../profiles.rst:1712 ../profiles.rst:1713
+#: ../profiles.rst:1714 ../profiles.rst:1715 ../profiles.rst:1716
+#: ../profiles.rst:1717 ../profiles.rst:1718 ../profiles.rst:1719
+#: ../profiles.rst:1720 ../profiles.rst:1721 ../profiles.rst:1722
+#: ../profiles.rst:1723 ../profiles.rst:1724 ../profiles.rst:1725
+#: ../profiles.rst:1726 ../profiles.rst:1727 ../profiles.rst:1728
+#: ../profiles.rst:1729 ../profiles.rst:1730 ../profiles.rst:1731
+#: ../profiles.rst:1732 ../profiles.rst:1733 ../profiles.rst:1734
+#: ../profiles.rst:1735 ../profiles.rst:1736 ../profiles.rst:1737
+#: ../profiles.rst:1738 ../profiles.rst:1739 ../profiles.rst:1740
+#: ../profiles.rst:1741 ../profiles.rst:1742 ../profiles.rst:1743
+#: ../profiles.rst:1744 ../profiles.rst:1745 ../profiles.rst:1746
+#: ../profiles.rst:1747 ../profiles.rst:1748 ../profiles.rst:1749
+#: ../profiles.rst:1750 ../profiles.rst:1751 ../profiles.rst:1752
+#: ../profiles.rst:1753 ../profiles.rst:1754 ../profiles.rst:1755
+#: ../profiles.rst:1756 ../profiles.rst:1757 ../profiles.rst:1758
+#: ../profiles.rst:1759 ../profiles.rst:1760 ../profiles.rst:1761
+#: ../profiles.rst:1762 ../profiles.rst:1763 ../profiles.rst:1764
+#: ../profiles.rst:1765 ../profiles.rst:1766 ../profiles.rst:1767
+#: ../profiles.rst:1768 ../profiles.rst:1769 ../profiles.rst:1770
+#: ../profiles.rst:1771 ../profiles.rst:1772 ../profiles.rst:1773
+#: ../profiles.rst:1774 ../profiles.rst:1775 ../profiles.rst:1776
+#: ../profiles.rst:1777 ../profiles.rst:1778 ../profiles.rst:1779
+#: ../profiles.rst:1780 ../profiles.rst:1781 ../profiles.rst:1782
+#: ../profiles.rst:1783 ../profiles.rst:1784 ../profiles.rst:1785
+#: ../profiles.rst:1786 ../profiles.rst:1787 ../profiles.rst:1788
+#: ../profiles.rst:1789 ../profiles.rst:1790 ../profiles.rst:1791
+#: ../profiles.rst:1792 ../profiles.rst:1793 ../profiles.rst:1794
+#: ../profiles.rst:1795 ../profiles.rst:1796 ../profiles.rst:1797
+#: ../profiles.rst:1798 ../profiles.rst:1799 ../profiles.rst:1800
+#: ../profiles.rst:1801 ../profiles.rst:1802 ../profiles.rst:1805
+#: ../profiles.rst:1806 ../profiles.rst:1809 ../profiles.rst:1810
+#: ../profiles.rst:1811 ../profiles.rst:1812 ../profiles.rst:1813
+#: ../profiles.rst:1814 ../profiles.rst:1815 ../profiles.rst:1816
+#: ../profiles.rst:1817 ../profiles.rst:1818 ../profiles.rst:1819
+#: ../profiles.rst:1820 ../profiles.rst:1821 ../profiles.rst:1822
+#: ../profiles.rst:1823 ../profiles.rst:1824 ../profiles.rst:1825
+#: ../profiles.rst:1826 ../profiles.rst:1827 ../profiles.rst:1828
+#: ../profiles.rst:1829 ../profiles.rst:1830 ../profiles.rst:1831
+#: ../profiles.rst:1832 ../profiles.rst:1833 ../profiles.rst:1848
+#: ../profiles.rst:1849 ../profiles.rst:1850 ../profiles.rst:1853
+#: ../profiles.rst:1854 ../profiles.rst:1855 ../profiles.rst:1856
+#: ../profiles.rst:1857 ../profiles.rst:1858 ../profiles.rst:1859
+#: ../profiles.rst:1860 ../profiles.rst:1861 ../profiles.rst:1862
+#: ../profiles.rst:1863 ../profiles.rst:1864 ../profiles.rst:1865
+#: ../profiles.rst:1866 ../profiles.rst:1867 ../profiles.rst:1868
+#: ../profiles.rst:1869 ../profiles.rst:1876 ../profiles.rst:1877
+#: ../profiles.rst:1878 ../profiles.rst:1879 ../profiles.rst:1880
+#: ../profiles.rst:1881 ../profiles.rst:1882 ../profiles.rst:1883
+#: ../profiles.rst:1884 ../profiles.rst:1890 ../profiles.rst:1891
+#: ../profiles.rst:1892 ../profiles.rst:1893 ../profiles.rst:1894
+#: ../profiles.rst:1895 ../profiles.rst:1896 ../profiles.rst:1897
+#: ../profiles.rst:1898 ../profiles.rst:1899 ../profiles.rst:1902
+#: ../profiles.rst:1903 ../profiles.rst:1906 ../profiles.rst:1907
+#: ../profiles.rst:1910 ../profiles.rst:1911 ../profiles.rst:1912
+#: ../profiles.rst:1920 ../profiles.rst:1921 ../profiles.rst:1922
+#: ../profiles.rst:1923 ../profiles.rst:1924 ../profiles.rst:1925
+#: ../profiles.rst:1926 ../profiles.rst:1927 ../profiles.rst:1928
+#: ../profiles.rst:1929 ../profiles.rst:1930 ../profiles.rst:1931
+#: ../profiles.rst:1932 ../profiles.rst:1933 ../profiles.rst:1934
+#: ../profiles.rst:1935 ../profiles.rst:1936 ../profiles.rst:1937
+#: ../profiles.rst:1938 ../profiles.rst:1939 ../profiles.rst:1940
+#: ../profiles.rst:1941 ../profiles.rst:1942 ../profiles.rst:1943
+#: ../profiles.rst:1944 ../profiles.rst:1945 ../profiles.rst:1946
+#: ../profiles.rst:1947 ../profiles.rst:1948 ../profiles.rst:1949
+#: ../profiles.rst:1950 ../profiles.rst:1951 ../profiles.rst:1952
+#: ../profiles.rst:1953 ../profiles.rst:1954 ../profiles.rst:1955
+#: ../profiles.rst:1956 ../profiles.rst:1957 ../profiles.rst:1958
+#: ../profiles.rst:1959 ../profiles.rst:1962 ../profiles.rst:1963
+#: ../profiles.rst:1964 ../profiles.rst:1967 ../profiles.rst:1968
+#: ../profiles.rst:1969 ../profiles.rst:1970 ../profiles.rst:1973
+#: ../profiles.rst:1974 ../profiles.rst:1975 ../profiles.rst:1976
+#: ../profiles.rst:1978 ../profiles.rst:1979 ../profiles.rst:1980
+#: ../profiles.rst:1981 ../profiles.rst:1982 ../profiles.rst:1983
+#: ../profiles.rst:1984 ../profiles.rst:1985 ../profiles.rst:1986
+#: ../profiles.rst:1987 ../profiles.rst:1988 ../profiles.rst:1989
+#: ../profiles.rst:1990 ../profiles.rst:1991 ../profiles.rst:1992
+#: ../profiles.rst:1993 ../profiles.rst:1994 ../profiles.rst:1995
+#: ../profiles.rst:1996 ../profiles.rst:1997 ../profiles.rst:1998
+#: ../profiles.rst:1999 ../profiles.rst:2000 ../profiles.rst:2001
+#: ../profiles.rst:2002 ../profiles.rst:2003 ../profiles.rst:2004
+#: ../profiles.rst:2005 ../profiles.rst:2006 ../profiles.rst:2007
+#: ../profiles.rst:2008 ../profiles.rst:2009 ../profiles.rst:2010
+#: ../profiles.rst:2011 ../profiles.rst:2012 ../profiles.rst:2013
+#: ../profiles.rst:2014 ../profiles.rst:2015 ../profiles.rst:2016
+#: ../profiles.rst:2017 ../profiles.rst:2018 ../profiles.rst:2019
+#: ../profiles.rst:2020 ../profiles.rst:2021
+msgid "No"
+msgstr ""
+
+#: ../profiles.rst:1600
+msgid "16K UHD 8640p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1600 ../profiles.rst:1608 ../profiles.rst:1619
+#: ../profiles.rst:1629 ../profiles.rst:1639 ../profiles.rst:1649
+#: ../profiles.rst:1657 ../profiles.rst:1664 ../profiles.rst:1667
+#: ../profiles.rst:1671 ../profiles.rst:1680 ../profiles.rst:1687
+#: ../profiles.rst:1690 ../profiles.rst:1694 ../profiles.rst:1702
+#: ../profiles.rst:1720 ../profiles.rst:1729 ../profiles.rst:1738
+#: ../profiles.rst:1747 ../profiles.rst:1755 ../profiles.rst:1764
+#: ../profiles.rst:1773 ../profiles.rst:1783 ../profiles.rst:1792
+#: ../profiles.rst:1807 ../profiles.rst:1808 ../profiles.rst:1812
+#: ../profiles.rst:1813 ../profiles.rst:1814 ../profiles.rst:1836
+#: ../profiles.rst:1837 ../profiles.rst:1848 ../profiles.rst:1855
+#: ../profiles.rst:1856 ../profiles.rst:1870 ../profiles.rst:1871
+#: ../profiles.rst:1877 ../profiles.rst:1885 ../profiles.rst:1891
+#: ../profiles.rst:1904 ../profiles.rst:1908 ../profiles.rst:1915
+#: ../profiles.rst:1916 ../profiles.rst:1921 ../profiles.rst:1929
+#: ../profiles.rst:1931 ../profiles.rst:1941 ../profiles.rst:1950
+#: ../profiles.rst:1962 ../profiles.rst:1965 ../profiles.rst:1967
+#: ../profiles.rst:1973 ../profiles.rst:1977 ../profiles.rst:1979
+#: ../profiles.rst:1988 ../profiles.rst:1997 ../profiles.rst:2005
+#: ../profiles.rst:2011 ../profiles.rst:2019
+msgid "29.97"
+msgstr ""
+
+#: ../profiles.rst:1601
+msgid "16K UHD 8640p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:1601 ../profiles.rst:1609 ../profiles.rst:1620
+#: ../profiles.rst:1630 ../profiles.rst:1640 ../profiles.rst:1650
+#: ../profiles.rst:1658 ../profiles.rst:1672 ../profiles.rst:1681
+#: ../profiles.rst:1695 ../profiles.rst:1703 ../profiles.rst:1721
+#: ../profiles.rst:1730 ../profiles.rst:1739 ../profiles.rst:1748
+#: ../profiles.rst:1756 ../profiles.rst:1765 ../profiles.rst:1774
+#: ../profiles.rst:1784 ../profiles.rst:1793 ../profiles.rst:1805
+#: ../profiles.rst:1806 ../profiles.rst:1815 ../profiles.rst:1816
+#: ../profiles.rst:1817 ../profiles.rst:1838 ../profiles.rst:1839
+#: ../profiles.rst:1857 ../profiles.rst:1858 ../profiles.rst:1878
+#: ../profiles.rst:1886 ../profiles.rst:1892 ../profiles.rst:1902
+#: ../profiles.rst:1906 ../profiles.rst:1917 ../profiles.rst:1918
+#: ../profiles.rst:1922 ../profiles.rst:1932 ../profiles.rst:1942
+#: ../profiles.rst:1951 ../profiles.rst:1963 ../profiles.rst:1974
+#: ../profiles.rst:1980 ../profiles.rst:1989 ../profiles.rst:1998
+#: ../profiles.rst:2008 ../profiles.rst:2012
+msgid "23.98"
+msgstr ""
+
+#: ../profiles.rst:1602
+msgid "16K UHD 8640p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1602 ../profiles.rst:1610 ../profiles.rst:1621
+#: ../profiles.rst:1631 ../profiles.rst:1636 ../profiles.rst:1641
+#: ../profiles.rst:1646 ../profiles.rst:1647 ../profiles.rst:1651
+#: ../profiles.rst:1659 ../profiles.rst:1673 ../profiles.rst:1682
+#: ../profiles.rst:1696 ../profiles.rst:1704 ../profiles.rst:1709
+#: ../profiles.rst:1714 ../profiles.rst:1722 ../profiles.rst:1731
+#: ../profiles.rst:1740 ../profiles.rst:1749 ../profiles.rst:1757
+#: ../profiles.rst:1766 ../profiles.rst:1775 ../profiles.rst:1785
+#: ../profiles.rst:1794 ../profiles.rst:1818 ../profiles.rst:1819
+#: ../profiles.rst:1820 ../profiles.rst:1840 ../profiles.rst:1841
+#: ../profiles.rst:1859 ../profiles.rst:1860 ../profiles.rst:1879
+#: ../profiles.rst:1893 ../profiles.rst:1923 ../profiles.rst:1933
+#: ../profiles.rst:1943 ../profiles.rst:1952 ../profiles.rst:1981
+#: ../profiles.rst:1990 ../profiles.rst:1999 ../profiles.rst:2013
+msgid "60.00"
+msgstr ""
+
+#: ../profiles.rst:1603
+msgid "16K UHD 8640p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:1603 ../profiles.rst:1611 ../profiles.rst:1622
+#: ../profiles.rst:1632 ../profiles.rst:1642 ../profiles.rst:1652
+#: ../profiles.rst:1660 ../profiles.rst:1674 ../profiles.rst:1683
+#: ../profiles.rst:1697 ../profiles.rst:1705 ../profiles.rst:1710
+#: ../profiles.rst:1715 ../profiles.rst:1723 ../profiles.rst:1732
+#: ../profiles.rst:1741 ../profiles.rst:1750 ../profiles.rst:1758
+#: ../profiles.rst:1767 ../profiles.rst:1776 ../profiles.rst:1786
+#: ../profiles.rst:1795 ../profiles.rst:1799 ../profiles.rst:1800
+#: ../profiles.rst:1821 ../profiles.rst:1822 ../profiles.rst:1823
+#: ../profiles.rst:1861 ../profiles.rst:1862 ../profiles.rst:1880
+#: ../profiles.rst:1894 ../profiles.rst:1924 ../profiles.rst:1934
+#: ../profiles.rst:1944 ../profiles.rst:1953 ../profiles.rst:1982
+#: ../profiles.rst:1991 ../profiles.rst:2000 ../profiles.rst:2014
+msgid "50.00"
+msgstr ""
+
+#: ../profiles.rst:1604
+msgid "16K UHD 8640p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1604 ../profiles.rst:1612 ../profiles.rst:1615
+#: ../profiles.rst:1623 ../profiles.rst:1626 ../profiles.rst:1633
+#: ../profiles.rst:1637 ../profiles.rst:1643 ../profiles.rst:1653
+#: ../profiles.rst:1661 ../profiles.rst:1665 ../profiles.rst:1668
+#: ../profiles.rst:1675 ../profiles.rst:1684 ../profiles.rst:1688
+#: ../profiles.rst:1698 ../profiles.rst:1706 ../profiles.rst:1711
+#: ../profiles.rst:1716 ../profiles.rst:1724 ../profiles.rst:1733
+#: ../profiles.rst:1742 ../profiles.rst:1751 ../profiles.rst:1759
+#: ../profiles.rst:1768 ../profiles.rst:1777 ../profiles.rst:1787
+#: ../profiles.rst:1796 ../profiles.rst:1824 ../profiles.rst:1825
+#: ../profiles.rst:1826 ../profiles.rst:1842 ../profiles.rst:1843
+#: ../profiles.rst:1863 ../profiles.rst:1864 ../profiles.rst:1872
+#: ../profiles.rst:1873 ../profiles.rst:1881 ../profiles.rst:1887
+#: ../profiles.rst:1895 ../profiles.rst:1919 ../profiles.rst:1925
+#: ../profiles.rst:1935 ../profiles.rst:1945 ../profiles.rst:1954
+#: ../profiles.rst:1983 ../profiles.rst:1992 ../profiles.rst:2001
+#: ../profiles.rst:2015
+msgid "30.00"
+msgstr ""
+
+#: ../profiles.rst:1605
+msgid "16K UHD 8640p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1605 ../profiles.rst:1613 ../profiles.rst:1616
+#: ../profiles.rst:1624 ../profiles.rst:1634 ../profiles.rst:1644
+#: ../profiles.rst:1654 ../profiles.rst:1662 ../profiles.rst:1666
+#: ../profiles.rst:1669 ../profiles.rst:1676 ../profiles.rst:1678
+#: ../profiles.rst:1685 ../profiles.rst:1689 ../profiles.rst:1691
+#: ../profiles.rst:1699 ../profiles.rst:1707 ../profiles.rst:1712
+#: ../profiles.rst:1717 ../profiles.rst:1725 ../profiles.rst:1734
+#: ../profiles.rst:1743 ../profiles.rst:1752 ../profiles.rst:1760
+#: ../profiles.rst:1769 ../profiles.rst:1778 ../profiles.rst:1781
+#: ../profiles.rst:1788 ../profiles.rst:1797 ../profiles.rst:1801
+#: ../profiles.rst:1802 ../profiles.rst:1803 ../profiles.rst:1804
+#: ../profiles.rst:1827 ../profiles.rst:1828 ../profiles.rst:1829
+#: ../profiles.rst:1844 ../profiles.rst:1845 ../profiles.rst:1849
+#: ../profiles.rst:1851 ../profiles.rst:1852 ../profiles.rst:1865
+#: ../profiles.rst:1866 ../profiles.rst:1874 ../profiles.rst:1875
+#: ../profiles.rst:1882 ../profiles.rst:1888 ../profiles.rst:1896
+#: ../profiles.rst:1898 ../profiles.rst:1899 ../profiles.rst:1900
+#: ../profiles.rst:1901 ../profiles.rst:1903 ../profiles.rst:1905
+#: ../profiles.rst:1907 ../profiles.rst:1909 ../profiles.rst:1910
+#: ../profiles.rst:1911 ../profiles.rst:1912 ../profiles.rst:1913
+#: ../profiles.rst:1914 ../profiles.rst:1926 ../profiles.rst:1936
+#: ../profiles.rst:1939 ../profiles.rst:1946 ../profiles.rst:1955
+#: ../profiles.rst:1958 ../profiles.rst:1959 ../profiles.rst:1960
+#: ../profiles.rst:1961 ../profiles.rst:1964 ../profiles.rst:1966
+#: ../profiles.rst:1968 ../profiles.rst:1969 ../profiles.rst:1971
+#: ../profiles.rst:1972 ../profiles.rst:1975 ../profiles.rst:1984
+#: ../profiles.rst:1993 ../profiles.rst:2002 ../profiles.rst:2006
+#: ../profiles.rst:2009 ../profiles.rst:2016 ../profiles.rst:2020
+msgid "25.00"
+msgstr ""
+
+#: ../profiles.rst:1606
+msgid "16K UHD 8640p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1606 ../profiles.rst:1614 ../profiles.rst:1617
+#: ../profiles.rst:1625 ../profiles.rst:1627 ../profiles.rst:1635
+#: ../profiles.rst:1645 ../profiles.rst:1655 ../profiles.rst:1663
+#: ../profiles.rst:1677 ../profiles.rst:1686 ../profiles.rst:1700
+#: ../profiles.rst:1708 ../profiles.rst:1713 ../profiles.rst:1718
+#: ../profiles.rst:1726 ../profiles.rst:1735 ../profiles.rst:1744
+#: ../profiles.rst:1753 ../profiles.rst:1761 ../profiles.rst:1770
+#: ../profiles.rst:1779 ../profiles.rst:1789 ../profiles.rst:1798
+#: ../profiles.rst:1830 ../profiles.rst:1831 ../profiles.rst:1832
+#: ../profiles.rst:1846 ../profiles.rst:1847 ../profiles.rst:1867
+#: ../profiles.rst:1868 ../profiles.rst:1883 ../profiles.rst:1889
+#: ../profiles.rst:1897 ../profiles.rst:1927 ../profiles.rst:1937
+#: ../profiles.rst:1947 ../profiles.rst:1956 ../profiles.rst:1985
+#: ../profiles.rst:1994 ../profiles.rst:2003 ../profiles.rst:2017
+msgid "24.00"
+msgstr ""
+
+#: ../profiles.rst:1607 ../profiles.rst:1608 ../profiles.rst:1609
+#: ../profiles.rst:1610 ../profiles.rst:1611 ../profiles.rst:1612
+#: ../profiles.rst:1613 ../profiles.rst:1614
+msgid "7680"
+msgstr ""
+
+#: ../profiles.rst:1607 ../profiles.rst:1608 ../profiles.rst:1609
+#: ../profiles.rst:1610 ../profiles.rst:1611 ../profiles.rst:1612
+#: ../profiles.rst:1613 ../profiles.rst:1614
+msgid "4320"
+msgstr ""
+
+#: ../profiles.rst:1615
+msgid "5.6K 360° 5.7K 2880p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1615 ../profiles.rst:1616 ../profiles.rst:1617
+msgid "5760"
+msgstr ""
+
+#: ../profiles.rst:1615 ../profiles.rst:1616 ../profiles.rst:1617
+#: ../profiles.rst:1618 ../profiles.rst:1619 ../profiles.rst:1620
+#: ../profiles.rst:1621 ../profiles.rst:1622 ../profiles.rst:1623
+#: ../profiles.rst:1624 ../profiles.rst:1625 ../profiles.rst:1647
+msgid "2880"
+msgstr ""
+
+#: ../profiles.rst:1615 ../profiles.rst:1616 ../profiles.rst:1617
+#: ../profiles.rst:1626 ../profiles.rst:1627 ../profiles.rst:1636
+#: ../profiles.rst:1637 ../profiles.rst:1646 ../profiles.rst:1647
+msgid "2:1"
+msgstr ""
+
+#: ../profiles.rst:1616
+msgid "5.7K 360° 2880p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1617
+msgid "5.7K 360° 2880p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1618
+msgid "5K UHD 2880p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:1618 ../profiles.rst:1619 ../profiles.rst:1620
+#: ../profiles.rst:1621 ../profiles.rst:1622 ../profiles.rst:1623
+#: ../profiles.rst:1624 ../profiles.rst:1625
+msgid "5120"
+msgstr ""
+
+#: ../profiles.rst:1619
+msgid "5K UHD 2880p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1620
+msgid "5K UHD 2880p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:1621
+msgid "5K UHD 2880p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1622
+msgid "5K UHD 2880p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:1623
+msgid "5K UHD 2880p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1624
+msgid "5K UHD 2880p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1625
+msgid "5K UHD 2880p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1626
+msgid "5.2K 360° 2496p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1626
+msgid "4992"
+msgstr ""
+
+#: ../profiles.rst:1626
+msgid "2496"
+msgstr ""
+
+#: ../profiles.rst:1627
+msgid "DCI-4K 360° 2048p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1627
+msgid "4096"
+msgstr ""
+
+#: ../profiles.rst:1627 ../profiles.rst:1678
+msgid "2048"
+msgstr ""
+
+#: ../profiles.rst:1628 ../profiles.rst:1629 ../profiles.rst:1630
+#: ../profiles.rst:1631 ../profiles.rst:1632 ../profiles.rst:1633
+#: ../profiles.rst:1634 ../profiles.rst:1635 ../profiles.rst:1636
+#: ../profiles.rst:1637
+msgid "3840"
+msgstr ""
+
+#: ../profiles.rst:1628 ../profiles.rst:1629 ../profiles.rst:1630
+#: ../profiles.rst:1631 ../profiles.rst:1632 ../profiles.rst:1633
+#: ../profiles.rst:1634 ../profiles.rst:1635
+msgid "2160"
+msgstr ""
+
+#: ../profiles.rst:1636
+msgid "4K 360° 1920p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1636 ../profiles.rst:1637 ../profiles.rst:1656
+#: ../profiles.rst:1657 ../profiles.rst:1658 ../profiles.rst:1659
+#: ../profiles.rst:1660 ../profiles.rst:1661 ../profiles.rst:1662
+#: ../profiles.rst:1663 ../profiles.rst:1664 ../profiles.rst:1665
+#: ../profiles.rst:1666 ../profiles.rst:1667 ../profiles.rst:1668
+#: ../profiles.rst:1669 ../profiles.rst:1679 ../profiles.rst:1680
+#: ../profiles.rst:1681 ../profiles.rst:1682 ../profiles.rst:1683
+#: ../profiles.rst:1684 ../profiles.rst:1685 ../profiles.rst:1686
+#: ../profiles.rst:1687 ../profiles.rst:1688 ../profiles.rst:1689
+#: ../profiles.rst:1701 ../profiles.rst:1702 ../profiles.rst:1703
+#: ../profiles.rst:1704 ../profiles.rst:1705 ../profiles.rst:1706
+#: ../profiles.rst:1707 ../profiles.rst:1708
+msgid "1920"
+msgstr ""
+
+#: ../profiles.rst:1637
+msgid "4K 360° 1920p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1638
+msgid "3K QHD+ 1800p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:1638 ../profiles.rst:1639 ../profiles.rst:1640
+#: ../profiles.rst:1641 ../profiles.rst:1642 ../profiles.rst:1643
+#: ../profiles.rst:1644 ../profiles.rst:1645
+msgid "3200"
+msgstr ""
+
+#: ../profiles.rst:1638 ../profiles.rst:1639 ../profiles.rst:1640
+#: ../profiles.rst:1641 ../profiles.rst:1642 ../profiles.rst:1643
+#: ../profiles.rst:1644 ../profiles.rst:1645
+msgid "1800"
+msgstr ""
+
+#: ../profiles.rst:1639
+msgid "3K QHD+ 1800p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1640
+msgid "3K QHD+ 1800p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:1641
+msgid "3K QHD+ 1800p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1642
+msgid "3K QHD+ 1800p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:1643
+msgid "3K QHD+ 1800p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1644
+msgid "3K QHD+ 1800p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1645
+msgid "3K QHD+ 1800p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1646
+msgid "3K 360° 1504p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1646
+msgid "3008"
+msgstr ""
+
+#: ../profiles.rst:1646
+msgid "1504"
+msgstr ""
+
+#: ../profiles.rst:1647
+msgid "3K 360° 1440p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1647 ../profiles.rst:1648 ../profiles.rst:1649
+#: ../profiles.rst:1650 ../profiles.rst:1651 ../profiles.rst:1652
+#: ../profiles.rst:1653 ../profiles.rst:1654 ../profiles.rst:1655
+#: ../profiles.rst:1678 ../profiles.rst:1679 ../profiles.rst:1680
+#: ../profiles.rst:1681 ../profiles.rst:1682 ../profiles.rst:1683
+#: ../profiles.rst:1684 ../profiles.rst:1685 ../profiles.rst:1686
+#: ../profiles.rst:1687 ../profiles.rst:1688 ../profiles.rst:1689
+msgid "1440"
+msgstr ""
+
+#: ../profiles.rst:1648 ../profiles.rst:1649 ../profiles.rst:1650
+#: ../profiles.rst:1651 ../profiles.rst:1652 ../profiles.rst:1653
+#: ../profiles.rst:1654 ../profiles.rst:1655
+msgid "2560"
+msgstr ""
+
+#: ../profiles.rst:1656 ../profiles.rst:1657 ../profiles.rst:1658
+#: ../profiles.rst:1659 ../profiles.rst:1660 ../profiles.rst:1661
+#: ../profiles.rst:1662 ../profiles.rst:1663 ../profiles.rst:1664
+#: ../profiles.rst:1665 ../profiles.rst:1666 ../profiles.rst:1679
+#: ../profiles.rst:1680 ../profiles.rst:1681 ../profiles.rst:1682
+#: ../profiles.rst:1683 ../profiles.rst:1684 ../profiles.rst:1685
+#: ../profiles.rst:1686 ../profiles.rst:1687 ../profiles.rst:1688
+#: ../profiles.rst:1689 ../profiles.rst:1701 ../profiles.rst:1702
+#: ../profiles.rst:1703 ../profiles.rst:1704 ../profiles.rst:1705
+#: ../profiles.rst:1706 ../profiles.rst:1707 ../profiles.rst:1708
+#: ../profiles.rst:1709 ../profiles.rst:1710 ../profiles.rst:1711
+#: ../profiles.rst:1712 ../profiles.rst:1713 ../profiles.rst:1714
+#: ../profiles.rst:1715 ../profiles.rst:1716 ../profiles.rst:1717
+#: ../profiles.rst:1718
+msgid "1080"
+msgstr ""
+
+#: ../profiles.rst:1664
+msgid "FHD 1080i 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1664 ../profiles.rst:1665 ../profiles.rst:1666
+#: ../profiles.rst:1667 ../profiles.rst:1668 ../profiles.rst:1669
+#: ../profiles.rst:1678 ../profiles.rst:1687 ../profiles.rst:1688
+#: ../profiles.rst:1689 ../profiles.rst:1803 ../profiles.rst:1804
+#: ../profiles.rst:1807 ../profiles.rst:1808 ../profiles.rst:1834
+#: ../profiles.rst:1835 ../profiles.rst:1836 ../profiles.rst:1837
+#: ../profiles.rst:1838 ../profiles.rst:1839 ../profiles.rst:1840
+#: ../profiles.rst:1841 ../profiles.rst:1842 ../profiles.rst:1843
+#: ../profiles.rst:1844 ../profiles.rst:1845 ../profiles.rst:1846
+#: ../profiles.rst:1847 ../profiles.rst:1851 ../profiles.rst:1852
+#: ../profiles.rst:1870 ../profiles.rst:1871 ../profiles.rst:1872
+#: ../profiles.rst:1873 ../profiles.rst:1874 ../profiles.rst:1875
+#: ../profiles.rst:1885 ../profiles.rst:1886 ../profiles.rst:1887
+#: ../profiles.rst:1888 ../profiles.rst:1889 ../profiles.rst:1900
+#: ../profiles.rst:1901 ../profiles.rst:1904 ../profiles.rst:1905
+#: ../profiles.rst:1908 ../profiles.rst:1909 ../profiles.rst:1913
+#: ../profiles.rst:1914 ../profiles.rst:1915 ../profiles.rst:1916
+#: ../profiles.rst:1917 ../profiles.rst:1918 ../profiles.rst:1919
+#: ../profiles.rst:1960 ../profiles.rst:1961 ../profiles.rst:1965
+#: ../profiles.rst:1966 ../profiles.rst:1971 ../profiles.rst:1972
+#: ../profiles.rst:1977
+msgid "Yes"
+msgstr ""
+
+#: ../profiles.rst:1667
+msgid "FHD Anamorphic 1035i 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1667 ../profiles.rst:1668 ../profiles.rst:1669
+msgid "1035"
+msgstr ""
+
+#: ../profiles.rst:1667 ../profiles.rst:1668 ../profiles.rst:1669
+msgid "23:24"
+msgstr ""
+
+#: ../profiles.rst:1667 ../profiles.rst:1668 ../profiles.rst:1669
+msgid "1840"
+msgstr ""
+
+#: ../profiles.rst:1668
+msgid "FHD Anamorphic 1035i 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1669
+msgid "FHD Anamorphic 1035i 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1670
+msgid "HD+ 900p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:1670 ../profiles.rst:1671 ../profiles.rst:1672
+#: ../profiles.rst:1673 ../profiles.rst:1674 ../profiles.rst:1675
+#: ../profiles.rst:1676 ../profiles.rst:1677
+msgid "1600"
+msgstr ""
+
+#: ../profiles.rst:1670 ../profiles.rst:1671 ../profiles.rst:1672
+#: ../profiles.rst:1673 ../profiles.rst:1674 ../profiles.rst:1675
+#: ../profiles.rst:1676 ../profiles.rst:1677
+msgid "900"
+msgstr ""
+
+#: ../profiles.rst:1671
+msgid "HD+ 900p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1672
+msgid "HD+ 900p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:1673
+msgid "HD+ 900p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1674
+msgid "HD+ 900p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:1675
+msgid "HD+ 900p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1676
+msgid "HD+ 900p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1677
+msgid "HD+ 900p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1678
+msgid "HD Anamorphic 1152i 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1678 ../profiles.rst:1690 ../profiles.rst:1691
+#: ../profiles.rst:1692
+msgid "1152"
+msgstr ""
+
+#: ../profiles.rst:1678 ../profiles.rst:1799 ../profiles.rst:1801
+#: ../profiles.rst:1803
+msgid "64:45"
+msgstr ""
+
+#: ../profiles.rst:1679
+msgid "HD Anamorphic 1080p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:1679 ../profiles.rst:1680 ../profiles.rst:1681
+#: ../profiles.rst:1682 ../profiles.rst:1683 ../profiles.rst:1684
+#: ../profiles.rst:1685 ../profiles.rst:1686 ../profiles.rst:1687
+#: ../profiles.rst:1688 ../profiles.rst:1689 ../profiles.rst:1690
+#: ../profiles.rst:1691 ../profiles.rst:1692 ../profiles.rst:1763
+#: ../profiles.rst:1764 ../profiles.rst:1765 ../profiles.rst:1766
+#: ../profiles.rst:1767 ../profiles.rst:1768 ../profiles.rst:1769
+#: ../profiles.rst:1770 ../profiles.rst:1771 ../profiles.rst:1781
+#: ../profiles.rst:1800 ../profiles.rst:1802 ../profiles.rst:1804
+#: ../profiles.rst:1806 ../profiles.rst:1808 ../profiles.rst:1810
+#: ../profiles.rst:1813 ../profiles.rst:1816 ../profiles.rst:1819
+#: ../profiles.rst:1822 ../profiles.rst:1825 ../profiles.rst:1828
+#: ../profiles.rst:1831 ../profiles.rst:1835 ../profiles.rst:1837
+#: ../profiles.rst:1839 ../profiles.rst:1841 ../profiles.rst:1843
+#: ../profiles.rst:1845 ../profiles.rst:1847 ../profiles.rst:1848
+#: ../profiles.rst:1849 ../profiles.rst:1850 ../profiles.rst:1852
+#: ../profiles.rst:1854 ../profiles.rst:1856 ../profiles.rst:1858
+#: ../profiles.rst:1860 ../profiles.rst:1862 ../profiles.rst:1864
+#: ../profiles.rst:1866 ../profiles.rst:1868 ../profiles.rst:1869
+#: ../profiles.rst:1871 ../profiles.rst:1873 ../profiles.rst:1875
+#: ../profiles.rst:1876 ../profiles.rst:1877 ../profiles.rst:1878
+#: ../profiles.rst:1879 ../profiles.rst:1880 ../profiles.rst:1881
+#: ../profiles.rst:1882 ../profiles.rst:1883 ../profiles.rst:1884
+#: ../profiles.rst:1885 ../profiles.rst:1886 ../profiles.rst:1887
+#: ../profiles.rst:1888 ../profiles.rst:1889 ../profiles.rst:1899
+#: ../profiles.rst:1901 ../profiles.rst:1902 ../profiles.rst:1903
+#: ../profiles.rst:1904 ../profiles.rst:1905 ../profiles.rst:1906
+#: ../profiles.rst:1907 ../profiles.rst:1908 ../profiles.rst:1909
+#: ../profiles.rst:1912 ../profiles.rst:1914 ../profiles.rst:1916
+#: ../profiles.rst:1918 ../profiles.rst:1919 ../profiles.rst:1939
+#: ../profiles.rst:1959 ../profiles.rst:1961 ../profiles.rst:1962
+#: ../profiles.rst:1963 ../profiles.rst:1964 ../profiles.rst:1965
+#: ../profiles.rst:1966 ../profiles.rst:1967 ../profiles.rst:1969
+#: ../profiles.rst:1970 ../profiles.rst:1972 ../profiles.rst:1973
+#: ../profiles.rst:1974 ../profiles.rst:1975 ../profiles.rst:1976
+#: ../profiles.rst:1977 ../profiles.rst:1978 ../profiles.rst:1979
+#: ../profiles.rst:1980 ../profiles.rst:1981 ../profiles.rst:1982
+#: ../profiles.rst:1983 ../profiles.rst:1984 ../profiles.rst:1985
+#: ../profiles.rst:1986 ../profiles.rst:2005 ../profiles.rst:2006
+#: ../profiles.rst:2007 ../profiles.rst:2008 ../profiles.rst:2009
+#: ../profiles.rst:2010 ../profiles.rst:2011 ../profiles.rst:2012
+#: ../profiles.rst:2013 ../profiles.rst:2014 ../profiles.rst:2015
+#: ../profiles.rst:2016 ../profiles.rst:2017 ../profiles.rst:2018
+#: ../profiles.rst:2019 ../profiles.rst:2020 ../profiles.rst:2021
+msgid "4:3"
+msgstr ""
+
+#: ../profiles.rst:1680
+msgid "HD Anamorphic 1080p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1681
+msgid "HD Anamorphic 1080p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:1682
+msgid "HD Anamorphic 1080p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1683
+msgid "HD Anamorphic 1080p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:1684
+msgid "HD Anamorphic 1080p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1685
+msgid "HD Anamorphic 1080p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1686
+msgid "HD Anamorphic 1080p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1687
+msgid "HD Anamorphic 1080i 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1688
+msgid "HD Anamorphic 1080i 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1689
+msgid "HD Anamorphic 1080i 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1690
+msgid "NTSC SD 16CIF Anamorphic 1152p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1690 ../profiles.rst:1691 ../profiles.rst:1692
+msgid "1408"
+msgstr ""
+
+#: ../profiles.rst:1690 ../profiles.rst:1691 ../profiles.rst:1692
+#: ../profiles.rst:1848 ../profiles.rst:1849 ../profiles.rst:1850
+#: ../profiles.rst:1852 ../profiles.rst:1967 ../profiles.rst:1969
+#: ../profiles.rst:1970 ../profiles.rst:1972 ../profiles.rst:2005
+#: ../profiles.rst:2006 ../profiles.rst:2007
+msgid "12:11"
+msgstr ""
+
+#: ../profiles.rst:1690 ../profiles.rst:1691 ../profiles.rst:1692
+msgid "1536"
+msgstr ""
+
+#: ../profiles.rst:1691
+msgid "PAL SD 16CIF Anamorphic 1152p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1692
+msgid "PAL SD 16CIF Anamorphic 1152p 15 fps"
+msgstr ""
+
+#: ../profiles.rst:1692 ../profiles.rst:1727 ../profiles.rst:1736
+#: ../profiles.rst:1745 ../profiles.rst:1762 ../profiles.rst:1771
+#: ../profiles.rst:1780 ../profiles.rst:1790 ../profiles.rst:1833
+#: ../profiles.rst:1850 ../profiles.rst:1869 ../profiles.rst:1884
+#: ../profiles.rst:1928 ../profiles.rst:1938 ../profiles.rst:1948
+#: ../profiles.rst:1957 ../profiles.rst:1970 ../profiles.rst:1976
+#: ../profiles.rst:1986 ../profiles.rst:1995 ../profiles.rst:2004
+#: ../profiles.rst:2007 ../profiles.rst:2018 ../profiles.rst:2021
+msgid "15.00"
+msgstr ""
+
+#: ../profiles.rst:1693 ../profiles.rst:1694 ../profiles.rst:1695
+#: ../profiles.rst:1696 ../profiles.rst:1697 ../profiles.rst:1698
+#: ../profiles.rst:1699 ../profiles.rst:1700 ../profiles.rst:1791
+#: ../profiles.rst:1792 ../profiles.rst:1793 ../profiles.rst:1794
+#: ../profiles.rst:1795 ../profiles.rst:1796 ../profiles.rst:1797
+#: ../profiles.rst:1798
+msgid "1280"
+msgstr ""
+
+#: ../profiles.rst:1693 ../profiles.rst:1694 ../profiles.rst:1695
+#: ../profiles.rst:1696 ../profiles.rst:1697 ../profiles.rst:1698
+#: ../profiles.rst:1699 ../profiles.rst:1700 ../profiles.rst:1791
+#: ../profiles.rst:1792 ../profiles.rst:1793 ../profiles.rst:1794
+#: ../profiles.rst:1795 ../profiles.rst:1796 ../profiles.rst:1797
+#: ../profiles.rst:1798 ../profiles.rst:1799 ../profiles.rst:1800
+#: ../profiles.rst:1801 ../profiles.rst:1802 ../profiles.rst:1803
+#: ../profiles.rst:1804 ../profiles.rst:1805 ../profiles.rst:1806
+#: ../profiles.rst:1807 ../profiles.rst:1808 ../profiles.rst:1809
+#: ../profiles.rst:1810 ../profiles.rst:1811 ../profiles.rst:1812
+#: ../profiles.rst:1813 ../profiles.rst:1814 ../profiles.rst:1815
+#: ../profiles.rst:1816 ../profiles.rst:1817 ../profiles.rst:1818
+#: ../profiles.rst:1819 ../profiles.rst:1820 ../profiles.rst:1821
+#: ../profiles.rst:1822 ../profiles.rst:1823 ../profiles.rst:1824
+#: ../profiles.rst:1825 ../profiles.rst:1826 ../profiles.rst:1827
+#: ../profiles.rst:1828 ../profiles.rst:1829 ../profiles.rst:1830
+#: ../profiles.rst:1831 ../profiles.rst:1832 ../profiles.rst:1833
+#: ../profiles.rst:1834 ../profiles.rst:1835 ../profiles.rst:1836
+#: ../profiles.rst:1837 ../profiles.rst:1838 ../profiles.rst:1839
+#: ../profiles.rst:1840 ../profiles.rst:1841 ../profiles.rst:1842
+#: ../profiles.rst:1843 ../profiles.rst:1844 ../profiles.rst:1845
+#: ../profiles.rst:1846 ../profiles.rst:1847
+msgid "720"
+msgstr ""
+
+#: ../profiles.rst:1701 ../profiles.rst:1702 ../profiles.rst:1703
+#: ../profiles.rst:1704 ../profiles.rst:1705 ../profiles.rst:1706
+#: ../profiles.rst:1707 ../profiles.rst:1708 ../profiles.rst:1791
+#: ../profiles.rst:1792 ../profiles.rst:1793 ../profiles.rst:1794
+#: ../profiles.rst:1795 ../profiles.rst:1796 ../profiles.rst:1797
+#: ../profiles.rst:1798
+msgid "9:16"
+msgstr ""
+
+#: ../profiles.rst:1709
+msgid "HD Vertical 1080p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1709 ../profiles.rst:1710 ../profiles.rst:1711
+#: ../profiles.rst:1712 ../profiles.rst:1713
+msgid "1350"
+msgstr ""
+
+#: ../profiles.rst:1709 ../profiles.rst:1710 ../profiles.rst:1711
+#: ../profiles.rst:1712 ../profiles.rst:1713
+msgid "4:5"
+msgstr ""
+
+#: ../profiles.rst:1710
+msgid "HD Vertical 1080p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:1711
+msgid "HD Vertical 1080p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1712
+msgid "HD Vertical 1080p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1713
+msgid "HD Vertical 1080p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1714
+msgid "HD Square 1080p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1715
+msgid "HD Square 1080p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:1716
+msgid "HD Square 1080p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1717
+msgid "HD Square 1080p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1718
+msgid "HD Square 1080p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1719
+msgid "WSVGA 600p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:1719 ../profiles.rst:1720 ../profiles.rst:1721
+#: ../profiles.rst:1722 ../profiles.rst:1723 ../profiles.rst:1724
+#: ../profiles.rst:1725 ../profiles.rst:1726 ../profiles.rst:1727
+#: ../profiles.rst:1728 ../profiles.rst:1729 ../profiles.rst:1730
+#: ../profiles.rst:1731 ../profiles.rst:1732 ../profiles.rst:1733
+#: ../profiles.rst:1734 ../profiles.rst:1735 ../profiles.rst:1736
+#: ../profiles.rst:1799 ../profiles.rst:1801 ../profiles.rst:1803
+#: ../profiles.rst:1851 ../profiles.rst:1898 ../profiles.rst:1900
+#: ../profiles.rst:1911 ../profiles.rst:1913 ../profiles.rst:1958
+#: ../profiles.rst:1960
+msgid "1024"
+msgstr ""
+
+#: ../profiles.rst:1719 ../profiles.rst:1720 ../profiles.rst:1721
+#: ../profiles.rst:1722 ../profiles.rst:1723 ../profiles.rst:1724
+#: ../profiles.rst:1725 ../profiles.rst:1726 ../profiles.rst:1727
+#: ../profiles.rst:1763 ../profiles.rst:1764 ../profiles.rst:1765
+#: ../profiles.rst:1766 ../profiles.rst:1767 ../profiles.rst:1768
+#: ../profiles.rst:1769 ../profiles.rst:1770 ../profiles.rst:1771
+msgid "600"
+msgstr ""
+
+#: ../profiles.rst:1719 ../profiles.rst:1720 ../profiles.rst:1721
+#: ../profiles.rst:1722 ../profiles.rst:1723 ../profiles.rst:1724
+#: ../profiles.rst:1725 ../profiles.rst:1726 ../profiles.rst:1727
+msgid "128:75"
+msgstr ""
+
+#: ../profiles.rst:1720
+msgid "WSVGA 600p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1721
+msgid "WSVGA 600p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:1722
+msgid "WSVGA 600p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1723
+msgid "WSVGA 600p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:1724
+msgid "WSVGA 600p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1725
+msgid "WSVGA 600p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1726
+msgid "WSVGA 600p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1727
+msgid "WSVGA 600p 15 fps"
+msgstr ""
+
+#: ../profiles.rst:1728
+msgid "WSVGA 576p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:1728 ../profiles.rst:1729 ../profiles.rst:1730
+#: ../profiles.rst:1731 ../profiles.rst:1732 ../profiles.rst:1733
+#: ../profiles.rst:1734 ../profiles.rst:1735 ../profiles.rst:1736
+#: ../profiles.rst:1781 ../profiles.rst:1799 ../profiles.rst:1800
+#: ../profiles.rst:1801 ../profiles.rst:1802 ../profiles.rst:1803
+#: ../profiles.rst:1804 ../profiles.rst:1848 ../profiles.rst:1849
+#: ../profiles.rst:1850 ../profiles.rst:1851 ../profiles.rst:1852
+#: ../profiles.rst:1898 ../profiles.rst:1899 ../profiles.rst:1900
+#: ../profiles.rst:1901 ../profiles.rst:1911 ../profiles.rst:1912
+#: ../profiles.rst:1913 ../profiles.rst:1914 ../profiles.rst:1958
+#: ../profiles.rst:1959 ../profiles.rst:1960 ../profiles.rst:1961
+msgid "576"
+msgstr ""
+
+#: ../profiles.rst:1729
+msgid "WSVGA 576p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1730
+msgid "WSVGA 576p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:1731
+msgid "WSVGA 576p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1732
+msgid "WSVGA 576p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:1733
+msgid "WSVGA 576p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1734
+msgid "PAL SD WSVGA Wide 576p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1735
+msgid "WSVGA 576p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1736
+msgid "WSVGA 576p 15 fps"
+msgstr ""
+
+#: ../profiles.rst:1737
+msgid "DVGA 640p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:1737 ../profiles.rst:1738 ../profiles.rst:1739
+#: ../profiles.rst:1740 ../profiles.rst:1741 ../profiles.rst:1742
+#: ../profiles.rst:1743 ../profiles.rst:1744 ../profiles.rst:1745
+#: ../profiles.rst:1746 ../profiles.rst:1747 ../profiles.rst:1748
+#: ../profiles.rst:1749 ../profiles.rst:1750 ../profiles.rst:1751
+#: ../profiles.rst:1752 ../profiles.rst:1753
+msgid "960"
+msgstr ""
+
+#: ../profiles.rst:1737 ../profiles.rst:1738 ../profiles.rst:1739
+#: ../profiles.rst:1740 ../profiles.rst:1741 ../profiles.rst:1742
+#: ../profiles.rst:1743 ../profiles.rst:1744 ../profiles.rst:1745
+#: ../profiles.rst:1810 ../profiles.rst:1813 ../profiles.rst:1816
+#: ../profiles.rst:1819 ../profiles.rst:1822 ../profiles.rst:1825
+#: ../profiles.rst:1828 ../profiles.rst:1831 ../profiles.rst:1835
+#: ../profiles.rst:1837 ../profiles.rst:1839 ../profiles.rst:1841
+#: ../profiles.rst:1843 ../profiles.rst:1845 ../profiles.rst:1847
+#: ../profiles.rst:1854 ../profiles.rst:1856 ../profiles.rst:1858
+#: ../profiles.rst:1860 ../profiles.rst:1862 ../profiles.rst:1864
+#: ../profiles.rst:1866 ../profiles.rst:1868 ../profiles.rst:1869
+#: ../profiles.rst:1871 ../profiles.rst:1873 ../profiles.rst:1875
+#: ../profiles.rst:1876 ../profiles.rst:1877 ../profiles.rst:1878
+#: ../profiles.rst:1879 ../profiles.rst:1880 ../profiles.rst:1881
+#: ../profiles.rst:1882 ../profiles.rst:1883 ../profiles.rst:1884
+#: ../profiles.rst:1885 ../profiles.rst:1886 ../profiles.rst:1887
+#: ../profiles.rst:1888 ../profiles.rst:1889 ../profiles.rst:1890
+#: ../profiles.rst:1891 ../profiles.rst:1892 ../profiles.rst:1893
+#: ../profiles.rst:1894 ../profiles.rst:1895 ../profiles.rst:1896
+#: ../profiles.rst:1897 ../profiles.rst:1902 ../profiles.rst:1903
+#: ../profiles.rst:1904 ../profiles.rst:1905 ../profiles.rst:1906
+#: ../profiles.rst:1907 ../profiles.rst:1908 ../profiles.rst:1909
+#: ../profiles.rst:1916 ../profiles.rst:1918 ../profiles.rst:1919
+#: ../profiles.rst:1962 ../profiles.rst:1963 ../profiles.rst:1964
+#: ../profiles.rst:1965 ../profiles.rst:1966
+msgid "640"
+msgstr ""
+
+#: ../profiles.rst:1737 ../profiles.rst:1738 ../profiles.rst:1739
+#: ../profiles.rst:1740 ../profiles.rst:1741 ../profiles.rst:1742
+#: ../profiles.rst:1743 ../profiles.rst:1744 ../profiles.rst:1745
+#: ../profiles.rst:1811 ../profiles.rst:1814 ../profiles.rst:1817
+#: ../profiles.rst:1820 ../profiles.rst:1823 ../profiles.rst:1826
+#: ../profiles.rst:1829 ../profiles.rst:1832 ../profiles.rst:1833
+#: ../profiles.rst:1920 ../profiles.rst:1921 ../profiles.rst:1922
+#: ../profiles.rst:1923 ../profiles.rst:1924 ../profiles.rst:1925
+#: ../profiles.rst:1926 ../profiles.rst:1927 ../profiles.rst:1928
+#: ../profiles.rst:1949 ../profiles.rst:1950 ../profiles.rst:1951
+#: ../profiles.rst:1952 ../profiles.rst:1953 ../profiles.rst:1954
+#: ../profiles.rst:1955 ../profiles.rst:1956 ../profiles.rst:1957
+#: ../profiles.rst:1996 ../profiles.rst:1997 ../profiles.rst:1998
+#: ../profiles.rst:1999 ../profiles.rst:2000 ../profiles.rst:2001
+#: ../profiles.rst:2002 ../profiles.rst:2003 ../profiles.rst:2004
+msgid "3:2"
+msgstr ""
+
+#: ../profiles.rst:1738
+msgid "DVGA 640p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1739
+msgid "DVGA 640p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:1740
+msgid "DVGA 640p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1741
+msgid "DVGA 640p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:1742
+msgid "DVGA 640p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1743
+msgid "DVGA 640p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1744
+msgid "DVGA 640p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1745
+msgid "DVGA 640p 15 fps"
+msgstr ""
+
+#: ../profiles.rst:1746
+msgid "qHD 540p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:1746 ../profiles.rst:1747 ../profiles.rst:1748
+#: ../profiles.rst:1749 ../profiles.rst:1750 ../profiles.rst:1751
+#: ../profiles.rst:1752 ../profiles.rst:1753
+msgid "540"
+msgstr ""
+
+#: ../profiles.rst:1747
+msgid "qHD 540p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1748
+msgid "qHD 540p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:1749
+msgid "qHD 540p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1750
+msgid "qHD 540p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:1751
+msgid "qHD 540p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1752
+msgid "qHD 540p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1753
+msgid "qHD 540p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1754
+msgid "FWVGA 480p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:1754 ../profiles.rst:1755 ../profiles.rst:1756
+#: ../profiles.rst:1757 ../profiles.rst:1758 ../profiles.rst:1759
+#: ../profiles.rst:1760 ../profiles.rst:1761 ../profiles.rst:1762
+msgid "854"
+msgstr ""
+
+#: ../profiles.rst:1754 ../profiles.rst:1755 ../profiles.rst:1756
+#: ../profiles.rst:1757 ../profiles.rst:1758 ../profiles.rst:1759
+#: ../profiles.rst:1760 ../profiles.rst:1761 ../profiles.rst:1762
+#: ../profiles.rst:1772 ../profiles.rst:1773 ../profiles.rst:1774
+#: ../profiles.rst:1775 ../profiles.rst:1776 ../profiles.rst:1777
+#: ../profiles.rst:1778 ../profiles.rst:1779 ../profiles.rst:1780
+#: ../profiles.rst:1782 ../profiles.rst:1783 ../profiles.rst:1784
+#: ../profiles.rst:1785 ../profiles.rst:1786 ../profiles.rst:1787
+#: ../profiles.rst:1788 ../profiles.rst:1789 ../profiles.rst:1790
+#: ../profiles.rst:1809 ../profiles.rst:1810 ../profiles.rst:1811
+#: ../profiles.rst:1812 ../profiles.rst:1813 ../profiles.rst:1814
+#: ../profiles.rst:1815 ../profiles.rst:1816 ../profiles.rst:1817
+#: ../profiles.rst:1818 ../profiles.rst:1819 ../profiles.rst:1820
+#: ../profiles.rst:1821 ../profiles.rst:1822 ../profiles.rst:1823
+#: ../profiles.rst:1824 ../profiles.rst:1825 ../profiles.rst:1826
+#: ../profiles.rst:1827 ../profiles.rst:1828 ../profiles.rst:1829
+#: ../profiles.rst:1830 ../profiles.rst:1831 ../profiles.rst:1832
+#: ../profiles.rst:1833 ../profiles.rst:1834 ../profiles.rst:1835
+#: ../profiles.rst:1836 ../profiles.rst:1837 ../profiles.rst:1838
+#: ../profiles.rst:1839 ../profiles.rst:1840 ../profiles.rst:1841
+#: ../profiles.rst:1842 ../profiles.rst:1843 ../profiles.rst:1844
+#: ../profiles.rst:1845 ../profiles.rst:1846 ../profiles.rst:1847
+#: ../profiles.rst:1853 ../profiles.rst:1854 ../profiles.rst:1855
+#: ../profiles.rst:1856 ../profiles.rst:1857 ../profiles.rst:1858
+#: ../profiles.rst:1859 ../profiles.rst:1860 ../profiles.rst:1861
+#: ../profiles.rst:1862 ../profiles.rst:1863 ../profiles.rst:1864
+#: ../profiles.rst:1865 ../profiles.rst:1866 ../profiles.rst:1867
+#: ../profiles.rst:1868 ../profiles.rst:1869 ../profiles.rst:1870
+#: ../profiles.rst:1871 ../profiles.rst:1872 ../profiles.rst:1873
+#: ../profiles.rst:1874 ../profiles.rst:1875 ../profiles.rst:1876
+#: ../profiles.rst:1877 ../profiles.rst:1878 ../profiles.rst:1879
+#: ../profiles.rst:1880 ../profiles.rst:1881 ../profiles.rst:1882
+#: ../profiles.rst:1883 ../profiles.rst:1884 ../profiles.rst:1885
+#: ../profiles.rst:1886 ../profiles.rst:1887 ../profiles.rst:1888
+#: ../profiles.rst:1889 ../profiles.rst:1902 ../profiles.rst:1903
+#: ../profiles.rst:1904 ../profiles.rst:1905 ../profiles.rst:1906
+#: ../profiles.rst:1907 ../profiles.rst:1908 ../profiles.rst:1909
+#: ../profiles.rst:1911 ../profiles.rst:1912 ../profiles.rst:1913
+#: ../profiles.rst:1914 ../profiles.rst:1915 ../profiles.rst:1916
+#: ../profiles.rst:1917 ../profiles.rst:1918 ../profiles.rst:1919
+#: ../profiles.rst:1920 ../profiles.rst:1921 ../profiles.rst:1922
+#: ../profiles.rst:1923 ../profiles.rst:1924 ../profiles.rst:1925
+#: ../profiles.rst:1926 ../profiles.rst:1927 ../profiles.rst:1928
+#: ../profiles.rst:1962 ../profiles.rst:1963 ../profiles.rst:1964
+#: ../profiles.rst:1965 ../profiles.rst:1966
+msgid "480"
+msgstr ""
+
+#: ../profiles.rst:1755
+msgid "NTSC SD FWVGA Wide 480p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1756
+msgid "FWVGA 480p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:1757
+msgid "FWVGA 480p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1758
+msgid "FWVGA 480p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:1759
+msgid "FWVGA 480p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1760
+msgid "FWVGA 480p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1761
+msgid "FWVGA 480p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1762
+msgid "FWVGA 480p 15 fps"
+msgstr ""
+
+#: ../profiles.rst:1763
+msgid "SVGA 600p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:1763 ../profiles.rst:1764 ../profiles.rst:1765
+#: ../profiles.rst:1766 ../profiles.rst:1767 ../profiles.rst:1768
+#: ../profiles.rst:1769 ../profiles.rst:1770 ../profiles.rst:1771
+#: ../profiles.rst:1772 ../profiles.rst:1773 ../profiles.rst:1774
+#: ../profiles.rst:1775 ../profiles.rst:1776 ../profiles.rst:1777
+#: ../profiles.rst:1778 ../profiles.rst:1779 ../profiles.rst:1780
+msgid "800"
+msgstr ""
+
+#: ../profiles.rst:1764
+msgid "SVGA 600p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1765
+msgid "SVGA 600p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:1766
+msgid "SVGA 600p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1767
+msgid "SVGA 600p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:1768
+msgid "SVGA 600p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1769
+msgid "SVGA 600p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1770
+msgid "SVGA 600p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1771
+msgid "SVGA 600p 15 fps"
+msgstr ""
+
+#: ../profiles.rst:1772
+msgid "WVGA 480p 59.94 fps | 5:3"
+msgstr ""
+
+#: ../profiles.rst:1772 ../profiles.rst:1773 ../profiles.rst:1774
+#: ../profiles.rst:1775 ../profiles.rst:1776 ../profiles.rst:1777
+#: ../profiles.rst:1778 ../profiles.rst:1779 ../profiles.rst:1780
+#: ../profiles.rst:1930 ../profiles.rst:1931 ../profiles.rst:1932
+#: ../profiles.rst:1933 ../profiles.rst:1934 ../profiles.rst:1935
+#: ../profiles.rst:1936 ../profiles.rst:1937 ../profiles.rst:1938
+msgid "5:3"
+msgstr ""
+
+#: ../profiles.rst:1773
+msgid "WVGA 480p 29.97 fps | 5:3"
+msgstr ""
+
+#: ../profiles.rst:1774
+msgid "WVGA 480p 23.98 fps | 5:3"
+msgstr ""
+
+#: ../profiles.rst:1775
+msgid "WVGA 480p 60 fps | 5:3"
+msgstr ""
+
+#: ../profiles.rst:1776
+msgid "WVGA 480p 50 fps | 5:3"
+msgstr ""
+
+#: ../profiles.rst:1777
+msgid "WVGA 480p 30 fps | 5:3"
+msgstr ""
+
+#: ../profiles.rst:1778
+msgid "WVGA 480p 25 fps | 5:3"
+msgstr ""
+
+#: ../profiles.rst:1779
+msgid "WVGA 480p 24 fps | 5:3"
+msgstr ""
+
+#: ../profiles.rst:1780
+msgid "WVGA 480p 15 fps | 5:3"
+msgstr ""
+
+#: ../profiles.rst:1781
+msgid "PAL SD SQ 576p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1781 ../profiles.rst:1782 ../profiles.rst:1783
+#: ../profiles.rst:1784 ../profiles.rst:1785 ../profiles.rst:1786
+#: ../profiles.rst:1787 ../profiles.rst:1788 ../profiles.rst:1789
+#: ../profiles.rst:1790 ../profiles.rst:1800 ../profiles.rst:1802
+#: ../profiles.rst:1804 ../profiles.rst:1848 ../profiles.rst:1849
+#: ../profiles.rst:1850 ../profiles.rst:1852 ../profiles.rst:1899
+#: ../profiles.rst:1901 ../profiles.rst:1912 ../profiles.rst:1914
+#: ../profiles.rst:1959 ../profiles.rst:1961
+msgid "768"
+msgstr ""
+
+#: ../profiles.rst:1782
+msgid "WVGA 480p 59.94 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1782 ../profiles.rst:1783 ../profiles.rst:1784
+#: ../profiles.rst:1785 ../profiles.rst:1786 ../profiles.rst:1787
+#: ../profiles.rst:1788 ../profiles.rst:1789 ../profiles.rst:1790
+#: ../profiles.rst:1940 ../profiles.rst:1941 ../profiles.rst:1942
+#: ../profiles.rst:1943 ../profiles.rst:1944 ../profiles.rst:1945
+#: ../profiles.rst:1946 ../profiles.rst:1947 ../profiles.rst:1948
+#: ../profiles.rst:1987 ../profiles.rst:1988 ../profiles.rst:1989
+#: ../profiles.rst:1990 ../profiles.rst:1991 ../profiles.rst:1992
+#: ../profiles.rst:1993 ../profiles.rst:1994 ../profiles.rst:1995
+msgid "16:10"
+msgstr ""
+
+#: ../profiles.rst:1783
+msgid "WVGA 480p 29.97 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1784
+msgid "WVGA 480p 23.98 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1785
+msgid "WVGA 480p 60 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1786
+msgid "WVGA 480p 50 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1787
+msgid "WVGA 480p 30 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1788
+msgid "WVGA 480p 25 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1789
+msgid "WVGA 480p 24 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1790
+msgid "WVGA 480p 15 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1799
+msgid "PAL SD Anamorphic 576p 50 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1800
+msgid "PAL SD Anamorphic 576p 50 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1800 ../profiles.rst:1802 ../profiles.rst:1804
+msgid "16:15"
+msgstr ""
+
+#: ../profiles.rst:1801
+msgid "PAL SD Widescreen Anamorphic 576p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1802 ../profiles.rst:1899 ../profiles.rst:1912
+msgid "PAL SD Anamorphic 576p 25 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1804 ../profiles.rst:1852 ../profiles.rst:1901
+#: ../profiles.rst:1914
+msgid "PAL SD Anamorphic 576i 25 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1805
+msgid "NTSC SD Anamorphic 486p 23.98 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1805 ../profiles.rst:1806 ../profiles.rst:1807
+#: ../profiles.rst:1808
+msgid "486"
+msgstr ""
+
+#: ../profiles.rst:1805 ../profiles.rst:1807
+msgid "6:5"
+msgstr ""
+
+#: ../profiles.rst:1805 ../profiles.rst:1807
+msgid "864"
+msgstr ""
+
+#: ../profiles.rst:1806
+msgid "NTSC SD Anamorphic 486p 23.98 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1806 ../profiles.rst:1808
+msgid "9:10"
+msgstr ""
+
+#: ../profiles.rst:1806 ../profiles.rst:1808
+msgid "648"
+msgstr ""
+
+#: ../profiles.rst:1807
+msgid "NTSC SD Anamorphic 486i 29.97 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1808
+msgid "NTSC SD Anamorphic 486i 29.97 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1809 ../profiles.rst:1853
+msgid "NTSC SD Anamorphic 480p 59.94 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1809 ../profiles.rst:1812 ../profiles.rst:1815
+#: ../profiles.rst:1818 ../profiles.rst:1821 ../profiles.rst:1824
+#: ../profiles.rst:1827 ../profiles.rst:1830 ../profiles.rst:1834
+#: ../profiles.rst:1836 ../profiles.rst:1838 ../profiles.rst:1840
+#: ../profiles.rst:1842 ../profiles.rst:1844 ../profiles.rst:1846
+msgid "32:27"
+msgstr ""
+
+#: ../profiles.rst:1809 ../profiles.rst:1812 ../profiles.rst:1815
+#: ../profiles.rst:1818 ../profiles.rst:1821 ../profiles.rst:1824
+#: ../profiles.rst:1827 ../profiles.rst:1830 ../profiles.rst:1834
+#: ../profiles.rst:1836 ../profiles.rst:1838 ../profiles.rst:1840
+#: ../profiles.rst:1842 ../profiles.rst:1844 ../profiles.rst:1846
+#: ../profiles.rst:1853 ../profiles.rst:1855 ../profiles.rst:1857
+#: ../profiles.rst:1859 ../profiles.rst:1861 ../profiles.rst:1863
+#: ../profiles.rst:1865 ../profiles.rst:1867 ../profiles.rst:1870
+#: ../profiles.rst:1872 ../profiles.rst:1874 ../profiles.rst:1915
+#: ../profiles.rst:1917
+msgid "853"
+msgstr ""
+
+#: ../profiles.rst:1810 ../profiles.rst:1854
+msgid "NTSC SD Anamorphic 480p 59.94 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1810 ../profiles.rst:1813 ../profiles.rst:1816
+#: ../profiles.rst:1819 ../profiles.rst:1822 ../profiles.rst:1825
+#: ../profiles.rst:1828 ../profiles.rst:1831 ../profiles.rst:1835
+#: ../profiles.rst:1837 ../profiles.rst:1839 ../profiles.rst:1841
+#: ../profiles.rst:1843 ../profiles.rst:1845 ../profiles.rst:1847
+msgid "8:9"
+msgstr ""
+
+#: ../profiles.rst:1811
+msgid "WVGA 480p 59.94 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1812
+msgid "NTSC SD Widescreen Anamorphic 480p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1813
+msgid "NTSC SD Anamorphic 480p 29.97 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1814
+msgid "WVGA 480p 29.97 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1815 ../profiles.rst:1857
+msgid "NTSC SD Anamorphic 480p 23.98 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1816 ../profiles.rst:1858
+msgid "NTSC SD Anamorphic 480p 23.98 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1817
+msgid "WVGA 480p 23.98 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1818 ../profiles.rst:1859
+msgid "NTSC SD Anamorphic 480p 60 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1819 ../profiles.rst:1860
+msgid "NTSC SD Anamorphic 480p 60 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1820
+msgid "WVGA 480p 60 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1821 ../profiles.rst:1861
+msgid "NTSC SD Anamorphic 480p 50 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1822 ../profiles.rst:1862
+msgid "NTSC SD Anamorphic 480p 50 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1823
+msgid "WVGA 480p 50 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1824 ../profiles.rst:1863
+msgid "NTSC SD Anamorphic 480p 30 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1825 ../profiles.rst:1864
+msgid "NTSC SD Anamorphic 480p 30 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1826
+msgid "WVGA 480p 30 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1827 ../profiles.rst:1865
+msgid "NTSC SD Anamorphic 480p 25 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1828
+msgid "NTSC SD Anamorphic 480p 25 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1829
+msgid "WVGA 480p 25 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1830 ../profiles.rst:1867
+msgid "NTSC SD Anamorphic 480p 24 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1831 ../profiles.rst:1868
+msgid "NTSC SD Anamorphic 480p 24 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1832
+msgid "WVGA 480p 24 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1833
+msgid "WVGA 480p 15 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1834
+msgid "NTSC SD Anamorphic 480i 59.94 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1835
+msgid "NTSC SD Anamorphic 480i 59.94 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1837 ../profiles.rst:1916
+msgid "NTSC SD Anamorphic 480i 29.97 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1838 ../profiles.rst:1917
+msgid "NTSC SD Anamorphic 480i 23.98 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1839 ../profiles.rst:1918
+msgid "NTSC SD Anamorphic 480i 23.98 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1840
+msgid "NTSC SD Anamorphic 480i 60 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1841
+msgid "NTSC SD Anamorphic 480i 60 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1842 ../profiles.rst:1872
+msgid "NTSC SD Anamorphic 480i 30 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1843 ../profiles.rst:1873 ../profiles.rst:1919
+msgid "NTSC SD Anamorphic 480i 30 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1844 ../profiles.rst:1874
+msgid "NTSC SD Anamorphic 480i 25 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1845 ../profiles.rst:1875
+msgid "NTSC SD Anamorphic 480i 25 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1846
+msgid "NTSC SD Anamorphic 480i 24 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1847
+msgid "NTSC SD Anamorphic 480i 24 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1848
+msgid "PAL SD 4CIF 4SIF Anamorphic 576p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1848 ../profiles.rst:1849 ../profiles.rst:1850
+#: ../profiles.rst:1851 ../profiles.rst:1852 ../profiles.rst:1853
+#: ../profiles.rst:1854 ../profiles.rst:1855 ../profiles.rst:1856
+#: ../profiles.rst:1857 ../profiles.rst:1858 ../profiles.rst:1859
+#: ../profiles.rst:1860 ../profiles.rst:1861 ../profiles.rst:1862
+#: ../profiles.rst:1863 ../profiles.rst:1864 ../profiles.rst:1865
+#: ../profiles.rst:1866 ../profiles.rst:1867 ../profiles.rst:1868
+#: ../profiles.rst:1869 ../profiles.rst:1870 ../profiles.rst:1871
+#: ../profiles.rst:1872 ../profiles.rst:1873 ../profiles.rst:1874
+#: ../profiles.rst:1875
+msgid "704"
+msgstr ""
+
+#: ../profiles.rst:1849
+msgid "PAL SD 4CIF 4SIF Anamorphic 576p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1850
+msgid "PAL SD 4CIF 4SIF Anamorphic 576p 15 fps"
+msgstr ""
+
+#: ../profiles.rst:1851 ../profiles.rst:1900 ../profiles.rst:1913
+#: ../profiles.rst:1960
+msgid "PAL SD Anamorphic 576i 25 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1851 ../profiles.rst:1968 ../profiles.rst:1971
+msgid "16:11"
+msgstr ""
+
+#: ../profiles.rst:1853 ../profiles.rst:1855 ../profiles.rst:1857
+#: ../profiles.rst:1859 ../profiles.rst:1861 ../profiles.rst:1863
+#: ../profiles.rst:1865 ../profiles.rst:1867 ../profiles.rst:1870
+#: ../profiles.rst:1872 ../profiles.rst:1874 ../profiles.rst:1906
+#: ../profiles.rst:1907 ../profiles.rst:1908 ../profiles.rst:1909
+msgid "40:33"
+msgstr ""
+
+#: ../profiles.rst:1854 ../profiles.rst:1856 ../profiles.rst:1858
+#: ../profiles.rst:1860 ../profiles.rst:1862 ../profiles.rst:1864
+#: ../profiles.rst:1866 ../profiles.rst:1868 ../profiles.rst:1869
+#: ../profiles.rst:1871 ../profiles.rst:1873 ../profiles.rst:1875
+#: ../profiles.rst:1973 ../profiles.rst:1974 ../profiles.rst:1975
+#: ../profiles.rst:1976 ../profiles.rst:1977 ../profiles.rst:2008
+#: ../profiles.rst:2009
+msgid "10:11"
+msgstr ""
+
+#: ../profiles.rst:1855
+msgid "NTSC SD Anamorphic 480p 29.97 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1856
+msgid "NTSC SD 4SIF Anamorphic 480p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1866
+msgid "NTSC SD 4SIF Anamorphic 480p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1869
+msgid "NTSC SD 4SIF Anamorphic 480p 15 fps"
+msgstr ""
+
+#: ../profiles.rst:1870 ../profiles.rst:1915
+msgid "NTSC SD Anamorphic 480i 29.97 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1871
+msgid "NTSC SD 4SIF Anamorphic 480i 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1876
+msgid "NTSC SD VGA 480p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:1877
+msgid "NTSC SD VGA SQ 480p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1878
+msgid "NTSC SD VGA 480p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:1879
+msgid "NTSC SD VGA 480p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1880
+msgid "NTSC SD VGA 480p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:1881
+msgid "NTSC SD VGA 480p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1882
+msgid "NTSC SD VGA 480p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1883
+msgid "NTSC SD VGA 480p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1884
+msgid "VGA 480p 15 fps"
+msgstr ""
+
+#: ../profiles.rst:1885
+msgid "NTSC SD 480i 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1886
+msgid "NTSC SD 480i 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:1887
+msgid "NTSC SD 480i 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1888
+msgid "NTSC SD 480i 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1889
+msgid "NTSC SD 480i 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1890
+msgid "nHD 360p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:1890 ../profiles.rst:1891 ../profiles.rst:1892
+#: ../profiles.rst:1893 ../profiles.rst:1894 ../profiles.rst:1895
+#: ../profiles.rst:1896 ../profiles.rst:1897 ../profiles.rst:1949
+#: ../profiles.rst:1950 ../profiles.rst:1951 ../profiles.rst:1952
+#: ../profiles.rst:1953 ../profiles.rst:1954 ../profiles.rst:1955
+#: ../profiles.rst:1956 ../profiles.rst:1957
+msgid "360"
+msgstr ""
+
+#: ../profiles.rst:1891
+msgid "nHD 360p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1892
+msgid "nHD 360p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:1893
+msgid "nHD 360p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1894
+msgid "nHD 360p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:1895
+msgid "nHD 360p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1896
+msgid "nHD 360p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1897
+msgid "nHD 360p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1898 ../profiles.rst:1911 ../profiles.rst:1958
+msgid "PAL SD Anamorphic 576p 25 fps | 16:9"
+msgstr ""
+
+#: ../profiles.rst:1898 ../profiles.rst:1899 ../profiles.rst:1900
+#: ../profiles.rst:1901 ../profiles.rst:1902 ../profiles.rst:1903
+#: ../profiles.rst:1904 ../profiles.rst:1905
+msgid "544"
+msgstr ""
+
+#: ../profiles.rst:1898 ../profiles.rst:1900
+msgid "32:17"
+msgstr ""
+
+#: ../profiles.rst:1899 ../profiles.rst:1901
+msgid "24:17"
+msgstr ""
+
+#: ../profiles.rst:1902 ../profiles.rst:1906
+msgid "NTSC SD 3/4 Anamorphic 480p 23.98 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1902 ../profiles.rst:1903 ../profiles.rst:1904
+#: ../profiles.rst:1905
+msgid "20:17"
+msgstr ""
+
+#: ../profiles.rst:1903 ../profiles.rst:1907
+msgid "NTSC SD 3/4 Anamorphic 480p 25 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1904 ../profiles.rst:1908
+msgid "NTSC SD 3/4 Anamorphic 480i 29.97 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1905 ../profiles.rst:1909
+msgid "NTSC SD 3/4 Anamorphic 480i 25 fps | 4:3"
+msgstr ""
+
+#: ../profiles.rst:1906 ../profiles.rst:1907 ../profiles.rst:1908
+#: ../profiles.rst:1909
+msgid "528"
+msgstr ""
+
+#: ../profiles.rst:1910
+msgid "PAL SD 1/4 Wide 288p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1910 ../profiles.rst:1968 ../profiles.rst:1971
+msgid "512"
+msgstr ""
+
+#: ../profiles.rst:1910 ../profiles.rst:1939 ../profiles.rst:1967
+#: ../profiles.rst:1968 ../profiles.rst:1969 ../profiles.rst:1970
+#: ../profiles.rst:1971 ../profiles.rst:1972
+msgid "288"
+msgstr ""
+
+#: ../profiles.rst:1911 ../profiles.rst:1913
+msgid "32:15"
+msgstr ""
+
+#: ../profiles.rst:1912 ../profiles.rst:1914
+msgid "8:5"
+msgstr ""
+
+#: ../profiles.rst:1920
+msgid "HVGA 320p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:1920 ../profiles.rst:1921 ../profiles.rst:1922
+#: ../profiles.rst:1923 ../profiles.rst:1924 ../profiles.rst:1925
+#: ../profiles.rst:1926 ../profiles.rst:1927 ../profiles.rst:1928
+#: ../profiles.rst:1973 ../profiles.rst:1974 ../profiles.rst:1975
+#: ../profiles.rst:1976 ../profiles.rst:1977 ../profiles.rst:1978
+#: ../profiles.rst:1979 ../profiles.rst:1980 ../profiles.rst:1981
+#: ../profiles.rst:1982 ../profiles.rst:1983 ../profiles.rst:1984
+#: ../profiles.rst:1985 ../profiles.rst:1986
+msgid "320"
+msgstr ""
+
+#: ../profiles.rst:1921
+msgid "HVGA 320p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1922
+msgid "HVGA 320p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:1923
+msgid "HVGA 320p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1924
+msgid "HVGA 320p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:1925
+msgid "HVGA 320p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1926
+msgid "HVGA 320p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1927
+msgid "HVGA 320p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1928
+msgid "HVGA 320p 15 fps"
+msgstr ""
+
+#: ../profiles.rst:1929
+msgid "NTSC SD 1/4 Wide 240p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1929
+msgid "427"
+msgstr ""
+
+#: ../profiles.rst:1929 ../profiles.rst:1930 ../profiles.rst:1931
+#: ../profiles.rst:1932 ../profiles.rst:1933 ../profiles.rst:1934
+#: ../profiles.rst:1935 ../profiles.rst:1936 ../profiles.rst:1937
+#: ../profiles.rst:1938 ../profiles.rst:1940 ../profiles.rst:1941
+#: ../profiles.rst:1942 ../profiles.rst:1943 ../profiles.rst:1944
+#: ../profiles.rst:1945 ../profiles.rst:1946 ../profiles.rst:1947
+#: ../profiles.rst:1948 ../profiles.rst:1949 ../profiles.rst:1950
+#: ../profiles.rst:1951 ../profiles.rst:1952 ../profiles.rst:1953
+#: ../profiles.rst:1954 ../profiles.rst:1955 ../profiles.rst:1956
+#: ../profiles.rst:1957 ../profiles.rst:1973 ../profiles.rst:1974
+#: ../profiles.rst:1975 ../profiles.rst:1976 ../profiles.rst:1977
+#: ../profiles.rst:1978 ../profiles.rst:1979 ../profiles.rst:1980
+#: ../profiles.rst:1981 ../profiles.rst:1982 ../profiles.rst:1983
+#: ../profiles.rst:1984 ../profiles.rst:1985 ../profiles.rst:1986
+#: ../profiles.rst:1996 ../profiles.rst:1997 ../profiles.rst:1998
+#: ../profiles.rst:1999 ../profiles.rst:2000 ../profiles.rst:2001
+#: ../profiles.rst:2002 ../profiles.rst:2003 ../profiles.rst:2004
+msgid "240"
+msgstr ""
+
+#: ../profiles.rst:1930
+msgid "WQVGA 240p 59.94 fps | 5:3"
+msgstr ""
+
+#: ../profiles.rst:1930 ../profiles.rst:1931 ../profiles.rst:1932
+#: ../profiles.rst:1933 ../profiles.rst:1934 ../profiles.rst:1935
+#: ../profiles.rst:1936 ../profiles.rst:1937 ../profiles.rst:1938
+msgid "400"
+msgstr ""
+
+#: ../profiles.rst:1931
+msgid "WQVGA 240p 29.97 fps | 5:3"
+msgstr ""
+
+#: ../profiles.rst:1932
+msgid "WQVGA 240p 23.98 fps | 5:3"
+msgstr ""
+
+#: ../profiles.rst:1933
+msgid "WQVGA 240p 60 fps | 5:3"
+msgstr ""
+
+#: ../profiles.rst:1934
+msgid "WQVGA 240p 50 fps | 5:3"
+msgstr ""
+
+#: ../profiles.rst:1935
+msgid "WQVGA 240p 30 fps | 5:3"
+msgstr ""
+
+#: ../profiles.rst:1936
+msgid "WQVGA 240p 25 fps | 5:3"
+msgstr ""
+
+#: ../profiles.rst:1937
+msgid "WQVGA 240p 24 fps | 5:3"
+msgstr ""
+
+#: ../profiles.rst:1938
+msgid "WQVGA 240p 15 fps | 5:3"
+msgstr ""
+
+#: ../profiles.rst:1939
+msgid "PAL SD 1/4 288p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1939 ../profiles.rst:1940 ../profiles.rst:1941
+#: ../profiles.rst:1942 ../profiles.rst:1943 ../profiles.rst:1944
+#: ../profiles.rst:1945 ../profiles.rst:1946 ../profiles.rst:1947
+#: ../profiles.rst:1948 ../profiles.rst:1967 ../profiles.rst:1969
+#: ../profiles.rst:1970 ../profiles.rst:1972
+msgid "384"
+msgstr ""
+
+#: ../profiles.rst:1940
+msgid "WQVGA 240p 59.94 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1941
+msgid "WQVGA 240p 29.97 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1942
+msgid "WQVGA 240p 23.98 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1943
+msgid "WQVGA 240p 60 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1944
+msgid "WQVGA 240p 50 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1945
+msgid "WQVGA 240p 30 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1946
+msgid "WQVGA 240p 25 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1947
+msgid "WQVGA 240p 24 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1948
+msgid "WQVGA 240p 15 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1949
+msgid "WQVGA 240p 59.94 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1950
+msgid "WQVGA 240p 29.97 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1951
+msgid "WQVGA 240p 23.98 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1952
+msgid "WQVGA 240p 60 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1953
+msgid "WQVGA 240p 50 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1954
+msgid "WQVGA 240p 30 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1955
+msgid "WQVGA 240p 25 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1956
+msgid "WQVGA 240p 24 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1957
+msgid "WQVGA 240p 15 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1958 ../profiles.rst:1959 ../profiles.rst:1960
+#: ../profiles.rst:1961 ../profiles.rst:1962 ../profiles.rst:1963
+#: ../profiles.rst:1964 ../profiles.rst:1965 ../profiles.rst:1966
+#: ../profiles.rst:1967 ../profiles.rst:1968 ../profiles.rst:1969
+#: ../profiles.rst:1970 ../profiles.rst:1971 ../profiles.rst:1972
+#: ../profiles.rst:1973 ../profiles.rst:1974 ../profiles.rst:1975
+#: ../profiles.rst:1976 ../profiles.rst:1977
+msgid "352"
+msgstr ""
+
+#: ../profiles.rst:1958 ../profiles.rst:1960
+msgid "32:11"
+msgstr ""
+
+#: ../profiles.rst:1959
+msgid "PAL SD CVD Anamorphic 576p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1959 ../profiles.rst:1961
+msgid "24:11"
+msgstr ""
+
+#: ../profiles.rst:1961
+msgid "PAL SD CVD Anamorphic 576i 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1962
+msgid "NTSC SD CVD Anamorphic 480p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1962 ../profiles.rst:1963 ../profiles.rst:1964
+#: ../profiles.rst:1965 ../profiles.rst:1966
+msgid "20:11"
+msgstr ""
+
+#: ../profiles.rst:1963
+msgid "NTSC SD 1/2 Anamorphic 480p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:1964
+msgid "NTSC SD 1/2 Anamorphic 480p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1965
+msgid "NTSC SD CVD 1/2 Anamorphic 480i 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1966
+msgid "NTSC SD 1/2 Anamorphic 480i 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1967
+msgid "PAL SD CIF SIF Anamorphic 288p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1968
+msgid "PAL SD Anamorphic 288p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1969
+msgid "PAL SD CIF SIF VCD Anamorphic 288p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1970
+msgid "PAL SD CIF SIF Anamorphic 288p 15 fps"
+msgstr ""
+
+#: ../profiles.rst:1971
+msgid "PAL SD Anamorphic 288i 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1972
+msgid "PAL SD CIF Anamorphic 288i 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1973
+msgid "NTSC SD SIF VCD Anamorphic 240p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1974
+msgid "NTSC SD SIF Anamorphic 240p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:1975
+msgid "NTSC SD SIF Anamorphic 240p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1976
+msgid "NTSC SD SIF Anamorphic 240p 15 fps"
+msgstr ""
+
+#: ../profiles.rst:1977
+msgid "NTSC SD SIF Anamorphic 240i 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1978
+msgid "QVGA 240p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:1979
+msgid "NTSC SD QVGA 1/4 240p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:1980
+msgid "QVGA 240p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:1981
+msgid "QVGA 240p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:1982
+msgid "QVGA 240p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:1983
+msgid "QVGA 240p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:1984
+msgid "QVGA 240p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:1985
+msgid "QVGA 240p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:1986
+msgid "QVGA 240p 15 fps"
+msgstr ""
+
+#: ../profiles.rst:1987
+msgid "HQVGA 160p 59.94 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1987 ../profiles.rst:1988 ../profiles.rst:1989
+#: ../profiles.rst:1990 ../profiles.rst:1991 ../profiles.rst:1992
+#: ../profiles.rst:1993 ../profiles.rst:1994 ../profiles.rst:1995
+msgid "256"
+msgstr ""
+
+#: ../profiles.rst:1987 ../profiles.rst:1988 ../profiles.rst:1989
+#: ../profiles.rst:1990 ../profiles.rst:1991 ../profiles.rst:1992
+#: ../profiles.rst:1993 ../profiles.rst:1994 ../profiles.rst:1995
+#: ../profiles.rst:1996 ../profiles.rst:1997 ../profiles.rst:1998
+#: ../profiles.rst:1999 ../profiles.rst:2000 ../profiles.rst:2001
+#: ../profiles.rst:2002 ../profiles.rst:2003 ../profiles.rst:2004
+#: ../profiles.rst:2008 ../profiles.rst:2009 ../profiles.rst:2010
+#: ../profiles.rst:2011 ../profiles.rst:2012 ../profiles.rst:2013
+#: ../profiles.rst:2014 ../profiles.rst:2015 ../profiles.rst:2016
+#: ../profiles.rst:2017 ../profiles.rst:2018
+msgid "160"
+msgstr ""
+
+#: ../profiles.rst:1988
+msgid "HQVGA 160p 29.97 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1989
+msgid "HQVGA 160p 23.98 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1990
+msgid "HQVGA 160p 60 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1991
+msgid "HQVGA 160p 50 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1992
+msgid "HQVGA 160p 30 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1993
+msgid "HQVGA 160p 25 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1994
+msgid "HQVGA 160p 24 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1995
+msgid "HQVGA 160p 15 fps | 16:10"
+msgstr ""
+
+#: ../profiles.rst:1996
+msgid "HQVGA 160p 59.94 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1997
+msgid "HQVGA 160p 29.97 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1998
+msgid "HQVGA 160p 23.98 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:1999
+msgid "HQVGA 160p 60 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:2000
+msgid "HQVGA 160p 50 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:2001
+msgid "HQVGA 160p 30 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:2002
+msgid "HQVGA 160p 25 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:2003
+msgid "HQVGA 160p 24 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:2004
+msgid "HQVGA 160p 15 fps | 3:2"
+msgstr ""
+
+#: ../profiles.rst:2005
+msgid "PAL SD QCIF Anamorphic 144p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:2005 ../profiles.rst:2006 ../profiles.rst:2007
+#: ../profiles.rst:2008 ../profiles.rst:2009
+msgid "176"
+msgstr ""
+
+#: ../profiles.rst:2005 ../profiles.rst:2006 ../profiles.rst:2007
+msgid "144"
+msgstr ""
+
+#: ../profiles.rst:2005 ../profiles.rst:2006 ../profiles.rst:2007
+msgid "192"
+msgstr ""
+
+#: ../profiles.rst:2006
+msgid "PAL SD QCIF Anamorphic 144p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:2007
+msgid "PAL SD QCIF Anamorphic 144p 15 fps"
+msgstr ""
+
+#: ../profiles.rst:2008
+msgid "NTSC SD SIF 1/2 Anamorphic 120p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:2008 ../profiles.rst:2009 ../profiles.rst:2010
+#: ../profiles.rst:2011 ../profiles.rst:2012 ../profiles.rst:2013
+#: ../profiles.rst:2014 ../profiles.rst:2015 ../profiles.rst:2016
+#: ../profiles.rst:2017 ../profiles.rst:2018
+msgid "120"
+msgstr ""
+
+#: ../profiles.rst:2009
+msgid "NTSC SD SIF 1/2 Anamorphic 120p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:2010
+msgid "QQVGA 120p 59.94 fps"
+msgstr ""
+
+#: ../profiles.rst:2011
+msgid "QQVGA 120p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:2012
+msgid "QQVGA 120p 23.98 fps"
+msgstr ""
+
+#: ../profiles.rst:2013
+msgid "QQVGA 120p 60 fps"
+msgstr ""
+
+#: ../profiles.rst:2014
+msgid "QQVGA 120p 50 fps"
+msgstr ""
+
+#: ../profiles.rst:2015
+msgid "QQVGA 120p 30 fps"
+msgstr ""
+
+#: ../profiles.rst:2016
+msgid "QQVGA 120p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:2017
+msgid "QQVGA 120p 24 fps"
+msgstr ""
+
+#: ../profiles.rst:2018
+msgid "QQVGA 120p 15 fps"
+msgstr ""
+
+#: ../profiles.rst:2019
+msgid "NTSC SD SQ CIF 96p 29.97 fps"
+msgstr ""
+
+#: ../profiles.rst:2019 ../profiles.rst:2020 ../profiles.rst:2021
+msgid "128"
+msgstr ""
+
+#: ../profiles.rst:2019 ../profiles.rst:2020 ../profiles.rst:2021
+msgid "96"
+msgstr ""
+
+#: ../profiles.rst:2020
+msgid "NTSC SD SQ CIF 96p 25 fps"
+msgstr ""
+
+#: ../profiles.rst:2021
+msgid "NTSC SD SQ CIF 96p 15 fps"
+msgstr ""

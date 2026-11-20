@@ -1,0 +1,447 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../animation.rst:23
+msgid "Animation"
+msgstr "Κίνηση"
+
+#: ../animation.rst:25
+msgid ""
+"OpenShot has been designed specifically with animation in mind. The powerful"
+" curve-based animation framework can handle most jobs with ease, and is "
+"flexible enough to create just about any animation. Key frames specify "
+"values at certain points on a clip, and OpenShot does the hard work of "
+"interpolating the in-between values."
+msgstr ""
+"Το OpenShot έχει σχεδιαστεί ειδικά με γνώμονα την κίνηση. Το ισχυρό σύστημα "
+"κίνησης που βασίζεται σε καμπύλες χειρίζεται εύκολα τις περισσότερες "
+"εργασίες και είναι αρκετά ευέλικτο ώστε να δημιουργεί σχεδόν οποιαδήποτε "
+"κίνηση. Τα βασικά καρέ ορίζουν τιμές σε συγκεκριμένα σημεία ενός κλιπ και το"
+" OpenShot αναλαμβάνει τη δύσκολη δουλειά της παρεμβολής των ενδιάμεσων "
+"τιμών."
+
+#: ../animation.rst:30
+msgid "Overview"
+msgstr "Επισκόπηση"
+
+#: ../animation.rst:38 ../animation.rst:141
+msgid "#"
+msgstr ""
+
+#: ../animation.rst:38 ../animation.rst:141
+msgid "Name"
+msgstr "Όνομα"
+
+#: ../animation.rst:38 ../animation.rst:65 ../animation.rst:141
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: ../animation.rst:40 ../animation.rst:41 ../animation.rst:143
+msgid "1"
+msgstr ""
+
+#: ../animation.rst:40
+msgid "Green Property"
+msgstr "Πράσινη ιδιότητα (Green Property)"
+
+#: ../animation.rst:40
+msgid "When the play-head is on a key frame, the property appears green"
+msgstr ""
+"Όταν η κεφαλή αναπαραγωγής βρίσκεται σε βασικό καρέ, η ιδιότητα εμφανίζεται "
+"πράσινη"
+
+#: ../animation.rst:41
+msgid "Blue Property"
+msgstr "Μπλε ιδιότητα (Blue Property)"
+
+#: ../animation.rst:41
+msgid ""
+"When the play-head is on an interpolated value, the property appears blue"
+msgstr ""
+"Όταν η κεφαλή αναπαραγωγής βρίσκεται σε παρεμβαλλόμενη τιμή, η ιδιότητα "
+"εμφανίζεται μπλε"
+
+#: ../animation.rst:42 ../animation.rst:144
+msgid "2"
+msgstr ""
+
+#: ../animation.rst:42
+msgid "Value Slider"
+msgstr "Ρυθμιστικό τιμής (Value Slider)"
+
+#: ../animation.rst:42
+msgid ""
+"Click and drag your mouse to adjust the value (this automatically creates a "
+"key frame if needed)"
+msgstr ""
+"Κάντε κλικ και σύρετε το ποντίκι για να προσαρμόσετε την τιμή (αυτό "
+"δημιουργεί αυτόματα ένα βασικό καρέ, αν χρειάζεται)"
+
+#: ../animation.rst:43
+msgid "3"
+msgstr ""
+
+#: ../animation.rst:43
+msgid "Play-head"
+msgstr "Κεφαλή αναπαραγωγής (Play-head)"
+
+#: ../animation.rst:43
+msgid "Position the play-head over a clip where you need a key frame"
+msgstr ""
+"Τοποθετήστε την κεφαλή αναπαραγωγής πάνω από ένα κλιπ, στο σημείο όπου "
+"χρειάζεστε ένα βασικό καρέ"
+
+#: ../animation.rst:44
+msgid "4"
+msgstr ""
+
+#: ../animation.rst:44
+msgid "Key frame Markers"
+msgstr "Δείκτες βασικών καρέ (Key frame Markers)"
+
+#: ../animation.rst:44
+msgid ""
+"Colorful icons line the bottom of the clip for every keyframe "
+"(`circle=Bézier`, `diamond=linear`, `square=constant`). Each icon matches "
+"the color of its clip, effect, or transition. The selected item's keyframe "
+"icons are shown brighter. Filtering the property list also filters these "
+"icons. Click any icon to jump the play-head, load its properties, and select"
+" its clip, effect, or transition. Drag an icon left or right to move the "
+"keyframe and fine‑tune your animation timing. The play-head moves to the "
+"keyframe's new position when you finish dragging."
+msgstr ""
+"Πολύχρωμα εικονίδια ευθυγραμμίζονται στο κάτω μέρος του κλιπ για κάθε βασικό"
+" καρέ (`κύκλος=Μπεζιέ`, `ρόμβος=γραμμική`, `τετράγωνο=σταθερή`). Κάθε "
+"εικονίδιο ταιριάζει με το χρώμα του κλιπ, του εφέ ή της μετάβασής του. Τα "
+"εικονίδια βασικών καρέ του επιλεγμένου στοιχείου εμφανίζονται φωτεινότερα. "
+"Το φιλτράρισμα της λίστας ιδιοτήτων φιλτράρει και αυτά τα εικονίδια. Κάντε "
+"κλικ σε οποιοδήποτε εικονίδιο για να μεταφερθεί εκεί η κεφαλή αναπαραγωγής, "
+"να φορτωθούν οι ιδιότητές του και να επιλεγεί το κλιπ, το εφέ ή η μετάβασή "
+"του. Σύρετε ένα εικονίδιο αριστερά ή δεξιά για να μετακινήσετε το βασικό "
+"καρέ και να ρυθμίσετε με ακρίβεια τον χρονισμό της κίνησής σας. Η κεφαλή "
+"αναπαραγωγής μεταφέρεται στη νέα θέση του βασικού καρέ όταν ολοκληρώσετε τη "
+"μεταφορά."
+
+#: ../animation.rst:48
+msgid "Key Frames"
+msgstr "Βασικά καρέ"
+
+#: ../animation.rst:49
+msgid ""
+"To create a key frame in OpenShot, simply position the play-head (i.e. "
+"playback position) at any point over a clip, and edit properties in the "
+"property dialog. If the property supports key frames, it will turn green, "
+"and a small icon (`circle=Bézier, diamond=linear, square=constant`) will "
+"appear on the bottom of your clip at that position. Move your play-head to "
+"another point over that clip, and adjust the properties again. All "
+"animations require at least 2 key frames, but can support an unlimited "
+"number of them."
+msgstr ""
+"Για να δημιουργήσετε ένα βασικό καρέ στο OpenShot, απλώς τοποθετήστε την "
+"κεφαλή αναπαραγωγής (δηλαδή τη θέση αναπαραγωγής) σε οποιοδήποτε σημείο πάνω"
+" από ένα κλιπ και επεξεργαστείτε τις ιδιότητες στο παράθυρο ιδιοτήτων. Αν η "
+"ιδιότητα υποστηρίζει βασικά καρέ, θα γίνει πράσινη και ένα μικρό εικονίδιο "
+"(`κύκλος=Μπεζιέ, ρόμβος=γραμμική, τετράγωνο=σταθερή`) θα εμφανιστεί στο κάτω"
+" μέρος του κλιπ σε εκείνη τη θέση. Μετακινήστε την κεφαλή αναπαραγωγής σε "
+"ένα άλλο σημείο πάνω από το κλιπ και προσαρμόστε ξανά τις ιδιότητες. Κάθε "
+"κίνηση απαιτεί τουλάχιστον 2 βασικά καρέ, αλλά μπορεί να υποστηρίξει "
+"απεριόριστο αριθμό."
+
+#: ../animation.rst:55
+msgid ""
+"Use the :guilabel:`Next Marker` and :guilabel:`Previous Marker` toolbar "
+"buttons to step through the selected item's keyframes. They follow whichever"
+" clip, effect, or transition is selected. When an effect is selected, "
+"navigation also stops at the start and end of its parent clip."
+msgstr ""
+"Χρησιμοποιήστε τα κουμπιά της γραμμής εργαλείων :guilabel:`Επόμενος Δείκτης`"
+" (Next Marker) και :guilabel:`Προηγούμενος Δείκτης` (Previous Marker) για να"
+" μετακινηθείτε στα βασικά καρέ του επιλεγμένου στοιχείου. Ακολουθούν όποιο "
+"κλιπ, εφέ ή μετάβαση είναι επιλεγμένο. Όταν είναι επιλεγμένο ένα εφέ, η "
+"πλοήγηση σταματά επίσης στην αρχή και στο τέλος του γονικού του κλιπ."
+
+#: ../animation.rst:59
+msgid ""
+"To adjust the **interpolation mode**, right click on the small graph icon "
+"next to a property value."
+msgstr ""
+"Για να προσαρμόσετε τον **τρόπο παρεμβολής**, κάντε δεξί κλικ στο μικρό "
+"εικονίδιο γραφήματος δίπλα στην τιμή μιας ιδιότητας."
+
+#: ../animation.rst:65
+msgid "Key-frame Interpolation"
+msgstr "Παρεμβολή βασικών καρέ"
+
+#: ../animation.rst:67
+msgid "Bézier"
+msgstr "Μπεζιέ (Bézier)"
+
+#: ../animation.rst:67
+msgid ""
+"Interpolated values use a quadratic curve, and ease-in and ease-out. Icon: "
+":guilabel:`Circle`."
+msgstr ""
+"Οι παρεμβαλλόμενες τιμές χρησιμοποιούν τετραγωνική καμπύλη, με ομαλή "
+"επιτάχυνση στην αρχή και επιβράδυνση στο τέλος (ease-in και ease-out). "
+"Εικονίδιο: :guilabel:`Κύκλος` (Circle)."
+
+#: ../animation.rst:68
+msgid "Linear"
+msgstr "Γραμμική (Linear)"
+
+#: ../animation.rst:68
+msgid ""
+"Interpolated values are calculated linear (each step value is equal). Icon: "
+":guilabel:`Diamond`."
+msgstr ""
+"Οι παρεμβαλλόμενες τιμές υπολογίζονται γραμμικά (η τιμή κάθε βήματος είναι "
+"ίση). Εικονίδιο: :guilabel:`Ρόμβος` (Diamond)."
+
+#: ../animation.rst:69
+msgid "Constant"
+msgstr "Σταθερή (Constant)"
+
+#: ../animation.rst:69
+msgid ""
+"Interpolated values stay the same until the next key frame, and jump to the "
+"new value. Icon: :guilabel:`Square`."
+msgstr ""
+"Οι παρεμβαλλόμενες τιμές παραμένουν ίδιες μέχρι το επόμενο βασικό καρέ και "
+"μετά πηδούν στη νέα τιμή. Εικονίδιο: :guilabel:`Τετράγωνο` (Square)."
+
+#: ../animation.rst:72
+msgid ""
+"For more info on creating key frames for location, rotation, scale, shear, "
+"and origin, see :ref:`clip_transform_ref`."
+msgstr ""
+"Για περισσότερες πληροφορίες σχετικά με τη δημιουργία βασικών καρέ για θέση "
+"(location), περιστροφή (rotation), κλίμακα (scale), διάτμηση (shear) και "
+"αρχή αξόνων (origin), βλ. :ref:`clip_transform_ref`."
+
+#: ../animation.rst:73
+msgid "For more info on preset animations, see :ref:`clip_presets_ref`."
+msgstr ""
+"Για περισσότερες πληροφορίες σχετικά με τις προρυθμισμένες κινήσεις "
+"(presets), βλ. :ref:`clip_presets_ref`."
+
+#: ../animation.rst:74
+msgid "For a full list of key frames, see :ref:`clip_properties_ref`."
+msgstr "Για πλήρη κατάλογο βασικών καρέ, βλ. :ref:`clip_properties_ref`."
+
+#: ../animation.rst:77
+msgid "Timing"
+msgstr "Χρονισμός"
+
+#: ../animation.rst:78
+msgid ""
+"Changing how fast a clip plays is done with the :guilabel:`Time` property "
+"and the :guilabel:`Timing` tool."
+msgstr ""
+"Η αλλαγή της ταχύτητας με την οποία παίζει ένα κλιπ γίνεται με την ιδιότητα "
+":guilabel:`Χρόνος` (Time) και το εργαλείο :guilabel:`Χρονισμός` (Timing)."
+
+#: ../animation.rst:80
+msgid ""
+"The :guilabel:`Speed` menu offers presets such as normal, fast, slow, "
+"freeze, reverse, and repeat. See details in :ref:`clip_time_ref`."
+msgstr ""
+"Το μενού :guilabel:`Ταχύτητα` (Speed) προσφέρει προρυθμίσεις όπως κανονική, "
+"γρήγορη, αργή, πάγωμα, αντίστροφη και επανάληψη. Δείτε λεπτομέρειες στο "
+":ref:`clip_time_ref`."
+
+#: ../animation.rst:81
+msgid ""
+"The :guilabel:`Timing` tool lets you drag a clip’s edges to speed it up or "
+"slow it down. OpenShot adds the needed Time keyframes and **scales your "
+"other keyframes** so your animations stay aligned. Shorter clips play "
+"faster, longer clips play slower. See more: :ref:`clip_time_ref`."
+msgstr ""
+"Το εργαλείο :guilabel:`Χρονισμός` (Timing) σάς επιτρέπει να σύρετε τις άκρες"
+" ενός κλιπ για να το επιταχύνετε ή να το επιβραδύνετε. Το OpenShot προσθέτει"
+" τα απαραίτητα βασικά καρέ Χρόνου (Time) και **κλιμακώνει τα υπόλοιπα βασικά"
+" καρέ σας**, ώστε οι κινήσεις σας να παραμένουν ευθυγραμμισμένες. Τα "
+"συντομότερα κλιπ παίζουν γρηγορότερα, τα μεγαλύτερα παίζουν αργότερα. "
+"Περισσότερα: :ref:`clip_time_ref`."
+
+#: ../animation.rst:86
+msgid "Repeating"
+msgstr "Επανάληψη"
+
+#: ../animation.rst:87
+msgid ""
+"To play a clip multiple times, use :guilabel:`Right-Click → Speed → Repeat`."
+msgstr ""
+"Για να παίξει ένα κλιπ πολλές φορές, χρησιμοποιήστε :guilabel:`Δεξί κλικ → "
+"Ταχύτητα → Επανάληψη` (Right-Click → Speed → Repeat)."
+
+#: ../animation.rst:89
+msgid ":guilabel:`Loop` repeats in one direction (forward or reverse)."
+msgstr ""
+"Η επιλογή :guilabel:`Βρόχος` (Loop) επαναλαμβάνει προς μία κατεύθυνση "
+"(εμπρός ή αντίστροφα)."
+
+#: ../animation.rst:90
+msgid ""
+":guilabel:`Ping-Pong` alternates direction (forward then backward, etc.)."
+msgstr ""
+"Η επιλογή :guilabel:`Ping-Pong` εναλλάσσει την κατεύθυνση (πρώτα εμπρός και "
+"μετά πίσω κ.ο.κ.)."
+
+#: ../animation.rst:91
+msgid ""
+":guilabel:`Custom` can add a short pause between passes, speed up or slow "
+"down each pass, including keyframes."
+msgstr ""
+"Η επιλογή :guilabel:`Προσαρμοσμένο` (Custom) μπορεί να προσθέσει μια σύντομη"
+" παύση ανάμεσα στις επαναλήψεις και να επιταχύνει ή να επιβραδύνει κάθε "
+"επανάληψη, μαζί με βασικά καρέ."
+
+#: ../animation.rst:93
+msgid ""
+"OpenShot writes the :guilabel:`Time` curve for you, and you can edit those "
+"keyframes just like any other. See more: :ref:`clip_time_repeat_ref`."
+msgstr ""
+"Το OpenShot γράφει την καμπύλη :guilabel:`Χρόνος` (Time) για εσάς και "
+"μπορείτε να επεξεργαστείτε αυτά τα βασικά καρέ όπως κάθε άλλο. Περισσότερα: "
+":ref:`clip_time_repeat_ref`."
+
+#: ../animation.rst:97
+msgid "Bézier Presets"
+msgstr "Προρυθμίσεις Μπεζιέ"
+
+#: ../animation.rst:98
+msgid ""
+"When using a Bézier curve for animation, OpenShot includes more than 20 "
+"curve presets (which affect the shape of the curve). For example, **Ease-"
+"In** has a more gradual slope at the beginning, making an animation move "
+"slower at the beginning, and faster at the end. **Ease-In/Out (Back)** has a"
+" gradual beginning and ending, but actually goes past the expected value and"
+" then back (producing a bounce effect)."
+msgstr ""
+"Όταν χρησιμοποιείτε καμπύλη Μπεζιέ για κίνηση, το OpenShot περιλαμβάνει "
+"περισσότερες από 20 προρυθμίσεις καμπυλών (που επηρεάζουν το σχήμα της "
+"καμπύλης). Για παράδειγμα, η **Ease-In** έχει πιο σταδιακή κλίση στην αρχή, "
+"κάνοντας μια κίνηση να ξεκινά πιο αργά και να τελειώνει πιο γρήγορα. Η "
+"**Ease-In/Out (Back)** έχει σταδιακή αρχή και τέλος, αλλά στην "
+"πραγματικότητα ξεπερνά την αναμενόμενη τιμή και μετά επιστρέφει (παράγοντας "
+"εφέ αναπήδησης)."
+
+#: ../animation.rst:103
+msgid ""
+"To choose a curve preset, right click on the small graph icon next to a key "
+"frame."
+msgstr ""
+"Για να επιλέξετε μια προρύθμιση καμπύλης, κάντε δεξί κλικ στο μικρό "
+"εικονίδιο γραφήματος δίπλα σε ένα βασικό καρέ."
+
+#: ../animation.rst:110
+msgid "Ken Burns Effect"
+msgstr "Εφέ Ken Burns"
+
+#: ../animation.rst:111
+msgid ""
+"The **Ken Burns effect** is a pan-and-zoom animation technique — named after"
+" documentary filmmaker Ken Burns — that brings still images or video clips "
+"to life with slow, deliberate camera movement. In OpenShot, use "
+":guilabel:`Right-Click → Motion → Camera` presets for one-click Ken Burns "
+"animations (Zoom In, Zoom Out, Pan, Zoom & Pan with Auto Direction), or set "
+"keyframes on :guilabel:`Location X/Y` and :guilabel:`Scale X/Y` manually for"
+" full control. See :ref:`clip_presets_ref`."
+msgstr ""
+"Το **εφέ Ken Burns** είναι μια τεχνική κίνησης με πανοραμική λήψη και "
+"μεγέθυνση (pan-and-zoom) — που πήρε το όνομά της από τον δημιουργό "
+"ντοκιμαντέρ Ken Burns — και δίνει ζωή σε στατικές εικόνες ή κλιπ βίντεο με "
+"αργή, σκόπιμη κίνηση της κάμερας. Στο OpenShot, χρησιμοποιήστε τις "
+"προρυθμίσεις :guilabel:`Δεξί κλικ → Κίνηση → Κάμερα` (Right-Click → Motion →"
+" Camera) για κινήσεις Ken Burns με ένα κλικ (Μεγέθυνση, Σμίκρυνση, "
+"Πανοραμική κίνηση, Μεγέθυνση και πανοραμική με αυτόματη κατεύθυνση), ή "
+"ορίστε χειροκίνητα βασικά καρέ στις ιδιότητες :guilabel:`Τοποθεσία X/Y` "
+"(Location X/Y) και :guilabel:`Κλίμακα X/Y` (Scale X/Y) για πλήρη έλεγχο. Βλ."
+" :ref:`clip_presets_ref`."
+
+#: ../animation.rst:120
+msgid "Image Sequences"
+msgstr "Ακολουθίες εικόνων"
+
+#: ../animation.rst:121
+msgid ""
+"If you have a sequence of similarly named images (such as, cat001.png, "
+"cat002.png, cat003.png, etc...), you can simply drag and drop one of them "
+"into OpenShot, and you will be prompted to import the entire sequence. "
+"OpenShot will playback these sequential images rapidly, as if they are "
+"frames in a video. The rate or speed in which these images are displayed is "
+"based on their frame rate."
+msgstr ""
+"Αν έχετε μια ακολουθία εικόνων με παρόμοια ονόματα (όπως cat001.png, "
+"cat002.png, cat003.png κ.λπ.), μπορείτε απλώς να σύρετε και να αποθέσετε μία"
+" από αυτές στο OpenShot και θα σας ζητηθεί να εισαγάγετε ολόκληρη την "
+"ακολουθία. Το OpenShot θα αναπαράγει αυτές τις διαδοχικές εικόνες γρήγορα, "
+"σαν να ήταν καρέ ενός βίντεο. Ο ρυθμός ή η ταχύτητα με την οποία "
+"εμφανίζονται οι εικόνες βασίζεται στον ρυθμό καρέ τους."
+
+#: ../animation.rst:126
+msgid ""
+"**NOTE:** Be sure your image sequence starts at 0 or 1, or you will likely "
+"receive an error when importing it into OpenShot. For example, if your "
+"sequence starts at cat222.png, or has missing images in the sequence, "
+"OpenShot will struggle to understand the sequence. An easy work-around is to"
+" renumber the images so they start with 1."
+msgstr ""
+"**ΣΗΜΕΙΩΣΗ:** Φροντίστε η ακολουθία εικόνων σας να ξεκινά από το 0 ή το 1, "
+"διαφορετικά πιθανότατα θα λάβετε σφάλμα κατά την εισαγωγή της στο OpenShot. "
+"Για παράδειγμα, αν η ακολουθία σας ξεκινά από το cat222.png ή έχει εικόνες "
+"που λείπουν από την ακολουθία, το OpenShot θα δυσκολευτεί να την κατανοήσει."
+" Μια εύκολη λύση είναι να αριθμήσετε εκ νέου τις εικόνες ώστε να ξεκινούν "
+"από το 1."
+
+#: ../animation.rst:132
+msgid ""
+"To adjust the frame rate of the animation, right click and choose **File "
+"Properties** in the **Project Files** panel, and adjust the frame rate. Once"
+" you have set the correct frame rate, drag the animation onto the timeline."
+msgstr ""
+"Για να προσαρμόσετε τον ρυθμό καρέ της κίνησης, κάντε δεξί κλικ και επιλέξτε"
+" **Ιδιότητες αρχείου** (File Properties) στο πάνελ **Αρχεία έργου** (Project"
+" Files) και προσαρμόστε τον ρυθμό καρέ. Αφού ορίσετε τον σωστό ρυθμό καρέ, "
+"σύρετε την κίνηση πάνω στο χρονολόγιο."
+
+#: ../animation.rst:143
+msgid "File Properties"
+msgstr "Ιδιότητες αρχείου (File Properties)"
+
+#: ../animation.rst:143
+msgid ""
+"Select an image sequence in the **Project Files** panel, right click and "
+"choose **File Properties**"
+msgstr ""
+"Επιλέξτε μια ακολουθία εικόνων στο πάνελ **Αρχεία έργου** (Project Files), "
+"κάντε δεξί κλικ και επιλέξτε **Ιδιότητες αρχείου** (File Properties)"
+
+#: ../animation.rst:144
+msgid "Frame Rate"
+msgstr "Ρυθμός καρέ (Frame Rate)"
+
+#: ../animation.rst:144
+msgid ""
+"Adjust the frame rate of the animation. Typically, hand-drawn animations use"
+" 12 frames per second."
+msgstr ""
+"Προσαρμόστε τον ρυθμό καρέ της κίνησης. Συνήθως, τα κινούμενα σχέδια που "
+"σχεδιάζονται στο χέρι χρησιμοποιούν 12 καρέ ανά δευτερόλεπτο."

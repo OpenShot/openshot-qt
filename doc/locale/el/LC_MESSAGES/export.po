@@ -1,0 +1,711 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../export.rst:21
+msgid "Export"
+msgstr "Εξαγωγή"
+
+#: ../export.rst:23
+msgid ""
+"Exporting converts your OpenShot project (clips, effects, animations, "
+"titles) into a single video output file (using a process called ``video "
+"encoding``). By using the default settings, the exported video will be "
+"compatible with most media players (such as VLC) and websites (such as "
+"YouTube, Vimeo, Facebook) and creates a ``MP4 (h.264 + AAC)`` formatted "
+"video file. See :ref:`profiles_mp4_h264_ref`."
+msgstr ""
+"Η εξαγωγή μετατρέπει το έργο OpenShot (κλιπ, εφέ, εφέ κίνησης, τίτλους) σε "
+"ένα ενιαίο αρχείο εξόδου βίντεο (με μια διαδικασία που ονομάζεται ``video "
+"encoding``). Με τις προεπιλεγμένες ρυθμίσεις, το εξαγόμενο βίντεο θα είναι "
+"συμβατό με τα περισσότερα προγράμματα αναπαραγωγής πολυμέσων (όπως το VLC) "
+"και ιστοτόπους (όπως YouTube, Vimeo, Facebook) και δημιουργεί ένα αρχείο "
+"βίντεο με μορφή ``MP4 (h.264 + AAC)``. Δείτε το "
+":ref:`profiles_mp4_h264_ref`."
+
+#: ../export.rst:28
+msgid ""
+"Click on the :guilabel:`Export Video` icon at the top of the screen (or use "
+"the :guilabel:`File→Export Video` menu). The default values will work fine, "
+"so just click the :guilabel:`Export Video` button to render your new video. "
+"You can also create your own custom export profiles, see "
+":ref:`profiles_ref`."
+msgstr ""
+"Κάντε κλικ στο εικονίδιο :guilabel:`Εξαγωγή βίντεο` (Export Video) στο πάνω "
+"μέρος της οθόνης (ή χρησιμοποιήστε το μενού :guilabel:`Αρχείο→Εξαγωγή "
+"βίντεο` (File→Export Video)). Οι προεπιλεγμένες τιμές λειτουργούν σωστά, "
+"οπότε απλώς κάντε κλικ στο κουμπί :guilabel:`Εξαγωγή βίντεο` (Export Video) "
+"για να αποδώσετε (render) το νέο σας βίντεο. Μπορείτε επίσης να "
+"δημιουργήσετε τα δικά σας προσαρμοσμένα προφίλ εξαγωγής, δείτε το "
+":ref:`profiles_ref`."
+
+#: ../export.rst:33
+msgid "Simple Mode"
+msgstr "Απλή λειτουργία"
+
+#: ../export.rst:35
+msgid ""
+"While video encoding is very complicated, with dozens of interrelated "
+"settings and options, OpenShot makes it easy, with sensible defaults, and "
+"most of this complexity hidden away behind our `Simple` tab, which is the "
+"default export view."
+msgstr ""
+"Παρόλο που η κωδικοποίηση βίντεο είναι πολύ περίπλοκη, με δεκάδες "
+"αλληλένδετες ρυθμίσεις και επιλογές, το OpenShot την κάνει εύκολη, με "
+"λογικές προεπιλογές και με το μεγαλύτερο μέρος αυτής της πολυπλοκότητας "
+"κρυμμένο πίσω από την καρτέλα `Απλό` (Simple), η οποία είναι η προεπιλεγμένη"
+" προβολή εξαγωγής."
+
+#: ../export.rst:45
+msgid "Simple Setting"
+msgstr "Απλή ρύθμιση"
+
+#: ../export.rst:45 ../export.rst:69 ../export.rst:96 ../export.rst:117
+#: ../export.rst:131 ../export.rst:147
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: ../export.rst:47 ../export.rst:79 ../export.rst:98
+msgid "Profile"
+msgstr "Προφίλ (Profile)"
+
+#: ../export.rst:47
+msgid ""
+"Common presets (combinations of presets and video profiles grouped by "
+"category, for example: **Web**)"
+msgstr ""
+"Συνηθισμένες προρυθμίσεις (συνδυασμοί προρυθμίσεων και προφίλ βίντεο, "
+"ομαδοποιημένοι ανά κατηγορία, για παράδειγμα: **Διαδίκτυο** (Web))"
+
+#: ../export.rst:48 ../export.rst:168
+msgid "Target"
+msgstr "Προορισμός (Target)"
+
+#: ../export.rst:48
+msgid ""
+"Target presets related to the current profile (collections of common "
+"formats, codecs, and quality settings, see :ref:`preset_list_ref`)"
+msgstr ""
+"Προρυθμίσεις (presets) προορισμού που σχετίζονται με το τρέχον προφίλ "
+"(συλλογές συνηθισμένων μορφών, κωδικοποιητών (codecs) και ρυθμίσεων "
+"ποιότητας, δείτε το :ref:`preset_list_ref`)"
+
+#: ../export.rst:49 ../export.rst:169
+msgid "Video Profile"
+msgstr "Προφίλ βίντεο (Video Profile)"
+
+#: ../export.rst:49
+msgid ""
+"Video profiles related to the current target (collections of common size, "
+"frame rate, and aspect ratios, see :ref:`profile_list_ref` or create your "
+"own :ref:`profiles_ref`)"
+msgstr ""
+"Προφίλ βίντεο που σχετίζονται με τον τρέχοντα προορισμό (συλλογές "
+"συνηθισμένων μεγεθών, ρυθμών καρέ και αναλογιών διαστάσεων, δείτε το "
+":ref:`profile_list_ref` ή δημιουργήστε δικά σας μέσω του "
+":ref:`profiles_ref`)"
+
+#: ../export.rst:50
+msgid "Quality"
+msgstr "Ποιότητα (Quality)"
+
+#: ../export.rst:50
+msgid ""
+"Quality settings (low, med, high), which relate to various video and audio "
+"bitrates."
+msgstr ""
+"Ρυθμίσεις ποιότητας (χαμηλή, μέτρια, υψηλή), οι οποίες σχετίζονται με "
+"διάφορους ρυθμούς bit βίντεο και ήχου."
+
+#: ../export.rst:54
+msgid "Advanced Mode"
+msgstr "Προχωρημένη λειτουργία"
+
+#: ../export.rst:56
+msgid ""
+"Most users will never need to switch to the `Advanced` tab, but if you need "
+"to customize any of the video encoding settings, for example, custom "
+"bitrates, different codecs, or limiting the range of frames exported, this "
+"is the tab for you."
+msgstr ""
+"Οι περισσότεροι χρήστες δεν θα χρειαστεί ποτέ να μεταβούν στην καρτέλα "
+"`Προχωρημένο` (Advanced), αλλά αν χρειάζεται να προσαρμόσετε κάποια από τις "
+"ρυθμίσεις κωδικοποίησης βίντεο, για παράδειγμα προσαρμοσμένους ρυθμούς bit, "
+"διαφορετικούς κωδικοποιητές ή περιορισμό του εύρους των καρέ που εξάγονται, "
+"αυτή είναι η καρτέλα για εσάς."
+
+#: ../export.rst:61
+msgid "Advanced Options"
+msgstr "Προχωρημένες επιλογές"
+
+#: ../export.rst:69
+msgid "Advanced Setting"
+msgstr "Προχωρημένη ρύθμιση"
+
+#: ../export.rst:71
+msgid "Export To"
+msgstr "Εξαγωγή σε (Export To)"
+
+#: ../export.rst:71
+msgid ""
+"Export both `video & audio`, `only audio`, `only video`, or an `image "
+"sequence`"
+msgstr ""
+"Εξαγωγή τόσο βίντεο όσο και ήχου (`video & audio`), μόνο ήχου (`only "
+"audio`), μόνο βίντεο (`only video`) ή ακολουθίας εικόνων (`image sequence`)"
+
+#: ../export.rst:72
+msgid "Start Frame"
+msgstr "Καρέ Αρχής (Start Frame)"
+
+#: ../export.rst:72
+msgid "The first frame to export (default is 1)"
+msgstr "Το πρώτο καρέ προς εξαγωγή (προεπιλογή το 1)"
+
+#: ../export.rst:73
+msgid "End Frame"
+msgstr "Καρέ Τέλους (End Frame)"
+
+#: ../export.rst:73
+msgid ""
+"The final frame to export (default is the last frame in your project to "
+"contain a clip)"
+msgstr ""
+"Το τελευταίο καρέ προς εξαγωγή (προεπιλογή το τελευταίο καρέ του έργου σας "
+"που περιέχει κλιπ)"
+
+#: ../export.rst:74
+msgid "Start at First Clip"
+msgstr "Έναρξη στο πρώτο κλιπ (Start at First Clip)"
+
+#: ../export.rst:74
+msgid ""
+"This checkbox will toggle the **Start Frame** between `0.0` and the `start` "
+"of the first clip/transition position."
+msgstr ""
+"Αυτό το πλαίσιο ελέγχου εναλλάσσει το **Καρέ Αρχής** (Start Frame) ανάμεσα "
+"στο `0.0` και στην αρχή (`start`) της θέσης του πρώτου κλιπ/μετάβασης."
+
+#: ../export.rst:75
+msgid "End at Last Clip"
+msgstr "Λήξη στο τελευταίο κλιπ (End at Last Clip)"
+
+#: ../export.rst:75
+msgid ""
+"This checkbox will toggle the **End Frame** between the `end` of the "
+"furthest clip/transition and the full `project duration`. The project "
+"duration can be adjusted by dragging the right edge of any track. You will "
+"need to zoom out (:guilabel:`Ctrl+Scroll Wheel`) of the timeline before you "
+"can drag the right edge of a track."
+msgstr ""
+"Αυτό το πλαίσιο ελέγχου εναλλάσσει το **Καρέ Τέλους** (End Frame) ανάμεσα "
+"στο τέλος (`end`) του πιο απομακρυσμένου κλιπ/μετάβασης και στην πλήρη "
+"διάρκεια του έργου (`project duration`). Η διάρκεια του έργου μπορεί να "
+"προσαρμοστεί σύροντας το δεξί άκρο οποιουδήποτε διαδρόμου. Θα χρειαστεί να "
+"σμικρύνετε (:guilabel:`Ctrl+Scroll Wheel`) το χρονολόγιο πριν μπορέσετε να "
+"σύρετε το δεξί άκρο ενός διαδρόμου."
+
+#: ../export.rst:81
+msgid ""
+"A video profile is a collection of common video settings (*size, frame rate,"
+" aspect ratio*). Profiles are used during editing, previewing, and exporting"
+" to provide a quick way to switch between common combinations of these "
+"settings. The :guilabel:`Export Dialog` will **default** to the same profile"
+" used by the project."
+msgstr ""
+"Ένα προφίλ βίντεο είναι μια συλλογή συνηθισμένων ρυθμίσεων βίντεο (*μέγεθος,"
+" ρυθμός καρέ, αναλογία διαστάσεων*). Τα προφίλ χρησιμοποιούνται κατά την "
+"επεξεργασία, την προεπισκόπηση και την εξαγωγή, ώστε να υπάρχει ένας "
+"γρήγορος τρόπος εναλλαγής μεταξύ συνηθισμένων συνδυασμών αυτών των "
+"ρυθμίσεων. Το :guilabel:`Παράθυρο διαλόγου εξαγωγής` (Export Dialog) θα "
+"χρησιμοποιεί **από προεπιλογή** το ίδιο προφίλ με το έργο."
+
+#: ../export.rst:85
+msgid ""
+"*NOTE: It is important to choose a **Profile** with the same **aspect "
+"ratio** used when editing your project. If you are exporting at a "
+"**different aspect ratio**, it might stretch the image, crop the image, add "
+"black bars, or otherwise introduce an issue which changes the exported "
+"video, making it appear differently than the :guilabel:`Preview` inside "
+"OpenShot.*"
+msgstr ""
+"*ΣΗΜΕΙΩΣΗ: Είναι σημαντικό να επιλέγετε ένα **Προφίλ** (Profile) με την ίδια"
+" **αναλογία διαστάσεων** που χρησιμοποιήσατε κατά την επεξεργασία του έργου "
+"σας. Αν εξάγετε με **διαφορετική αναλογία διαστάσεων**, η εικόνα μπορεί να "
+"τεντωθεί, να περικοπεί, να προστεθούν μαύρες ζώνες ή να προκύψει κάποιο άλλο"
+" πρόβλημα που αλλάζει το εξαγόμενο βίντεο, κάνοντάς το να φαίνεται "
+"διαφορετικό από την :guilabel:`Προεπισκόπηση` (Preview) μέσα στο OpenShot.*"
+
+#: ../export.rst:96
+msgid "Profile Setting"
+msgstr "Ρύθμιση προφίλ"
+
+#: ../export.rst:98
+msgid ""
+"The video profile to use during export (collection of size, frame rate, and "
+"aspect ratios, see :ref:`profile_list_ref`)"
+msgstr ""
+"Το προφίλ βίντεο που θα χρησιμοποιηθεί κατά την εξαγωγή (συλλογή μεγεθών, "
+"ρυθμών καρέ και αναλογιών διαστάσεων, δείτε το :ref:`profile_list_ref`)"
+
+#: ../export.rst:99
+msgid "Width"
+msgstr "Πλάτος (Width)"
+
+#: ../export.rst:99
+msgid "The width of the video export (in pixels)"
+msgstr "Το πλάτος του εξαγόμενου βίντεο (σε pixel)"
+
+#: ../export.rst:100
+msgid "Height"
+msgstr "Ύψος (Height)"
+
+#: ../export.rst:100
+msgid "The height of the video export (in pixels)"
+msgstr "Το ύψος του εξαγόμενου βίντεο (σε pixel)"
+
+#: ../export.rst:101
+msgid "Aspect Ratio"
+msgstr "Αναλογία Διαστάσεων (Aspect Ratio)"
+
+#: ../export.rst:101
+msgid ""
+"The aspect ratio of the final exported video. 1920×1080 reduces to 16:9. "
+"This also takes into account the pixel ratio, for example 2:1 rectangular "
+"pixels will affect the aspect ratio."
+msgstr ""
+"Η αναλογία διαστάσεων του τελικού εξαγόμενου βίντεο. Το 1920×1080 ανάγεται "
+"σε 16:9. Λαμβάνεται επίσης υπόψη η αναλογία διαστάσεων pixel, για παράδειγμα"
+" τα ορθογώνια pixel 2:1 επηρεάζουν την αναλογία διαστάσεων."
+
+#: ../export.rst:102
+msgid "Pixel Ratio"
+msgstr "Αναλογία Εικονοστοιχείων (Pixel Ratio)"
+
+#: ../export.rst:102
+msgid ""
+"The ratio representing pixel shape. Most video profiles use a 1:1 square "
+"pixel shape, but others will use rectangular pixels."
+msgstr ""
+"Ο λόγος που αντιπροσωπεύει το σχήμα του pixel. Τα περισσότερα προφίλ βίντεο "
+"χρησιμοποιούν τετράγωνο σχήμα pixel 1:1, ενώ άλλα χρησιμοποιούν ορθογώνια "
+"pixel."
+
+#: ../export.rst:103
+msgid "Frame Rate"
+msgstr "Ρυθμός Καρέ (Frame Rate)"
+
+#: ../export.rst:103
+msgid "The frequency that the frames will be displayed at."
+msgstr "Η συχνότητα με την οποία θα εμφανίζονται τα καρέ."
+
+#: ../export.rst:104
+msgid "Interlaced"
+msgstr "Διαπλεκόμενο (Interlaced)"
+
+#: ../export.rst:104
+msgid ""
+"Is this format used on alternating scan lines (i.e. broadcast and analog "
+"formats)"
+msgstr ""
+"Αν η μορφή αυτή χρησιμοποιεί εναλλασσόμενες γραμμές σάρωσης (π.χ. μορφές "
+"μετάδοσης και αναλογικές μορφές)"
+
+#: ../export.rst:105
+msgid "Spherical"
+msgstr "Σφαιρικό (Spherical)"
+
+#: ../export.rst:105
+msgid ""
+"When enabled, injects spherical 360° metadata (SV3D atom) into the exported "
+"file so compatible players immediately recognize it as a 360° video."
+msgstr ""
+"Όταν είναι ενεργοποιημένο, εισάγει μεταδεδομένα σφαιρικού βίντεο 360° (atom "
+"SV3D) στο εξαγόμενο αρχείο, ώστε οι συμβατές εφαρμογές αναπαραγωγής να το "
+"αναγνωρίζουν αμέσως ως βίντεο 360°."
+
+#: ../export.rst:109
+msgid "Image Sequence Settings"
+msgstr "Ρυθμίσεις ακολουθίας εικόνων"
+
+#: ../export.rst:117
+msgid "Image Setting Name"
+msgstr "Όνομα ρύθμισης εικόνας"
+
+#: ../export.rst:119
+msgid "Image Format"
+msgstr "Τύπος εικόνας (Image Format)"
+
+#: ../export.rst:119
+msgid ""
+"The string format that represents the output file name in a sequence of "
+"images. For example, %05d.png would pad a number with 5 digits: 00001.png, "
+"00002.png."
+msgstr ""
+"Η μορφή συμβολοσειράς που αντιπροσωπεύει το όνομα του αρχείου εξόδου σε μια "
+"ακολουθία εικόνων. Για παράδειγμα, το %05d.png θα συμπληρώσει έναν αριθμό με"
+" μηδενικά ώστε να έχει 5 ψηφία: 00001.png, 00002.png."
+
+#: ../export.rst:123
+msgid "Video Settings"
+msgstr "Ρυθμίσεις βίντεο"
+
+#: ../export.rst:131
+msgid "Video Setting Name"
+msgstr "Όνομα ρύθμισης βίντεο"
+
+#: ../export.rst:133
+msgid "Video Format"
+msgstr "Μορφή Βίντεο (Video Format)"
+
+#: ../export.rst:133
+msgid ""
+"The name of the container format (``mp4``, ``mov``, ``avi``, ``webm``, "
+"etc...)"
+msgstr ""
+"Το όνομα της μορφής κοντέινερ (``mp4``, ``mov``, ``avi``, ``webm``, κ.λπ.)"
+
+#: ../export.rst:134
+msgid "Video Codec"
+msgstr "Κωδικοποιητής Βίντεο (Video Codec)"
+
+#: ../export.rst:134
+msgid ""
+"The name of the video codec used during video encoding (``libx264``, "
+"``mpeg4``, ``libaom-av1``, etc...)"
+msgstr ""
+"Το όνομα του κωδικοποιητή βίντεο (codec) που χρησιμοποιείται κατά την "
+"κωδικοποίηση βίντεο (``libx264``, ``mpeg4``, ``libaom-av1``, κ.λπ.)"
+
+#: ../export.rst:135 ../export.rst:152
+msgid "Bit Rate / Quality"
+msgstr "Ρυθμός Bit / Ποιότητα (Bit Rate / Quality)"
+
+#: ../export.rst:135
+msgid ""
+"The bitrate to use for video encoding. Accepts the following formats: ``5 "
+"Mb/s``, ``96 kb/s``, ``23 crf``, etc..."
+msgstr ""
+"Ο ρυθμός bit (bitrate) που θα χρησιμοποιηθεί για την κωδικοποίηση βίντεο. "
+"Δέχεται τις εξής μορφές: ``5 Mb/s``, ``96 kb/s``, ``23 crf``, κ.λπ."
+
+#: ../export.rst:139
+msgid "Audio Settings"
+msgstr "Ρυθμίσεις ήχου"
+
+#: ../export.rst:147
+msgid "Audio Setting Name"
+msgstr "Όνομα ρύθμισης ήχου"
+
+#: ../export.rst:149
+msgid "Audio Codec"
+msgstr "Κωδικοποιητής Ήχου (Audio Codec)"
+
+#: ../export.rst:149
+msgid ""
+"The name of the audio codec used during audio encoding (``aac``, ``mp2``, "
+"``libmp3lame``, etc...)"
+msgstr ""
+"Το όνομα του κωδικοποιητή ήχου (codec) που χρησιμοποιείται κατά την "
+"κωδικοποίηση ήχου (``aac``, ``mp2``, ``libmp3lame``, κ.λπ.)"
+
+#: ../export.rst:150
+msgid "Sample Rate"
+msgstr "Ρυθμός Δειγματοληψίας (Sample Rate)"
+
+#: ../export.rst:150
+msgid ""
+"The number of audio samples per second. Common values are ``44100`` and "
+"``48000``."
+msgstr ""
+"Ο αριθμός των δειγμάτων ήχου ανά δευτερόλεπτο. Συνηθισμένες τιμές είναι "
+"``44100`` και ``48000``."
+
+#: ../export.rst:151
+msgid "Channel Layout"
+msgstr "Διάταξη Ήχου (Channel Layout)"
+
+#: ../export.rst:151
+msgid ""
+"The number and layout of audio channels (``Stereo``, ``Mono``, ``Surround``,"
+" etc...)"
+msgstr ""
+"Ο αριθμός και η διάταξη των καναλιών ήχου (``Stereo``, ``Mono``, "
+"``Surround``, κ.λπ.)"
+
+#: ../export.rst:152
+msgid ""
+"The bitrate to use for audio encoding. Accepts the following formats: ``96 "
+"kb/s``, ``128 kb/s``, ``192 kb/s``, etc..."
+msgstr ""
+"Ο ρυθμός bit (bitrate) που θα χρησιμοποιηθεί για την κωδικοποίηση ήχου. "
+"Δέχεται τις εξής μορφές: ``96 kb/s``, ``128 kb/s``, ``192 kb/s``, κ.λπ."
+
+#: ../export.rst:158
+msgid "Social Media Quick Reference"
+msgstr "Γρήγορος οδηγός για τα μέσα κοινωνικής δικτύωσης"
+
+#: ../export.rst:160
+msgid ""
+"The table below shows the recommended :guilabel:`Target` and "
+":guilabel:`Video Profile` settings for common social media platforms. Select"
+" these in the **Simple** tab of the Export dialog."
+msgstr ""
+"Ο παρακάτω πίνακας δείχνει τις προτεινόμενες ρυθμίσεις "
+":guilabel:`Προορισμός` (Target) και :guilabel:`Προφίλ βίντεο` (Video "
+"Profile) για δημοφιλείς πλατφόρμες κοινωνικών μέσων. Επιλέξτε τες στην "
+"καρτέλα **Απλό** (Simple) του παραθύρου διαλόγου Εξαγωγής."
+
+#: ../export.rst:167
+msgid "Platform"
+msgstr "Πλατφόρμα"
+
+#: ../export.rst:170
+msgid "Notes"
+msgstr "Σημειώσεις"
+
+#: ../export.rst:171
+msgid "YouTube (landscape)"
+msgstr "YouTube (οριζόντιο)"
+
+#: ../export.rst:172
+msgid "``YouTube``"
+msgstr ""
+
+#: ../export.rst:173 ../export.rst:189 ../export.rst:197 ../export.rst:201
+#: ../export.rst:205 ../export.rst:209
+msgid "``FHD 1080p 30 fps``"
+msgstr ""
+
+#: ../export.rst:174
+msgid "Use ``YouTube (4K)`` for 4K"
+msgstr "Χρησιμοποιήστε το ``YouTube (4K)`` για 4K"
+
+#: ../export.rst:175
+msgid "YouTube Shorts (vertical)"
+msgstr "YouTube Shorts (κάθετο)"
+
+#: ../export.rst:176
+msgid "``YouTube Shorts``"
+msgstr ""
+
+#: ../export.rst:177 ../export.rst:181 ../export.rst:185 ../export.rst:193
+msgid "``FHD Vertical 1080p 30 fps``"
+msgstr ""
+
+#: ../export.rst:178 ../export.rst:182 ../export.rst:186 ../export.rst:194
+msgid "Up to 60 fps"
+msgstr "Έως 60 fps"
+
+#: ../export.rst:179
+msgid "TikTok (vertical)"
+msgstr "TikTok (κάθετο)"
+
+#: ../export.rst:180
+msgid "``TikTok``"
+msgstr ""
+
+#: ../export.rst:183
+msgid "Instagram Reels (vertical)"
+msgstr "Instagram Reels (κάθετο)"
+
+#: ../export.rst:184
+msgid "``Instagram Reels``"
+msgstr ""
+
+#: ../export.rst:187
+msgid "Instagram (landscape/square)"
+msgstr "Instagram (οριζόντιο/τετράγωνο)"
+
+#: ../export.rst:188
+msgid "``Instagram``"
+msgstr ""
+
+#: ../export.rst:190
+msgid "Square (1:1) also available"
+msgstr "Διατίθεται επίσης τετράγωνο (1:1)"
+
+#: ../export.rst:191
+msgid "Snapchat (vertical)"
+msgstr "Snapchat (κάθετο)"
+
+#: ../export.rst:192
+msgid "``Snapchat``"
+msgstr ""
+
+#: ../export.rst:195
+msgid "Facebook"
+msgstr ""
+
+#: ../export.rst:196
+msgid "``Facebook``"
+msgstr ""
+
+#: ../export.rst:198
+msgid "Square and vertical also available"
+msgstr "Διατίθενται επίσης τετράγωνο και κάθετο"
+
+#: ../export.rst:199
+msgid "LinkedIn (landscape)"
+msgstr "LinkedIn (οριζόντιο)"
+
+#: ../export.rst:200
+msgid "``LinkedIn``"
+msgstr ""
+
+#: ../export.rst:202
+msgid "Square and 4:5 portrait also available"
+msgstr "Διατίθενται επίσης τετράγωνο και πορτρέτο 4:5"
+
+#: ../export.rst:203
+msgid "Twitter / X"
+msgstr ""
+
+#: ../export.rst:204
+msgid "``Twitter / X``"
+msgstr ""
+
+#: ../export.rst:206
+msgid "Vertical also available"
+msgstr "Διατίθεται επίσης κάθετο"
+
+#: ../export.rst:207
+msgid "Vimeo"
+msgstr ""
+
+#: ../export.rst:208
+msgid "``Vimeo``"
+msgstr ""
+
+#: ../export.rst:210
+msgid "Use High quality setting"
+msgstr "Χρησιμοποιήστε τη ρύθμιση υψηλής ποιότητας"
+
+#: ../export.rst:215
+msgid "Hardware-Accelerated Export"
+msgstr "Εξαγωγή με επιτάχυνση υλικού"
+
+#: ../export.rst:217
+msgid ""
+"OpenShot supports GPU-accelerated video encoding on supported hardware, "
+"dramatically reducing export times. Hardware-accelerated targets are shown "
+"with a badge in the :guilabel:`Target` dropdown. Select the appropriate "
+"target for your hardware:"
+msgstr ""
+"Το OpenShot υποστηρίζει κωδικοποίηση βίντεο με επιτάχυνση GPU σε "
+"υποστηριζόμενο υλικό, μειώνοντας δραστικά τους χρόνους εξαγωγής. Οι "
+"προορισμοί με επιτάχυνση υλικού εμφανίζονται με σήμα (badge) στην "
+"αναπτυσσόμενη λίστα :guilabel:`Προορισμός` (Target). Επιλέξτε τον κατάλληλο "
+"προορισμό για το υλικό σας:"
+
+#: ../export.rst:225
+msgid "Target (Export Dialog)"
+msgstr "Προορισμός (παράθυρο διαλόγου εξαγωγής)"
+
+#: ../export.rst:225
+msgid "Badge"
+msgstr "Σήμα"
+
+#: ../export.rst:225
+msgid "Requires"
+msgstr "Απαιτεί"
+
+#: ../export.rst:227
+msgid "``MP4 (h.264 nv)``"
+msgstr ""
+
+#: ../export.rst:227
+msgid "NVENC"
+msgstr ""
+
+#: ../export.rst:227
+msgid "NVIDIA GPU (Kepler or newer)"
+msgstr "NVIDIA GPU (Kepler ή νεότερη)"
+
+#: ../export.rst:228
+msgid "``MP4 (h.264 va)``"
+msgstr ""
+
+#: ../export.rst:228 ../export.rst:232
+msgid "VA-API"
+msgstr ""
+
+#: ../export.rst:228
+msgid "Linux with AMD or Intel GPU (VAAPI driver)"
+msgstr "Linux με GPU AMD ή Intel (πρόγραμμα οδήγησης VAAPI)"
+
+#: ../export.rst:229
+msgid "``MP4 (h.264 qsv)``"
+msgstr ""
+
+#: ../export.rst:229
+msgid "QSV"
+msgstr ""
+
+#: ../export.rst:229
+msgid "Intel GPU with Quick Sync Video"
+msgstr "GPU Intel με Quick Sync Video"
+
+#: ../export.rst:230
+msgid "``MP4 (h.264 videotoolbox)``"
+msgstr ""
+
+#: ../export.rst:230
+msgid "VideoToolbox"
+msgstr ""
+
+#: ../export.rst:230
+msgid "macOS with Apple or Intel GPU"
+msgstr "macOS με GPU Apple ή Intel"
+
+#: ../export.rst:231
+msgid "``MP4 (h.264 dx)``"
+msgstr ""
+
+#: ../export.rst:231
+msgid "DirectX"
+msgstr ""
+
+#: ../export.rst:231
+msgid "Windows with DirectX-compatible GPU"
+msgstr "Windows με GPU συμβατή με DirectX"
+
+#: ../export.rst:232
+msgid "``MP4 (HEVC va)``"
+msgstr ""
+
+#: ../export.rst:232
+msgid "Linux VA-API — produces smaller HEVC files"
+msgstr "Linux VA-API — παράγει μικρότερα αρχεία HEVC"
+
+#: ../export.rst:235
+msgid ""
+"MKV variants (``MKV (h.264 nv)``, ``MKV (h.264 va)``, etc.) are also "
+"available for each accelerator. If none of these targets appear or export "
+"fails, your system either lacks the required driver or the hardware encoder "
+"is not supported — fall back to the standard ``MP4 (h.264 + AAC)`` target, "
+"which uses the CPU-based ``libx264`` encoder and works on all systems."
+msgstr ""
+"Διατίθενται επίσης παραλλαγές MKV (``MKV (h.264 nv)``, ``MKV (h.264 va)``, "
+"κ.λπ.) για κάθε επιταχυντή. Αν δεν εμφανίζεται κανένας από αυτούς τους "
+"προορισμούς ή η εξαγωγή αποτυγχάνει, το σύστημά σας είτε δεν διαθέτει το "
+"απαιτούμενο πρόγραμμα οδήγησης είτε δεν υποστηρίζεται ο κωδικοποιητής υλικού"
+" — επιστρέψτε στον τυπικό προορισμό ``MP4 (h.264 + AAC)``, ο οποίος "
+"χρησιμοποιεί τον κωδικοποιητή ``libx264`` που βασίζεται στην CPU και "
+"λειτουργεί σε όλα τα συστήματα."

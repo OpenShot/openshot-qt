@@ -1,0 +1,4502 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../clips.rst:23
+msgid "Clips"
+msgstr "Κλιπ"
+
+#: ../clips.rst:25
+msgid ""
+"In OpenShot, when you add project files (videos, images, and audio) to the "
+"timeline, they appear as **clips** represented by rounded rectangles. These "
+"clips come with different properties that influence how they're rendered and"
+" composited. These properties include the clip's :guilabel:`position`, "
+":guilabel:`layer`, :guilabel:`scale`, :guilabel:`location`, "
+":guilabel:`rotation`, :guilabel:`alpha`, and :guilabel:`composite (blend "
+"mode)`."
+msgstr ""
+"Στο OpenShot, όταν προσθέτετε αρχεία έργου (βίντεο, εικόνες και ήχο) στο "
+"χρονολόγιο, εμφανίζονται ως **κλιπ** που αναπαρίστανται με στρογγυλεμένα "
+"ορθογώνια. Τα κλιπ διαθέτουν διάφορες ιδιότητες που επηρεάζουν τον τρόπο "
+"απόδοσης και σύνθεσής τους. Στις ιδιότητες αυτές περιλαμβάνονται η "
+":guilabel:`Θέση` (position), το :guilabel:`Επίπεδο` (layer), η "
+":guilabel:`Κλίμακα` (scale), η :guilabel:`Τοποθεσία` (location), η "
+":guilabel:`Περιστροφή` (rotation), η :guilabel:`Διαφάνεια` (alpha) και η "
+":guilabel:`Σύνθεση (λειτουργία ανάμειξης)` (composite (blend mode)) του "
+"κλιπ."
+
+#: ../clips.rst:30
+msgid ""
+"You can examine a clip's properties by either right-clicking and selecting "
+":guilabel:`Properties` or by double-clicking the clip. The properties are "
+"listed alphabetically in the Property dock, and you can use the filter "
+"options at the top to find specific properties. See "
+":ref:`clip_properties_ref` for a list of all clip properties."
+msgstr ""
+"Μπορείτε να δείτε τις ιδιότητες ενός κλιπ είτε κάνοντας δεξί κλικ και "
+"επιλέγοντας :guilabel:`Ιδιότητες` (Properties) είτε κάνοντας διπλό κλικ στο "
+"κλιπ. Οι ιδιότητες εμφανίζονται με αλφαβητική σειρά στο πάνελ Ιδιότητες "
+"(Properties), και μπορείτε να χρησιμοποιήσετε τις επιλογές φίλτρου στο επάνω"
+" μέρος για να βρείτε συγκεκριμένες ιδιότητες. Δείτε το "
+":ref:`clip_properties_ref` για μια λίστα με όλες τις ιδιότητες των κλιπ."
+
+#: ../clips.rst:34
+msgid "To **make adjustments** to a property:"
+msgstr "Για να **κάνετε προσαρμογές** σε μια ιδιότητα:"
+
+#: ../clips.rst:36
+msgid "For **rough** changes, you can drag the slider."
+msgstr "Για **χονδρικές** αλλαγές, μπορείτε να σύρετε το ρυθμιστικό."
+
+#: ../clips.rst:37
+msgid ""
+"For **precise** adjustments, double-click the property to enter exact "
+"values."
+msgstr ""
+"Για **ακριβείς** προσαρμογές, κάντε διπλό κλικ στην ιδιότητα και "
+"πληκτρολογήστε τις ακριβείς τιμές."
+
+#: ../clips.rst:38
+msgid ""
+"If the property involves **non-numerical choices**, right-click or double-"
+"click for options."
+msgstr ""
+"Αν η ιδιότητα περιλαμβάνει **μη αριθμητικές επιλογές**, κάντε δεξί κλικ ή "
+"διπλό κλικ για να δείτε τις διαθέσιμες επιλογές."
+
+#: ../clips.rst:40
+msgid ""
+"Clip properties play a vital role in the :ref:`animation_ref` system. "
+"Whenever you modify a clip property, a ``key-frame`` is automatically "
+"created at the current playhead position. If you want a property change to "
+"apply throughout the entire clip, ensure the playhead is positioned at or "
+"before the clip's start, before making adjustments. You can easily find a "
+"clip's start by using the :guilabel:`next/previous marker` feature on the "
+"Timeline toolbar."
+msgstr ""
+"Οι ιδιότητες των κλιπ παίζουν σημαντικό ρόλο στο σύστημα "
+":ref:`animation_ref`. Κάθε φορά που τροποποιείτε μια ιδιότητα κλιπ, "
+"δημιουργείται αυτόματα ένα βασικό καρέ (``key-frame``) στην τρέχουσα θέση "
+"της κεφαλής αναπαραγωγής. Αν θέλετε μια αλλαγή ιδιότητας να ισχύει σε "
+"ολόκληρο το κλιπ, φροντίστε η κεφαλή αναπαραγωγής να βρίσκεται στην αρχή του"
+" κλιπ ή πριν από αυτήν, προτού κάνετε προσαρμογές. Μπορείτε εύκολα να βρείτε"
+" την αρχή ενός κλιπ χρησιμοποιώντας τη λειτουργία "
+":guilabel:`Επόμενος/Προηγούμενος δείκτης` (next/previous marker) στη γραμμή "
+"εργαλείων του Χρονολογίου (Timeline)."
+
+#: ../clips.rst:51
+msgid "#"
+msgstr ""
+
+#: ../clips.rst:51
+msgid "Name"
+msgstr "Όνομα"
+
+#: ../clips.rst:51 ../clips.rst:76 ../clips.rst:189 ../clips.rst:228
+#: ../clips.rst:701
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: ../clips.rst:53
+msgid "1"
+msgstr ""
+
+#: ../clips.rst:53
+msgid "Clip 1"
+msgstr "Κλιπ 1 (Clip 1)"
+
+#: ../clips.rst:53
+msgid "A video clip"
+msgstr "Ένα κλιπ βίντεο"
+
+#: ../clips.rst:54
+msgid "2"
+msgstr ""
+
+#: ../clips.rst:54
+msgid "Transition"
+msgstr "Μετάβαση (Transition)"
+
+#: ../clips.rst:54
+msgid ""
+"A gradual fade transition between the 2 clip images (does not affect the "
+"audio)"
+msgstr ""
+"Μια σταδιακή μετάβαση με βαθμιαία εμφάνιση/εξαφάνιση ανάμεσα στις εικόνες "
+"των 2 κλιπ (δεν επηρεάζει τον ήχο)"
+
+#: ../clips.rst:55
+msgid "3"
+msgstr ""
+
+#: ../clips.rst:55
+msgid "Clip 2"
+msgstr "Κλιπ 2 (Clip 2)"
+
+#: ../clips.rst:55
+msgid "An image clip"
+msgstr "Ένα κλιπ εικόνας"
+
+#: ../clips.rst:61
+msgid "Trimming & Slicing"
+msgstr "Περικοπή άκρων και κόψιμο"
+
+#: ../clips.rst:62
+msgid ""
+"OpenShot provides multiple ways to adjust the start and end trim positions "
+"of a clip (also known as trimming). The most common method is to click and "
+"drag the left or right edge of a clip. Trimming can be used to remove "
+"unwanted sections from the beginning or ending of a clip."
+msgstr ""
+"Το OpenShot παρέχει πολλούς τρόπους για να προσαρμόσετε τις θέσεις έναρξης "
+"και λήξης ενός κλιπ (γνωστό και ως περικοπή άκρων, trimming). Η πιο "
+"συνηθισμένη μέθοδος είναι να κάνετε κλικ και να σύρετε το αριστερό ή το δεξί"
+" άκρο ενός κλιπ. Η περικοπή άκρων μπορεί να χρησιμοποιηθεί για να αφαιρέσετε"
+" ανεπιθύμητα τμήματα από την αρχή ή το τέλος ενός κλιπ."
+
+#: ../clips.rst:66
+msgid ""
+"To **slice** a clip into smaller sections, OpenShot offers several options, "
+"including dividing or slicing a clip at the play-head (*vertical playback "
+"line*) position. Trimming and slicing clips are powerful tools that allow "
+"users to rearrange sections of video and remove unwanted parts."
+msgstr ""
+"Για να **κόψετε** ένα κλιπ σε μικρότερα τμήματα, το OpenShot προσφέρει "
+"διάφορες επιλογές, μεταξύ των οποίων ο διαχωρισμός ή το κόψιμο ενός κλιπ στη"
+" θέση της κεφαλής αναπαραγωγής (*η κατακόρυφη γραμμή αναπαραγωγής*). Η "
+"περικοπή άκρων και το κόψιμο των κλιπ είναι ισχυρά εργαλεία που επιτρέπουν "
+"στους χρήστες να αναδιατάσσουν τμήματα του βίντεο και να αφαιρούν τα "
+"ανεπιθύμητα μέρη."
+
+#: ../clips.rst:70
+msgid ""
+"Here is a list of all methods for cutting and/or trimming clips in OpenShot:"
+msgstr ""
+"Ακολουθεί μια λίστα με όλες τις μεθόδους κοψίματος και/ή περικοπής άκρων των"
+" κλιπ στο OpenShot:"
+
+#: ../clips.rst:76
+msgid "Trim & Slice Method"
+msgstr "Μέθοδος περικοπής άκρων και κοψίματος"
+
+#: ../clips.rst:78
+msgid "**Resizing Edge**"
+msgstr "**Αλλαγή μεγέθους άκρου** (Resizing Edge)"
+
+#: ../clips.rst:78
+msgid ""
+"Mouse over the edge of a clip and resize it by dragging **left** or "
+"**right**. The left edge of a clip can not be resized smaller than 0.0 "
+"(*i.e. the first frame of the file*). The right edge of a clip can not be "
+"resized larger than the duration of a file (*i.e. the last frame of a "
+"file*)."
+msgstr ""
+"Τοποθετήστε τον δείκτη του ποντικιού πάνω στο άκρο ενός κλιπ και αλλάξτε το "
+"μέγεθός του σύροντάς το **αριστερά** ή **δεξιά**. Το αριστερό άκρο ενός κλιπ"
+" δεν μπορεί να μικρύνει κάτω από το 0.0 (*δηλαδή το πρώτο καρέ του "
+"αρχείου*). Το δεξί άκρο ενός κλιπ δεν μπορεί να μεγαλώσει πέρα από τη "
+"διάρκεια του αρχείου (*δηλαδή το τελευταίο καρέ του αρχείου*)."
+
+#: ../clips.rst:79
+msgid "**Slice All**"
+msgstr "**Κόψιμο όλων** (Slice All)"
+
+#: ../clips.rst:79
+msgid ""
+"When the play-head overlaps multiple clips, right-click the play-head and "
+"choose :guilabel:`Slice All`. This will cut/slice all intersecting clips on "
+"all tracks. You can also use the keyboard shortcuts :kbd:`Ctrl+Shift+K` to "
+"keep both sides, :kbd:`Ctrl+Shift+J` to keep the left side, or "
+":kbd:`Ctrl+Shift+L` to keep the right side of the clips."
+msgstr ""
+"Όταν η κεφαλή αναπαραγωγής επικαλύπτει πολλά κλιπ, κάντε δεξί κλικ στην "
+"κεφαλή αναπαραγωγής και επιλέξτε :guilabel:`Κόψιμο Όλων` (Slice All). Έτσι "
+"θα κοπούν όλα τα κλιπ που τέμνονται, σε όλους τους διαδρόμους. Μπορείτε "
+"επίσης να χρησιμοποιήσετε τις συντομεύσεις πληκτρολογίου :kbd:`Ctrl+Shift+K`"
+" για να κρατήσετε και τις δύο πλευρές, :kbd:`Ctrl+Shift+J` για να κρατήσετε "
+"την αριστερή πλευρά ή :kbd:`Ctrl+Shift+L` για να κρατήσετε τη δεξιά πλευρά "
+"των κλιπ."
+
+#: ../clips.rst:83
+msgid "**Slice Selected**"
+msgstr "**Κόψιμο επιλεγμένων** (Slice Selected)"
+
+#: ../clips.rst:83
+msgid ""
+"When the play-head overlaps a clip, right-click the clip and choose "
+":guilabel:`Slice`. This provides options to keep the left side, the right "
+"side, or both sides of the clip. Alternatively, use :kbd:`Ctrl+K` to keep "
+"both sides, :kbd:`Ctrl+J` to keep the left side, or :kbd:`Ctrl+L` to keep "
+"the right side."
+msgstr ""
+"Όταν η κεφαλή αναπαραγωγής επικαλύπτει ένα κλιπ, κάντε δεξί κλικ στο κλιπ "
+"και επιλέξτε :guilabel:`Κόψιμο` (Slice). Εμφανίζονται επιλογές για να "
+"κρατήσετε την αριστερή πλευρά, τη δεξιά πλευρά ή και τις δύο πλευρές του "
+"κλιπ. Εναλλακτικά, χρησιμοποιήστε :kbd:`Ctrl+K` για να κρατήσετε και τις δύο"
+" πλευρές, :kbd:`Ctrl+J` για να κρατήσετε την αριστερή πλευρά ή :kbd:`Ctrl+L`"
+" για να κρατήσετε τη δεξιά πλευρά."
+
+#: ../clips.rst:86
+msgid "**Slice Selected (Ripple)**"
+msgstr "**Κόψιμο επιλεγμένων (Ripple)** (Slice Selected (Ripple))"
+
+#: ../clips.rst:86
+msgid ""
+"Slice the selected clip(s) at the play-head position, keeping either the "
+"left side (shortcut: :kbd:`W`) or the right side (shortcut: :kbd:`Q`), while"
+" rippling the gap removal across the current track."
+msgstr ""
+"Κόψτε τα επιλεγμένα κλιπ στη θέση της κεφαλής αναπαραγωγής, κρατώντας είτε "
+"την αριστερή πλευρά (συντόμευση: :kbd:`W`) είτε τη δεξιά πλευρά (συντόμευση:"
+" :kbd:`Q`), ενώ το κενό που δημιουργείται κλείνει αυτόματα (ripple) στον "
+"τρέχοντα διάδρομο."
+
+#: ../clips.rst:88
+msgid "**Razor Tool**"
+msgstr "**Εργαλείο ξυραφιού** (Razor Tool)"
+
+#: ../clips.rst:88
+msgid ""
+"The :guilabel:`razor tool` from the **Timeline Toolbar** cuts a clip at the "
+"position where it is clicked. See :ref:`razor_tool_ref` for cut guides and "
+"frame previews. Use :kbd:`SHIFT` to slice and keep the left side, or "
+":kbd:`CTRL` to keep the right side."
+msgstr ""
+"Το :guilabel:`Εργαλείο ξυραφιού` (razor tool) της **Γραμμής εργαλείων του "
+"Χρονολογίου** (Timeline Toolbar) κόβει ένα κλιπ στη θέση όπου κάνετε κλικ. "
+"Δείτε το :ref:`razor_tool_ref` για οδηγούς κοψίματος και προεπισκοπήσεις "
+"καρέ. Χρησιμοποιήστε το :kbd:`SHIFT` για να κόψετε και να κρατήσετε την "
+"αριστερή πλευρά, ή το :kbd:`CTRL` για να κρατήσετε τη δεξιά πλευρά."
+
+#: ../clips.rst:90
+msgid "**Split File Dialog**"
+msgstr "**Παράθυρο διαχωρισμού αρχείου** (Split File Dialog)"
+
+#: ../clips.rst:90
+msgid ""
+"Right-click on a file and choose :guilabel:`Split File`. This opens a dialog"
+" that allows you to create multiple clips from a single video file."
+msgstr ""
+"Κάντε δεξί κλικ σε ένα αρχείο και επιλέξτε :guilabel:`Διαχωρισμός αρχείου` "
+"(Split File). Ανοίγει ένα παράθυρο διαλόγου που σας επιτρέπει να "
+"δημιουργήσετε πολλά κλιπ από ένα μόνο αρχείο βίντεο."
+
+#: ../clips.rst:94
+msgid ""
+"Keep in mind that the above cutting methods also have "
+":ref:`keyboard_shortcut_ref`, to save even more time."
+msgstr ""
+"Έχετε υπόψη ότι οι παραπάνω μέθοδοι κοψίματος διαθέτουν και "
+":ref:`keyboard_shortcut_ref`, ώστε να κερδίζετε ακόμη περισσότερο χρόνο."
+
+#: ../clips.rst:96
+msgid ""
+"If multiple selected clips and/or transitions share the same left edge or "
+"right edge, you can drag that shared edge once to trim them together."
+msgstr ""
+"Αν πολλά επιλεγμένα κλιπ ή/και μεταβάσεις μοιράζονται το ίδιο αριστερό ή "
+"δεξί άκρο, μπορείτε να σύρετε αυτό το κοινό άκρο μία φορά για να τα "
+"περικόψετε όλα μαζί."
+
+#: ../clips.rst:102
+msgid "Razor Tool"
+msgstr "Εργαλείο ξυραφιού"
+
+#: ../clips.rst:104
+msgid ""
+"Use the **Razor Tool** to preview a cut and split a clip or transition "
+"directly on the timeline. Each click affects only the item under the "
+"pointer."
+msgstr ""
+"Χρησιμοποιήστε το **Εργαλείο ξυραφιού** (Razor Tool) για να δείτε "
+"προεπισκόπηση ενός κοψίματος και να διαχωρίσετε ένα κλιπ ή μια μετάβαση "
+"απευθείας στο χρονολόγιο. Κάθε κλικ επηρεάζει μόνο το στοιχείο που βρίσκεται"
+" κάτω από τον δείκτη."
+
+#: ../clips.rst:107
+msgid "Enable :guilabel:`Razor Tool` in the **Timeline Toolbar**."
+msgstr ""
+"Ενεργοποιήστε το :guilabel:`Εργαλείο ξυραφιού` (Razor Tool) στη **Γραμμή "
+"εργαλείων του Χρονολογίου** (Timeline Toolbar)."
+
+#: ../clips.rst:108
+msgid ""
+"Move over the clip you want to cut. A vertical dashed guide marks the exact "
+"frame boundary, with a timecode and the action that clicking will perform."
+msgstr ""
+"Μετακινήστε τον δείκτη πάνω από το κλιπ που θέλετε να κόψετε. Μια κατακόρυφη"
+" διακεκομμένη γραμμή οδηγός σημαδεύει το ακριβές όριο του καρέ, μαζί με έναν"
+" χρονοκώδικα και την ενέργεια που θα εκτελεστεί με το κλικ."
+
+#: ../clips.rst:110
+msgid ""
+"While playback is paused, **Video Preview** shows the source frame of the "
+"hovered clip, including its time mapping. Higher tracks cannot obscure this "
+"preview. The playhead stays in place, and the guide's timecode is timeline "
+"time."
+msgstr ""
+"Όσο η αναπαραγωγή είναι σε παύση, η **Προεπισκόπηση βίντεο** (Video Preview)"
+" εμφανίζει το καρέ της πηγής του κλιπ πάνω από το οποίο βρίσκεται ο δείκτης,"
+" λαμβάνοντας υπόψη την αντιστοίχιση χρόνου. Οι ψηλότεροι διάδρομοι δεν "
+"μπορούν να καλύψουν αυτή την προεπισκόπηση. Η κεφαλή αναπαραγωγής παραμένει "
+"στη θέση της και ο χρονοκώδικας του οδηγού αντιστοιχεί στον χρόνο του "
+"χρονολογίου."
+
+#: ../clips.rst:113
+msgid "Click to split. Razor stays enabled so you can make more cuts."
+msgstr ""
+"Κάντε κλικ για να διαχωρίσετε. Το ξυράφι (Razor) παραμένει ενεργό, ώστε να "
+"μπορείτε να κάνετε και άλλα κοψίματα."
+
+#: ../clips.rst:114
+msgid ""
+"Press :kbd:`Esc`, or toggle the toolbar button again, to return to normal "
+"editing."
+msgstr ""
+"Πατήστε :kbd:`Esc`, ή πατήστε ξανά το κουμπί της γραμμής εργαλείων, για να "
+"επιστρέψετε στην κανονική επεξεργασία."
+
+#: ../clips.rst:116
+msgid ""
+"Moving away from the clip or leaving Razor mode restores the preview at the "
+"playhead. Hovering during playback does not interrupt playback. Like edge "
+"trimming, Razor previews the individual source rather than the composed "
+"timeline. Hovering a transition previews its mask source."
+msgstr ""
+"Αν απομακρύνετε τον δείκτη από το κλιπ ή αν βγείτε από τη λειτουργία Razor, "
+"η προεπισκόπηση επανέρχεται στη θέση της κεφαλής αναπαραγωγής. Η μετακίνηση "
+"του δείκτη πάνω από κλιπ κατά την αναπαραγωγή δεν διακόπτει την αναπαραγωγή."
+" Όπως και στην περικοπή άκρων, το Razor εμφανίζει προεπισκόπηση της "
+"μεμονωμένης πηγής και όχι του συνολικού χρονολογίου. Αν περάσετε τον δείκτη "
+"πάνω από μια μετάβαση, εμφανίζεται προεπισκόπηση της πηγής της μάσκας της."
+
+#: ../clips.rst:121
+msgid "Razor actions"
+msgstr "Ενέργειες του εργαλείου ξυραφιού"
+
+#: ../clips.rst:125
+msgid "Action"
+msgstr "Ενέργεια"
+
+#: ../clips.rst:126
+msgid "Result"
+msgstr "Αποτέλεσμα"
+
+#: ../clips.rst:127
+msgid "Click"
+msgstr "Κλικ"
+
+#: ../clips.rst:128
+msgid ""
+"Split at the guide and keep both sides. The previewed frame starts the right"
+" side."
+msgstr ""
+"Διαχωρισμός στον οδηγό και διατήρηση και των δύο πλευρών. Το καρέ της "
+"προεπισκόπησης αποτελεί την αρχή της δεξιάς πλευράς."
+
+#: ../clips.rst:129
+msgid ":kbd:`Shift+Click`"
+msgstr ""
+
+#: ../clips.rst:130
+msgid ""
+"Keep the left side of the guide. The right side is shaded to show what will "
+"be removed."
+msgstr ""
+"Διατήρηση της αριστερής πλευράς του οδηγού. Η δεξιά πλευρά σκιάζεται για να "
+"φαίνεται τι θα αφαιρεθεί."
+
+#: ../clips.rst:131
+msgid ":kbd:`Ctrl+Click`"
+msgstr ""
+
+#: ../clips.rst:132
+msgid ""
+"Keep the right side. The left side is shaded to show what will be removed."
+msgstr ""
+"Διατήρηση της δεξιάς πλευράς. Η αριστερή πλευρά σκιάζεται για να φαίνεται τι"
+" θα αφαιρεθεί."
+
+#: ../clips.rst:133
+msgid ":kbd:`Alt+Shift+Click`"
+msgstr ""
+
+#: ../clips.rst:134
+msgid ""
+"Keep the left side and close the gap, shifting later items on the same track"
+" left."
+msgstr ""
+"Διατήρηση της αριστερής πλευράς και κλείσιμο του κενού, με μετατόπιση προς "
+"τα αριστερά των μεταγενέστερων στοιχείων στον ίδιο διάδρομο."
+
+#: ../clips.rst:135
+msgid ":kbd:`Alt+Ctrl+Click`"
+msgstr ""
+
+#: ../clips.rst:136
+msgid ""
+"Keep the right side and close the gap, shifting later items on the same "
+"track left."
+msgstr ""
+"Διατήρηση της δεξιάς πλευράς και κλείσιμο του κενού, με μετατόπιση προς τα "
+"αριστερά των μεταγενέστερων στοιχείων στον ίδιο διάδρομο."
+
+#: ../clips.rst:137
+msgid ":kbd:`W` / :kbd:`Q` while hovering"
+msgstr ":kbd:`W` / :kbd:`Q` κατά το πέρασμα του δείκτη"
+
+#: ../clips.rst:138
+msgid ""
+"Use the existing ripple-slice shortcuts at the pointer: keep left (:kbd:`W`)"
+" or right (:kbd:`Q`) and close the gap. Customized bindings work too."
+msgstr ""
+"Χρησιμοποιήστε τις υπάρχουσες συντομεύσεις κοψίματος με ripple στη θέση του "
+"δείκτη: διατήρηση της αριστερής (:kbd:`W`) ή της δεξιάς (:kbd:`Q`) πλευράς "
+"και κλείσιμο του κενού. Λειτουργούν και οι προσαρμοσμένες συντομεύσεις."
+
+#: ../clips.rst:141
+msgid ""
+"Holding :kbd:`Alt` with :kbd:`Shift` or :kbd:`Ctrl` adds **Close gap** to "
+"the hint. The red shading shows the portion being removed. These operations "
+"reuse **Slice Selected (Ripple)**; they move later clips and transitions on "
+"the same track, not on other tracks. Outside Razor hover, the ripple "
+"shortcuts retain their normal selected-item/playhead behavior. A locked or "
+"invalid Razor target does not fall back to cutting a different selected "
+"clip."
+msgstr ""
+"Αν κρατήσετε πατημένο το :kbd:`Alt` μαζί με το :kbd:`Shift` ή το "
+":kbd:`Ctrl`, προστίθεται στην υπόδειξη η ένδειξη **Κλείσιμο κενού** (Close "
+"gap). Η κόκκινη σκίαση δείχνει το τμήμα που αφαιρείται. Οι λειτουργίες αυτές"
+" επαναχρησιμοποιούν το **Κόψιμο επιλεγμένων (Ripple)** (Slice Selected "
+"(Ripple)): μετακινούν τα μεταγενέστερα κλιπ και τις μεταβάσεις στον ίδιο "
+"διάδρομο, όχι σε άλλους διαδρόμους. Όταν ο δείκτης δεν βρίσκεται πάνω από "
+"κλιπ σε λειτουργία Razor, οι συντομεύσεις ripple διατηρούν την κανονική "
+"συμπεριφορά τους ως προς το επιλεγμένο στοιχείο/την κεφαλή αναπαραγωγής. "
+"Ένας κλειδωμένος ή μη έγκυρος στόχος του Razor δεν οδηγεί σε κόψιμο κάποιου "
+"άλλου επιλεγμένου κλιπ."
+
+#: ../clips.rst:148
+msgid ""
+"Cuts align to project frames. With **Snapping** enabled, the Razor guide "
+"uses the same snap targets and distance tolerance as other timeline edits: "
+"clip and transition edges, markers, the playhead, and the hovered clip's "
+"keyframe targets. The hovered item's own endpoints are excluded. Preview, "
+"mouse cuts, and ripple shortcuts all use the guide's snapped boundary. "
+"Toggle the timeline's existing **Snapping** button to cut freely between "
+"these targets."
+msgstr ""
+"Τα κοψίματα ευθυγραμμίζονται με τα καρέ του έργου. Με ενεργοποιημένη την "
+"**Προσκόλληση** (Snapping), ο οδηγός του Razor χρησιμοποιεί τους ίδιους "
+"στόχους προσκόλλησης και την ίδια ανοχή απόστασης με τις άλλες επεξεργασίες "
+"στο χρονολόγιο: άκρα κλιπ και μεταβάσεων, δείκτες, κεφαλή αναπαραγωγής και "
+"στόχους βασικών καρέ του κλιπ πάνω από το οποίο βρίσκεται ο δείκτης. Τα ίδια"
+" τα άκρα του στοιχείου αυτού εξαιρούνται. Η προεπισκόπηση, τα κοψίματα με το"
+" ποντίκι και οι συντομεύσεις ripple χρησιμοποιούν όλα το όριο στο οποίο έχει"
+" προσκολληθεί ο οδηγός. Πατήστε το υπάρχον κουμπί **Προσκόλληση** (Snapping)"
+" του χρονολογίου για να κόβετε ελεύθερα ανάμεσα στους στόχους αυτούς."
+
+#: ../clips.rst:155
+msgid ""
+"Without snapping to a target, :kbd:`Shift+Click` includes the frame under "
+"the pointer in the left side, placing the guide at the following frame "
+"boundary. When snapped, the snapped boundary takes priority for all cut "
+"modes."
+msgstr ""
+"Όταν δεν υπάρχει προσκόλληση σε κάποιον στόχο, το :kbd:`Shift+Click` "
+"συμπεριλαμβάνει στην αριστερή πλευρά το καρέ που βρίσκεται κάτω από τον "
+"δείκτη, τοποθετώντας τον οδηγό στο όριο του επόμενου καρέ. Όταν υπάρχει "
+"προσκόλληση, το όριο προσκόλλησης υπερισχύει σε όλους τους τρόπους "
+"κοψίματος."
+
+#: ../clips.rst:159
+msgid ""
+"Locked tracks, empty space, and boundaries that would leave an empty side do"
+" not show a valid cut guide. Zoom in for finer frame selection, and use "
+"**Undo** to reverse a cut."
+msgstr ""
+"Οι κλειδωμένοι διάδρομοι, ο κενός χώρος και τα όρια που θα άφηναν κενή μία "
+"πλευρά δεν εμφανίζουν έγκυρο οδηγό κοψίματος. Μεγεθύνετε την προβολή για πιο"
+" λεπτομερή επιλογή καρέ και χρησιμοποιήστε την **Αναίρεση** (Undo) για να "
+"ακυρώσετε ένα κόψιμο."
+
+#: ../clips.rst:163
+msgid ""
+"To cut several clips at the playhead instead, use **Slice Selected** or "
+"**Slice All**, described above."
+msgstr ""
+"Για να κόψετε πολλά κλιπ στην κεφαλή αναπαραγωγής, χρησιμοποιήστε αντί γι’ "
+"αυτό το **Κόψιμο επιλεγμένων** (Slice Selected) ή το **Κόψιμο όλων** (Slice "
+"All), που περιγράφονται παραπάνω."
+
+#: ../clips.rst:167
+msgid "Clip controls while zoomed in"
+msgstr "Στοιχεία ελέγχου του κλιπ κατά τη μεγέθυνση"
+
+#: ../clips.rst:169
+msgid ""
+"When a clip's start scrolls off screen, its title, effect badges, and menu "
+"stay near the left side of the visible timeline. Click an effect badge to "
+"access that effect, or use the title's dropdown to open the clip menu. The "
+"controls stay within the visible portion of their clip and shorten as space "
+"runs out."
+msgstr ""
+"Όταν η αρχή ενός κλιπ βρίσκεται εκτός οθόνης λόγω κύλισης, ο τίτλος του, τα "
+"εικονίδια των εφέ και το μενού του παραμένουν κοντά στην αριστερή πλευρά του"
+" ορατού χρονολογίου. Κάντε κλικ σε ένα εικονίδιο εφέ για να αποκτήσετε "
+"πρόσβαση σε αυτό το εφέ ή χρησιμοποιήστε την αναπτυσσόμενη λίστα του τίτλου "
+"για να ανοίξετε το μενού του κλιπ. Τα στοιχεία ελέγχου παραμένουν εντός του "
+"ορατού τμήματος του κλιπ τους και συντομεύουν όταν εξαντλείται ο χώρος."
+
+#: ../clips.rst:174
+msgid ""
+"Only these controls follow the viewport. The clip's outline, thumbnails, "
+"waveform, and trim handles remain at their actual timeline positions. A "
+"small inset separates the pinned controls from the viewport edge."
+msgstr ""
+"Μόνο αυτά τα στοιχεία ελέγχου ακολουθούν την ορατή περιοχή. Το περίγραμμα "
+"του κλιπ, οι μικρογραφίες, η κυματομορφή και οι λαβές περικοπής παραμένουν "
+"στις πραγματικές τους θέσεις στο χρονολόγιο. Ένα μικρό εσωτερικό περιθώριο "
+"χωρίζει τα καρφιτσωμένα στοιχεία ελέγχου από το άκρο της ορατής περιοχής."
+
+#: ../clips.rst:179
+msgid "Selections"
+msgstr "Επιλογές"
+
+#: ../clips.rst:180
+msgid ""
+"Selecting clips and transitions on the timeline is an essential part of "
+"editing in OpenShot. Multiple selection methods are available to streamline "
+"your workflow, enabling efficient editing of clips and transitions."
+msgstr ""
+"Η επιλογή κλιπ και μεταβάσεων στο χρονολόγιο αποτελεί ουσιώδες μέρος της "
+"επεξεργασίας στο OpenShot. Διατίθενται πολλές μέθοδοι επιλογής που "
+"απλοποιούν τη ροή εργασίας σας και σας επιτρέπουν να επεξεργάζεστε αποδοτικά"
+" κλιπ και μεταβάσεις."
+
+#: ../clips.rst:183
+msgid "Here is a list of all methods for selecting clips in OpenShot:"
+msgstr "Ακολουθεί μια λίστα με όλες τις μεθόδους επιλογής κλιπ στο OpenShot:"
+
+#: ../clips.rst:189
+msgid "Selection Method"
+msgstr "Μέθοδος επιλογής"
+
+#: ../clips.rst:191
+msgid "**Box Selection**"
+msgstr "**Επιλογή με πλαίσιο** (Box Selection)"
+
+#: ../clips.rst:191
+msgid ""
+"Click and drag a selection box around clips or transitions to select "
+"multiple items at once. Hold down :kbd:`Ctrl` to add to your current "
+"selection."
+msgstr ""
+"Κάντε κλικ και σύρετε ένα πλαίσιο επιλογής γύρω από κλιπ ή μεταβάσεις για να"
+" επιλέξετε πολλά στοιχεία ταυτόχρονα. Κρατήστε πατημένο το :kbd:`Ctrl` για "
+"να προσθέσετε στοιχεία στην τρέχουσα επιλογή."
+
+#: ../clips.rst:192
+msgid "**Click Selection**"
+msgstr "**Επιλογή με κλικ** (Click Selection)"
+
+#: ../clips.rst:192
+msgid ""
+"Click on a clip or transition to select it. This will deselect all other "
+"items unless you hold down :kbd:`Ctrl`."
+msgstr ""
+"Κάντε κλικ σε ένα κλιπ ή μια μετάβαση για να την επιλέξετε. Έτσι "
+"αποεπιλέγονται όλα τα άλλα στοιχεία, εκτός αν κρατάτε πατημένο το "
+":kbd:`Ctrl`."
+
+#: ../clips.rst:193
+msgid "**Add to Selection**"
+msgstr "**Προσθήκη στην επιλογή** (Add to Selection)"
+
+#: ../clips.rst:193
+msgid ""
+"Hold down :kbd:`Ctrl` while clicking to add or remove clips from the current"
+" selection, allowing you to select non-adjacent clips."
+msgstr ""
+"Κρατήστε πατημένο το :kbd:`Ctrl` ενώ κάνετε κλικ για να προσθέσετε ή να "
+"αφαιρέσετε κλιπ από την τρέχουσα επιλογή, ώστε να μπορείτε να επιλέγετε κλιπ"
+" που δεν είναι γειτονικά."
+
+#: ../clips.rst:194
+msgid "**Range Selection**"
+msgstr "**Επιλογή περιοχής** (Range Selection)"
+
+#: ../clips.rst:194
+msgid ""
+"Hold down :kbd:`Shift` while clicking to select a range of clips/transitions"
+" from the previous selection to the new selection. This supports ranges that"
+" span multiple tracks as well."
+msgstr ""
+"Κρατήστε πατημένο το :kbd:`Shift` ενώ κάνετε κλικ για να επιλέξετε μια "
+"περιοχή κλιπ/μεταβάσεων από την προηγούμενη επιλογή έως τη νέα. Αυτό "
+"υποστηρίζει και περιοχές που εκτείνονται σε πολλούς διαδρόμους."
+
+#: ../clips.rst:195
+msgid "**Ripple Selection**"
+msgstr "**Επιλογή ripple** (Ripple Selection)"
+
+#: ../clips.rst:195
+msgid ""
+"Hold down :kbd:`Alt` while clicking to ripple select all clips/transitions "
+"from your selection to the end of the track. This always adds to your "
+"current selection, even if :kbd:`Ctrl` is not pressed."
+msgstr ""
+"Κρατήστε πατημένο το :kbd:`Alt` ενώ κάνετε κλικ για να επιλέξετε με ripple "
+"όλα τα κλιπ/τις μεταβάσεις από την επιλογή σας έως το τέλος του διαδρόμου. Η"
+" επιλογή αυτή προστίθεται πάντα στην τρέχουσα επιλογή σας, ακόμη και αν δεν "
+"είναι πατημένο το :kbd:`Ctrl`."
+
+#: ../clips.rst:196
+msgid "**Clear Selection**"
+msgstr "**Εκκαθάριση επιλογής** (Clear Selection)"
+
+#: ../clips.rst:196
+msgid ""
+"Click anywhere on the timeline or on a new clip/transition to reset the "
+"current selection, unless :kbd:`Ctrl` is pressed."
+msgstr ""
+"Κάντε κλικ οπουδήποτε στο χρονολόγιο ή σε ένα νέο κλιπ/μετάβαση για να "
+"επαναφέρετε την τρέχουσα επιλογή, εκτός αν είναι πατημένο το :kbd:`Ctrl`."
+
+#: ../clips.rst:197
+msgid "**Select All**"
+msgstr "**Επιλογή όλων** (Select All)"
+
+#: ../clips.rst:197
+msgid ""
+"Press :kbd:`Ctrl+A` to select all clips and transitions on the timeline."
+msgstr ""
+"Πατήστε :kbd:`Ctrl+A` για να επιλέξετε όλα τα κλιπ και τις μεταβάσεις στο "
+"χρονολόγιο."
+
+#: ../clips.rst:198
+msgid "**Select None**"
+msgstr "**Καμία επιλογή** (Select None)"
+
+#: ../clips.rst:198
+msgid ""
+"Press :kbd:`Ctrl+Shift+A` to deselect all clips and transitions on the "
+"timeline."
+msgstr ""
+"Πατήστε :kbd:`Ctrl+Shift+A` για να αποεπιλέξετε όλα τα κλιπ και τις "
+"μεταβάσεις στο χρονολόγιο."
+
+#: ../clips.rst:201
+msgid ""
+"Mastering these selection techniques will streamline your editing process, "
+"especially when dealing with complex projects. For more advanced tips on "
+"selection and editing, refer to the :ref:`clips_cutting_slicing_ref` "
+"section."
+msgstr ""
+"Η εξοικείωση με αυτές τις τεχνικές επιλογής θα απλοποιήσει τη διαδικασία "
+"επεξεργασίας, ιδίως σε σύνθετα έργα. Για πιο προχωρημένες συμβουλές σχετικά "
+"με την επιλογή και την επεξεργασία, ανατρέξτε στην ενότητα "
+":ref:`clips_cutting_slicing_ref`."
+
+#: ../clips.rst:207
+msgid "Context Menu"
+msgstr "Μενού περιβάλλοντος"
+
+#: ../clips.rst:208
+msgid ""
+"OpenShot has tons of great preset animations and clip properties, such as "
+"fading, sliding, zooming, reversing time, adjusting volume, etc... These "
+"presets can be accessed by right-clicking on a clip, revealing the context "
+"menu. A preset sets one (or more) clip properties for the user without "
+"needing to manually set the key-frame clip properties. See "
+":ref:`clip_properties_ref`."
+msgstr ""
+"Το OpenShot διαθέτει πολλές εξαιρετικές προρυθμισμένες κινήσεις και "
+"ιδιότητες κλιπ, όπως βαθμιαία εμφάνιση/εξαφάνιση, ολίσθηση, μεγέθυνση, "
+"αντιστροφή του χρόνου, ρύθμιση της έντασης κ.ά. Σε αυτές τις προρυθμίσεις "
+"έχετε πρόσβαση κάνοντας δεξί κλικ σε ένα κλιπ, οπότε εμφανίζεται το μενού "
+"περιβάλλοντος. Μια προρύθμιση (preset) ορίζει μία (ή περισσότερες) ιδιότητες"
+" του κλιπ χωρίς να χρειάζεται να ορίσετε χειροκίνητα τις ιδιότητες βασικών "
+"καρέ (key-frame) του κλιπ. Δείτε το :ref:`clip_properties_ref`."
+
+#: ../clips.rst:213
+msgid ""
+"Some presets allow the user to target either the start, end, or entire clip,"
+" and most presets allow the user to reset a specific clip property. For "
+"example, when using the :guilabel:`Audio → Volume` presets, the user has the"
+" following menu options:"
+msgstr ""
+"Ορισμένες προρυθμίσεις επιτρέπουν στον χρήστη να στοχεύσει την αρχή, το "
+"τέλος ή ολόκληρο το κλιπ, και οι περισσότερες επιτρέπουν την επαναφορά μιας "
+"συγκεκριμένης ιδιότητας του κλιπ. Για παράδειγμα, όταν χρησιμοποιείτε τις "
+"προρυθμίσεις :guilabel:`Ήχος → Ένταση` (Audio → Volume), ο χρήστης έχει στη "
+"διάθεσή του τις ακόλουθες επιλογές μενού:"
+
+#: ../clips.rst:217
+msgid "**Reset Volume** — resets the volume to the original level."
+msgstr ""
+"**Επαναφορά έντασης** (Reset Volume) — επαναφέρει την ένταση στο αρχικό "
+"επίπεδο."
+
+#: ../clips.rst:218
+msgid ""
+"**Start of Clip** — the volume change applies at the beginning of the clip."
+msgstr ""
+"**Αρχή του κλιπ** (Start of Clip) — η αλλαγή της έντασης εφαρμόζεται στην "
+"αρχή του κλιπ."
+
+#: ../clips.rst:219
+msgid "**End of Clip** — the volume change applies at the end of the clip."
+msgstr ""
+"**Τέλος του κλιπ** (End of Clip) — η αλλαγή της έντασης εφαρμόζεται στο "
+"τέλος του κλιπ."
+
+#: ../clips.rst:220
+msgid "**Entire Clip** — the volume change applies to the entire clip."
+msgstr ""
+"**Ολόκληρο το κλιπ** (Entire Clip) — η αλλαγή της έντασης εφαρμόζεται σε "
+"ολόκληρο το κλιπ."
+
+#: ../clips.rst:228
+msgid "Preset Name"
+msgstr "Όνομα προρύθμισης"
+
+#: ../clips.rst:230 ../clips.rst:618
+msgid "Copy / Cut / Paste"
+msgstr "Αντιγραφή / Αποκοπή / Επικόλληση (Copy / Cut / Paste)"
+
+#: ../clips.rst:230
+msgid ""
+"Copy selected clip data, cut selected clips, or paste copied clip data. Copy"
+" supports full clips, effects, and keyframe groups."
+msgstr ""
+"Αντιγράψτε δεδομένα του επιλεγμένου κλιπ, αποκόψτε τα επιλεγμένα κλιπ ή "
+"επικολλήστε τα αντιγραμμένα δεδομένα κλιπ. Η αντιγραφή υποστηρίζει ολόκληρα "
+"κλιπ, εφέ και ομάδες βασικών καρέ."
+
+#: ../clips.rst:231
+msgid "Align"
+msgstr "Στοίχιση (Align)"
+
+#: ../clips.rst:231
+msgid ""
+"Align the left or right edge of multiple selected clips and transitions "
+"(only shown when multiple clips are selected)."
+msgstr ""
+"Στοιχίστε το αριστερό ή το δεξί άκρο πολλών επιλεγμένων κλιπ και μεταβάσεων "
+"(εμφανίζεται μόνο όταν είναι επιλεγμένα πολλά κλιπ)."
+
+#: ../clips.rst:232 ../clips.rst:244
+msgid "Fade"
+msgstr "Βαθμιαία εμφάνιση (Fade)"
+
+#: ../clips.rst:232
+msgid ""
+"Fade the clip in or out — automatically fades video (alpha) and/or audio "
+"(volume) based on what the clip contains."
+msgstr ""
+"Εφαρμόστε βαθμιαία εμφάνιση ή εξαφάνιση στο κλιπ — εφαρμόζει αυτόματα "
+"βαθμιαία αλλαγή στο βίντεο (διαφάνεια, alpha) ή/και στον ήχο (ένταση), "
+"ανάλογα με το περιεχόμενο του κλιπ."
+
+#: ../clips.rst:233 ../clips.rst:261
+msgid "Motion"
+msgstr "Κίνηση (Motion)"
+
+#: ../clips.rst:233
+msgid ""
+"Add animated motion to a clip: slide in/out, bounce, blur, wipe/focus-wipe, "
+"zoom, emphasis effects at the playhead, camera movements, and scrolling "
+"credits. Only shown for visual clips."
+msgstr ""
+"Προσθέστε εφέ κίνησης σε ένα κλιπ: είσοδο/έξοδο με ολίσθηση, αναπήδηση, "
+"θόλωμα, σάρωση (wipe)/σάρωση με εστίαση, μεγέθυνση, εφέ έμφασης στην κεφαλή "
+"αναπαραγωγής, κινήσεις κάμερας και κυλιόμενους τίτλους τέλους. Εμφανίζεται "
+"μόνο για οπτικά κλιπ."
+
+#: ../clips.rst:234 ../clips.rst:496
+msgid "Transform"
+msgstr "Μετασχηματισμός (Transform)"
+
+#: ../clips.rst:234
+msgid ""
+"Apply geometric presets to a clip: rotate/flip, crop, or snap to a corner "
+"layout. Also provides a **No Transform** reset. Only shown for visual clips."
+msgstr ""
+"Εφαρμόστε γεωμετρικές προρυθμίσεις σε ένα κλιπ: περιστροφή/αναστροφή, "
+"περικοπή (crop) ή προσκόλληση σε διάταξη γωνίας. Παρέχει επίσης επαναφορά με"
+" το **Χωρίς μετασχηματισμό** (No Transform). Εμφανίζεται μόνο για οπτικά "
+"κλιπ."
+
+#: ../clips.rst:235 ../clips.rst:397
+msgid "Look"
+msgstr "Εμφάνιση (Look)"
+
+#: ../clips.rst:235
+msgid ""
+"Apply visual style presets: color grades, film grain, analog tape, sharpen, "
+"blur, shadow, and glow effects. Includes **Adjust Colors** (Color Wheels "
+"editor) and **Analyze Colors** (video scopes). Only shown for visual clips."
+msgstr ""
+"Εφαρμόστε προρυθμίσεις οπτικού στιλ: χρωματικές διαβαθμίσεις, κόκκο φιλμ, "
+"αναλογική κασέτα, όξυνση, θόλωμα, σκιά και εφέ λάμψης. Περιλαμβάνει τις "
+"επιλογές **Προσαρμογή χρωμάτων** (Adjust Colors) (επεξεργαστής Χρωματικών "
+"τροχών, Color Wheels) και **Ανάλυση χρωμάτων** (Analyze Colors) (εργαλεία "
+"μέτρησης βίντεο, video scopes). Εμφανίζεται μόνο για οπτικά κλιπ."
+
+#: ../clips.rst:236 ../clips.rst:328
+msgid "Speed"
+msgstr "Ταχύτητα (Speed)"
+
+#: ../clips.rst:236
+msgid ""
+"Reverse, repeat, speed up, or slow down video. Includes Freeze and Freeze & "
+"Zoom options."
+msgstr ""
+"Αντιστρέψτε, επαναλάβετε, επιταχύνετε ή επιβραδύνετε το βίντεο. Περιλαμβάνει"
+" τις επιλογές Πάγωμα (Freeze) και Πάγωμα και μεγέθυνση (Freeze & Zoom)."
+
+#: ../clips.rst:237 ../clips.rst:444
+msgid "Audio"
+msgstr "Ήχος (Audio)"
+
+#: ../clips.rst:237
+msgid ""
+"Control audio properties: adjust volume levels, fade volume in/out, separate"
+" audio channels, show/hide the timeline waveform, or open the Audio Levels "
+"scope."
+msgstr ""
+"Ελέγξτε τις ιδιότητες του ήχου: ρυθμίστε τα επίπεδα έντασης, εφαρμόστε "
+"βαθμιαία αύξηση/μείωση της έντασης, διαχωρίστε τα κανάλια ήχου, "
+"εμφανίστε/αποκρύψτε την κυματομορφή στο χρονολόγιο ή ανοίξτε το εργαλείο "
+"μέτρησης Στάθμες ήχου (Audio Levels)."
+
+#: ../clips.rst:238 ../clips.rst:471
+msgid "Slice"
+msgstr "Κόψιμο (Slice)"
+
+#: ../clips.rst:238
+msgid ""
+"Cut the clip at the play-head position, with options to keep either side, "
+"both sides, or ripple-delete one side. Only shown when the playhead overlaps"
+" the clip."
+msgstr ""
+"Κόψτε το κλιπ στη θέση της κεφαλής αναπαραγωγής, με επιλογές για να "
+"κρατήσετε τη μία πλευρά, και τις δύο πλευρές, ή να διαγράψετε τη μία πλευρά "
+"με ripple. Εμφανίζεται μόνο όταν η κεφαλή αναπαραγωγής επικαλύπτει το κλιπ."
+
+#: ../clips.rst:239 ../clips.rst:610
+msgid "Properties"
+msgstr "Ιδιότητες (Properties)"
+
+#: ../clips.rst:239
+msgid "Show the properties panel for a clip."
+msgstr "Εμφανίστε το πάνελ ιδιοτήτων ενός κλιπ."
+
+#: ../clips.rst:240 ../clips.rst:642
+msgid "Remove Clip"
+msgstr "Αφαίρεση κλιπ (Remove Clip)"
+
+#: ../clips.rst:240
+msgid "Remove a clip from the timeline."
+msgstr "Αφαιρέστε ένα κλιπ από το χρονολόγιο."
+
+#: ../clips.rst:245
+msgid ""
+"The :guilabel:`Fade` preset creates a smooth fade-in or fade-out on the "
+"selected clip. It automatically fades **video** (alpha/opacity) and/or "
+"**audio** (volume) depending on what the clip contains — a video clip gets "
+"both, an audio-only clip gets only a volume fade, and an image clip gets "
+"only an alpha fade."
+msgstr ""
+"Η προρύθμιση :guilabel:`Βαθμιαία εμφάνιση` (Fade) δημιουργεί ομαλή βαθμιαία "
+"είσοδο ή έξοδο στο επιλεγμένο κλιπ. Εφαρμόζει αυτόματα βαθμιαία αλλαγή στο "
+"**βίντεο** (διαφάνεια/αδιαφάνεια) ή/και στον **ήχο** (ένταση), ανάλογα με το"
+" περιεχόμενο του κλιπ — ένα κλιπ βίντεο παίρνει και τα δύο, ένα κλιπ μόνο με"
+" ήχο παίρνει μόνο βαθμιαία αλλαγή της έντασης και ένα κλιπ εικόνας παίρνει "
+"μόνο βαθμιαία αλλαγή της διαφάνειας (alpha)."
+
+#: ../clips.rst:249
+msgid ":guilabel:`No Fade` — removes all fade keyframes."
+msgstr ""
+":guilabel:`Χωρίς βαθμιαία εμφάνιση` (No Fade) — αφαιρεί όλα τα βασικά καρέ "
+"της βαθμιαίας αλλαγής."
+
+#: ../clips.rst:250
+msgid ""
+":guilabel:`Fade In` → :guilabel:`Fast` / :guilabel:`Slow` — fades from "
+"transparent/silent at the start of the clip."
+msgstr ""
+":guilabel:`Βαθμιαία είσοδος` (Fade In) → :guilabel:`Γρήγορα` (Fast) / "
+":guilabel:`Αργά` (Slow) — ξεκινά από διαφανές/σιωπηλό στην αρχή του κλιπ."
+
+#: ../clips.rst:251
+msgid ""
+":guilabel:`Fade Out` → :guilabel:`Fast` / :guilabel:`Slow` — fades to "
+"transparent/silent at the end of the clip."
+msgstr ""
+":guilabel:`Βαθμιαία έξοδος` (Fade Out) → :guilabel:`Γρήγορα` (Fast) / "
+":guilabel:`Αργά` (Slow) — καταλήγει σε διαφανές/σιωπηλό στο τέλος του κλιπ."
+
+#: ../clips.rst:252
+msgid ""
+":guilabel:`Fade In and Out` → :guilabel:`Fast` / :guilabel:`Slow` — applies "
+"both a fade-in at the start and a fade-out at the end."
+msgstr ""
+":guilabel:`Βαθμιαία είσοδος και έξοδος` (Fade In and Out) → "
+":guilabel:`Γρήγορα` (Fast) / :guilabel:`Αργά` (Slow) — εφαρμόζει και "
+"βαθμιαία είσοδο στην αρχή και βαθμιαία έξοδο στο τέλος."
+
+#: ../clips.rst:254
+msgid ""
+"Fast fades span approximately 1 second; Slow fades span approximately 3 "
+"seconds. See :ref:`clip_alpha_ref` and :ref:`clip_volume_ref` key-frames."
+msgstr ""
+"Οι γρήγορες βαθμιαίες αλλαγές διαρκούν περίπου 1 δευτερόλεπτο· οι αργές "
+"διαρκούν περίπου 3 δευτερόλεπτα. Δείτε τα βασικά καρέ (key-frames) για το "
+":ref:`clip_alpha_ref` και το :ref:`clip_volume_ref`."
+
+#: ../clips.rst:257
+msgid ""
+"**Usage Example:** Applying a fade-out to a video clip to gently conclude a "
+"scene."
+msgstr ""
+"**Παράδειγμα χρήσης:** Εφαρμογή βαθμιαίας εξόδου σε ένα κλιπ βίντεο για να "
+"ολοκληρωθεί ομαλά μια σκηνή."
+
+#: ../clips.rst:258
+msgid ""
+"**Tip:** Fade and Volume fade are independent — use :guilabel:`Fade` for a "
+"combined video+audio fade, or use :guilabel:`Audio → Volume` to fade only "
+"the audio."
+msgstr ""
+"**Συμβουλή:** Η βαθμιαία αλλαγή εικόνας και η βαθμιαία αλλαγή έντασης είναι "
+"ανεξάρτητες — χρησιμοποιήστε το :guilabel:`Βαθμιαία εμφάνιση` (Fade) για "
+"συνδυασμένη βαθμιαία αλλαγή βίντεο+ήχου ή το :guilabel:`Ήχος → Ένταση` "
+"(Audio → Volume) για βαθμιαία αλλαγή μόνο του ήχου."
+
+#: ../clips.rst:262
+msgid ""
+"The :guilabel:`Motion` menu adds animated movement to visual clips using "
+"keyframe presets. It is organized into several submenus. See "
+":ref:`clip_location_x_ref` and :ref:`clip_scale_x_ref` key-frames."
+msgstr ""
+"Το μενού :guilabel:`Κίνηση` (Motion) προσθέτει εφέ κίνησης σε οπτικά κλιπ με"
+" χρήση προρυθμίσεων βασικών καρέ. Είναι οργανωμένο σε πολλά υπομενού. Δείτε "
+"τα βασικά καρέ (key-frames) για το :ref:`clip_location_x_ref` και το "
+":ref:`clip_scale_x_ref`."
+
+#: ../clips.rst:265
+msgid ":guilabel:`No Motion` — removes all motion keyframes from the clip."
+msgstr ""
+":guilabel:`Χωρίς κίνηση` (No Motion) — αφαιρεί όλα τα βασικά καρέ κίνησης "
+"από το κλιπ."
+
+#: ../clips.rst:266
+msgid ":guilabel:`In` — entrance animations applied at the start of the clip:"
+msgstr ""
+":guilabel:`Είσοδος` (In) — εφέ εισόδου που εφαρμόζονται στην αρχή του κλιπ:"
+
+#: ../clips.rst:268
+msgid ""
+"**Back In** (From Bottom / Left / Right / Top) — clip overshoots and springs"
+" back into position."
+msgstr ""
+"**Είσοδος με ανάκρουση** (Back In) (από κάτω / αριστερά / δεξιά / πάνω) — το"
+" κλιπ ξεπερνά τη θέση του και επιστρέφει ελατηριωτά σε αυτήν."
+
+#: ../clips.rst:269
+msgid "**Blur In** — clip fades in from a motion blur."
+msgstr ""
+"**Είσοδος με θόλωμα** (Blur In) — το κλιπ εμφανίζεται βαθμιαία από θόλωμα "
+"κίνησης."
+
+#: ../clips.rst:270
+msgid ""
+"**Bounce In** (Center / From Bottom / Left / Right / Top) — clip bounces as "
+"it enters."
+msgstr ""
+"**Είσοδος με αναπήδηση** (Bounce In) (κέντρο / από κάτω / αριστερά / δεξιά /"
+" πάνω) — το κλιπ αναπηδά καθώς εισέρχεται."
+
+#: ../clips.rst:271
+msgid ""
+"**Focus Wipe In** (Circle Expand / Circle Shrink / From Bottom / Left / "
+"Right / Top) — clip is revealed by a wipe while sharpening from blur into "
+"focus."
+msgstr ""
+"**Είσοδος με σάρωση και εστίαση** (Focus Wipe In) (επέκταση κύκλου / "
+"συρρίκνωση κύκλου / από κάτω / αριστερά / δεξιά / πάνω) — το κλιπ "
+"αποκαλύπτεται με σάρωση, ενώ οξύνεται από θόλωμα σε εστίαση."
+
+#: ../clips.rst:272
+msgid "**Pop In** — clip scales up quickly from nothing."
+msgstr ""
+"**Είσοδος με απότομη εμφάνιση** (Pop In) — το κλιπ μεγεθύνεται γρήγορα από "
+"το τίποτα."
+
+#: ../clips.rst:273
+msgid ""
+"**Slide In** (From Bottom / Left / Right / Top) — clip slides onto the "
+"screen."
+msgstr ""
+"**Είσοδος με ολίσθηση** (Slide In) (από κάτω / αριστερά / δεξιά / πάνω) — το"
+" κλιπ ολισθαίνει στην οθόνη."
+
+#: ../clips.rst:274
+msgid "**Spiral In** — clip rotates in while scaling up."
+msgstr ""
+"**Είσοδος με σπείρα** (Spiral In) — το κλιπ περιστρέφεται καθώς μεγεθύνεται."
+
+#: ../clips.rst:275
+msgid ""
+"**Wipe In** (Circle Expand / Circle Shrink / From Bottom / Left / Right / "
+"Top) — clip is revealed by a wipe."
+msgstr ""
+"**Είσοδος με σάρωση** (Wipe In) (επέκταση κύκλου / συρρίκνωση κύκλου / από "
+"κάτω / αριστερά / δεξιά / πάνω) — το κλιπ αποκαλύπτεται με σάρωση."
+
+#: ../clips.rst:277
+msgid ""
+":guilabel:`Out` — exit animations applied at the end of the clip (mirrors "
+"the In options: Back Out, Blur Out, Bounce Out, Focus Wipe Out, Pop Out, "
+"Slide Out, Spiral Out, Wipe Out)."
+msgstr ""
+":guilabel:`Έξοδος` (Out) — εφέ εξόδου που εφαρμόζονται στο τέλος του κλιπ "
+"(αντιστοιχούν στις επιλογές Εισόδου: Back Out, Blur Out, Bounce Out, Focus "
+"Wipe Out, Pop Out, Slide Out, Spiral Out, Wipe Out)."
+
+#: ../clips.rst:279
+msgid ""
+":guilabel:`Emphasis` — short attention-grabbing animations **inserted at the"
+" current playhead position** (not applied across the whole clip). Useful for"
+" mid-clip highlights: **Bounce**, **Flash**, **Heartbeat**, **Jello**, "
+"**Pulse**, **Rubber Band**, **Shake X**, **Shake Y**, **Swing**, **Tada**, "
+"**Wobble**."
+msgstr ""
+":guilabel:`Έμφαση` (Emphasis) — σύντομες κινήσεις που τραβούν την προσοχή "
+"και **εισάγονται στην τρέχουσα θέση της κεφαλής αναπαραγωγής** (δεν "
+"εφαρμόζονται σε ολόκληρο το κλιπ). Χρήσιμα για επισημάνσεις στη μέση του "
+"κλιπ: **Αναπήδηση** (Bounce), **Αναλαμπή** (Flash), **Καρδιακός παλμός** "
+"(Heartbeat), **Ζελέ** (Jello), **Παλμός** (Pulse), **Λάστιχο** (Rubber "
+"Band), **Κούνημα X** (Shake X), **Κούνημα Y** (Shake Y), **Αιώρηση** "
+"(Swing), **Τα-ντα** (Tada), **Τρέμουλο** (Wobble)."
+
+#: ../clips.rst:281
+msgid ""
+":guilabel:`Camera` — simulates camera movement on the clip by animating "
+"scale and position:"
+msgstr ""
+":guilabel:`Κάμερα` (Camera) — προσομοιώνει κίνηση κάμερας στο κλιπ, μέσω "
+"κίνησης της κλίμακας και της θέσης:"
+
+#: ../clips.rst:283
+msgid "**Zoom** → In / Out — a simple push-in or pull-out."
+msgstr ""
+"**Μεγέθυνση** (Zoom) → Είσοδος / Έξοδος (In / Out) — μια απλή προσέγγιση ή "
+"απομάκρυνση."
+
+#: ../clips.rst:284
+msgid ""
+"**Pan** → Auto Direction / Left to Right / Right to Left / Top to Bottom / "
+"Bottom to Top — a lateral camera pan. *Auto Direction* picks the best "
+"direction based on the clip's aspect ratio."
+msgstr ""
+"**Πανοραμική** (Pan) → Αυτόματη κατεύθυνση / Από αριστερά προς τα δεξιά / "
+"Από δεξιά προς τα αριστερά / Από πάνω προς τα κάτω / Από κάτω προς τα πάνω "
+"(Auto Direction / Left to Right / Right to Left / Top to Bottom / Bottom to "
+"Top) — πλευρική πανοραμική κίνηση της κάμερας. Η *Αυτόματη κατεύθυνση* (Auto"
+" Direction) επιλέγει την καλύτερη κατεύθυνση με βάση την αναλογία διαστάσεων"
+" του κλιπ."
+
+#: ../clips.rst:285
+msgid ""
+"**Zoom & Pan** → In or Out, with directional variants — combines a zoom with"
+" a pan (Ken Burns style). *Auto Direction* picks the best direction based on"
+" the clip's aspect ratio."
+msgstr ""
+"**Μεγέθυνση και πανοραμική** (Zoom & Pan) → Είσοδος ή Έξοδος (In or Out), με"
+" παραλλαγές κατεύθυνσης — συνδυάζει μεγέθυνση με πανοραμική κίνηση (στιλ Ken"
+" Burns). Η *Αυτόματη κατεύθυνση* (Auto Direction) επιλέγει την καλύτερη "
+"κατεύθυνση με βάση την αναλογία διαστάσεων του κλιπ."
+
+#: ../clips.rst:287
+msgid ""
+":guilabel:`Credits` — scrolling credit animations: **Scroll Up** and "
+"**Scroll Down**."
+msgstr ""
+":guilabel:`Τίτλοι τέλους` (Credits) — κυλιόμενα εφέ τίτλων τέλους: **Κύλιση "
+"προς τα πάνω** (Scroll Up) και **Κύλιση προς τα κάτω** (Scroll Down)."
+
+#: ../clips.rst:289
+msgid ""
+"**Tip:** Emphasis presets are placed at the current playhead position, so "
+"position the playhead over the moment you want to highlight before applying "
+"one."
+msgstr ""
+"**Συμβουλή:** Οι προρυθμίσεις έμφασης τοποθετούνται στην τρέχουσα θέση της "
+"κεφαλής αναπαραγωγής, οπότε τοποθετήστε την κεφαλή αναπαραγωγής πάνω στη "
+"στιγμή που θέλετε να τονίσετε πριν εφαρμόσετε μία από αυτές."
+
+#: ../clips.rst:290
+msgid ""
+"**Tip:** Camera presets use *Auto Direction* by default, which picks the "
+"optimal pan direction for wide or tall media to avoid black bars."
+msgstr ""
+"**Συμβουλή:** Οι προρυθμίσεις κάμερας χρησιμοποιούν από προεπιλογή την "
+"*Αυτόματη κατεύθυνση* (Auto Direction), η οποία επιλέγει τη βέλτιστη "
+"κατεύθυνση πανοραμικής κίνησης για πλατιά ή ψηλά πολυμέσα, ώστε να "
+"αποφεύγονται οι μαύρες ζώνες."
+
+#: ../clips.rst:295
+msgid "Rotate"
+msgstr "Περιστροφή"
+
+#: ../clips.rst:296
+msgid ""
+"The :guilabel:`Transform → Rotate` submenu introduces easy rotation and "
+"flipping of clips. It enables orientation adjustment by rotating and "
+"flipping a clip for creative visual transformations. See "
+":ref:`clip_rotation_ref` key-frame."
+msgstr ""
+"Το υπομενού :guilabel:`Μετασχηματισμός → Περιστροφή` (Transform → Rotate) "
+"προσφέρει εύκολη περιστροφή και αναστροφή των κλιπ. Επιτρέπει την προσαρμογή"
+" του προσανατολισμού περιστρέφοντας και αναστρέφοντας ένα κλιπ για "
+"δημιουργικούς οπτικούς μετασχηματισμούς. Δείτε το βασικό καρέ (key-frame) "
+":ref:`clip_rotation_ref`."
+
+#: ../clips.rst:300
+msgid ":guilabel:`No Rotation` — removes any rotation keyframes."
+msgstr ""
+":guilabel:`Χωρίς περιστροφή` (No Rotation) — αφαιρεί όλα τα βασικά καρέ "
+"περιστροφής."
+
+#: ../clips.rst:301
+msgid ":guilabel:`Rotate 90 (Right)` — rotates the clip 90 degrees clockwise."
+msgstr ""
+":guilabel:`Περιστροφή 90° (δεξιά)` (Rotate 90 (Right)) — περιστρέφει το κλιπ"
+" κατά 90 μοίρες δεξιόστροφα."
+
+#: ../clips.rst:302
+msgid ""
+":guilabel:`Rotate 90 (Left)` — rotates the clip 90 degrees counterclockwise."
+msgstr ""
+":guilabel:`Περιστροφή 90° (αριστερά)` (Rotate 90 (Left)) — περιστρέφει το "
+"κλιπ κατά 90 μοίρες αριστερόστροφα."
+
+#: ../clips.rst:303
+msgid ":guilabel:`Rotate 180 (Flip)` — flips the clip upside down."
+msgstr ""
+":guilabel:`Περιστροφή 180° (αναποδογύρισμα)` (Rotate 180 (Flip)) — "
+"αναποδογυρίζει το κλιπ."
+
+#: ../clips.rst:305
+msgid ""
+"**Usage Example:** Rotating a photo or video by 90 degrees (a portrait video"
+" to a landscape)."
+msgstr ""
+"**Παράδειγμα χρήσης:** Περιστροφή μιας φωτογραφίας ή ενός βίντεο κατά 90 "
+"μοίρες (από κατακόρυφο βίντεο σε οριζόντιο)."
+
+#: ../clips.rst:306
+msgid ""
+"**Usage Example:** If your video is upside down, rotate it by 180 degrees to"
+" correct the orientation."
+msgstr ""
+"**Παράδειγμα χρήσης:** Αν το βίντεό σας είναι ανάποδα, περιστρέψτε το κατά "
+"180 μοίρες για να διορθώσετε τον προσανατολισμό."
+
+#: ../clips.rst:311
+msgid "Layout"
+msgstr "Διάταξη"
+
+#: ../clips.rst:312
+msgid ""
+"The :guilabel:`Transform → Layout` submenu adjusts the size of a clip and "
+"snaps it to a chosen corner of the screen, useful for picture-in-picture or "
+"watermark effects. See :ref:`clip_location_x_ref`, :ref:`clip_scale_x_ref`, "
+":guilabel:`Margin`, and :guilabel:`Corner Radius` key-frames."
+msgstr ""
+"Το υπομενού :guilabel:`Μετασχηματισμός → Διάταξη` (Transform → Layout) "
+"προσαρμόζει το μέγεθος ενός κλιπ και το προσκολλά σε μια επιλεγμένη γωνία "
+"της οθόνης, κάτι χρήσιμο για εφέ εικόνας μέσα σε εικόνα (picture-in-picture)"
+" ή υδατογραφήματος. Δείτε τα βασικά καρέ (key-frames) για το "
+":ref:`clip_location_x_ref`, το :ref:`clip_scale_x_ref`, το "
+":guilabel:`Περιθώριο` (Margin) και την :guilabel:`Ακτίνα γωνίας` (Corner "
+"Radius)."
+
+#: ../clips.rst:317
+msgid ":guilabel:`Reset Layout` — removes any layout keyframes."
+msgstr ""
+":guilabel:`Επαναφορά αρχικής διάταξης` (Reset Layout) — αφαιρεί όλα τα "
+"βασικά καρέ διάταξης."
+
+#: ../clips.rst:318
+msgid ""
+":guilabel:`1/4 Size` — positions the clip at 1/4 of the screen in the "
+"Center, Top Left, Top Right, Bottom Left, or Bottom Right corner."
+msgstr ""
+":guilabel:`1/4 του μεγέθους` (1/4 Size) — τοποθετεί το κλιπ σε 1/4 της "
+"οθόνης, στο κέντρο ή στην πάνω αριστερή, πάνω δεξιά, κάτω αριστερή ή κάτω "
+"δεξιά γωνία."
+
+#: ../clips.rst:319
+msgid ""
+":guilabel:`Show All (Maintain Ratio)` — fits the entire clip frame within "
+"the screen while preserving its aspect ratio."
+msgstr ""
+":guilabel:`Προβολή όλων (διατήρηση αναλογιών)` (Show All (Maintain Ratio)) —"
+" προσαρμόζει ολόκληρο το καρέ του κλιπ μέσα στην οθόνη, διατηρώντας την "
+"αναλογία διαστάσεών του."
+
+#: ../clips.rst:320
+msgid ""
+":guilabel:`Show All (Distort)` — stretches the entire clip frame to fill the"
+" screen, ignoring aspect ratio."
+msgstr ""
+":guilabel:`Προβολή όλων (παραμόρφωση)` (Show All (Distort)) — τεντώνει "
+"ολόκληρο το καρέ του κλιπ ώστε να γεμίσει την οθόνη, αγνοώντας την αναλογία "
+"διαστάσεων."
+
+#: ../clips.rst:322
+msgid ""
+"**Usage Example:** Placing a logo in the corner of a video using the layout "
+"preset."
+msgstr ""
+"**Παράδειγμα χρήσης:** Τοποθέτηση ενός λογοτύπου στη γωνία ενός βίντεο με τη"
+" χρήση της προρύθμισης διάταξης."
+
+#: ../clips.rst:323
+msgid ""
+"**Tip:** Use :guilabel:`Margin` to create an inset layout area for a clip, "
+"and :guilabel:`Corner Radius` to round picture-in-picture camera clips "
+"without adding a Mask effect."
+msgstr ""
+"**Συμβουλή:** Χρησιμοποιήστε το :guilabel:`Περιθώριο` (Margin) για να "
+"δημιουργήσετε μια εσωτερική περιοχή διάταξης για ένα κλιπ και την "
+":guilabel:`Ακτίνα γωνίας` (Corner Radius) για να στρογγυλέψετε τις γωνίες "
+"των κλιπ κάμερας σε διάταξη εικόνας μέσα σε εικόνα, χωρίς να προσθέσετε εφέ "
+"Μάσκας (Mask)."
+
+#: ../clips.rst:325
+msgid ""
+"**Tip:** Combine with animation presets for dynamic transitions involving "
+"resizing and repositioning."
+msgstr ""
+"**Συμβουλή:** Συνδυάστε με προρυθμίσεις κίνησης για δυναμικές μεταβάσεις που"
+" περιλαμβάνουν αλλαγή μεγέθους και θέσης."
+
+#: ../clips.rst:329
+msgid ""
+"The :guilabel:`Speed` menu manipulates clip playback speed, allowing for "
+"reverse playback, time-lapse, slow-motion, freezes, and looping effects. See"
+" :ref:`clip_time_ref` key-frame."
+msgstr ""
+"Το μενού :guilabel:`Ταχύτητα` (Speed) χειρίζεται την ταχύτητα αναπαραγωγής "
+"του κλιπ, επιτρέποντας αντίστροφη αναπαραγωγή, time-lapse, αργή κίνηση, "
+"πάγωμα και εφέ επανάληψης. Δείτε το βασικό καρέ (key-frame) "
+":ref:`clip_time_ref`."
+
+#: ../clips.rst:332
+msgid ":guilabel:`Reset Speed` — restores the clip to normal 1× speed."
+msgstr ""
+":guilabel:`Επαναφορά ταχύτητας` (Reset Speed) — επαναφέρει το κλιπ στην "
+"κανονική ταχύτητα 1×."
+
+#: ../clips.rst:333
+msgid ":guilabel:`Reverse` — plays the clip backwards at normal speed."
+msgstr ""
+":guilabel:`Αντίστροφα` (Reverse) — αναπαράγει το κλιπ προς τα πίσω με "
+"κανονική ταχύτητα."
+
+#: ../clips.rst:334
+msgid ""
+":guilabel:`Speed Up` → Forward / Backward → 2×, 4×, 8×, 16× — speeds up "
+"playback in either direction."
+msgstr ""
+":guilabel:`Επιτάχυνση` (Speed Up) → Μπροστά / Πίσω (Forward / Backward) → "
+"2×, 4×, 8×, 16× — επιταχύνει την αναπαραγωγή προς οποιαδήποτε κατεύθυνση."
+
+#: ../clips.rst:335
+msgid ""
+":guilabel:`Slow Down` → Forward / Backward → 1/2×, 1/4×, 1/8×, 1/16× — slows"
+" down playback in either direction."
+msgstr ""
+":guilabel:`Επιβράδυνση` (Slow Down) → Μπροστά / Πίσω (Forward / Backward) → "
+"1/2×, 1/4×, 1/8×, 1/16× — επιβραδύνει την αναπαραγωγή προς οποιαδήποτε "
+"κατεύθυνση."
+
+#: ../clips.rst:336
+msgid ":guilabel:`Repeat` — see below."
+msgstr ":guilabel:`Επανάληψη` (Repeat) — δείτε παρακάτω."
+
+#: ../clips.rst:337
+msgid ""
+":guilabel:`Freeze` — freezes on the frame at the current playhead position "
+"for 2, 4, 6, 8, 10, 20, or 30 seconds."
+msgstr ""
+":guilabel:`Πάγωμα` (Freeze) — παγώνει το καρέ στην τρέχουσα θέση της κεφαλής"
+" αναπαραγωγής για 2, 4, 6, 8, 10, 20 ή 30 δευτερόλεπτα."
+
+#: ../clips.rst:338
+msgid ""
+":guilabel:`Freeze && Zoom` — freezes and simultaneously zooms in on that "
+"frozen frame."
+msgstr ""
+":guilabel:`Πάγωμα && Μεγέθυνση` (Freeze && Zoom) — παγώνει και ταυτόχρονα "
+"μεγεθύνει αυτό το παγωμένο καρέ."
+
+#: ../clips.rst:340
+msgid ""
+"**Slow motion** — :guilabel:`Slow Down → 1/2×` or :guilabel:`1/4×` for "
+"dreamy or dramatic footage."
+msgstr ""
+"**Αργή κίνηση** — :guilabel:`Επιβράδυνση → 1/2×` (Slow Down → 1/2×) ή "
+":guilabel:`1/4×` για ονειρικό ή δραματικό υλικό."
+
+#: ../clips.rst:341
+msgid ""
+"**Time-lapse** — :guilabel:`Speed Up → 8×` or :guilabel:`16×` to compress "
+"hours into seconds."
+msgstr ""
+"**Time-lapse** — :guilabel:`Επιτάχυνση → 8×` (Speed Up → 8×) ή "
+":guilabel:`16×` για να συμπιέσετε ώρες σε δευτερόλεπτα."
+
+#: ../clips.rst:342
+msgid ""
+"**Speed ramp** — use the :guilabel:`Timing` tool to drag clip edges and "
+"create a natural-feeling speed change; OpenShot scales all keyframes "
+"automatically."
+msgstr ""
+"**Ράμπα ταχύτητας** (speed ramp) — χρησιμοποιήστε το εργαλείο "
+":guilabel:`Χρονισμός` (Timing) για να σύρετε τα άκρα των κλιπ και να "
+"δημιουργήσετε μια φυσική αλλαγή ταχύτητας· το OpenShot κλιμακώνει αυτόματα "
+"όλα τα βασικά καρέ."
+
+#: ../clips.rst:343
+msgid ""
+"**Tip:** Combine :guilabel:`Freeze` with :guilabel:`Speed Up` for an impact-"
+"freeze-then-fast-forward effect."
+msgstr ""
+"**Συμβουλή:** Συνδυάστε το :guilabel:`Πάγωμα` (Freeze) με την "
+":guilabel:`Επιτάχυνση` (Speed Up) για ένα εφέ παγώματος κατά την πρόσκρουση "
+"και στη συνέχεια γρήγορης προώθησης."
+
+#: ../clips.rst:348
+msgid "Repeat"
+msgstr "Επανάληψη"
+
+#: ../clips.rst:349
+msgid ""
+"Use :guilabel:`Speed → Repeat` to play a clip multiple times, without "
+"building the time curve by hand. OpenShot writes the needed :guilabel:`Time`"
+" keyframes for you (you can edit them later)."
+msgstr ""
+"Χρησιμοποιήστε το :guilabel:`Ταχύτητα → Επανάληψη` (Speed → Repeat) για να "
+"αναπαράγετε ένα κλιπ πολλές φορές, χωρίς να χρειαστεί να δημιουργήσετε με το"
+" χέρι την καμπύλη χρόνου. Το OpenShot γράφει για εσάς τα απαραίτητα βασικά "
+"καρέ :guilabel:`Χρόνος` (Time) (μπορείτε να τα επεξεργαστείτε αργότερα)."
+
+#: ../clips.rst:352
+msgid "**Menu path**"
+msgstr "**Διαδρομή μενού**"
+
+#: ../clips.rst:354
+msgid ""
+":guilabel:`Speed → Repeat → Loop → Forward` – plays left to right, then "
+"starts again from the beginning"
+msgstr ""
+":guilabel:`Ταχύτητα → Επανάληψη → Βρόχος → Μπροστά` (Speed → Repeat → Loop →"
+" Forward) – αναπαράγεται από αριστερά προς τα δεξιά και μετά ξεκινά ξανά από"
+" την αρχή"
+
+#: ../clips.rst:355
+msgid ""
+":guilabel:`Speed → Repeat → Loop → Reverse` – plays right to left, then "
+"starts again from the end"
+msgstr ""
+":guilabel:`Ταχύτητα → Επανάληψη → Βρόχος → Αντίστροφα` (Speed → Repeat → "
+"Loop → Reverse) – αναπαράγεται από δεξιά προς τα αριστερά και μετά ξεκινά "
+"ξανά από το τέλος"
+
+#: ../clips.rst:356
+msgid ""
+":guilabel:`Speed → Repeat → Ping-Pong → Forward` – forward, then backward, "
+"then forward…"
+msgstr ""
+":guilabel:`Ταχύτητα → Επανάληψη → Ping-Pong → Μπροστά` (Speed → Repeat → "
+"Ping-Pong → Forward) – μπροστά, μετά πίσω, μετά μπροστά…"
+
+#: ../clips.rst:357
+msgid ""
+":guilabel:`Speed → Repeat → Ping-Pong → Reverse` – backward, then forward, "
+"then backward…"
+msgstr ""
+":guilabel:`Ταχύτητα → Επανάληψη → Ping-Pong → Αντίστροφα` (Speed → Repeat → "
+"Ping-Pong → Reverse) – πίσω, μετά μπροστά, μετά πίσω…"
+
+#: ../clips.rst:358
+msgid ":guilabel:`Custom…` – opens a dialog for extra options (see below)"
+msgstr ""
+":guilabel:`Προσαρμογή…` (Custom…) – ανοίγει ένα παράθυρο διαλόγου με "
+"πρόσθετες επιλογές (δείτε παρακάτω)"
+
+#: ../clips.rst:360
+msgid ""
+"Counts are **finite** (2x, 3x, 4x, 5x, 8x, 10x, or a custom number). "
+"Example: “Forward then Back and stop” = :guilabel:`Ping-Pong → Forward → "
+"2x`."
+msgstr ""
+"Οι επαναλήψεις είναι **πεπερασμένες** (2x, 3x, 4x, 5x, 8x, 10x ή ένας "
+"προσαρμοσμένος αριθμός). Παράδειγμα: «Μπροστά, μετά πίσω και τέλος» = "
+":guilabel:`Ping-Pong → Μπροστά → 2x` (Ping-Pong → Forward → 2x)."
+
+#: ../clips.rst:363
+msgid "**What gets repeated**"
+msgstr "**Τι επαναλαμβάνεται**"
+
+#: ../clips.rst:365
+msgid "Repeat always acts on the **currently trimmed** in/out of the clip."
+msgstr ""
+"Η επανάληψη ενεργεί πάντα στην **τρέχουσα περικομμένη** είσοδο/έξοδο "
+"(in/out) του κλιπ."
+
+#: ../clips.rst:366
+msgid ""
+"The :guilabel:`Time` curve is stamped as a simple shape: - Loop Forward = "
+"rising saw - Loop Reverse = falling saw - Ping-Pong = triangle (direction "
+"flips each pass)"
+msgstr ""
+"Η καμπύλη :guilabel:`Χρόνος` (Time) δημιουργείται με ένα απλό σχήμα: - "
+"Βρόχος Μπροστά = ανερχόμενο πριονωτό - Βρόχος Αντίστροφα = κατερχόμενο "
+"πριονωτό - Ping-Pong = τρίγωνο (η κατεύθυνση αντιστρέφεται σε κάθε διέλευση)"
+
+#: ../clips.rst:370
+msgid ""
+"To avoid a double frame at the seam, the last frame of each pass is not "
+"duplicated."
+msgstr ""
+"Για να αποφευχθεί διπλό καρέ στη ραφή, το τελευταίο καρέ κάθε διέλευσης δεν "
+"διπλασιάζεται."
+
+#: ../clips.rst:372
+msgid "**Keyframes during Repeat**"
+msgstr "**Βασικά καρέ κατά την επανάληψη**"
+
+#: ../clips.rst:374
+msgid ""
+"When you use Repeat, OpenShot will also **repeat other keyframes** found "
+"inside the trimmed section (location, scale, effects, etc.) into each pass "
+"so your animations stay in sync."
+msgstr ""
+"Όταν χρησιμοποιείτε την Επανάληψη, το OpenShot **επαναλαμβάνει επίσης τα "
+"υπόλοιπα βασικά καρέ** που βρίσκονται μέσα στο περικομμένο τμήμα (θέση, "
+"κλίμακα, εφέ κ.λπ.) σε κάθε διέλευση, ώστε τα κινούμενα στοιχεία σας να "
+"παραμένουν συγχρονισμένα."
+
+#: ../clips.rst:375
+msgid "Repeated keyframes keep their relative timing inside each pass."
+msgstr ""
+"Τα επαναλαμβανόμενα βασικά καρέ διατηρούν τον σχετικό χρονισμό τους μέσα σε "
+"κάθε διέλευση."
+
+#: ../clips.rst:377
+msgid "**Custom Repeat** (dialog options)"
+msgstr "**Προσαρμοσμένη επανάληψη** (επιλογές του παραθύρου διαλόγου)"
+
+#: ../clips.rst:379
+msgid ":guilabel:`Pattern:` Loop | Ping-Pong"
+msgstr ":guilabel:`Μοτίβο:` (Pattern) Βρόχος | Ping-Pong (Loop | Ping-Pong)"
+
+#: ../clips.rst:380
+msgid ":guilabel:`Direction:` Forward | Reverse"
+msgstr ""
+":guilabel:`Κατεύθυνση:` (Direction) Μπροστά | Αντίστροφα (Forward | Reverse)"
+
+#: ../clips.rst:381
+msgid ""
+":guilabel:`Passes:` integer (2 or more). This is the number of times it will"
+" play."
+msgstr ""
+":guilabel:`Διελεύσεις:` (Passes) ακέραιος αριθμός (2 ή μεγαλύτερος). Είναι ο"
+" αριθμός των φορών που θα αναπαραχθεί το κλιπ."
+
+#: ../clips.rst:382
+msgid ""
+":guilabel:`Delay:` number + units [frames | ms | sec]. This is an optional "
+"delay between each repeated pass."
+msgstr ""
+":guilabel:`Καθυστέρηση:` (Delay) αριθμός + μονάδες [καρέ | ms | sec]. Είναι "
+"μια προαιρετική καθυστέρηση ανάμεσα σε κάθε επαναλαμβανόμενη διέλευση."
+
+#: ../clips.rst:383
+msgid ""
+":guilabel:`Speed Ramp (%):` % speed change per pass (optional). Positive "
+"speeds up each pass; negative slows down each pass."
+msgstr ""
+":guilabel:`Ράμπα ταχύτητας (%):` (Speed Ramp (%)) ποσοστιαία (%) αλλαγή "
+"ταχύτητας ανά διέλευση (προαιρετικό). Η θετική τιμή επιταχύνει κάθε "
+"διέλευση· η αρνητική την επιβραδύνει."
+
+#: ../clips.rst:385
+msgid "**Reset**"
+msgstr "**Επαναφορά**"
+
+#: ../clips.rst:387
+msgid ""
+":guilabel:`Speed → Reset Speed` completely removes any Time curve (including"
+" Repeat) and restores the clip to its original playback, **without deleting "
+"your original non-Time keyframes**."
+msgstr ""
+":guilabel:`Ταχύτητα → Επαναφορά ταχύτητας` (Speed → Reset Speed) αφαιρεί "
+"εντελώς κάθε καμπύλη Χρόνου (Time), συμπεριλαμβανομένης της Επανάληψης, και "
+"επαναφέρει το κλιπ στην αρχική του αναπαραγωγή, **χωρίς να διαγράφει τα "
+"αρχικά βασικά καρέ που δεν αφορούν τον Χρόνο**."
+
+#: ../clips.rst:391
+msgid "Timing Tool"
+msgstr "Εργαλείο χρονισμού"
+
+#: ../clips.rst:392
+msgid ""
+"Another way to change a clip's speed is with the :guilabel:`Timing` tool on "
+"the timeline toolbar. Enable the clock icon and drag a clip's edges. "
+"Lengthening the clip slows playback, while shotening it speeds the clip up. "
+"All keyframes on the clip and its effects are scaled so their relative "
+"positions remain intact."
+msgstr ""
+"Ένας άλλος τρόπος για να αλλάξετε την ταχύτητα ενός κλιπ είναι το εργαλείο "
+":guilabel:`Χρονισμός` (Timing) στη γραμμή εργαλείων του χρονολογίου. "
+"Ενεργοποιήστε το εικονίδιο του ρολογιού και σύρετε τα άκρα ενός κλιπ. Η "
+"επιμήκυνση του κλιπ επιβραδύνει την αναπαραγωγή, ενώ η σμίκρυνσή του "
+"επιταχύνει το κλιπ. Όλα τα βασικά καρέ του κλιπ και των εφέ του "
+"κλιμακώνονται ώστε οι σχετικές θέσεις τους να παραμένουν αναλλοίωτες."
+
+#: ../clips.rst:398
+msgid ""
+"The :guilabel:`Look` menu applies one-click visual style presets to clips. "
+"All presets work by adding or updating effects on the clip — you can inspect"
+" or animate them further in the Properties dock. The menu is organized into "
+"four submenus plus two direct actions at the bottom."
+msgstr ""
+"Το μενού :guilabel:`Εμφάνιση` (Look) εφαρμόζει σε κλιπ προρυθμίσεις οπτικού "
+"στιλ με ένα κλικ. Όλες οι προρυθμίσεις λειτουργούν προσθέτοντας ή "
+"ενημερώνοντας εφέ στο κλιπ — μπορείτε να τα επιθεωρήσετε ή να τους "
+"προσθέσετε περαιτέρω κίνηση στο πάνελ Ιδιότητες (Properties). Το μενού είναι"
+" οργανωμένο σε τέσσερα υπομενού και δύο άμεσες ενέργειες στο κάτω μέρος."
+
+#: ../clips.rst:402
+msgid ""
+":guilabel:`Reset Look` — removes all Look-managed effects (Color Grade, Film"
+" Grain, Analog Tape, Sharpen, Blur, Shadow, Glow) from the selected clips in"
+" a single step."
+msgstr ""
+":guilabel:`Επαναφορά εμφάνισης` (Reset Look) — αφαιρεί με ένα βήμα όλα τα "
+"εφέ που διαχειρίζεται η Εμφάνιση (Color Grade, Film Grain, Analog Tape, "
+"Sharpen, Blur, Shadow, Glow) από τα επιλεγμένα κλιπ."
+
+#: ../clips.rst:405
+msgid ""
+"**Color** — applies a :guilabel:`Color Grade` effect with one of four quick "
+"presets:"
+msgstr ""
+"**Χρώμα** (Color) — εφαρμόζει ένα εφέ :guilabel:`Χρωματική διαβάθμιση` "
+"(Color Grade) με μία από τέσσερις γρήγορες προρυθμίσεις:"
+
+#: ../clips.rst:407
+msgid ""
+"**Auto Contrast** — boosts contrast by lifting shadows and pulling "
+"highlights."
+msgstr ""
+"**Αυτόματη αντίθεση** (Auto Contrast) — αυξάνει την αντίθεση ανεβάζοντας τις"
+" σκιές και χαμηλώνοντας τις φωτεινές περιοχές."
+
+#: ../clips.rst:408
+msgid "**Lift Shadows** — brightens the dark areas of the image."
+msgstr ""
+"**Φώτιση σκιών** (Lift Shadows) — φωτίζει τις σκούρες περιοχές της εικόνας."
+
+#: ../clips.rst:409
+msgid "**Warm Up** — shifts the color balance toward warm orange/amber tones."
+msgstr ""
+"**Θερμότερα χρώματα** (Warm Up) — μετατοπίζει την ισορροπία χρωμάτων προς "
+"θερμούς πορτοκαλί/κεχριμπαρί τόνους."
+
+#: ../clips.rst:410
+msgid "**Boost Color** — increases color saturation."
+msgstr ""
+"**Ενίσχυση χρώματος** (Boost Color) — αυξάνει τον κορεσμό των χρωμάτων."
+
+#: ../clips.rst:412
+msgid "**Film** — cinematic film simulation:"
+msgstr "**Φιλμ** (Film) — κινηματογραφική προσομοίωση φιλμ:"
+
+#: ../clips.rst:414
+msgid ""
+":guilabel:`Film Grain` → **No Film Grain**, then: **35mm Fine**, **35mm "
+"Classic**, **35mm Gritty**, **16mm Classic**, **Super 8**, **High ISO** — "
+"adds photographic grain at various strengths and sizes."
+msgstr ""
+":guilabel:`Κόκκος φιλμ` (Film Grain) → **Χωρίς κόκκο φιλμ** (No Film Grain),"
+" και μετά: **35mm Fine**, **35mm Classic**, **35mm Gritty**, **16mm "
+"Classic**, **Super 8**, **High ISO** — προσθέτει φωτογραφικό κόκκο σε "
+"διάφορες εντάσεις και μεγέθη."
+
+#: ../clips.rst:416
+msgid ""
+":guilabel:`Analog Tape` → **No Analog Tape**, then: **Subtle**, **VHS**, "
+"**Heavy** — adds tape noise and color degradation for a retro video look."
+msgstr ""
+":guilabel:`Αναλογική κασέτα` (Analog Tape) → **Χωρίς αναλογική κασέτα** (No "
+"Analog Tape), και μετά: **Διακριτική** (Subtle), **VHS**, **Έντονη** (Heavy)"
+" — προσθέτει θόρυβο κασέτας και υποβάθμιση χρώματος για ρετρό εμφάνιση "
+"βίντεο."
+
+#: ../clips.rst:419
+msgid "**Focus** — sharpness adjustments:"
+msgstr "**Εστίαση** (Focus) — ρυθμίσεις ευκρίνειας:"
+
+#: ../clips.rst:421
+msgid ""
+":guilabel:`Sharpen` → **No Sharpen**, then: **Subtle**, **Medium**, "
+"**Strong** — sharpens fine detail."
+msgstr ""
+":guilabel:`Όξυνση` (Sharpen) → **Χωρίς όξυνση** (No Sharpen), και μετά: "
+"**Διακριτική** (Subtle), **Μέτρια** (Medium), **Έντονη** (Strong) — οξύνει "
+"τις λεπτές λεπτομέρειες."
+
+#: ../clips.rst:422
+msgid ""
+":guilabel:`Blur` → **No Blur**, then: **Soft Focus**, **Medium**, **Heavy** "
+"— softens the image."
+msgstr ""
+":guilabel:`Θόλωμα` (Blur) → **Χωρίς θόλωμα** (No Blur), και μετά: **Απαλή "
+"εστίαση** (Soft Focus), **Μέτρια** (Medium), **Έντονη** (Heavy) — απαλύνει "
+"την εικόνα."
+
+#: ../clips.rst:424
+msgid "**Lighting** — light and shadow overlays:"
+msgstr "**Φωτισμός** (Lighting) — επικαλύψεις φωτός και σκιάς:"
+
+#: ../clips.rst:426
+msgid ""
+":guilabel:`Shadow` → **No Shadow**, then: **Subtle**, **Soft**, **Strong**, "
+"**Long** — casts a drop shadow across the clip."
+msgstr ""
+":guilabel:`Σκιά` (Shadow) → **Χωρίς σκιά** (No Shadow), και μετά: "
+"**Διακριτική** (Subtle), **Απαλή** (Soft), **Έντονη** (Strong), **Μακριά** "
+"(Long) — ρίχνει μια σκιά πίσω από το κλιπ."
+
+#: ../clips.rst:428
+msgid ""
+":guilabel:`Glow` → **No Glow**, then: **Soft White**, **Warm**, **Neon**, "
+"**Inner Glow** — adds a soft halo or glow effect."
+msgstr ""
+":guilabel:`Λάμψη` (Glow) → **Χωρίς λάμψη** (No Glow), και μετά: **Απαλό "
+"λευκό** (Soft White), **Ζεστή** (Warm), **Νέον** (Neon), **Εσωτερική λάμψη**"
+" (Inner Glow) — προσθέτει ένα απαλό φωτοστέφανο ή εφέ λάμψης."
+
+#: ../clips.rst:431
+msgid "At the bottom of the Look menu:"
+msgstr "Στο κάτω μέρος του μενού Εμφάνιση (Look):"
+
+#: ../clips.rst:433
+msgid ""
+":guilabel:`Adjust Colors` — opens the :guilabel:`Color Wheels` dock for full"
+" manual color grading with lift/gamma/gain wheels, curves, and an "
+"Amount/Luma blend slider."
+msgstr ""
+":guilabel:`Προσαρμογή χρωμάτων` (Adjust Colors) — ανοίγει το πάνελ "
+":guilabel:`Χρωματικοί τροχοί` (Color Wheels) για πλήρη χειροκίνητη χρωματική"
+" διαβάθμιση (color grading) με τροχούς lift/gamma/gain, καμπύλες και "
+"ρυθμιστικό ανάμειξης Amount/Luma."
+
+#: ../clips.rst:435
+msgid ""
+":guilabel:`Analyze Colors` — opens the :guilabel:`Luma Waveform` and "
+":guilabel:`Histogram` video scopes on the right side of the window, tabified"
+" together."
+msgstr ""
+":guilabel:`Ανάλυση χρωμάτων` (Analyze Colors) — ανοίγει τα εργαλεία μέτρησης"
+" βίντεο :guilabel:`Κυματομορφή φωτεινότητας` (Luma Waveform) και "
+":guilabel:`Ιστόγραμμα` (Histogram) στη δεξιά πλευρά του παραθύρου, "
+"ομαδοποιημένα σε καρτέλες."
+
+#: ../clips.rst:438
+msgid ""
+"**Tip:** Each Look submenu has a \"No …\" option at the top to remove just "
+"that single effect without affecting the others."
+msgstr ""
+"**Συμβουλή:** Κάθε υπομενού της Εμφάνισης (Look) έχει στο επάνω μέρος μια "
+"επιλογή «Χωρίς …» (\"No …\") για να αφαιρέσετε μόνο αυτό το εφέ χωρίς να "
+"επηρεάσετε τα υπόλοιπα."
+
+#: ../clips.rst:440
+msgid ""
+"**Tip:** After applying a Look preset, double-click the effect badge on the "
+"clip (or use Properties) to fine-tune every parameter or animate it over "
+"time."
+msgstr ""
+"**Συμβουλή:** Αφού εφαρμόσετε μια προρύθμιση Εμφάνισης (Look), κάντε διπλό "
+"κλικ στο εικονίδιο του εφέ στο κλιπ (ή χρησιμοποιήστε τις Ιδιότητες, "
+"Properties) για να ρυθμίσετε με ακρίβεια κάθε παράμετρο ή να του προσθέσετε "
+"κίνηση με την πάροδο του χρόνου."
+
+#: ../clips.rst:445
+msgid ""
+"The :guilabel:`Audio` menu groups all audio-related clip actions in one "
+"place."
+msgstr ""
+"Το μενού :guilabel:`Ήχος` (Audio) ομαδοποιεί σε ένα σημείο όλες τις "
+"ενέργειες κλιπ που σχετίζονται με τον ήχο."
+
+#: ../clips.rst:447
+msgid ""
+"**Volume** — controls the clip's audio level. See :ref:`clip_volume_ref` "
+"key-frame."
+msgstr ""
+"**Ένταση** (Volume) — ελέγχει το επίπεδο ήχου του κλιπ. Δείτε το βασικό καρέ"
+" (key-frame) :ref:`clip_volume_ref`."
+
+#: ../clips.rst:449
+msgid ""
+":guilabel:`Reset Volume` — removes all volume keyframes, returning to full "
+"(1×) volume."
+msgstr ""
+":guilabel:`Επαναφορά έντασης` (Reset Volume) — αφαιρεί όλα τα βασικά καρέ "
+"έντασης, επιστρέφοντας στην πλήρη ένταση (1×)."
+
+#: ../clips.rst:450
+msgid ""
+":guilabel:`Level` — sets a fixed volume percentage (0 % to 130 %) for the "
+"entire clip."
+msgstr ""
+":guilabel:`Επίπεδο` (Level) — ορίζει μια σταθερή ποσοστιαία ένταση (0 % έως "
+"130 %) για ολόκληρο το κλιπ."
+
+#: ../clips.rst:451
+msgid ""
+":guilabel:`Fade In` → :guilabel:`Fast` / :guilabel:`Slow` — fades volume "
+"from silence at the start of the clip."
+msgstr ""
+":guilabel:`Βαθμιαία είσοδος` (Fade In) → :guilabel:`Γρήγορα` (Fast) / "
+":guilabel:`Αργά` (Slow) — αυξάνει βαθμιαία την ένταση από τη σιωπή στην αρχή"
+" του κλιπ."
+
+#: ../clips.rst:452
+msgid ""
+":guilabel:`Fade Out` → :guilabel:`Fast` / :guilabel:`Slow` — fades volume to"
+" silence at the end of the clip."
+msgstr ""
+":guilabel:`Βαθμιαία έξοδος` (Fade Out) → :guilabel:`Γρήγορα` (Fast) / "
+":guilabel:`Αργά` (Slow) — μειώνει βαθμιαία την ένταση έως τη σιωπή στο τέλος"
+" του κλιπ."
+
+#: ../clips.rst:453
+msgid ""
+":guilabel:`Fade In and Out` → :guilabel:`Fast` / :guilabel:`Slow` — applies "
+"both a volume fade-in and fade-out."
+msgstr ""
+":guilabel:`Βαθμιαία είσοδος και έξοδος` (Fade In and Out) → "
+":guilabel:`Γρήγορα` (Fast) / :guilabel:`Αργά` (Slow) — εφαρμόζει και "
+"βαθμιαία αύξηση και βαθμιαία μείωση της έντασης."
+
+#: ../clips.rst:455
+msgid "**Separate** — splits the audio track out of a clip:"
+msgstr ""
+"**Διαχωρισμός** (Separate) — αποσπά την ηχητική ροή (audio track) από ένα "
+"κλιπ:"
+
+#: ../clips.rst:457
+msgid ""
+":guilabel:`Single Clip (all channels)` — creates one detached audio clip on "
+"a layer below the original."
+msgstr ""
+":guilabel:`Ένα κλιπ (όλα τα κανάλια)` (Single Clip (all channels)) — "
+"δημιουργεί ένα αποσπασμένο κλιπ ήχου σε επίπεδο κάτω από το αρχικό."
+
+#: ../clips.rst:458
+msgid ""
+":guilabel:`Multiple Clips (each channel)` — creates separate detached audio "
+"clips, one per audio channel, on multiple layers below the original."
+msgstr ""
+":guilabel:`Πολλαπλά κλιπ (κάθε κανάλι)` (Multiple Clips (each channel)) — "
+"δημιουργεί ξεχωριστά αποσπασμένα κλιπ ήχου, ένα για κάθε κανάλι ήχου, σε "
+"πολλά επίπεδα κάτω από το αρχικό."
+
+#: ../clips.rst:460
+msgid ""
+"**Show Waveform / Hide Waveform** — toggles the audio waveform visualization"
+" on the timeline for audio-only clips. Only shown for clips that do not have"
+" a video track."
+msgstr ""
+"**Εμφάνιση κυματομορφής / Απόκρυψη κυματομορφής** (Show Waveform / Hide "
+"Waveform) — εναλλάσσει την εμφάνιση της οπτικοποίησης της κυματομορφής του "
+"ήχου στο χρονολόγιο για κλιπ που περιέχουν μόνο ήχο. Εμφανίζεται μόνο για "
+"κλιπ που δεν έχουν ροή βίντεο."
+
+#: ../clips.rst:463
+msgid ""
+"**Analyze Levels** — opens the :guilabel:`Audio Levels` scope dock. If other"
+" scope docks are already open, OpenShot tabifies :guilabel:`Audio Levels` "
+"with them."
+msgstr ""
+"**Ανάλυση σταθμών** (Analyze Levels) — ανοίγει το πάνελ του εργαλείου "
+"μέτρησης :guilabel:`Στάθμες ήχου` (Audio Levels). Αν υπάρχουν ήδη ανοιχτά "
+"άλλα πάνελ εργαλείων μέτρησης, το OpenShot ομαδοποιεί σε καρτέλες το "
+":guilabel:`Στάθμες ήχου` (Audio Levels) μαζί τους."
+
+#: ../clips.rst:466
+msgid ""
+"**Usage Example:** Applying a gradual volume fade-out to transition between "
+"scenes."
+msgstr ""
+"**Παράδειγμα χρήσης:** Εφαρμογή βαθμιαίας μείωσης της έντασης για μετάβαση "
+"ανάμεσα σε σκηνές."
+
+#: ../clips.rst:467
+msgid ""
+"**Usage Example:** Extracting background music from a video clip for "
+"independent volume control."
+msgstr ""
+"**Παράδειγμα χρήσης:** Εξαγωγή της μουσικής υπόκρουσης από ένα κλιπ βίντεο "
+"για ανεξάρτητο έλεγχο της έντασης."
+
+#: ../clips.rst:468
+msgid ""
+"**Tip:** Use :guilabel:`Audio → Volume → Fade In/Out` for audio-only fades. "
+"Use the top-level :guilabel:`Fade` menu for a combined video+audio fade."
+msgstr ""
+"**Συμβουλή:** Χρησιμοποιήστε το :guilabel:`Ήχος → Ένταση → Βαθμιαία "
+"είσοδος/έξοδος` (Audio → Volume → Fade In/Out) για βαθμιαίες αλλαγές μόνο "
+"στον ήχο. Χρησιμοποιήστε το μενού :guilabel:`Βαθμιαία εμφάνιση` (Fade) "
+"ανώτατου επιπέδου για συνδυασμένη βαθμιαία αλλαγή βίντεο+ήχου."
+
+#: ../clips.rst:472
+msgid ""
+"The :guilabel:`Slice` tool lets you cut a clip at the position of the play-"
+"head (*the vertical line that shows your current position in the timeline*)."
+" This will split the clip into two separate parts at the exact point where "
+"the play-head is."
+msgstr ""
+"Το εργαλείο :guilabel:`Κόψιμο` (Slice) σάς επιτρέπει να κόψετε ένα κλιπ στη "
+"θέση της κεφαλής αναπαραγωγής (*η κατακόρυφη γραμμή που δείχνει την τρέχουσα"
+" θέση σας στο χρονολόγιο*). Έτσι το κλιπ διαχωρίζεται σε δύο ξεχωριστά "
+"τμήματα ακριβώς στο σημείο όπου βρίσκεται η κεφαλή αναπαραγωγής."
+
+#: ../clips.rst:475
+msgid ""
+"Slicing is a key feature for making precise edits and rearranging sections "
+"of your video. You can slice a clip and choose to keep one side or both, and"
+" with the ripple option, you can automatically shift other clips on the same"
+" track to fill any gaps caused by the cut."
+msgstr ""
+"Το κόψιμο είναι βασικό χαρακτηριστικό για ακριβείς επεξεργασίες και για την "
+"αναδιάταξη τμημάτων του βίντεό σας. Μπορείτε να κόψετε ένα κλιπ και να "
+"επιλέξετε να κρατήσετε τη μία πλευρά ή και τις δύο, ενώ με την επιλογή "
+"ripple μπορείτε να μετακινήσετε αυτόματα τα άλλα κλιπ στον ίδιο διάδρομο "
+"ώστε να καλυφθούν τα κενά που προκλήθηκαν από το κόψιμο."
+
+#: ../clips.rst:479
+msgid "**Slicing Options:**"
+msgstr "**Επιλογές κοψίματος:**"
+
+#: ../clips.rst:481
+msgid ""
+"**Keep Both Sides**: This option splits the clip into two parts, keeping "
+"everything on both sides of the play-head. It’s useful when you want to "
+"break a clip into sections but don’t want to remove anything."
+msgstr ""
+"**Διατήρηση και των δύο πλευρών** (Keep Both Sides): Η επιλογή αυτή "
+"διαχωρίζει το κλιπ σε δύο τμήματα, κρατώντας ό,τι βρίσκεται και στις δύο "
+"πλευρές της κεφαλής αναπαραγωγής. Είναι χρήσιμη όταν θέλετε να χωρίσετε ένα "
+"κλιπ σε ενότητες χωρίς να αφαιρέσετε κάτι."
+
+#: ../clips.rst:482
+msgid ""
+"**Keep Left Side**: This option cuts the clip and removes the part to the "
+"right of the play-head, keeping only the part before the play-head. Use this"
+" to get rid of the portion of the clip that comes after the current point."
+msgstr ""
+"**Διατήρηση αριστερής πλευράς** (Keep Left Side): Η επιλογή αυτή κόβει το "
+"κλιπ και αφαιρεί το τμήμα που βρίσκεται δεξιά της κεφαλής αναπαραγωγής, "
+"κρατώντας μόνο το τμήμα πριν από αυτήν. Χρησιμοποιήστε την για να "
+"απαλλαγείτε από το τμήμα του κλιπ που ακολουθεί το τρέχον σημείο."
+
+#: ../clips.rst:483
+msgid ""
+"**Keep Right Side**: This option cuts the clip and removes the part to the "
+"left of the play-head, keeping only the part after the play-head. It’s handy"
+" for trimming away the beginning of a clip and keeping the rest."
+msgstr ""
+"**Διατήρηση δεξιάς πλευράς** (Keep Right Side): Η επιλογή αυτή κόβει το κλιπ"
+" και αφαιρεί το τμήμα που βρίσκεται αριστερά της κεφαλής αναπαραγωγής, "
+"κρατώντας μόνο το τμήμα μετά από αυτήν. Είναι εύχρηστη για να αφαιρέσετε την"
+" αρχή ενός κλιπ και να κρατήσετε τα υπόλοιπα."
+
+#: ../clips.rst:484
+msgid ""
+"**Ripple Slicing**: Ripple slicing not only cuts the clip but also moves any"
+" clips and transitions that follow to close the gap. This way, your timeline"
+" stays continuous without empty spaces after a cut, saving you the trouble "
+"of manually adjusting the clips that come after."
+msgstr ""
+"**Κόψιμο με ripple** (Ripple Slicing): Το κόψιμο με ripple όχι μόνο κόβει το"
+" κλιπ αλλά μετακινεί και τα κλιπ και τις μεταβάσεις που ακολουθούν ώστε να "
+"κλείσει το κενό. Έτσι το χρονολόγιό σας παραμένει συνεχές, χωρίς κενά μετά "
+"από ένα κόψιμο, και γλιτώνετε τον κόπο να προσαρμόζετε χειροκίνητα τα κλιπ "
+"που ακολουθούν."
+
+#: ../clips.rst:486 ../clips.rst:660
+msgid "**Tips for Beginners:**"
+msgstr "**Συμβουλές για αρχάριους:**"
+
+#: ../clips.rst:488
+msgid ""
+"**Example**: If there’s a part of a clip you don’t want (like the end of a "
+"scene), use **Keep Left Side** or **Keep Right Side** to remove it. If you "
+"want to split a scene into multiple smaller sections to rearrange, use "
+"**Keep Both Sides**."
+msgstr ""
+"**Παράδειγμα**: Αν υπάρχει ένα τμήμα ενός κλιπ που δεν θέλετε (όπως το τέλος"
+" μιας σκηνής), χρησιμοποιήστε το **Διατήρηση αριστερής πλευράς** (Keep Left "
+"Side) ή το **Διατήρηση δεξιάς πλευράς** (Keep Right Side) για να το "
+"αφαιρέσετε. Αν θέλετε να χωρίσετε μια σκηνή σε πολλά μικρότερα τμήματα για "
+"να τα αναδιατάξετε, χρησιμοποιήστε το **Διατήρηση και των δύο πλευρών** "
+"(Keep Both Sides)."
+
+#: ../clips.rst:489
+msgid ""
+"**Quick Tip**: Slicing can also be used to break a long clip into smaller "
+"parts, making it easier to manage and edit each section separately."
+msgstr ""
+"**Γρήγορη συμβουλή**: Το κόψιμο μπορεί επίσης να χρησιμοποιηθεί για να "
+"χωρίσετε ένα μακρύ κλιπ σε μικρότερα μέρη, διευκολύνοντας τη διαχείριση και "
+"την επεξεργασία κάθε τμήματος ξεχωριστά."
+
+#: ../clips.rst:491
+msgid ""
+"For a complete guide to slicing and all available keyboard shortcuts, see "
+"the :ref:`clips_cutting_slicing_ref` section."
+msgstr ""
+"Για έναν πλήρη οδηγό σχετικά με το κόψιμο και όλες τις διαθέσιμες "
+"συντομεύσεις πληκτρολογίου, δείτε την ενότητα "
+":ref:`clips_cutting_slicing_ref`."
+
+#: ../clips.rst:497
+msgid ""
+"The :guilabel:`Transform` context menu provides geometric preset actions for"
+" visual clips:"
+msgstr ""
+"Το μενού περιβάλλοντος :guilabel:`Μετασχηματισμός` (Transform) παρέχει "
+"ενέργειες γεωμετρικών προρυθμίσεων για οπτικά κλιπ:"
+
+#: ../clips.rst:499
+msgid ""
+":guilabel:`No Transform` — removes all Rotate, Layout, and crop presets from"
+" the selected clips in one step."
+msgstr ""
+":guilabel:`Χωρίς μετασχηματισμό` (No Transform) — αφαιρεί με ένα βήμα όλες "
+"τις προρυθμίσεις Περιστροφής, Διάταξης και Περικοπής από τα επιλεγμένα κλιπ."
+
+#: ../clips.rst:500
+msgid ""
+":guilabel:`Rotate` — rotate or flip the clip. See the :ref:`Rotate "
+"<clip_presets_rotate_ref>` section above."
+msgstr ""
+":guilabel:`Περιστροφή` (Rotate) — περιστρέψτε ή αναστρέψτε το κλιπ. Δείτε "
+"την ενότητα :ref:`Περιστροφή <clip_presets_rotate_ref>` παραπάνω."
+
+#: ../clips.rst:501
+msgid ""
+":guilabel:`Crop` — add or remove a crop effect. See the :ref:`Crop "
+"<clip_presets_crop_ref>` section below."
+msgstr ""
+":guilabel:`Περικοπή` (Crop) — προσθέστε ή αφαιρέστε ένα εφέ περικοπής. Δείτε"
+" την ενότητα :ref:`Περικοπή <clip_presets_crop_ref>` παρακάτω."
+
+#: ../clips.rst:502
+msgid ""
+":guilabel:`Layout` — resize and snap the clip to a corner or fit position. "
+"See the :ref:`Layout <clip_presets_layout_ref>` section above."
+msgstr ""
+":guilabel:`Διάταξη` (Layout) — αλλάξτε το μέγεθος και προσκολλήστε το κλιπ "
+"σε μια γωνία ή σε θέση προσαρμογής. Δείτε την ενότητα :ref:`Διάταξη "
+"<clip_presets_layout_ref>` παραπάνω."
+
+#: ../clips.rst:507
+msgid "Transform Tool"
+msgstr "Εργαλείο μετασχηματισμού"
+
+#: ../clips.rst:508
+msgid ""
+"The **Transform Tool** lets you quickly adjust a clip directly in the "
+"preview window, instead of changing location, scale, rotation, shear, and "
+"rotation origin values one property at a time. OpenShot shows the Transform "
+"Tool automatically whenever you select a clip on the timeline, with blue "
+"lines and handles drawn around the selected clip. You can also select "
+"multiple clips at once with :kbd:`Ctrl` or :kbd:`Shift`; in that case, the "
+"preview shows one set of handles around the full selection, and any move, "
+"scale, or rotation is applied to all selected clips together."
+msgstr ""
+"Το **Εργαλείο μετασχηματισμού** (Transform Tool) σάς επιτρέπει να "
+"προσαρμόζετε γρήγορα ένα κλιπ απευθείας στο παράθυρο προεπισκόπησης, αντί να"
+" αλλάζετε μία προς μία τις τιμές της θέσης, της κλίμακας, της περιστροφής, "
+"της διάτμησης και της αρχής περιστροφής. Το OpenShot εμφανίζει αυτόματα το "
+"Εργαλείο μετασχηματισμού όποτε επιλέγετε ένα κλιπ στο χρονολόγιο, με μπλε "
+"γραμμές και λαβές γύρω από το επιλεγμένο κλιπ. Μπορείτε επίσης να επιλέξετε "
+"πολλά κλιπ ταυτόχρονα με το :kbd:`Ctrl` ή το :kbd:`Shift`· στην περίπτωση "
+"αυτή, η προεπισκόπηση εμφανίζει ένα σύνολο λαβών γύρω από ολόκληρη την "
+"επιλογή, και κάθε μετακίνηση, αλλαγή κλίμακας ή περιστροφή εφαρμόζεται σε "
+"όλα τα επιλεγμένα κλιπ μαζί."
+
+#: ../clips.rst:517
+msgid "Dragging the blue squares will adjust the **scale** of the image."
+msgstr ""
+"Η μεταφορά των μπλε τετραγώνων θα προσαρμόσει την **κλίμακα** της εικόνας."
+
+#: ../clips.rst:518
+msgid "Dragging the center will move the **location** of the image."
+msgstr "Η μεταφορά του κέντρου θα μετακινήσει την **θέση** της εικόνας."
+
+#: ../clips.rst:519
+msgid ""
+"Dragging the mouse on the outside of the blue lines will **rotate** the "
+"image."
+msgstr ""
+"Η μεταφορά του ποντικιού έξω από τις μπλε γραμμές θα **περιστρέψει** την "
+"εικόνα."
+
+#: ../clips.rst:520
+msgid ""
+"Hold :kbd:`Ctrl` or :kbd:`Shift` while rotating to snap to 15-degree "
+"increments."
+msgstr ""
+"Κρατήστε πατημένο το :kbd:`Ctrl` ή το :kbd:`Shift` κατά την περιστροφή για "
+"προσκόλληση σε βήματα των 15 μοιρών."
+
+#: ../clips.rst:521
+msgid ""
+"Dragging along the blue lines will **shear** the image in that direction."
+msgstr ""
+"Η μεταφορά κατά μήκος των μπλε γραμμών θα **διατμήσει** την εικόνα προς την "
+"αντίστοιχη κατεύθυνση."
+
+#: ../clips.rst:522
+msgid ""
+"Dragging the circle in the middle will move the **origin point** that "
+"controls the center of **rotation**."
+msgstr ""
+"Η μεταφορά του κύκλου στη μέση θα μετακινήσει το **σημείο αρχής** που "
+"ελέγχει το κέντρο της **περιστροφής**."
+
+#: ../clips.rst:524
+msgid ""
+"Note: Pay close attention to the play-head position (red playback line). Key"
+" frames are automatically created at the current playback position, to help "
+"quickly create animations. If you want to transform a clip with **no "
+"animation**, be sure the playhead is positioned before (to the left) of your"
+" clip. You can also manually adjust these same clip properties in the "
+"property editor, see :ref:`clip_properties_ref`."
+msgstr ""
+"Σημείωση: Προσέξτε τη θέση της κεφαλής αναπαραγωγής (κόκκινη γραμμή "
+"αναπαραγωγής). Τα βασικά καρέ (key frames) δημιουργούνται αυτόματα στην "
+"τρέχουσα θέση αναπαραγωγής, ώστε να δημιουργείτε γρήγορα κινούμενα εφέ. Αν "
+"θέλετε να μετασχηματίσετε ένα κλιπ **χωρίς κίνηση**, φροντίστε η κεφαλή "
+"αναπαραγωγής να βρίσκεται πριν (αριστερά) από το κλιπ σας. Μπορείτε επίσης "
+"να προσαρμόσετε χειροκίνητα τις ίδιες ιδιότητες του κλιπ στον επεξεργαστή "
+"ιδιοτήτων· δείτε το :ref:`clip_properties_ref`."
+
+#: ../clips.rst:531
+msgid ""
+"**Usage Example:** Use the transform handles to resize and reposition a clip"
+" for a picture-in-picture effect."
+msgstr ""
+"**Παράδειγμα χρήσης:** Χρησιμοποιήστε τις λαβές μετασχηματισμού για να "
+"αλλάξετε το μέγεθος και τη θέση ενός κλιπ για εφέ εικόνας μέσα σε εικόνα "
+"(picture-in-picture)."
+
+#: ../clips.rst:532
+msgid "**Tip:** Use these handles to precisely control a clip's appearance."
+msgstr ""
+"**Συμβουλή:** Χρησιμοποιήστε αυτές τις λαβές για να ελέγχετε με ακρίβεια την"
+" εμφάνιση ενός κλιπ."
+
+#: ../clips.rst:537
+msgid "Crop"
+msgstr "Περικοπή"
+
+#: ../clips.rst:538
+msgid ""
+"The :guilabel:`Transform → Crop` submenu adds a crop effect to the selected "
+"clip and displays interactive crop handles in the video preview. The submenu"
+" offers:"
+msgstr ""
+"Το υπομενού :guilabel:`Μετασχηματισμός → Περικοπή` (Transform → Crop) "
+"προσθέτει ένα εφέ περικοπής στο επιλεγμένο κλιπ και εμφανίζει διαδραστικές "
+"λαβές περικοπής στην προεπισκόπηση βίντεο. Το υπομενού προσφέρει:"
+
+#: ../clips.rst:541
+msgid ":guilabel:`No Crop` – remove any existing crop effect."
+msgstr ""
+":guilabel:`Χωρίς περικοπή` (No Crop) – αφαιρεί οποιοδήποτε υπάρχον εφέ "
+"περικοπής."
+
+#: ../clips.rst:542
+msgid ""
+":guilabel:`Crop (No Resize)` – trim the clip without scaling the remaining "
+"area."
+msgstr ""
+":guilabel:`Περικοπή (χωρίς αλλαγή μεγέθους)` (Crop (No Resize)) – περικόπτει"
+" το κλιπ χωρίς να κλιμακώσει την υπόλοιπη περιοχή."
+
+#: ../clips.rst:543
+msgid ""
+":guilabel:`Crop (Resize)` – trim the clip and scale the cropped region to "
+"fill the frame."
+msgstr ""
+":guilabel:`Περικοπή (με αλλαγή μεγέθους)` (Crop (Resize)) – περικόπτει το "
+"κλιπ και κλιμακώνει την περικομμένη περιοχή ώστε να γεμίσει το καρέ."
+
+#: ../clips.rst:545
+msgid ""
+"Drag the blue handles to adjust the crop boundaries, move the cropped area "
+"around, or move the center handle to reposition the image inside the cropped"
+" area."
+msgstr ""
+"Σύρετε τις μπλε λαβές για να προσαρμόσετε τα όρια της περικοπής, να "
+"μετακινήσετε την περικομμένη περιοχή ή να μετακινήσετε την κεντρική λαβή "
+"ώστε να αλλάξετε τη θέση της εικόνας μέσα στην περικομμένη περιοχή."
+
+#: ../clips.rst:549 ../clips.rst:734 ../clips.rst:1067
+msgid "Waveform"
+msgstr "Κυματομορφή (Waveform)"
+
+#: ../clips.rst:550
+msgid ""
+"The :guilabel:`Audio → Show Waveform` / :guilabel:`Hide Waveform` action "
+"toggles whether an audio-only clip shows its waveform visualization on the "
+"timeline instead of the default thumbnail. This option only appears for "
+"clips that have no video track."
+msgstr ""
+"Η ενέργεια :guilabel:`Ήχος → Εμφάνιση κυματομορφής` (Audio → Show Waveform) "
+"/ :guilabel:`Απόκρυψη κυματομορφής` (Hide Waveform) εναλλάσσει το αν ένα "
+"κλιπ μόνο με ήχο εμφανίζει στο χρονολόγιο την οπτικοποίηση της κυματομορφής "
+"του αντί για την προεπιλεγμένη μικρογραφία. Η επιλογή αυτή εμφανίζεται μόνο "
+"για κλιπ που δεν έχουν ροή βίντεο."
+
+#: ../clips.rst:554
+msgid ""
+"**Usage Example:** Displaying the audio waveform for precise audio editing "
+"and alignment."
+msgstr ""
+"**Παράδειγμα χρήσης:** Εμφάνιση της κυματομορφής του ήχου για ακριβή "
+"επεξεργασία και ευθυγράμμιση του ήχου."
+
+#: ../clips.rst:555
+msgid ""
+"**Tip:** Use this to visually spot loud or quiet sections in a music clip "
+"without opening the audio scopes."
+msgstr ""
+"**Συμβουλή:** Χρησιμοποιήστε την για να εντοπίζετε οπτικά τα δυνατά ή τα "
+"σιγανά τμήματα ενός μουσικού κλιπ χωρίς να ανοίξετε τα εργαλεία μέτρησης "
+"ήχου."
+
+#: ../clips.rst:557
+msgid "**How timeline waveforms are scaled**"
+msgstr "**Πώς κλιμακώνονται οι κυματομορφές του χρονολογίου**"
+
+#: ../clips.rst:559
+msgid ""
+"Timeline waveforms are an editing aid: they help you find speech, beats, "
+"silence, and transients, and compare the approximate levels of different "
+"clips. New waveform data preserves the source's **absolute peak level**. "
+"OpenShot does not enlarge every quiet file until its highest peak fills the "
+"clip, so a quiet recording remains visibly quieter than a loud recording."
+msgstr ""
+"Οι κυματομορφές του χρονολογίου αποτελούν βοήθημα επεξεργασίας: σας βοηθούν "
+"να εντοπίζετε ομιλία, ρυθμό, σιωπή και στιγμιαίες κορυφώσεις (transients) "
+"και να συγκρίνετε τα κατά προσέγγιση επίπεδα διαφορετικών κλιπ. Τα νέα "
+"δεδομένα κυματομορφής διατηρούν το **απόλυτο επίπεδο κορυφής** της πηγής. Το"
+" OpenShot δεν μεγεθύνει κάθε σιγανό αρχείο μέχρι η υψηλότερη κορυφή του να "
+"γεμίσει το κλιπ, οπότε μια σιγανή ηχογράφηση παραμένει ορατά πιο σιγανή από "
+"μια δυνατή ηχογράφηση."
+
+#: ../clips.rst:564
+msgid ""
+"Pure linear amplitude is accurate but makes ordinary speech difficult to "
+"see. OpenShot therefore applies a fixed, gentle square-root display curve. "
+"This expands useful detail while preserving the order of levels: a louder "
+"source always appears taller than a quieter source. The curve changes only "
+"the drawing; it does not alter, normalize, or process the recorded audio."
+msgstr ""
+"Η απεικόνιση του πλάτους σε καθαρά γραμμική κλίμακα είναι ακριβής, αλλά "
+"δυσκολεύει την ορατότητα της συνηθισμένης ομιλίας. Γι’ αυτό το OpenShot "
+"εφαρμόζει μια σταθερή, ήπια καμπύλη εμφάνισης τετραγωνικής ρίζας. Αυτή "
+"επεκτείνει τις χρήσιμες λεπτομέρειες διατηρώντας τη σειρά των επιπέδων: μια "
+"πηγή με μεγαλύτερη ένταση εμφανίζεται πάντα ψηλότερη από μια πηγή με "
+"μικρότερη ένταση. Η καμπύλη αλλάζει μόνο το σχέδιο· δεν τροποποιεί, δεν "
+"κανονικοποιεί και δεν επεξεργάζεται τον ηχογραφημένο ήχο."
+
+#: ../clips.rst:569
+msgid "Approximate waveform height for new clips"
+msgstr "Κατά προσέγγιση ύψος κυματομορφής για νέα κλιπ"
+
+#: ../clips.rst:573
+msgid "Peak Level"
+msgstr "Επίπεδο κορυφής"
+
+#: ../clips.rst:573
+msgid "Display Height"
+msgstr "Ύψος εμφάνισης"
+
+#: ../clips.rst:573
+msgid "What It Often Looks Like"
+msgstr "Πώς συνήθως φαίνεται"
+
+#: ../clips.rst:575
+msgid "``0 dBFS``"
+msgstr ""
+
+#: ../clips.rst:575
+msgid "100%"
+msgstr ""
+
+#: ../clips.rst:575
+msgid "Full-scale peak; check for possible clipping."
+msgstr "Κορυφή πλήρους κλίμακας· ελέγξτε για πιθανό ψαλιδισμό (clipping)."
+
+#: ../clips.rst:576
+msgid "``-6 dBFS``"
+msgstr ""
+
+#: ../clips.rst:576
+msgid "71%"
+msgstr ""
+
+#: ../clips.rst:576
+msgid "Strong transient or loud program audio."
+msgstr "Ισχυρή στιγμιαία κορύφωση ή δυνατός ήχος προγράμματος."
+
+#: ../clips.rst:577
+msgid "``-12 dBFS``"
+msgstr ""
+
+#: ../clips.rst:577
+msgid "50%"
+msgstr ""
+
+#: ../clips.rst:577
+msgid "Healthy speech or other prominent audio."
+msgstr "Ομιλία σε καλό επίπεδο ή άλλος ευδιάκριτος ήχος."
+
+#: ../clips.rst:578
+msgid "``-20 dBFS``"
+msgstr ""
+
+#: ../clips.rst:578
+msgid "32%"
+msgstr ""
+
+#: ../clips.rst:578
+msgid "Moderate speech or background program audio."
+msgstr "Μέτρια ομιλία ή ήχος υπόβαθρου του προγράμματος."
+
+#: ../clips.rst:579
+msgid "``-40 dBFS``"
+msgstr ""
+
+#: ../clips.rst:579
+msgid "10%"
+msgstr ""
+
+#: ../clips.rst:579
+msgid "Quiet room tone or microphone noise floor."
+msgstr ""
+"Χαμηλός ήχος περιβάλλοντος του χώρου (room tone) ή κατώφλι θορύβου του "
+"μικροφώνου."
+
+#: ../clips.rst:580
+msgid "``-60 dBFS``"
+msgstr ""
+
+#: ../clips.rst:580
+msgid "3%"
+msgstr ""
+
+#: ../clips.rst:580
+msgid "Very quiet detail near the center line."
+msgstr "Πολύ ήσυχη λεπτομέρεια κοντά στην κεντρική γραμμή."
+
+#: ../clips.rst:583
+msgid ""
+"OpenShot samples both **peak** and **RMS** envelopes at regular time "
+"intervals. The lighter outer envelope shows brief peaks and transients; the "
+"solid inner envelope shows sustained RMS energy. Both follow the clip's "
+"Volume and Time curves and use the same fixed display curve. A subtle center"
+" line keeps silent passages identifiable without making them look louder "
+"than they are."
+msgstr ""
+"Το OpenShot δειγματοληπτεί και τις περιβάλλουσες **κορυφής** (peak) και "
+"**RMS** σε τακτά χρονικά διαστήματα. Η ανοιχτότερη εξωτερική περιβάλλουσα "
+"δείχνει σύντομες κορυφές και στιγμιαίες κορυφώσεις· η συμπαγής εσωτερική "
+"περιβάλλουσα δείχνει τη διατηρούμενη ενέργεια RMS. Και οι δύο ακολουθούν τις"
+" καμπύλες Έντασης (Volume) και Χρόνου (Time) του κλιπ και χρησιμοποιούν την "
+"ίδια σταθερή καμπύλη εμφάνισης. Μια διακριτική κεντρική γραμμή διατηρεί "
+"αναγνωρίσιμα τα σιωπηλά σημεία χωρίς να τα κάνει να φαίνονται πιο δυνατά απ’"
+" ό,τι είναι."
+
+#: ../clips.rst:588
+msgid ""
+"New waveforms use 200 samples per second by default, providing several "
+"measurements within a typical video frame. Change this density with "
+":guilabel:`Edit → Preferences → Timeline → Waveform Samples (per second)`. "
+"Higher values show more detail when zoomed in but increase project data size"
+" and analysis time. The painter reduces dense data to the visible timeline "
+"pixels, and its rendered-waveform cache keeps normal scrolling and "
+"repainting inexpensive. Live microphone previews use the selected density "
+"and the same peak/RMS display as completed recordings."
+msgstr ""
+"Οι νέες κυματομορφές χρησιμοποιούν από προεπιλογή 200 δείγματα ανά "
+"δευτερόλεπτο, παρέχοντας αρκετές μετρήσεις μέσα σε ένα τυπικό καρέ βίντεο. "
+"Μπορείτε να αλλάξετε αυτή την πυκνότητα από το :guilabel:`Επεξεργασία → "
+"Προτιμήσεις → Χρονολόγιο → Δείγματα κυματομορφής (ανά δευτερόλεπτο)` (Edit →"
+" Preferences → Timeline → Waveform Samples (per second)). Οι υψηλότερες "
+"τιμές εμφανίζουν περισσότερες λεπτομέρειες κατά τη μεγέθυνση, αλλά αυξάνουν "
+"το μέγεθος των δεδομένων του έργου και τον χρόνο ανάλυσης. Ο σχεδιαστής "
+"μειώνει τα πυκνά δεδομένα στα εικονοστοιχεία (pixel) του ορατού χρονολογίου,"
+" και η προσωρινή μνήμη (cache) των αποδοσμένων κυματομορφών διατηρεί φθηνή "
+"την κανονική κύλιση και επανασχεδίαση. Οι ζωντανές προεπισκοπήσεις "
+"μικροφώνου χρησιμοποιούν την επιλεγμένη πυκνότητα και την ίδια εμφάνιση "
+"peak/RMS με τις ολοκληρωμένες ηχογραφήσεις."
+
+#: ../clips.rst:594
+msgid ""
+"Projects saved by older OpenShot versions can contain independently peak-"
+"normalized waveform data. These waveforms have no format marker, so OpenShot"
+" deliberately displays them with the original legacy scaling. They remain "
+"familiar instead of becoming unexpectedly thin. Older waveform data without "
+"a stored density defaults to its original 20 samples per second, and data "
+"without an RMS envelope remains a single solid waveform. A project may "
+"safely contain legacy and new waveforms together."
+msgstr ""
+"Τα έργα που έχουν αποθηκευτεί από παλαιότερες εκδόσεις του OpenShot μπορεί "
+"να περιέχουν δεδομένα κυματομορφής που έχουν κανονικοποιηθεί ανεξάρτητα ως "
+"προς την κορυφή. Οι κυματομορφές αυτές δεν φέρουν δείκτη μορφής, γι’ αυτό το"
+" OpenShot τις εμφανίζει σκόπιμα με την αρχική (παλαιού τύπου) κλιμάκωση. "
+"Έτσι παραμένουν οικείες και δεν γίνονται απροσδόκητα λεπτές. Τα παλαιότερα "
+"δεδομένα κυματομορφής χωρίς αποθηκευμένη πυκνότητα χρησιμοποιούν από "
+"προεπιλογή την αρχική τους τιμή των 20 δειγμάτων ανά δευτερόλεπτο, ενώ τα "
+"δεδομένα χωρίς περιβάλλουσα RMS παραμένουν μία ενιαία συμπαγής κυματομορφή. "
+"Ένα έργο μπορεί με ασφάλεια να περιέχει ταυτόχρονα παλαιού και νέου τύπου "
+"κυματομορφές."
+
+#: ../clips.rst:600
+msgid ""
+"To regenerate cached waveform data using the current method, choose "
+":guilabel:`Edit → Clear → Waveform Display Data`, then show the waveform "
+"again. This affects only cached display data and does not modify the media "
+"file or its audio."
+msgstr ""
+"Για να αναδημιουργήσετε τα δεδομένα κυματομορφής της προσωρινής μνήμης "
+"(cache) με την τρέχουσα μέθοδο, επιλέξτε :guilabel:`Επεξεργασία → Καθαρισμός"
+" → Δεδομένα προβολής κυματομορφής` (Edit → Clear → Waveform Display Data) "
+"και στη συνέχεια εμφανίστε ξανά την κυματομορφή. Αυτό επηρεάζει μόνο τα "
+"δεδομένα προβολής της προσωρινής μνήμης και δεν τροποποιεί το αρχείο "
+"πολυμέσων ή τον ήχο του."
+
+#: ../clips.rst:605
+msgid ""
+"The peak envelope identifies transient level and possible clipping; RMS "
+"summarizes sustained energy but is not a loudness-standard measurement. Use "
+"the :guilabel:`Audio Levels` scope and your ears when mixing. See "
+":ref:`playback_ref` for audio troubleshooting."
+msgstr ""
+"Η περιβάλλουσα κορυφής (peak) υποδεικνύει τη στιγμιαία στάθμη και τον πιθανό"
+" ψαλιδισμό (clipping)· η RMS συνοψίζει τη διαρκή ενέργεια, αλλά δεν αποτελεί"
+" μέτρηση βάσει προτύπου ακουστότητας (loudness). Κατά τη μίξη χρησιμοποιήστε"
+" το εργαλείο μέτρησης :guilabel:`Στάθμες ήχου` (Audio Levels) και την ακοή "
+"σας. Για την αντιμετώπιση προβλημάτων ήχου, δείτε την ενότητα "
+":ref:`playback_ref`."
+
+#: ../clips.rst:611
+msgid ""
+"The :guilabel:`Properties` preset opens the properties panel for a clip, "
+"allowing quick access for adjustments to clip properties, such as location, "
+"scale, rotation, etc... See :ref:`clip_properties_ref`."
+msgstr ""
+"Η προρύθμιση :guilabel:`Ιδιότητες` (Properties) ανοίγει το πάνελ ιδιοτήτων "
+"ενός κλιπ και επιτρέπει γρήγορη πρόσβαση για προσαρμογές στις ιδιότητες του "
+"κλιπ, όπως η θέση, η κλίμακα, η περιστροφή κ.λπ. Δείτε την ενότητα "
+":ref:`clip_properties_ref`."
+
+#: ../clips.rst:614
+msgid ""
+"**Usage Example:** Adjusting clip properties like opacity, volume, or "
+"position."
+msgstr ""
+"**Παράδειγμα χρήσης:** Προσαρμογή ιδιοτήτων του κλιπ, όπως η αδιαφάνεια, η "
+"ένταση ή η θέση."
+
+#: ../clips.rst:615
+msgid ""
+"**Tip:** Apply this preset to streamline adjustments to all clip properties "
+"in a single dock."
+msgstr ""
+"**Συμβουλή:** Εφαρμόστε αυτή την προρύθμιση για να απλοποιήσετε τις "
+"προσαρμογές όλων των ιδιοτήτων του κλιπ σε ένα μόνο πάνελ."
+
+#: ../clips.rst:619
+msgid ""
+"The :guilabel:`Copy / Paste` preset allows copying and pasting keyframes, "
+"effects, or duplicating an entire clip along with its keyframes. Paste will "
+"create a new clip at the position of your mouse. If you select 1 or more "
+"clips before pasting, you can paste \"over\" those clips with your current "
+"clip."
+msgstr ""
+"Η προρύθμιση :guilabel:`Αντιγραφή / Επικόλληση` (Copy / Paste) επιτρέπει την"
+" αντιγραφή και επικόλληση βασικών καρέ (keyframes) και εφέ, ή τον "
+"διπλασιασμό ενός ολόκληρου κλιπ μαζί με τα βασικά καρέ του. Η επικόλληση "
+"δημιουργεί ένα νέο κλιπ στη θέση του δείκτη του ποντικιού. Αν επιλέξετε ένα "
+"ή περισσότερα κλιπ πριν από την επικόλληση, μπορείτε να επικολλήσετε «πάνω» "
+"σε αυτά τα κλιπ το τρέχον κλιπ σας."
+
+#: ../clips.rst:623
+msgid ""
+"**Usage Example:** Duplicating a clip with intricate animations for reuse in"
+" different parts of the project."
+msgstr ""
+"**Παράδειγμα χρήσης:** Διπλασιασμός ενός κλιπ με περίπλοκα εφέ κίνησης, ώστε"
+" να επαναχρησιμοποιηθεί σε διαφορετικά σημεία του έργου."
+
+#: ../clips.rst:624
+msgid ""
+"**Tip:** Use this preset to replicate animations or effects across multiple "
+"clips."
+msgstr ""
+"**Συμβουλή:** Χρησιμοποιήστε αυτή την προρύθμιση για να αναπαράγετε εφέ "
+"κίνησης ή εφέ σε πολλά κλιπ."
+
+#: ../clips.rst:625
+msgid ""
+"**Tip:** Selecting multiple clips before pasting, sets keyframes and/or "
+"effects for all clips."
+msgstr ""
+"**Συμβουλή:** Αν επιλέξετε πολλά κλιπ πριν από την επικόλληση, τα βασικά "
+"καρέ ή/και τα εφέ ορίζονται για όλα τα κλιπ."
+
+#: ../clips.rst:626
+msgid ""
+"**Tip:** You can copy a single effect, and paste it to multiple selected "
+"clips."
+msgstr ""
+"**Συμβουλή:** Μπορείτε να αντιγράψετε ένα μεμονωμένο εφέ και να το "
+"επικολλήσετε σε πολλά επιλεγμένα κλιπ."
+
+#: ../clips.rst:629
+msgid "Remove Gaps"
+msgstr "Αφαίρεση κενών"
+
+#: ../clips.rst:630
+msgid ""
+"The :guilabel:`Remove Gap` and :guilabel:`Remove All Gaps` options help you "
+"quickly eliminate gaps between clips on the timeline by rippling (i.e., "
+"shifting) subsequent clips to close the gap. These options can be accessed "
+"via the context menu and are only available when gaps are detected."
+msgstr ""
+"Οι επιλογές :guilabel:`Αφαίρεση κενού` (Remove Gap) και :guilabel:`Αφαίρεση "
+"όλων των κενών` (Remove All Gaps) σας βοηθούν να εξαλείψετε γρήγορα τα κενά "
+"ανάμεσα στα κλιπ του χρονολογίου, μετατοπίζοντας (ripple) τα επόμενα κλιπ "
+"ώστε να κλείσει το κενό. Οι επιλογές αυτές είναι προσβάσιμες από το μενού "
+"περιβάλλοντος και είναι διαθέσιμες μόνο όταν εντοπίζονται κενά."
+
+#: ../clips.rst:633
+msgid ""
+"**Remove Gap:** - This option deletes a specific gap between two clips on "
+"the timeline. Right-click on the gap between clips to access the "
+":guilabel:`Remove Gap` option. - Usage: Use this option to quickly eliminate"
+" a specific gap caused by trimming or using the razor tool."
+msgstr ""
+"**Αφαίρεση κενού** (Remove Gap): - Αυτή η επιλογή διαγράφει ένα συγκεκριμένο"
+" κενό μεταξύ δύο κλιπ στο χρονολόγιο. Κάντε δεξί κλικ στο κενό ανάμεσα στα "
+"κλιπ για να εμφανιστεί η επιλογή :guilabel:`Αφαίρεση κενού` (Remove Gap). - "
+"Χρήση: Χρησιμοποιήστε την για να εξαλείψετε γρήγορα ένα συγκεκριμένο κενό "
+"που προέκυψε από περικοπή ή από τη χρήση του εργαλείου ξυραφιού (Razor)."
+
+#: ../clips.rst:637
+msgid ""
+"**Remove All Gaps:** - This option removes all gaps between clips on the "
+"timeline for the entire track. Right-click on the track name to access the "
+":guilabel:`Remove All Gaps` option. - Usage: Ideal for tracks that contain "
+"back-to-back clips, such as a photo slideshow, where no gaps are desired."
+msgstr ""
+"**Αφαίρεση όλων των κενών** (Remove All Gaps): - Αυτή η επιλογή αφαιρεί όλα "
+"τα κενά μεταξύ των κλιπ σε ολόκληρο τον διάδρομο του χρονολογίου. Κάντε δεξί"
+" κλικ στο όνομα του διαδρόμου για να εμφανιστεί η επιλογή "
+":guilabel:`Αφαίρεση όλων των κενών` (Remove All Gaps). - Χρήση: Ιδανική για "
+"διαδρόμους που περιέχουν κλιπ το ένα δίπλα στο άλλο, όπως μια παρουσίαση "
+"φωτογραφιών, όπου δεν επιθυμούνται κενά."
+
+#: ../clips.rst:643
+msgid ""
+"The :guilabel:`Remove Clip` option lets you delete a clip from the timeline."
+" Removing clips is an essential part of organizing your project and getting "
+"rid of unwanted sections. Removing a clip can also impact the surrounding "
+"clips. If you want to clean up the gap that remains after deleting a clip, "
+"you have a few options to automatically adjust your timeline."
+msgstr ""
+"Η επιλογή :guilabel:`Αφαίρεση κλιπ` (Remove Clip) σάς επιτρέπει να "
+"διαγράψετε ένα κλιπ από το χρονολόγιο. Η αφαίρεση κλιπ είναι ουσιώδες μέρος "
+"της οργάνωσης του έργου σας και της απομάκρυνσης ανεπιθύμητων τμημάτων. Η "
+"αφαίρεση ενός κλιπ μπορεί επίσης να επηρεάσει τα γειτονικά κλιπ. Αν θέλετε "
+"να καθαρίσετε το κενό που απομένει μετά τη διαγραφή ενός κλιπ, έχετε μερικές"
+" επιλογές για αυτόματη προσαρμογή του χρονολογίου."
+
+#: ../clips.rst:647
+msgid ""
+"**How to Remove a Clip:** To delete a clip, simply select it and press "
+":kbd:`Delete` on your keyboard, or right-click the clip and choose "
+":guilabel:`Remove Clip` from the context menu. You can also select multiple "
+"clips at once by holding down the :kbd:`Ctrl` key and clicking on additional"
+" clips, then remove them all at once."
+msgstr ""
+"**Πώς να αφαιρέσετε ένα κλιπ:** Για να διαγράψετε ένα κλιπ, απλώς επιλέξτε "
+"το και πατήστε :kbd:`Delete` στο πληκτρολόγιό σας, ή κάντε δεξί κλικ στο "
+"κλιπ και επιλέξτε :guilabel:`Αφαίρεση κλιπ` (Remove Clip) από το μενού "
+"περιβάλλοντος. Μπορείτε επίσης να επιλέξετε πολλά κλιπ ταυτόχρονα κρατώντας "
+"πατημένο το πλήκτρο :kbd:`Ctrl` και κάνοντας κλικ σε πρόσθετα κλιπ, και στη "
+"συνέχεια να τα αφαιρέσετε όλα μαζί."
+
+#: ../clips.rst:651
+msgid ""
+"**Ripple Delete:** If you want to delete a clip and automatically remove the"
+" empty space (gap) it leaves behind, use the **Ripple Delete** feature by "
+"pressing :kbd:`Shift+Delete`. This will shift all the remaining clips and "
+"transitions on the track to the left, filling in the gap and keeping your "
+"timeline smooth and continuous."
+msgstr ""
+"**Διαγραφή με μετατόπιση** (Ripple Delete): Αν θέλετε να διαγράψετε ένα κλιπ"
+" και να αφαιρέσετε αυτόματα το κενό που αφήνει πίσω του, χρησιμοποιήστε τη "
+"λειτουργία **Διαγραφή με μετατόπιση** (Ripple Delete) πατώντας "
+":kbd:`Shift+Delete`. Έτσι όλα τα υπόλοιπα κλιπ και οι μεταβάσεις του "
+"διαδρόμου μετατοπίζονται προς τα αριστερά, καλύπτοντας το κενό και "
+"διατηρώντας το χρονολόγιό σας ομαλό και συνεχές."
+
+#: ../clips.rst:656
+msgid ""
+"**Remove Gap:** After deleting a clip, if you have gaps left in your "
+"timeline that you want to remove, simply right-click in the empty space and "
+"choose :guilabel:`Remove Gap`. This action will shift all clips and "
+"transitions to the left, closing the gap and maintaining the flow of your "
+"video."
+msgstr ""
+"**Αφαίρεση κενού** (Remove Gap): Αφού διαγράψετε ένα κλιπ, αν έχουν "
+"απομείνει κενά στο χρονολόγιο που θέλετε να αφαιρέσετε, απλώς κάντε δεξί "
+"κλικ στον κενό χώρο και επιλέξτε :guilabel:`Αφαίρεση κενού` (Remove Gap). Η "
+"ενέργεια αυτή θα μετατοπίσει όλα τα κλιπ και τις μεταβάσεις προς τα "
+"αριστερά, κλείνοντας το κενό και διατηρώντας τη ροή του βίντεό σας."
+
+#: ../clips.rst:662
+msgid ""
+"**Example**: If you have a clip that’s no longer needed, such as an intro "
+"you’ve decided not to use, you can quickly select it and either delete it or"
+" use **Ripple Delete** to remove it and shift everything left to close the "
+"gap."
+msgstr ""
+"**Παράδειγμα**: Αν έχετε ένα κλιπ που δεν χρειάζεται πια, όπως μια εισαγωγή "
+"που αποφασίσατε να μη χρησιμοποιήσετε, μπορείτε να το επιλέξετε γρήγορα και "
+"είτε να το διαγράψετε είτε να χρησιμοποιήσετε τη **Διαγραφή με μετατόπιση** "
+"(Ripple Delete), ώστε να αφαιρεθεί και να μετατοπιστούν όλα προς τα αριστερά"
+" για να κλείσει το κενό."
+
+#: ../clips.rst:664
+msgid ""
+"For more advanced editing options and shortcuts, refer to the "
+":ref:`clips_cutting_slicing_ref` section."
+msgstr ""
+"Για πιο προηγμένες επιλογές επεξεργασίας και συντομεύσεις πληκτρολογίου, "
+"ανατρέξτε στην ενότητα :ref:`clips_cutting_slicing_ref`."
+
+#: ../clips.rst:667
+msgid "Effects"
+msgstr "Εφέ"
+
+#: ../clips.rst:668
+msgid ""
+"In addition to the many clip properties which can be animated and adjusted, "
+"you can also drop an effect directly onto a clip from the effects dock. Each"
+" effect is represented by a small colored letter icon. Clicking the effect "
+"icon will populate the properties of that effect, and allow you to edit (and"
+" animate) them. For the full list of effects, see :ref:`effects_ref`."
+msgstr ""
+"Εκτός από τις πολλές ιδιότητες του κλιπ που μπορούν να κινηθούν και να "
+"προσαρμοστούν, μπορείτε επίσης να τοποθετήσετε ένα εφέ απευθείας πάνω σε ένα"
+" κλιπ από το πάνελ των εφέ. Κάθε εφέ αναπαρίσταται από ένα μικρό έγχρωμο "
+"εικονίδιο με γράμμα. Κάνοντας κλικ στο εικονίδιο του εφέ εμφανίζονται οι "
+"ιδιότητές του, ώστε να μπορείτε να τις επεξεργαστείτε (και να τις κινήσετε)."
+" Για τον πλήρη κατάλογο των εφέ, δείτε την ενότητα :ref:`effects_ref`."
+
+#: ../clips.rst:678
+msgid "Clip Properties"
+msgstr "Ιδιότητες κλιπ"
+
+#: ../clips.rst:679
+msgid ""
+"Below is a list of clip properties which can be edited, and in most cases, "
+"animated over time. To view a clip's properties, right click and choose "
+":guilabel:`Properties`. The property editor will appear, where you can "
+"change these properties. You can select multiple clips, transitions or "
+"effects at once. The dropdown at the top of the dock shows entries for each "
+"item plus an entry such as ``2 Selections``. Pick that entry to edit all "
+"selected items together, only properties they share will be visible. If a "
+"field is blank, the values differ between items, but you can still change it"
+" or insert a keyframe for all of them."
+msgstr ""
+"Παρακάτω υπάρχει ένας κατάλογος των ιδιοτήτων κλιπ που μπορούν να "
+"επεξεργαστούν και, στις περισσότερες περιπτώσεις, να κινηθούν με την πάροδο "
+"του χρόνου. Για να δείτε τις ιδιότητες ενός κλιπ, κάντε δεξί κλικ και "
+"επιλέξτε :guilabel:`Ιδιότητες` (Properties). Θα εμφανιστεί ο επεξεργαστής "
+"ιδιοτήτων, όπου μπορείτε να αλλάξετε αυτές τις ιδιότητες. Μπορείτε να "
+"επιλέξετε ταυτόχρονα πολλά κλιπ, μεταβάσεις ή εφέ. Η αναδιπλούμενη λίστα στο"
+" πάνω μέρος του πάνελ εμφανίζει καταχωρίσεις για κάθε στοιχείο, καθώς και "
+"μια καταχώριση όπως ``2 Selections``. Επιλέξτε αυτή την καταχώριση για να "
+"επεξεργαστείτε μαζί όλα τα επιλεγμένα στοιχεία· θα είναι ορατές μόνο οι "
+"ιδιότητες που έχουν κοινές. Αν ένα πεδίο είναι κενό, οι τιμές διαφέρουν "
+"μεταξύ των στοιχείων, αλλά μπορείτε παρ’ όλα αυτά να το αλλάξετε ή να "
+"εισαγάγετε ένα βασικό καρέ για όλα."
+
+#: ../clips.rst:687
+msgid ""
+"Note: Pay close attention to where the play-head (i.e. red playback line) "
+"is. Key frames are automatically created at the current playback position, "
+"to help quickly create animations."
+msgstr ""
+"Σημείωση: Προσέξτε πού βρίσκεται η κεφαλή αναπαραγωγής (δηλαδή η κόκκινη "
+"γραμμή αναπαραγωγής). Τα βασικά καρέ (keyframes) δημιουργούνται αυτόματα "
+"στην τρέχουσα θέση αναπαραγωγής, ώστε να δημιουργείτε γρήγορα κινήσεις."
+
+#: ../clips.rst:690
+msgid ""
+"When animating clip properties, you can fade a clip from opaque to "
+"transparent with ``alpha``, slide a clip around the screen with "
+"``location_x`` and ``location_y``, scale a clip smaller or larger with the "
+"``scale_x`` and ``scale_y``, fade the volume of a clip quieter or louder "
+"with ``volume``, and much more. If you want to set a single, static clip "
+"property with **no animation**, be sure the playhead is positioned at the "
+"start of your clip (to the left) when adjusting the property value."
+msgstr ""
+"Όταν κινείτε ιδιότητες κλιπ, μπορείτε να κάνετε ένα κλιπ να περάσει από "
+"αδιαφανές σε διαφανές με το ``alpha``, να μετακινήσετε ένα κλιπ στην οθόνη "
+"με τα ``location_x`` και ``location_y``, να μεγεθύνετε ή να σμικρύνετε ένα "
+"κλιπ με τα ``scale_x`` και ``scale_y``, να χαμηλώσετε ή να δυναμώσετε "
+"βαθμιαία την ένταση ενός κλιπ με το ``volume``, και πολλά άλλα. Αν θέλετε να"
+" ορίσετε μία μεμονωμένη, στατική ιδιότητα κλιπ **χωρίς κίνηση**, φροντίστε η"
+" κεφαλή αναπαραγωγής να βρίσκεται στην αρχή του κλιπ σας (αριστερά) όταν "
+"προσαρμόζετε την τιμή της ιδιότητας."
+
+#: ../clips.rst:695
+msgid "See the table below for a full list of clip properties."
+msgstr "Δείτε τον παρακάτω πίνακα για τον πλήρη κατάλογο των ιδιοτήτων κλιπ."
+
+#: ../clips.rst:701
+msgid "Clip Property Name"
+msgstr "Όνομα ιδιότητας κλιπ"
+
+#: ../clips.rst:701
+msgid "Type"
+msgstr "Τύπος"
+
+#: ../clips.rst:703 ../clips.rst:784
+msgid "Alpha"
+msgstr "Διαφάνεια (Alpha)"
+
+#: ../clips.rst:703 ../clips.rst:704 ../clips.rst:705 ../clips.rst:707
+#: ../clips.rst:715 ../clips.rst:716 ../clips.rst:717 ../clips.rst:718
+#: ../clips.rst:719 ../clips.rst:722 ../clips.rst:724 ../clips.rst:725
+#: ../clips.rst:726 ../clips.rst:727 ../clips.rst:729 ../clips.rst:731
+#: ../clips.rst:733
+msgid "Key-Frame"
+msgstr ""
+
+#: ../clips.rst:703
+msgid ""
+"Curve representing the alpha for fading the image and adding transparency (1"
+" to 0)"
+msgstr ""
+"Καμπύλη που αναπαριστά την άλφα (διαφάνεια) για τη βαθμιαία εξαφάνιση της "
+"εικόνας και την προσθήκη διαφάνειας (1 έως 0)"
+
+#: ../clips.rst:704 ../clips.rst:801
+msgid "Channel Filter"
+msgstr "Φίλτρο καναλιού (Channel Filter)"
+
+#: ../clips.rst:704
+msgid ""
+"A number representing an audio channel to filter (clears all other channels)"
+msgstr ""
+"Ένας αριθμός που αντιπροσωπεύει ένα κανάλι ήχου προς φιλτράρισμα (καθαρίζει "
+"όλα τα άλλα κανάλια)"
+
+#: ../clips.rst:705 ../clips.rst:809
+msgid "Channel Mapping"
+msgstr "Χαρτογράφηση καναλιού (Channel Mapping)"
+
+#: ../clips.rst:705
+msgid ""
+"A number representing an audio channel to output (only works when filtering "
+"a channel)"
+msgstr ""
+"Ένας αριθμός που αντιπροσωπεύει ένα κανάλι ήχου για έξοδο (λειτουργεί μόνο "
+"όταν φιλτράρεται ένα κανάλι)"
+
+#: ../clips.rst:706 ../clips.rst:741
+msgid "Composite (Blend Mode)"
+msgstr "Σύνθεση – τρόπος ανάμειξης (Composite (Blend Mode))"
+
+#: ../clips.rst:706 ../clips.rst:709 ../clips.rst:710 ../clips.rst:712
+#: ../clips.rst:713 ../clips.rst:723 ../clips.rst:732 ../clips.rst:735
+msgid "Enum"
+msgstr ""
+
+#: ../clips.rst:706
+msgid ""
+"The blend mode used to composite this clip into lower layers. Default is "
+"**Normal**. See :ref:`clip_composite_ref`."
+msgstr ""
+"Ο τρόπος ανάμειξης (blend mode) που χρησιμοποιείται για τη σύνθεση αυτού του"
+" κλιπ με τα κατώτερα επίπεδα. Η προεπιλογή είναι **Normal**. Δείτε την "
+"ενότητα :ref:`clip_composite_ref`."
+
+#: ../clips.rst:707 ../clips.rst:792
+msgid "Corner Radius"
+msgstr "Ακτίνα γωνίας (Corner Radius)"
+
+#: ../clips.rst:707
+msgid ""
+"Curve representing the radius used to round the clip's corners (0 to 0.5)"
+msgstr ""
+"Καμπύλη που αναπαριστά την ακτίνα που χρησιμοποιείται για τη στρογγυλοποίηση"
+" των γωνιών του κλιπ (0 έως 0.5)"
+
+#: ../clips.rst:708 ../clips.rst:824
+msgid "Duration"
+msgstr "Διάρκεια (Duration)"
+
+#: ../clips.rst:708 ../clips.rst:711 ../clips.rst:721 ../clips.rst:728
+msgid "Float"
+msgstr ""
+
+#: ../clips.rst:708
+msgid ""
+"The length of the clip (in seconds). Read-only property. This is calculated "
+"by: End - Start."
+msgstr ""
+"Το μήκος του κλιπ (σε δευτερόλεπτα). Ιδιότητα μόνο για ανάγνωση. "
+"Υπολογίζεται ως: End - Start."
+
+#: ../clips.rst:709 ../clips.rst:857
+msgid "Enable Audio"
+msgstr "Ενεργοποίηση ήχου (Enable Audio)"
+
+#: ../clips.rst:709
+msgid ""
+"An optional override to determine if this clip has audio (-1=undefined, "
+"0=no, 1=yes)"
+msgstr ""
+"Μια προαιρετική παράκαμψη που καθορίζει αν αυτό το κλιπ έχει ήχο "
+"(-1=απροσδιόριστο, 0=όχι, 1=ναι)"
+
+#: ../clips.rst:710 ../clips.rst:865
+msgid "Enable Video"
+msgstr "Ενεργοποίηση βίντεο (Enable Video)"
+
+#: ../clips.rst:710
+msgid ""
+"An optional override to determine if this clip has video (-1=undefined, "
+"0=no, 1=yes)"
+msgstr ""
+"Μια προαιρετική παράκαμψη που καθορίζει αν αυτό το κλιπ έχει βίντεο "
+"(-1=απροσδιόριστο, 0=όχι, 1=ναι)"
+
+#: ../clips.rst:711 ../clips.rst:832
+msgid "End"
+msgstr "Τέλος (End)"
+
+#: ../clips.rst:711
+msgid "The end trimming position of the clip (in seconds)"
+msgstr "Η θέση περικοπής του τέλους του κλιπ (σε δευτερόλεπτα)"
+
+#: ../clips.rst:712 ../clips.rst:817
+msgid "Frame Number"
+msgstr "Αριθμός καρέ (Frame Number)"
+
+#: ../clips.rst:712
+msgid "The format to display the frame number (if any)"
+msgstr "Η μορφή εμφάνισης του αριθμού καρέ (αν υπάρχει)"
+
+#: ../clips.rst:713 ../clips.rst:840
+msgid "Gravity"
+msgstr "Βαρύτητα (Gravity)"
+
+#: ../clips.rst:713
+msgid ""
+"The gravity of a clip determines where it snaps to its parent (details "
+"below)"
+msgstr ""
+"Η βαρύτητα (gravity) ενός κλιπ καθορίζει πού προσκολλάται στο γονικό του "
+"αντικείμενο (λεπτομέρειες παρακάτω)"
+
+#: ../clips.rst:714 ../clips.rst:873
+msgid "ID"
+msgstr "Ταυτότητα (ID)"
+
+#: ../clips.rst:714 ../clips.rst:720
+msgid "String"
+msgstr ""
+
+#: ../clips.rst:714
+msgid ""
+"A randomly generated GUID (globally unique identifier) assigned to each "
+"clip. Read-only property."
+msgstr ""
+"Ένα τυχαία παραγόμενο GUID (καθολικά μοναδικό αναγνωριστικό) που ανατίθεται "
+"σε κάθε κλιπ. Ιδιότητα μόνο για ανάγνωση."
+
+#: ../clips.rst:715
+msgid "Location X"
+msgstr ""
+
+#: ../clips.rst:715
+msgid ""
+"Curve representing the relative X position in percent based on the gravity "
+"(-1 to 1)"
+msgstr ""
+"Καμπύλη που αναπαριστά τη σχετική θέση X σε ποσοστό, βάσει της βαρύτητας (-1"
+" έως 1)"
+
+#: ../clips.rst:716
+msgid "Location Y"
+msgstr ""
+
+#: ../clips.rst:716
+msgid ""
+"Curve representing the relative Y position in percent based on the gravity "
+"(-1 to 1)"
+msgstr ""
+"Καμπύλη που αναπαριστά τη σχετική θέση Y σε ποσοστό, βάσει της βαρύτητας (-1"
+" έως 1)"
+
+#: ../clips.rst:717 ../clips.rst:899
+msgid "Margin"
+msgstr "Περιθώριο (Margin)"
+
+#: ../clips.rst:717
+msgid "Curve representing edge spacing for gravity-aligned clips (0 to 0.5)"
+msgstr ""
+"Καμπύλη που αναπαριστά το περιθώριο από την άκρη για κλιπ ευθυγραμμισμένα "
+"βάσει βαρύτητας (0 έως 0.5)"
+
+#: ../clips.rst:718
+msgid "Origin X"
+msgstr ""
+
+#: ../clips.rst:718
+msgid ""
+"Curve representing the rotation origin point, X position in percent (-1 to "
+"1)"
+msgstr ""
+"Καμπύλη που αναπαριστά το σημείο προέλευσης της περιστροφής, θέση X σε "
+"ποσοστό (-1 έως 1)"
+
+#: ../clips.rst:719
+msgid "Origin Y"
+msgstr ""
+
+#: ../clips.rst:719
+msgid ""
+"Curve representing the rotation origin point, Y position in percent (-1 to "
+"1)"
+msgstr ""
+"Καμπύλη που αναπαριστά το σημείο προέλευσης της περιστροφής, θέση Y σε "
+"ποσοστό (-1 έως 1)"
+
+#: ../clips.rst:720
+msgid "Parent"
+msgstr ""
+
+#: ../clips.rst:720
+msgid ""
+"The parent object to this clip, which makes many of these keyframe values "
+"initialize to the parent value"
+msgstr ""
+"Το γονικό αντικείμενο αυτού του κλιπ, το οποίο κάνει πολλές από αυτές τις "
+"τιμές βασικών καρέ να αρχικοποιούνται με την τιμή του γονικού"
+
+#: ../clips.rst:721 ../clips.rst:956
+msgid "Position"
+msgstr "Θέση (Position)"
+
+#: ../clips.rst:721
+msgid ""
+"The position of the clip on the timeline (in seconds, 0.0 is the beginning "
+"of the timeline)"
+msgstr ""
+"Η θέση του κλιπ στο χρονολόγιο (σε δευτερόλεπτα, το 0.0 είναι η αρχή του "
+"χρονολογίου)"
+
+#: ../clips.rst:722 ../clips.rst:965
+msgid "Rotation"
+msgstr "Περιστροφή (Rotation)"
+
+#: ../clips.rst:722
+msgid "Curve representing the rotation (0 to 360)"
+msgstr "Καμπύλη που αναπαριστά την περιστροφή (0 έως 360)"
+
+#: ../clips.rst:723 ../clips.rst:981
+msgid "Scale"
+msgstr "Κλίμακα (Scale)"
+
+#: ../clips.rst:723
+msgid ""
+"The scale determines how a clip should be resized to fit its parent (details"
+" below)"
+msgstr ""
+"Η κλίμακα καθορίζει πώς θα αλλάξει το μέγεθος ενός κλιπ ώστε να χωρέσει στο "
+"γονικό του (λεπτομέρειες παρακάτω)"
+
+#: ../clips.rst:724
+msgid "Scale X"
+msgstr ""
+
+#: ../clips.rst:724
+msgid "Curve representing the horizontal scaling in percent (0 to 1)"
+msgstr "Καμπύλη που αναπαριστά την οριζόντια κλιμάκωση σε ποσοστό (0 έως 1)"
+
+#: ../clips.rst:725
+msgid "Scale Y"
+msgstr ""
+
+#: ../clips.rst:725
+msgid "Curve representing the vertical scaling in percent (0 to 1)"
+msgstr "Καμπύλη που αναπαριστά την κάθετη κλιμάκωση σε ποσοστό (0 έως 1)"
+
+#: ../clips.rst:726
+msgid "Shear X"
+msgstr ""
+
+#: ../clips.rst:726
+msgid "Curve representing X shear angle in degrees (-45.0=left, 45.0=right)"
+msgstr ""
+"Καμπύλη που αναπαριστά τη γωνία διάτμησης X σε μοίρες (-45.0=αριστερά, "
+"45.0=δεξιά)"
+
+#: ../clips.rst:727
+msgid "Shear Y"
+msgstr ""
+
+#: ../clips.rst:727
+msgid "Curve representing Y shear angle in degrees (-45.0=down, 45.0=up)"
+msgstr ""
+"Καμπύλη που αναπαριστά τη γωνία διάτμησης Y σε μοίρες (-45.0=κάτω, "
+"45.0=πάνω)"
+
+#: ../clips.rst:728 ../clips.rst:1015
+msgid "Start"
+msgstr "Αρχή (Start)"
+
+#: ../clips.rst:728
+msgid "The start trimming position of the clip (in seconds)"
+msgstr "Η θέση περικοπής της αρχής του κλιπ (σε δευτερόλεπτα)"
+
+#: ../clips.rst:729 ../clips.rst:1025
+msgid "Time"
+msgstr "Χρόνος (Time)"
+
+#: ../clips.rst:729
+msgid ""
+"Curve representing the frames over time to play (used for speed and "
+"direction of video)"
+msgstr ""
+"Καμπύλη που αναπαριστά τα καρέ που θα αναπαραχθούν με την πάροδο του χρόνου "
+"(χρησιμοποιείται για την ταχύτητα και την κατεύθυνση του βίντεο)"
+
+#: ../clips.rst:730 ../clips.rst:881
+msgid "Track"
+msgstr "Διάδρομος (Track)"
+
+#: ../clips.rst:730
+msgid "Int"
+msgstr ""
+
+#: ../clips.rst:730
+msgid ""
+"The layer which holds the clip (higher tracks are rendered on top of lower "
+"tracks)"
+msgstr ""
+"Το επίπεδο που φιλοξενεί το κλιπ (οι ψηλότεροι διάδρομοι αποδίδονται πάνω "
+"από τους χαμηλότερους)"
+
+#: ../clips.rst:731 ../clips.rst:1051
+msgid "Volume"
+msgstr "Ένταση (Volume)"
+
+#: ../clips.rst:731
+msgid ""
+"Curve representing the volume for fading audio quieter/louder, mute, or "
+"adjusting levels (0 to 1)"
+msgstr ""
+"Καμπύλη που αναπαριστά την ένταση για βαθμιαίο χαμήλωμα/δυνάμωμα του ήχου, "
+"σίγαση ή προσαρμογή των επιπέδων (0 έως 1)"
+
+#: ../clips.rst:732 ../clips.rst:917
+msgid "Volume Mixing"
+msgstr "Μίξη έντασης (Volume Mixing)"
+
+#: ../clips.rst:732
+msgid ""
+"The volume mixing choices control how volume is adjusted before mixing "
+"(None=don't adjust volume of this clip, Reduce=lower the volume to 80%, "
+"Average=divide volume based on # of concurrent clips, details below)"
+msgstr ""
+"Οι επιλογές μίξης έντασης ελέγχουν πώς προσαρμόζεται η ένταση πριν από τη "
+"μίξη (None=χωρίς προσαρμογή της έντασης αυτού του κλιπ, Reduce=μείωση της "
+"έντασης στο 80%, Average=διαίρεση της έντασης βάσει του αριθμού των "
+"ταυτόχρονων κλιπ, λεπτομέρειες παρακάτω)"
+
+#: ../clips.rst:733 ../clips.rst:1060
+msgid "Wave Color"
+msgstr "Χρώμα κυματομορφής (Wave Color)"
+
+#: ../clips.rst:733
+msgid "Curve representing the color of the audio waveform"
+msgstr "Καμπύλη που αναπαριστά το χρώμα της κυματομορφής του ήχου"
+
+#: ../clips.rst:734
+msgid "Bool"
+msgstr ""
+
+#: ../clips.rst:734
+msgid "Should a waveform be used instead of the clip's image"
+msgstr "Αν θα χρησιμοποιείται κυματομορφή αντί για την εικόνα του κλιπ"
+
+#: ../clips.rst:735 ../clips.rst:1074
+msgid "Waveform Mode"
+msgstr "Λειτουργία κυματομορφής (Waveform Mode)"
+
+#: ../clips.rst:735
+msgid ""
+"The visualization style used when displaying the clip as an audio waveform"
+msgstr ""
+"Το στυλ οπτικοποίησης που χρησιμοποιείται κατά την εμφάνιση του κλιπ ως "
+"κυματομορφής ήχου"
+
+#: ../clips.rst:742
+msgid ""
+"The :guilabel:`Composite (Blend Mode)` property controls **how the pixels of"
+" this clip mix with the clips on lower tracks**. If you are new to this, "
+"start with **Normal**. Switch modes when you want a quick creative change "
+"without adding an effect."
+msgstr ""
+"Η ιδιότητα :guilabel:`Σύνθεση (Τρόπος ανάμειξης)` (Composite (Blend Mode)) "
+"ελέγχει **πώς αναμειγνύονται τα pixel αυτού του κλιπ με τα κλιπ των "
+"χαμηλότερων διαδρόμων**. Αν είστε αρχάριοι, ξεκινήστε με το **Normal**. "
+"Αλλάξτε τρόπο όταν θέλετε μια γρήγορη δημιουργική αλλαγή χωρίς να προσθέσετε"
+" εφέ."
+
+#: ../clips.rst:745
+msgid "**Beginner tips**"
+msgstr "**Συμβουλές για αρχάριους**"
+
+#: ../clips.rst:747
+msgid ""
+"Want to **brighten** light effects, flares, or smoke over a dark scene? Try "
+"**Screen** or **Add**."
+msgstr ""
+"Θέλετε να **φωτίσετε** εφέ φωτισμού, αναλαμπές ή καπνό πάνω από μια σκοτεινή"
+" σκηνή; Δοκιμάστε το **Screen** ή το **Add**."
+
+#: ../clips.rst:748
+msgid ""
+"Want to **darken** or place a texture over footage (paper grain, grids, "
+"shadows)? Try **Multiply** or **Color Burn**."
+msgstr ""
+"Θέλετε να **σκουρύνετε** ή να τοποθετήσετε μια υφή πάνω από το πλάνο (κόκκοι"
+" χαρτιού, πλέγματα, σκιές); Δοκιμάστε το **Multiply** ή το **Color Burn**."
+
+#: ../clips.rst:749
+msgid ""
+"Want **more contrast** without crushing blacks and whites too much? Try "
+"**Overlay** or **Soft Light**."
+msgstr ""
+"Θέλετε **περισσότερη αντίθεση** χωρίς να καταπνίξετε υπερβολικά τα μαύρα και"
+" τα λευκά; Δοκιμάστε το **Overlay** ή το **Soft Light**."
+
+#: ../clips.rst:750
+msgid ""
+"Want a **creative/inverted look** or to line things up? Try **Difference** "
+"or **Exclusion**."
+msgstr ""
+"Θέλετε μια **δημιουργική/αντεστραμμένη εμφάνιση** ή να ευθυγραμμίσετε "
+"στοιχεία; Δοκιμάστε το **Difference** ή το **Exclusion**."
+
+#: ../clips.rst:752
+msgid "**Common modes (recommended)**"
+msgstr "**Συνηθισμένοι τρόποι (προτεινόμενοι)**"
+
+#: ../clips.rst:758
+msgid "Mode"
+msgstr "Τρόπος"
+
+#: ../clips.rst:758
+msgid "What it does"
+msgstr "Τι κάνει"
+
+#: ../clips.rst:760
+msgid "Normal"
+msgstr ""
+
+#: ../clips.rst:760
+msgid "Standard alpha compositing. Respects transparency from the clip."
+msgstr ""
+"Τυπική σύνθεση με διαφάνεια (alpha compositing). Σέβεται τη διαφάνεια του "
+"κλιπ."
+
+#: ../clips.rst:761
+msgid "Darken"
+msgstr ""
+
+#: ../clips.rst:761
+msgid "Chooses the darker pixel from the two layers, per channel."
+msgstr "Επιλέγει το πιο σκούρο pixel από τα δύο επίπεδα, ανά κανάλι."
+
+#: ../clips.rst:762
+msgid "Multiply"
+msgstr ""
+
+#: ../clips.rst:762
+msgid "Multiplies colors. Darkens and helps textures sit on top of footage."
+msgstr ""
+"Πολλαπλασιάζει τα χρώματα. Σκουραίνει και βοηθά τις υφές να τοποθετηθούν "
+"πάνω από το πλάνο."
+
+#: ../clips.rst:763
+msgid "Color Burn"
+msgstr ""
+
+#: ../clips.rst:763
+msgid "Pushes shadows darker and boosts contrast; can clip to black."
+msgstr ""
+"Σκουραίνει τις σκιές και ενισχύει την αντίθεση· μπορεί να οδηγήσει σε κόψιμο"
+" στο μαύρο."
+
+#: ../clips.rst:764
+msgid "Lighten"
+msgstr ""
+
+#: ../clips.rst:764
+msgid "Chooses the lighter pixel from the two layers, per channel."
+msgstr "Επιλέγει το πιο φωτεινό pixel από τα δύο επίπεδα, ανά κανάλι."
+
+#: ../clips.rst:765
+msgid "Screen"
+msgstr ""
+
+#: ../clips.rst:765
+msgid "The opposite of Multiply. Brightens; great for light, glow, fire, fog."
+msgstr ""
+"Το αντίθετο του Multiply. Φωτίζει· ιδανικό για φως, λάμψη, φωτιά, ομίχλη."
+
+#: ../clips.rst:766
+msgid "Color Dodge"
+msgstr ""
+
+#: ../clips.rst:766
+msgid "Brightens highlights strongly; can blow out to white."
+msgstr ""
+"Φωτίζει έντονα τις φωτεινές περιοχές· αυτές μπορεί να «καούν» προς το λευκό."
+
+#: ../clips.rst:767
+msgid "Add"
+msgstr ""
+
+#: ../clips.rst:767
+msgid ""
+"Adds pixel values. Strong brightening; clips at white. Also called *Linear "
+"Dodge (Add)*."
+msgstr ""
+"Προσθέτει τις τιμές των pixel. Έντονο φώτισμα· κόβεται στο λευκό. Ονομάζεται"
+" επίσης *Linear Dodge (Add)*."
+
+#: ../clips.rst:768
+msgid "Overlay"
+msgstr ""
+
+#: ../clips.rst:768
+msgid ""
+"Mix of Multiply and Screen using the lower layer to decide. Adds punchy "
+"contrast."
+msgstr ""
+"Συνδυασμός των Multiply και Screen, όπου το κατώτερο επίπεδο καθορίζει ποιο "
+"εφαρμόζεται. Προσθέτει έντονη αντίθεση."
+
+#: ../clips.rst:769
+msgid "Soft Light"
+msgstr ""
+
+#: ../clips.rst:769
+msgid "Gentle contrast curve; softer than Overlay."
+msgstr "Ήπια καμπύλη αντίθεσης· πιο απαλή από το Overlay."
+
+#: ../clips.rst:770
+msgid "Hard Light"
+msgstr ""
+
+#: ../clips.rst:770
+msgid "Stronger, edgy contrast using the upper layer to drive the change."
+msgstr ""
+"Πιο ισχυρή, έντονη αντίθεση, όπου το ανώτερο επίπεδο καθοδηγεί την αλλαγή."
+
+#: ../clips.rst:771
+msgid "Difference"
+msgstr ""
+
+#: ../clips.rst:771
+msgid ""
+"Absolute difference between layers. Creates inverted/psychedelic colors; "
+"useful for alignment."
+msgstr ""
+"Απόλυτη διαφορά μεταξύ των επιπέδων. Δημιουργεί αντεστραμμένα/ψυχεδελικά "
+"χρώματα· χρήσιμο για ευθυγράμμιση."
+
+#: ../clips.rst:772
+msgid "Exclusion"
+msgstr ""
+
+#: ../clips.rst:772
+msgid "Softer version of Difference with less contrast."
+msgstr "Πιο απαλή εκδοχή του Difference με λιγότερη αντίθεση."
+
+#: ../clips.rst:775
+msgid "**Notes**"
+msgstr "**Σημειώσεις**"
+
+#: ../clips.rst:777
+msgid ""
+"Blend modes affect **color**, while alpha (the :guilabel:`Alpha` property) "
+"affects **transparency**. You can use both."
+msgstr ""
+"Οι τρόποι ανάμειξης επηρεάζουν το **χρώμα**, ενώ η διαφάνεια (η ιδιότητα "
+":guilabel:`Διαφάνεια` (Alpha)) επηρεάζει τη **διαφάνεια**. Μπορείτε να "
+"χρησιμοποιήσετε και τα δύο."
+
+#: ../clips.rst:778
+msgid ""
+"Some modes can create very bright or very dark results. If needed, lower the"
+" :guilabel:`Alpha` property to soften."
+msgstr ""
+"Ορισμένοι τρόποι μπορούν να δώσουν πολύ φωτεινά ή πολύ σκοτεινά "
+"αποτελέσματα. Αν χρειαστεί, μειώστε την ιδιότητα :guilabel:`Διαφάνεια` "
+"(Alpha) για να τα μαλακώσετε."
+
+#: ../clips.rst:779
+msgid ""
+"The exact look of Multiply/Screen/Overlay family is best when project colors"
+" are in a linear color space."
+msgstr ""
+"Η ακριβής εμφάνιση της οικογένειας Multiply/Screen/Overlay είναι η καλύτερη "
+"όταν τα χρώματα του έργου βρίσκονται σε γραμμικό χρωματικό χώρο."
+
+#: ../clips.rst:785
+msgid ""
+"The :guilabel:`Alpha` property is a key-frame curve that represents the "
+"alpha value, determining fading and transparency of the image in the clip. "
+"The curve ranges from 1 (fully opaque) to 0 (completely transparent)."
+msgstr ""
+"Η ιδιότητα :guilabel:`Διαφάνεια` (Alpha) είναι μια καμπύλη βασικών καρέ που "
+"αναπαριστά την τιμή άλφα και καθορίζει τη βαθμιαία εξαφάνιση και τη "
+"διαφάνεια της εικόνας στο κλιπ. Η καμπύλη κυμαίνεται από 1 (πλήρως "
+"αδιαφανές) έως 0 (εντελώς διαφανές)."
+
+#: ../clips.rst:788
+msgid ""
+"**Usage Example:** Applying a gradual fade-in or fade-out effect to smoothly"
+" transition clips."
+msgstr ""
+"**Παράδειγμα χρήσης:** Εφαρμογή ενός εφέ βαθμιαίας εισόδου ή εξόδου για "
+"ομαλή μετάβαση μεταξύ κλιπ."
+
+#: ../clips.rst:789
+msgid ""
+"**Tip:** Use keyframes to create complex fading patterns, such as fading in "
+"and then fading out for a ghostly effect."
+msgstr ""
+"**Συμβουλή:** Χρησιμοποιήστε βασικά καρέ για να δημιουργήσετε σύνθετα μοτίβα"
+" εξαφάνισης, όπως βαθμιαία είσοδος και έπειτα βαθμιαία έξοδος για ένα εφέ "
+"φαντάσματος."
+
+#: ../clips.rst:793
+msgid ""
+"The :guilabel:`Corner Radius` property is a key-frame curve that rounds the "
+"visible corners of a clip. The curve ranges from 0 (square corners) to 0.5 "
+"(maximum rounding, based on the clip's shortest side)."
+msgstr ""
+"Η ιδιότητα :guilabel:`Ακτίνα γωνίας` (Corner Radius) είναι μια καμπύλη "
+"βασικών καρέ που στρογγυλεύει τις ορατές γωνίες ενός κλιπ. Η καμπύλη "
+"κυμαίνεται από 0 (τετράγωνες γωνίες) έως 0.5 (μέγιστη στρογγύλευση, με βάση "
+"τη μικρότερη πλευρά του κλιπ)."
+
+#: ../clips.rst:796
+msgid ""
+"**Usage Example:** Rounding the corners of a picture-in-picture camera "
+"recording without adding a separate mask effect."
+msgstr ""
+"**Παράδειγμα χρήσης:** Στρογγύλεμα των γωνιών μιας εγγραφής κάμερας σε "
+"διάταξη εικόνας μέσα σε εικόνα (picture-in-picture) χωρίς να προστεθεί "
+"ξεχωριστό εφέ μάσκας."
+
+#: ../clips.rst:797
+msgid ""
+"**Usage Example:** In :guilabel:`Recording View`, corner webcam clips use "
+"this property for the :guilabel:`Corners` setting."
+msgstr ""
+"**Παράδειγμα χρήσης:** Στην :guilabel:`Προβολή εγγραφής` (Recording View), "
+"τα κλιπ webcam στη γωνία χρησιμοποιούν αυτή την ιδιότητα για τη ρύθμιση "
+":guilabel:`Γωνίες` (Corners)."
+
+#: ../clips.rst:798
+msgid ""
+"**Tip:** Use 0 for normal full-frame video, a small value for rounded "
+"rectangles, or 0.5 for a pill or oval-like shape."
+msgstr ""
+"**Συμβουλή:** Χρησιμοποιήστε 0 για κανονικό βίντεο πλήρους καρέ, μια μικρή "
+"τιμή για στρογγυλεμένα ορθογώνια ή 0.5 για σχήμα χαπιού ή οβάλ."
+
+#: ../clips.rst:802
+msgid ""
+"The :guilabel:`Channel Filter` property is a key-frame curve used for audio "
+"manipulation. It specifies a single audio channel to be filtered while "
+"clearing all other channels."
+msgstr ""
+"Η ιδιότητα :guilabel:`Φίλτρο Καναλιού` (Channel Filter) είναι μια καμπύλη "
+"βασικών καρέ που χρησιμοποιείται για την επεξεργασία ήχου. Καθορίζει ένα "
+"μεμονωμένο κανάλι ήχου προς φιλτράρισμα, ενώ καθαρίζει όλα τα άλλα κανάλια."
+
+#: ../clips.rst:805
+msgid ""
+"**Usage Example:** Isolating and enhancing specific audio elements, like "
+"isolating vocals from a song."
+msgstr ""
+"**Παράδειγμα χρήσης:** Απομόνωση και ενίσχυση συγκεκριμένων στοιχείων του "
+"ήχου, όπως η απομόνωση των φωνητικών από ένα τραγούδι."
+
+#: ../clips.rst:806
+msgid ""
+"**Tip:** Combine with the \"Channel Mapping\" property to route the filtered"
+" channel to a specific audio output."
+msgstr ""
+"**Συμβουλή:** Συνδυάστε την με την ιδιότητα «Χαρτογράφηση Καναλιού» (Channel"
+" Mapping) για να δρομολογήσετε το φιλτραρισμένο κανάλι σε μια συγκεκριμένη "
+"έξοδο ήχου."
+
+#: ../clips.rst:810
+msgid ""
+"The :guilabel:`Channel Mapping` property is a key-frame curve that defines "
+"the output audio channel for the clip. This property works in conjunction "
+"with the \"Channel Filter\" property and specifies which channel is retained"
+" in the output."
+msgstr ""
+"Η ιδιότητα :guilabel:`Χαρτογράφηση Καναλιού` (Channel Mapping) είναι μια "
+"καμπύλη βασικών καρέ που ορίζει το κανάλι εξόδου ήχου για το κλιπ. Η "
+"ιδιότητα αυτή λειτουργεί σε συνδυασμό με την ιδιότητα «Φίλτρο Καναλιού» "
+"(Channel Filter) και καθορίζει ποιο κανάλι διατηρείται στην έξοδο."
+
+#: ../clips.rst:813
+msgid ""
+"**Usage Example:** Keeping the filtered channel's audio while discarding "
+"others for an unconventional audio mix."
+msgstr ""
+"**Παράδειγμα χρήσης:** Διατήρηση του ήχου του φιλτραρισμένου καναλιού και "
+"απόρριψη των υπολοίπων για μια ασυνήθιστη μίξη ήχου."
+
+#: ../clips.rst:814
+msgid ""
+"**Tip:** Experiment with mapping different channels to create unique audio "
+"effects, like panning sounds between speakers."
+msgstr ""
+"**Συμβουλή:** Πειραματιστείτε με τη χαρτογράφηση διαφορετικών καναλιών για "
+"να δημιουργήσετε μοναδικά εφέ ήχου, όπως η μετακίνηση ήχων ανάμεσα στα "
+"ηχεία."
+
+#: ../clips.rst:818
+msgid ""
+"The :guilabel:`Frame Number` property specifies the format in which the "
+"frame numbers are displayed within the clip, if applicable."
+msgstr ""
+"Η ιδιότητα :guilabel:`Αριθμός καρέ` (Frame Number) καθορίζει τη μορφή με την"
+" οποία εμφανίζονται οι αριθμοί των καρέ μέσα στο κλιπ, όπου εφαρμόζεται."
+
+#: ../clips.rst:820
+msgid ""
+"**Usage Example:** Displaying frame numbers in the top left corner of the "
+"clip, as either absolute frame number or relative to the start of the clip."
+msgstr ""
+"**Παράδειγμα χρήσης:** Εμφάνιση των αριθμών καρέ στην πάνω αριστερή γωνία "
+"του κλιπ, είτε ως απόλυτος αριθμός καρέ είτε σε σχέση με την αρχή του κλιπ."
+
+#: ../clips.rst:821
+msgid ""
+"**Tip:** This can help with identifying precise frame numbers or "
+"troubleshooting a problem."
+msgstr ""
+"**Συμβουλή:** Αυτό μπορεί να βοηθήσει στον εντοπισμό ακριβών αριθμών καρέ ή "
+"στην αντιμετώπιση ενός προβλήματος."
+
+#: ../clips.rst:825
+msgid ""
+"The :guilabel:`Duration` property is a float value indicating the length of "
+"the clip in seconds. This is a Read-only property. This is calculated by: "
+"End - Start. To modify duration, you must edit the :guilabel:`Start` and/or "
+":guilabel:`End` clip properties."
+msgstr ""
+"Η ιδιότητα :guilabel:`Διάρκεια` (Duration) είναι μια τιμή κινητής "
+"υποδιαστολής (float) που δείχνει το μήκος του κλιπ σε δευτερόλεπτα. Είναι "
+"ιδιότητα μόνο για ανάγνωση. Υπολογίζεται ως: End - Start. Για να "
+"τροποποιήσετε τη διάρκεια, πρέπει να επεξεργαστείτε τις ιδιότητες κλιπ "
+":guilabel:`Αρχή` (Start) ή/και :guilabel:`Τέλος` (End)."
+
+#: ../clips.rst:828
+msgid ""
+"**Usage Example:** Inspect the duration of a clip to ensure it fits a "
+"specific time slot in the project."
+msgstr ""
+"**Παράδειγμα χρήσης:** Έλεγχος της διάρκειας ενός κλιπ ώστε να βεβαιωθείτε "
+"ότι χωράει σε ένα συγκεκριμένο χρονικό διάστημα του έργου."
+
+#: ../clips.rst:829
+msgid ""
+"**Tip:** Consider using the \"Duration\" property for clips that need to "
+"match specific time intervals, such as dialogue or scenes."
+msgstr ""
+"**Συμβουλή:** Εξετάστε το ενδεχόμενο να χρησιμοποιήσετε την ιδιότητα "
+"«Διάρκεια» (Duration) για κλιπ που πρέπει να ταιριάζουν με συγκεκριμένα "
+"χρονικά διαστήματα, όπως διάλογοι ή σκηνές."
+
+#: ../clips.rst:833
+msgid ""
+"The :guilabel:`End` property defines the trimming point at the end of the "
+"clip in seconds, allowing you to control how much of the clip is visible in "
+"the timeline. Changing this property will impact the :guilabel:`Duration` "
+"clip property."
+msgstr ""
+"Η ιδιότητα :guilabel:`Τέλος` (End) ορίζει το σημείο περικοπής στο τέλος του "
+"κλιπ σε δευτερόλεπτα, επιτρέποντάς σας να ελέγχετε πόσο μέρος του κλιπ είναι"
+" ορατό στο χρονολόγιο. Η αλλαγή αυτής της ιδιότητας επηρεάζει την ιδιότητα "
+"κλιπ :guilabel:`Διάρκεια` (Duration)."
+
+#: ../clips.rst:836
+msgid ""
+"**Usage Example:** Trimming the end of a clip to align with another clip or "
+"trimming off unwanted sections of the clip."
+msgstr ""
+"**Παράδειγμα χρήσης:** Περικοπή του τέλους ενός κλιπ ώστε να ευθυγραμμιστεί "
+"με άλλο κλιπ ή αφαίρεση ανεπιθύμητων τμημάτων του κλιπ."
+
+#: ../clips.rst:837
+msgid ""
+"**Tip:** Combine the \"Start\" and \"End\" properties to precisely control "
+"the visible portion of the clip."
+msgstr ""
+"**Συμβουλή:** Συνδυάστε τις ιδιότητες «Αρχή» (Start) και «Τέλος» (End) για "
+"να ελέγχετε με ακρίβεια το ορατό τμήμα του κλιπ."
+
+#: ../clips.rst:841
+msgid ""
+"The :guilabel:`Gravity` clip property sets the initial display position "
+"coordinate (X,Y) for the clip, after it has been scaled (see "
+":ref:`clip_scale_ref`). This affects where the clip picture is initially "
+"displayed on the screen, for example ``Top Left`` or ``Bottom Right``. The "
+"default gravity option is ``Center``, which displays the picture in the very"
+" center of the screen. The gravity options are:"
+msgstr ""
+"Η ιδιότητα κλιπ :guilabel:`Βαρύτητα` (Gravity) ορίζει τη συντεταγμένη (X,Y) "
+"της αρχικής θέσης εμφάνισης του κλιπ, αφού έχει κλιμακωθεί (δείτε την "
+"ενότητα :ref:`clip_scale_ref`). Αυτό επηρεάζει το σημείο της οθόνης όπου "
+"εμφανίζεται αρχικά η εικόνα του κλιπ, για παράδειγμα ``Top Left`` ή ``Bottom"
+" Right``. Η προεπιλεγμένη επιλογή βαρύτητας είναι ``Center``, η οποία "
+"εμφανίζει την εικόνα ακριβώς στο κέντρο της οθόνης. Οι επιλογές βαρύτητας "
+"είναι:"
+
+#: ../clips.rst:846
+msgid ""
+"**Top Left** – The top and left edges of the clip align with the top and "
+"left edges of the screen"
+msgstr ""
+"**Πάνω Αριστερά** (Top Left) – Η πάνω και η αριστερή άκρη του κλιπ "
+"ευθυγραμμίζονται με την πάνω και την αριστερή άκρη της οθόνης"
+
+#: ../clips.rst:847
+msgid ""
+"**Top Center** – The top edge of the clip aligns with the top edge of the "
+"screen; the clip is horizontally centered on the screen."
+msgstr ""
+"**Πάνω Κεντρικά** (Top Center) – Η πάνω άκρη του κλιπ ευθυγραμμίζεται με την"
+" πάνω άκρη της οθόνης· το κλιπ είναι κεντραρισμένο οριζόντια στην οθόνη."
+
+#: ../clips.rst:848
+msgid ""
+"**Top Right** – The top and right edges of the clip align with the top and "
+"right edges of the screen"
+msgstr ""
+"**Πάνω Δεξιά** (Top Right) – Η πάνω και η δεξιά άκρη του κλιπ "
+"ευθυγραμμίζονται με την πάνω και τη δεξιά άκρη της οθόνης"
+
+#: ../clips.rst:849
+msgid ""
+"**Left** – The left edge of the clip aligns with the left edge of the "
+"screen; the clip is vertically centered on the screen."
+msgstr ""
+"**Αριστερά** (Left) – Η αριστερή άκρη του κλιπ ευθυγραμμίζεται με την "
+"αριστερή άκρη της οθόνης· το κλιπ είναι κεντραρισμένο κάθετα στην οθόνη."
+
+#: ../clips.rst:850
+msgid ""
+"**Center** (default) – The clip is centered horizontally and vertically on "
+"the screen."
+msgstr ""
+"**Κέντρο** (Center) (προεπιλογή) – Το κλιπ είναι κεντραρισμένο οριζόντια και"
+" κάθετα στην οθόνη."
+
+#: ../clips.rst:851
+msgid ""
+"**Right** – The right edge of the clip aligns with the right edge of the "
+"screen; the clip is vertically centered on the screen."
+msgstr ""
+"**Δεξιά** (Right) – Η δεξιά άκρη του κλιπ ευθυγραμμίζεται με τη δεξιά άκρη "
+"της οθόνης· το κλιπ είναι κεντραρισμένο κάθετα στην οθόνη."
+
+#: ../clips.rst:852
+msgid ""
+"**Bottom Left** – The bottom and left edges of the clip align with the "
+"bottom and left edges of the screen"
+msgstr ""
+"**Κάτω Αριστερά** (Bottom Left) – Η κάτω και η αριστερή άκρη του κλιπ "
+"ευθυγραμμίζονται με την κάτω και την αριστερή άκρη της οθόνης"
+
+#: ../clips.rst:853
+msgid ""
+"**Bottom Center** – The bottom edge of the clip aligns with the bottom edge "
+"of the screen; the clip is horizontally centered on the screen."
+msgstr ""
+"**Κάτω Κεντρικά** (Bottom Center) – Η κάτω άκρη του κλιπ ευθυγραμμίζεται με "
+"την κάτω άκρη της οθόνης· το κλιπ είναι κεντραρισμένο οριζόντια στην οθόνη."
+
+#: ../clips.rst:854
+msgid ""
+"**Bottom Right** – The bottom and right edges of the clip align with the "
+"bottom and right edges of the screen"
+msgstr ""
+"**Κάτω Δεξιά** (Bottom Right) – Η κάτω και η δεξιά άκρη του κλιπ "
+"ευθυγραμμίζονται με την κάτω και τη δεξιά άκρη της οθόνης"
+
+#: ../clips.rst:858
+msgid ""
+"The :guilabel:`Enable Audio` property is an enumeration that overrides the "
+"default audio setting for the clip. Possible values: -1 (undefined), 0 (no "
+"audio), 1 (audio enabled)."
+msgstr ""
+"Η ιδιότητα :guilabel:`Ενεργοποίηση Ήχου` (Enable Audio) είναι μια απαρίθμηση"
+" (enumeration) που παρακάμπτει την προεπιλεγμένη ρύθμιση ήχου για το κλιπ. "
+"Πιθανές τιμές: -1 (απροσδιόριστο), 0 (χωρίς ήχο), 1 (ήχος ενεργοποιημένος)."
+
+#: ../clips.rst:861
+msgid ""
+"**Usage Example:** Turning off unwanted audio for a clip, like ambient "
+"noise."
+msgstr ""
+"**Παράδειγμα χρήσης:** Απενεργοποίηση ανεπιθύμητου ήχου σε ένα κλιπ, όπως ο "
+"θόρυβος περιβάλλοντος."
+
+#: ../clips.rst:862
+msgid ""
+"**Tip:** Use this property to control audio playback for specific clips, "
+"especially clips which have no useful audio track."
+msgstr ""
+"**Συμβουλή:** Χρησιμοποιήστε αυτή την ιδιότητα για να ελέγχετε την "
+"αναπαραγωγή ήχου σε συγκεκριμένα κλιπ, ειδικά σε κλιπ που δεν έχουν χρήσιμο "
+"ηχητικό κομμάτι."
+
+#: ../clips.rst:866
+msgid ""
+"The :guilabel:`Enable Video` property is an enumeration that overrides the "
+"default video setting for the clip. Possible values: -1 (undefined), 0 (no "
+"video), 1 (video enabled)."
+msgstr ""
+"Η ιδιότητα :guilabel:`Ενεργοποίηση Βίντεο` (Enable Video) είναι μια "
+"απαρίθμηση (enumeration) που παρακάμπτει την προεπιλεγμένη ρύθμιση βίντεο "
+"για το κλιπ. Πιθανές τιμές: -1 (απροσδιόριστο), 0 (χωρίς βίντεο), 1 (βίντεο "
+"ενεργοποιημένο)."
+
+#: ../clips.rst:869
+msgid ""
+"**Usage Example:** Disabling the video of a clip while retaining its audio "
+"for creating audio-only sequences."
+msgstr ""
+"**Παράδειγμα χρήσης:** Απενεργοποίηση του βίντεο ενός κλιπ διατηρώντας τον "
+"ήχο του, για τη δημιουργία ακολουθιών μόνο με ήχο."
+
+#: ../clips.rst:870
+msgid ""
+"**Tip:** This property can be helpful when creating scenes with audio "
+"commentary or voiceovers."
+msgstr ""
+"**Συμβουλή:** Η ιδιότητα αυτή μπορεί να φανεί χρήσιμη στη δημιουργία σκηνών "
+"με ηχητικό σχολιασμό ή αφήγηση (voiceover)."
+
+#: ../clips.rst:874
+msgid ""
+"The :guilabel:`ID` property holds a randomly generated GUID (Globally Unique"
+" Identifier) assigned to each clip, ensuring its uniqueness. This is a Read-"
+"only property, and assigned by OpenShot when a clip is created."
+msgstr ""
+"Η ιδιότητα :guilabel:`Ταυτότητα` (ID) περιέχει ένα τυχαία παραγόμενο GUID "
+"(Καθολικά Μοναδικό Αναγνωριστικό) που ανατίθεται σε κάθε κλιπ και "
+"διασφαλίζει τη μοναδικότητά του. Είναι ιδιότητα μόνο για ανάγνωση και "
+"ανατίθεται από το OpenShot κατά τη δημιουργία του κλιπ."
+
+#: ../clips.rst:877
+msgid ""
+"**Usage Example:** Referencing specific clips within custom scripts or "
+"automation tasks."
+msgstr ""
+"**Παράδειγμα χρήσης:** Αναφορά σε συγκεκριμένα κλιπ μέσα σε προσαρμοσμένα "
+"σενάρια (scripts) ή εργασίες αυτοματισμού."
+
+#: ../clips.rst:878
+msgid ""
+"**Tip:** While typically managed behind the scenes, understanding clip IDs "
+"can aid in advanced project customization."
+msgstr ""
+"**Συμβουλή:** Αν και συνήθως διαχειρίζονται στο παρασκήνιο, η κατανόηση των "
+"αναγνωριστικών των κλιπ μπορεί να βοηθήσει στην προχωρημένη προσαρμογή του "
+"έργου."
+
+#: ../clips.rst:882
+msgid ""
+"The :guilabel:`Track` property is an integer indicating the layer on which "
+"the clip is placed. Clips on higher tracks are rendered above those on lower"
+" tracks."
+msgstr ""
+"Η ιδιότητα :guilabel:`Διάδρομος` (Track) είναι ένας ακέραιος που δείχνει το "
+"επίπεδο στο οποίο τοποθετείται το κλιπ. Τα κλιπ σε ψηλότερους διαδρόμους "
+"αποδίδονται πάνω από εκείνα σε χαμηλότερους."
+
+#: ../clips.rst:885
+msgid ""
+"**Usage Example:** Arranging clips in different layers for creating visual "
+"depth and complexity."
+msgstr ""
+"**Παράδειγμα χρήσης:** Τοποθέτηση κλιπ σε διαφορετικά επίπεδα για τη "
+"δημιουργία οπτικού βάθους και πολυπλοκότητας."
+
+#: ../clips.rst:886
+msgid ""
+"**Tip:** Use higher tracks for elements that need to appear above others, "
+"like text overlays or graphics."
+msgstr ""
+"**Συμβουλή:** Χρησιμοποιήστε ψηλότερους διαδρόμους για στοιχεία που πρέπει "
+"να εμφανίζονται πάνω από άλλα, όπως επικαλύψεις κειμένου ή γραφικά."
+
+#: ../clips.rst:891
+msgid "Location X and Location Y"
+msgstr "Τοποθεσία X και Τοποθεσία Y"
+
+#: ../clips.rst:892
+msgid ""
+"The :guilabel:`Location X` and :guilabel:`Location Y` properties are key-"
+"frame curves that determine the relative position of the clip, expressed in "
+"percentages, based on the specified gravity. The range for these curves is "
+"-1 to 1. See :ref:`clip_transform_ref`."
+msgstr ""
+"Οι ιδιότητες :guilabel:`Τοποθεσία X` (Location X) και :guilabel:`Τοποθεσία "
+"Y` (Location Y) είναι καμπύλες βασικών καρέ που καθορίζουν τη σχετική θέση "
+"του κλιπ, εκφρασμένη σε ποσοστά, βάσει της καθορισμένης βαρύτητας. Το εύρος "
+"αυτών των καμπυλών είναι από -1 έως 1. Δείτε την ενότητα "
+":ref:`clip_transform_ref`."
+
+#: ../clips.rst:895
+msgid ""
+"**Usage Example:** Animating a clip's movement across the screen using key-"
+"frame curves for both X and Y locations."
+msgstr ""
+"**Παράδειγμα χρήσης:** Κίνηση ενός κλιπ στην οθόνη με χρήση καμπυλών βασικών"
+" καρέ τόσο για την τοποθεσία X όσο και για την Y."
+
+#: ../clips.rst:896
+msgid ""
+"**Tip:** Combine with gravity settings to create dynamic animations that "
+"adhere to consistent alignment rules."
+msgstr ""
+"**Συμβουλή:** Συνδυάστε με τις ρυθμίσεις βαρύτητας για να δημιουργήσετε "
+"δυναμικές κινήσεις που τηρούν συνεπείς κανόνες ευθυγράμμισης."
+
+#: ../clips.rst:900
+msgid ""
+"The :guilabel:`Margin` property is a key-frame curve that creates an inset "
+"layout area for a clip. The curve is measured as a percentage of the "
+"project's shortest side and ranges from 0 to 0.5. For example, in a "
+"1920x1080 project, a margin of 0.05 creates a 54-pixel inset on every side, "
+"and the clip is laid out inside the remaining rectangle."
+msgstr ""
+"Η ιδιότητα :guilabel:`Περιθώριο` (Margin) είναι μια καμπύλη βασικών καρέ που"
+" δημιουργεί μια εσωτερική περιοχή διάταξης για ένα κλιπ. Η καμπύλη μετριέται"
+" ως ποσοστό της μικρότερης πλευράς του έργου και κυμαίνεται από 0 έως 0.5. "
+"Για παράδειγμα, σε ένα έργο 1920x1080, ένα περιθώριο 0.05 δημιουργεί εσοχή "
+"54 pixel σε κάθε πλευρά και το κλιπ τοποθετείται μέσα στο ορθογώνιο που "
+"απομένει."
+
+#: ../clips.rst:904
+msgid ""
+"Margin is applied before the clip's scale and gravity are calculated. This "
+"means :guilabel:`Scale` modes such as ``Fit``, ``Crop``, and ``Stretch`` use"
+" the smaller inset area instead of the full project frame. It also means all"
+" :guilabel:`Gravity` options, including ``Center``, are resolved inside the "
+"inset area."
+msgstr ""
+"Το περιθώριο εφαρμόζεται πριν υπολογιστούν η κλίμακα και η βαρύτητα του "
+"κλιπ. Αυτό σημαίνει ότι οι τρόποι :guilabel:`Κλίμακα` (Scale), όπως τα "
+"``Fit``, ``Crop`` και ``Stretch``, χρησιμοποιούν τη μικρότερη περιοχή με την"
+" εσοχή αντί για ολόκληρο το καρέ του έργου. Σημαίνει επίσης ότι όλες οι "
+"επιλογές :guilabel:`Βαρύτητα` (Gravity), συμπεριλαμβανομένου του ``Center``,"
+" επιλύονται μέσα στην περιοχή με την εσοχή."
+
+#: ../clips.rst:908
+msgid ""
+"**Usage Example:** Keeping a corner webcam clip slightly away from the "
+"screen edge during a screen recording."
+msgstr ""
+"**Παράδειγμα χρήσης:** Διατήρηση ενός κλιπ webcam στη γωνία σε μικρή "
+"απόσταση από την άκρη της οθόνης κατά τη διάρκεια μιας εγγραφής οθόνης."
+
+#: ../clips.rst:909
+msgid ""
+"**Usage Example:** Adding a clean border around a full-frame image by using "
+"``Fit`` or ``Stretch`` with a small margin."
+msgstr ""
+"**Παράδειγμα χρήσης:** Προσθήκη ενός καθαρού περιγράμματος γύρω από μια "
+"εικόνα πλήρους καρέ, χρησιμοποιώντας ``Fit`` ή ``Stretch`` με μικρό "
+"περιθώριο."
+
+#: ../clips.rst:910
+msgid ""
+"**Usage Example:** Creating safe-area layouts, split-screen spacing, or "
+"picture-in-picture spacing without adding Crop or Mask effects."
+msgstr ""
+"**Παράδειγμα χρήσης:** Δημιουργία διατάξεων ασφαλούς περιοχής (safe-area), "
+"αποστάσεων για διαιρεμένη οθόνη (split-screen) ή για εικόνα μέσα σε εικόνα "
+"(picture-in-picture), χωρίς προσθήκη εφέ Περικοπής (Crop) ή Μάσκας (Mask)."
+
+#: ../clips.rst:911
+msgid ""
+"**Usage Example:** In :guilabel:`Recording View`, screen-plus-camera "
+"recordings use this property to inset the corner webcam clip."
+msgstr ""
+"**Παράδειγμα χρήσης:** Στην :guilabel:`Προβολή εγγραφής` (Recording View), "
+"οι εγγραφές οθόνης μαζί με κάμερα χρησιμοποιούν αυτή την ιδιότητα για να "
+"δημιουργήσουν εσοχή στο κλιπ webcam της γωνίας."
+
+#: ../clips.rst:912
+msgid ""
+"**Tip:** Use a small value such as 0.02 to 0.05 for normal edge spacing. "
+"Larger values intentionally shrink the available layout area."
+msgstr ""
+"**Συμβουλή:** Χρησιμοποιήστε μια μικρή τιμή, όπως 0.02 έως 0.05, για "
+"κανονική απόσταση από την άκρη. Οι μεγαλύτερες τιμές μικραίνουν σκόπιμα τη "
+"διαθέσιμη περιοχή διάταξης."
+
+#: ../clips.rst:918
+msgid ""
+"The :guilabel:`Volume Mixing` property is an enumeration that controls how "
+"volume adjustments are applied before mixing audio. Options: None (no "
+"adjustment), Reduce (volume lowered to 80%), Average (volume divided based "
+"on the number of concurrent clips)."
+msgstr ""
+"Η ιδιότητα :guilabel:`Μίξη Έντασης` (Volume Mixing) είναι μια απαρίθμηση "
+"(enumeration) που ελέγχει πώς εφαρμόζονται οι προσαρμογές της έντασης πριν "
+"από τη μίξη του ήχου. Επιλογές: None (χωρίς προσαρμογή), Reduce (η ένταση "
+"μειώνεται στο 80%), Average (η ένταση διαιρείται βάσει του αριθμού των "
+"ταυτόχρονων κλιπ)."
+
+#: ../clips.rst:921
+msgid ""
+"**Usage Example:** Automatically lowering the volume of a clip to allow "
+"background music to stand out more prominently."
+msgstr ""
+"**Παράδειγμα χρήσης:** Αυτόματο χαμήλωμα της έντασης ενός κλιπ, ώστε η "
+"μουσική υπόκρουση να ξεχωρίζει περισσότερο."
+
+#: ../clips.rst:922
+msgid ""
+"**Tip:** Experiment with volume mixing options to achieve balanced audio "
+"levels across different clips."
+msgstr ""
+"**Συμβουλή:** Πειραματιστείτε με τις επιλογές μίξης έντασης για να επιτύχετε"
+" ισορροπημένα επίπεδα ήχου ανάμεσα σε διαφορετικά κλιπ."
+
+#: ../clips.rst:924
+msgid ""
+"Mixing audio involves adjusting volume levels so that **overlapping clips** "
+"do not become too loud (creating audio distortion and loss of audio "
+"clarity). If you combine particularly loud audio clips on multiple tracks, "
+"clipping (a staccato audio distortion) may occur. To avoid distortion, "
+"OpenShot might need to reduce the volume levels in overlapping clips. The "
+"following audio mixing methods are available:"
+msgstr ""
+"Η μίξη ήχου συνίσταται στη ρύθμιση των επιπέδων έντασης, ώστε τα "
+"**επικαλυπτόμενα κλιπ** να μην γίνονται υπερβολικά δυνατά (προκαλώντας "
+"παραμόρφωση του ήχου και απώλεια της καθαρότητάς του). Αν συνδυάσετε "
+"ιδιαίτερα δυνατά κλιπ ήχου σε πολλούς διαδρόμους, μπορεί να προκύψει "
+"ψαλιδισμός (clipping, μια διακοπτόμενη παραμόρφωση του ήχου). Για να "
+"αποφευχθεί η παραμόρφωση, το OpenShot μπορεί να χρειαστεί να μειώσει τα "
+"επίπεδα έντασης στα επικαλυπτόμενα κλιπ. Διατίθενται οι ακόλουθες μέθοδοι "
+"μίξης ήχου:"
+
+#: ../clips.rst:928
+msgid ""
+"**None** - Make no adjustments to volume data before mixing audio. "
+"Overlapping clips will combine audio at full volume, with no reduction."
+msgstr ""
+"**None** (Κανένα) - Δεν γίνεται καμία προσαρμογή των δεδομένων έντασης πριν "
+"από τη μίξη του ήχου. Τα επικαλυπτόμενα κλιπ θα συνδυάσουν τον ήχο τους σε "
+"πλήρη ένταση, χωρίς μείωση."
+
+#: ../clips.rst:929
+msgid ""
+"**Average** - Automatically divide the volume of each clip based on the # of"
+" overlapping clips. For example, 2 overlapping clips would each have 50% "
+"volume, 3 overlapping clips would each have 33% volume, etc..."
+msgstr ""
+"**Average** (Μέση τιμή) - Διαιρεί αυτόματα την ένταση κάθε κλιπ βάσει του "
+"αριθμού των επικαλυπτόμενων κλιπ. Για παράδειγμα, 2 επικαλυπτόμενα κλιπ θα "
+"έχουν το καθένα ένταση 50%, 3 επικαλυπτόμενα κλιπ θα έχουν το καθένα ένταση "
+"33%, κ.ο.κ."
+
+#: ../clips.rst:930
+msgid ""
+"**Reduce** - Automatically reduce overlapping clips volume by 20%, which "
+"reduces the likelihood of becoming too loud, but does not always prevent "
+"audio distortion. For example, if you have 10 loud clips overlapping, each "
+"with a 20% reduction in volume, it might still exceed the max allowable "
+"volume and exhibit audio distortion."
+msgstr ""
+"**Reduce** (Μείωση) - Μειώνει αυτόματα την ένταση των επικαλυπτόμενων κλιπ "
+"κατά 20%, γεγονός που μειώνει την πιθανότητα να γίνει ο ήχος υπερβολικά "
+"δυνατός, αλλά δεν αποτρέπει πάντα την παραμόρφωση. Για παράδειγμα, αν έχετε "
+"10 δυνατά κλιπ που επικαλύπτονται, το καθένα με μείωση έντασης 20%, ο ήχος "
+"μπορεί και πάλι να ξεπεράσει τη μέγιστη επιτρεπτή ένταση και να παρουσιάσει "
+"παραμόρφωση."
+
+#: ../clips.rst:932
+msgid ""
+"For quickly adjusting the volume of a clip, you can use the :guilabel:`Audio"
+" → Volume` menu. See :ref:`clip_presets_ref`. For precise control over the "
+"volume of a clip, you can manually set the :guilabel:`Volume Key-frame`. See"
+" :ref:`clip_volume_ref`."
+msgstr ""
+"Για γρήγορη προσαρμογή της έντασης ενός κλιπ μπορείτε να χρησιμοποιήσετε το "
+"μενού :guilabel:`Ήχος → Ένταση` (Audio → Volume). Δείτε την ενότητα "
+":ref:`clip_presets_ref`. Για ακριβή έλεγχο της έντασης ενός κλιπ, μπορείτε "
+"να ορίσετε χειροκίνητα το :guilabel:`Βασικό καρέ έντασης` (Volume Key-"
+"frame). Δείτε την ενότητα :ref:`clip_volume_ref`."
+
+#: ../clips.rst:936
+msgid "Origin X and Origin Y"
+msgstr "Προέλευση X και Προέλευση Y"
+
+#: ../clips.rst:937
+msgid ""
+"The :guilabel:`Origin X` and :guilabel:`Origin Y` properties are key-frame "
+"curves that define the rotation origin point's position in percentages. The "
+"range for these curves is -1 to 1. See :ref:`clip_transform_ref`."
+msgstr ""
+"Οι ιδιότητες :guilabel:`Προέλευση X` (Origin X) και :guilabel:`Προέλευση Y` "
+"(Origin Y) είναι καμπύλες βασικών καρέ που ορίζουν τη θέση του σημείου "
+"προέλευσης της περιστροφής σε ποσοστά. Το εύρος αυτών των καμπυλών είναι από"
+" -1 έως 1. Δείτε την ενότητα :ref:`clip_transform_ref`."
+
+#: ../clips.rst:940
+msgid ""
+"**Usage Example:** Rotating a clip around a specific point, such as a "
+"character's pivot joint."
+msgstr ""
+"**Παράδειγμα χρήσης:** Περιστροφή ενός κλιπ γύρω από ένα συγκεκριμένο "
+"σημείο, όπως ο άξονας περιστροφής μιας άρθρωσης ενός χαρακτήρα."
+
+#: ../clips.rst:941
+msgid ""
+"**Tip:** Set the origin point to achieve controlled and natural-looking "
+"rotations during animations."
+msgstr ""
+"**Συμβουλή:** Ορίστε το σημείο προέλευσης ώστε να επιτύχετε ελεγχόμενες και "
+"φυσικές περιστροφές κατά τις κινήσεις."
+
+#: ../clips.rst:946
+msgid "Clip Parent"
+msgstr "Γονικό κλιπ"
+
+#: ../clips.rst:947
+msgid ""
+"The :guilabel:`Parent` property of a clip sets the initial keyframe values "
+"to the parent object. For example, if many clips all point to the same "
+"parent clip, they will inherit all their default properties, such as "
+"``location_x``, ``location_y``, ``scale_x``, ``scale_y``, etc... This can be"
+" very useful in certain circumstances, such as when you have many clips that"
+" need to move or scale together."
+msgstr ""
+"Η ιδιότητα :guilabel:`Γονέας` (Parent) ενός κλιπ ορίζει τις αρχικές τιμές "
+"των βασικών καρέ ίσες με εκείνες του γονικού αντικειμένου. Για παράδειγμα, "
+"αν πολλά κλιπ δείχνουν όλα στο ίδιο γονικό κλιπ, θα κληρονομήσουν όλες τις "
+"προεπιλεγμένες ιδιότητές του, όπως τα ``location_x``, ``location_y``, "
+"``scale_x``, ``scale_y``, κ.λπ. Αυτό μπορεί να είναι πολύ χρήσιμο σε "
+"ορισμένες περιπτώσεις, όπως όταν έχετε πολλά κλιπ που πρέπει να "
+"μετακινούνται ή να κλιμακώνονται μαζί."
+
+#: ../clips.rst:951
+msgid ""
+"**Usage Example:** Creating complex animations by establishing a parent-"
+"child relationship between clips."
+msgstr ""
+"**Παράδειγμα χρήσης:** Δημιουργία σύνθετων κινήσεων μέσω της καθιέρωσης "
+"σχέσης γονέα-παιδιού μεταξύ κλιπ."
+
+#: ../clips.rst:952
+msgid ""
+"**Tip:** Utilize this property to propagate changes from the parent clip to "
+"child clips for consistent animations."
+msgstr ""
+"**Συμβουλή:** Αξιοποιήστε αυτή την ιδιότητα για να μεταδίδετε αλλαγές από το"
+" γονικό κλιπ στα θυγατρικά κλιπ, για συνεπείς κινήσεις."
+
+#: ../clips.rst:953
+msgid ""
+"**Tip:** You can also set the ``parent`` attribute to a ``Tracker`` or "
+"``Object Detector`` tracked object, so the clip follows the location and "
+"scale of a tracked object. Also see :ref:`effect_parent_ref`."
+msgstr ""
+"**Συμβουλή:** Μπορείτε επίσης να ορίσετε το χαρακτηριστικό ``parent`` σε ένα"
+" αντικείμενο που παρακολουθείται από το ``Tracker`` ή το ``Object "
+"Detector``, ώστε το κλιπ να ακολουθεί τη θέση και την κλίμακα του "
+"παρακολουθούμενου αντικειμένου. Δείτε επίσης την ενότητα "
+":ref:`effect_parent_ref`."
+
+#: ../clips.rst:957
+msgid ""
+"The :guilabel:`Position` property determines the clip's position on the "
+"timeline in seconds, with 0.0 indicating the beginning."
+msgstr ""
+"Η ιδιότητα :guilabel:`Θέση` (Position) καθορίζει τη θέση του κλιπ στο "
+"χρονολόγιο σε δευτερόλεπτα, όπου το 0.0 δηλώνει την αρχή."
+
+#: ../clips.rst:959
+msgid ""
+"**Usage Example:** Timing a clip's appearance to coincide with specific "
+"events in the project."
+msgstr ""
+"**Παράδειγμα χρήσης:** Χρονισμός της εμφάνισης ενός κλιπ ώστε να συμπίπτει "
+"με συγκεκριμένα γεγονότα στο έργο."
+
+#: ../clips.rst:960
+msgid ""
+"**Tip:** Adjust the position to synchronize clips with audio cues or visual "
+"elements."
+msgstr ""
+"**Συμβουλή:** Προσαρμόστε τη θέση για να συγχρονίσετε τα κλιπ με ηχητικές "
+"ενδείξεις ή οπτικά στοιχεία."
+
+#: ../clips.rst:966
+msgid ""
+"The :guilabel:`Rotation` property is a key-frame curve that controls the "
+"rotation angle of the clip, ranging from -360 to 360 degrees. You can rotate"
+" clockwise or counterclockwise. Quickly adjust the orientation angle of a "
+"clip (sideways, upside down, right side up, portrait, landscape), flip a "
+"clip, or animate the rotation.  See :ref:`clip_transform_ref`."
+msgstr ""
+"Η ιδιότητα :guilabel:`Περιστροφή` (Rotation) είναι μια καμπύλη βασικών καρέ "
+"που ελέγχει τη γωνία περιστροφής του κλιπ, με εύρος από -360 έως 360 μοίρες."
+" Μπορείτε να περιστρέψετε δεξιόστροφα ή αριστερόστροφα. Μπορείτε να "
+"προσαρμόσετε γρήγορα τον προσανατολισμό ενός κλιπ (πλάγια, ανάποδα, σωστά, "
+"κατακόρυφα, οριζόντια), να αναστρέψετε ένα κλιπ ή να προσθέσετε κίνηση στην "
+"περιστροφή.  Δείτε την ενότητα :ref:`clip_transform_ref`."
+
+#: ../clips.rst:970
+msgid ""
+"**Usage Example:** Simulating a spinning effect by animating the rotation "
+"curve."
+msgstr ""
+"**Παράδειγμα χρήσης:** Προσομοίωση εφέ περιστροφής μέσω της κίνησης της "
+"καμπύλης περιστροφής."
+
+#: ../clips.rst:971
+msgid ""
+"**Tip:** Use this property creatively for effects like rotating text or "
+"emulating camera movement."
+msgstr ""
+"**Συμβουλή:** Χρησιμοποιήστε αυτή την ιδιότητα δημιουργικά για εφέ όπως η "
+"περιστροφή κειμένου ή η προσομοίωση κίνησης κάμερας."
+
+#: ../clips.rst:972
+msgid ""
+"**Tip:** In the preview transform tool, hold :kbd:`Ctrl` or :kbd:`Shift` "
+"while rotating to snap to 15-degree increments."
+msgstr ""
+"**Συμβουλή:** Στο εργαλείο μετασχηματισμού της προεπισκόπησης, κρατήστε "
+"πατημένο το :kbd:`Ctrl` ή το :kbd:`Shift` κατά την περιστροφή για "
+"προσκόλληση ανά 15 μοίρες."
+
+#: ../clips.rst:973
+msgid ""
+"**Tip:** Experiment with rotating your video at different angles, not just "
+"90 or 180 degrees. Sometimes a slight tilt or a specific angle can add "
+"creative flair to your video, especially for artistic or storytelling "
+"purposes."
+msgstr ""
+"**Συμβουλή:** Πειραματιστείτε με την περιστροφή του βίντεό σας σε "
+"διαφορετικές γωνίες, όχι μόνο 90 ή 180 μοίρες. Μερικές φορές μια ελαφριά "
+"κλίση ή μια συγκεκριμένη γωνία μπορεί να προσθέσει δημιουργική πινελιά στο "
+"βίντεό σας, ιδίως για καλλιτεχνικούς σκοπούς ή σκοπούς αφήγησης."
+
+#: ../clips.rst:974
+msgid ""
+"**Tip:** After rotating your video, you might end up with black bars around "
+"the edges. Consider cropping and resizing the video to eliminate these bars "
+"and maintain a clean, polished look."
+msgstr ""
+"**Συμβουλή:** Μετά την περιστροφή του βίντεό σας, μπορεί να εμφανιστούν "
+"μαύρες γραμμές γύρω από τις άκρες. Εξετάστε το ενδεχόμενο περικοπής και "
+"αλλαγής μεγέθους του βίντεο για να εξαλείψετε αυτές τις γραμμές και να "
+"διατηρήσετε μια καθαρή, επαγγελματική εμφάνιση."
+
+#: ../clips.rst:975
+msgid ""
+"**Tip:** If you're dealing with vertical videos that are meant to be watched"
+" on horizontal screens, rotate them by 90 degrees and then scale them up to "
+"fill the frame. This way, your vertical video will occupy more screen real "
+"estate."
+msgstr ""
+"**Συμβουλή:** Αν έχετε κατακόρυφα βίντεο που προορίζονται για προβολή σε "
+"οριζόντιες οθόνες, περιστρέψτε τα κατά 90 μοίρες και έπειτα μεγεθύνετέ τα "
+"ώστε να γεμίσουν το καρέ. Με αυτόν τον τρόπο, το κατακόρυφο βίντεό σας θα "
+"καταλαμβάνει μεγαλύτερο μέρος της οθόνης."
+
+#: ../clips.rst:976
+msgid ""
+"**Tip:** If the horizon in your video appears slanted due to camera tilt, "
+"use rotation to level it. This is particularly important for landscape shots"
+" to maintain a professional and visually pleasing appearance."
+msgstr ""
+"**Συμβουλή:** Αν ο ορίζοντας στο βίντεό σας φαίνεται λοξός λόγω κλίσης της "
+"κάμερας, χρησιμοποιήστε την περιστροφή για να τον ισιώσετε. Αυτό είναι "
+"ιδιαίτερα σημαντικό στα πλάνα τοπίου, ώστε να διατηρείται μια επαγγελματική "
+"και οπτικά ευχάριστη εμφάνιση."
+
+#: ../clips.rst:982
+msgid ""
+"The :guilabel:`Scale` property is the initial resizing or scaling method "
+"used to display the picture of a clip, which may be further adjusted by the "
+":guilabel:`Scale X` and :guilabel:`Scale Y` clip properties (see "
+":ref:`clip_scale_x_ref`). It is recommended to use assets with the same "
+"aspect ratio as your project profile, which allows many of these resizing "
+"methods to fully scale your clip up to the size of the screen, without "
+"adding any black bars on the edges. The scale methods are:"
+msgstr ""
+"Η ιδιότητα :guilabel:`Κλίμακα` (Scale) είναι η αρχική μέθοδος αλλαγής "
+"μεγέθους ή κλιμάκωσης που χρησιμοποιείται για την εμφάνιση της εικόνας ενός "
+"κλιπ και μπορεί να προσαρμοστεί περαιτέρω από τις ιδιότητες κλιπ "
+":guilabel:`Κλίμακα X` (Scale X) και :guilabel:`Κλίμακα Y` (Scale Y) (δείτε "
+"την ενότητα :ref:`clip_scale_x_ref`). Συνιστάται η χρήση στοιχείων με την "
+"ίδια αναλογία διαστάσεων με το προφίλ του έργου σας, γεγονός που επιτρέπει "
+"σε πολλές από αυτές τις μεθόδους αλλαγής μεγέθους να κλιμακώσουν πλήρως το "
+"κλιπ μέχρι το μέγεθος της οθόνης, χωρίς να προστεθούν μαύρες γραμμές στις "
+"άκρες. Οι μέθοδοι κλιμάκωσης είναι:"
+
+#: ../clips.rst:987
+msgid ""
+"**Best Fit** (default) – The clip is as large as possible without changing "
+"the aspect ratio. This might result in black bars on certain sides of the "
+"picture, if the aspect ratio does not exactly match your project size."
+msgstr ""
+"**Καλύτερο Ταίριασμα** (Best Fit) (προεπιλογή) – Το κλιπ είναι όσο το "
+"δυνατόν μεγαλύτερο χωρίς να αλλάξει η αναλογία διαστάσεων. Αυτό μπορεί να "
+"οδηγήσει σε μαύρες γραμμές σε ορισμένες πλευρές της εικόνας, αν η αναλογία "
+"διαστάσεων δεν ταιριάζει ακριβώς με το μέγεθος του έργου σας."
+
+#: ../clips.rst:988
+msgid ""
+"**Crop** – The aspect ratio of the clip is maintained while the clip is "
+"enlarged to fill the entire screen, even if that means some of it will be "
+"cropped. This prevents black bars around the picture, but if the aspect "
+"ratio of the clip does not match the project size, some of the picture will "
+"be cropped off."
+msgstr ""
+"**Περικοπή** (Crop) – Η αναλογία διαστάσεων του κλιπ διατηρείται, ενώ το "
+"κλιπ μεγεθύνεται ώστε να γεμίσει ολόκληρη την οθόνη, ακόμη και αν αυτό "
+"σημαίνει ότι μέρος του θα περικοπεί. Έτσι αποφεύγονται οι μαύρες γραμμές "
+"γύρω από την εικόνα, αλλά αν η αναλογία διαστάσεων του κλιπ δεν ταιριάζει με"
+" το μέγεθος του έργου, μέρος της εικόνας θα αποκοπεί."
+
+#: ../clips.rst:989
+msgid ""
+"**None** – The clip is displayed in its original size. This is not "
+"recommended, since the picture will not scale correctly if you change the "
+"project profile (or project size)."
+msgstr ""
+"**Κανένα** (None) – Το κλιπ εμφανίζεται στο αρχικό του μέγεθος. Αυτό δεν "
+"συνιστάται, καθώς η εικόνα δεν θα κλιμακώνεται σωστά αν αλλάξετε το προφίλ "
+"του έργου (ή το μέγεθος του έργου)."
+
+#: ../clips.rst:990
+msgid ""
+"**Stretch** – The clip is stretched to fill the entire screen, changing the "
+"aspect ratio if necessary."
+msgstr ""
+"**Τέντωμα** (Stretch) – Το κλιπ τεντώνεται ώστε να γεμίσει ολόκληρη την "
+"οθόνη, αλλάζοντας την αναλογία διαστάσεων αν χρειάζεται."
+
+#: ../clips.rst:995
+msgid "Scale X and Scale Y"
+msgstr "Κλίμακα X και Κλίμακα Y"
+
+#: ../clips.rst:996
+msgid ""
+"The :guilabel:`Scale X` and :guilabel:`Scale Y` properties are key-frame "
+"curves that represent horizontal and vertical scaling in percentages, "
+"respectively. The range for these curves is 0 to 1. See "
+":ref:`clip_transform_ref`. OpenShot limits the max scale values based on the"
+" file type and the project size, to prevent crashes and performance issues."
+msgstr ""
+"Οι ιδιότητες :guilabel:`Κλίμακα X` (Scale X) και :guilabel:`Κλίμακα Y` "
+"(Scale Y) είναι καμπύλες βασικών καρέ που αναπαριστούν την οριζόντια και την"
+" κάθετη κλιμάκωση σε ποσοστά, αντίστοιχα. Το εύρος αυτών των καμπυλών είναι "
+"από 0 έως 1. Δείτε την ενότητα :ref:`clip_transform_ref`. Το OpenShot "
+"περιορίζει τις μέγιστες τιμές κλίμακας με βάση τον τύπο του αρχείου και το "
+"μέγεθος του έργου, για να αποφεύγονται καταρρεύσεις και προβλήματα "
+"επιδόσεων."
+
+#: ../clips.rst:1000
+msgid ""
+"**Usage Example:** Creating a zoom-in effect by animating the Scale X and "
+"Scale Y curves simultaneously."
+msgstr ""
+"**Παράδειγμα χρήσης:** Δημιουργία εφέ μεγέθυνσης (zoom-in) κινώντας "
+"ταυτόχρονα τις καμπύλες Κλίμακα X και Κλίμακα Y."
+
+#: ../clips.rst:1001
+msgid ""
+"**Tip:** Scale the image larger than the screen, only revealing a portion of"
+" the video. This is a simple way to crop a portion of the video."
+msgstr ""
+"**Συμβουλή:** Κλιμακώστε την εικόνα ώστε να είναι μεγαλύτερη από την οθόνη, "
+"αποκαλύπτοντας μόνο ένα τμήμα του βίντεο. Αυτός είναι ένας απλός τρόπος "
+"περικοπής ενός τμήματος του βίντεο."
+
+#: ../clips.rst:1002
+msgid ""
+"**Tip:** Scale the horizontal and vertical elements separately, to squash "
+"and stretch the image in fun ways."
+msgstr ""
+"**Συμβουλή:** Κλιμακώστε χωριστά τα οριζόντια και τα κάθετα στοιχεία, για να"
+" συμπιέσετε και να τεντώσετε την εικόνα με διασκεδαστικούς τρόπους."
+
+#: ../clips.rst:1003
+msgid ""
+"**Tip:** Combine scaling with rotation and location properties for dynamic "
+"transformations."
+msgstr ""
+"**Συμβουλή:** Συνδυάστε την κλιμάκωση με τις ιδιότητες περιστροφής και θέσης"
+" για δυναμικούς μετασχηματισμούς."
+
+#: ../clips.rst:1006
+msgid "Shear X and Shear Y"
+msgstr "Διάτμηση X και Διάτμηση Y"
+
+#: ../clips.rst:1007
+msgid ""
+"The :guilabel:`Shear X` and :guilabel:`Shear Y` properties are key-frame "
+"curves that represent X and Y shear angles in degrees, respectively. See "
+":ref:`clip_transform_ref`. OpenShot limits the max shear values based on the"
+" file type and the project size, to prevent crashes and performance issues."
+msgstr ""
+"Οι ιδιότητες :guilabel:`Διάτμηση X` (Shear X) και :guilabel:`Διάτμηση Y` "
+"(Shear Y) είναι καμπύλες βασικών καρέ που αναπαριστούν τις γωνίες διάτμησης "
+"X και Y σε μοίρες, αντίστοιχα. Δείτε την ενότητα :ref:`clip_transform_ref`. "
+"Το OpenShot περιορίζει τις μέγιστες τιμές διάτμησης με βάση τον τύπο του "
+"αρχείου και το μέγεθος του έργου, για να αποφεύγονται καταρρεύσεις και "
+"προβλήματα επιδόσεων."
+
+#: ../clips.rst:1011
+msgid ""
+"**Usage Example:** Adding a dynamic tilt effect to a clip by animating the "
+"shear angles."
+msgstr ""
+"**Παράδειγμα χρήσης:** Προσθήκη ενός δυναμικού εφέ κλίσης σε ένα κλιπ μέσω "
+"της κίνησης των γωνιών διάτμησης."
+
+#: ../clips.rst:1012
+msgid ""
+"**Tip:** Use shear properties for creating slanted or skewed animations."
+msgstr ""
+"**Συμβουλή:** Χρησιμοποιήστε τις ιδιότητες διάτμησης για να δημιουργήσετε "
+"κεκλιμένες ή παραμορφωμένες κινήσεις."
+
+#: ../clips.rst:1016
+msgid ""
+"The :guilabel:`Start` property defines the trimming point at the beginning "
+"of the clip in seconds. Changing this property will impact the "
+":guilabel:`Duration` clip property."
+msgstr ""
+"Η ιδιότητα :guilabel:`Αρχή` (Start) ορίζει το σημείο περικοπής στην αρχή του"
+" κλιπ σε δευτερόλεπτα. Η αλλαγή αυτής της ιδιότητας επηρεάζει την ιδιότητα "
+"κλιπ :guilabel:`Διάρκεια` (Duration)."
+
+#: ../clips.rst:1019
+msgid ""
+"**Usage Example:** Removing the initial portion of a clip to focus on a "
+"specific scene or moment."
+msgstr ""
+"**Παράδειγμα χρήσης:** Αφαίρεση του αρχικού τμήματος ενός κλιπ ώστε να "
+"εστιάσετε σε μια συγκεκριμένη σκηνή ή στιγμή."
+
+#: ../clips.rst:1020
+msgid ""
+"**Tip:** Utilize the \"Start\" property in combination with the \"End\" "
+"property for precise clip trimming."
+msgstr ""
+"**Συμβουλή:** Αξιοποιήστε την ιδιότητα «Αρχή» (Start) σε συνδυασμό με την "
+"ιδιότητα «Τέλος» (End) για ακριβή περικοπή του κλιπ."
+
+#: ../clips.rst:1026
+msgid ""
+"The :guilabel:`Time` property is a key-frame curve that represents frames "
+"played over time, affecting the speed and direction of the video. You can "
+"use one of the available presets (normal, fast, slow, freeze, freeze & zoom,"
+" forward, backward), by right-clicking on a clip and choosing the "
+":guilabel:`Speed` menu. Many presets are available in this menu for "
+"reversing, speeding up, and slowing down a video clip, see "
+":ref:`clip_presets_ref`. The same adjustments can be made interactively with"
+" the :guilabel:`Timing` toolbar button by dragging a clip's edges; OpenShot "
+"adds the necessary time keyframes and scales all other keyframes "
+"automatically."
+msgstr ""
+"Η ιδιότητα :guilabel:`Χρόνος` (Time) είναι μια καμπύλη βασικών καρέ που "
+"αναπαριστά τα καρέ που αναπαράγονται με την πάροδο του χρόνου, επηρεάζοντας "
+"την ταχύτητα και την κατεύθυνση του βίντεο. Μπορείτε να χρησιμοποιήσετε μία "
+"από τις διαθέσιμες προρυθμίσεις (κανονική, γρήγορη, αργή, πάγωμα, πάγωμα και"
+" μεγέθυνση, εμπρός, πίσω), κάνοντας δεξί κλικ σε ένα κλιπ και επιλέγοντας το"
+" μενού :guilabel:`Ταχύτητα` (Speed). Στο μενού αυτό διατίθενται πολλές "
+"προρυθμίσεις για αντιστροφή, επιτάχυνση και επιβράδυνση ενός κλιπ βίντεο· "
+"δείτε την ενότητα :ref:`clip_presets_ref`. Οι ίδιες προσαρμογές μπορούν να "
+"γίνουν διαδραστικά με το κουμπί της γραμμής εργαλείων :guilabel:`Χρονισμός` "
+"(Timing), σύροντας τις άκρες ενός κλιπ· το OpenShot προσθέτει τα απαραίτητα "
+"βασικά καρέ χρόνου και κλιμακώνει αυτόματα όλα τα υπόλοιπα βασικά καρέ."
+
+#: ../clips.rst:1033
+msgid ""
+"Optionally, you can manually set key-frame values for the :guilabel:`Time` "
+"property. The value represents the `frame number` at the position of the "
+"key-frame. This can be tricky to determine and might require a calculator to"
+" find the needed values. For example, if the beginning of your Clip sets a "
+"time value of ``300`` (i.e. `frame 300`), and the end of your clip sets a "
+"time value of ``1`` (`frame 1`), OpenShot will play this clip backwards, "
+"starting at frame 300 and ending at frame 1, at the appropriate speed (based"
+" on where these key-frames are set on the timeline). NOTE: To determine the "
+"total number of frames in a clip, multiply the duration of the file with the"
+" FPS of the project (for example: ``47.0 sec clip duration X 24.0 Project "
+"FPS = 1128 total frames``)."
+msgstr ""
+"Προαιρετικά, μπορείτε να ορίσετε χειροκίνητα τιμές βασικών καρέ για την "
+"ιδιότητα :guilabel:`Χρόνος` (Time). Η τιμή αναπαριστά τον `αριθμό καρέ` στη "
+"θέση του βασικού καρέ. Αυτό μπορεί να είναι δύσκολο να προσδιοριστεί και "
+"ίσως χρειαστείτε αριθμομηχανή για να βρείτε τις απαραίτητες τιμές. Για "
+"παράδειγμα, αν η αρχή του κλιπ σας ορίζει τιμή χρόνου ``300`` (δηλαδή `καρέ "
+"300`) και το τέλος του κλιπ σας ορίζει τιμή χρόνου ``1`` (`καρέ 1`), το "
+"OpenShot θα αναπαράγει αυτό το κλιπ αντίστροφα, ξεκινώντας από το καρέ 300 "
+"και καταλήγοντας στο καρέ 1, με την κατάλληλη ταχύτητα (ανάλογα με το πού "
+"έχουν οριστεί αυτά τα βασικά καρέ στο χρονολόγιο). ΣΗΜΕΙΩΣΗ: Για να "
+"προσδιορίσετε τον συνολικό αριθμό καρέ ενός κλιπ, πολλαπλασιάστε τη διάρκεια"
+" του αρχείου με τον ρυθμό καρέ (FPS) του έργου (για παράδειγμα: ``47.0 sec "
+"clip duration X 24.0 Project FPS = 1128 total frames``)."
+
+#: ../clips.rst:1041
+msgid ""
+"This allows for some very complex scenarios, such as jump cutting inside a "
+"clip, reversing a portion of a clip, slowing down a portion of a clip, "
+"freezing on a frame, and much more. See :ref:`animation_ref` for more "
+"details on manual key-frame animations."
+msgstr ""
+"Αυτό επιτρέπει μερικά πολύ σύνθετα σενάρια, όπως το jump cut μέσα σε ένα "
+"κλιπ, η αντιστροφή ενός τμήματος ενός κλιπ, η επιβράδυνση ενός τμήματος ενός"
+" κλιπ, το πάγωμα σε ένα καρέ και πολλά άλλα. Δείτε την ενότητα "
+":ref:`animation_ref` για περισσότερες λεπτομέρειες σχετικά με τις "
+"χειροκίνητες κινήσεις με βασικά καρέ."
+
+#: ../clips.rst:1045
+msgid ""
+"**Usage Example:** Creating a slow-motion or time-lapse effect by modifying "
+"the time curve."
+msgstr ""
+"**Παράδειγμα χρήσης:** Δημιουργία εφέ αργής κίνησης (slow motion) ή "
+"επιταχυνόμενου χρόνου (time-lapse) τροποποιώντας την καμπύλη χρόνου."
+
+#: ../clips.rst:1046
+msgid ""
+"**Tip:** Adjust the \"Time\" property to control video playback speed for "
+"dramatic visual impact."
+msgstr ""
+"**Συμβουλή:** Προσαρμόστε την ιδιότητα «Χρόνος» (Time) για να ελέγξετε την "
+"ταχύτητα αναπαραγωγής του βίντεο και να επιτύχετε δραματικό οπτικό "
+"αποτέλεσμα."
+
+#: ../clips.rst:1052
+msgid ""
+"The :guilabel:`Volume` property is a key-frame curve that controls audio "
+"volume or level, ranging from 0 (mute) to 1 (full volume). For automatic "
+"adjustment of volume, see :ref:`clip_volume_mixing_ref`."
+msgstr ""
+"Η ιδιότητα :guilabel:`Ένταση` (Volume) είναι μια καμπύλη βασικών καρέ που "
+"ελέγχει την ένταση ή τη στάθμη του ήχου, με εύρος από 0 (σίγαση) έως 1 "
+"(πλήρης ένταση). Για αυτόματη προσαρμογή της έντασης, δείτε την ενότητα "
+":ref:`clip_volume_mixing_ref`."
+
+#: ../clips.rst:1055
+msgid ""
+"**Usage Example:** Gradually fading out background music as dialogue becomes"
+" more prominent, or increasing or lowering the volume of a clip."
+msgstr ""
+"**Παράδειγμα χρήσης:** Βαθμιαίο χαμήλωμα της μουσικής υπόκρουσης καθώς ο "
+"διάλογος γίνεται πιο εμφανής, ή αύξηση ή μείωση της έντασης ενός κλιπ."
+
+#: ../clips.rst:1056
+msgid ""
+"**Tip:** Combine multiple volume key-frames for nuanced audio adjustments, "
+"such as ducking the level of the music when dialog is spoken."
+msgstr ""
+"**Συμβουλή:** Συνδυάστε πολλά βασικά καρέ έντασης για λεπτές προσαρμογές του"
+" ήχου, όπως το χαμήλωμα της μουσικής (ducking) όταν ακούγεται διάλογος."
+
+#: ../clips.rst:1057
+msgid ""
+"**Tip:** For **quickly** adjusting the volume of a clip you can use the "
+":guilabel:`Audio → Volume` menu. See :ref:`clip_presets_ref`."
+msgstr ""
+"**Συμβουλή:** Για **γρήγορη** προσαρμογή της έντασης ενός κλιπ μπορείτε να "
+"χρησιμοποιήσετε το μενού :guilabel:`Ήχος → Ένταση` (Audio → Volume). Δείτε "
+"την ενότητα :ref:`clip_presets_ref`."
+
+#: ../clips.rst:1061
+msgid ""
+"The :guilabel:`Wave Color` property is a key-frame curve that represents the"
+" color of the audio waveform visualization."
+msgstr ""
+"Η ιδιότητα :guilabel:`Χρώμα Κυματομορφής` (Wave Color) είναι μια καμπύλη "
+"βασικών καρέ που αναπαριστά το χρώμα της οπτικοποίησης της κυματομορφής του "
+"ήχου."
+
+#: ../clips.rst:1063
+msgid ""
+"**Usage Example:** Matching the waveform color to the project's overall "
+"visual theme."
+msgstr ""
+"**Παράδειγμα χρήσης:** Προσαρμογή του χρώματος της κυματομορφής στο συνολικό"
+" οπτικό θέμα του έργου."
+
+#: ../clips.rst:1064
+msgid ""
+"**Tip:** Experiment with different colors to enhance the visual appeal of "
+"the waveform or animate the color over time."
+msgstr ""
+"**Συμβουλή:** Πειραματιστείτε με διαφορετικά χρώματα για να βελτιώσετε την "
+"οπτική απήχηση της κυματομορφής ή κάντε το χρώμα να μεταβάλλεται με την "
+"πάροδο του χρόνου."
+
+#: ../clips.rst:1068
+msgid ""
+"The :guilabel:`Waveform` property is a boolean that determines whether a "
+"waveform visualization is used instead of the clip's image."
+msgstr ""
+"Η ιδιότητα :guilabel:`Κυματομορφή` (Waveform) είναι μια λογική τιμή "
+"(boolean) που καθορίζει αν χρησιμοποιείται οπτικοποίηση κυματομορφής αντί "
+"για την εικόνα του κλιπ."
+
+#: ../clips.rst:1070
+msgid ""
+"**Usage Example:** Displaying an audio waveform in place of the video for "
+"visually highlighting audio patterns."
+msgstr ""
+"**Παράδειγμα χρήσης:** Εμφάνιση μιας κυματομορφής ήχου στη θέση του βίντεο "
+"για οπτική ανάδειξη των μοτίβων του ήχου."
+
+#: ../clips.rst:1071
+msgid ""
+"**Tip:** Use waveform visualization for emphasizing music beats or voice "
+"modulations."
+msgstr ""
+"**Συμβουλή:** Χρησιμοποιήστε την οπτικοποίηση κυματομορφής για να τονίσετε "
+"τους ρυθμούς της μουσικής ή τις διαμορφώσεις της φωνής."
+
+#: ../clips.rst:1075
+msgid ""
+"The :guilabel:`Waveform Mode` property controls the visualization style used"
+" when :guilabel:`Waveform` is enabled. It uses the same choices as the "
+":guilabel:`Visualization` property on the :guilabel:`Audio Visualization` "
+"effect: Waveform, Filled Waveform, Bars, Radial, Radial Bars, Spectrum, "
+"Phase Scope, Particles, and VU Meter."
+msgstr ""
+"Η ιδιότητα :guilabel:`Λειτουργία Κυματομορφής` (Waveform Mode) ελέγχει το "
+"στυλ οπτικοποίησης που χρησιμοποιείται όταν είναι ενεργοποιημένη η ιδιότητα "
+":guilabel:`Κυματομορφή` (Waveform). Χρησιμοποιεί τις ίδιες επιλογές με την "
+"ιδιότητα :guilabel:`Οπτικοποίηση` (Visualization) του εφέ "
+":guilabel:`Οπτικοποίηση ήχου` (Audio Visualization): Waveform, Filled "
+"Waveform, Bars, Radial, Radial Bars, Spectrum, Phase Scope, Particles και VU"
+" Meter."
+
+#: ../clips.rst:1079
+msgid ""
+"**Usage Example:** Switching an audio-only clip from a standard waveform to "
+"bars or a spectrum display."
+msgstr ""
+"**Παράδειγμα χρήσης:** Εναλλαγή ενός κλιπ μόνο με ήχο από τυπική κυματομορφή"
+" σε ράβδους ή σε εμφάνιση φάσματος."
+
+#: ../clips.rst:1080
+msgid ""
+"**Tip:** Use :guilabel:`Wave Color` with :guilabel:`Waveform Mode` to tune "
+"both the visualization style and color."
+msgstr ""
+"**Συμβουλή:** Χρησιμοποιήστε το :guilabel:`Χρώμα Κυματομορφής` (Wave Color) "
+"μαζί με τη :guilabel:`Λειτουργία Κυματομορφής` (Waveform Mode) για να "
+"ρυθμίσετε τόσο το στυλ οπτικοποίησης όσο και το χρώμα."
+
+#: ../clips.rst:1083
+msgid "More Information"
+msgstr "Περισσότερες πληροφορίες"
+
+#: ../clips.rst:1084
+msgid "For more info on key frames and animation, see :ref:`animation_ref`."
+msgstr ""
+"Για περισσότερες πληροφορίες σχετικά με τα βασικά καρέ και την κίνηση, δείτε"
+" την ενότητα :ref:`animation_ref`."

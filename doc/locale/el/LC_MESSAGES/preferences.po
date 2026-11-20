@@ -1,0 +1,1205 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../preferences.rst:23
+msgid "Preferences"
+msgstr "Προτιμήσεις"
+
+#: ../preferences.rst:25
+msgid ""
+"The Preferences window contains many important settings and configuration "
+"options for OpenShot. They can be found in the top menu under "
+":guilabel:`Edit→Preferences`. Many settings will require OpenShot to be "
+"restarted after your changes are applied."
+msgstr ""
+"Το παράθυρο Προτιμήσεις (Preferences) περιέχει πολλές σημαντικές ρυθμίσεις "
+"και επιλογές διαμόρφωσης του OpenShot. Μπορείτε να το βρείτε στο επάνω "
+"μενού, στην επιλογή :guilabel:`Επεξεργασία→Προτιμήσεις` (Edit→Preferences). "
+"Για πολλές ρυθμίσεις απαιτείται επανεκκίνηση του OpenShot, ώστε να "
+"εφαρμοστούν οι αλλαγές σας."
+
+#: ../preferences.rst:29
+msgid ""
+"NOTE: Some features such as `Animated Titles` and `external SVG editing` "
+"require setting the paths for **Blender** and **Inkscape** under the General"
+" tab. And if you notice audio playback issues, such as audio drift, you may "
+"need to adjust the audio settings under the Preview tab."
+msgstr ""
+"ΣΗΜΕΙΩΣΗ: Ορισμένες λειτουργίες, όπως οι `Κινούμενοι τίτλοι` (Animated "
+"Titles) και η `εξωτερική επεξεργασία SVG` (external SVG editing), απαιτούν "
+"τον ορισμό των διαδρομών για το **Blender** και το **Inkscape** στην καρτέλα"
+" Γενικά (General). Αν παρατηρήσετε προβλήματα στην αναπαραγωγή ήχου, όπως "
+"ολίσθηση του ήχου (audio drift), ίσως χρειαστεί να προσαρμόσετε τις "
+"ρυθμίσεις ήχου στην καρτέλα Προεπισκόπηση (Preview)."
+
+#: ../preferences.rst:36
+msgid "General"
+msgstr "Γενικά"
+
+#: ../preferences.rst:40
+msgid ""
+"The General tab of the Preferences window allows you to modify the settings "
+"that apply to OpenShot as a whole."
+msgstr ""
+"Η καρτέλα Γενικά (General) του παραθύρου Προτιμήσεις (Preferences) σας "
+"επιτρέπει να τροποποιήσετε τις ρυθμίσεις που ισχύουν για το OpenShot "
+"συνολικά."
+
+#: ../preferences.rst:46 ../preferences.rst:109 ../preferences.rst:132
+#: ../preferences.rst:157 ../preferences.rst:204 ../preferences.rst:234
+#: ../preferences.rst:290 ../preferences.rst:329
+msgid "Setting"
+msgstr "Ρύθμιση"
+
+#: ../preferences.rst:47 ../preferences.rst:50 ../preferences.rst:109
+#: ../preferences.rst:132 ../preferences.rst:134 ../preferences.rst:157
+#: ../preferences.rst:330
+msgid "Default"
+msgstr "Προεπιλογή"
+
+#: ../preferences.rst:48 ../preferences.rst:109 ../preferences.rst:132
+#: ../preferences.rst:204 ../preferences.rst:235 ../preferences.rst:290
+#: ../preferences.rst:310 ../preferences.rst:331
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: ../preferences.rst:49
+msgid "Language"
+msgstr "Γλώσσα (Language)"
+
+#: ../preferences.rst:51
+msgid "Choose your preferred language for OpenShot menus and windows"
+msgstr ""
+"Επιλέξτε την προτιμώμενη γλώσσα για τα μενού και τα παράθυρα του OpenShot"
+
+#: ../preferences.rst:52
+msgid "Default Theme"
+msgstr "Προκαθορισμένο θέμα (Default Theme)"
+
+#: ../preferences.rst:53
+msgid "Cosmic Dusk"
+msgstr ""
+
+#: ../preferences.rst:54
+msgid "Choose your theme for OpenShot"
+msgstr "Επιλέξτε το θέμα του OpenShot"
+
+#: ../preferences.rst:55
+msgid "User Interface Scale"
+msgstr "Κλίμακα διεπαφής χρήστη (User Interface Scale)"
+
+#: ../preferences.rst:56
+msgid "100%"
+msgstr ""
+
+#: ../preferences.rst:57
+msgid ""
+"Choose a preset UI scaling factor for larger or smaller interface elements"
+msgstr ""
+"Επιλέξτε έναν προκαθορισμένο συντελεστή κλιμάκωσης της διεπαφής για "
+"μεγαλύτερα ή μικρότερα στοιχεία της διεπαφής"
+
+#: ../preferences.rst:58
+msgid "Default Profile"
+msgstr "Προεπιλεγμένο Προφίλ (Default Profile)"
+
+#: ../preferences.rst:59
+msgid "HD 720p 30 fps"
+msgstr ""
+
+#: ../preferences.rst:60
+msgid "Select the default profile for new projects and exports"
+msgstr "Επιλέξτε το προεπιλεγμένο προφίλ για τα νέα έργα και τις εξαγωγές"
+
+#: ../preferences.rst:61
+msgid "Blender Command (path)"
+msgstr "Εντολή (διαδρομή) του Blender (Blender Command (path))"
+
+#: ../preferences.rst:62
+msgid "blender"
+msgstr ""
+
+#: ../preferences.rst:63
+msgid "The path to the binary for Blender (version 5.0+)"
+msgstr "Η διαδρομή προς το εκτελέσιμο αρχείο του Blender (έκδοση 5.0+)"
+
+#: ../preferences.rst:64
+msgid "Advanced Title Editor (path)"
+msgstr ""
+"Προηγμένος Επεξεργαστής Τίτλων (διαδρομή) (Advanced Title Editor (path))"
+
+#: ../preferences.rst:65
+msgid "inkscape"
+msgstr ""
+
+#: ../preferences.rst:66
+msgid "The path to the binary for Inkscape"
+msgstr "Η διαδρομή προς το εκτελέσιμο αρχείο του Inkscape"
+
+#: ../preferences.rst:69
+msgid "Themes"
+msgstr "Θέματα"
+
+#: ../preferences.rst:70
+msgid ""
+"OpenShot comes with 3 standard themes, which change the look and feel of the"
+" program."
+msgstr ""
+"Το OpenShot συνοδεύεται από 3 τυπικά θέματα, τα οποία αλλάζουν την εμφάνιση "
+"και την αίσθηση χρήσης του προγράμματος."
+
+#: ../preferences.rst:72
+msgid ""
+"**Cosmic Dusk:** [Default Theme] A bluish theme with a more modern UI "
+"design, enhancing the visual aesthetics of the editor. This theme features "
+"shades of blue and purple, giving the interface a contemporary and dynamic "
+"feel. It combines modern aesthetics with functionality, offering a fresh and"
+" visually appealing workspace for video editing."
+msgstr ""
+"**Cosmic Dusk:** [Προκαθορισμένο θέμα] Ένα γαλαζωπό θέμα με πιο μοντέρνο "
+"σχεδιασμό διεπαφής, που ενισχύει την οπτική αισθητική του προγράμματος "
+"επεξεργασίας. Το θέμα αυτό χρησιμοποιεί αποχρώσεις του μπλε και του μοβ, "
+"προσδίδοντας στη διεπαφή μια σύγχρονη και δυναμική αίσθηση. Συνδυάζει τη "
+"μοντέρνα αισθητική με τη λειτουργικότητα, προσφέροντας έναν φρέσκο και "
+"οπτικά ελκυστικό χώρο εργασίας για την επεξεργασία βίντεο."
+
+#: ../preferences.rst:73
+msgid ""
+"**Humanity Dark:** A dark theme with dark gray tones, providing a modern and"
+" sleek look. This theme is designed for users who prefer working in low-"
+"light conditions or who enjoy a more subdued and professional appearance. "
+"The dark gray background reduces glare and eye strain, making it suitable "
+"for extended editing sessions."
+msgstr ""
+"**Humanity Dark:** Ένα σκούρο θέμα με σκούρες γκρι αποχρώσεις, που προσφέρει"
+" μοντέρνα και κομψή εμφάνιση. Το θέμα αυτό έχει σχεδιαστεί για χρήστες που "
+"προτιμούν να εργάζονται σε συνθήκες χαμηλού φωτισμού ή που προτιμούν μια πιο"
+" διακριτική και επαγγελματική εμφάνιση. Το σκούρο γκρι φόντο μειώνει τη "
+"θάμβωση και την κόπωση των ματιών, γεγονός που το καθιστά κατάλληλο για "
+"παρατεταμένες συνεδρίες επεξεργασίας."
+
+#: ../preferences.rst:74
+msgid ""
+"**Retro:** A light theme that offers a classic and clean appearance. This "
+"theme uses light gray and white tones, making it ideal for users who prefer "
+"a bright and high-contrast interface. It provides a traditional look that is"
+" easy on the eyes, especially in well-lit environments."
+msgstr ""
+"**Retro:** Ένα ανοιχτόχρωμο θέμα που προσφέρει κλασική και καθαρή εμφάνιση. "
+"Το θέμα αυτό χρησιμοποιεί αποχρώσεις του ανοιχτού γκρι και του λευκού, και "
+"είναι ιδανικό για χρήστες που προτιμούν μια φωτεινή διεπαφή με υψηλή "
+"αντίθεση. Παρέχει μια παραδοσιακή εμφάνιση που είναι ξεκούραστη για τα "
+"μάτια, ιδίως σε καλά φωτισμένους χώρους."
+
+#: ../preferences.rst:79
+msgid "Restoring Defaults"
+msgstr "Επαναφορά προεπιλογών"
+
+#: ../preferences.rst:80
+msgid ""
+"In OpenShot, each preferences category (or tab) in the Preferences window "
+"has a **Restore Defaults** button that allows you to easily reset the values"
+" for that specific category. This feature is particularly useful if you want"
+" to reset only certain parts of your preferences, like keyboard shortcuts, "
+"without affecting the rest of your custom settings."
+msgstr ""
+"Στο OpenShot, κάθε κατηγορία προτιμήσεων (ή καρτέλα) του παραθύρου "
+"Προτιμήσεις (Preferences) διαθέτει ένα κουμπί **Επαναφορά προεπιλογών** "
+"(Restore Defaults), το οποίο σας επιτρέπει να επαναφέρετε εύκολα τις τιμές "
+"της συγκεκριμένης κατηγορίας. Η δυνατότητα αυτή είναι ιδιαίτερα χρήσιμη αν "
+"θέλετε να επαναφέρετε μόνο ορισμένα τμήματα των προτιμήσεών σας, όπως τις "
+"συντομεύσεις πληκτρολογίου, χωρίς να επηρεαστούν οι υπόλοιπες προσαρμοσμένες"
+" ρυθμίσεις σας."
+
+#: ../preferences.rst:84
+msgid ""
+"**Where to Find the Restore Defaults Button:** Each category or tab in the "
+"Preferences window has a **Restore Defaults** button located in the bottom "
+"left corner of the screen. The name of the button updates based on the "
+"category you’re viewing. For example, if you're in the \"Keyboard\" tab, the"
+" button will say **Restore Defaults: Keyboard**."
+msgstr ""
+"**Πού θα βρείτε το κουμπί Επαναφορά προεπιλογών (Restore Defaults):** Κάθε "
+"κατηγορία ή καρτέλα του παραθύρου Προτιμήσεις (Preferences) διαθέτει ένα "
+"κουμπί **Επαναφορά προεπιλογών** (Restore Defaults) στην κάτω αριστερή γωνία"
+" της οθόνης. Το όνομα του κουμπιού αλλάζει ανάλογα με την κατηγορία που "
+"προβάλλετε. Για παράδειγμα, αν βρίσκεστε στην καρτέλα «Πληκτρολόγιο» "
+"(Keyboard), το κουμπί θα γράφει **Επαναφορά προεπιλογών: Πληκτρολόγιο** "
+"(Restore Defaults: Keyboard)."
+
+#: ../preferences.rst:89
+msgid ""
+"**How It Works:** Only the settings in the currently selected category will "
+"be restored to their default values. This selective restoration makes it "
+"easy to reset certain preferences without affecting others."
+msgstr ""
+"**Πώς λειτουργεί:** Μόνο οι ρυθμίσεις της κατηγορίας που είναι επιλεγμένη "
+"εκείνη τη στιγμή επαναφέρονται στις προεπιλεγμένες τιμές τους. Η επιλεκτική "
+"αυτή επαναφορά διευκολύνει την επαναφορά ορισμένων προτιμήσεων χωρίς να "
+"επηρεαστούν οι υπόλοιπες."
+
+#: ../preferences.rst:93
+msgid ""
+"**Tip for Beginners:** - If you're not sure about a change you've made in a "
+"particular category, don’t hesitate to use the **Restore Defaults** button. "
+"It’s a simple way to undo changes and get back to the default settings for "
+"that specific category without affecting your overall setup."
+msgstr ""
+"**Συμβουλή για αρχάριους:** - Αν δεν είστε βέβαιοι για μια αλλαγή που κάνατε"
+" σε μια συγκεκριμένη κατηγορία, μην διστάσετε να χρησιμοποιήσετε το κουμπί "
+"**Επαναφορά προεπιλογών** (Restore Defaults). Είναι ένας απλός τρόπος να "
+"αναιρέσετε τις αλλαγές και να επιστρέψετε στις προεπιλεγμένες ρυθμίσεις της "
+"συγκεκριμένης κατηγορίας, χωρίς να επηρεαστεί η συνολική σας διαμόρφωση."
+
+#: ../preferences.rst:99
+msgid "Timeline"
+msgstr "Χρονολόγιο"
+
+#: ../preferences.rst:103
+msgid ""
+"The Timeline tab controls default timeline behavior and clip/transition "
+"insertion defaults."
+msgstr ""
+"Η καρτέλα Χρονολόγιο (Timeline) ελέγχει την προεπιλεγμένη συμπεριφορά του "
+"χρονολογίου και τις προεπιλογές εισαγωγής κλιπ και μεταβάσεων."
+
+#: ../preferences.rst:111
+msgid "Thumbnail Style"
+msgstr "Στυλ μικρογραφιών (Thumbnail Style)"
+
+#: ../preferences.rst:111
+msgid "Entire Clip"
+msgstr ""
+
+#: ../preferences.rst:111
+msgid "Thumbnail density for the timeline"
+msgstr "Πυκνότητα μικρογραφιών στο χρονολόγιο"
+
+#: ../preferences.rst:112
+msgid "Image Length (seconds)"
+msgstr "Μήκος Εικόνας (δευτερόλεπτα) (Image Length (seconds))"
+
+#: ../preferences.rst:112 ../preferences.rst:113
+msgid "10.00"
+msgstr ""
+
+#: ../preferences.rst:112
+msgid "Default duration for still images added to the timeline"
+msgstr ""
+"Προεπιλεγμένη διάρκεια για τις στατικές εικόνες που προστίθενται στο "
+"χρονολόγιο"
+
+#: ../preferences.rst:113
+msgid "Transition Length (seconds)"
+msgstr "Μήκος μετάβασης (δευτερόλεπτα) (Transition Length (seconds))"
+
+#: ../preferences.rst:113
+msgid "Default duration for newly added transitions"
+msgstr "Προεπιλεγμένη διάρκεια για τις μεταβάσεις που μόλις προστέθηκαν"
+
+#: ../preferences.rst:114
+msgid "Waveform Samples (per second)"
+msgstr ""
+"Δείγματα κυματομορφής (ανά δευτερόλεπτο) (Waveform Samples (per second))"
+
+#: ../preferences.rst:114
+msgid "200"
+msgstr ""
+
+#: ../preferences.rst:114
+msgid "Detail stored for new peak/RMS timeline waveforms (20–400)"
+msgstr ""
+"Λεπτομέρεια που αποθηκεύεται για τις νέες κυματομορφές κορυφής/RMS στο "
+"χρονολόγιο (20–400)"
+
+#: ../preferences.rst:115
+msgid "Auto-Transition (overlap clips)"
+msgstr "Αυτόματη μετάβαση (επικάλυψη κλιπ) (Auto-Transition (overlap clips))"
+
+#: ../preferences.rst:115 ../preferences.rst:159 ../preferences.rst:342
+#: ../preferences.rst:348
+msgid "Enabled"
+msgstr ""
+
+#: ../preferences.rst:115
+msgid "Automatically create transitions when clips overlap"
+msgstr "Αυτόματη δημιουργία μεταβάσεων όταν επικαλύπτονται κλιπ"
+
+#: ../preferences.rst:121
+msgid "Preview"
+msgstr "Προεπισκόπηση"
+
+#: ../preferences.rst:125
+msgid ""
+"The Preview tab of the Preferences window controls real-time preview audio "
+"behavior, including device selection, sample rate, channels, buffering, "
+"playback volume, and optimized preview behavior."
+msgstr ""
+"Η καρτέλα Προεπισκόπηση (Preview) του παραθύρου Προτιμήσεων (Preferences) "
+"ελέγχει τη συμπεριφορά του ήχου κατά την προεπισκόπηση σε πραγματικό χρόνο, "
+"συμπεριλαμβανομένων της επιλογής συσκευής, του ρυθμού δειγματοληψίας, των "
+"καναλιών, της προσωρινής αποθήκευσης (buffering), της έντασης αναπαραγωγής "
+"και της συμπεριφοράς της βελτιστοποιημένης προεπισκόπησης."
+
+#: ../preferences.rst:134
+msgid "Playback Audio Device"
+msgstr "Συσκευή αναπαραγωγής ήχου (Playback Audio Device)"
+
+#: ../preferences.rst:134
+msgid "Audio output device used during preview playback"
+msgstr ""
+"Συσκευή εξόδου ήχου που χρησιμοποιείται κατά την αναπαραγωγή της "
+"προεπισκόπησης"
+
+#: ../preferences.rst:135
+msgid "Default Audio Sample Rate"
+msgstr ""
+"Προκαθορισμένος Ρυθμός Δειγματοληψίας Ήχου (Default Audio Sample Rate)"
+
+#: ../preferences.rst:135
+msgid "48000"
+msgstr ""
+
+#: ../preferences.rst:135
+msgid "Default preview sample rate"
+msgstr "Προεπιλεγμένος ρυθμός δειγματοληψίας προεπισκόπησης"
+
+#: ../preferences.rst:136
+msgid "Default Audio Channels"
+msgstr "Προκαθορισμένα Κανάλια Ήχου (Default Audio Channels)"
+
+#: ../preferences.rst:136
+msgid "Stereo (2 Channel)"
+msgstr ""
+
+#: ../preferences.rst:136
+msgid "Default preview channel layout"
+msgstr "Προεπιλεγμένη διάταξη καναλιών προεπισκόπησης"
+
+#: ../preferences.rst:137
+msgid "Playback Audio Buffer Size"
+msgstr ""
+"Μέγεθος ενδιάμεσης μνήμης ήχου αναπαραγωγής (Playback Audio Buffer Size)"
+
+#: ../preferences.rst:137
+msgid "512"
+msgstr ""
+
+#: ../preferences.rst:137
+msgid "Audio samples buffered before playback begins (128 to 4096)"
+msgstr ""
+"Δείγματα ήχου που τοποθετούνται σε ενδιάμεση μνήμη πριν ξεκινήσει η "
+"αναπαραγωγή (128 έως 4096)"
+
+#: ../preferences.rst:138
+msgid "Volume"
+msgstr "Ένταση (Volume)"
+
+#: ../preferences.rst:138
+msgid "75"
+msgstr ""
+
+#: ../preferences.rst:138
+msgid "Preview playback volume percentage"
+msgstr "Ποσοστό έντασης αναπαραγωγής της προεπισκόπησης"
+
+#: ../preferences.rst:139
+msgid "Concurrent Optimize Jobs"
+msgstr "Ταυτόχρονες εργασίες βελτιστοποίησης (Concurrent Optimize Jobs)"
+
+#: ../preferences.rst:139
+msgid "2"
+msgstr ""
+
+#: ../preferences.rst:139
+msgid "Number of video files OpenShot can optimize at the same time"
+msgstr ""
+"Αριθμός αρχείων βίντεο που μπορεί να βελτιστοποιήσει το OpenShot ταυτόχρονα"
+
+#: ../preferences.rst:140
+msgid "Optimized Preview Resolution"
+msgstr ""
+"Ανάλυση βελτιστοποιημένης προεπισκόπησης (Optimized Preview Resolution)"
+
+#: ../preferences.rst:140
+msgid "1280x720"
+msgstr ""
+
+#: ../preferences.rst:140
+msgid "Maximum resolution used when creating optimized preview files"
+msgstr ""
+"Μέγιστη ανάλυση που χρησιμοποιείται κατά τη δημιουργία βελτιστοποιημένων "
+"αρχείων προεπισκόπησης"
+
+#: ../preferences.rst:141
+msgid "Thumbnail Preload Rate / second"
+msgstr ""
+"Ρυθμός προφόρτωσης μικρογραφιών / δευτερόλεπτο (Thumbnail Preload Rate / "
+"second)"
+
+#: ../preferences.rst:141
+msgid "4"
+msgstr ""
+
+#: ../preferences.rst:141
+msgid ""
+"How many thumbnail preview frames per second are pre-generated while "
+"optimizing video"
+msgstr ""
+"Πόσα καρέ προεπισκόπησης μικρογραφιών ανά δευτερόλεπτο δημιουργούνται εκ των"
+" προτέρων κατά τη βελτιστοποίηση του βίντεο"
+
+#: ../preferences.rst:145
+msgid "Autosave"
+msgstr "Αυτόματη αποθήκευση"
+
+#: ../preferences.rst:149
+msgid ""
+"Autosave is a feature in OpenShot which automatically saves the current "
+"changes to your project after a specific number of minutes, helping to "
+"reduce the risk or impact of data loss in case of a crash, freeze or user "
+"error."
+msgstr ""
+"Η αυτόματη αποθήκευση (Autosave) είναι μια λειτουργία του OpenShot που "
+"αποθηκεύει αυτόματα τις τρέχουσες αλλαγές στο έργο σας μετά από συγκεκριμένο"
+" αριθμό λεπτών, συμβάλλοντας στη μείωση του κινδύνου ή των συνεπειών της "
+"απώλειας δεδομένων σε περίπτωση κατάρρευσης, κολλήματος ή σφάλματος του "
+"χρήστη."
+
+#: ../preferences.rst:159
+msgid "Enable Autosave"
+msgstr "Ενεργοποίηση αυτόματης αποθήκευσης (Enable Autosave)"
+
+#: ../preferences.rst:160
+msgid "Autosave Interval (minutes)"
+msgstr "Χρόνος Αυτόματης αποθήκευσης (λεπτά) (Autosave Interval (minutes))"
+
+#: ../preferences.rst:160
+msgid "3"
+msgstr ""
+
+#: ../preferences.rst:161
+msgid "History Limit (# of undo/redo)"
+msgstr ""
+"Όριο Ιστορικού (# της Αναίρεσης/Επανάληψης) (History Limit (# of undo/redo))"
+
+#: ../preferences.rst:161
+msgid "15"
+msgstr ""
+
+#: ../preferences.rst:162
+msgid "Recovery Limit (# of project copies)"
+msgstr ""
+"Όριο ανάκτησης (# από αντίγραφα έργου) (Recovery Limit (# of project "
+"copies))"
+
+#: ../preferences.rst:162
+msgid "30"
+msgstr ""
+
+#: ../preferences.rst:166
+msgid "Recovery"
+msgstr "Ανάκτηση"
+
+#: ../preferences.rst:168
+msgid ""
+"**Before each save**, a compressed ``*.zip`` copy of the current project is "
+"saved in the recovery folder, to further reduce the risk of data loss. The "
+"recovery folder is located at ``~/.openshot_qt/recovery/`` or "
+"``C:\\Users\\USERNAME\\.openshot_qt\\recovery``."
+msgstr ""
+"**Πριν από κάθε αποθήκευση**, ένα συμπιεσμένο αντίγραφο ``*.zip`` του "
+"τρέχοντος έργου αποθηκεύεται στον φάκελο ανάκτησης, ώστε να μειωθεί "
+"περαιτέρω ο κίνδυνος απώλειας δεδομένων. Ο φάκελος ανάκτησης βρίσκεται στη "
+"διαδρομή ``~/.openshot_qt/recovery/`` ή "
+"``C:\\Users\\USERNAME\\.openshot_qt\\recovery``."
+
+#: ../preferences.rst:172
+msgid ""
+"To recover a corrupt or broken ``*.osp`` project file, use the "
+":guilabel:`File->Recovery` menu on the main window after opening your "
+"project. If available, a list of matching project versions from the recovery"
+" folder are listed in chronological order (most recent one at the top). This"
+" will automatically rename your current project file to ``{project-"
+"name}-{time}-backup.osp``, and replace it with the recovery project file. "
+"You can repeat this process until you find the correct recovery project. "
+"NOTE: If for some unexpected reason the recovery process fails, you can "
+"always rename the \"-backup.osp\" file to the original project file name to "
+"restore it."
+msgstr ""
+"Για να ανακτήσετε ένα κατεστραμμένο ή χαλασμένο αρχείο έργου ``*.osp``, "
+"χρησιμοποιήστε το μενού :guilabel:`Αρχείο->Ανάκτηση` (File->Recovery) στο "
+"κύριο παράθυρο, αφού ανοίξετε το έργο σας. Αν υπάρχουν διαθέσιμες εκδόσεις, "
+"εμφανίζεται μια λίστα με τις αντίστοιχες εκδόσεις του έργου από τον φάκελο "
+"ανάκτησης, σε χρονολογική σειρά (η πιο πρόσφατη στην κορυφή). Με αυτόν τον "
+"τρόπο το τρέχον αρχείο έργου μετονομάζεται αυτόματα σε ``{project-"
+"name}-{time}-backup.osp`` και αντικαθίσταται από το αρχείο έργου ανάκτησης. "
+"Μπορείτε να επαναλάβετε αυτή τη διαδικασία μέχρι να βρείτε το σωστό έργο "
+"ανάκτησης. ΣΗΜΕΙΩΣΗ: Αν για κάποιον απρόσμενο λόγο η διαδικασία ανάκτησης "
+"αποτύχει, μπορείτε πάντα να μετονομάσετε το αρχείο «-backup.osp» στο αρχικό "
+"όνομα του αρχείου έργου, για να το επαναφέρετε."
+
+#: ../preferences.rst:180
+msgid ""
+"To **manually** recover a corrupt or broken ``*.osp`` project file, please "
+"find the most recent copy in the recovery folder, and copy/paste the file "
+"into your original project folder location (i.e. the folder that contains "
+"your broken project). If the recovery file has been zipped (``*.zip``), you "
+"must first extract the ``*.osp``, and then copy it into your project folder."
+" Recovery files are named ``{time}-{project-name}``. You can also use the "
+"**Date Modified** on the file to select the version you are interested in "
+"recovering."
+msgstr ""
+"Για να ανακτήσετε **χειροκίνητα** ένα κατεστραμμένο ή χαλασμένο αρχείο έργου"
+" ``*.osp``, βρείτε το πιο πρόσφατο αντίγραφο στον φάκελο ανάκτησης και "
+"αντιγράψτε/επικολλήστε το αρχείο στη θέση του αρχικού φακέλου του έργου σας "
+"(δηλαδή στον φάκελο που περιέχει το κατεστραμμένο έργο). Αν το αρχείο "
+"ανάκτησης είναι συμπιεσμένο (``*.zip``), πρέπει πρώτα να εξαγάγετε το "
+"``*.osp`` και στη συνέχεια να το αντιγράψετε στον φάκελο του έργου σας. Τα "
+"αρχεία ανάκτησης ονομάζονται ``{time}-{project-name}``. Μπορείτε επίσης να "
+"χρησιμοποιήσετε την **Ημερομηνία τροποποίησης** (Date Modified) του αρχείου,"
+" για να επιλέξετε την έκδοση που θέλετε να ανακτήσετε."
+
+#: ../preferences.rst:190
+msgid "Cache"
+msgstr "Προσωρινή μνήμη"
+
+#: ../preferences.rst:194
+msgid ""
+"Cache settings can be adjusted to make real-time playback faster or less CPU"
+" intensive. The cache is used to store image and audio data for each frame "
+"of video requested. The more frames that are cached, the smoother the real-"
+"time playback will be. However, the more that needs to be cached requires "
+"more CPU to generate the cache. There is a balance, and the default settings"
+" provide a generally sane set of cache values, which should allow most "
+"computers to playback video and audio smoothly. See :ref:`playback_ref`."
+msgstr ""
+"Οι ρυθμίσεις της προσωρινής μνήμης (cache) μπορούν να προσαρμοστούν ώστε η "
+"αναπαραγωγή σε πραγματικό χρόνο να γίνεται πιο γρήγορα ή να επιβαρύνει "
+"λιγότερο την CPU. Η προσωρινή μνήμη χρησιμοποιείται για την αποθήκευση "
+"δεδομένων εικόνας και ήχου για κάθε καρέ του βίντεο που ζητείται. Όσο "
+"περισσότερα καρέ βρίσκονται στην προσωρινή μνήμη, τόσο πιο ομαλή θα είναι η "
+"αναπαραγωγή σε πραγματικό χρόνο. Ωστόσο, όσο περισσότερα δεδομένα πρέπει να "
+"αποθηκευτούν, τόσο περισσότερη CPU απαιτείται για τη δημιουργία της "
+"προσωρινής μνήμης. Πρέπει να βρεθεί μια ισορροπία, και οι προεπιλεγμένες "
+"ρυθμίσεις παρέχουν ένα γενικά λογικό σύνολο τιμών, το οποίο θα επιτρέπει "
+"στους περισσότερους υπολογιστές να αναπαράγουν βίντεο και ήχο ομαλά. Δείτε "
+":ref:`playback_ref`."
+
+#: ../preferences.rst:206
+msgid "Cache Mode"
+msgstr "Τύπος Προσωρινής μνήμης (Cache Mode)"
+
+#: ../preferences.rst:206
+msgid ""
+"Choose between Memory or Disk caching (memory caching is preferred). Disk "
+"caching writes image data to the hard disk for later retrieving, and works "
+"best with an SSD."
+msgstr ""
+"Επιλέξτε μεταξύ προσωρινής αποθήκευσης στη μνήμη (Memory) ή στο δίσκο (Disk)"
+" (προτιμάται η αποθήκευση στη μνήμη). Η προσωρινή αποθήκευση στο δίσκο "
+"γράφει δεδομένα εικόνας στον σκληρό δίσκο για μεταγενέστερη ανάκτηση και "
+"λειτουργεί καλύτερα με SSD."
+
+#: ../preferences.rst:207
+msgid "Cache Limit (MB)"
+msgstr "Όριο Προσωρινής Μνήμης (MB) (Cache Limit (MB))"
+
+#: ../preferences.rst:207
+msgid ""
+"How many MB are set aside for cache related data. Larger numbers are not "
+"always better, since it takes more CPU to generate more frames to fill the "
+"cache."
+msgstr ""
+"Πόσα MB διατίθενται για δεδομένα που σχετίζονται με την προσωρινή μνήμη. Οι "
+"μεγαλύτεροι αριθμοί δεν είναι πάντα καλύτεροι, αφού απαιτείται περισσότερη "
+"CPU για τη δημιουργία περισσότερων καρέ που θα γεμίσουν την προσωρινή μνήμη."
+
+#: ../preferences.rst:208
+msgid "Image Format (Disk Only)"
+msgstr "Τύπος Εικόνας (Στο Δίσκο μόνο) (Image Format (Disk Only))"
+
+#: ../preferences.rst:208
+msgid "Image format to store disk cache image data"
+msgstr ""
+"Μορφή εικόνας για την αποθήκευση των δεδομένων εικόνας της προσωρινής μνήμης"
+" στο δίσκο"
+
+#: ../preferences.rst:209
+msgid "Scale Factor (Disk Only)"
+msgstr "Παράγοντας Κλίμακας (Στο Δίσκο μόνο) (Scale Factor (Disk Only))"
+
+#: ../preferences.rst:209
+msgid ""
+"Percentage (0.1 to 1.0) to reduce the size of disk based image files stored "
+"in the disk cache. Smaller numbers make writing and reading cached image "
+"files faster."
+msgstr ""
+"Ποσοστό (0.1 έως 1.0) για τη μείωση του μεγέθους των αρχείων εικόνας που "
+"αποθηκεύονται στην προσωρινή μνήμη δίσκου. Οι μικρότεροι αριθμοί επιταχύνουν"
+" την εγγραφή και την ανάγνωση των αρχείων εικόνας της προσωρινής μνήμης."
+
+#: ../preferences.rst:210
+msgid "Image Quality (Disk Only)"
+msgstr "Ποιότητα Εικόνας (Στο Δίσκο μόνο) (Image Quality (Disk Only))"
+
+#: ../preferences.rst:210
+msgid ""
+"Quality of the image files used in disk cache. The higher compression can "
+"cause more slowness, but results in smaller file sizes."
+msgstr ""
+"Ποιότητα των αρχείων εικόνας που χρησιμοποιούνται στην προσωρινή μνήμη "
+"δίσκου. Η υψηλότερη συμπίεση μπορεί να προκαλέσει μεγαλύτερη βραδύτητα, αλλά"
+" οδηγεί σε μικρότερα μεγέθη αρχείων."
+
+#: ../preferences.rst:211
+msgid "Cache Pre-roll: Min Frames:"
+msgstr ""
+"Προφόρτωση προσωρινής μνήμης: ελάχιστα καρέ (Cache Pre-roll: Min Frames:)"
+
+#: ../preferences.rst:211
+msgid ""
+"Minimum # of frames that must be cached before playback begins. The larger "
+"the #, the larger the wait before playback begins."
+msgstr ""
+"Ελάχιστος αριθμός (#) καρέ που πρέπει να βρίσκονται στην προσωρινή μνήμη "
+"πριν ξεκινήσει η αναπαραγωγή. Όσο μεγαλύτερος είναι ο αριθμός, τόσο "
+"μεγαλύτερη είναι η αναμονή πριν ξεκινήσει η αναπαραγωγή."
+
+#: ../preferences.rst:212
+msgid "Cache Pre-roll: Max Frames:"
+msgstr ""
+"Προφόρτωση προσωρινής μνήμης: μέγιστα καρέ (Cache Pre-roll: Max Frames:)"
+
+#: ../preferences.rst:212
+msgid ""
+"Maximum # of frames that can be cached during playback (in front of the "
+"playhead). The larger the #, the more CPU is required to cache ahead - vs "
+"display the already cached frames."
+msgstr ""
+"Μέγιστος αριθμός (#) καρέ που μπορούν να αποθηκευτούν στην προσωρινή μνήμη "
+"κατά την αναπαραγωγή (μπροστά από την κεφαλή αναπαραγωγής). Όσο μεγαλύτερος "
+"είναι ο αριθμός, τόσο περισσότερη CPU απαιτείται για την προφόρτωση καρέ "
+"μπροστά, σε σχέση με την εμφάνιση των καρέ που βρίσκονται ήδη στην προσωρινή"
+" μνήμη."
+
+#: ../preferences.rst:213
+msgid "Cache Ahead (Percent):"
+msgstr "Προφόρτωση προς τα εμπρός (ποσοστό) (Cache Ahead (Percent):)"
+
+#: ../preferences.rst:213
+msgid ""
+"Between 0.0 and 1.0. This represents how much % we cache ahead of the "
+"playhead. For example, 0.5 would cache 50% behind and 50% ahead of the "
+"playhead. 0.8 would cache 20% behind and 80% ahead of the playhead."
+msgstr ""
+"Μεταξύ 0.0 και 1.0. Αντιπροσωπεύει το ποσοστό % που αποθηκεύουμε στην "
+"προσωρινή μνήμη μπροστά από την κεφαλή αναπαραγωγής. Για παράδειγμα, το 0.5 "
+"θα αποθηκεύσει το 50% πίσω και το 50% μπροστά από την κεφαλή αναπαραγωγής. "
+"Το 0.8 θα αποθηκεύσει το 20% πίσω και το 80% μπροστά από την κεφαλή "
+"αναπαραγωγής."
+
+#: ../preferences.rst:214
+msgid "Cache Max Frames:"
+msgstr "Μέγιστα καρέ προσωρινής μνήμης (Cache Max Frames:)"
+
+#: ../preferences.rst:214
+msgid ""
+"This is an override on the total allowed frames that can be cached by our "
+"caching thread. It defaults to 900 frames, but even if you give a huge "
+"amount of RAM to OpenShot's cache size, this will override the max # of "
+"frames cached. The reason is... sometimes when the preview window is very "
+"small, and the cache size is set very high, OpenShot might calculate that we"
+" can cache 30,000 frames, or something silly which will take a huge amount "
+"of CPU, lagging the system. This setting is designed to clamp the upper "
+"limit of the cache to something reasonable... even on systems that give "
+"OpenShot huge amounts of RAM to work with."
+msgstr ""
+"Πρόκειται για ένα όριο που υπερισχύει (override) του συνολικού αριθμού καρέ "
+"που επιτρέπεται να αποθηκεύονται από το νήμα προσωρινής αποθήκευσης. Η "
+"προεπιλογή είναι 900 καρέ, αλλά ακόμη και αν διαθέσετε τεράστια ποσότητα RAM"
+" στο μέγεθος της προσωρινής μνήμης του OpenShot, αυτή η τιμή θα υπερισχύει "
+"του μέγιστου αριθμού (#) καρέ που αποθηκεύονται. Ο λόγος είναι ότι... "
+"μερικές φορές, όταν το παράθυρο προεπισκόπησης είναι πολύ μικρό και το "
+"μέγεθος της προσωρινής μνήμης έχει οριστεί πολύ υψηλό, το OpenShot μπορεί να"
+" υπολογίσει ότι μπορούμε να αποθηκεύσουμε 30,000 καρέ, ή κάτι εξίσου "
+"παράλογο, που θα απαιτούσε τεράστια ποσότητα CPU και θα καθυστερούσε το "
+"σύστημα. Η ρύθμιση αυτή έχει σχεδιαστεί για να θέτει ένα ανώτατο όριο στην "
+"προσωρινή μνήμη σε κάτι λογικό... ακόμη και σε συστήματα που διαθέτουν στο "
+"OpenShot τεράστιες ποσότητες RAM."
+
+#: ../preferences.rst:217
+msgid ""
+"OpenShot's default cache settings now target a balanced preview experience: "
+"roughly **50% behind / 50% ahead** of the playhead, **768 MB** cache memory,"
+" and **900** max frames. In practice, this improves scrubbing and seek "
+"behavior while reducing stale preview frames on slower systems."
+msgstr ""
+"Οι προεπιλεγμένες ρυθμίσεις προσωρινής μνήμης του OpenShot στοχεύουν πλέον "
+"σε μια ισορροπημένη εμπειρία προεπισκόπησης: περίπου **50% πίσω / 50% "
+"μπροστά** από την κεφαλή αναπαραγωγής, **768 MB** μνήμης προσωρινής "
+"αποθήκευσης και **900** μέγιστα καρέ. Στην πράξη, αυτό βελτιώνει τη "
+"συμπεριφορά κατά την πλοήγηση στο βίντεο (scrubbing) και την αναζήτηση, ενώ "
+"μειώνει τα παλιά (stale) καρέ προεπισκόπησης σε πιο αργά συστήματα."
+
+#: ../preferences.rst:223
+msgid "Performance"
+msgstr "Απόδοση (Performance)"
+
+#: ../preferences.rst:226
+msgid ""
+"Please keep in mind that GPU hardware acceleration is experimental at the "
+"moment. OpenShot supports both decoding and encoding acceleration. For more "
+"information take a look at our `Github HW-ACCEL Doc "
+"<https://github.com/OpenShot/libopenshot/blob/develop/doc/HW-ACCEL.md>`_. "
+"NOTE: On systems with older graphics cards, hardware acceleration may not "
+"always be faster than CPU encoding."
+msgstr ""
+"Έχετε υπόψη ότι η επιτάχυνση υλικού μέσω GPU είναι προς το παρόν "
+"πειραματική. Το OpenShot υποστηρίζει επιτάχυνση τόσο της αποκωδικοποίησης "
+"όσο και της κωδικοποίησης. Για περισσότερες πληροφορίες, δείτε το `έγγραφο "
+"HW-ACCEL στο GitHub "
+"<https://github.com/OpenShot/libopenshot/blob/develop/doc/HW-ACCEL.md>`_. "
+"ΣΗΜΕΙΩΣΗ: Σε συστήματα με παλαιότερες κάρτες γραφικών, η επιτάχυνση υλικού "
+"δεν είναι πάντα ταχύτερη από την κωδικοποίηση μέσω CPU."
+
+#: ../preferences.rst:236
+msgid "Hardware Decoder Mode"
+msgstr "Λειτουργία αποκωδικοποιητή υλικού (Hardware Decoder Mode)"
+
+#: ../preferences.rst:237
+msgid ""
+"Select the hardware decoding backend to use. Use :guilabel:`Test` to verify "
+"the selected decoder mode."
+msgstr ""
+"Επιλέξτε το σύστημα υποστήριξης (backend) αποκωδικοποίησης υλικού που θα "
+"χρησιμοποιηθεί. Χρησιμοποιήστε το :guilabel:`Δοκιμή` (Test) για να "
+"επαληθεύσετε την επιλεγμένη λειτουργία αποκωδικοποιητή."
+
+#: ../preferences.rst:238
+msgid "Hardware Decoder Graphics Card"
+msgstr ""
+"Κάρτα γραφικών αποκωδικοποιητή υλικού (Hardware Decoder Graphics Card)"
+
+#: ../preferences.rst:239
+msgid "Choose which GPU device is used for hardware decoding."
+msgstr ""
+"Επιλέξτε ποια συσκευή GPU χρησιμοποιείται για την αποκωδικοποίηση υλικού."
+
+#: ../preferences.rst:240
+msgid "Hardware Encoder Graphics Card"
+msgstr "Κάρτα γραφικών κωδικοποιητή υλικού (Hardware Encoder Graphics Card)"
+
+#: ../preferences.rst:241
+msgid "Choose which GPU device is used for hardware encoding."
+msgstr ""
+"Επιλέξτε ποια συσκευή GPU χρησιμοποιείται για την κωδικοποίηση υλικού."
+
+#: ../preferences.rst:242
+msgid "OMP Threads"
+msgstr "Νήματα OMP (OMP Threads)"
+
+#: ../preferences.rst:243
+msgid ""
+"Number of OpenMP worker threads used by performance-sensitive processing."
+msgstr ""
+"Αριθμός νημάτων εργασίας OpenMP που χρησιμοποιούνται για επεξεργασίες "
+"ευαίσθητες ως προς τις επιδόσεις."
+
+#: ../preferences.rst:244
+msgid "FFmpeg Threads"
+msgstr "Νήματα FFmpeg (FFmpeg Threads)"
+
+#: ../preferences.rst:245
+msgid "Number of FFmpeg threads used for decoding/encoding."
+msgstr ""
+"Αριθμός νημάτων FFmpeg που χρησιμοποιούνται για την "
+"αποκωδικοποίηση/κωδικοποίηση."
+
+#: ../preferences.rst:246
+msgid "Hardware Decoder Max Width (0 = Default)"
+msgstr ""
+"Μέγιστο πλάτος αποκωδικοποιητή υλικού (0 = Προεπιλογή) (Hardware Decoder Max"
+" Width (0 = Default))"
+
+#: ../preferences.rst:247
+msgid ""
+"Optional maximum width for hardware decoding. Use ``0`` for no explicit "
+"limit."
+msgstr ""
+"Προαιρετικό μέγιστο πλάτος για την αποκωδικοποίηση υλικού. Χρησιμοποιήστε το"
+" ``0`` για να μην οριστεί ρητό όριο."
+
+#: ../preferences.rst:248
+msgid "Hardware Decoder Max Height (0 = Default)"
+msgstr ""
+"Μέγιστο ύψος αποκωδικοποιητή υλικού (0 = Προεπιλογή) (Hardware Decoder Max "
+"Height (0 = Default))"
+
+#: ../preferences.rst:249
+msgid ""
+"Optional maximum height for hardware decoding. Use ``0`` for no explicit "
+"limit."
+msgstr ""
+"Προαιρετικό μέγιστο ύψος για την αποκωδικοποίηση υλικού. Χρησιμοποιήστε το "
+"``0`` για να μην οριστεί ρητό όριο."
+
+#: ../preferences.rst:250
+msgid "Use Blender GPU rendering for Animated Titles"
+msgstr ""
+"Χρήση απόδοσης GPU του Blender για Κινούμενους τίτλους (Use Blender GPU "
+"rendering for Animated Titles)"
+
+#: ../preferences.rst:251
+msgid "Enable GPU rendering for Blender-based animated titles."
+msgstr ""
+"Ενεργοποίηση απόδοσης (rendering) GPU για τους κινούμενους τίτλους που "
+"βασίζονται στο Blender."
+
+#: ../preferences.rst:256
+msgid "Keyboard"
+msgstr "Πληκτρολόγιο"
+
+#: ../preferences.rst:259
+msgid ""
+"This section allows you to view and customize hotkeys for various actions in"
+" the application. Here, you can assign and manage multiple shortcuts for the"
+" same action and restore default shortcuts if needed."
+msgstr ""
+"Αυτή η ενότητα σας επιτρέπει να δείτε και να προσαρμόσετε τις συντομεύσεις "
+"πληκτρολογίου για διάφορες ενέργειες της εφαρμογής. Εδώ μπορείτε να "
+"αναθέσετε και να διαχειριστείτε πολλές συντομεύσεις για την ίδια ενέργεια, "
+"καθώς και να επαναφέρετε τις προεπιλεγμένες συντομεύσεις, αν χρειαστεί."
+
+#: ../preferences.rst:262
+msgid ""
+"**Assign Multiple Shortcuts**: You can assign multiple keyboard shortcuts to"
+" the same action by separating them with a pipe (``|``) delimiter. This "
+"flexibility allows you to configure as many shortcuts as you need for each "
+"action."
+msgstr ""
+"**Ανάθεση πολλαπλών συντομεύσεων**: Μπορείτε να αναθέσετε πολλές "
+"συντομεύσεις πληκτρολογίου στην ίδια ενέργεια, διαχωρίζοντάς τες με το "
+"σύμβολο κάθετης γραμμής (``|``). Αυτή η ευελιξία σας επιτρέπει να ρυθμίσετε "
+"όσες συντομεύσεις χρειάζεστε για κάθε ενέργεια."
+
+#: ../preferences.rst:265
+msgid ""
+"**Immediate Application**: No restart is required after adjusting keyboard "
+"shortcuts. Changes are applied immediately, so you can start using your "
+"updated shortcuts right away."
+msgstr ""
+"**Άμεση εφαρμογή**: Δεν απαιτείται επανεκκίνηση μετά την αλλαγή των "
+"συντομεύσεων πληκτρολογίου. Οι αλλαγές εφαρμόζονται άμεσα, ώστε να μπορείτε "
+"να αρχίσετε να χρησιμοποιείτε αμέσως τις ενημερωμένες συντομεύσεις σας."
+
+#: ../preferences.rst:268
+msgid ""
+"**Restore Default Shortcuts**: If needed, you can reset all keyboard "
+"shortcuts to their default settings by clicking on the :guilabel:`Restore "
+"Defaults: Keyboard` button located in the bottom-left corner of the "
+"Preferences screen."
+msgstr ""
+"**Επαναφορά προεπιλεγμένων συντομεύσεων**: Αν χρειαστεί, μπορείτε να "
+"επαναφέρετε όλες τις συντομεύσεις πληκτρολογίου στις προεπιλεγμένες "
+"ρυθμίσεις τους, κάνοντας κλικ στο κουμπί :guilabel:`Επαναφορά προεπιλογών: "
+"Πληκτρολόγιο` (Restore Defaults: Keyboard), που βρίσκεται στην κάτω αριστερή"
+" γωνία της οθόνης Προτιμήσεις (Preferences)."
+
+#: ../preferences.rst:271
+msgid ""
+"**Unique Shortcuts**: Each keyboard shortcut must be unique. If there are "
+"any duplicate shortcuts, they will be highlighted in **red** and will not "
+"function until the conflict is resolved."
+msgstr ""
+"**Μοναδικές συντομεύσεις**: Κάθε συντόμευση πληκτρολογίου πρέπει να είναι "
+"μοναδική. Αν υπάρχουν διπλότυπες συντομεύσεις, θα επισημαίνονται με "
+"**κόκκινο** χρώμα και δεν θα λειτουργούν μέχρι να επιλυθεί η σύγκρουση."
+
+#: ../preferences.rst:275
+msgid ""
+"For more detailed information on how to use and customize keyboard "
+"shortcuts, see :ref:`keyboard_shortcut_ref`."
+msgstr ""
+"Για πιο αναλυτικές πληροφορίες σχετικά με τη χρήση και την προσαρμογή των "
+"συντομεύσεων πληκτρολογίου, δείτε :ref:`keyboard_shortcut_ref`."
+
+#: ../preferences.rst:278
+msgid "Location"
+msgstr "Τοποθεσία"
+
+#: ../preferences.rst:282
+msgid ""
+"Default file path locations for saving/opening projects, importing files, "
+"and exporting videos can be configured here. This can save you time by "
+"defaulting the open/save file dialogs to the most appropriate starting "
+"folder (options described below)."
+msgstr ""
+"Εδώ μπορείτε να διαμορφώσετε τις προεπιλεγμένες διαδρομές αρχείων για την "
+"αποθήκευση/το άνοιγμα έργων, την εισαγωγή αρχείων και την εξαγωγή βίντεο. "
+"Αυτό μπορεί να σας εξοικονομήσει χρόνο, καθώς τα παράθυρα διαλόγου "
+"ανοίγματος/αποθήκευσης αρχείων θα ξεκινούν από τον καταλληλότερο φάκελο (οι "
+"επιλογές περιγράφονται παρακάτω)."
+
+#: ../preferences.rst:292
+msgid "File Import"
+msgstr "Εισαγωγή αρχείου (File Import)"
+
+#: ../preferences.rst:292
+msgid "Default folder to choose when importing a file"
+msgstr "Προεπιλεγμένος φάκελος που επιλέγεται κατά την εισαγωγή ενός αρχείου"
+
+#: ../preferences.rst:293
+msgid "Save or Open Project"
+msgstr "Αποθήκευση ή άνοιγμα έργου (Save or Open Project)"
+
+#: ../preferences.rst:293
+msgid "Default folder to choose when saving or opening a project file"
+msgstr ""
+"Προεπιλεγμένος φάκελος που επιλέγεται κατά την αποθήκευση ή το άνοιγμα ενός "
+"αρχείου έργου"
+
+#: ../preferences.rst:294
+msgid "Video Export"
+msgstr "Εξαγωγή βίντεο (Video Export)"
+
+#: ../preferences.rst:294
+msgid "Default folder to choose when exporting a video"
+msgstr "Προεπιλεγμένος φάκελος που επιλέγεται κατά την εξαγωγή ενός βίντεο"
+
+#: ../preferences.rst:295
+msgid "Unsaved Project Assets Folder"
+msgstr ""
+"Φάκελος στοιχείων μη αποθηκευμένου έργου (Unsaved Project Assets Folder)"
+
+#: ../preferences.rst:295
+msgid "Folder for assets created before a project is saved (restart required)"
+msgstr ""
+"Φάκελος για στοιχεία που δημιουργούνται πριν αποθηκευτεί ένα έργο "
+"(απαιτείται επανεκκίνηση)"
+
+#: ../preferences.rst:298
+msgid ""
+"On Linux, the unsaved assets folder defaults to ``~/Videos/.openshot-tmp`` "
+"when ``~/Videos`` exists and the hidden child folder is writable. Otherwise,"
+" OpenShot uses ``~/.openshot_qt``, which is also the default on other "
+"platforms. You can choose a different folder in Preferences. Saving a "
+"project relocates its assets into the project's ``<project>_assets`` folder;"
+" subsequent titles and animations use that folder. These assets can include "
+"media needed by an unsaved project or crash recovery, so do not delete the "
+"folder as ordinary disposable cache data."
+msgstr ""
+"Στο Linux, ο φάκελος των στοιχείων μη αποθηκευμένου έργου έχει ως προεπιλογή"
+" το ``~/Videos/.openshot-tmp``, όταν υπάρχει το ``~/Videos`` και ο κρυφός "
+"υποφάκελος είναι εγγράψιμος. Διαφορετικά, το OpenShot χρησιμοποιεί το "
+"``~/.openshot_qt``, που είναι επίσης η προεπιλογή στις υπόλοιπες πλατφόρμες."
+" Μπορείτε να επιλέξετε διαφορετικό φάκελο στις Προτιμήσεις (Preferences). Η "
+"αποθήκευση ενός έργου μεταφέρει τα στοιχεία του στον φάκελο "
+"``<project>_assets`` του έργου· οι επόμενοι τίτλοι και τα επόμενα κινούμενα "
+"γραφικά χρησιμοποιούν αυτόν τον φάκελο. Τα στοιχεία αυτά μπορεί να "
+"περιλαμβάνουν μέσα που χρειάζονται για ένα μη αποθηκευμένο έργο ή για την "
+"ανάκτηση μετά από κατάρρευση, γι’ αυτό μη διαγράφετε τον φάκελο σαν να ήταν "
+"συνηθισμένα αναλώσιμα δεδομένα προσωρινής μνήμης."
+
+#: ../preferences.rst:310
+msgid "Values"
+msgstr "Τιμές"
+
+#: ../preferences.rst:312
+msgid "**Recent Folder**"
+msgstr "**Πρόσφατος φάκελος** (Recent Folder)"
+
+#: ../preferences.rst:312
+msgid ""
+"The last folder used for this same operation. Project folders, Import "
+"folders, and Export folders are tracked separately."
+msgstr ""
+"Ο τελευταίος φάκελος που χρησιμοποιήθηκε για την ίδια λειτουργία. Οι φάκελοι"
+" έργων, εισαγωγής και εξαγωγής παρακολουθούνται ξεχωριστά."
+
+#: ../preferences.rst:313
+msgid "**Project Folder**"
+msgstr "**Φάκελος έργου** (Project Folder)"
+
+#: ../preferences.rst:313
+msgid ""
+"The current project folder (or the user's home folder, if the project is not"
+" yet saved)"
+msgstr ""
+"Ο τρέχων φάκελος του έργου (ή ο αρχικός φάκελος του χρήστη, αν το έργο δεν "
+"έχει αποθηκευτεί ακόμη)"
+
+#: ../preferences.rst:319
+msgid "Advanced"
+msgstr "Προχωρημένο"
+
+#: ../preferences.rst:323
+msgid "The Advanced tab includes ComfyUI integration and debugging options."
+msgstr ""
+"Η καρτέλα Προχωρημένο (Advanced) περιλαμβάνει την ενσωμάτωση του ComfyUI και"
+" επιλογές αποσφαλμάτωσης."
+
+#: ../preferences.rst:332
+msgid "Comfy UI URL"
+msgstr "Διεύθυνση URL του Comfy UI (Comfy UI URL)"
+
+#: ../preferences.rst:333
+msgid "``http://127.0.0.1:8188``"
+msgstr ""
+
+#: ../preferences.rst:334
+msgid "URL of your local or remote ComfyUI server"
+msgstr "URL του τοπικού ή απομακρυσμένου διακομιστή ComfyUI"
+
+#: ../preferences.rst:335
+msgid "User Interface Debug Logging"
+msgstr ""
+"Καταγραφή αποσφαλμάτωσης διεπαφής χρήστη (User Interface Debug Logging)"
+
+#: ../preferences.rst:336 ../preferences.rst:339 ../preferences.rst:345
+msgid "Disabled"
+msgstr ""
+
+#: ../preferences.rst:337
+msgid ""
+"Record interface and project details in ``openshot-qt.log``. The matching "
+"``--debug-ui`` (or ``--debug``) argument enables these details for one "
+"launch, including terminal output. See :ref:`logging_ref`."
+msgstr ""
+"Καταγράφει λεπτομέρειες της διεπαφής και του έργου στο ``openshot-qt.log``. "
+"Το αντίστοιχο όρισμα ``--debug-ui`` (ή ``--debug``) ενεργοποιεί αυτές τις "
+"λεπτομέρειες για μία μόνο εκκίνηση, συμπεριλαμβανομένης της εξόδου στο "
+"τερματικό. Δείτε :ref:`logging_ref`."
+
+#: ../preferences.rst:338
+msgid "Video & Audio Engine Debug Logging"
+msgstr ""
+"Καταγραφή αποσφαλμάτωσης μηχανής βίντεο και ήχου (Video & Audio Engine Debug"
+" Logging)"
+
+#: ../preferences.rst:340
+msgid ""
+"Record video and audio processing details in ``libopenshot.log``. The "
+"matching ``--debug-engine`` argument enables these details for one launch, "
+"including terminal output. Logs can grow quickly; turn off when finished. "
+"See :ref:`logging_ref`."
+msgstr ""
+"Καταγράφει λεπτομέρειες επεξεργασίας βίντεο και ήχου στο "
+"``libopenshot.log``. Το αντίστοιχο όρισμα ``--debug-engine`` ενεργοποιεί "
+"αυτές τις λεπτομέρειες για μία μόνο εκκίνηση, συμπεριλαμβανομένης της εξόδου"
+" στο τερματικό. Τα αρχεία καταγραφής μπορεί να μεγαλώσουν γρήγορα· "
+"απενεργοποιήστε την επιλογή όταν ολοκληρώσετε. Δείτε :ref:`logging_ref`."
+
+#: ../preferences.rst:341
+msgid "Send Anonymous Metrics and Errors"
+msgstr ""
+"Αποστολή Ανώνυμων Μετρικών και Σφαλμάτων (Send Anonymous Metrics and Errors)"
+
+#: ../preferences.rst:343
+msgid "Send anonymous telemetry and error reports"
+msgstr "Αποστολή ανώνυμης τηλεμετρίας και αναφορών σφαλμάτων"
+
+#: ../preferences.rst:344
+msgid "Show Playback Performance (FPS)"
+msgstr ""
+"Εμφάνιση επιδόσεων αναπαραγωγής (FPS) (Show Playback Performance (FPS))"
+
+#: ../preferences.rst:346
+msgid "Display live FPS in preview playback"
+msgstr "Εμφάνιση του ζωντανού FPS κατά την αναπαραγωγή της προεπισκόπησης"
+
+#: ../preferences.rst:347
+msgid "Show Export Dialog when Finished"
+msgstr ""
+"Δείξε το παράθυρο διαλόγου εξαγωγής όταν τελειώσεις (Show Export Dialog when"
+" Finished)"
+
+#: ../preferences.rst:349
+msgid "Display the Export Video window when export completes"
+msgstr ""
+"Εμφάνιση του παραθύρου Εξαγωγή βίντεο (Export Video) όταν ολοκληρωθεί η "
+"εξαγωγή"
+
+#: ../preferences.rst:351
+msgid ""
+"The ComfyUI **Check** button updates an inline status icon: green checkmark "
+"for success, red icon for failure. If OpenShot cannot reach this server, AI "
+"context menu options are hidden. See :ref:`ai_ref` for setup details, "
+"requirements, and workflow options."
+msgstr ""
+"Το κουμπί **Έλεγχος** (Check) του ComfyUI ενημερώνει ένα εικονίδιο "
+"κατάστασης: πράσινο σημάδι επιλογής για επιτυχία, κόκκινο εικονίδιο για "
+"αποτυχία. Αν το OpenShot δεν μπορεί να συνδεθεί με αυτόν τον διακομιστή, οι "
+"επιλογές AI του μενού περιβάλλοντος αποκρύπτονται. Δείτε :ref:`ai_ref` για "
+"λεπτομέρειες ρύθμισης, απαιτήσεις και επιλογές ροής εργασίας."
+
+#: ../preferences.rst:358
+msgid "Reset (Default Values)"
+msgstr "Επαναφορά (προεπιλεγμένες τιμές)"
+
+#: ../preferences.rst:360
+msgid ""
+"To reset **all** preferences to their default values, please delete the "
+"``openshot.settings`` file and re-launch OpenShot. The settings file can be "
+"located at this path: ``~/.openshot_qt/openshot.settings`` or "
+"``C:\\Users\\USERNAME\\.openshot_qt\\openshot.settings``. When OpenShot is "
+"re-launched, it will create the missing ``openshot.settings`` file with "
+"default values."
+msgstr ""
+"Για να επαναφέρετε **όλες** τις προτιμήσεις στις προεπιλεγμένες τιμές τους, "
+"διαγράψτε το αρχείο ``openshot.settings`` και ξεκινήστε ξανά το OpenShot. Το"
+" αρχείο ρυθμίσεων βρίσκεται στη διαδρομή "
+"``~/.openshot_qt/openshot.settings`` ή "
+"``C:\\Users\\USERNAME\\.openshot_qt\\openshot.settings``. Όταν ξεκινήσει "
+"ξανά το OpenShot, θα δημιουργήσει το αρχείο ``openshot.settings`` που "
+"λείπει, με προεπιλεγμένες τιμές."
+
+#: ../preferences.rst:365
+msgid ""
+"Optionally, you can delete the entire ``.openshot_qt/`` folder and re-launch"
+" OpenShot. However, please make a **backup** of any customized folders: "
+"**emojis, presets, profiles, recovery, title_templates, transitions, or "
+"yolo**. For example, your ``/recovery/`` sub-folder contains backup copies "
+"of all your existing projects (``*.osp`` files)."
+msgstr ""
+"Προαιρετικά, μπορείτε να διαγράψετε ολόκληρο τον φάκελο ``.openshot_qt/`` "
+"και να ξεκινήσετε ξανά το OpenShot. Ωστόσο, φροντίστε να δημιουργήσετε "
+"**αντίγραφο ασφαλείας** όποιων προσαρμοσμένων φακέλων έχετε: **emojis, "
+"presets, profiles, recovery, title_templates, transitions ή yolo**. Για "
+"παράδειγμα, ο υποφάκελός σας ``/recovery/`` περιέχει αντίγραφα ασφαλείας "
+"όλων των υπαρχόντων έργων σας (αρχεία ``*.osp``)."
+
+#: ../preferences.rst:370
+msgid ""
+"Deleting the ``.openshot_qt/`` folder is the quickest method to restore "
+"OpenShot preferences and settings to their Default values (i.e. also called "
+"a `clean install`). When OpenShot is re-launched, it will create any missing"
+" folders (i.e. ``.openshot_qt/``) and settings files. See our `step-by-step "
+"guide <https://github.com/OpenShot/openshot-qt/wiki/Clean-Installation-of-"
+"OpenShot>`_ for more information about **clean installs** of OpenShot."
+msgstr ""
+"Η διαγραφή του φακέλου ``.openshot_qt/`` είναι ο γρηγορότερος τρόπος για να "
+"επαναφέρετε τις προτιμήσεις και τις ρυθμίσεις του OpenShot στις "
+"προεπιλεγμένες τους τιμές (δηλαδή αυτό που ονομάζεται και `καθαρή "
+"εγκατάσταση`). Όταν το OpenShot ξεκινήσει ξανά, θα δημιουργήσει τυχόν "
+"φακέλους (π.χ. ``.openshot_qt/``) και αρχεία ρυθμίσεων που λείπουν. Δείτε "
+"τον `οδηγό βήμα προς βήμα <https://github.com/OpenShot/openshot-"
+"qt/wiki/Clean-Installation-of-OpenShot>`_ για περισσότερες πληροφορίες "
+"σχετικά με τις **καθαρές εγκαταστάσεις** του OpenShot."

@@ -1,0 +1,76 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../_templates/footer.html:19
+msgid "&copy; <a href=\"%(path)s\">Copyright</a> %(copyright)s."
+msgstr "&copy; <a href=\"%(path)s\">Πνευματικά δικαιώματα</a> %(copyright)s."
+
+#: ../_templates/footer.html:21
+msgid ""
+"&copy; Copyright %(copyright)s - <a data-iframe-height "
+"href=\"http://www.openshot.org/\">www.openshot.org</a>."
+msgstr ""
+"&copy; Πνευματικά δικαιώματα %(copyright)s - <a data-iframe-height "
+"href=\"http://www.openshot.org/\">www.openshot.org</a>."
+
+#: ../_templates/footer.html:26
+msgid ""
+"\n"
+"        <span class=\"build\">\n"
+"          Build\n"
+"          <a href=\"%(build_url)s\">%(build_id)s</a>.\n"
+"        </span>\n"
+"      "
+msgstr ""
+"\n"
+"        <span class=\"build\">\n"
+"          Έκδοση κατασκευής (Build)\n"
+"          <a href=\"%(build_url)s\">%(build_id)s</a>.\n"
+"        </span>\n"
+"      "
+
+#: ../_templates/footer.html:33
+msgid ""
+"\n"
+"        <span class=\"commit\">\n"
+"          Revision <code>%(commit)s</code>.\n"
+"        </span>\n"
+"      "
+msgstr ""
+"\n"
+"        <span class=\"commit\">\n"
+"          Αναθεώρηση <code>%(commit)s</code>.\n"
+"        </span>\n"
+"      "
+
+#: ../_templates/footer.html:39
+msgid "Last updated on %(last_updated)s."
+msgstr "Τελευταία ενημέρωση στις %(last_updated)s."
+
+#: ../_templates/footer.html:46
+msgid ""
+"Built with <a href=\"http://sphinx-doc.org/\">Sphinx</a> using a <a "
+"href=\"https://github.com/snide/sphinx_rtd_theme\">theme</a> provided by <a "
+"href=\"https://readthedocs.org\">Read the Docs</a>"
+msgstr ""
+"Δημιουργήθηκε με το <a href=\"http://sphinx-doc.org/\">Sphinx</a> "
+"χρησιμοποιώντας ένα <a "
+"href=\"https://github.com/snide/sphinx_rtd_theme\">θέμα</a> που παρέχεται "
+"από το <a href=\"https://readthedocs.org\">Read the Docs</a>"
