@@ -33,6 +33,7 @@ import sys
 import tempfile
 import types
 import unittest
+import zipfile
 from contextlib import ExitStack
 from unittest.mock import Mock, patch
 
@@ -352,6 +353,44 @@ class ProjectDataTests(unittest.TestCase):
                         os.chdir(previous_cwd)
         finally:
             os.chdir(previous_cwd)
+
+    def test_manual_legacy_pack_loads_with_window_and_reopens(self):
+        fixture = source_path("src/tests/fixtures/legacy/manual/Legacy Pickle Test Pack.zip")
+        with tempfile.TemporaryDirectory() as folder:
+            with zipfile.ZipFile(fixture) as archive:
+                archive.extractall(folder)
+            project_path = os.path.join(folder, "Legacy Pickle Test Pack", "Legacy PNG Test.osp")
+            with open(project_path, "rb") as stream:
+                original_bytes = stream.read()
+            store = ProjectDataStore()
+            self.app.project = store
+            self.app.updates = UpdateManager()
+            self.app.updates.add_listener(store)
+            action = DummyAction()
+            self.app.window = types.SimpleNamespace(actionClearWaveformData=action)
+            try:
+                with patch.object(store, "add_to_recent_files"):
+                    store.load(project_path, clear_thumbnails=False)
+                    self.assertFalse(action.enabled)
+                    self.assertEqual(len(store.get("files")), 3)
+                    clips = sorted(store.get("clips"), key=lambda clip: clip["position"])
+                    self.assertEqual([clip["position"] for clip in clips], [0.0, 2.0, 4.0])
+                    self.assertEqual([clip["end"] - clip["start"] for clip in clips], [2.0] * 3)
+                    expected_paths = [file["path"] for file in store.get("files")]
+                    self.assertEqual([os.path.basename(path) for path in expected_paths],
+                                     ["01-red.png", "02-green.png", "03-blue.png"])
+                    self.assertTrue(all(os.path.isfile(path) for path in expected_paths))
+                    saved = os.path.join(folder, "converted.osp")
+                    store.save(saved)
+                    store.load(saved, clear_thumbnails=False)
+                    self.assertEqual(len(store.get("clips")), 3)
+                    self.assertEqual([file["path"] for file in store.get("files")], expected_paths)
+                    self.assertEqual({clip["file_id"] for clip in store.get("clips")},
+                                     {file["id"] for file in store.get("files")})
+                with open(project_path, "rb") as stream:
+                    self.assertEqual(stream.read(), original_bytes)
+            finally:
+                self.app.window = None
 
     def test_legacy_callable_rejected_before_conversion_or_project_reset(self):
         class Payload:

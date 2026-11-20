@@ -870,9 +870,12 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # Throw exception
             raise RuntimeError("Failed to load the following files:\n%s" % ", ".join(failed_files))
 
-        # Return mostly empty project_data dict (with just the current version #)
+        # Query objects saved the converted files, clips and tracks into this store.
+        # Return that complete project so the loader can inspect and merge it.
+        converted_project = self._data.copy()
+        converted_project.update(project_data)
         log.info("Successfully loaded legacy project file: %s", file_path)
-        return project_data
+        return converted_project
 
     def upgrade_project_data_structures(self):
         """Fix any issues with old project files (if any)"""
