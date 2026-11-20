@@ -51,15 +51,7 @@ class EffectInteractionMixin:
                     continue
                 if self._is_track_locked(clip_track):
                     return
-                clip_position = float(data.get("position", 0.0) or 0.0)
-                clip_start = float(data.get("start", 0.0) or 0.0)
-                clip_end = float(data.get("end", clip_start) or clip_start)
-                duration = clip_end - clip_start
-                if duration <= 0.0:
-                    continue
-                clip_finish = clip_position + duration
-                target_seconds = min(max(pos_seconds, clip_position), clip_finish)
-                timeline.addEffect(effect_names, QPointF(target_seconds, clip_track))
+                timeline._apply_effect_to_clip(clip, effect_names[0])
                 return
 
         try:

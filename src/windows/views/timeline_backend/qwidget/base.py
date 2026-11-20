@@ -233,6 +233,10 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self._vscroll_timer.setSingleShot(True)
         self._vscroll_timer.timeout.connect(self._flush_pending_vertical_scroll)
 
+        self._drag_scroll_timer = QTimer(self)
+        self._drag_scroll_timer.setInterval(16)
+        self._drag_scroll_timer.timeout.connect(self._scroll_clip_drag)
+
         # Wheel zoom helpers
         self._zoom_emit_timer = QTimer(self)
         self._zoom_emit_timer.setSingleShot(True)
@@ -3017,6 +3021,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         if key == "lock-toggle":
             locked = bool(getattr(track, "data", {}).get("lock")) if track else False
             return _("Unlock track") if locked else _("Lock track")
+        if key == "effects-tray":
+            return _("Manage Effects")
         if key == "keyframe-panel":
             track_num = button.get("track_num")
             enabled = bool(self._track_panel_enabled.get(track_num, False))

@@ -432,6 +432,8 @@ class PropertiesModel(updates.UpdateInterface):
         next_filter_base_properties = self._effect_filter_base_properties(
             getattr(effect_obj, "data", None)
         )
+        if effect_obj and effect_obj.on_track:
+            next_filter_base_properties.append("apply_before_clip")
         if next_filter_base_properties != self.filter_base_properties:
             self.filter_base_properties = next_filter_base_properties
             self.new_item = True
@@ -504,7 +506,7 @@ class PropertiesModel(updates.UpdateInterface):
             return
 
         # Handle change
-        if action and len(action.key) >= 1 and action.key[0] in ["clips", "effects"] and action.type in ["update", "insert"]:
+        if action and len(action.key) >= 1 and action.key[0] in ["clips", "effects", "layers"] and action.type in ["update", "insert", "delete"]:
             log.debug("Property model received %s for %s", action.type, action.key)
             self._refresh_selected_objects()
             self._refresh_selected_effect_filters()
@@ -544,7 +546,7 @@ class PropertiesModel(updates.UpdateInterface):
                     if t:
                         self.selected.append((t, item_type))
                 elif item_type == "effect":
-                    e = timeline.GetClipEffect(item_id)
+                    e = self._native_effect(timeline, item_id)
                     if e:
                         self.selected.append((e, item_type))
                         self.selected_parent = e.ParentClip()
@@ -563,6 +565,13 @@ class PropertiesModel(updates.UpdateInterface):
             self.selected_ids = []
         self.update_model(get_app().window.txtPropertyFilter.text())
 
+    @staticmethod
+    def _native_effect(timeline, item_id):
+        effect = timeline.GetClipEffect(item_id)
+        if effect is None and hasattr(timeline, "GetTrackEffect"):
+            effect = timeline.GetTrackEffect(item_id)
+        return effect
+
     def _refresh_selected_objects(self):
         """Resolve borrowed native objects after a clip/effect was replaced."""
         selected_ids = getattr(self, "selected_ids", None)
@@ -570,7 +579,7 @@ class PropertiesModel(updates.UpdateInterface):
             return
         timeline = get_app().window.timeline_sync.timeline
         getters = {"clip": timeline.GetClip, "transition": timeline.GetEffect,
-                   "effect": timeline.GetClipEffect}
+                   "effect": lambda item_id: self._native_effect(timeline, item_id)}
         previous_count = len(self.selected)
         self.selected = []
         self.selected_parent = None
@@ -598,6 +607,14 @@ class PropertiesModel(updates.UpdateInterface):
             # If effect, we really care about the position of the parent clip
             if item_type == "effect":
                 clip = self.selected_parent
+
+            if clip is None:
+                # Track effect curves use timeline frames directly.
+                if frame_number != self.frame_number:
+                    self.frame_number = frame_number
+                    if reload_model:
+                        self.update_model(get_app().window.txtPropertyFilter.text())
+                return
 
             # Get FPS from project
             fps = get_app().project.get("fps")
@@ -637,9 +654,16 @@ class PropertiesModel(updates.UpdateInterface):
         if getattr(self, "playhead_frame", None) is None:
             return self.frame_number, auto_keyframes
         getter = {"clip": "GetClip", "transition": "GetEffect", "effect": "GetClipEffect"}.get(item_type)
-        obj = getter and getattr(get_app().window.timeline_sync.timeline, getter)(item_id)
-        if obj and item_type == "effect":
-            obj = obj.ParentClip()
+        timeline = get_app().window.timeline_sync.timeline
+        if item_type == "effect":
+            obj = self._native_effect(timeline, item_id)
+            if obj:
+                parent = obj.ParentClip()
+                if parent is None:
+                    return max(1, self.playhead_frame), auto_keyframes
+                obj = parent
+        else:
+            obj = getter and getattr(timeline, getter)(item_id)
         if not obj:
             return self.frame_number, auto_keyframes
 

@@ -195,6 +195,8 @@ class TimelineTheme:
         sized.transition.height = height
         sized.compact_track_headers = size in ("minimal", "compact")
         sized.track_control_size = 14 if size == "minimal" else 16
+        if sized.compact_track_headers:
+            sized.track.name_width += sized.track_control_size + 4
         sized.keyframe_panel_row_height = {"minimal": 18.0, "compact": 22.0, "relaxed": 28.0}[size]
         sized.keyframe_panel_row_spacing = gap
         sized.keyframe_panel_padding = gap

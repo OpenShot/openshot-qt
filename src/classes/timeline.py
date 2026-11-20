@@ -25,6 +25,8 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import json
+
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from qt_api import QTimer
 
@@ -53,6 +55,7 @@ class TimelineSync(UpdateInterface):
         # Create an instance of a libopenshot Timeline object
         self.timeline = openshot.Timeline(width, height, openshot.Fraction(fps["num"], fps["den"]),
                                           sample_rate, channels, channel_layout)
+        self.timeline.SetJson(json.dumps({"layers": project.get("layers") or []}))
         self.timeline.info.channel_layout = channel_layout
         self.timeline.info.has_audio = True
         self.timeline.info.has_video = True
@@ -76,7 +79,7 @@ class TimelineSync(UpdateInterface):
 
         # Ignore changes that don't affect libopenshot
         if action and len(action.key) >= 1 and action.key[0].lower() in [
-                "auto_optimize", "files", "history", "markers", "layers", "scale",
+                "auto_optimize", "files", "history", "markers", "scale",
                 "profile", "profile_settings", "export_settings", "settings"]:
             return
 
@@ -134,7 +137,10 @@ class TimelineSync(UpdateInterface):
         finally:
             # Refresh borrowed clip/effect pointers before another update listener
             # can process UI events, including between actions in an undo/redo.
-            if action.key and action.key[0] == "clips" and not is_keyframe_patch(action.values):
+            if action.key and (
+                action.key[0] == "layers"
+                or (action.key[0] == "clips" and not is_keyframe_patch(action.values))
+            ):
                 preview = getattr(self.window, "videoPreview", None)
                 if preview is not None:
                     # ProjectDataStore has not applied this action yet. Reading

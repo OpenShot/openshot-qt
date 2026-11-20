@@ -288,6 +288,10 @@ class TrackInteractionMixin:
         if not self.win:
             return
 
+        if key == "effects-tray" and track_id:
+            self.win.timeline.show_effects_tray(track_id)
+            return
+
         if key == "lock-toggle" and track_id:
             self._select_track_for_action(track_id)
             locked = bool(getattr(track, "data", {}).get("lock")) if track else False

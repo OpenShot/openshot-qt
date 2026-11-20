@@ -1296,6 +1296,14 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.context_menu_cursor_position = QCursor.pos()
             return menu.show_at(self.context_menu_cursor_position)
 
+    def show_effects_tray(self, track_id, clip_id=None, effect_id=None):
+        from windows.effects_tray import EffectsTray
+
+        if not getattr(self, "_effects_tray", None):
+            self._effects_tray = EffectsTray(self)
+            self.window.addDockWidget(Qt.BottomDockWidgetArea, self._effects_tray)
+        self._effects_tray.open_track(track_id, clip_id, effect_id)
+
     @pyqtSlot(str)
     def ShowEffectMenu(self, effect_id=None):
         log.debug('ShowEffectMenu: %s' % effect_id)
@@ -1304,7 +1312,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         effect = Effect.get(id=effect_id)
         if not effect:
             return
-        track = Track.get(number=effect.parent.get("layer"))
+        track = Track.get(id=effect.parent["id"]) if effect.on_track else Track.get(number=effect.parent.get("layer"))
         locked = bool(track and track.data.get("lock", False))
 
         # Get translation method
@@ -1318,6 +1326,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         Copy_Effect.setShortcuts(self.window.getShortcutByName("copyAll"))
         Copy_Effect.triggered.connect(partial(self.Copy_Triggered, MenuCopy.EFFECT, [], [], [effect_id]))
         menu.addMenu(Copy_Menu)
+
+        if track:
+            menu.addAction(_("Manage Effects"), partial(self.show_effects_tray, track.id, effect_id=effect_id))
 
         # Properties
         menu.addAction(self.window.actionProperties)
@@ -2161,6 +2172,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             for action in menu.actions():
                 if action != copy_action and not action.isSeparator():
                     action.setEnabled(False)
+
+        if track:
+            menu.addAction(_("Manage Effects"), partial(self.show_effects_tray, track.id, clip.id))
 
         # Source preview and Properties remain available on locked tracks.
         menu.addSeparator()
@@ -4109,6 +4123,13 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addAction(self.window.actionAddTrackAbove)
         menu.addAction(self.window.actionAddTrackBelow)
         menu.addAction(self.window.actionRenameTrack)
+        menu.addAction(_("Manage Effects"), partial(self.show_effects_tray, track.id))
+        for label, key in ((_("Mute Audio"), "muted"), (_("Hide Video"), "hidden")):
+            toggle = menu.addAction(label)
+            toggle.setCheckable(True)
+            toggle.setChecked(bool(track.data.get(key)))
+            toggle.setEnabled(not locked)
+            toggle.triggered.connect(partial(self.set_track_render_setting, track.id, key))
         if found_gap:
             # Add 'Remove Gap' Menu
             log.info(f"Found gap at {first_gap_start}")
@@ -4133,6 +4154,13 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Show context menu
         self.context_menu_cursor_position = QCursor.pos()
         return menu.show_at(self.context_menu_cursor_position)
+
+    def set_track_render_setting(self, track_id, name, enabled):
+        track = Track.get(id=track_id)
+        if track and not track.data.get("lock"):
+            track.data = {name: enabled}
+            track.save()
+            self.window.refreshFrameSignal.emit()
 
     @pyqtSlot(str)
     def ShowMarkerMenu(self, marker_id=None):
@@ -4392,6 +4420,20 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self.run_js(JS_SCOPE_SELECTOR + ".movePlayheadToFrame(%s);" % (str(position_frames)))
 
     @pyqtSlot()
+    def reset_new_project_view(self):
+        tray = getattr(self, "_effects_tray", None)
+        if tray:
+            tray.hide()
+        if ViewClass == TimelineWidget:
+            self._track_panel_enabled.clear()
+            self._panel_manual_properties.clear()
+            self._clear_panel_selection(None)
+            self.current_frame = 1
+            self._last_playhead_seek_state = None
+            self.set_scroll_left(0.0)
+            self.window.TimelineScrolled.emit(list(self.scrollbar_position))
+            self.changed(None)
+
     def centerOnPlayhead(self):
         """ Center the timeline on the current playhead position """
         if ViewClass == TimelineWidget:

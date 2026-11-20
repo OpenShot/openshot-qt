@@ -335,6 +335,18 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         # previous value, including readers, effects, and keyframes.
         ret = {} if add and isinstance(parent, list) else json.loads(json.dumps(obj))
 
+        # Older projects omit these fields. Include their defaults in undo
+        # snapshots because dictionary updates merge into the existing object.
+        if isinstance(values, dict) and isinstance(ret, dict):
+            defaults = {}
+            if key[0] == "layers" and len(key) == 2:
+                defaults = {"muted": False, "hidden": False, "effects": []}
+            elif key[0] == "clips" and len(key) == 4 and key[2] == "effects":
+                defaults = {"clip_range": None, "stack_order": -1}
+            for name, default in defaults.items():
+                if name in values:
+                    ret.setdefault(name, default)
+
         # Apply the correct action to the found item
         if remove:
             del parent[my_key]
@@ -1718,9 +1730,9 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 log.info("Removed missing effect: %s", effect_name)
                 self._data["effects"].remove(effect)
 
-        # Some clip effects can also carry reader/resource paths (e.g. mask/image-driven effects).
-        for clip in self._data["clips"]:
-            effects = clip.get("effects")
+        # Clip and track effects can carry reader/resource paths.
+        for owner in self._data["clips"] + self._data.get("layers", []):
+            effects = owner.get("effects")
             if not isinstance(effects, list):
                 continue
             for effect in reversed(effects):
@@ -1728,7 +1740,7 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                 if not _repair_effect_paths(effect):
                     missing_path = _first_missing_effect_path(effect)
                     effect_name = os.path.basename(missing_path) if missing_path else effect.get("id", "")
-                    log.info("Removed missing clip effect on %s: %s", clip.get("id", ""), effect_name)
+                    log.info("Removed missing effect on %s: %s", owner.get("id", ""), effect_name)
                     effects.remove(effect)
 
     def changed(self, action):

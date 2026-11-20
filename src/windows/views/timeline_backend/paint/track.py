@@ -37,6 +37,7 @@ from qt_api import (
     QPainter,
     QPainterPath,
     QPen,
+    QPixmap,
 )
 
 from .base import BasePainter
@@ -92,6 +93,7 @@ class TrackPainter(BasePainter):
         self.toolbar_order = (
             "lock-toggle",
             "keyframe-panel",
+            "effects-tray",
         )
 
         toolbar = {}
@@ -150,6 +152,21 @@ class TrackPainter(BasePainter):
                 },
             }
 
+        size = max(12, round(self.w.theme.track_control_size))
+        badge = QPixmap(size * 2, size * 2)
+        badge.setDevicePixelRatio(2)
+        badge.fill(Qt.transparent)
+        painter = QPainter(badge)
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setPen(QColor(self.w.theme.track.font_color))
+        font = QFont(self.w.font())
+        font.setBold(True)
+        font.setPixelSize(max(8, round(size * 0.57)))
+        painter.setFont(font)
+        painter.drawRoundedRect(QRectF(1, 1, size - 2, size - 2), 3, 3)
+        painter.drawText(QRectF(0, 0, size, size), Qt.AlignCenter, "FX")
+        painter.end()
+        toolbar["effects-tray"] = {"enabled": badge, "disabled": badge}
         self.toolbar_pixmaps = toolbar
 
     def track_title_geometry(self, name_rect, track=None, *, painter=None):

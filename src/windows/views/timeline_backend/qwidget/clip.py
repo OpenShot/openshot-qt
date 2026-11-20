@@ -817,6 +817,7 @@ class ClipInteractionMixin:
         # Horizontal offset from cursor to bbox-left
         self.drag_clip_offset = e.position().x() if hasattr(e, "position") else e.pos().x()
         self.drag_clip_offset -= self.drag_bbox.x()
+        self._drag_start_scroll_offset = self.h_scroll_offset
 
         # Starting track index
         start_idx = self._track_index_at_viewport_y(
@@ -826,18 +827,37 @@ class ClipInteractionMixin:
         )
         self._drag_layer_idx_start = start_idx if start_idx is not None else 0
 
-    def _dragMove(self):
+    def _scroll_clip_drag(self):
+        delta = self._drag_scroll_delta
+        timeline_width = self.scrollbar_position[2]
+        if not delta or timeline_width <= 0:
+            return
+        previous = self.h_scroll_offset
+        self.set_scroll_left((previous + delta) / timeline_width)
+        if self.h_scroll_offset != previous:
+            self.win.TimelineScrolled.emit(list(self.scrollbar_position))
+            self._dragMove(*self._drag_pointer)
+        else:
+            self._drag_scroll_timer.stop()
+
+    def _dragMove(self, pos=None, modifiers=None):
         """Apply identical horizontal/vertical deltas to every dragged item."""
         if getattr(self, "_drag_commit_in_progress", False):
             return
         if not getattr(self, "dragging_items", None):
             return
-        e = self._last_event
+        if pos is None:
+            event = self._last_event
+            if event is None:
+                return
+            pos = QPointF(event.position() if hasattr(event, "position") else event.pos())
+            modifiers = event.modifiers()
+        self._drag_pointer = (pos, modifiers)
 
         if not getattr(self, "_drag_threshold_met", True):
             anchor = getattr(self, "_drag_press_pos", None)
-            if anchor is not None and e is not None:
-                delta = (e.position() if hasattr(e, "position") else QPointF(e.pos())) - anchor
+            if anchor is not None:
+                delta = pos - anchor
                 if delta.manhattanLength() < QApplication.startDragDistance():
                     return
             self._drag_threshold_met = True
@@ -848,12 +868,31 @@ class ClipInteractionMixin:
             return
 
         # SHIFT+Drag: freeze horizontal movement (track-only drag), matching JS behaviour.
-        shift_held = bool(e.modifiers() & Qt.ShiftModifier) if e else False
+        shift_held = bool(modifiers & Qt.ShiftModifier)
+        x = pos.x()
+        left = self.track_name_width
+        right = self.width() - self.scroll_bar_thickness
+        edge = 28.0
+        if shift_held or right - left <= 2 * edge:
+            self._drag_scroll_delta = 0.0
+        elif x < left + edge:
+            self._drag_scroll_delta = -min(edge, (left + edge - x) / 2)
+        elif x > right - edge:
+            self._drag_scroll_delta = min(edge, (x - right + edge) / 2)
+        else:
+            self._drag_scroll_delta = 0.0
+        if self._drag_scroll_delta:
+            if not self._drag_scroll_timer.isActive():
+                self._drag_scroll_timer.start()
+        else:
+            self._drag_scroll_timer.stop()
+
         if shift_held:
             delta_sec = 0.0
         else:
-            new_bbox_x = (e.position().x() if hasattr(e, "position") else e.pos().x()) - self.drag_clip_offset
-            delta_sec = (new_bbox_x - self.drag_bbox.x()) / pps
+            new_bbox_x = x - self.drag_clip_offset
+            scroll_delta = self.h_scroll_offset - self._drag_start_scroll_offset
+            delta_sec = (new_bbox_x - self.drag_bbox.x() + scroll_delta) / pps
 
             # Snap horizontally ±1.5 s (pure x-axis)
             if self.enable_snapping:
@@ -861,9 +900,7 @@ class ClipInteractionMixin:
 
         # -------- Vertical delta (track indexes) ----
         new_idx_under_cursor = self._track_index_at_viewport_y(
-            e.position().y() if hasattr(e, "position") else e.pos().y(),
-            prefer_clip_lane=True,
-            snap_to_nearest=True,
+            pos.y(), prefer_clip_lane=True, snap_to_nearest=True,
         )
         if new_idx_under_cursor is None:
             new_idx_under_cursor = self._drag_layer_idx_start
@@ -967,6 +1004,7 @@ class ClipInteractionMixin:
 
     def _finishClipDrag(self):
         """Persist all moved clips/transitions and refresh geometry."""
+        self._drag_scroll_timer.stop()
         items = list(getattr(self, "dragging_items", None) or [])
         moved = bool(getattr(self, "_drag_moved", False))
         collapse_selection = bool(getattr(self, "_collapse_selection_on_release", False))

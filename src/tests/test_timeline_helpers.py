@@ -552,7 +552,7 @@ class TimelineHelperTests(unittest.TestCase):
                         painter.end()
                         title = widget._track_title_rects[0]
                         buttons = widget._track_toolbar_buttons(track, name_rect)
-                        self.assertEqual([b["key"] for b in buttons], ["lock-toggle", "keyframe-panel"])
+                        self.assertEqual([b["key"] for b in buttons], ["lock-toggle", "keyframe-panel", "effects-tray"])
                         row = QRectF(0, 0, widget.track_name_width, widget.vertical_factor)
                         self.assertTrue(row.contains(title["rect"]))
                         self.assertEqual(title["title"], track.data["label"])
@@ -625,7 +625,7 @@ class TimelineHelperTests(unittest.TestCase):
         transition = timeline_module.Transition()
         transition.id = "transition"
         transition.data = dict(clip.data)
-        effect = types.SimpleNamespace(parent={"layer": 1})
+        effect = types.SimpleNamespace(parent={"layer": 1}, on_track=False)
         project = types.SimpleNamespace(get=lambda key: {"num": 30, "den": 1})
 
         with ExitStack() as stack:
@@ -649,7 +649,7 @@ class TimelineHelperTests(unittest.TestCase):
                     for locked in (True, False):
                         with self.subTest(kind=kind, multiple=multiple, locked=locked), \
                                 patch.object(timeline_module.Track, "get", return_value=types.SimpleNamespace(
-                                    data={"lock": locked})) as track_get, \
+                                    id="track", data={"lock": locked})) as track_get, \
                                 patch.object(timeline_module.ClipboardManager, "from_mime", return_value=item):
                             menu = getattr(host, "Show" + kind + "Menu")(kind.lower())
                             track_get.assert_called_with(number=1)
@@ -667,7 +667,7 @@ class TimelineHelperTests(unittest.TestCase):
                             if kind != "Effect":
                                 self.assertTrue({"Cut", "Paste", "Slice"} <= labels)
                             for action in actions:
-                                expected = not locked or action.text() in ("Copy", "Properties")
+                                expected = not locked or action.text() in ("Copy", "Properties", "Manage Effects")
                                 self.assertEqual(action.isEnabled(), expected, action.text())
                             self.assertTrue(shared_remove.isEnabled())
                             remove_action = next(a for a in actions if a.text() == "Remove " + kind)
@@ -1048,6 +1048,7 @@ class TimelineHelperTests(unittest.TestCase):
 
         class Helper(qwidget_clip_module.ClipInteractionMixin):
             def __init__(self):
+                self._drag_scroll_timer = MagicMock()
                 self.dragging_items = []
                 self._drag_moved = True
                 self._collapse_selection_on_release = False
@@ -1118,6 +1119,12 @@ class TimelineHelperTests(unittest.TestCase):
         class Helper(qwidget_clip_module.ClipInteractionMixin):
             def __init__(self):
                 self._drag_commit_in_progress = False
+                self._drag_scroll_timer = MagicMock()
+                self.track_name_width = 0
+                self.scroll_bar_thickness = 0
+                self.width = lambda: 400
+                self.h_scroll_offset = 0
+                self._drag_start_scroll_offset = 0
                 self.dragging_items = []
                 self._drag_threshold_met = True
                 self._drag_press_pos = QPointF()
@@ -3443,6 +3450,44 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(transition_payload["id"], "T1")
         self.assertNotIn("_auto_transition", clip_payload)
         self.assertNotIn("_auto_direction", transition_payload)
+
+    def test_playback_follows_playhead_across_multiple_viewports(self):
+        from windows.views.timeline_backend.qwidget.playhead import PlayheadMixin
+
+        widget = types.SimpleNamespace(
+            dragging_playhead=False, mouse_dragging=False, current_frame=1,
+            fps_float=10, pixels_per_second=10, scrollbar_position=[0, 0.1, 1000, 100],
+            h_scroll_offset=0, _is_playing=lambda: True, update=MagicMock(),
+        )
+        centers = []
+
+        def center():
+            x = (widget.current_frame - 1) / widget.fps_float * widget.pixels_per_second
+            widget.h_scroll_offset = x - widget.scrollbar_position[3] / 2
+            centers.append(widget.current_frame)
+
+        widget.centerOnPlayhead = center
+        for frame in (1, 100, 101, 150, 151, 200, 201):
+            PlayheadMixin.update_playhead_pos(widget, frame)
+        self.assertEqual(centers, [101, 151, 201])
+
+    def test_clip_drag_edge_timer_scrolls_without_another_mouse_event(self):
+        helper = self.make_qwidget_drag_move_helper()
+        helper._drag_pointer = (QPointF(399, 0), Qt.NoModifier)
+        helper._drag_scroll_delta = 10
+        helper.scrollbar_position = [0, 0.4, 1000, 400]
+        helper._dragMove = MagicMock()
+        helper.win = types.SimpleNamespace(TimelineScrolled=MagicMock())
+
+        def set_scroll_left(left):
+            helper.scrollbar_position[0] = left
+            helper.h_scroll_offset = left * 1000
+
+        helper.set_scroll_left = set_scroll_left
+        helper._scroll_clip_drag()
+        helper._scroll_clip_drag()
+        self.assertEqual(helper.h_scroll_offset, 20)
+        self.assertEqual(helper._dragMove.call_count, 2)
 
     def test_qwidget_drag_move_preserves_shared_edge_alignment_for_off_frame_selection(self):
         helper = self.make_qwidget_drag_move_helper()

@@ -416,36 +416,24 @@ class Effect(QueryObject):
     def filter(**kwargs):
         """ Take any arguments given as filters, and find a list of matching objects """
 
-        # Get a list of clips
-        clips = get_app().project.get("clips")
         matching_objects = []
-
-        # Loop through all clips
-        if clips:
-            for clip in clips:
-                # Loop through all effects
-                if "effects" in clip:
-                    for child in clip["effects"]:
-
-                        # Loop through all kwargs (and look for matches)
-                        match = True
-                        for key, value in kwargs.items():
-                            if key in child and child[key] != value:
-                                match = False
-                                break
-
-                        # Add matched record
-                        if match:
-                            object = Effect()
-                            object.id = child["id"]
-                            object.key = ["clips", {"id": clip["id"]}, "effects", {"id": object.id}]
-                            object.data = json.loads(json.dumps(child))
-                            object.type = "update"
-                            object.parent = clip
-                            matching_objects.append(object)
-
-        # Return matching objects
+        for owner_type in ("clips", "layers"):
+            for owner in get_app().project.get(owner_type) or []:
+                for child in owner.get("effects") or []:
+                    if any(key in child and child[key] != value for key, value in kwargs.items()):
+                        continue
+                    effect = Effect()
+                    effect.id = child["id"]
+                    effect.key = [owner_type, {"id": owner["id"]}, "effects", {"id": effect.id}]
+                    effect.data = copy.deepcopy(child)
+                    effect.type = "update"
+                    effect.parent = owner
+                    matching_objects.append(effect)
         return matching_objects
+
+    @property
+    def on_track(self):
+        return bool(self.key and self.key[0] == "layers")
 
     def title(self):
         """ Get the translated display title of this item """

@@ -446,14 +446,21 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         # Load recent projects again
         self.load_recent_menu()
 
-        # Refresh files views
-        self.refreshFilesSignal.emit()
         log.info("New Project created.")
 
         # Set Window title
         self.SetWindowTitle()
 
-        # Seek to frame 0
+        self.timeline.reset_new_project_view()
+        self.videoPreview.resize_button_clicked()
+        self.actionFilesShowAll.setChecked(True)
+        self.refreshFilesSignal.emit()
+        self.dockFiles.show()
+        self.dockFiles.raise_()
+        self.dockCaptionEditor.hide()
+
+        # Restore timeline preview before seeking if a file was previewing.
+        self.LoadFileSignal.emit("")
         self.SeekSignal.emit(1, True)
 
         # Update max size (for fast previews)
@@ -2455,11 +2462,12 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                 if not effect:
                     continue
                 parent = effect.parent
-                clip_start_time = parent["position"]
-                clip_orig_time = clip_start_time - parent["start"]
-                clip_stop_time = clip_orig_time + parent["end"] - frame_duration
-                # Always include parent clip boundaries
-                all_marker_positions.extend([clip_start_time, clip_stop_time])
+                clip_start_time = parent.get("position", 0.0)
+                clip_orig_time = clip_start_time - parent.get("start", 0.0)
+                clip_stop_time = (self.timeline_sync.GetLastFrame() - 1) * frame_duration
+                if not effect.on_track:
+                    clip_stop_time = clip_orig_time + parent["end"] - frame_duration
+                    all_marker_positions.extend([clip_start_time, clip_stop_time])
 
                 def add_effect_keyframe_positions(value):
                     if isinstance(value, dict):
@@ -3071,34 +3079,17 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
     def actionRemoveEffect_trigger(self):
         log.debug('actionRemoveEffect_trigger')
 
-        # Loop through selected clips
-        for effect_id in json.loads(json.dumps(self.selected_effects)):
-            log.info("effect id: %s" % effect_id)
-
-            # Find matching file
-            clips = Clip.filter()
-            found_effect = None
-            for c in clips:
-                found_effect = False
-                log.info("c.data[effects]: %s" % c.data["effects"])
-
-                for effect in c.data["effects"]:
-                    if effect["id"] == effect_id:
-                        found_effect = effect
-                        break
-
-                if found_effect:
-                    # Remove found effect from clip data and save clip
-                    c.data["effects"].remove(found_effect)
-
-                    # Remove unneeded attributes from JSON
-                    c.data.pop("reader")
-
-                    # Save clip
-                    c.save()
-
-                    # Clear selected effects
-                    self.removeSelection(effect_id, "effect")
+        for effect_id in list(self.selected_effects):
+            effect = Effect.get(id=effect_id)
+            if not effect:
+                continue
+            owner = Track.get(id=effect.parent["id"]) if effect.on_track else Clip.get(id=effect.parent["id"])
+            track = owner if effect.on_track else Track.get(number=effect.parent.get("layer"))
+            if not owner or (track and track.data.get("lock")):
+                continue
+            owner.data = {"effects": [item for item in owner.data.get("effects", []) if item["id"] != effect_id]}
+            owner.save()
+            self.removeSelection(effect_id, "effect")
 
         # Refresh preview
         self.refreshFrameSignal.emit()
@@ -4106,7 +4097,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         for sel in self.selected_items:
             if sel["type"] == "effect":
                 effect = Effect.get(id=sel["id"])
-                if effect and (
+                if effect and not effect.on_track and (
                     effect.data.get("has_tracked_object")
                     or effect.data.get("class_name") in ("Bars", "Blur", "Caption", "Crop", "Distort", "Pixelate")
                     or all(prop in effect.data for prop in ("left", "top", "right", "bottom"))
