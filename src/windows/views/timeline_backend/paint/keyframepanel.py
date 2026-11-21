@@ -55,14 +55,11 @@ def draw_panel_heading(painter, heading, title, accent, can_add):
     if button.isEmpty():
         return
     ink = QColor(accent)
-    if not can_add:
-        ink.setAlphaF(ink.alphaF() * 0.43)
+    ink.setAlphaF(ink.alphaF() * (0.72 if can_add else 0.32))
     painter.save()
-    painter.setPen(QPen(ink, 1.0))
-    painter.setBrush(Qt.NoBrush)
-    painter.drawRoundedRect(button.adjusted(0.5, 0.5, -0.5, -0.5), 3, 3)
+    painter.setPen(QPen(ink, 1.2))
     center = button.center()
-    arm = button.width() / 4
+    arm = button.width() * 0.29
     painter.drawLine(center - QPointF(arm, 0), center + QPointF(arm, 0))
     painter.drawLine(center - QPointF(0, arm), center + QPointF(0, arm))
     painter.restore()

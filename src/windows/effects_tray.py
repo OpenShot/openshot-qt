@@ -11,6 +11,7 @@ from qt_api import QApplication, QColor, QFont, QMimeData, QObject, QPointF, QRe
 
 from classes.app import get_app
 from classes.clipboard import EFFECT_RANGES_MIME
+from classes.clip_utils import clip_effect_timeline_range, effect_trim_positions
 from classes.effect_init import effect_options
 from classes.query import Clip, Effect, Track, Transition
 from windows.views.menu import StyledContextMenu, add_bound_action
@@ -57,12 +58,9 @@ def track_effect_layout(track):
     clip_rows = []
     for clip in clips:
         data = clip.data
-        start, end, position = data["start"], data["end"], data["position"]
         for effect in sorted(data.get("effects") or [], key=clip_effect_sort_key):
-            trim = effect.get("clip_range") or {}
-            first = max(start, trim.get("start", start))
-            last = min(end, trim.get("end", end))
-            clip_rows.append(("clip", clip, effect, position + first - start, position + last - start))
+            first, last = clip_effect_timeline_range(data, effect)
+            clip_rows.append(("clip", clip, effect, first, last))
 
     clip_lanes = [[clip_rows[index] for index in entries] for entries in clip_effect_lanes(clip_rows)]
     transitions = sorted(Transition.filter(layer=layer), key=lambda item: item.data["position"])
@@ -636,6 +634,11 @@ class EffectsTray(QObject):
         if self.selected_id != previous:
             self._reserve_keyframe_height()
         self.timeline.update()
+
+    def trim_positions(self, *, selected_only=False):
+        rows = self._selection_rows() if selected_only else self.rows
+        return {position for kind, owner, effect, _, _ in rows if kind != "transition"
+                for position in effect_trim_positions(effect, owner.data if kind == "clip" else None)}
 
     def _selection_rows(self):
         return [row for row in self.rows if row[0] != "transition" and row[2]["id"] in self.selected_ids]

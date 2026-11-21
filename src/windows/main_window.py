@@ -68,6 +68,7 @@ from classes.logger import log
 from classes.metrics import track_metric_session, track_metric_screen
 from classes.path_utils import comparable_local_path, native_display_path, normalized_local_path
 from classes.query import File, Clip, Transition, Marker, Track, Effect
+from classes.clip_utils import effect_trim_positions
 from classes.clipboard import ClipboardManager, EFFECT_RANGES_MIME
 from classes.generation_queue import GenerationQueueManager
 from classes.generation_service import GenerationService
@@ -2455,6 +2456,11 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         for marker in Marker.filter():
             all_marker_positions.append(marker.data["position"])
 
+        tray = getattr(getattr(self, "timeline", None), "_effects_tray", None)
+        if tray and tray.track_id and (tray.active or not (
+                self.selected_clips or self.selected_transitions or self.selected_effects)):
+            all_marker_positions.extend(tray.trim_positions(selected_only=tray.active and bool(tray.selected_ids)))
+
         if self.selected_effects:
             # Only include keyframes for selected effects
             for effect_id in self.selected_effects:
@@ -2462,6 +2468,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                 if not effect:
                     continue
                 parent = effect.parent
+                all_marker_positions.extend(effect_trim_positions(effect.data, None if effect.on_track else parent))
                 clip_start_time = parent.get("position", 0.0)
                 clip_orig_time = clip_start_time - parent.get("start", 0.0)
                 clip_stop_time = (self.timeline_sync.GetLastFrame() - 1) * frame_duration
@@ -2495,6 +2502,8 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                 selected_clip = Clip.get(id=clip_id)
                 if selected_clip:
                     all_marker_positions.extend(getTimelineObjectPositions(selected_clip))
+                    for effect in selected_clip.data.get("effects") or ():
+                        all_marker_positions.extend(effect_trim_positions(effect, selected_clip.data))
 
             # Loop through selected transitions (and add key positions)
             for tran_id in self.selected_transitions:

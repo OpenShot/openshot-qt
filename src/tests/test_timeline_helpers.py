@@ -4999,6 +4999,25 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(painter._frames_per_tick(110.0, 30.0), 15)
         self.assertEqual(painter._frames_per_tick(70.0, 30.0), 30)
 
+    def test_playhead_scrub_snaps_to_effect_trims_in_scrolled_timeline_space(self):
+        from windows.views.timeline_backend.qwidget.playhead import PlayheadMixin
+        from windows.views.timeline_backend.snap import SnapHelper
+
+        timeline = types.SimpleNamespace(
+            _effects_tray=types.SimpleNamespace(track_id="track", trim_positions=lambda: {3.0, 5.0}),
+            current_frame=1, fps_float=30, pixels_per_second=100,
+            track_name_width=140, h_scroll_offset=240, enable_snapping=True,
+            update=MagicMock(), _emit_playhead_seek=MagicMock(),
+        )
+        timeline.snap = SnapHelper(timeline, None)
+        with patch("windows.views.timeline_backend.qwidget.playhead.get_app",
+                   return_value=types.SimpleNamespace(project={"fps": {"num": 30, "den": 1}})):
+            PlayheadMixin._move_playhead(timeline, 407)
+            timeline._emit_playhead_seek.assert_called_with(151, start_preroll=True)
+            timeline.enable_snapping = False
+            PlayheadMixin._move_playhead(timeline, 407)
+            timeline._emit_playhead_seek.assert_called_with(153, start_preroll=True)
+
     def test_qwidget_new_item_snap_uses_timeline_space_when_scrolled(self):
         recorded = {}
         helper = types.SimpleNamespace()

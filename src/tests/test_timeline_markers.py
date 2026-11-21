@@ -4,7 +4,7 @@ from types import SimpleNamespace
 import unittest
 from unittest.mock import Mock, patch
 
-from classes.query import Marker
+from classes.query import Clip, Effect, Marker
 from tests.qt_test_app import get_or_create_app
 from tests.test_main_window import DummyApp, ensure_app_state
 
@@ -92,6 +92,39 @@ class MarkerNavigationTests(unittest.TestCase):
 
     def seek(self, frame, _start_preroll):
         self.window.preview_thread.current_frame = frame
+
+    def test_marker_navigation_visits_trimmed_clip_and_track_effects(self):
+        from windows.main_window import MainWindow
+
+        clip = SimpleNamespace(data={
+            "start": 7.0, "end": 15.0, "position": 3.0,
+            "effects": [{"clip_range": {"start": 9.0, "end": 12.0}}],
+        })
+        self.window.findAllMarkerPositions = lambda: MainWindow.findAllMarkerPositions(self.window)
+        self.window.timeline = Mock(_effects_tray=None)
+        self.window.timeline_sync = SimpleNamespace(GetLastFrame=lambda: self.LAST_FRAME)
+        self.window.selected_transitions = []
+        self.window.selected_effects = []
+        self.window.selected_clips = ["clip"]
+        self.window.preview_thread.current_frame = 121
+        with patch.object(Clip, "get", return_value=clip), patch.object(Marker, "filter", return_value=[]):
+            self.next()
+            self.assertEqual(self.window.preview_thread.current_frame, 151)
+            self.next()
+            self.assertEqual(self.window.preview_thread.current_frame, 241)
+            self.previous()
+            self.assertEqual(self.window.preview_thread.current_frame, 151)
+
+        track_effect = SimpleNamespace(
+            data={"clip_range": {"start": 11.0, "end": 13.0}}, parent={}, on_track=True,
+        )
+        self.window.selected_clips = []
+        self.window.selected_effects = ["effect"]
+        with patch.object(Effect, "get", return_value=track_effect), patch.object(Marker, "filter", return_value=[]):
+            self.next()
+            self.assertEqual(self.window.preview_thread.current_frame, 331)
+            self.next()
+            self.assertEqual(self.window.preview_thread.current_frame, 391)
 
     def test_previous_marker_leaves_clip_end_between_frames(self):
         self.next()

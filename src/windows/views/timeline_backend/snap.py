@@ -363,11 +363,12 @@ class SnapHelper:
         delta_sec += diff_px / self.widget.pixels_per_second
         return delta_sec
 
-    def snap_position(self, seconds, *, label="position", bounds=None, extra_seconds=()):
+    def snap_position(self, seconds, *, label="position", bounds=None, extra_seconds=(), target_seconds=None):
         """Snap a timeline point using the same targets/tolerance as clip edits.
 
         Return (seconds, snapped). Optional inclusive bounds restrict valid edit
-        positions, for example to non-empty cuts inside a clip.
+        positions, for example to non-empty cuts inside a clip. Supply
+        target_seconds to snap only to those times.
         """
         pps = float(self.widget.pixels_per_second or 0.0)
         if not self.widget.enable_snapping or pps <= 0.0:
@@ -376,7 +377,9 @@ class SnapHelper:
         origin = self.widget.track_name_width
         fps = float(self.widget.fps_float or 0.0)
         targets = []
-        entries = self._target_edges_px(viewport=False)
+        entries = self._target_edges_px(viewport=False) if target_seconds is None else [
+            origin + value * pps for value in target_seconds
+        ]
         entries.extend(origin + value * pps for value in extra_seconds)
         for entry in entries:
             px = entry[0] if isinstance(entry, tuple) else entry

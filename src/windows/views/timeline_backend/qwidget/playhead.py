@@ -81,6 +81,11 @@ class PlayheadMixin:
         if pps <= 0.0:
             return
         seconds = max(0.0, (x_pos - self.track_name_width + offset_px) / pps)
+        tray = getattr(self, "_effects_tray", None)
+        if tray and tray.track_id:
+            seconds, _ = self.snap.snap_position(
+                seconds, label="playhead-trim", target_seconds=tray.trim_positions()
+            )
         if fps_float:
             frame = int(round(seconds * fps_float)) + 1
         else:
@@ -199,6 +204,7 @@ class PlayheadMixin:
             )
 
     def _finishPlayhead(self):
+        self.snap.reset(["playhead-trim"])
         self.dragging_playhead = False
         self._playhead_seek_commit_mode = False
         self._emit_playhead_seek(

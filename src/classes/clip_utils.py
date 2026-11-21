@@ -26,6 +26,7 @@
 
 import logging
 import json
+import math
 from fractions import Fraction
 from typing import Any, Mapping, Optional, Tuple
 
@@ -34,6 +35,29 @@ import openshot
 from classes.app import get_app
 
 logger = logging.getLogger(__name__)
+
+
+def clip_effect_timeline_range(clip, effect):
+    """Return the visible effect range in timeline seconds."""
+    start, end, position = clip["start"], clip["end"], clip["position"]
+    trim = effect.get("clip_range")
+    first, last = (trim.get("start"), trim.get("end")) if isinstance(trim, dict) else (None, None)
+    first = max(start, first) if isinstance(first, (int, float)) else start
+    last = min(end, last) if isinstance(last, (int, float)) else end
+    return position + first - start, position + last - start
+
+
+def effect_trim_positions(effect, clip=None):
+    """Return the explicitly trimmed edges, clipped to the visible clip range."""
+    trim = effect.get("clip_range")
+    if not isinstance(trim, dict):
+        return ()
+    edges = tuple(trim.get(key) for key in ("start", "end"))
+    positions = clip_effect_timeline_range(clip, effect) if clip is not None else edges
+    if all(isinstance(value, (int, float)) for value in positions) and positions[1] <= positions[0]:
+        return ()
+    return tuple(position for edge, position in zip(edges, positions)
+                 if isinstance(edge, (int, float)) and math.isfinite(edge))
 
 
 def apply_file_caption_to_clip(clip_data: Any, file_obj: Any, *, dedupe: bool = True) -> bool:
