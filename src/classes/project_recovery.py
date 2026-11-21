@@ -453,7 +453,8 @@ def archive_previous_version(file_path, recovery_dir, timestamp):
         with zipfile.ZipFile(temporary, 'w', zipfile.ZIP_DEFLATED) as archive:
             archive.write(file_path, os.path.basename(file_path))
             archive.comment = json.dumps({'project_path': os.path.realpath(file_path)}).encode('utf-8')
-        with open(temporary, 'rb') as stream:
+        # Windows requires write access when flushing a file to disk.
+        with open(temporary, 'r+b') as stream:
             os.fsync(stream.fileno())
         os.replace(temporary, destination)
         return destination
