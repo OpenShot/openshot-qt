@@ -266,14 +266,14 @@ class EffectsTray(QObject):
         self.clips, track_effects, clip_lanes, transitions = track_effect_layout(track)
         both_scopes = bool(track_effects and clip_lanes)
         if both_scopes:
+            section("clip", None, _("Clip Effects"))
+        for entries in clip_lanes:
+            add_lane(entries)
+        if both_scopes:
             section("track", track, _("Track Effects"))
         for effect in track_effects:
             trim = effect.get("clip_range") or {}
             add_lane([("track", track, effect, trim.get("start", 0.0), trim.get("end"))])
-        if both_scopes:
-            section("clip", None, _("Clip Effects"))
-        for entries in clip_lanes:
-            add_lane(entries)
 
         if transitions:
             section("transition", None, _("Transitions"))
@@ -1044,8 +1044,8 @@ class EffectsTray(QObject):
         menu = StyledContextMenu(parent=self.timeline)
         menu.setToolTipsVisible(True)
         catalog = sorted(self.catalog.items(), key=lambda entry: _(entry[1]["name"]))
-        for kind, owner, label in (("track", self._track(), _("Track Effect")),
-                                   ("clip", self._clip_for_add(), _("Clip Effect"))):
+        for kind, owner, label in (("clip", self._clip_for_add(), _("Clip Effect")),
+                                   ("track", self._track(), _("Track Effect"))):
             scope = StyledContextMenu(title=label, parent=menu)
             scope.menuAction().setEnabled(owner is not None)
             if kind == "clip":
