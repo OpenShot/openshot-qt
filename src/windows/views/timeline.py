@@ -5150,6 +5150,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         effects.append(effect_json)
         self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True)
         get_app().updates.apply_last_action_to_history(original_clip_data)
+        return effect_json["id"]
 
     # Without defining this method, the 'copy' action doesn't show with cursor
     def dragMoveEvent(self, event):

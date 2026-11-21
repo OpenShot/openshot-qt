@@ -263,6 +263,14 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         )
         return transform.mapRect(QRectF(0.0, 0.0, rect.width(), rect.height()))
 
+    @staticmethod
+    def effect_has_preview_controls(data):
+        return (
+            data.get("has_tracked_object")
+            or (data.get("class_name") or data.get("type")) in ("Bars", "Blur", "Caption", "Crop", "Distort", "Pixelate")
+            or all(prop in data for prop in ("left", "top", "right", "bottom"))
+        )
+
     def _effect_has_margin_box(self, raw_properties=None):
         """Return True when an effect exposes a left/top/right/bottom margin rectangle."""
         if raw_properties is not None:
@@ -765,14 +773,14 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             tracked_object_overlay = False
 
             # Effect overlays
-            if (self.transforming_effect
-                and self.transforming_effect_object
-                and self.transforming_clip
-                and self.transforming_clip_object):
+            if self.transforming_effect and self.transforming_effect_object:
                 clip = self.transforming_clip
                 obj = self.transforming_clip_object
-                frame = self._get_clip_frame_number(clip, fps_float)
-                clip_rect, clip_props = self._clip_rect(clip, obj, viewport, frame)
+                frame = VideoWidget._get_effect_frame_number(self, fps_float)
+                if clip and obj:
+                    clip_rect, clip_props = self._clip_rect(clip, obj, viewport, frame)
+                else:
+                    clip_rect, clip_props = viewport, default_props
 
                 eff_info = self.transforming_effect_object.info
                 raw_eff = json.loads(self.transforming_effect_object.PropertiesJSON(frame))
@@ -809,8 +817,11 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
                     x_off = raw_eff.get('x', {}).get('value', 0.0)
                     y_off = raw_eff.get('y', {}).get('value', 0.0)
 
-                    base_w, base_h = self._clip_source_dimensions(
-                        clip, obj, frame, skip_effect_id=effect_id)
+                    if clip and obj:
+                        base_w, base_h = self._clip_source_dimensions(clip, obj, frame, skip_effect_id=effect_id)
+                    else:
+                        base_w = max(1, get_app().project.get("width"))
+                        base_h = max(1, get_app().project.get("height"))
 
                     width = clip_rect.width()
                     height = clip_rect.height()
@@ -822,8 +833,11 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
                             base_w, base_h, left, top, right, bottom, x_off, y_off)
                         frame_w = max(crop_rect_local.width(), 0.0001)
                         frame_h = max(crop_rect_local.height(), 0.0001)
-                        union_rect = self._clip_display_rect(
-                            frame_w, frame_h, clip, clip_props, viewport)
+                        if clip and obj:
+                            union_rect = self._clip_display_rect(frame_w, frame_h, clip, clip_props, viewport)
+                        else:
+                            union_rect = QRectF(viewport.x(), viewport.y(),
+                                                width * frame_w / base_w, height * frame_h / base_h)
                         crop_norm = (0.0, 0.0, 1.0, 1.0)
                     else:
                         crop_w = width * cw
@@ -1121,7 +1135,7 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
     def _reset_distort_points(self, indices):
         """Return handles to the regular grid, including an active base shape."""
         fps = get_app().project.get("fps")
-        frame = self._get_clip_frame_number(self.transforming_clip, fps["num"] / fps["den"])
+        frame = VideoWidget._get_effect_frame_number(self, fps["num"] / fps["den"])
         effect = openshot.Distort()
         effect.SetJson(self.transforming_effect_object.Json())
         data = json.loads(effect.Json())
@@ -1298,9 +1312,9 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             values = (VideoWidget._distort_group_offsets(group, position) if group
                       else self._distort_drag_offsets(drag, position))
             frame = drag[-1]
-            if getattr(self, "transforming_clip", None) is not None:
+            if getattr(self, "transforming_clip", None) is not None or getattr(self.transforming_effect, "on_track", False):
                 fps = get_app().project.get("fps")
-                frame = self._get_clip_frame_number(self.transforming_clip, fps["num"] / fps["den"])
+                frame = VideoWidget._get_effect_frame_number(self, fps["num"] / fps["den"])
             self.updateEffectProperties(self.transforming_effect.id, frame, None, values)
         elif not self.mouse_pressed:
             self._distort_hover(position)
@@ -1804,7 +1818,7 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         # region or the text editor (whose tooltip events bubble up here).
         if event.type() == QEvent.ToolTip:
             text = getattr(getattr(self, "win", None), "direct_text", None)
-            if (self.transforming_clip or self.region_enabled or self.mouse_dragging
+            if (self.transforming_clip or self.transforming_effect or self.region_enabled or self.mouse_dragging
                     or (text and text.draft is not None)):
                 QToolTip.hideText()
                 event.ignore()
@@ -2171,7 +2185,7 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             # Force re-paint
             self.update()
 
-        if self.transforming_effect and self.transforming_clip and self.transforming_effect_object:
+        if self.transforming_effect and self.transforming_effect_object:
             # Adjust effect keyframes if mouse is on top of the transform handlers
 
             # Get framerate
@@ -2179,8 +2193,7 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             fps_float = float(fps["num"]) / float(fps["den"])
 
             # Determine frame # of clip (absolute frame, accounting for clip trim)
-            clip_frame_number = self._get_clip_frame_number(
-                self.transforming_clip, fps_float)
+            clip_frame_number = VideoWidget._get_effect_frame_number(self, fps_float)
 
             # Get the rect where the video is actually drawn (without the black borders, etc...)
             viewport_rect = self.centeredViewport(self.width(), self.height())
@@ -2328,7 +2341,8 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
                     self.transforming_effect_object.PropertiesJSON(clip_frame_number))
 
                 # Use the clip's transform for cursor orientation
-                clip_props_for_cursors = json.loads(self.transforming_clip_object.PropertiesJSON(clip_frame_number))
+                obj = self.transforming_clip_object
+                clip_props_for_cursors = json.loads(obj.PropertiesJSON(clip_frame_number)) if obj else {}
                 clip_rot = clip_props_for_cursors.get('rotation', {}).get('value', 0.0)
                 clip_sx  = clip_props_for_cursors.get('shear_x', {}).get('value', 0.0)
                 clip_sy  = clip_props_for_cursors.get('shear_y', {}).get('value', 0.0)
@@ -2456,7 +2470,8 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
                     self.mutex.unlock()
                     return
 
-                clip_props_for_cursors = json.loads(self.transforming_clip_object.PropertiesJSON(clip_frame_number))
+                obj = self.transforming_clip_object
+                clip_props_for_cursors = json.loads(obj.PropertiesJSON(clip_frame_number)) if obj else {}
                 clip_rot = clip_props_for_cursors.get('rotation', {}).get('value', 0.0)
                 clip_sx = clip_props_for_cursors.get('shear_x', {}).get('value', 0.0)
                 clip_sy = clip_props_for_cursors.get('shear_y', {}).get('value', 0.0)
@@ -2737,7 +2752,8 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
 
         if (obj_id is None and getattr(self, "mouse_pressed", False)
                 and getattr(self, "transaction_id", None) and get_app().updates.ignore_history
-                and VideoWidget._is_distort(self) and self.transforming_effect.id == effect_id):
+                and VideoWidget._is_distort(self) and self.transforming_effect.id == effect_id
+                and not getattr(self.transforming_effect, "on_track", False)):
             VideoWidget._update_live_distort_properties(
                 self, effect_id, max(1, int(round(frame_number))), property_updates, refresh)
             return
@@ -2810,6 +2826,16 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             # Update the preview
             if refresh:
                 get_app().window.refreshFrameSignal.emit()
+
+    def _get_effect_frame_number(self, fps):
+        effect = getattr(self, "transforming_effect", None)
+        if not getattr(effect, "on_track", False):
+            return self._get_clip_frame_number(self.transforming_clip, fps)
+        timing = effect.data.get("clip_range") or {}
+        start = round(timing.get("start", 0.0) * fps) + 1
+        playhead = round(get_app().window.preview_thread.current_frame or 1)
+        end = timing.get("end")
+        return max(start, min(playhead, round(end * fps))) if end is not None else max(start, playhead)
 
     def _get_clip_frame_number(self, clip, fps_float):
         """Return clip-relative frame clamped between trimmed start/end."""
@@ -3174,13 +3200,17 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
         self.transforming_clip_objects = objects
 
         if self.transforming_effect:
-            clip_id = self.transforming_clip.id if self.transforming_clip else None
             effect_id = self.transforming_effect.id
-            clip = (Clip.get(id=clip_id) if refresh_project else self.transforming_clip) if clip_id else None
-            obj = timeline.GetClip(clip_id) if clip_id else None
             effect = Effect.get(id=effect_id) if refresh_project else self.transforming_effect
-            effect_obj = timeline.GetClipEffect(effect_id)
-            if clip and obj and effect and effect_obj:
+            on_track = getattr(effect, "on_track", False)
+            clip = self.transforming_clip
+            if effect and refresh_project and not on_track:
+                clip = Clip.get(id=effect.parent["id"])
+            if on_track:
+                clip = None
+            obj = timeline.GetClip(clip.id) if clip else None
+            effect_obj = timeline.GetTrackEffect(effect_id) if on_track else timeline.GetClipEffect(effect_id)
+            if effect and effect_obj and (on_track or (clip and obj)):
                 self.transforming_clip = clip
                 self.transforming_clip_object = obj
                 self.transforming_effect = effect
@@ -3245,24 +3275,23 @@ class VideoWidget(_VideoWidgetBase, updates.UpdateInterface):
             self.transforming_clip_object = None
             need_refresh = True
 
-        # Get new clip for transform
-        if effect_id and clip_id:
-            clip = Clip.get(id=clip_id)
-            clip_obj = win.timeline_sync.timeline.GetClip(clip_id)
-            eff = Effect.get(id=effect_id)
-            eff_obj = win.timeline_sync.timeline.GetClipEffect(effect_id)
-
-            if clip and clip_obj and eff and eff_obj:
+        if effect_id:
+            timeline = win.timeline_sync.timeline
+            effect = Effect.get(id=effect_id)
+            on_track = bool(effect and effect.on_track)
+            clip = Clip.get(id=clip_id) if clip_id and not on_track else None
+            clip_obj = timeline.GetClip(clip_id) if clip else None
+            effect_obj = timeline.GetTrackEffect(effect_id) if on_track else timeline.GetClipEffect(effect_id)
+            if effect and effect_obj and (on_track or (clip and clip_obj)):
                 self.transforming_clip = clip
                 self.transforming_clip_object = clip_obj
-                self.transforming_effect = eff
-                self.transforming_effect_object = eff_obj
+                self.transforming_effect = effect
+                self.transforming_effect_object = effect_obj
             else:
                 self.transforming_clip = None
                 self.transforming_clip_object = None
                 self.transforming_effect = None
                 self.transforming_effect_object = None
-
             need_refresh = True
 
         # Transform target changes affect overlay UI, not timeline frame.

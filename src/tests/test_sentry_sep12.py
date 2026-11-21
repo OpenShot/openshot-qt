@@ -312,7 +312,7 @@ class SentrySeptemberTests(unittest.TestCase):
         value = json.loads(source.Json())
         timeline.ApplyJsonDiff(json.dumps([{'type': 'insert', 'key': ['clips'], 'value': value}]))
         clip_row = types.SimpleNamespace(id='clip')
-        effect_row = types.SimpleNamespace(id='crop')
+        effect_row = types.SimpleNamespace(id='crop', parent={"id": "clip"}, on_track=False)
         preview = types.SimpleNamespace(
             win=types.SimpleNamespace(timeline_sync=types.SimpleNamespace(timeline=timeline)),
             transforming_clips=[], transforming_clip_objects=[],
@@ -405,8 +405,10 @@ class SentrySeptemberTests(unittest.TestCase):
             for y in (20, 80):
                 with self.subTest(item_type=item_type, y=y):
                     item = types.SimpleNamespace(id='item')
-                    helper = Mock(enable_razor=True, _press_hit=None, _razor_modifiers=Qt.NoModifier)
+                    helper = Mock(enable_razor=True, _press_hit=None, _razor_modifiers=Qt.NoModifier,
+                                  _effects_tray=None, _toolbar_pressed_key=None)
                     helper.geometry.iter_tracks.return_value = []
+                    helper._keyframe_header_click.return_value = False
                     helper._is_timeline_content_pos.return_value = True
                     helper._razor_in_track_area.return_value = True
                     helper._razor_target_at.return_value = {

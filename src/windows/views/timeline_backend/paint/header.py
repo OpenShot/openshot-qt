@@ -133,7 +133,8 @@ class ItemHeaderMixin:
         badge_label = ""
         badge_width = 0.0
         if effects:
-            for candidate in (f"FX {len(effects)}", "FX"):
+            labels = (f"FX {len(effects)}", "FX") if len(effects) > 1 else ("FX",)
+            for candidate in labels:
                 width = font_metrics_horizontal_advance(badge_fm, candidate) + 8.0
                 if pad_x * 2 + width + icon_gap * 2 + icon_size <= text_width:
                     badge_label, badge_width = candidate, width

@@ -5919,6 +5919,34 @@ class TimelineHelperTests(unittest.TestCase):
         ]
         self.assertEqual(clip_effect_lanes(rows), [[0, 2], [1, 3, 5], [4, 6]])
 
+    def test_effect_transfers_preserve_range_and_rebase_keyframes(self):
+        from windows.effects_tray import EffectsTray
+
+        timeline = types.SimpleNamespace(_current_project_duration=lambda: 30.0)
+        tray = types.SimpleNamespace(_frame_rate=lambda: 10, timeline=timeline)
+        tray._row_frames = lambda row: EffectsTray._row_frames(tray, row)
+        clip = types.SimpleNamespace(data={"position": 8.0, "start": 3.0, "end": 10.0})
+        track = types.SimpleNamespace()
+        effect = {
+            "id": "E1",
+            "clip_range": {"start": 4.0, "end": 6.0},
+            "strength": {"Points": [
+                {"co": {"X": 41, "Y": 0.2}},
+                {"co": {"X": 60, "Y": 0.6}},
+            ]},
+        }
+        clip_row = ("clip", clip, effect, 9.0, 11.0)
+        moved = EffectsTray._effect_for_scope(tray, clip_row, "track", track)
+        self.assertEqual(moved["id"], "E1")
+        self.assertEqual(moved["clip_range"], {"start": 9.0, "end": 11.0})
+        self.assertEqual([p["co"]["X"] for p in moved["strength"]["Points"]], [91, 110])
+        track_row = ("track", track, moved, 9.0, 11.0)
+        self.assertEqual(EffectsTray._effect_for_scope(tray, track_row, "clip", clip), effect)
+        late = types.SimpleNamespace(data={"position": 17.0, "start": 2.0, "end": 3.0})
+        result = EffectsTray._effect_for_scope(tray, track_row, "clip", late)
+        self.assertEqual(result["clip_range"], {"start": 2.0, "end": 3.0})
+        self.assertEqual([p["co"]["X"] for p in result["strength"]["Points"]], [21, 40])
+
     def test_group_effect_edits_share_the_tightest_range_limit(self):
         from windows.effects_tray import EffectsTray
 
@@ -6130,6 +6158,7 @@ class TimelineHelperTests(unittest.TestCase):
                     self.assertEqual(getattr(widget, "_" + kind + "_text_rects")[0]["rect"].left(), expected)
                     # Cached media must not carry a second title or stale hit boxes.
                     if kind == "clip":
+                        self.assertEqual(widget._effect_icon_rects[0]["label"], "FX")
                         cached = helper._retime_preview_cache["C1"]
                         self.assertEqual(cached["icons"], [])
                         self.assertIsNone(cached["text_entry"])

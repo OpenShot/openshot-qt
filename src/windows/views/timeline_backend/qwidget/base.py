@@ -282,6 +282,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self.box_selecting = False
         self.box_start = QPointF()
         self.dragging_item = None
+        self.dragging_items = []
         self.drag_clip_offset = 0.0
         self.drag_clip_start = 0.0
         self.dragging_playhead = False

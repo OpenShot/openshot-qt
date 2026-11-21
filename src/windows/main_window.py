@@ -4097,12 +4097,8 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         for sel in self.selected_items:
             if sel["type"] == "effect":
                 effect = Effect.get(id=sel["id"])
-                if effect and not effect.on_track and (
-                    effect.data.get("has_tracked_object")
-                    or effect.data.get("class_name") in ("Bars", "Blur", "Caption", "Crop", "Distort", "Pixelate")
-                    or all(prop in effect.data for prop in ("left", "top", "right", "bottom"))
-                ):
-                    clip_id = effect.parent['id']
+                if effect and VideoWidget.effect_has_preview_controls(effect.data):
+                    clip_id = "" if effect.on_track else effect.parent["id"]
                     self.KeyFrameTransformSignal.emit(sel["id"], clip_id)
                     emitted_transform = True
 
