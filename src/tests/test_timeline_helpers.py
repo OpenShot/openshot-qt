@@ -3471,6 +3471,16 @@ class TimelineHelperTests(unittest.TestCase):
             PlayheadMixin.update_playhead_pos(widget, frame)
         self.assertEqual(centers, [101, 151, 201])
 
+    def test_clip_drag_mouse_signal_converts_event_to_coordinates(self):
+        helper = self.make_qwidget_drag_move_helper()
+        helper._dragMove = MagicMock()
+        position = QPointF(210.5, 68.0)
+        event = types.SimpleNamespace(position=lambda: position, modifiers=lambda: Qt.ShiftModifier)
+
+        helper._drag_mouse_move(event)
+
+        helper._dragMove.assert_called_once_with(position, Qt.ShiftModifier)
+
     def test_clip_drag_edge_timer_scrolls_without_another_mouse_event(self):
         helper = self.make_qwidget_drag_move_helper()
         helper._drag_pointer = (QPointF(399, 0), Qt.NoModifier)

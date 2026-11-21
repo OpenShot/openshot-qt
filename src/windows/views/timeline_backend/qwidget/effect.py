@@ -26,7 +26,7 @@
  """
 
 from qt_api import QPointF, QRectF, Qt
-from classes.query import Clip
+from classes.query import Clip, Track
 
 
 class EffectInteractionMixin:
@@ -85,6 +85,9 @@ class EffectInteractionMixin:
         """Handle context menu interaction on an effect badge."""
         if not isinstance(icon_entry, dict):
             return False
+        if icon_entry.get("effects"):
+            self._handle_effect_icon_click(icon_entry)
+            return True
         effect = icon_entry.get("effect")
         effect_id = icon_entry.get("effect_id")
         if effect_id is None and isinstance(effect, dict):
@@ -109,6 +112,12 @@ class EffectInteractionMixin:
 
     def _handle_effect_icon_click(self, entry):
         if not isinstance(entry, dict):
+            return
+        if entry.get("effects"):
+            clip = entry["clip"]
+            track = Track.get(number=clip.data.get("layer"))
+            if track:
+                self.win.timeline.show_effects_tray(track.id, clip_id=clip.id)
             return
         effect = entry.get("effect")
         if not isinstance(effect, dict):

@@ -25,6 +25,7 @@
  along with OpenShot Library.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+import copy
 import json
 import math
 import uuid
@@ -72,7 +73,8 @@ class KeyframePanelMixin:
         key = self.normalize_track_number(track_num)
         if not self._track_panel_enabled.get(key):
             return 0.0
-        return float(self._panel_heights.get(key, 0.0) or 0.0)
+        height = float(self._panel_heights.get(key, 0.0) or 0.0)
+        return height + getattr(self, "panel_header_height", 0) if height else 0.0
 
     def get_track_panel_properties(self, track_num):
         key = self.normalize_track_number(track_num)
@@ -607,7 +609,7 @@ class KeyframePanelMixin:
             # the track toolbar to the right.
             indent = (self.theme.track.name_border_width + 6.0
                       + self.theme.keyframe_panel_label_indent)
-            y = panel_rect.y() + padding
+            y = panel_rect.y() + padding + getattr(self, "panel_header_height", 0)
             for prop in properties:
                 context = self._panel_property_context(prop, track_context)
                 if y + row_height > panel_rect.bottom() - padding + 1.0:
@@ -1068,7 +1070,8 @@ class KeyframePanelMixin:
         drag["transaction_id"] = tid
         object_type = drag.get("owner_type", "clip") or "clip"
         object_id = drag.get("object_id", "") or ""
-        timeline.StartKeyframeDrag(object_type, object_id, tid)
+        if object_type != "effect":
+            timeline.StartKeyframeDrag(object_type, object_id, tid)
 
     def _move_colorgrade_frames_in_data(self, data, prop_key, old_frame, new_frame, prop_type):
         """Move all sub-keyframes at old_frame → new_frame inside a colorgrade property.
@@ -1150,7 +1153,19 @@ class KeyframePanelMixin:
             clip_start = float(clip_start)
         except (TypeError, ValueError):
             clip_start = 0.0
-        if owner_type == "transition" and transition_obj:
+        if owner_type == "effect" and drag.get("effect"):
+            effect = drag["effect"]
+            data_copy = copy.deepcopy(effect.data)
+            for entry in entries:
+                frame = entry.get("pending_frame")
+                path = entry.get("path")
+                if frame is not None and path:
+                    moved |= self._set_keyframe_frame_at_path(data_copy, path, frame)
+            if moved:
+                effect.data = data_copy
+                effect.save()
+                self.win.refreshFrameSignal.emit()
+        elif owner_type == "transition" and transition_obj:
             data_copy = json.loads(json.dumps(transition_obj.data))
             fps = drag.get("fps") or self.fps_float or 1.0
             for entry in entries:
@@ -1297,6 +1312,8 @@ class KeyframePanelMixin:
                 except Exception:
                     pass
         owner_type = "transition" if transition_obj else "clip"
+        if effect_obj and getattr(effect_obj, "on_track", False):
+            owner_type = "effect"
         if owner_hint == "transition" and transition_obj is None and clip_obj is None:
             owner_type = "transition"
         object_id = ""
@@ -1685,7 +1702,7 @@ class KeyframePanelMixin:
             started = drag.get("transaction_started")
         if started:
             self._apply_panel_keyframe_delta(drag, ignore_refresh=False, force=True)
-            if timeline:
+            if timeline and drag.get("owner_type") != "effect":
                 timeline.FinalizeKeyframeDrag(
                     drag.get("owner_type", "clip") or "clip",
                     drag.get("object_id", "") or "",
@@ -1922,6 +1939,10 @@ class KeyframePanelMixin:
                     only_basic_props=False,
                     ignore_refresh=False,
                 )
+            elif data_label == "effect":
+                data_obj.data = data_copy
+                data_obj.save()
+                self.win.refreshFrameSignal.emit()
             else:
                 timeline.update_clip_data(
                     data_copy,
@@ -2657,6 +2678,15 @@ class KeyframePanelMixin:
             effect = Effect.get(id=item_id)
             data = effect.data if effect and isinstance(effect.data, dict) else {}
             parent = effect.parent if effect and isinstance(effect.parent, dict) else {}
+            if effect and getattr(effect, "on_track", False):
+                duration = self._current_project_duration()
+                context.update(
+                    position=0.0, clip_start=0.0, clip_end=duration,
+                    range_start_seconds=0.0, range_end_seconds=duration,
+                    effect_id=str(effect.id), track=parent.get("number"), duration=duration,
+                    on_track=True,
+                )
+                return context
             position = self._panel_float(parent.get("position"), None)
             if position is None:
                 position = self._panel_float(data.get("position"), 0.0)
@@ -2735,7 +2765,7 @@ class KeyframePanelMixin:
                 if effect:
                     parent = getattr(effect, "parent", None)
                     if isinstance(parent, dict):
-                        return parent.get("layer")
+                        return parent.get("number" if getattr(effect, "on_track", False) else "layer")
                     if isinstance(effect.data, dict):
                         return effect.data.get("layer")
         except Exception:
@@ -2752,6 +2782,8 @@ class KeyframePanelMixin:
                 obj = timeline.GetEffect(item_id_str)
             elif item_type == "effect":
                 obj = timeline.GetClipEffect(item_id_str)
+                if not obj and hasattr(timeline, "GetTrackEffect"):
+                    obj = timeline.GetTrackEffect(item_id_str)
         except Exception:
             obj = None
         if not obj:

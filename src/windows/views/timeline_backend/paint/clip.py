@@ -1698,90 +1698,42 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
         return max(used_width, float(self.menu_pix.width()))
 
     def _draw_effect_icons(self, painter, clip, inner, x, right, entries):
-        effects = clip.data.get("effects", []) if isinstance(clip.data, dict) else []
-        if not isinstance(effects, list) or not effects:
+        effects = clip.data.get("effects") or []
+        if not effects:
             return x
 
-        available_height = max(0.0, inner.height() - (self.menu_margin * 2))
-        base_height = min(16.0, available_height or 0.0)
-        badge_height = max(11.0, base_height if base_height > 0.0 else 11.0)
-        top = inner.y() + self.menu_margin
-
-        original_font = painter.font()
-        badge_font = QFont(original_font)
-        if badge_font.pointSizeF() > 0:
-            badge_font.setPointSizeF(max(7.0, badge_font.pointSizeF() * 0.8))
-        metrics = QFontMetrics(badge_font)
-
-        selected_ids = set()
-        if hasattr(self.w, "_selected_effect_ids"):
-            selected_ids = self.w._selected_effect_ids()
-
-        for eff in effects:
-            available = right - x
-            if available <= 4:
-                break
-
-            label = (
-                eff.get("type")
-                or eff.get("effect")
-                or eff.get("name")
-                or eff.get("class_name")
-                or "?"
-            )
-            letter = label.strip()[0].upper() if isinstance(label, str) and label.strip() else "?"
-
-            text_width = font_metrics_horizontal_advance(metrics, letter)
-            badge_width = max(text_width + 6.0, badge_height)
-            if badge_width > available:
-                break
-
-            rect = QRectF(x, top, badge_width, badge_height)
-            color = self.w._effect_color(eff)
-            if not isinstance(color, QColor) or not color.isValid():
-                color = QColor("#4d7bff")
-
-            effect_id = eff.get("id")
-            effect_id_str = str(effect_id) if effect_id is not None else ""
-            selected = bool(eff.get("selected")) or (
-                effect_id_str and effect_id_str in selected_ids
-            )
-
-            fill = QColor(color)
-            if selected and fill.isValid():
-                fill = fill.lighter(120)
-            opacity = 1.0 if selected else 0.7
-
-            border = QColor(223, 223, 223) if selected else QColor(0, 0, 0, 200)
-            pen = QPen(border, 1.0)
-            pen.setCosmetic(True)
-
-            painter.save()
-            painter.setRenderHint(QPainter.Antialiasing, True)
-            painter.setOpacity(opacity)
-            painter.setBrush(fill)
-            painter.setPen(pen)
-            radius = min(badge_height / 2.0, 6.0)
-            painter.drawRoundedRect(rect, radius, radius)
-
-            painter.setOpacity(1.0)
-            painter.setFont(badge_font)
-            painter.setPen(QColor(255, 255, 255))
-            painter.drawText(rect, Qt.AlignCenter, letter)
-            painter.restore()
-
-            entries.append(
-                {
-                    "rect": QRectF(rect),
-                    "effect": eff,
-                    "selected": selected,
-                    "effect_id": effect_id_str,
-                }
-            )
-            x += rect.width() + self.menu_margin
-
-        painter.setFont(original_font)
-        return x
+        badge_height = min(16.0, inner.height() - 2 * self.menu_margin)
+        if badge_height < 9:
+            return x
+        font = QFont(painter.font())
+        if font.pointSizeF() > 0:
+            font.setPointSizeF(max(7.0, font.pointSizeF() * 0.8))
+        font.setBold(True)
+        metrics = QFontMetrics(font)
+        label = f"FX {len(effects)}"
+        width = font_metrics_horizontal_advance(metrics, label) + 8
+        if width > right - x:
+            label = "FX"
+            width = font_metrics_horizontal_advance(metrics, label) + 6
+        if width > right - x:
+            return x
+        rect = QRectF(x, inner.y() + self.menu_margin, width, badge_height)
+        color = QColor(self.w.theme.track_control_color)
+        if not color.isValid():
+            color = QColor("#91c3ff")
+        selected_ids = self.w._selected_effect_ids()
+        selected = any(str(effect.get("id")) in selected_ids for effect in effects)
+        fill = QColor(color)
+        fill.setAlphaF(0.35 if selected else 0.18)
+        painter.save()
+        painter.setFont(font)
+        painter.setBrush(fill)
+        painter.setPen(QPen(color, 1))
+        painter.drawRoundedRect(rect, 4, 4)
+        painter.drawText(rect, Qt.AlignCenter, label)
+        painter.restore()
+        entries.append({"rect": rect, "effects": effects})
+        return rect.right() + self.menu_margin
 
     def _draw_waveform(self, painter, clip, inner, segment=None):
         data = clip.data if isinstance(clip.data, dict) else {}
@@ -2025,6 +1977,7 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
                             "clip": clip,
                             "effect": effect,
                             "effect_id": entry.get("effect_id"),
+                            "effects": entry.get("effects"),
                         }
                     )
             if isinstance(text_entry, dict) and not getattr(clip, "is_recording_preview", False):

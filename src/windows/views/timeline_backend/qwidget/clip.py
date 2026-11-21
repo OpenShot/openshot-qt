@@ -840,6 +840,10 @@ class ClipInteractionMixin:
         else:
             self._drag_scroll_timer.stop()
 
+    def _drag_mouse_move(self, event):
+        pos = QPointF(event.position() if hasattr(event, "position") else event.pos())
+        self._dragMove(pos, event.modifiers())
+
     def _dragMove(self, pos=None, modifiers=None):
         """Apply identical horizontal/vertical deltas to every dragged item."""
         if getattr(self, "_drag_commit_in_progress", False):

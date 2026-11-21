@@ -207,6 +207,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self.track_gap = 8
         self.track_margin_top = self.track_gap
         self._playback_cache_ranges = []
+        self._fx_return_rows = {}
+        self.panel_header_height = 31
         self._track_panel_enabled = {}
         self._panel_properties = {}
         self._panel_heights = {}
@@ -589,8 +591,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         idle.addTransition(t)
         self._transitions.append(t)
 
-        drag.entered.connect(lambda: self.events.moved.connect(self._dragMove))
-        drag.exited.connect(lambda: self._safe_disconnect(self.events.moved, self._dragMove))
+        drag.entered.connect(lambda: self.events.moved.connect(self._drag_mouse_move))
+        drag.exited.connect(lambda: self._safe_disconnect(self.events.moved, self._drag_mouse_move))
         self._add_simple_transition(drag, self.events, self._event_signal_bytes("released"), idle)
 
         resize.entered.connect(lambda: self.events.moved.connect(self._resizeMove))
@@ -1034,6 +1036,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         effects_tray = getattr(self, "_effects_tray", None)
         if effects_tray:
             if action and action.type == "load":
+                self._fx_return_rows.clear()
                 effects_tray.close()
             else:
                 effects_tray.refresh()
@@ -1357,7 +1360,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                 event.accept()
                 return
             if mime_html == "effect":
-                self._drag_payload = {"type": "effect"}
+                self._drag_payload = None
+                self._ensure_drag_payload_from_event(event)
                 event.accept()
                 return
 
@@ -1393,6 +1397,9 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             self._update_drag_preview_position(pos_seconds, track_num)
         else:
             if payload and payload.get("type") == "effect":
+                panel = getattr(self, "_effects_tray", None)
+                if panel:
+                    panel.preview_drop(_event_posf(event), (payload.get("names") or [None])[0])
                 return
             if payload and payload.get("type") == "os_drop":
                 return
@@ -1527,6 +1534,9 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
     def dragLeaveEvent(self, event):
         event.accept()
+        panel = getattr(self, "_effects_tray", None)
+        if panel:
+            panel.preview_drop(None)
         self._reset_drag_preview()
 
     def _ensure_drag_payload_from_event(self, event):
@@ -1545,7 +1555,11 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             self.item_type = mime_html
             self.new_item = True
         elif mime_html == "effect":
-            self._drag_payload = {"type": "effect"}
+            try:
+                names = json.loads(mime.text())
+            except (TypeError, ValueError):
+                names = []
+            self._drag_payload = {"type": "effect", "names": names if isinstance(names, list) else [names]}
         elif mime.hasUrls():
             urls = mime.urls()
             payload = self._preimport_os_drop_urls(urls)
@@ -2758,6 +2772,9 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self.clip_painter.clear_render_cache()
         self.geometry.mark_dirty()
         self._keyframes_dirty = True
+        panel = getattr(self, "_effects_tray", None)
+        if panel and item_type == "clip":
+            panel.refresh()
         self.update()
 
     def _deselect_timeline_item(self, item_id, item_type):
@@ -3062,6 +3079,20 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
         icon_entry = self._effect_icon_at(pos)
         if isinstance(icon_entry, dict):
+            if icon_entry.get("effects"):
+                from html import escape
+                from windows.effects_tray import clip_effect_sort_key
+
+                clip = icon_entry["clip"]
+                effects = sorted(icon_entry["effects"], key=clip_effect_sort_key)
+                lines = []
+                for effect in effects[:8]:
+                    name = escape(_(self._effect_label(effect)))
+                    extent = escape(_("Trimmed") if effect.get("clip_range") else _("Entire clip"))
+                    lines.append(f"{name} <span style='opacity:0.75'>· {extent}</span>")
+                if len(effects) > 8:
+                    lines.append(escape(_("And %d more") % (len(effects) - 8)))
+                return "<b>" + escape(clip.title()) + "</b><br>" + "<br>".join(lines)
             effect_label = self._effect_label(icon_entry.get("effect"))
             if effect_label:
                 return _("Effect: %s") % effect_label
@@ -3391,9 +3422,14 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                 self._finishProjectResize()
                 event.accept()
                 return
+            badge = self._effect_icon_at(pos)
+            if badge and badge.get("effects"):
+                self._handle_effect_icon_click(badge)
+                event.accept()
+                return
             # Keyframe and effect hitboxes can extend beyond the clip body.
             if (self._get_keyframe_at(pos) or self._panel_marker_at(pos)
-                    or self._effect_icon_at(pos)):
+                    or badge):
                 self.win.actionProperties.trigger()
                 event.accept()
                 return
@@ -3429,6 +3465,9 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         content_pos = self._is_timeline_content_pos(pos)
         effects_tray = getattr(self, "_effects_tray", None)
         if content_pos and effects_tray and effects_tray.press(pos, event.button()):
+            event.accept()
+            return
+        if content_pos and event.button() == Qt.LeftButton and self._keyframe_header_click(pos):
             event.accept()
             return
         if event.button() == Qt.RightButton:
@@ -3742,6 +3781,26 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                 if other_distance < nearest:
                     return None
         return "left" if left_distance <= right_distance else "right"
+
+    def _keyframe_header_click(self, pos):
+        track_num = self._panel_track_at_pos(pos)
+        if track_num is None:
+            return False
+        panel = self.geometry.panel_rect(track_num)
+        if not panel or pos.y() >= panel.top() + self.panel_header_height:
+            return False
+        track = next((item for item in self.track_list
+                      if self.normalize_track_number(item.data["number"]) == track_num), None)
+        if pos.x() < self.track_name_width:
+            self._set_track_keyframes(track_num, False)
+        elif track:
+            has_return = track.id in self._fx_return_rows
+            x = pos.x() - self.track_name_width
+            if has_return and x < 155:
+                self.win.timeline.show_effects_tray(track.id, *self._fx_return_rows.pop(track.id))
+            elif (155 if has_return else 0) <= x < (300 if has_return else 145):
+                self._panel_show_property_menu_at(pos)
+        return True
 
     def _panel_track_at_pos(self, pos):
         """Return track number when *pos* lies within any keyframe panel area."""

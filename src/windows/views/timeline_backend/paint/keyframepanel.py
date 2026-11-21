@@ -425,7 +425,8 @@ class KeyframePanelPainter(BasePainter):
                 continue
             visible_tracks.append(track_num)
             context = self.w.get_track_panel_context(track_num)
-            y = panel_rect.y() + padding
+            header_height = getattr(self.w, "panel_header_height", 0)
+            y = panel_rect.y() + padding + header_height
             label_panel = QRectF(name_rect.x(), panel_rect.y(), name_rect.width(), panel_rect.height())
             # In overlay mode the track-name painter already filled the entire
             # expanded header. Filling it again hides its left and bottom borders.
@@ -439,6 +440,26 @@ class KeyframePanelPainter(BasePainter):
                     painter.setClipRect(timeline_area)
                     painter.fillRect(panel_fill, self.panel_brush)
                     painter.restore()
+            if draw_labels and header_height:
+                heading = QRectF(10, panel_rect.y(), name_rect.width() - 20, header_height)
+                painter.save()
+                header_font = QFont(painter.font())
+                header_font.setBold(True)
+                painter.setFont(header_font)
+                accent = self.w.theme.track_control_color
+                painter.setPen(accent if accent.isValid() else self.text_pen.color())
+                painter.drawText(heading, Qt.AlignVCenter | Qt.AlignLeft, get_app()._tr("Keyframes"))
+                painter.drawText(heading, Qt.AlignVCenter | Qt.AlignRight, "⌄")
+                has_return = track.id in getattr(self.w, "_fx_return_rows", {})
+                if has_return:
+                    back = QRectF(self.w.track_name_width + 8, heading.y(), 148, header_height)
+                    painter.drawText(back, Qt.AlignLeft | Qt.AlignVCenter, get_app()._tr("Back to Effects"))
+                panel_info = self.w._panel_properties.get(track_num, {})
+                if panel_info.get("available_properties"):
+                    x = self.w.track_name_width + (163 if has_return else 8)
+                    add = QRectF(x, heading.y(), 139, header_height)
+                    painter.drawText(add, Qt.AlignLeft | Qt.AlignVCenter, get_app()._tr("+ Add Property"))
+                painter.restore()
             # Property labels keep their left inset when compact headers move
             # the track toolbar to the right.
             indent = (self.w.theme.track.name_border_width + 6.0

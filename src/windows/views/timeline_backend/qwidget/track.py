@@ -262,8 +262,15 @@ class TrackInteractionMixin:
         return None
 
     def _toggle_track_panel(self, track_num):
-        current = self._track_panel_enabled.get(track_num, False)
-        new_state = not current
+        self._set_track_keyframes(track_num, not self._track_panel_enabled.get(track_num, False))
+
+    def _set_track_keyframes(self, track_num, new_state):
+        if new_state == bool(self._track_panel_enabled.get(track_num)):
+            return
+        panel = getattr(self, "_effects_tray", None)
+        if new_state and panel and panel.track_number == track_num:
+            self._fx_return_rows[panel.track_id] = (panel.clip_id, panel.selected_id)
+            panel.close()
         self._track_panel_enabled[track_num] = new_state
         if not new_state:
             self._clear_panel_selection(track_num)
@@ -294,7 +301,9 @@ class TrackInteractionMixin:
             return
 
         if key == "effects-tray" and track_id:
-            self.win.timeline.show_effects_tray(track_id)
+            panel = getattr(self, "_effects_tray", None)
+            target = () if panel and panel.track_id == track_id else self._fx_return_rows.pop(track_id, ())
+            self.win.timeline.show_effects_tray(track_id, *target)
             return
 
         if key == "lock-toggle" and track_id:

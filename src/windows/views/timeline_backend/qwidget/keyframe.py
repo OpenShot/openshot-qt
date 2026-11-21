@@ -1713,6 +1713,14 @@ class KeyframeMixin:
         )
         return True
 
+    def _remove_track_effect_points(self, effect_id, paths):
+        effect = Effect.get(id=effect_id)
+        if not effect or not self._remove_keyframes_by_paths(effect.data, paths):
+            return False
+        effect.save()
+        self.win.refreshFrameSignal.emit()
+        return True
+
     def delete_selected_keyframes(self):
         timeline = getattr(self.win, "timeline", None)
         if not timeline:
@@ -1740,6 +1748,9 @@ class KeyframeMixin:
                 continue
             paths = tuple(target.get("paths") or ())
             if not paths:
+                continue
+            if owner_type == "effect":
+                changed |= self._remove_track_effect_points(object_id, paths)
                 continue
             if owner_type == "transition":
                 transition = target.get("transition") or Transition.get(id=object_id)
@@ -1876,6 +1887,14 @@ class KeyframeMixin:
             paths = tuple(target.get("paths") or ())
             if not paths or not object_id:
                 continue
+            if owner_type == "effect":
+                effect = Effect.get(id=object_id)
+                if effect:
+                    for path in paths:
+                        self._set_keyframe_interpolation_at_path(effect.data, path, interpolation, details)
+                    effect.save()
+                    self.win.refreshFrameSignal.emit()
+                continue
             if owner_type == "transition":
                 pair = _ensure_trans(object_id, target.get("transition"))
             else:
@@ -1908,6 +1927,9 @@ class KeyframeMixin:
             object_id = target.get("object_id", "")
             paths = tuple(target.get("paths") or ())
             if not paths or not object_id:
+                continue
+            if owner_type == "effect":
+                changed |= self._remove_track_effect_points(object_id, paths)
                 continue
             if owner_type == "transition":
                 trans = target.get("transition") or Transition.get(id=object_id)

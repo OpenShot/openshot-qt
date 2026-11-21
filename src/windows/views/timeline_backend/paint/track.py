@@ -627,6 +627,19 @@ class TrackPainter(BasePainter):
             hover_key = getattr(self.w, "_toolbar_hover_key", None)
             pressed_key = getattr(self.w, "_toolbar_pressed_key", None)
             pressed_inside = getattr(self.w, "_toolbar_pressed_inside", False)
+            panel_buttons = [button["rect"] for button in buttons
+                             if button["key"] in ("keyframe-panel", "effects-tray")]
+            if len(panel_buttons) == 2:
+                pill = panel_buttons[0].united(panel_buttons[1]).adjusted(-1, 0, 1, 0)
+                color = QColor(self.w.theme.track_control_color)
+                if not color.isValid():
+                    color = QColor(self.w.theme.track.font_color)
+                color.setAlphaF(0.16)
+                painter.save()
+                painter.setPen(QPen(color, 1))
+                painter.setBrush(color)
+                painter.drawRoundedRect(pill, pill.height() / 2, pill.height() / 2)
+                painter.restore()
             for button in buttons:
                 button_key = (button.get("track_id"), button.get("key"))
                 pix = self.w._toolbar_button_pixmap(

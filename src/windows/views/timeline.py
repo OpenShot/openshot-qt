@@ -1296,12 +1296,15 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.context_menu_cursor_position = QCursor.pos()
             return menu.show_at(self.context_menu_cursor_position)
 
-    def show_effects_tray(self, track_id):
+    def show_effects_tray(self, track_id, clip_id=None, effect_id=None):
         from windows.effects_tray import EffectsTray
 
         if not getattr(self, "_effects_tray", None):
             self._effects_tray = EffectsTray(self)
-        self._effects_tray.open_track(track_id)
+        track = Track.get(id=track_id)
+        if track:
+            self._set_track_keyframes(self.normalize_track_number(track.data["number"]), False)
+        self._effects_tray.open_track(track_id, clip_id, effect_id)
 
     @pyqtSlot(str)
     def ShowEffectMenu(self, effect_id=None):
@@ -4417,6 +4420,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             tray.close()
         if ViewClass == TimelineWidget:
             self._track_panel_enabled.clear()
+            self._fx_return_rows.clear()
             self._panel_manual_properties.clear()
             self._clear_panel_selection(None)
             self.current_frame = 1
