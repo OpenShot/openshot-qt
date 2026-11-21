@@ -1118,11 +1118,11 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             self.clip_painter.paint(painter)
             self.transition_painter.paint(painter)
             self._paint_drag_preview(painter)
+            self.track_painter.paint_names(painter)
             effects_tray = getattr(self, "_effects_tray", None)
             if effects_tray:
                 effects_tray.paint(painter)
             self.keyframe_painter.paint(painter)
-            self.track_painter.paint_names(painter)
             self.keyframe_panel_painter.paint(painter, mode="overlay")
             self.hover_feedback.paint(painter)
             self.track_painter.paint_divider(painter)

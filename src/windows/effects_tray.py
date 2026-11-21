@@ -172,7 +172,8 @@ class EffectsTray(QObject):
     def height(self, track_number):
         if self.track_id is None or self.track_number != track_number:
             return 0
-        return self.header_height + (len(self.lane_rows) + len(self.sections)) * self.row_height + self.bottom_padding
+        rows = max(1, len(self.lane_rows) + len(self.sections))
+        return self.header_height + rows * self.row_height + self.bottom_padding
 
     def _track(self):
         return Track.get(id=self.track_id) if self.track_id else None
@@ -263,11 +264,7 @@ class EffectsTray(QObject):
         return QRectF(), QRectF(), QRectF()
 
     def _heading_rect(self, lane):
-        font = QFont(self.timeline.font())
-        font.setBold(True)
-        text_width = font_metrics_horizontal_advance(QFontMetrics(font), self.translate("Effects and Transitions"))
-        width = max(0.0, min(text_width + 21, lane.right() - 46))
-        return QRectF(10, lane.top(), width, self.header_height)
+        return QRectF(10, lane.top(), max(0.0, lane.left() - 20), self.header_height)
 
     def _section_rect(self, section, lane):
         y = lane.top() + self.header_height + section[0] * self.row_height
@@ -294,8 +291,8 @@ class EffectsTray(QObject):
         font = QFont(self.timeline.font())
         font.setBold(True)
         text_width = font_metrics_horizontal_advance(QFontMetrics(font), self.translate("Add Effect +"))
-        left = max(lane.left() + 8, self._heading_rect(lane).right() + 8)
-        width = max(0.0, min(text_width + 10, lane.right() - left))
+        left = lane.left() + 8
+        width = max(0.0, min(text_width + 20, lane.right() - left))
         return QRectF(left, lane.top() + 4, width, self.header_height - 8)
 
     def _row_controls(self, index, lane):
@@ -347,7 +344,7 @@ class EffectsTray(QObject):
         return self.translate(effect.get("name") or effect.get("type") or "")
 
     def paint(self, painter):
-        panel, lane, visible = self._bounds()
+        _, lane, visible = self._bounds()
         if visible.isEmpty():
             return
         theme = self.timeline.theme
@@ -361,13 +358,13 @@ class EffectsTray(QObject):
         label = QColor(theme.track.font_color)
         painter.save()
         painter.setClipRect(visible, Qt.IntersectClip)
-        painter.fillRect(panel, background)
+        painter.fillRect(lane, background)
         painter.setPen(Qt.NoPen)
         painter.setBrush(well)
         painter.setPen(accent)
         heading = self._heading_rect(lane)
-        heading_text = self.translate("Effects and Transitions")
-        font = QFont(painter.font())
+        heading_text = self.translate("Effects")
+        font = QFont(self.timeline.font())
         font.setBold(True)
         painter.setFont(font)
         title_width = max(0, int(heading.width()) - 17)
@@ -389,11 +386,24 @@ class EffectsTray(QObject):
 
         font.setBold(False)
         painter.setFont(font)
+        if not self.rows:
+            y = lane.top() + self.header_height
+            empty_bg = QColor(theme.keyframe_panel_property_bg)
+            if not empty_bg.isValid():
+                empty_bg = well.lighter(120)
+            painter.fillRect(QRectF(lane.left(), y, lane.width(), self.row_height), empty_bg)
+            indent = theme.track.name_border_width + 6 + theme.keyframe_panel_label_indent
+            name = QRectF(indent, y, max(0.0, lane.left() - indent - 6), self.row_height)
+            painter.setPen(label)
+            painter.drawText(name, Qt.AlignLeft | Qt.AlignVCenter,
+                             painter.fontMetrics().elidedText(self.translate("No Effects"), Qt.ElideRight,
+                                                              max(0, int(name.width()))))
+
         for section in self.sections:
             rect = self._section_rect(section, lane)
             painter.setPen(Qt.NoPen)
             painter.setBrush(well)
-            painter.drawRoundedRect(rect.adjusted(4, 2, 0, -2), 5, 5)
+            painter.drawRoundedRect(rect.adjusted(theme.track.name_border_width + 4, 2, 0, -2), 5, 5)
             painter.setPen(label)
             label_rect = QRectF(10, rect.y(), max(0, lane.left() - 15), rect.height())
             painter.drawText(label_rect, Qt.AlignVCenter | Qt.AlignLeft,
