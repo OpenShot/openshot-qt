@@ -3290,14 +3290,18 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             self.geometry.ensure()
             effects_tray = getattr(self, "_effects_tray", None)
             if effects_tray:
-                cursor = effects_tray.cursor(pos)
+                cursor = effects_tray.cursor(pos, hover)
                 if cursor is not None:
                     self.setCursor(cursor)
                     return
 
-            keyframe_track = TimelineWidgetBase._keyframe_header_add_at(self, pos)
-            if keyframe_track is not None:
-                self.setCursor(Qt.PointingHandCursor if self._panel_can_add_property(keyframe_track) else Qt.ArrowCursor)
+            keyframe_add = TimelineWidgetBase._keyframe_header_add_at(self, pos)
+            if keyframe_add is not None:
+                track, rect = keyframe_add
+                enabled = self._panel_can_add_property(track)
+                if enabled and hover:
+                    hover.set_target("panel-add", rect, "track")
+                self.setCursor(Qt.PointingHandCursor if enabled else Qt.ArrowCursor)
                 return
 
             if (
@@ -3808,7 +3812,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         if not panel:
             return None
         heading = panel_heading_rect(self.track_name_width, panel.top(), self.panel_header_height)
-        return track_num if panel_add_button_rect(heading).contains(pos) else None
+        button = panel_add_button_rect(heading)
+        return (track_num, button) if button.contains(pos) else None
 
     def _keyframe_header_click(self, pos):
         track_num = self._panel_track_at_pos(pos)

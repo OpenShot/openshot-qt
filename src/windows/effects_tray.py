@@ -573,11 +573,14 @@ class EffectsTray(QObject):
             return 0 if distances[0] < distances[1] else 1
         return None
 
-    def cursor(self, pos):
+    def cursor(self, pos, hover=None):
         hit = self._hit(pos)
         if not hit:
             return None
         target, index = hit
+        if target == "add" and hover:
+            _, lane, _ = self._bounds()
+            hover.set_target("panel-add", self._add_rect(lane), "track")
         if target == "row" and self.rows[index][0] != "transition" and not self.locked:
             _, lane, _ = self._bounds()
             if self.timeline.enable_razor and self._bar_rect(index, lane).contains(pos) and pos.x() >= lane.left():

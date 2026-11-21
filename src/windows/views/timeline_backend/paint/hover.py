@@ -126,11 +126,15 @@ class HoverFeedback:
         color.setAlpha(90 if kind == "menu" else 180)
         fill = QColor(color)
         fill.setAlpha(18)
-        track_menu = style == "track" and kind == "menu"
-        left = 0 if track_menu else self.w.track_name_width
-        right = self.w.width() - self.w.scroll_bar_thickness
-        if track_menu:
-            right = self.w.track_name_width
+        if kind == "panel-add":
+            accent = QColor(self.w.theme.track_control_color)
+            if accent.isValid():
+                color = accent
+                fill = QColor(accent)
+            fill.setAlpha(48)
+        track_control = style == "track" and kind in ("menu", "panel-add")
+        left = 0 if track_control else self.w.track_name_width
+        right = self.w.track_name_width if track_control else self.w.width() - self.w.scroll_bar_thickness
         area = QRectF(left, self.w.ruler_height, max(0, right - left),
                       max(0, self.w.height() - self.w.ruler_height - self.w.scroll_bar_thickness))
         painter.save()
