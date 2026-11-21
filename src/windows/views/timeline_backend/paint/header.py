@@ -122,109 +122,39 @@ class ItemHeaderMixin:
         icon_size = max(8.0, font_h - 2.0)
         icon_gap = 4.0
 
-        # --- Effect badge sizing ---
         effects = item.data.get("effects", []) if self.header_kind == "clip" and isinstance(item.data, dict) else []
-        effects = [e for e in effects if isinstance(e, dict)] if isinstance(effects, list) else []
-
+        effects = [effect for effect in effects if isinstance(effect, dict)] if isinstance(effects, list) else []
         badge_font = QFont(painter.font())
         if badge_font.pointSizeF() > 0:
             badge_font.setPointSizeF(max(7.0, badge_font.pointSizeF() * 0.8))
+        badge_font.setBold(True)
         badge_fm = QFontMetrics(badge_font)
-        badge_h = max(10.0, min(container_h - pad_y * 2.0, font_h))
+        badge_h = max(10.0, font_h)
+        badge_label = ""
+        badge_width = 0.0
+        if effects:
+            for candidate in (f"FX {len(effects)}", "FX"):
+                width = font_metrics_horizontal_advance(badge_fm, candidate) + 8.0
+                if pad_x * 2 + width + icon_gap * 2 + icon_size <= text_width:
+                    badge_label, badge_width = candidate, width
+                    break
 
-        raw_badge_infos = []
-        for eff in effects:
-            label = (eff.get("type") or eff.get("effect") or eff.get("name") or eff.get("class_name") or "?")
-            letter = label.strip()[0].upper() if isinstance(label, str) and label.strip() else "?"
-            tw = float(font_metrics_horizontal_advance(badge_fm, letter))
-            bw = max(tw + 6.0, badge_h)
-            raw_badge_infos.append((eff, letter, bw))
-
-        compact_w = pad_x + icon_size + pad_x
+        compact_w = pad_x * 2 + icon_size
         min_visible = float(getattr(self.w.theme.clip, "thumb_min_visible", 5.0) or 5.0)
         item_min = float(getattr(self.w.theme.clip, "thumb_clip_min_width", 24.0) or 24.0)
         compact_lod_w = max(compact_w, min_visible * 2.0, item_min)
         visible_item_w = float(visible_width if visible_width is not None else inner.width())
-
-        # --- LOD: two phases as clip narrows ---
-        #
-        # Phase 1 (all badges fit + arrow): keep ALL badges, shrink text
-        #   [b1 b2] [full title]  [arrow]
-        #   [b1 b2] [elided...]   [arrow]
-        #   [b1 b2] [T...]        [arrow]
-        #   [b1 b2]               [arrow]   ← text gone, badges still there
-        #
-        # Phase 2 (all badges no longer fit): drop badges from the right, no text
-        #   [b1]                  [arrow]
-        #                         [arrow]   ← compact
-        #                                   ← None (too narrow)
-
-        if raw_badge_infos:
-            all_used_w = (
-                sum(bw for _, _, bw in raw_badge_infos)
-                + self.menu_margin * (len(raw_badge_infos) - 1)
-            )
+        badge_prefix = badge_width + icon_gap if badge_label else 0.0
+        available = int(text_width - compact_w - badge_prefix - icon_gap)
+        title_elided = metrics.elidedText(title_raw, Qt.ElideRight, available) if available >= 4 else ""
+        text_advance = float(font_metrics_horizontal_advance(metrics, title_elided))
+        full = bool(badge_label or title_elided)
+        if full:
+            container_w = min(text_width, max(container_h, compact_w + badge_prefix + text_advance + icon_gap))
+        elif compact_w <= text_width and compact_lod_w <= visible_item_w:
+            container_w = compact_w
         else:
-            all_used_w = 0.0
-
-        # "All badges fit" means all badges + arrow fit with zero text
-        all_badges_fit = (
-            not raw_badge_infos
-            or pad_x + all_used_w + 2.0 * icon_gap + icon_size + pad_x <= text_width
-        )
-
-        badge_infos = []
-        badges_prefix_w = 0.0
-        title_elided = ""
-        text_advance = 0.0
-        container_w = compact_w
-        mode = "compact"
-
-        if all_badges_fit:
-            # Phase 1: keep all badges; text fills whatever space remains
-            badge_infos = list(raw_badge_infos)
-            badges_prefix_w = (all_used_w + icon_gap) if badge_infos else 0.0
-            avail_text_w = int(text_width - pad_x * 2.0 - badges_prefix_w - icon_gap - icon_size)
-            if avail_text_w >= 4:
-                title_elided = metrics.elidedText(title_raw, Qt.ElideRight, avail_text_w)
-                if title_elided:
-                    text_advance = float(font_metrics_horizontal_advance(metrics, title_elided))
-
-            if badge_infos or text_advance > 0:
-                container_w = min(
-                    pad_x + badges_prefix_w + text_advance + icon_gap + icon_size + pad_x,
-                    text_width,
-                )
-                container_w = max(container_h, container_w)
-                mode = "full"
-            elif compact_w <= text_width and compact_lod_w <= visible_item_w:
-                mode = "compact"
-            else:
-                return None
-
-        else:
-            # Phase 2: drop badges from the right until arrow fits, then compact/none
-            for n in range(len(raw_badge_infos) - 1, 0, -1):
-                used_w = (
-                    sum(bw for _, _, bw in raw_badge_infos[:n])
-                    + self.menu_margin * (n - 1)
-                )
-                if pad_x + used_w + 2.0 * icon_gap + icon_size + pad_x <= text_width:
-                    badge_infos = list(raw_badge_infos[:n])
-                    badges_prefix_w = used_w + icon_gap
-                    break
-
-            if badge_infos:
-                container_w = min(
-                    pad_x + badges_prefix_w + icon_gap + icon_size + pad_x,
-                    text_width,
-                )
-                container_w = max(container_h, container_w)
-                mode = "full"
-            elif compact_w <= text_width and compact_lod_w <= visible_item_w:
-                mode = "compact"
-            else:
-                return None
+            return None
 
         container_x = inner.x()
         container_y = inner.y()
@@ -249,55 +179,32 @@ class ItemHeaderMixin:
                 arrow_w, arrow_h = self.logical_size(scaled_arrow)
 
         arrow_rect = QRectF()
-        if mode == "full":
-            # Draw effect badges left of the title text
-            if badge_infos:
-                selected_ids = set()
-                if hasattr(self.w, "_selected_effect_ids"):
-                    selected_ids = self.w._selected_effect_ids()
-                original_font = painter.font()
-                badge_x = container_x + pad_x
-                badge_y = container_y + (container_h - badge_h) / 2.0
-                for eff, letter, bw in badge_infos:
-                    badge_rect = QRectF(badge_x, badge_y, bw, badge_h)
-                    color = self.w._effect_color(eff)
-                    if not isinstance(color, QColor) or not color.isValid():
-                        color = QColor("#4d7bff")
-                    effect_id = eff.get("id")
-                    effect_id_str = str(effect_id) if effect_id is not None else ""
-                    selected = bool(eff.get("selected")) or (effect_id_str and effect_id_str in selected_ids)
-                    fill = QColor(color)
-                    if selected and fill.isValid():
-                        fill = fill.lighter(120)
-                    opacity = 1.0 if selected else 0.7
-                    border = QColor(223, 223, 223) if selected else QColor(0, 0, 0, 200)
-                    badge_pen = QPen(border, 1.0)
-                    badge_pen.setCosmetic(True)
-                    painter.save()
-                    painter.setRenderHint(QPainter.Antialiasing, True)
-                    painter.setOpacity(opacity)
-                    painter.setBrush(fill)
-                    painter.setPen(badge_pen)
-                    badge_radius = min(badge_h / 2.0, 6.0)
-                    painter.drawRoundedRect(badge_rect, badge_radius, badge_radius)
-                    painter.setOpacity(1.0)
-                    painter.setFont(badge_font)
-                    painter.setPen(QColor(255, 255, 255))
-                    painter.drawText(badge_rect, Qt.AlignCenter, letter)
-                    painter.restore()
-                    if icon_entries is not None:
-                        icon_entries.append({
-                            "rect": QRectF(badge_rect),
-                            "effect": eff,
-                            "selected": selected,
-                            "effect_id": effect_id_str,
-                        })
-                    badge_x += bw + self.menu_margin
-                painter.setFont(original_font)
+        if full:
+            if badge_label:
+                badge_rect = QRectF(container_x + pad_x, container_y + (container_h - badge_h) / 2,
+                                    badge_width, badge_h)
+                accent = QColor(getattr(self.w.theme, "track_control_color", "#91c3ff"))
+                if not accent.isValid():
+                    accent = QColor("#91c3ff")
+                selected_ids = getattr(self.w, "_selected_effect_ids", set)()
+                selected = any(effect.get("selected") or str(effect.get("id")) in selected_ids
+                               for effect in effects)
+                fill = QColor(accent)
+                fill.setAlphaF(0.35 if selected else 0.18)
+                painter.save()
+                painter.setRenderHint(QPainter.Antialiasing, True)
+                painter.setFont(badge_font)
+                painter.setBrush(fill)
+                painter.setPen(QPen(accent, 1))
+                painter.drawRoundedRect(badge_rect, 4, 4)
+                painter.setPen(Qt.white)
+                painter.drawText(badge_rect, Qt.AlignCenter, badge_label)
+                painter.restore()
+                if icon_entries is not None:
+                    icon_entries.append({"rect": badge_rect, "effects": effects, "label": badge_label})
 
-            # Title text after badges
             flags = Qt.AlignLeft | Qt.AlignVCenter
-            text_start_x = container_x + pad_x + badges_prefix_w
+            text_start_x = container_x + pad_x + badge_prefix
             text_draw_rect = QRectF(text_start_x, container_y + pad_y, text_advance, font_h)
             painter.setPen(QColor(0, 0, 0, 120))
             painter.drawText(text_draw_rect.translated(1, 1), flags, title_elided)

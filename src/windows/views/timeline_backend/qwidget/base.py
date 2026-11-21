@@ -2774,6 +2774,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self._keyframes_dirty = True
         panel = getattr(self, "_effects_tray", None)
         if panel and item_type == "clip":
+            panel.clear_selection()
             panel.refresh()
         self.update()
 
@@ -3464,9 +3465,11 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         pos = posf
         content_pos = self._is_timeline_content_pos(pos)
         effects_tray = getattr(self, "_effects_tray", None)
-        if content_pos and effects_tray and effects_tray.press(pos, event.button()):
+        if content_pos and effects_tray and effects_tray.press(pos, event.button(), event.modifiers()):
             event.accept()
             return
+        if content_pos and effects_tray and effects_tray.active:
+            effects_tray.active = False
         if content_pos and event.button() == Qt.LeftButton and self._keyframe_header_click(pos):
             event.accept()
             return

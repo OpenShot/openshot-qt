@@ -32,6 +32,8 @@ from qt_api import QMimeData
 from classes.query import QueryObject
 
 
+EFFECT_RANGES_MIME = "application/x-openshot-effect-ranges"
+
 class ClipboardUnpickler(pickle.Unpickler):
     """Allow existing clipboard records without importing executable globals."""
 

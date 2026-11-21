@@ -29,8 +29,6 @@ from qt_api import QPointF, QRectF, Qt, QTimer
 from qt_api import (
     QBrush,
     QColor,
-    QFont,
-    QFontMetrics,
     QImage,
     QLinearGradient,
     QPainter,
@@ -65,7 +63,6 @@ from classes.waveform import (
 from classes import info
 from classes.clip_utils import is_single_image_media
 from classes.path_utils import absolute_media_path
-from classes.qt_types import font_metrics_horizontal_advance
 
 from .base import BasePainter
 from .header import ItemHeaderMixin
@@ -1696,44 +1693,6 @@ class ClipPainter(ItemHeaderMixin, BasePainter):
             self.menu_pix,
         )
         return max(used_width, float(self.menu_pix.width()))
-
-    def _draw_effect_icons(self, painter, clip, inner, x, right, entries):
-        effects = clip.data.get("effects") or []
-        if not effects:
-            return x
-
-        badge_height = min(16.0, inner.height() - 2 * self.menu_margin)
-        if badge_height < 9:
-            return x
-        font = QFont(painter.font())
-        if font.pointSizeF() > 0:
-            font.setPointSizeF(max(7.0, font.pointSizeF() * 0.8))
-        font.setBold(True)
-        metrics = QFontMetrics(font)
-        label = f"FX {len(effects)}"
-        width = font_metrics_horizontal_advance(metrics, label) + 8
-        if width > right - x:
-            label = "FX"
-            width = font_metrics_horizontal_advance(metrics, label) + 6
-        if width > right - x:
-            return x
-        rect = QRectF(x, inner.y() + self.menu_margin, width, badge_height)
-        color = QColor(self.w.theme.track_control_color)
-        if not color.isValid():
-            color = QColor("#91c3ff")
-        selected_ids = self.w._selected_effect_ids()
-        selected = any(str(effect.get("id")) in selected_ids for effect in effects)
-        fill = QColor(color)
-        fill.setAlphaF(0.35 if selected else 0.18)
-        painter.save()
-        painter.setFont(font)
-        painter.setBrush(fill)
-        painter.setPen(QPen(color, 1))
-        painter.drawRoundedRect(rect, 4, 4)
-        painter.drawText(rect, Qt.AlignCenter, label)
-        painter.restore()
-        entries.append({"rect": rect, "effects": effects})
-        return rect.right() + self.menu_margin
 
     def _draw_waveform(self, painter, clip, inner, segment=None):
         data = clip.data if isinstance(clip.data, dict) else {}

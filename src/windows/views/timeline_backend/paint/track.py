@@ -631,13 +631,9 @@ class TrackPainter(BasePainter):
                              if button["key"] in ("keyframe-panel", "effects-tray")]
             if len(panel_buttons) == 2:
                 pill = panel_buttons[0].united(panel_buttons[1]).adjusted(-1, 0, 1, 0)
-                color = QColor(self.w.theme.track_control_color)
-                if not color.isValid():
-                    color = QColor(self.w.theme.track.font_color)
-                color.setAlphaF(0.16)
                 painter.save()
-                painter.setPen(QPen(color, 1))
-                painter.setBrush(color)
+                painter.setPen(QPen(name_bg.darker(135), 1))
+                painter.setBrush(name_bg.darker(124))
                 painter.drawRoundedRect(pill, pill.height() / 2, pill.height() / 2)
                 painter.restore()
             for button in buttons:

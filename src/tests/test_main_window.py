@@ -1698,6 +1698,7 @@ class MainWindowTests(unittest.TestCase):
             actionRemoveTransition_trigger=lambda refresh=False: calls.append(("transition", refresh)),
         )
 
+        fake_window._focused_effects_tray = lambda: None
         self.main_window_module.MainWindow.deleteItem(fake_window)
 
         self.assertEqual(calls, ["effect", ("clip", False), ("transition", False)])
@@ -1716,6 +1717,7 @@ class MainWindowTests(unittest.TestCase):
             actionRemoveEffect_trigger=lambda: calls.append("effect"),
             actionRemoveClip_trigger=lambda **kwargs: calls.append("clip"),
             actionRemoveTransition_trigger=lambda **kwargs: calls.append("transition"))
+        window._focused_effects_tray = lambda: None
         self.main_window_module.MainWindow.deleteItem(window)
         self.assertEqual(calls, [])
         self.assertIsNone(self.app.updates.transaction_id)

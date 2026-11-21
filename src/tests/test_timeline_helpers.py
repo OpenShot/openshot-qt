@@ -5902,6 +5902,46 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(captured["waveform_rect"], inner)
         self.assertTrue(captured["title_transparent"])
 
+    def test_group_effect_edits_share_the_tightest_range_limit(self):
+        from windows.effects_tray import EffectsTray
+
+        first = ("clip", types.SimpleNamespace(
+            data={"position": 2.0, "start": 4.0, "end": 9.0}), {"id": "E1"}, 3.0, 6.0)
+        second = ("clip", types.SimpleNamespace(
+            data={"position": 12.0, "start": 0.0, "end": 4.0}), {"id": "E2"}, 13.0, 15.5)
+        tray = types.SimpleNamespace(_frame_rate=lambda: 10)
+        tray._row_frames = lambda row: EffectsTray._row_frames(tray, row)
+
+        # E2 has only five spare frames. Both effects move those same five frames.
+        self.assertEqual(EffectsTray._adjust_ranges(tray, [first, second], 10, None), {
+            "E1": (3.5, 6.5), "E2": (13.5, 16.0),
+        })
+        self.assertEqual(EffectsTray._adjust_ranges(tray, [first, second], 10, 1), {
+            "E1": (3.0, 6.5), "E2": (13.0, 16.0),
+        })
+        # The same minimum one-frame result limits the two right edges.
+        self.assertEqual(EffectsTray._adjust_ranges(tray, [first, second], -50, 1), {
+            "E1": (3.0, 3.6), "E2": (13.0, 13.1),
+        })
+
+    def test_moving_effect_animation_preserves_its_curve(self):
+        from windows.effects_tray import shift_effect_keyframes
+
+        effect = {
+            "levels": {"brightness": {"Points": [
+                {"co": {"X": 1, "Y": 0.2}, "interpolation": 0},
+                {"co": {"X": 26, "Y": 0.6}, "interpolation": 1},
+            ]}},
+            "contrast": {"Points": [{"co": {"X": 1, "Y": 0.2}}]},
+        }
+        moved = shift_effect_keyframes(effect, 10)
+        points = moved["levels"]["brightness"]["Points"]
+        self.assertEqual([point["co"]["X"] for point in points], [11, 36])
+        self.assertEqual([point["co"]["Y"] for point in points], [0.2, 0.6])
+        self.assertEqual([point["interpolation"] for point in points], [0, 1])
+        self.assertEqual(moved["contrast"], effect["contrast"])
+        self.assertEqual(effect["levels"]["brightness"]["Points"][0]["co"]["X"], 1)
+
     def test_item_header_sticks_inside_viewport_and_preserves_hit_targets(self):
         from windows.views.timeline_backend.qwidget.effect import EffectInteractionMixin
 
@@ -5936,10 +5976,12 @@ class TimelineHelperTests(unittest.TestCase):
                     self.assertEqual(entry["rect"].left(), expected_left)
                     self.assertLessEqual(entry["rect"].right(), min(right - 1, area.right()))
                     self.assertTrue(entry["open_menu"])
-                    self.assertEqual(len(widget._effect_icon_rects), 2 if kind == "clip" else 0)
+                    self.assertEqual(len(widget._effect_icon_rects), 1 if kind == "clip" else 0)
                     for badge in widget._effect_icon_rects:
                         hit = EffectInteractionMixin._effect_icon_at(widget, badge["rect"].center())
                         self.assertIs(hit["clip"], clip)
+                        self.assertEqual(hit["effects"], clip.data["effects"])
+                        self.assertEqual(hit["label"], "FX 2")
                         self.assertTrue(entry["rect"].contains(badge["rect"]))
                     menu = getattr(self, "make_qwidget_pending_%s_menu_helper" % kind)()
                     setattr(menu, "_" + kind + "_text_rects", getattr(widget, "_" + kind + "_text_rects"))

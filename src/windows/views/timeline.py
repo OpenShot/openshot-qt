@@ -1306,6 +1306,22 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self._set_track_keyframes(self.normalize_track_number(track.data["number"]), False)
         self._effects_tray.open_track(track_id, clip_id, effect_id)
 
+    def paste_effect_ranges(self, mime_data, selected_clips):
+        tray = getattr(self, "_effects_tray", None)
+        clip = Clip.get(id=selected_clips[0]) if len(selected_clips) == 1 else None
+        if clip:
+            track = Track.get(number=clip.data["layer"])
+            if track is None or track.data.get("lock"):
+                return
+            if not tray or tray.track_id != track.id:
+                self.show_effects_tray(track.id, clip_id=clip.id)
+                tray = self._effects_tray
+            else:
+                tray.clip_id = clip.id
+                tray.refresh()
+        if tray and tray.track_id and (clip or tray.active):
+            tray.paste_effects(mime_data, clip)
+
     @pyqtSlot(str)
     def ShowEffectMenu(self, effect_id=None):
         log.debug('ShowEffectMenu: %s' % effect_id)

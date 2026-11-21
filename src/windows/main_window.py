@@ -68,7 +68,7 @@ from classes.logger import log
 from classes.metrics import track_metric_session, track_metric_screen
 from classes.path_utils import comparable_local_path, native_display_path, normalized_local_path
 from classes.query import File, Clip, Transition, Marker, Track, Effect
-from classes.clipboard import ClipboardManager
+from classes.clipboard import ClipboardManager, EFFECT_RANGES_MIME
 from classes.generation_queue import GenerationQueueManager
 from classes.generation_service import GenerationService
 from classes.proxy_service import ProxyService
@@ -4845,8 +4845,16 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         """Handle play-pause-toggle keypress"""
         get_app().window.PlayPauseToggleSignal.emit()
 
+    def _focused_effects_tray(self):
+        timeline = getattr(self, "timeline", None)
+        tray = getattr(timeline, "_effects_tray", None)
+        return tray if tray and timeline.hasFocus() else None
+
     def deleteItem(self):
         """Remove the current selected file, keyframes, effect, clip, or transition."""
+        tray = self._focused_effects_tray()
+        if tray and tray.delete_selected():
+            return
         # Set transaction id
         tid = str(uuid.uuid4())
         get_app().updates.transaction_id = tid
@@ -4878,6 +4886,9 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
     def slice_clips(self, slice_type, selected_only=False, ripple=False):
         """Helper function for slicing clips and transitions at the playhead position."""
+        tray = self._focused_effects_tray()
+        if tray and not ripple and tray.slice_selected(slice_type):
+            return
         # Get framerate and calculate the playhead position
         fps = get_app().project.get("fps")
         fps_float = float(fps["num"]) / float(fps["den"])
@@ -4926,6 +4937,9 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
     def selectAll(self):
         """Select all clips and transitions"""
+        tray = self._focused_effects_tray()
+        if tray and tray.select_all():
+            return
         # Check if filesView has focus
         if self.filesView.hasFocus():
             # Select all files
@@ -4936,10 +4950,16 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
     def selectNone(self):
         """Clear all selections for clips and transitions"""
+        tray = self._focused_effects_tray()
+        if tray and tray.active:
+            tray.cancel()
         self.timeline.ClearAllSelections()
 
     def copyAll(self):
         """Handle Copy QShortcut (selected clips / transitions)"""
+        tray = self._focused_effects_tray()
+        if tray and tray.copy_selected():
+            return
         self.timeline.Copy_Triggered(MenuCopy.ALL, self.selected_clips, self.selected_transitions, [])
 
     def cutAll(self):
@@ -4951,6 +4971,9 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         """Handle Paste QShortcut (at timeline position, same track as original clip)"""
         clipboard = get_app().clipboard()
         mime_data = clipboard.mimeData() if clipboard else None
+        if mime_data and mime_data.hasFormat(EFFECT_RANGES_MIME):
+            self.timeline.paste_effect_ranges(mime_data, self.selected_clips)
+            return
         copied_object = ClipboardManager.from_mime(mime_data) if mime_data else None
 
         if mime_data and not mime_data.hasFormat("application/x-openshot-generic"):

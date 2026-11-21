@@ -218,6 +218,9 @@ class KeyboardMixin:
         self.win.SeekSignal.emit(frame, False)
 
     def keyboard_select_edge(self, edge):
+        tray = getattr(self, "_effects_tray", None)
+        if tray and tray.select_edge(edge):
+            return
         clips = self._keyboard_items()
         clip = self._keyboard_anchor(clips)
         if not clip:
@@ -231,6 +234,9 @@ class KeyboardMixin:
             self.update()
 
     def keyboard_nudge(self, frames):
+        tray = getattr(self, "_effects_tray", None)
+        if tray and tray.nudge(frames):
+            return
         if getattr(self, '_keyboard_nudge_key', None) is not None:
             self._keyboard_preview_nudge(frames)
             return
@@ -319,6 +325,9 @@ class KeyboardMixin:
         self._keyboard_reveal(items[0])
 
     def _keyboard_finish_nudge(self):
+        tray = getattr(self, "_effects_tray", None)
+        if tray:
+            tray.nudge_transaction = None
         gesture = getattr(self, '_keyboard_nudge_gesture', None)
         self._keyboard_nudge_gesture = None
         self._keyboard_nudge_key = None
@@ -405,6 +414,11 @@ class KeyboardMixin:
         self.update()
 
     def keyPressEvent(self, event):
+        tray = getattr(self, "_effects_tray", None)
+        if event.key() == Qt.Key_Escape and tray and tray.active:
+            tray.cancel()
+            event.accept()
+            return
         if event.key() in (Qt.Key_Return, Qt.Key_Enter) and event.modifiers() == Qt.NoModifier:
             selected = getattr(self.window, "selected_clips", [])
             clip = Clip.get(id=selected[0]) if len(selected) == 1 else None
