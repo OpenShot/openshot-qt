@@ -290,7 +290,7 @@ class EffectsTray(QObject):
     def _add_rect(self, lane):
         font = QFont(self.timeline.font())
         font.setBold(True)
-        text_width = font_metrics_horizontal_advance(QFontMetrics(font), self.translate("Add Effect +"))
+        text_width = font_metrics_horizontal_advance(QFontMetrics(font), self.translate("+ Add Effect"))
         left = lane.left() + 8
         width = max(0.0, min(text_width + 20, lane.right() - left))
         return QRectF(left, lane.top() + 4, width, self.header_height - 8)
@@ -380,7 +380,7 @@ class EffectsTray(QObject):
                 painter.drawRoundedRect(add, 4, 4)
             painter.setPen(accent)
             add_text = painter.fontMetrics().elidedText(
-                self.translate("Add Effect +"), Qt.ElideRight, max(0, int(add.width()) - 10)
+                self.translate("+ Add Effect"), Qt.ElideRight, max(0, int(add.width()) - 10)
             )
             painter.drawText(add.adjusted(5, 0, -5, 0), Qt.AlignLeft | Qt.AlignVCenter, add_text)
 
