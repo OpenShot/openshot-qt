@@ -5902,6 +5902,23 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(captured["waveform_rect"], inner)
         self.assertTrue(captured["title_transparent"])
 
+    def test_clip_effect_lanes_share_matching_bars_and_keep_stack_order(self):
+        from windows.effects_tray import clip_effect_lanes
+
+        first, second, overlap, reversed_stack = (
+            types.SimpleNamespace(id=clip_id) for clip_id in ("A", "B", "C", "D")
+        )
+        rows = [
+            ("clip", first, {"type": "Blur"}, 0, 5),
+            ("clip", first, {"type": "Crop"}, 0, 5),
+            ("clip", second, {"type": "Blur"}, 5, 9),
+            ("clip", second, {"type": "Crop"}, 5, 9),
+            ("clip", overlap, {"type": "Blur"}, 7, 9),
+            ("clip", reversed_stack, {"type": "Crop"}, 11, 15),
+            ("clip", reversed_stack, {"type": "Blur"}, 11, 15),
+        ]
+        self.assertEqual(clip_effect_lanes(rows), [[0, 2], [1, 3, 5], [4, 6]])
+
     def test_group_effect_edits_share_the_tightest_range_limit(self):
         from windows.effects_tray import EffectsTray
 

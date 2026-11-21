@@ -27,6 +27,27 @@ def clip_effect_sort_key(effect):
     return phase, 1, effect.get("layer", 0), effect.get("position", 0), -effect.get("order", 0)
 
 
+def clip_effect_lanes(rows):
+    """Reuse lanes across clips while keeping each clip's stack in order."""
+    lanes = []
+    previous_lane = {}
+    for index, (_, clip, effect, start, end) in enumerate(rows):
+        effect_type = effect.get("type") or effect.get("name")
+        minimum = previous_lane.get(clip.id, -1) + 1
+        for slot in range(minimum, len(lanes)):
+            lane_type, entries = lanes[slot]
+            if lane_type == effect_type and all(
+                end <= rows[entry][3] + 1e-9 or start >= rows[entry][4] - 1e-9 for entry in entries
+            ):
+                break
+        else:
+            slot = len(lanes)
+            lanes.append((effect_type, []))
+        lanes[slot][1].append(index)
+        previous_lane[clip.id] = slot
+    return [entries for _, entries in lanes]
+
+
 def shift_effect_keyframes(value, frames):
     """Return the value with animated curves translated on their frame axis."""
     if isinstance(value, dict):
@@ -76,6 +97,8 @@ class EffectsTray(QObject):
         self.clip_id = None
         self.sections = []
         self.row_slots = []
+        self.lane_rows = {}
+        self.clips = []
         self.catalog = {data["class_name"]: data for data in json.loads(openshot.EffectInfo.Json())}
         self._press = None
         self._preview = None
@@ -101,22 +124,22 @@ class EffectsTray(QObject):
             self._reveal_clip_section(clip_id)
 
     def _reveal_clip_section(self, clip_id):
-        section = next((section for section in self.sections
-                        if section[1] == "clip" and section[2] and section[2].id == clip_id), None)
+        section = next((section for section in self.sections if section[1] == "clip"), None)
         if section is None:
             return
         w = self.timeline
         w.geometry.ensure()
         _, lane, _ = self._bounds()
-        rect = self._section_rect(section, lane)
+        slots = [self.row_slots[index] for index, row in enumerate(self.rows)
+                 if row[0] == "clip" and row[1].id == clip_id]
+        first, last = (min(slots), max(slots)) if slots else (section[0], section[0])
+        if first == section[0] + 1:
+            first = section[0]
+        top_y = lane.top() + self.header_height + first * self.row_height
+        end_y = lane.top() + self.header_height + (last + 1) * self.row_height
         bottom = w.height() - w.scroll_bar_thickness
-        last_slot = next((later[0] for later in self.sections if later[0] > section[0]),
-                         len(self.rows) + len(self.sections))
-        available = max(0.0, bottom - w.ruler_height - rect.height())
-        group_height = min(available, (last_slot - section[0] - 1) * self.row_height)
-        delta = max(rect.bottom() + group_height - bottom, 0.0)
-        if rect.top() < w.ruler_height:
-            delta = rect.top() - w.ruler_height
+        end_y = min(end_y, top_y + bottom - w.ruler_height)
+        delta = top_y - w.ruler_height if top_y < w.ruler_height else max(0.0, end_y - bottom)
         top, right, content_height, view_height = w.v_scrollbar_position
         if delta and content_height > view_height > 0:
             span = right - top
@@ -130,6 +153,8 @@ class EffectsTray(QObject):
         self.rows = []
         self.sections = []
         self.row_slots = []
+        self.lane_rows = {}
+        self.clips = []
         self.selected_id = self.clip_id = self.hovered = self.drop_target = None
         self.clear_selection()
         self._clear_gesture()
@@ -142,7 +167,7 @@ class EffectsTray(QObject):
     def height(self, track_number):
         if self.track_id is None or self.track_number != track_number:
             return 0
-        return self.header_height + (len(self.rows) + len(self.sections)) * self.row_height + self.bottom_padding
+        return self.header_height + (len(self.lane_rows) + len(self.sections)) * self.row_height + self.bottom_padding
 
     def _track(self):
         return Track.get(id=self.track_id) if self.track_id else None
@@ -163,39 +188,35 @@ class EffectsTray(QObject):
         self.locked = bool(track.data.get("lock"))
         layer = track.data["number"]
         self.track_number = self.timeline.normalize_track_number(layer)
-        rows, sections, slots = [], [], []
+        rows, sections, lanes = [], [], {}
 
         def section(kind, owner, title):
-            sections.append((len(rows) + len(sections), kind, owner, title))
+            sections.append((len(lanes) + len(sections), kind, owner, title))
 
-        def add(row):
-            slots.append(len(rows) + len(sections))
-            rows.append(row)
+        def add_lane(entries):
+            slot = len(lanes) + len(sections)
+            lanes[slot] = list(range(len(rows), len(rows) + len(entries)))
+            rows.extend(entries)
 
         _ = self.translate
         section("track", track, _("Track Effects"))
         for effect in track.data.get("effects") or []:
             trim = effect.get("clip_range") or {}
-            add(("track", track, effect, trim.get("start", 0.0), trim.get("end")))
+            add_lane([("track", track, effect, trim.get("start", 0.0), trim.get("end"))])
 
-        selected = set(self.timeline.window.selected_clips)
-        clips = sorted(Clip.filter(layer=layer), key=lambda item: item.data["position"])
-        clip_sections = False
-        for clip in clips:
+        section("clip", None, _("Clip Effects"))
+        self.clips = sorted(Clip.filter(layer=layer), key=lambda item: item.data["position"])
+        clip_rows = []
+        for clip in self.clips:
             data = clip.data
-            effects = sorted(data.get("effects") or [], key=clip_effect_sort_key)
-            if not effects and clip.id != self.clip_id and clip.id not in selected:
-                continue
-            clip_sections = True
-            section("clip", clip, _("Clip Effects"))
             start, end, position = data["start"], data["end"], data["position"]
-            for effect in effects:
+            for effect in sorted(data.get("effects") or [], key=clip_effect_sort_key):
                 trim = effect.get("clip_range") or {}
                 first = max(start, trim.get("start", start))
                 last = min(end, trim.get("end", end))
-                add(("clip", clip, effect, position + first - start, position + last - start))
-        if not clip_sections:
-            section("clip", None, _("Clip Effects"))
+                clip_rows.append(("clip", clip, effect, position + first - start, position + last - start))
+        for entries in clip_effect_lanes(clip_rows):
+            add_lane([clip_rows[index] for index in entries])
 
         transitions = sorted(Transition.filter(layer=layer), key=lambda item: item.data["position"])
         if transitions:
@@ -203,10 +224,15 @@ class EffectsTray(QObject):
         for transition in transitions:
             data = transition.data
             first = data["position"]
-            add(("transition", transition, data, first, first + data["end"] - data["start"]))
-        self.sections, self.row_slots = sections, slots
-        if self._press and [row[2]["id"] for row in self.rows] != [row[2]["id"] for row in rows]:
+            add_lane([("transition", transition, data, first, first + data["end"] - data["start"])])
+
+        row_slots = [slot for slot, entries in lanes.items() for _ in entries]
+        if row_slots != self.row_slots or [row[2]["id"] for row in self.rows] != [row[2]["id"] for row in rows]:
             self._clear_gesture()
+            self.hovered = None
+        self.sections = sections
+        self.lane_rows = lanes
+        self.row_slots = row_slots
         self.rows = rows
         self.selected_ids.intersection_update(row[2]["id"] for row in rows)
         if self.selected_id not in self.selected_ids:
@@ -237,6 +263,13 @@ class EffectsTray(QObject):
     def _section_rect(self, section, lane):
         y = lane.top() + self.header_height + section[0] * self.row_height
         return QRectF(0, y, lane.right() - 8, self.row_height)
+
+    def _clip_for_add(self):
+        selected = self.timeline.window.selected_clips
+        clip_id = self.clip_id if self.active else None
+        if clip_id is None and len(selected) == 1:
+            clip_id = selected[0]
+        return next((clip for clip in self.clips if clip.id == clip_id), None)
 
     def _add_rect(self, lane, section=None):
         section = self.sections[0] if section is None else section
@@ -327,6 +360,8 @@ class EffectsTray(QObject):
 
         for section in self.sections:
             _, kind, owner, title = section
+            if kind == "clip":
+                owner = self._clip_for_add()
             rect = self._section_rect(section, lane)
             painter.setPen(Qt.NoPen)
             painter.setBrush(well)
@@ -342,7 +377,7 @@ class EffectsTray(QObject):
             if kind == "track":
                 hint = self.translate("Whole track")
             elif kind == "clip":
-                hint = owner.title() if owner else self.translate("Select a clip to add effects here")
+                hint = owner.title() if owner else self.translate("Drop an effect below a clip")
             else:
                 hint = ""
             painter.setPen(detail)
@@ -356,12 +391,12 @@ class EffectsTray(QObject):
             painter.setPen(accent)
             painter.drawText(bounds.adjusted(0, 0, -10, 0), Qt.AlignRight | Qt.AlignVCenter, caption)
 
-        for index, row in enumerate(self.rows):
+        for entries in self.lane_rows.values():
+            index = next((entry for entry in entries if self.rows[entry][2]["id"] == self.selected_id), entries[0])
             well_rect = self._row_rect(index, lane)
             if not well_rect.intersects(visible):
                 continue
-            kind, owner, effect, _, _ = row
-            title = self._title(row)
+            title = self._title(self.rows[index])
             painter.setPen(label)
             controls = self._row_controls(index, lane)
             label_end = controls[0][2].left() if controls else lane.left()
@@ -380,6 +415,12 @@ class EffectsTray(QObject):
             painter.setPen(Qt.NoPen)
             painter.setBrush(well)
             painter.drawRoundedRect(well_rect, 5, 5)
+        for index, row in enumerate(self.rows):
+            well_rect = self._row_rect(index, lane)
+            if not well_rect.intersects(visible):
+                continue
+            kind, _, effect, _, _ = row
+            title = self._title(row)
             bar = self._bar_rect(index, lane).intersected(well_rect)
             if bar.isEmpty():
                 continue
@@ -431,19 +472,25 @@ class EffectsTray(QObject):
             return ("close" if self._heading_rect(lane).contains(pos) else "blank", None)
         for section_index, section in enumerate(self.sections):
             if self._section_rect(section, lane).contains(pos):
-                if not self.locked and section[2] is not None and self._add_rect(lane, section).contains(pos):
+                owner = self._clip_for_add() if section[1] == "clip" else section[2]
+                if not self.locked and owner is not None and self._add_rect(lane, section).contains(pos):
                     return ("add", section_index)
                 return ("blank", None)
         slot = int((pos.y() - panel.top() - self.header_height) // self.row_height)
-        if slot in self.row_slots:
-            index = self.row_slots.index(slot)
-            for name, _, rect, enabled in self._row_controls(index, lane):
-                if rect.contains(pos):
-                    return (name if enabled else "blank", index)
-            bar = self._bar_rect(index, lane)
-            well = self._row_rect(index, lane)
-            if pos.x() < lane.left() or bar.intersected(well).contains(pos):
+        entries = self.lane_rows.get(slot, ())
+        if pos.x() < lane.left():
+            index = next((entry for entry in entries if self.rows[entry][2]["id"] == self.selected_id), None)
+            if index is None and len(entries) == 1:
+                index = entries[0]
+            if index is not None:
+                for name, _, rect, enabled in self._row_controls(index, lane):
+                    if rect.contains(pos):
+                        return (name if enabled else "blank", index)
                 return ("row", index)
+        else:
+            for index in reversed(entries):
+                if self._bar_rect(index, lane).intersected(self._row_rect(index, lane)).contains(pos):
+                    return ("row", index)
         return ("blank", None)
 
     def _trim_edge(self, index, pos):
@@ -523,6 +570,9 @@ class EffectsTray(QObject):
         if hit is None or button not in (Qt.LeftButton, Qt.RightButton):
             return False
         target, index = hit
+        if not self.active:
+            clip = self._clip_for_add()
+            self.clip_id = clip.id if clip else None
         self.active = True
         self.keyboard_edge = None
         extend = bool(modifiers & (Qt.ControlModifier | Qt.ShiftModifier))
@@ -660,7 +710,11 @@ class EffectsTray(QObject):
             if target == "close":
                 self.close()
             elif target == "add":
-                self._add_menu(pos, self.sections[index])
+                slot, kind, owner, title = self.sections[index]
+                if kind == "clip":
+                    owner = self._clip_for_add()
+                if owner is not None:
+                    self._add_menu(pos, (slot, kind, owner, title))
             elif target in ("up", "down"):
                 self._move(-1 if target == "up" else 1)
             elif target == "delete":
@@ -736,6 +790,18 @@ class EffectsTray(QObject):
             return None, None
         slot = int((pos.y() - lane.top() - self.header_height) // self.row_height)
         section = next((section for section in reversed(self.sections) if section[0] <= slot), None)
+        if section and section[1] == "clip":
+            hit = self._hit(pos)
+            if hit and hit[0] == "row":
+                clip = self.rows[hit[1]][1]
+            elif pos.x() >= lane.left():
+                seconds = self.timeline._seconds_from_x(pos.x())
+                clip = next((clip for clip in reversed(self.clips)
+                             if clip.data["position"] <= seconds <
+                             clip.data["position"] + clip.data["end"] - clip.data["start"]), None)
+            else:
+                clip = self._clip_for_add()
+            section = (section[0], section[1], clip, section[3])
         return section, lane
 
     def preview_drop(self, pos, effect_name=None):
