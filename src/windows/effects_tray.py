@@ -291,21 +291,25 @@ class EffectsTray(QObject):
         return self._clip_at(((self.timeline.current_frame or 1) - 1) / self._frame_rate())
 
     def _add_rect(self, lane):
-        return QRectF(self._heading_rect(lane).right() + 8, lane.top() + 4, 22, self.header_height - 8)
+        font = QFont(self.timeline.font())
+        font.setBold(True)
+        text_width = font_metrics_horizontal_advance(QFontMetrics(font), self.translate("Add Effect +"))
+        left = max(lane.left() + 8, self._heading_rect(lane).right() + 8)
+        width = max(0.0, min(text_width + 10, lane.right() - left))
+        return QRectF(left, lane.top() + 4, width, self.header_height - 8)
 
     def _row_controls(self, index, lane):
         kind, owner, effect, _, _ = self.rows[index]
         if self.locked or self.selected_id != effect["id"] or len(self.selected_ids) != 1 or kind == "transition":
             return ()
         rect = self._row_rect(index, lane)
-        left = max(0.0, lane.left() - 86)
+        left = max(0.0, lane.left() - 66)
         return tuple(
             (name, glyph, QRectF(left + offset * 20, rect.y(), 18, rect.height()), enabled)
             for offset, (name, glyph, enabled) in enumerate((
                 ("up", "↑", self._reorder_indices(kind, owner, effect, -1) is not None),
                 ("down", "↓", self._reorder_indices(kind, owner, effect, 1) is not None),
                 ("delete", "×", True),
-                ("keyframes", "◇", True),
             ))
         )
 
@@ -370,8 +374,6 @@ class EffectsTray(QObject):
         painter.drawText(heading, Qt.AlignVCenter | Qt.AlignLeft,
                          painter.fontMetrics().elidedText(heading_text, Qt.ElideRight, title_width))
         painter.drawText(heading, Qt.AlignVCenter | Qt.AlignRight, "⌄")
-        font.setBold(False)
-        painter.setFont(font)
 
         if not self.locked:
             add = self._add_rect(lane)
@@ -380,8 +382,13 @@ class EffectsTray(QObject):
                 painter.setBrush(well)
                 painter.drawRoundedRect(add, 4, 4)
             painter.setPen(accent)
-            painter.drawText(add, Qt.AlignCenter, "+")
+            add_text = painter.fontMetrics().elidedText(
+                self.translate("Add Effect +"), Qt.ElideRight, max(0, int(add.width()) - 10)
+            )
+            painter.drawText(add.adjusted(5, 0, -5, 0), Qt.AlignLeft | Qt.AlignVCenter, add_text)
 
+        font.setBold(False)
+        painter.setFont(font)
         for section in self.sections:
             rect = self._section_rect(section, lane)
             painter.setPen(Qt.NoPen)
@@ -434,19 +441,27 @@ class EffectsTray(QObject):
                 continue
             kind, _, effect, _, _ = row
             title = self._title(row)
-            bar = self._bar_rect(index, lane).intersected(well_rect)
+            full = self._bar_rect(index, lane)
+            bar = full.intersected(well_rect)
             if bar.isEmpty():
                 continue
             chosen = effect["id"] in self.selected_ids
+            # Clip the original corners at the viewport boundary. Limit the
+            # overdraw for effects whose true edges are far offscreen.
+            shape = QRectF(full)
+            shape.setLeft(max(full.left(), well_rect.left() - 5))
+            shape.setRight(min(full.right(), well_rect.right() + 5))
+            painter.save()
+            painter.setClipRect(well_rect.adjusted(0, -1, 0, 1), Qt.IntersectClip)
             painter.setBrush(QColor("#f9fbff") if not chosen else QColor("#dcecff"))
             painter.setPen(accent if chosen else Qt.NoPen)
-            painter.drawRoundedRect(bar, 4, 4)
+            painter.drawRoundedRect(shape, 4, 4)
+            painter.restore()
             painter.setPen(QColor("#955010") if kind == "track" else QColor("#1557a7"))
             margin = 10 if chosen and kind != "transition" else 4
             pill_text = painter.fontMetrics().elidedText(title, Qt.ElideRight, max(0, int(bar.width()) - 2 * margin))
             painter.drawText(bar.adjusted(margin, 0, -margin, 0), Qt.AlignCenter, pill_text)
             if (chosen or self.hovered == index) and kind != "transition" and not self.locked:
-                full = self._bar_rect(index, lane)
                 for edge_index, edge in enumerate((full.left(), full.right())):
                     if chosen and self.keyboard_edge == edge_index:
                         painter.setPen(accent)
@@ -482,6 +497,8 @@ class EffectsTray(QObject):
         if not visible.contains(pos):
             return None
         if pos.y() < panel.top() + self.header_height:
+            if pos.x() >= lane.left() and self.timeline._get_keyframe_at(pos):
+                return None
             if not self.locked and self._add_rect(lane).contains(pos):
                 return ("add", None)
             return ("close" if self._heading_rect(lane).contains(pos) else "blank", None)
@@ -510,7 +527,9 @@ class EffectsTray(QObject):
         bar = self._bar_rect(index, lane)
         if pos.x() < lane.left() or not bar.contains(pos):
             return None
-        distances = (abs(pos.x() - bar.left()), abs(pos.x() - bar.right()))
+        well = self._row_rect(index, lane)
+        distances = tuple(abs(pos.x() - edge) if well.left() <= edge <= well.right() else float("inf")
+                          for edge in (bar.left(), bar.right()))
         if min(distances) <= 7:
             return 0 if distances[0] < distances[1] else 1
         return None
@@ -753,8 +772,6 @@ class EffectsTray(QObject):
                 self._move(-1 if target == "up" else 1)
             elif target == "delete":
                 self.delete_selected()
-            elif target == "keyframes":
-                self._show_keyframes()
             elif target == "row":
                 self._select_row(index)
             elif target == "blank" and not extend:
@@ -806,8 +823,8 @@ class EffectsTray(QObject):
             return _("Add Effect")
         if target == "close":
             return _("Hide effects and transitions")
-        if target in ("up", "down", "delete", "keyframes"):
-            return {"up": _("Move Up"), "down": _("Move Down"), "delete": _("Remove Effect"), "keyframes": _("Keyframes")}[target]
+        if target in ("up", "down", "delete"):
+            return {"up": _("Move Up"), "down": _("Move Down"), "delete": _("Remove Effect")}[target]
         if target == "row":
             row = self.rows[index]
             kind, owner, _, _, _ = row

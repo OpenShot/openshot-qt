@@ -450,14 +450,9 @@ class KeyframePanelPainter(BasePainter):
                 painter.setPen(accent if accent.isValid() else self.text_pen.color())
                 painter.drawText(heading, Qt.AlignVCenter | Qt.AlignLeft, get_app()._tr("Keyframes"))
                 painter.drawText(heading, Qt.AlignVCenter | Qt.AlignRight, "⌄")
-                has_return = track.id in getattr(self.w, "_fx_return_rows", {})
-                if has_return:
-                    back = QRectF(self.w.track_name_width + 8, heading.y(), 148, header_height)
-                    painter.drawText(back, Qt.AlignLeft | Qt.AlignVCenter, get_app()._tr("Back to Effects"))
                 panel_info = self.w._panel_properties.get(track_num, {})
                 if panel_info.get("available_properties"):
-                    x = self.w.track_name_width + (163 if has_return else 8)
-                    add = QRectF(x, heading.y(), 139, header_height)
+                    add = QRectF(self.w.track_name_width + 8, heading.y(), 139, header_height)
                     painter.drawText(add, Qt.AlignLeft | Qt.AlignVCenter, get_app()._tr("+ Add Property"))
                 painter.restore()
             # Property labels keep their left inset when compact headers move

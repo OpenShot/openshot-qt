@@ -1118,12 +1118,12 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             self.clip_painter.paint(painter)
             self.transition_painter.paint(painter)
             self._paint_drag_preview(painter)
-            self.keyframe_painter.paint(painter)
-            self.track_painter.paint_names(painter)
-            self.keyframe_panel_painter.paint(painter, mode="overlay")
             effects_tray = getattr(self, "_effects_tray", None)
             if effects_tray:
                 effects_tray.paint(painter)
+            self.keyframe_painter.paint(painter)
+            self.track_painter.paint_names(painter)
+            self.keyframe_panel_painter.paint(painter, mode="overlay")
             self.hover_feedback.paint(painter)
             self.track_painter.paint_divider(painter)
             self.selection_painter.paint(painter)
@@ -3793,17 +3793,10 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         panel = self.geometry.panel_rect(track_num)
         if not panel or pos.y() >= panel.top() + self.panel_header_height:
             return False
-        track = next((item for item in self.track_list
-                      if self.normalize_track_number(item.data["number"]) == track_num), None)
         if pos.x() < self.track_name_width:
             self._set_track_keyframes(track_num, False)
-        elif track:
-            has_return = track.id in self._fx_return_rows
-            x = pos.x() - self.track_name_width
-            if has_return and x < 155:
-                self.win.timeline.show_effects_tray(track.id, *self._fx_return_rows.pop(track.id))
-            elif (155 if has_return else 0) <= x < (300 if has_return else 145):
-                self._panel_show_property_menu_at(pos)
+        elif pos.x() < self.track_name_width + 147:
+            self._panel_show_property_menu_at(pos)
         return True
 
     def _panel_track_at_pos(self, pos):

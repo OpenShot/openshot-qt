@@ -5919,6 +5919,22 @@ class TimelineHelperTests(unittest.TestCase):
         ]
         self.assertEqual(clip_effect_lanes(rows), [[0, 2], [1, 3, 5], [4, 6]])
 
+    def test_effect_trim_edges_are_only_active_inside_the_visible_lane(self):
+        from windows.effects_tray import EffectsTray
+
+        visible = QRectF(100, 50, 150, 20)
+        bar = QRectF(97, 50, 156, 20)
+        tray = types.SimpleNamespace(rows=[("clip", None, {}, 0, 1)], locked=False)
+        tray._bounds = lambda: (QRectF(), visible, visible)
+        tray._row_rect = lambda index, lane: visible
+        tray._bar_rect = lambda index, lane: bar
+        self.assertIsNone(EffectsTray._trim_edge(tray, 0, QPointF(101, 60)))
+        self.assertIsNone(EffectsTray._trim_edge(tray, 0, QPointF(249, 60)))
+
+        bar = QRectF(102, 50, 145, 20)
+        self.assertEqual(EffectsTray._trim_edge(tray, 0, QPointF(103, 60)), 0)
+        self.assertEqual(EffectsTray._trim_edge(tray, 0, QPointF(246, 60)), 1)
+
     def test_effect_transfers_preserve_range_and_rebase_keyframes(self):
         from windows.effects_tray import EffectsTray
 
