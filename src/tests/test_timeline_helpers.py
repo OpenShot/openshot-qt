@@ -4604,6 +4604,24 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertIn(rect.left(), targets)
         self.assertIn(rect.right(), targets)
 
+    def test_vertical_scroll_anchor_keeps_its_pixel_offset_when_panels_resize(self):
+        widget = types.SimpleNamespace(
+            v_scrollbar_position=[0.25, 0.5, 400.0, 100.0],
+            ruler_height=40.0, scroll_bar_thickness=12.0, width=lambda: 300,
+        )
+        geometry = self.geometry_base_module.GeometryBase(widget)
+
+        geometry.preserve_vertical_scroll()
+        self.assertEqual(geometry._update_vertical_scrollbar(500.0, 100.0), 100.0)
+        self.assertAlmostEqual(widget.v_scrollbar_position[0], 0.2)
+        self.assertAlmostEqual(widget.v_scrollbar_position[1], 0.4)
+
+        geometry.preserve_vertical_scroll()
+        self.assertAlmostEqual(geometry._update_vertical_scrollbar(160.0, 100.0), 60.0)
+        # The anchor is consumed during layout, so later scrolling still works.
+        widget.v_scrollbar_position[0] = 0.1
+        self.assertEqual(geometry._update_vertical_scrollbar(500.0, 100.0), 50.0)
+
     def test_marker_icon_viewport_ignores_vertical_track_scroll(self):
         widget = types.SimpleNamespace(
             track_name_width=140.0,

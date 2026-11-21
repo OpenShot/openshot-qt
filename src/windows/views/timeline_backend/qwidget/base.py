@@ -208,6 +208,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self.track_margin_top = self.track_gap
         self._playback_cache_ranges = []
         self._fx_return_rows = {}
+        self._track_panel_height_floor = {}
         self.panel_header_height = 31
         self._track_panel_enabled = {}
         self._panel_properties = {}
@@ -1034,10 +1035,12 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             self._pending_clip_overrides.clear()
             self._pending_transition_overrides.clear()
 
+        if action and action.type == "load":
+            self._fx_return_rows.clear()
+            self._track_panel_height_floor.clear()
         effects_tray = getattr(self, "_effects_tray", None)
         if effects_tray:
             if action and action.type == "load":
-                self._fx_return_rows.clear()
                 effects_tray.close()
             else:
                 effects_tray.refresh()

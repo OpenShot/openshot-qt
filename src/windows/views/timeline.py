@@ -1296,15 +1296,15 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.context_menu_cursor_position = QCursor.pos()
             return menu.show_at(self.context_menu_cursor_position)
 
-    def show_effects_tray(self, track_id, clip_id=None, effect_id=None):
+    def show_effects_tray(self, track_id, clip_id=None, effect_id=None, *, reveal=True):
         from windows.effects_tray import EffectsTray
 
         if not getattr(self, "_effects_tray", None):
             self._effects_tray = EffectsTray(self)
         track = Track.get(id=track_id)
         if track:
-            self._set_track_keyframes(self.normalize_track_number(track.data["number"]), False)
-        self._effects_tray.open_track(track_id, clip_id, effect_id)
+            self._set_track_keyframes(self.normalize_track_number(track.data["number"]), False, switching=True)
+        self._effects_tray.open_track(track_id, clip_id, effect_id, reveal=reveal)
 
     def paste_effect_ranges(self, mime_data, selected_clips):
         tray = getattr(self, "_effects_tray", None)

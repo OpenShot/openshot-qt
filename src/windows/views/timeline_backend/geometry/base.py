@@ -68,6 +68,7 @@ class GeometryBase:
         self.marker_rects = []
         self.track_list = []
         self.panel_rects = {}
+        self._preserved_vertical_scroll = None
         self._clip_starts = []
         self._clip_max_rights = []
         self._transition_starts = []
@@ -180,13 +181,21 @@ class GeometryBase:
         w.scroll_bar_rect = QRectF()
         return 0.0
 
+    def preserve_vertical_scroll(self):
+        """Keep the canvas at the same pixel offset through a layout change."""
+        top, _, content_height, _ = self.widget.v_scrollbar_position
+        self._preserved_vertical_scroll = top * content_height
+
     def _update_vertical_scrollbar(self, content_h, view_h):
         w = self.widget
         w.v_scrollbar_position[2] = content_h
         w.v_scrollbar_position[3] = view_h
         v_ratio = view_h / content_h if content_h else 1.0
         max_top = max(0.0, 1.0 - v_ratio)
-        top = max(0.0, min(w.v_scrollbar_position[0], max_top))
+        preserved = self._preserved_vertical_scroll
+        self._preserved_vertical_scroll = None
+        desired_top = preserved / content_h if preserved is not None and content_h else w.v_scrollbar_position[0]
+        top = max(0.0, min(desired_top, max_top))
         scroll_py = top * content_h
         max_vscroll = max(0.0, content_h - view_h)
         if max_vscroll:

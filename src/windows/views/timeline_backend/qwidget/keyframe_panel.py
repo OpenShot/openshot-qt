@@ -74,7 +74,10 @@ class KeyframePanelMixin:
         if not self._track_panel_enabled.get(key):
             return 0.0
         height = float(self._panel_heights.get(key, 0.0) or 0.0)
-        return height + getattr(self, "panel_header_height", 0) if height else 0.0
+        if not height:
+            return 0.0
+        floor = getattr(self, "_track_panel_height_floor", {}).get(key, 0)
+        return max(floor, height + getattr(self, "panel_header_height", 0))
 
     def get_track_panel_properties(self, track_num):
         key = self.normalize_track_number(track_num)
@@ -118,8 +121,8 @@ class KeyframePanelMixin:
                 available_map[str(available_key)] = dict(available_entry)
         return available_map
 
-    def _panel_multi_manual_entry(self, track_key, available_map):
-        manual_entry = self._panel_manual_properties.get(track_key)
+    def _panel_multi_manual_entry(self, track_key, available_map, manual_properties):
+        manual_entry = manual_properties.get(track_key)
         if not manual_entry or manual_entry.get("item_type") != "multi":
             manual_entry = {"item_id": "", "item_type": "multi", "properties": set()}
         else:
@@ -131,7 +134,7 @@ class KeyframePanelMixin:
         manual_entry["properties"] = {
             prop_id for prop_id in manual_entry.get("properties", set()) if prop_id in available_map
         }
-        self._panel_manual_properties[track_key] = manual_entry
+        manual_properties[track_key] = manual_entry
         return manual_entry
 
     @staticmethod
@@ -151,8 +154,8 @@ class KeyframePanelMixin:
             "context": {"item_type": "multi", "track": track_key},
         }
 
-    def _panel_multi_manual_rows(self, track_key, available_map):
-        manual_entry = self._panel_multi_manual_entry(track_key, available_map)
+    def _panel_multi_manual_rows(self, track_key, available_map, manual_properties):
+        manual_entry = self._panel_multi_manual_entry(track_key, available_map, manual_properties)
         rows = []
         for prop_id in sorted(manual_entry["properties"], key=lambda value: str(value).lower()):
             entry_obj = available_map.get(prop_id)
@@ -3210,13 +3213,16 @@ class KeyframePanelMixin:
         available.sort(key=lambda item: item.get("display_name", "").lower())
         return result, context, available
 
-    def _update_track_panel_properties(self):
+    def _update_track_panel_properties(self, *, measure_track=None):
+        """Refresh the open panels, or measure one track with the current selection."""
         if not getattr(self, "win", None):
             log.info("Keyframe panel refresh skipped: no window reference")
             return False
         timeline_sync = getattr(self.win, "timeline_sync", None)
         timeline = getattr(timeline_sync, "timeline", None) if timeline_sync else None
         if not timeline:
+            if measure_track is not None:
+                return 0
             self._panel_properties = {}
             self._panel_heights = {}
             self._panel_manual_properties = {}
@@ -3227,6 +3233,10 @@ class KeyframePanelMixin:
             for track, state in self._track_panel_enabled.items()
             if state
         }
+        measuring = measure_track is not None
+        if measuring:
+            enabled_tracks = {measure_track}
+        manual_properties = dict(self._panel_manual_properties) if measuring else self._panel_manual_properties
         if not enabled_tracks:
             had_data = bool(self._panel_properties or self._panel_heights)
             if had_data:
@@ -3316,7 +3326,7 @@ class KeyframePanelMixin:
                     for entry_obj in available
                     if isinstance(entry_obj, dict) and entry_obj.get("key") is not None
                 }
-                manual_entry = self._panel_manual_properties.get(key)
+                manual_entry = manual_properties.get(key)
                 if (
                     not manual_entry
                     or manual_entry.get("item_id") != item_id
@@ -3358,7 +3368,7 @@ class KeyframePanelMixin:
                         existing_keys.add(prop_id)
                 if properties:
                     properties.sort(key=lambda item: str(item.get("display_name", "")).lower())
-                self._panel_manual_properties[key] = manual_entry
+                manual_properties[key] = manual_entry
 
                 if not properties:
                     if available:
@@ -3452,7 +3462,7 @@ class KeyframePanelMixin:
 
             combined_props = list(grouped_props.values())
             if combined_props:
-                manual_entry = self._panel_multi_manual_entry(key, combined_available)
+                manual_entry = self._panel_multi_manual_entry(key, combined_available, manual_properties)
                 existing_multi_keys = {
                     str(row.get("key"))
                     for row in combined_props
@@ -3496,7 +3506,7 @@ class KeyframePanelMixin:
                     combined_available.values(),
                     key=lambda entry: str(entry.get("display_name") or entry.get("key") or "").lower(),
                 )
-                _, manual_rows = self._panel_multi_manual_rows(key, combined_available)
+                _, manual_rows = self._panel_multi_manual_rows(key, combined_available, manual_properties)
 
                 if manual_rows:
                     manual_rows.sort(key=lambda row: str(row.get("display_name") or "").lower())
@@ -3535,6 +3545,9 @@ class KeyframePanelMixin:
                 info, height = _placeholder_info(label, reason)
                 new_props[track_num] = info
                 new_heights[track_num] = height
+
+        if measuring:
+            return self.panel_header_height + new_heights[measure_track]
 
         changed = new_props != self._panel_properties or new_heights != self._panel_heights
         if changed:

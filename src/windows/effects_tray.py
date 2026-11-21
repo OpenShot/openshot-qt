@@ -48,6 +48,25 @@ def clip_effect_lanes(rows):
     return [entries for _, entries in lanes]
 
 
+def track_effect_layout(track):
+    layer = track.data["number"]
+    track_effects = track.data.get("effects") or []
+    clips = sorted(Clip.filter(layer=layer), key=lambda item: item.data["position"])
+    clip_rows = []
+    for clip in clips:
+        data = clip.data
+        start, end, position = data["start"], data["end"], data["position"]
+        for effect in sorted(data.get("effects") or [], key=clip_effect_sort_key):
+            trim = effect.get("clip_range") or {}
+            first = max(start, trim.get("start", start))
+            last = min(end, trim.get("end", end))
+            clip_rows.append(("clip", clip, effect, position + first - start, position + last - start))
+
+    clip_lanes = [[clip_rows[index] for index in entries] for entries in clip_effect_lanes(clip_rows)]
+    transitions = sorted(Transition.filter(layer=layer), key=lambda item: item.data["position"])
+    return clips, track_effects, clip_lanes, transitions
+
+
 def shift_effect_keyframes(value, frames):
     """Return the value with animated curves translated on their frame axis."""
     if isinstance(value, dict):
@@ -70,10 +89,6 @@ def shift_effect_keyframes(value, frames):
 
 class EffectsTray(QObject):
     """An expandable timeline panel with fixed labels and time-aligned bars."""
-
-    header_height = 31
-    row_height = 29
-    bottom_padding = 5
 
     def __init__(self, timeline):
         super().__init__(timeline)
@@ -105,14 +120,34 @@ class EffectsTray(QObject):
         self._press = None
         self._preview = None
 
-    def open_track(self, track_id, clip_id=None, effect_id=None):
+    @property
+    def header_height(self):
+        return self.timeline.panel_header_height
+
+    @property
+    def row_height(self):
+        return self.timeline.keyframe_panel_row_height
+
+    @property
+    def row_stride(self):
+        return self.row_height + self.timeline.keyframe_panel_row_spacing
+
+    def _row_top(self, lane, slot=0):
+        return lane.top() + self.header_height + self.timeline.keyframe_panel_padding + slot * self.row_stride
+
+    def _slot_at(self, pos, lane):
+        return int((pos.y() - self._row_top(lane)) // self.row_stride)
+
+    def open_track(self, track_id, clip_id=None, effect_id=None, *, reveal=True):
         if track_id == self.track_id and not clip_id and not effect_id:
             self.close()
             return
+        if self.track_id is not None and track_id != self.track_id:
+            self.timeline._track_panel_height_floor.pop(self.track_number, None)
         self.track_id = track_id
         self.clip_id = clip_id
-        self.selected_id = effect_id
-        self.selected_ids = {effect_id} if effect_id else set()
+        self.selected_id = None
+        self.selected_ids = set()
         self._clear_gesture()
         self.keyboard_edge = None
         self.refresh()
@@ -124,8 +159,10 @@ class EffectsTray(QObject):
         self.active = bool(clip_id or effect_id)
         if effect_id:
             self._set_selection({effect_id}, effect_id)
+        else:
+            self._reserve_keyframe_height()
         self._invalidate()
-        if clip_id:
+        if clip_id and reveal:
             self._reveal_clip_section(clip_id)
 
     def _reveal_clip_section(self, clip_id):
@@ -140,8 +177,8 @@ class EffectsTray(QObject):
         first, last = (min(slots), max(slots)) if slots else (section[0], section[0])
         if section and first == section[0] + 1:
             first = section[0]
-        top_y = lane.top() + self.header_height + first * self.row_height
-        end_y = lane.top() + self.header_height + (last + 1) * self.row_height
+        top_y = self._row_top(lane, first)
+        end_y = self._row_top(lane, last) + self.row_height
         bottom = w.height() - w.scroll_bar_thickness
         end_y = min(end_y, top_y + bottom - w.ruler_height)
         delta = top_y - w.ruler_height if top_y < w.ruler_height else max(0.0, end_y - bottom)
@@ -152,7 +189,9 @@ class EffectsTray(QObject):
             w.v_scrollbar_position[:2] = [top, top + span]
             self._invalidate()
 
-    def close(self):
+    def close(self, *, switching=False):
+        if not switching:
+            self.timeline._track_panel_height_floor.pop(self.track_number, None)
         self.track_id = None
         self.track_number = None
         self.rows = []
@@ -169,11 +208,30 @@ class EffectsTray(QObject):
         self.timeline.geometry.mark_dirty()
         self.timeline.update()
 
+    @staticmethod
+    def preferred_height(timeline, track):
+        _, track_effects, clip_lanes, transitions = track_effect_layout(track)
+        rows = len(track_effects) + len(clip_lanes) + len(transitions)
+        rows += 2 if track_effects and clip_lanes else 0
+        rows += bool(transitions)
+        return timeline.panel_header_height + timeline._panel_height_for_properties(max(1, rows))
+
+    def _reserve_keyframe_height(self):
+        number = self.track_number
+        if number is None:
+            return
+        height = self.timeline._update_track_panel_properties(measure_track=number)
+        if height > self.height(number):
+            self.timeline._track_panel_height_floor[number] = height
+            self.timeline.geometry.preserve_vertical_scroll()
+            self._invalidate()
+
     def height(self, track_number):
         if self.track_id is None or self.track_number != track_number:
             return 0
         rows = max(1, len(self.lane_rows) + len(self.sections))
-        return self.header_height + rows * self.row_height + self.bottom_padding
+        height = self.header_height + self.timeline._panel_height_for_properties(rows)
+        return max(height, self.timeline._track_panel_height_floor.get(track_number, 0))
 
     def _track(self):
         return Track.get(id=self.track_id) if self.track_id else None
@@ -205,19 +263,8 @@ class EffectsTray(QObject):
             rows.extend(entries)
 
         _ = self.translate
-        track_effects = track.data.get("effects") or []
-        self.clips = sorted(Clip.filter(layer=layer), key=lambda item: item.data["position"])
-        clip_rows = []
-        for clip in self.clips:
-            data = clip.data
-            start, end, position = data["start"], data["end"], data["position"]
-            for effect in sorted(data.get("effects") or [], key=clip_effect_sort_key):
-                trim = effect.get("clip_range") or {}
-                first = max(start, trim.get("start", start))
-                last = min(end, trim.get("end", end))
-                clip_rows.append(("clip", clip, effect, position + first - start, position + last - start))
-
-        both_scopes = bool(track_effects and clip_rows)
+        self.clips, track_effects, clip_lanes, transitions = track_effect_layout(track)
+        both_scopes = bool(track_effects and clip_lanes)
         if both_scopes:
             section("track", track, _("Track Effects"))
         for effect in track_effects:
@@ -225,10 +272,9 @@ class EffectsTray(QObject):
             add_lane([("track", track, effect, trim.get("start", 0.0), trim.get("end"))])
         if both_scopes:
             section("clip", None, _("Clip Effects"))
-        for entries in clip_effect_lanes(clip_rows):
-            add_lane([clip_rows[index] for index in entries])
+        for entries in clip_lanes:
+            add_lane(entries)
 
-        transitions = sorted(Transition.filter(layer=layer), key=lambda item: item.data["position"])
         if transitions:
             section("transition", None, _("Transitions"))
         for transition in transitions:
@@ -267,7 +313,7 @@ class EffectsTray(QObject):
         return QRectF(10, lane.top(), max(0.0, lane.left() - 20), self.header_height)
 
     def _section_rect(self, section, lane):
-        y = lane.top() + self.header_height + section[0] * self.row_height
+        y = self._row_top(lane, section[0])
         return QRectF(0, y, lane.right() - 8, self.row_height)
 
     def _clip_at(self, seconds):
@@ -311,8 +357,8 @@ class EffectsTray(QObject):
         )
 
     def _row_rect(self, index, lane):
-        top = lane.top() + self.header_height + self.row_slots[index] * self.row_height
-        return QRectF(lane.left(), top + 3, max(0.0, lane.width() - 8), self.row_height - 9)
+        top = self._row_top(lane, self.row_slots[index])
+        return QRectF(lane.left(), top + 2, max(0.0, lane.width() - 8), self.row_height - 4)
 
     def _bar_rect(self, index, lane):
         kind, owner, effect, first, last = self.rows[index]
@@ -387,7 +433,7 @@ class EffectsTray(QObject):
         font.setBold(False)
         painter.setFont(font)
         if not self.rows:
-            y = lane.top() + self.header_height
+            y = self._row_top(lane)
             empty_bg = QColor(theme.keyframe_panel_property_bg)
             if not empty_bg.isValid():
                 empty_bg = well.lighter(120)
@@ -512,7 +558,7 @@ class EffectsTray(QObject):
             if not self.locked and self._add_rect(lane).contains(pos):
                 return ("add", None)
             return ("close" if self._heading_rect(lane).contains(pos) else "blank", None)
-        slot = int((pos.y() - panel.top() - self.header_height) // self.row_height)
+        slot = self._slot_at(pos, lane)
         entries = self.lane_rows.get(slot, ())
         if pos.x() < lane.left():
             index = next((entry for entry in entries if self.rows[entry][2]["id"] == self.selected_id), None)
@@ -601,6 +647,8 @@ class EffectsTray(QObject):
             self.timeline.window.addSelection(self.selected_id, "transition" if kind == "transition" else "effect", True)
         elif previous:
             self.timeline.window.removeSelection(previous, "effect")
+        if self.selected_id != previous:
+            self._reserve_keyframe_height()
         self.timeline.update()
 
     def _selection_rows(self):
@@ -857,7 +905,7 @@ class EffectsTray(QObject):
             return None, None
         clip = self._clip_at(self.timeline._seconds_from_x(pos.x())) if pos.x() >= lane.left() else None
         track = self._track()
-        slot = int((pos.y() - lane.top() - self.header_height) // self.row_height)
+        slot = self._slot_at(pos, lane)
         entries = self.lane_rows.get(slot)
         if entries:
             hit = self._hit(pos)
