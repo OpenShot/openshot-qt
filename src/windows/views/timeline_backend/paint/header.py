@@ -30,6 +30,26 @@ from qt_api import QRectF, Qt, QFont, QFontMetrics, QColor, QPainter, QPainterPa
 from classes.qt_types import font_metrics_horizontal_advance
 
 
+def effect_badge_label(count):
+    return f"FX {count}" if count > 1 else "FX"
+
+
+def draw_effect_badge(painter, rect, font, label, accent, text_color, opacity):
+    """Paint the same outlined badge on track headers and clip titles."""
+    fill = QColor(accent)
+    fill.setAlphaF(opacity)
+    painter.save()
+    painter.setRenderHint(QPainter.Antialiasing, True)
+    painter.setFont(font)
+    painter.setBrush(fill)
+    painter.setPen(QPen(accent, 1))
+    radius = min(4.0, rect.height() / 4)
+    painter.drawRoundedRect(rect.adjusted(0.5, 0.5, -0.5, -0.5), radius, radius)
+    painter.setPen(text_color)
+    painter.drawText(rect, Qt.AlignCenter, label)
+    painter.restore()
+
+
 class ItemHeaderMixin:
     """One viewport placement and rendering path for clip and transition controls."""
 
@@ -133,7 +153,8 @@ class ItemHeaderMixin:
         badge_label = ""
         badge_width = 0.0
         if effects:
-            labels = (f"FX {len(effects)}", "FX") if len(effects) > 1 else ("FX",)
+            preferred = effect_badge_label(len(effects))
+            labels = (preferred, "FX") if len(effects) > 1 else (preferred,)
             for candidate in labels:
                 width = font_metrics_horizontal_advance(badge_fm, candidate) + 8.0
                 if pad_x * 2 + width + icon_gap * 2 + icon_size <= text_width:
@@ -190,17 +211,11 @@ class ItemHeaderMixin:
                 selected_ids = getattr(self.w, "_selected_effect_ids", set)()
                 selected = any(effect.get("selected") or str(effect.get("id")) in selected_ids
                                for effect in effects)
-                fill = QColor(accent)
-                fill.setAlphaF(0.35 if selected else 0.18)
-                painter.save()
-                painter.setRenderHint(QPainter.Antialiasing, True)
-                painter.setFont(badge_font)
-                painter.setBrush(fill)
-                painter.setPen(QPen(accent, 1))
-                painter.drawRoundedRect(badge_rect, 4, 4)
-                painter.setPen(Qt.white)
-                painter.drawText(badge_rect, Qt.AlignCenter, badge_label)
-                painter.restore()
+                # Clip titles use a dark scrim in every theme.
+                if accent.lightnessF() < 0.36:
+                    accent = accent.lighter(180)
+                draw_effect_badge(painter, badge_rect, badge_font, badge_label, accent, Qt.white,
+                                  0.49 if selected else 0.32)
                 if icon_entries is not None:
                     icon_entries.append({"rect": badge_rect, "effects": effects, "label": badge_label})
 

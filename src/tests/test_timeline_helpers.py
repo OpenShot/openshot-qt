@@ -514,6 +514,40 @@ class TimelineHelperTests(unittest.TestCase):
             self.assertEqual(theme.keyframe_panel_row_height, 24)
 
 
+    def test_track_fx_badge_counts_direct_effects_and_lights_for_clip_effects(self):
+        from windows.views.timeline_backend.paint.track import TrackPainter
+        from windows.views.timeline_backend.qwidget.track import TrackInteractionMixin
+
+        class Widget(TrackInteractionMixin, QWidget):
+            normalize_track_number = staticmethod(int)
+
+        widget = Widget()
+        self.addCleanup(widget.deleteLater)
+        widget.theme = self.cosmic_theme_module.CosmicDuskTimelineTheme().with_track_size("compact")
+        widget.track_painter = TrackPainter(widget)
+        widget.geometry = types.SimpleNamespace(clip_effect_counts_by_track={})
+        track = types.SimpleNamespace(id="track", data={"number": 1})
+        name = QRectF(0, 0, widget.theme.track.name_width, widget.theme.track.height)
+
+        def fx_button():
+            return next(button for button in widget._track_toolbar_buttons(track, name)
+                        if button["key"] == "effects-tray")
+
+        button = fx_button()
+        self.assertIs(widget._toolbar_button_pixmap(track, button), button["pixmaps"]["disabled"])
+        widget.geometry.clip_effect_counts_by_track[1] = 3
+        self.assertIs(widget._toolbar_button_pixmap(track, button), button["pixmaps"]["populated"])
+        self.assertEqual(fx_button()["rect"], button["rect"])
+
+        widget.geometry.clip_effect_counts_by_track.clear()
+        track.data["effects"] = [{"id": "A"}]
+        self.assertIs(widget._toolbar_button_pixmap(track, button), button["pixmaps"]["populated"])
+        track.data["effects"].append({"id": "B"})
+        counted = fx_button()
+        self.assertGreater(counted["rect"].width(), button["rect"].width())
+        self.assertTrue(name.contains(counted["rect"]))
+        self.assertIs(widget._toolbar_button_pixmap(track, counted), counted["pixmaps"]["populated"])
+
     def test_compact_track_headers_keep_titles_and_controls_in_separate_hit_targets(self):
         from windows.views.timeline_backend.paint.track import TrackPainter
         from windows.views.timeline_backend.qwidget.track import TrackInteractionMixin

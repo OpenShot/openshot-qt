@@ -64,6 +64,7 @@ class GeometryBase:
         self.dirty = True
         self.track_rects = []
         self.clip_entries = []
+        self.clip_effect_counts_by_track = {}
         self.transition_entries = []
         self.marker_rects = []
         self.track_list = []
@@ -96,6 +97,7 @@ class GeometryBase:
     def _reset_cache(self):
         self.track_rects.clear()
         self.clip_entries.clear()
+        self.clip_effect_counts_by_track.clear()
         self.transition_entries.clear()
         self.marker_rects.clear()
         self.panel_rects.clear()

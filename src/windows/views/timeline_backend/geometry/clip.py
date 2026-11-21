@@ -39,6 +39,7 @@ class ClipGeometryMixin:
         w = self.widget
         overrides_map = getattr(w, "_pending_clip_overrides", {})
         entries = []
+        self.clip_effect_counts_by_track = {}
         selected_ids = {
             str(item_id)
             for item_id in (getattr(win, "selected_clips", []) or [])
@@ -73,6 +74,11 @@ class ClipGeometryMixin:
                 layer_key = int(layer_val)
             except (TypeError, ValueError):
                 layer_key = layer_val
+
+            effects = clip_data.get("effects")
+            if isinstance(effects, list) and effects:
+                counts = self.clip_effect_counts_by_track
+                counts[layer_key] = counts.get(layer_key, 0) + sum(isinstance(effect, dict) for effect in effects)
 
             cx = (
                 w.track_name_width

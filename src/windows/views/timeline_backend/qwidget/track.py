@@ -65,6 +65,10 @@ class TrackInteractionMixin:
 
         for key in order:
             pix_info = icons.get(key)
+            if key == "effects-tray":
+                count = len(track.data.get("effects") or ())
+                if count > 1:
+                    pix_info = painter.effect_button_pixmaps(count)
             if not pix_info:
                 continue
             if key == "lock-toggle":
@@ -92,6 +96,7 @@ class TrackInteractionMixin:
                 "margin_x": margin_x,
                 "margin_y": margin,
                 "icon_height": icon_height,
+                "icon_width": pix_w,
                 "pixmaps": pix_info,
             })
 
@@ -104,19 +109,21 @@ class TrackInteractionMixin:
             hit_size = min(22.0, max(0.0, row_height - 2.0))
             hit_width = min(hit_size, float(self.theme.track_control_size) + 4.0)
             right_margin = 6.0
-            left = name_rect.right() - right_margin - len(specs) * hit_width
-            for spec in specs:
+            widths = [max(hit_width, spec["icon_width"] + 4.0) if spec["key"] == "effects-tray" else hit_width
+                      for spec in specs]
+            left = name_rect.right() - right_margin - sum(widths)
+            for spec, width_for_button in zip(specs, widths):
                 pix_info = spec["pixmaps"]
                 if spec["key"] == "lock-toggle":
                     pix_info = pix_info.get("locked") or pix_info.get("unlocked") or {}
                 pix = pix_info.get("enabled") or pix_info.get("disabled")
                 width, height = painter.logical_size(pix)
                 spec["rect"] = QRectF(left, name_rect.y() + (row_height - hit_size) / 2.0,
-                                      hit_width, hit_size)
-                spec["margin_x"] = max(0.0, (hit_width - width) / 2.0)
+                                      width_for_button, hit_size)
+                spec["margin_x"] = max(0.0, (width_for_button - width) / 2.0)
                 spec["margin_y"] = max(0.0, (hit_size - height) / 2.0)
                 buttons.append(spec)
-                left += hit_width
+                left += width_for_button
             return buttons
 
         left_limit = name_rect.x() + border + menu_margin
@@ -249,8 +256,11 @@ class TrackInteractionMixin:
 
         if key == "effects-tray":
             panel = getattr(self, "_effects_tray", None)
-            if panel and panel.track_id == track.id:
+            if (panel and panel.track_id == track.id) or pressed:
                 return pixmaps.get("active")
+            clip_counts = getattr(self.geometry, "clip_effect_counts_by_track", {})
+            if track.data.get("effects") or clip_counts.get(button.get("track_num")):
+                return pixmaps.get("active" if hovered else "populated")
 
         state = "enabled" if (hovered or pressed) else "disabled"
         pix = pixmaps.get(state) or pixmaps.get("enabled") or pixmaps.get("disabled")

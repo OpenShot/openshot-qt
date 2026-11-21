@@ -41,6 +41,7 @@ from qt_api import (
 )
 
 from .base import BasePainter
+from .header import draw_effect_badge, effect_badge_label
 from classes.qt_types import font_metrics_horizontal_advance
 
 
@@ -152,6 +153,16 @@ class TrackPainter(BasePainter):
                 },
             }
 
+        self._effect_button_pixmaps = {}
+        toolbar["effects-tray"] = self.effect_button_pixmaps()
+        self.toolbar_pixmaps = toolbar
+
+    def effect_button_pixmaps(self, count=0):
+        label = effect_badge_label(count)
+        cached = self._effect_button_pixmaps.get(label)
+        if cached:
+            return cached
+
         size = max(12, round(self.w.theme.track_control_size))
         accent = QColor(self.w.theme.track_control_color)
         if not accent.isValid():
@@ -159,28 +170,21 @@ class TrackPainter(BasePainter):
         font = QFont(self.w.font())
         font.setBold(True)
         font.setPixelSize(max(8, round(size * 0.57)))
-        badge_states = {}
-        for state in ("disabled", "enabled", "active"):
-            badge = QPixmap(size * 2, size * 2)
+        width = max(size, font_metrics_horizontal_advance(QFontMetrics(font), label) + 6) if count > 1 else size
+        states = {}
+        for state, opacity in (("disabled", 0.0), ("enabled", 0.14), ("populated", 0.32), ("active", 0.49)):
+            badge = QPixmap(width * 2, size * 2)
             badge.setDevicePixelRatio(2)
             badge.fill(Qt.transparent)
             painter = QPainter(badge)
-            painter.setRenderHint(QPainter.Antialiasing)
             color = QColor(accent)
             if state == "disabled":
                 color.setAlphaF(0.55)
-            if state == "active":
-                fill = QColor(accent)
-                fill.setAlphaF(0.22)
-                painter.setBrush(fill)
-            painter.setPen(color)
-            painter.setFont(font)
-            painter.drawRoundedRect(QRectF(1, 1, size - 2, size - 2), 3, 3)
-            painter.drawText(QRectF(0, 0, size, size), Qt.AlignCenter, "FX")
+            draw_effect_badge(painter, QRectF(0.5, 0.5, width - 1, size - 1), font, label, color, color, opacity)
             painter.end()
-            badge_states[state] = badge
-        toolbar["effects-tray"] = badge_states
-        self.toolbar_pixmaps = toolbar
+            states[state] = badge
+        self._effect_button_pixmaps[label] = states
+        return states
 
     def track_title_geometry(self, name_rect, track=None, *, painter=None):
         if name_rect.isNull() or name_rect.width() <= 0.0 or name_rect.height() <= 0.0:

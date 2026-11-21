@@ -3060,7 +3060,12 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             locked = bool(getattr(track, "data", {}).get("lock")) if track else False
             return _("Unlock track") if locked else _("Lock track")
         if key == "effects-tray":
-            return _("Effects and Transitions")
+            title = _("Effects and Transitions")
+            track_count = len(track.data.get("effects") or ()) if track else 0
+            clip_count = getattr(self.geometry, "clip_effect_counts_by_track", {}).get(button.get("track_num"), 0)
+            if track_count or clip_count:
+                title += "\n" + (_("Track effects %d · Clip effects %d") % (track_count, clip_count))
+            return title
         if key == "keyframe-panel":
             track_num = button.get("track_num")
             enabled = bool(self._track_panel_enabled.get(track_num, False))
