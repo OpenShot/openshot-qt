@@ -522,11 +522,44 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
 
         return profile
 
+    def read_project_candidate(self, file_path):
+        """Validate JSON or restricted legacy data before replacing the active project."""
+        try:
+            candidate = self.read_from_file(file_path, path_mode="absolute")
+        except Exception as ex:
+            cause = ex
+            while cause.__cause__ is not None:
+                cause = cause.__cause__
+            if not isinstance(cause, (json.JSONDecodeError, UnicodeDecodeError)):
+                raise
+            from qt_api import is_content_uri
+            if is_content_uri(file_path):
+                raise
+            with open(file_path, "rb") as stream:
+                prefix = stream.read(64).lstrip()
+            if not prefix or prefix.startswith((b"{", b"[", b"\xef\xbb\xbf")):
+                raise
+            from classes.legacy_project import read_legacy_project
+            return read_legacy_project(file_path)
+        from classes.project_recovery import validate_project
+        validate_project(candidate)
+        return candidate
+
     def load(self, file_path, clear_thumbnails=True, interactive=True, candidate=None):
         """ Load project from file """
 
-        if file_path and candidate is None:
-            candidate = self.read_from_file(file_path, path_mode="absolute")
+        legacy_data = None
+        if file_path:
+            if candidate is None:
+                candidate = self.read_project_candidate(file_path)
+            from classes.legacy_project import _RECORDS
+            if isinstance(candidate, _RECORDS['project']):
+                legacy_data = candidate
+                candidate = {}
+            else:
+                from classes.project_recovery import validate_project
+                validate_project(candidate)
+
         if file_path and not interactive:
             # Validate paths before replacing the active project; agents must never
             # open a modal missing-file dialog or silently drop missing media.
@@ -543,11 +576,12 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
                     for child in value:
                         check_paths(child)
             check_paths(candidate)
-        # Parse and validate before reset, including interactive opening. Never
-        # dispatch untrusted project bytes to the legacy pickle importer.
-        if file_path:
-            from classes.project_recovery import validate_project
-            validate_project(candidate)
+            if legacy_data is not None:
+                from classes.legacy_project import _RECORDS, legacy_media_path
+                for item in legacy_data.project_folder.items:
+                    if isinstance(item, _RECORDS["OpenShotFile"]):
+                        if not os.path.exists(legacy_media_path(file_path, item.name)):
+                            raise FileNotFoundError("Missing project asset: " + item.name)
         self.new()
         measurements = getattr(get_app(), 'gpu_measurements', None)
         if measurements:
@@ -559,7 +593,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             # Default project data
             default_project = self._data
 
-            project_data = candidate
+            project_data = (self.read_legacy_project_file(file_path, legacy_data=legacy_data)
+                            if legacy_data is not None else candidate)
 
             # Fix history (if broken)
             if not project_data.get("history"):
@@ -643,9 +678,230 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         scaler = KeyframeScaler(factor=scale_factor)
         scaler(self._data)
 
-    def read_legacy_project_file(self, file_path):
-        """Legacy pickle projects can execute code and must not be deserialized."""
-        raise ValueError("OpenShot 1.x pickle projects are no longer supported. Open a JSON .osp project instead.")
+    def read_legacy_project_file(self, file_path, legacy_data=None):
+        """Attempt to read a legacy version 1.x openshot project file"""
+        from classes.query import File, Track, Clip, Transition
+        import openshot
+        import json
+
+        # Append version info
+        project_data = {}
+        project_data["version"] = {"openshot-qt": info.VERSION,
+                                   "libopenshot": openshot.OPENSHOT_VERSION_FULL}
+
+        # Get FPS from project
+        fps = get_app().project.get("fps")
+        fps_float = float(fps["num"]) / float(fps["den"])
+
+        from classes.legacy_project import read_legacy_project, _RECORDS, legacy_media_path
+        if legacy_data is None:
+            legacy_data = read_legacy_project(file_path)
+
+        # Keep track of files that failed to load
+        failed_files = []
+
+        try:
+            v1_data = legacy_data
+            file_lookup = {}
+
+            # Loop through files
+            for item in v1_data.project_folder.items:
+                # Is this item a File (i.e. ignore folders)
+                if isinstance(item, _RECORDS["OpenShotFile"]):
+                    # Create file
+                    try:
+                        clip = openshot.Clip(legacy_media_path(file_path, item.name))
+                        reader = clip.Reader()
+                        file_data = json.loads(reader.Json(), strict=False)
+
+                        # Determine media type
+                        file_data["media_type"] = get_media_type(file_data)
+
+                        # Save new file to the project data
+                        file = File()
+                        file.data = file_data
+                        file.save()
+
+                        # Keep track of new ids and old ids
+                        file_lookup[item.unique_id] = file
+
+                    except Exception:
+                        log.error("%s is not a valid video, audio, or image file",
+                                  item.name,
+                                  exc_info=1)
+                        failed_files.append(item.name)
+
+            # Delete all tracks
+            track_list = Track.filter()
+            for track in track_list:
+                track.delete()
+
+            # Use the same positive track numbers as newly created projects.
+            track_counter = 1000000
+            for legacy_t in reversed(v1_data.sequences[0].tracks):
+                t = Track()
+                t.data = {"number": track_counter, "y": 0, "label": legacy_t.name}
+                t.save()
+
+                track_counter += 1000000
+
+            # Loop through clips
+            track_counter = 1000000
+            for sequence in v1_data.sequences:
+                for track in reversed(sequence.tracks):
+                    for clip in track.clips:
+                        # Get associated file for this clip
+                        if clip.file_object.unique_id in file_lookup:
+                            file = file_lookup[clip.file_object.unique_id]
+                        else:
+                            # Skip missing file
+                            log.info("Skipping importing missing file: %s" % clip.file_object.unique_id)
+                            continue
+
+                        # Create clip
+                        if (file.data["media_type"] == "video" or file.data["media_type"] == "image"):
+                            # Determine thumb path
+                            thumb_path = os.path.join(info.THUMBNAIL_PATH, "%s.png" % file.data["id"])
+                        else:
+                            # Audio file
+                            thumb_path = os.path.join(info.PATH, "images", "AudioThumbnail.svg")
+
+                        # Get file name
+                        filename = os.path.basename(file.data["path"])
+
+                        media_path = file.absolute_path()
+
+                        # Create clip object for this file
+                        c = openshot.Clip(media_path)
+
+                        # Append missing attributes to Clip JSON
+                        new_clip = json.loads(c.Json(), strict=False)
+                        new_clip["file_id"] = file.id
+                        new_clip["title"] = filename
+
+                        # Check for optional start and end attributes
+                        new_clip["start"] = clip.start_time
+                        new_clip["end"] = clip.end_time
+                        new_clip["position"] = clip.position_on_track
+                        new_clip["layer"] = track_counter
+
+                        # Clear alpha (if needed)
+                        if clip.video_fade_in or clip.video_fade_out:
+                            new_clip["alpha"]["Points"] = []
+
+                        # Video Fade IN
+                        if clip.video_fade_in:
+                            # Add keyframes
+                            start = openshot.Point(round(clip.start_time * fps_float) + 1, 0.0, openshot.BEZIER)
+                            start_object = json.loads(start.Json(), strict=False)
+                            end = openshot.Point(round((clip.start_time + clip.video_fade_in_amount) * fps_float) + 1, 1.0, openshot.BEZIER)
+                            end_object = json.loads(end.Json(), strict=False)
+                            new_clip["alpha"]["Points"].append(start_object)
+                            new_clip["alpha"]["Points"].append(end_object)
+
+                        # Video Fade OUT
+                        if clip.video_fade_out:
+                            # Add keyframes
+                            start = openshot.Point(round((clip.end_time - clip.video_fade_out_amount) * fps_float) + 1, 1.0, openshot.BEZIER)
+                            start_object = json.loads(start.Json(), strict=False)
+                            end = openshot.Point(round(clip.end_time * fps_float) + 1, 0.0, openshot.BEZIER)
+                            end_object = json.loads(end.Json(), strict=False)
+                            new_clip["alpha"]["Points"].append(start_object)
+                            new_clip["alpha"]["Points"].append(end_object)
+
+                        # Clear Audio (if needed)
+                        if clip.audio_fade_in or clip.audio_fade_out:
+                            new_clip["volume"]["Points"] = []
+                        else:
+                            p = openshot.Point(1, clip.volume / 100.0, openshot.BEZIER)
+                            p_object = json.loads(p.Json(), strict=False)
+                            new_clip["volume"] = {"Points": [p_object]}
+
+                        # Audio Fade IN
+                        if clip.audio_fade_in:
+                            # Add keyframes
+                            start = openshot.Point(round(clip.start_time * fps_float) + 1, 0.0, openshot.BEZIER)
+                            start_object = json.loads(start.Json(), strict=False)
+                            end = openshot.Point(round((clip.start_time + clip.audio_fade_in_amount) * fps_float) + 1, clip.volume / 100.0, openshot.BEZIER)
+                            end_object = json.loads(end.Json(), strict=False)
+                            new_clip["volume"]["Points"].append(start_object)
+                            new_clip["volume"]["Points"].append(end_object)
+
+                        # Audio Fade OUT
+                        if clip.audio_fade_out:
+                            # Add keyframes
+                            start = openshot.Point(round((clip.end_time - clip.audio_fade_out_amount) * fps_float) + 1, clip.volume / 100.0, openshot.BEZIER)
+                            start_object = json.loads(start.Json(), strict=False)
+                            end = openshot.Point(round(clip.end_time * fps_float) + 1, 0.0, openshot.BEZIER)
+                            end_object = json.loads(end.Json(), strict=False)
+                            new_clip["volume"]["Points"].append(start_object)
+                            new_clip["volume"]["Points"].append(end_object)
+
+                        # Save clip
+                        clip_object = Clip()
+                        clip_object.data = new_clip
+                        clip_object.save()
+
+                    # Loop through transitions
+                    for trans in track.transitions:
+                        # Fix default transition
+                        if not trans.resource or not os.path.exists(trans.resource):
+                            trans.resource = os.path.join(info.PATH, "transitions", "common", "fade.svg")
+
+                        # Open up QtImageReader for transition Image
+                        transition_reader = openshot.QtImageReader(trans.resource)
+
+                        trans_begin_value = 1.0
+                        trans_end_value = -1.0
+                        if trans.reverse:
+                            trans_begin_value = -1.0
+                            trans_end_value = 1.0
+
+                        brightness = openshot.Keyframe()
+                        brightness.AddPoint(1, trans_begin_value, openshot.BEZIER)
+                        brightness.AddPoint(round(trans.length * fps_float) + 1, trans_end_value, openshot.BEZIER)
+                        contrast = openshot.Keyframe(trans.softness * 10.0)
+
+                        # Create transition dictionary
+                        transitions_data = {
+                            "id": get_app().project.generate_id(),
+                            "layer": track_counter,
+                            "title": "Transition",
+                            "type": "Mask",
+                            "position": trans.position_on_track,
+                            "start": 0,
+                            "end": trans.length,
+                            "brightness": json.loads(brightness.Json(), strict=False),
+                            "contrast": json.loads(contrast.Json(), strict=False),
+                            "reader": json.loads(transition_reader.Json(), strict=False),
+                            "replace_image": False
+                        }
+
+                        # Save transition
+                        t = Transition()
+                        t.data = transitions_data
+                        t.save()
+
+                    # Increment track counter
+                    track_counter += 1000000
+
+        except Exception as ex:
+            # Error parsing legacy contents
+            msg = "Failed to load legacy project file %(path)s" % {"path": file_path}
+            log.error(msg, exc_info=1)
+            raise RuntimeError(msg) from ex
+
+        # Show warning if some files failed to load
+        if failed_files:
+            # Throw exception
+            raise RuntimeError("Failed to load the following files:\n%s" % ", ".join(failed_files))
+
+        # Query objects saved the converted files, clips and tracks into this store.
+        # Return that complete project so the loader can inspect and merge it.
+        converted_project = self._data.copy()
+        converted_project.update(project_data)
+        log.info("Successfully loaded legacy project file: %s", file_path)
+        return converted_project
 
     def upgrade_project_data_structures(self):
         """Fix any issues with old project files (if any)"""
