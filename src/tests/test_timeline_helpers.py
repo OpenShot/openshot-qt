@@ -4604,6 +4604,17 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertIn(rect.left(), targets)
         self.assertIn(rect.right(), targets)
 
+    def test_panel_add_property_only_enables_for_an_available_hidden_row(self):
+        from windows.views.timeline_backend.qwidget.keyframe_panel import KeyframePanelMixin
+
+        panel = {"properties": [{"key": "alpha"}], "available_properties": [{"key": "alpha"}]}
+        widget = types.SimpleNamespace(_panel_properties={1: panel})
+        can_add = KeyframePanelMixin._panel_can_add_property
+        self.assertFalse(can_add(widget, 2))
+        self.assertFalse(can_add(widget, 1))
+        panel["available_properties"].append({"key": "scale_x"})
+        self.assertTrue(can_add(widget, 1))
+
     def test_vertical_scroll_anchor_keeps_its_pixel_offset_when_panels_resize(self):
         widget = types.SimpleNamespace(
             v_scrollbar_position=[0.25, 0.5, 400.0, 100.0],

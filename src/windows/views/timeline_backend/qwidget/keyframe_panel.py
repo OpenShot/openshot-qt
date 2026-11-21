@@ -86,6 +86,13 @@ class KeyframePanelMixin:
             return []
         return info.get("properties", [])
 
+    def _panel_can_add_property(self, track_num):
+        info = self._panel_properties.get(track_num) or {}
+        visible = {str(prop["key"]) for prop in (info.get("properties") or ())
+                   if prop.get("key") is not None and not prop.get("placeholder")}
+        return any(prop.get("key") is not None and str(prop["key"]) not in visible
+                   for prop in info.get("available_properties") or ())
+
     def get_track_panel_context(self, track_num):
         key = self.normalize_track_number(track_num)
         info = self._panel_properties.get(key)

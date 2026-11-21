@@ -60,6 +60,7 @@ from ..paint import (
     KeyframePainter,
 )
 from ..paint.hover import HoverFeedback, show_menu_with_hover
+from ..paint.keyframepanel import panel_add_button_rect, panel_heading_rect
 from ..snap import SnapHelper
 from ..theme import DEFAULT_THEME, TimelineTheme
 from ..state import TimelineStateMachine
@@ -3074,6 +3075,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         effects_tray = getattr(self, "_effects_tray", None)
         if effects_tray and effects_tray._hit(pos):
             return effects_tray.tooltip(pos)
+        if TimelineWidgetBase._keyframe_header_add_at(self, pos) is not None:
+            return _("Add Property")
         button = self._track_toolbar_button_at(pos)
         if button:
             return self._track_button_tooltip(button)
@@ -3291,6 +3294,11 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                 if cursor is not None:
                     self.setCursor(cursor)
                     return
+
+            keyframe_track = TimelineWidgetBase._keyframe_header_add_at(self, pos)
+            if keyframe_track is not None:
+                self.setCursor(Qt.PointingHandCursor if self._panel_can_add_property(keyframe_track) else Qt.ArrowCursor)
+                return
 
             if (
                 getattr(self, "playhead_time_editor", None)
@@ -3789,6 +3797,19 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                     return None
         return "left" if left_distance <= right_distance else "right"
 
+    def _keyframe_header_add_at(self, pos):
+        if (not any(getattr(self, "_track_panel_enabled", {}).values())
+                or pos.x() >= self.track_name_width or not self._is_timeline_content_pos(pos)):
+            return None
+        track_num = self._panel_track_at_pos(pos)
+        if track_num is None:
+            return None
+        panel = self.geometry.panel_rect(track_num)
+        if not panel:
+            return None
+        heading = panel_heading_rect(self.track_name_width, panel.top(), self.panel_header_height)
+        return track_num if panel_add_button_rect(heading).contains(pos) else None
+
     def _keyframe_header_click(self, pos):
         track_num = self._panel_track_at_pos(pos)
         if track_num is None:
@@ -3797,9 +3818,12 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         if not panel or pos.y() >= panel.top() + self.panel_header_height:
             return False
         if pos.x() < self.track_name_width:
-            self._set_track_keyframes(track_num, False)
-        elif pos.x() < self.track_name_width + 147:
-            self._panel_show_property_menu_at(pos)
+            heading = panel_heading_rect(self.track_name_width, panel.top(), self.panel_header_height)
+            if panel_add_button_rect(heading).contains(pos):
+                if self._panel_can_add_property(track_num):
+                    self._panel_show_property_menu_at(pos)
+            else:
+                self._set_track_keyframes(track_num, False)
         return True
 
     def _panel_track_at_pos(self, pos):

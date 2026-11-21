@@ -7,15 +7,17 @@ from contextlib import contextmanager
 from copy import deepcopy
 
 import openshot
-from qt_api import QApplication, QColor, QFont, QFontMetrics, QMimeData, QObject, QPointF, QRectF, Qt
+from qt_api import QApplication, QColor, QFont, QMimeData, QObject, QPointF, QRectF, Qt
 
 from classes.app import get_app
 from classes.clipboard import EFFECT_RANGES_MIME
 from classes.effect_init import effect_options
 from classes.query import Clip, Effect, Track, Transition
-from classes.qt_types import font_metrics_horizontal_advance
 from windows.views.menu import StyledContextMenu, add_bound_action
 from windows.views.timeline_backend.enums import MenuSlice
+from windows.views.timeline_backend.paint.keyframepanel import (
+    draw_panel_heading, panel_add_button_rect, panel_heading_rect,
+)
 
 
 def clip_effect_sort_key(effect):
@@ -310,7 +312,7 @@ class EffectsTray(QObject):
         return QRectF(), QRectF(), QRectF()
 
     def _heading_rect(self, lane):
-        return QRectF(10, lane.top(), max(0.0, lane.left() - 20), self.header_height)
+        return panel_heading_rect(lane.left(), lane.top(), self.header_height)
 
     def _section_rect(self, section, lane):
         y = self._row_top(lane, section[0])
@@ -334,12 +336,12 @@ class EffectsTray(QObject):
         return self._clip_at(((self.timeline.current_frame or 1) - 1) / self._frame_rate())
 
     def _add_rect(self, lane):
-        font = QFont(self.timeline.font())
-        font.setBold(True)
-        text_width = font_metrics_horizontal_advance(QFontMetrics(font), self.translate("+ Add Effect"))
-        left = lane.left() + 8
-        width = max(0.0, min(text_width + 20, lane.right() - left))
-        return QRectF(left, lane.top() + 4, width, self.header_height - 8)
+        return panel_add_button_rect(self._heading_rect(lane))
+
+    def _can_add_effect(self):
+        return not self.locked and bool(self.catalog) and (
+            self._clip_for_add() is not None or any(self._can_add(name) for name in self.catalog)
+        )
 
     def _row_controls(self, index, lane):
         kind, owner, effect, _, _ = self.rows[index]
@@ -405,30 +407,11 @@ class EffectsTray(QObject):
         painter.save()
         painter.setClipRect(visible, Qt.IntersectClip)
         painter.fillRect(lane, background)
-        painter.setPen(Qt.NoPen)
-        painter.setBrush(well)
-        painter.setPen(accent)
-        heading = self._heading_rect(lane)
-        heading_text = self.translate("Effects")
         font = QFont(self.timeline.font())
         font.setBold(True)
         painter.setFont(font)
-        title_width = max(0, int(heading.width()) - 17)
-        painter.drawText(heading, Qt.AlignVCenter | Qt.AlignLeft,
-                         painter.fontMetrics().elidedText(heading_text, Qt.ElideRight, title_width))
-        painter.drawText(heading, Qt.AlignVCenter | Qt.AlignRight, "⌄")
-
-        if not self.locked:
-            add = self._add_rect(lane)
-            if self.hovered == "add":
-                painter.setPen(Qt.NoPen)
-                painter.setBrush(well)
-                painter.drawRoundedRect(add, 4, 4)
-            painter.setPen(accent)
-            add_text = painter.fontMetrics().elidedText(
-                self.translate("+ Add Effect"), Qt.ElideRight, max(0, int(add.width()) - 10)
-            )
-            painter.drawText(add.adjusted(5, 0, -5, 0), Qt.AlignLeft | Qt.AlignVCenter, add_text)
+        draw_panel_heading(painter, self._heading_rect(lane), self.translate("Effects"), accent,
+                           self._can_add_effect())
 
         font.setBold(False)
         painter.setFont(font)
@@ -462,7 +445,7 @@ class EffectsTray(QObject):
             tint.setAlphaF(0.25 if active_feedback else 0.09)
             painter.fillRect(bounds, tint)
             painter.setPen(accent)
-            caption_area = bounds.adjusted(max(0.0, self._add_rect(lane).right() - bounds.left()), 0, -10, 0)
+            caption_area = bounds.adjusted(max(0.0, lane.left() + 8 - bounds.left()), 0, -10, 0)
             if caption_area.width() > 0:
                 painter.drawText(caption_area, Qt.AlignRight | Qt.AlignVCenter,
                                  painter.fontMetrics().elidedText(caption, Qt.ElideRight, int(caption_area.width())))
@@ -555,8 +538,8 @@ class EffectsTray(QObject):
         if pos.y() < panel.top() + self.header_height:
             if pos.x() >= lane.left() and self.timeline._get_keyframe_at(pos):
                 return None
-            if not self.locked and self._add_rect(lane).contains(pos):
-                return ("add", None)
+            if self._add_rect(lane).contains(pos):
+                return ("add" if self._can_add_effect() else "disabled-add", None)
             return ("close" if self._heading_rect(lane).contains(pos) else "blank", None)
         slot = self._slot_at(pos, lane)
         entries = self.lane_rows.get(slot, ())
@@ -601,7 +584,7 @@ class EffectsTray(QObject):
                 return self.timeline.cursors["razor"]
             if self._trim_edge(index, pos) is not None:
                 return Qt.SizeHorCursor
-        return Qt.ArrowCursor if target == "blank" else Qt.PointingHandCursor
+        return Qt.ArrowCursor if target in ("blank", "disabled-add") else Qt.PointingHandCursor
 
     def _clear_gesture(self):
         self._press = self._preview = self._marquee = None
@@ -752,7 +735,7 @@ class EffectsTray(QObject):
     def move(self, pos):
         if self._press is None:
             hit = self._hit(pos)
-            hover = hit[1] if hit and hit[0] == "row" else "add" if hit and hit[0] == "add" else None
+            hover = hit[1] if hit and hit[0] == "row" else None
             razor_line = None
             if isinstance(hover, int) and self.timeline.enable_razor and not self.locked:
                 row = self.rows[hover]
@@ -877,7 +860,7 @@ class EffectsTray(QObject):
             return ""
         target, index = hit
         _ = self.translate
-        if target == "add":
+        if target in ("add", "disabled-add"):
             return _("Add Effect")
         if target == "close":
             return _("Hide effects and transitions")
@@ -1063,7 +1046,7 @@ class EffectsTray(QObject):
         return menu
 
     def _add_menu(self, pos):
-        if not self.locked and self._track():
+        if self._can_add_effect() and self._track():
             menu = self._make_add_menu()
             menu.show_at(self.timeline.mapToGlobal(pos.toPoint()))
             menu.deleteLater()

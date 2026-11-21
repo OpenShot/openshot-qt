@@ -36,6 +36,38 @@ from classes.logger import log
 from .base import BasePainter
 
 
+def panel_heading_rect(width, top, height):
+    return QRectF(10, top, max(0.0, width - 20), height)
+
+
+def panel_add_button_rect(heading):
+    size = min(16.0, heading.height(), heading.width())
+    return QRectF(heading.right() - size, heading.center().y() - size / 2, size, size)
+
+
+def draw_panel_heading(painter, heading, title, accent, can_add):
+    """Paint the label and compact add affordance on either panel."""
+    button = panel_add_button_rect(heading)
+    label = heading.adjusted(0, 0, -min(heading.width(), button.width() + 6), 0)
+    painter.setPen(accent)
+    painter.drawText(label, Qt.AlignVCenter | Qt.AlignLeft,
+                     painter.fontMetrics().elidedText(title, Qt.ElideRight, int(label.width())))
+    if button.isEmpty():
+        return
+    ink = QColor(accent)
+    if not can_add:
+        ink.setAlphaF(ink.alphaF() * 0.43)
+    painter.save()
+    painter.setPen(QPen(ink, 1.0))
+    painter.setBrush(Qt.NoBrush)
+    painter.drawRoundedRect(button.adjusted(0.5, 0.5, -0.5, -0.5), 3, 3)
+    center = button.center()
+    arm = button.width() / 4
+    painter.drawLine(center - QPointF(arm, 0), center + QPointF(arm, 0))
+    painter.drawLine(center - QPointF(0, arm), center + QPointF(0, arm))
+    painter.restore()
+
+
 class KeyframePanelPainter(BasePainter):
     def __init__(self, widget):
         self._last_visible_tracks = None
@@ -441,19 +473,16 @@ class KeyframePanelPainter(BasePainter):
                     painter.fillRect(panel_fill, self.panel_brush)
                     painter.restore()
             if draw_labels and header_height:
-                heading = QRectF(10, panel_rect.y(), name_rect.width() - 20, header_height)
+                heading = panel_heading_rect(name_rect.width(), panel_rect.y(), header_height)
                 painter.save()
                 header_font = QFont(painter.font())
                 header_font.setBold(True)
                 painter.setFont(header_font)
                 accent = self.w.theme.track_control_color
-                painter.setPen(accent if accent.isValid() else self.text_pen.color())
-                painter.drawText(heading, Qt.AlignVCenter | Qt.AlignLeft, get_app()._tr("Keyframes"))
-                painter.drawText(heading, Qt.AlignVCenter | Qt.AlignRight, "⌄")
-                panel_info = self.w._panel_properties.get(track_num, {})
-                if panel_info.get("available_properties"):
-                    add = QRectF(self.w.track_name_width + 8, heading.y(), 139, header_height)
-                    painter.drawText(add, Qt.AlignLeft | Qt.AlignVCenter, get_app()._tr("+ Add Property"))
+                if not accent.isValid():
+                    accent = self.text_pen.color()
+                draw_panel_heading(painter, heading, get_app()._tr("Keyframes"), accent,
+                                   self.w._panel_can_add_property(track_num))
                 painter.restore()
             # Property labels keep their left inset when compact headers move
             # the track toolbar to the right.
