@@ -12,6 +12,7 @@ import unittest
 root = tempfile.mkdtemp(prefix="openshot-easy-text-")
 original_expanduser = os.path.expanduser
 os.path.expanduser = lambda path: root if path == "~" else original_expanduser(path)
+from unittest.mock import patch
 from classes.app import OpenShotApp
 from classes import info, version
 version.get_current_Version = lambda: None
@@ -474,7 +475,10 @@ def verify():
         app.quit()
 
 
-checks.assertTrue(app.gui())
-QTimer.singleShot(2500, verify)
-app.exec_()
+# Headless runners may have no audio output. Keep the startup error from
+# opening a modal dialog that steals keyboard focus from the text workflow.
+with patch("windows.preview_thread.PreviewParent.onError"):
+    checks.assertTrue(app.gui())
+    QTimer.singleShot(2500, verify)
+    app.exec_()
 sys.exit(0 if passed else 1)

@@ -273,9 +273,11 @@ class PlayerWorker(QObject):
         if audio_error:
             log.warning('Audio initialization error: %s', audio_error)
             self.error_found.emit(audio_error)
+            return
 
         # Check active sample rate from audio device
         # Parse string as float ("48000.0" -> 48000   OR   NaN)
+        detected_sample_rate_int = None
         detected_sample_rate = float(self.player.GetDefaultSampleRate())
         if detected_sample_rate and not math.isnan(detected_sample_rate) and detected_sample_rate > 0.0:
             # Convert float to Integer
