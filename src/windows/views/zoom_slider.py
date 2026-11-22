@@ -399,16 +399,18 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
                 painter.drawRect(playhead_rect)
                 painter.restore()
 
-            # Determine if play-head is inside scroll area
-            if get_app().window.preview_thread.player.Mode() == openshot.PLAYBACK_PLAY and self.is_auto_center:
-                if not self.scroll_bar_rect.contains(playhead_rect):
-                    get_app().window.TimelineCenter.emit()
-
         # End painter
         painter.end()
 
+    def _begin_manual_view_change(self):
+        self.is_auto_center = False
+        follow = getattr(self.win.timeline, "hold_playhead_follow_until_visible", None)
+        if follow:
+            follow()
+
     def zoomToTimeline(self):
         """Toggle between zooming to the entire timeline and the previous zoom"""
+        self._begin_manual_view_change()
         # Are we already zoomed complete out?
         if math.isclose(self.scrollbar_position[0], 0.0, abs_tol=1e-9) and math.isclose(self.scrollbar_position[1], 1.0, abs_tol=1e-9):
             # Restore previous zoom
@@ -425,11 +427,11 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         if event.button() != Qt.LeftButton:
             event.ignore()
             return
-        self.zoomToTimeline()
         # Qt replaces the second press with this event. Keep the release active
         # so it clears the gesture and resumes incoming scrollbar updates.
         self.mouse_pressed = True
         self.mouse_dragging = True  # Prevent mouseReleaseEvent from moving selection
+        self.zoomToTimeline()
         event.accept()
 
     def mousePressEvent(self, event):
@@ -437,6 +439,10 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         event.accept()
         if event.button() != Qt.LeftButton:
             return
+        # A deferred dock layout can otherwise restore the previous viewport.
+        end_layout_change = getattr(self.win.timeline, "end_properties_layout_change", None)
+        if end_layout_change:
+            end_layout_change()
         self._snap_target = None
         self.press_target = self._hit_target(_event_posf(event))
         self._set_target_cursor(self.press_target)
@@ -455,6 +461,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
         # Only a click on the background recenters the selection.
         if not self.mouse_dragging and self.press_target == "create":
+            self._begin_manual_view_change()
             # Center the scroll region at the click position (if outside the selection)
             click_pos = self._position_ratio(posf.x())
             selection_width = self.scrollbar_position[1] - self.scrollbar_position[0]
@@ -523,6 +530,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         if self.mouse_pressed and not self.mouse_dragging:
             if abs(self.mouse_position - mouse_pos) < 5:
                 return
+            self._begin_manual_view_change()
             self.mouse_dragging = True
             self.left_handle_dragging = self.press_target == "left"
             self.right_handle_dragging = self.press_target == "right"
@@ -644,7 +652,7 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
         project_duration = self._timeline_duration()
         normalized_scroll_width = self.scrollbar_position[1] - self.scrollbar_position[0]
         scroll_width_seconds = normalized_scroll_width * project_duration
-        tick_pixels = 100
+        tick_pixels = float(get_app().project.get("tick_pixels") or 100.0)
         if self.scrollbar_position[3] > 0.0:
             # Calculate the new zoom factor, based on pixels per tick
             zoom_factor = scroll_width_seconds / (self.scrollbar_position[3] / tick_pixels)
@@ -744,10 +752,10 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
 
     def update_scrollbars(self, new_positions):
         """Consume the current scroll bar positions from the timeline view."""
-        if self.mouse_dragging:
+        if self.mouse_pressed and not self._syncing_backend:
             return
 
-        self.scrollbar_position = new_positions
+        self.scrollbar_position = list(new_positions)
 
         # Check for empty clips rects
         if not self.clip_rects:
@@ -787,6 +795,15 @@ class ZoomSlider(QWidget, updates.UpdateInterface):
     def update_playhead_pos(self, currentFrame):
         """Callback when position is changed"""
         self.current_frame = currentFrame
+
+        # The QWidget timeline manages its own playback following.
+        if self.is_auto_center and not self.mouse_pressed and not hasattr(self.win.timeline, "_apply_external_zoom"):
+            player = self.win.preview_thread.player
+            duration = self._timeline_duration()
+            if player.Mode() == openshot.PLAYBACK_PLAY and player.Speed() != 0 and duration:
+                position = self._playhead_seconds() / duration
+                if not self.scrollbar_position[0] <= position <= self.scrollbar_position[1]:
+                    self.win.TimelineCenter.emit()
 
         # Schedule repaint (non-blocking)
         self.update()

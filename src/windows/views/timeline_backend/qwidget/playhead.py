@@ -99,18 +99,29 @@ class PlayheadMixin:
             self._keyboard_playhead_cycle = None
         self.current_frame = currentFrame
 
-        # Recenter each time playback crosses either edge of the viewport.
+        # Keep the zoom slider in control of the viewport while it is held.
+        slider = getattr(getattr(self, "win", None), "sliderZoomWidget", None)
+        slider_pressed = getattr(slider, "mouse_pressed", False)
         view_width = self.scrollbar_position[3]
-        if self.fps_float and view_width > 0 and not self.mouse_dragging and self._is_playing():
+        if (self.fps_float and view_width > 0 and not self.mouse_dragging
+                and not slider_pressed and self._is_playing()):
             x = (currentFrame - 1) / self.fps_float * self.pixels_per_second - self.h_scroll_offset
-            if x < 0 or x >= view_width:
+            if 0 <= x < view_width:
+                self._playhead_follow_held = False
+            elif not getattr(self, "_playhead_follow_held", False):
                 self.centerOnPlayhead()
 
         self.update()
 
+    def hold_playhead_follow_until_visible(self):
+        """Let a slider-selected viewport stay in place if playback is outside it."""
+        if self._is_playing():
+            self._playhead_follow_held = True
+
     def handle_play(self):
         """Callback when play button is clicked"""
         self.is_auto_center = True
+        self._playhead_follow_held = False
 
     def connect_playback(self):
         """Connect playback signals"""
