@@ -196,6 +196,22 @@ class ZoomSliderTests(unittest.TestCase):
         self.drag((x, 10), (x + 1, 10))
         self.assertEqual(self.slider.scrollbar_position[:2], [0.5, 0.50001])
         self.slider.delayed_resize_callback.assert_not_called()
+        self.window.timeline.hold_playhead_follow_until_visible.assert_not_called()
+
+    def test_slider_keeps_its_range_while_held(self):
+        x = self.slider.left_handle_rect.center().x()
+        self.slider.clip_rects = [object()]
+        self.slider.mousePressEvent(MouseEvent(x, 10))
+        self.window.timeline.end_properties_layout_change.assert_called_once_with()
+        self.slider.update_scrollbars([0.1, 0.2, 1000, 100])
+        self.assertEqual(self.slider.scrollbar_position[:2], [0.5, 0.50001])
+
+        self.slider.mouseMoveEvent(MouseEvent(x - 20, 10))
+        self.window.timeline.hold_playhead_follow_until_visible.assert_called_once_with()
+        # Accept the effective range returned by the slider's own zoom request.
+        self.slider._syncing_backend = True
+        self.slider.update_scrollbars([0.4, 0.50001, 1000, 100])
+        self.assertEqual(self.slider.scrollbar_position[:2], [0.4, 0.50001])
 
     def test_double_click_restores_zoom_and_releases_gesture(self):
         original = self.slider.scrollbar_position[:2]
