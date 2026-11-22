@@ -1025,9 +1025,12 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         # for exactly one backend-driven refresh. This avoids rebuilding
         # keyframes/geometry against committed data while stale preview state is
         # still being torn down.
+        drag_refresh = action is None and bool(getattr(self, "dragging_items", ()))
+        trim_refresh = action is None and bool(getattr(self, "_resize_items", ()))
         preserve_overrides = (
             getattr(self, "_preserve_overrides_once", False)
             or getattr(self, "_preserve_overrides_during_batch", False)
+            or drag_refresh or trim_refresh
         )
         if preserve_overrides:
             if getattr(self, "_preserve_overrides_once", False):
@@ -1048,7 +1051,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
         # Skip panel property rebuild during an active keyframe drag
         # to prevent stale point references.
-        if not self._dragging_panel_keyframes and not self._dragging_keyframe:
+        if not self._dragging_panel_keyframes and not self._dragging_keyframe and not drag_refresh:
             self._update_track_panel_properties()
         self.geometry.ensure()
         self._keyframes_dirty = True
@@ -1104,7 +1107,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             # Skip panel property rebuild during an active keyframe drag
             # to prevent stale point references (the drag writes
             # pending_seconds directly to the cached point dicts).
-            if not self._dragging_panel_keyframes and not self._dragging_keyframe:
+            if not self._dragging_panel_keyframes and not self._dragging_keyframe and not self.dragging_items:
                 signature = self._panel_current_signature()
                 if signature != self._panel_refresh_signature:
                     self._panel_refresh_signature = signature

@@ -364,13 +364,13 @@ class EffectsTray(QObject):
         kind, owner, effect, first, last = self.rows[index]
         row = self._row_rect(index, lane)
         w = self.timeline
-        if kind == "clip" and w.dragging_items:
-            override = w._pending_clip_overrides.get(owner.id, {})
-            if override.get("layer", owner.data["layer"]) != self.track_number:
-                return QRectF()
-            delta = override.get("position", owner.data["position"]) - owner.data["position"]
-            first += delta
-            last += delta
+        if kind == "clip":
+            override = w._pending_clip_overrides.get(owner.id)
+            if override:
+                clip = dict(owner.data, **override)
+                if w.normalize_track_number(clip["layer"]) != self.track_number:
+                    return QRectF()
+                first, last = clip_effect_timeline_range(clip, effect)
         scale = w.pixels_per_second
         origin = lane.left() - w.h_scroll_offset
         if last is None:
@@ -581,21 +581,24 @@ class EffectsTray(QObject):
             hover.set_target("panel-add", self._add_rect(lane), "track")
         if target == "row" and self.rows[index][0] != "transition" and not self.locked:
             _, lane, _ = self._bounds()
-            if self.timeline.enable_razor and self._bar_rect(index, lane).contains(pos) and pos.x() >= lane.left():
-                return self.timeline.cursors["razor"]
-            if self._trim_edge(index, pos) is not None:
-                return Qt.SizeHorCursor
+            if pos.x() >= lane.left() and self._bar_rect(index, lane).contains(pos):
+                if self.timeline.enable_razor:
+                    return self.timeline.cursors["razor"]
+                if self._trim_edge(index, pos) is not None:
+                    return Qt.SizeHorCursor
+                return Qt.OpenHandCursor
         return Qt.ArrowCursor if target in ("blank", "disabled-add") else Qt.PointingHandCursor
 
     def _clear_gesture(self):
+        if self._press and self._press[3]:
+            self.timeline._release_cursor()
         self._press = self._preview = self._marquee = None
         self._snap_frame = self._razor_line = None
         self._transfer = self._transfer_hint = None
 
     def cancel(self):
         if self._press is not None:
-            if self._transfer:
-                self.timeline.unsetCursor()
+            self.timeline.unsetCursor()
             self._clear_gesture()
             self.timeline.update()
         else:
@@ -738,6 +741,10 @@ class EffectsTray(QObject):
                             (last + (delta if edge != 0 else 0)) / fps)
                 for effect_id, (first, last) in ranges.items()}
 
+    def _set_drag_cursor(self, cursor):
+        if self.timeline._fixed_cursor != cursor:
+            self.timeline._fix_cursor(cursor)
+
     def move(self, pos):
         if self._press is None:
             hit = self._hit(pos)
@@ -758,8 +765,7 @@ class EffectsTray(QObject):
         (target, index), anchor, edge, rows, _ = self._press
         offset = pos - anchor
         threshold = QApplication.startDragDistance()
-        if self._transfer:
-            self.timeline.unsetCursor()
+        was_transferring = bool(self._transfer)
         self._transfer = self._transfer_hint = None
         if rows and edge is None and abs(offset.y()) >= threshold:
             source_kind = self.rows[index][0]
@@ -773,15 +779,17 @@ class EffectsTray(QObject):
                 self._transfer_hint = self._scope_heading(other_scope, lane), hint
             if self._transfer:
                 self._preview = self._snap_frame = None
-                self.timeline.setCursor(Qt.DragMoveCursor if self._transfer[1] else Qt.ForbiddenCursor)
+                self._set_drag_cursor(Qt.DragMoveCursor if self._transfer[1] else Qt.ForbiddenCursor)
                 self.timeline.update()
                 return True
-            self.timeline.setCursor(Qt.PointingHandCursor)
         distance = abs(offset.x()) if rows else offset.manhattanLength()
         if distance < threshold and self._preview is None and self._marquee is None:
+            if was_transferring:
+                self._set_drag_cursor(Qt.ClosedHandCursor)
             self.timeline.update()
             return True
         if rows and self.timeline.pixels_per_second > 0:
+            self._set_drag_cursor(Qt.ClosedHandCursor if edge is None else Qt.SizeHorCursor)
             delta = round(offset.x() / self.timeline.pixels_per_second * self._frame_rate())
             self._preview = self._adjust_ranges(rows, delta, edge, snap=True)
         if target == "blank":
@@ -800,7 +808,6 @@ class EffectsTray(QObject):
         target, index = hit
         if transfer:
             kind, owner, _ = transfer
-            self.timeline.unsetCursor()
             if owner:
                 self._transfer_effects(rows, kind, owner)
         elif preview:
@@ -826,6 +833,8 @@ class EffectsTray(QObject):
                 section, _ = self._drop_section(pos)
                 if section and section[0] != "transition":
                     self.clip_id = section[1].id if section[0] == "clip" and section[1] else None
+        if rows:
+            self.timeline._updateCursor(pos)
         self.timeline.update()
         return True
 

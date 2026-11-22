@@ -6001,6 +6001,40 @@ class TimelineHelperTests(unittest.TestCase):
         ]
         self.assertEqual(clip_effect_lanes(rows), [[0, 2], [1, 3, 5], [4, 6]])
 
+    def test_clip_effect_bar_uses_pending_clip_position_and_trim(self):
+        from windows.effects_tray import EffectsTray
+
+        # Dragging updates the shared Clip data before the tray has rebuilt its rows.
+        clip = types.SimpleNamespace(id="clip", data={"position": 10.0, "start": 2.0, "end": 12.0, "layer": 1})
+        lane = QRectF(100, 50, 1000, 20)
+        effect = {"id": "fx", "clip_range": {"start": 4.0, "end": 9.0}}
+        timeline = types.SimpleNamespace(
+            pixels_per_second=100, h_scroll_offset=20, normalize_track_number=int,
+            _pending_clip_overrides={"clip": {"position": 10.0, "start": 2.0, "end": 12.0, "layer": 1}},
+        )
+        tray = types.SimpleNamespace(
+            timeline=timeline, track_number=1, rows=[("clip", clip, effect, 5.0, 10.0)],
+            _preview=None, _row_rect=lambda *_: lane,
+        )
+        self.assertEqual(EffectsTray._bar_rect(tray, 0, lane), QRectF(1280, 50, 500, 20))
+        timeline._pending_clip_overrides["clip"].update(position=13.0, start=5.0, end=7.0)
+        self.assertEqual(EffectsTray._bar_rect(tray, 0, lane), QRectF(1380, 50, 200, 20))
+        timeline._pending_clip_overrides["clip"]["layer"] = 2
+        self.assertTrue(EffectsTray._bar_rect(tray, 0, lane).isEmpty())
+
+    def test_keyframe_panel_projects_clip_trim_and_retime_from_source_frames(self):
+        from windows.views.timeline_backend.paint.keyframepanel import KeyframePanelPainter
+
+        context = {"clip_id": "clip", "fps": 30, "position": 4.0, "clip_start": 2.0, "clip_end": 10.0}
+        point = {"frame": 181, "seconds": 8.0}
+        resize = {"position": 6.0, "start": 3.0, "end": 8.0, "initial_start": 2.0, "initial_end": 10.0}
+        projected, override = KeyframePanelPainter._clip_preview_context(context, {"clip": resize})
+        self.assertEqual((projected["range_start_seconds"], projected["range_end_seconds"]), (6.0, 11.0))
+        self.assertEqual(KeyframePanelPainter._preview_point_seconds(point, projected, override), 9.0)
+        resize["scale"] = True
+        self.assertEqual(KeyframePanelPainter._preview_point_seconds(point, projected, override), 8.5)
+        self.assertEqual(point["seconds"], 8.0)
+
     def test_effect_trim_edges_are_only_active_inside_the_visible_lane(self):
         from windows.effects_tray import EffectsTray
 

@@ -253,6 +253,33 @@ class KeyframePanelPainter(BasePainter):
             return
         painter.drawEllipse(rect)
 
+    @staticmethod
+    def _clip_preview_context(context, overrides):
+        if not isinstance(context, dict) or context.get("on_track"):
+            return context, None
+        clip_id = context.get("clip_id")
+        override = overrides.get(clip_id) if clip_id else None
+        if not override:
+            return context, None
+        position = override.get("position", context.get("position", 0.0))
+        start = override.get("start", context.get("clip_start", 0.0))
+        end = override.get("end", context.get("clip_end", start))
+        return dict(context, position=position, clip_start=start, clip_end=end,
+                    range_start_seconds=position, range_end_seconds=position + max(0, end - start)), override
+
+    @staticmethod
+    def _preview_point_seconds(point, context, override):
+        if not override or "initial_start" not in override or point.get("frame") is None:
+            return point.get("seconds")
+        source_seconds = (point["frame"] - 1) / (context.get("fps") or 1.0)
+        if override.get("scale"):
+            start = override["initial_start"]
+            duration = override["initial_end"] - start
+            if duration > 0:
+                ratio = max(0.0, min(1.0, (source_seconds - start) / duration))
+                return context["position"] + ratio * (context["clip_end"] - context["clip_start"])
+        return context["position"] + source_seconds - context["clip_start"]
+
     def _paint_property_row(
         self,
         painter: QPainter,
@@ -317,10 +344,20 @@ class KeyframePanelPainter(BasePainter):
                 min(lane_rect.bottom() - lane_padding, baseline),
             )
 
+        overrides = getattr(self.w, "_pending_clip_overrides", {})
+        row_context = prop.get("context") or context
+        row_context, row_override = self._clip_preview_context(row_context, overrides)
+        positioned_points = []
         segments = []
         seen_segments = set()
         for point in prop.get("points") or []:
-            point_context = point.get("_panel_context") if isinstance(point, dict) else None
+            point_context = point.get("_panel_context")
+            if isinstance(point_context, dict):
+                point_context, override = self._clip_preview_context(point_context, overrides)
+                seconds = self._preview_point_seconds(point, point_context, override)
+            else:
+                seconds = self._preview_point_seconds(point, row_context, row_override)
+            positioned_points.append((point, seconds, point_context or row_context))
             if not isinstance(point_context, dict):
                 continue
             seg_start = point_context.get("range_start_seconds")
@@ -341,8 +378,8 @@ class KeyframePanelPainter(BasePainter):
             segments.append((seg_start, seg_end))
 
         if not segments:
-            range_start = context.get("range_start_seconds") if isinstance(context, dict) else None
-            range_end = context.get("range_end_seconds") if isinstance(context, dict) else None
+            range_start = row_context.get("range_start_seconds") if isinstance(row_context, dict) else None
+            range_end = row_context.get("range_end_seconds") if isinstance(row_context, dict) else None
             start_x = lane_rect.left() + lane_padding
             end_x = lane_rect.right() - lane_padding
             if range_start is not None and range_end is not None:
@@ -372,10 +409,15 @@ class KeyframePanelPainter(BasePainter):
         inactive = 0.72
         glyphs = {}
         spacing = max(1.0, self.marker_size / 2.0)
-        for point in prop.get("points") or []:
-            seconds = point.get("seconds")
+        for point, seconds, point_context in positioned_points:
             if seconds is None:
                 continue
+            outside = False
+            if point_context and point_context.get("clip_id"):
+                first = point_context.get("range_start_seconds")
+                last = point_context.get("range_end_seconds")
+                if first is not None and last is not None:
+                    outside = seconds < first - 1e-6 or seconds > last + 1e-6
             x = self._seconds_to_x(seconds)
             if x < lane_clip.left() - 1.0 or x > lane_clip.right() + 1.0:
                 continue
@@ -383,10 +425,11 @@ class KeyframePanelPainter(BasePainter):
             bucket = int(x // spacing)
             previous = glyphs.get(bucket)
             if previous is None or (point.get("selected") and not previous[1].get("selected")):
-                glyphs[bucket] = (x, point)
-        for x, point in glyphs.values():
+                glyphs[bucket] = (x, point, outside)
+        for x, point, outside in glyphs.values():
             selected = bool(point.get("selected"))
-            painter.setOpacity(1.0 if selected else inactive)
+            opacity = 1.0 if selected else inactive
+            painter.setOpacity(opacity * 0.4 if outside else opacity)
             self._draw_marker(
                 painter,
                 x,
