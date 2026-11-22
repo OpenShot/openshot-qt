@@ -426,12 +426,11 @@ class EffectsTray(QObject):
                              painter.fontMetrics().elidedText(self.translate("No Effects"), Qt.ElideRight,
                                                               max(0, int(name.width()))))
 
+        section_color = QColor(label)
+        section_color.setAlphaF(section_color.alphaF() * 0.68)
+        painter.setPen(section_color)
         for section in self.sections:
             rect = self._section_rect(section, lane)
-            painter.setPen(Qt.NoPen)
-            painter.setBrush(well)
-            painter.drawRoundedRect(rect.adjusted(theme.track.name_border_width + 4, 2, 0, -2), 5, 5)
-            painter.setPen(label)
             label_rect = QRectF(10, rect.y(), max(0, lane.left() - 15), rect.height())
             painter.drawText(label_rect, Qt.AlignVCenter | Qt.AlignLeft,
                              painter.fontMetrics().elidedText(section[3], Qt.ElideRight, int(label_rect.width())))
@@ -441,7 +440,7 @@ class EffectsTray(QObject):
             bounds, caption = feedback
             tint = QColor(accent)
             tint.setAlphaF(0.25 if active_feedback else 0.09)
-            painter.fillRect(bounds, tint)
+            painter.fillRect(bounds.intersected(lane), tint)
             painter.setPen(accent)
             caption_area = bounds.adjusted(max(0.0, lane.left() + 8 - bounds.left()), 0, -10, 0)
             if caption_area.width() > 0:
