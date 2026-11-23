@@ -4391,6 +4391,19 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         # Get access to timeline scope and set scale to zoom slider value (passed in)
         self.run_js(JS_SCOPE_SELECTOR + ".movePlayheadToFrame(%s);" % (str(position_frames)))
 
+    def reset_new_project_view(self):
+        """Return the timeline to the first frame of a new project."""
+        if ViewClass == TimelineWidget:
+            self.end_properties_layout_change()
+            self._track_panel_enabled.clear()
+            self._panel_manual_properties.clear()
+            self._clear_panel_selection(None)
+            self.current_frame = 1
+            self._last_playhead_seek_state = None
+            self.set_scroll_left(0.0)
+            self.window.TimelineScrolled.emit(list(self.scrollbar_position))
+            self.changed(None)
+
     @pyqtSlot()
     def centerOnPlayhead(self):
         """ Center the timeline on the current playhead position """

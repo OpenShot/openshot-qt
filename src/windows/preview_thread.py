@@ -678,9 +678,14 @@ class PlayerWorker(QObject):
         # Callers can load a reader without enqueueing an additional seek.
         if seek:
             if not path:
-                QTimer.singleShot(0, lambda: self.Seek(seek_position))
+                QTimer.singleShot(0, lambda: self._restore_timeline_position(seek_position))
             else:
                 self.Seek(seek_position)
+
+    def _restore_timeline_position(self, frame):
+        # An explicit timeline seek may supersede the deferred source-preview restore.
+        if self.reader_mode == "timeline" and self.original_position == frame:
+            self.Seek(frame)
 
     def Play(self):
         """ Start playing the video player """
@@ -930,6 +935,7 @@ class PlayerWorker(QObject):
         if self.timeline and self.reader_mode != "timeline":
             self.player.Reader(self.timeline)
             self.reader_mode = "timeline"
+            self.preview_stretch = False
             self.clip_reader = None
             self.clip_path = None
         self.Seek(frame)
