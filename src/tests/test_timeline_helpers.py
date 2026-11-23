@@ -558,6 +558,11 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertIs(widget._toolbar_button_pixmap(track, counted), counted["pixmaps"]["populated"])
         widget._effects_tray = types.SimpleNamespace(track_id=track.id)
         self.assertIs(widget._toolbar_button_pixmap(track, counted), counted["pixmaps"]["active"])
+        self.assertIs(widget._toolbar_button_pixmap(track, counted, hovered=True), counted["pixmaps"]["active-hovered"])
+        active = counted["pixmaps"]["active"].toImage()
+        active_hovered = counted["pixmaps"]["active-hovered"].toImage()
+        self.assertEqual(active.pixelColor(4, active.height() // 2).alpha(), 0)
+        self.assertGreater(active_hovered.pixelColor(4, active.height() // 2).alpha(), 0)
 
     def test_compact_track_headers_keep_titles_and_controls_in_separate_hit_targets(self):
         from windows.views.timeline_backend.paint.track import TrackPainter

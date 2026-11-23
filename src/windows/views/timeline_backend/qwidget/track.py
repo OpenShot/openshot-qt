@@ -257,7 +257,7 @@ class TrackInteractionMixin:
         if key == "effects-tray":
             panel = getattr(self, "_effects_tray", None)
             if (panel and panel.track_id == track.id) or pressed:
-                return pixmaps.get("active")
+                return pixmaps.get("active-hovered" if hovered else "active")
             if track.data.get("effects") and not hovered:
                 return pixmaps.get("populated")
 
