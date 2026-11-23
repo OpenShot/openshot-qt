@@ -99,7 +99,13 @@ class PlayheadMixin:
             self._keyboard_playhead_cycle = None
         self.current_frame = currentFrame
 
-        # Schedule repaint
+        # Recenter each time playback crosses either edge of the viewport.
+        view_width = self.scrollbar_position[3]
+        if self.fps_float and view_width > 0 and not self.mouse_dragging and self._is_playing():
+            x = (currentFrame - 1) / self.fps_float * self.pixels_per_second - self.h_scroll_offset
+            if x < 0 or x >= view_width:
+                self.centerOnPlayhead()
+
         self.update()
 
     def handle_play(self):

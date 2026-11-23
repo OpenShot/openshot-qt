@@ -3491,6 +3491,26 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertNotIn("_auto_transition", clip_payload)
         self.assertNotIn("_auto_direction", transition_payload)
 
+    def test_playback_follows_playhead_across_multiple_viewports(self):
+        from windows.views.timeline_backend.qwidget.playhead import PlayheadMixin
+
+        widget = types.SimpleNamespace(
+            dragging_playhead=False, mouse_dragging=False, current_frame=1,
+            fps_float=10, pixels_per_second=10, scrollbar_position=[0, 0.1, 1000, 100],
+            h_scroll_offset=0, _is_playing=lambda: True, update=MagicMock(),
+        )
+        centers = []
+
+        def center():
+            x = (widget.current_frame - 1) / widget.fps_float * widget.pixels_per_second
+            widget.h_scroll_offset = x - widget.scrollbar_position[3] / 2
+            centers.append(widget.current_frame)
+
+        widget.centerOnPlayhead = center
+        for frame in (1, 100, 101, 150, 151, 200, 201):
+            PlayheadMixin.update_playhead_pos(widget, frame)
+        self.assertEqual(centers, [101, 151, 201])
+
     def test_clip_drag_mouse_signal_converts_event_to_coordinates(self):
         helper = self.make_qwidget_drag_move_helper()
         helper._dragMove = MagicMock()
