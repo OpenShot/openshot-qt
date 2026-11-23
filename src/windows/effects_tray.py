@@ -17,7 +17,7 @@ from classes.query import Clip, Effect, Track, Transition
 from windows.views.menu import StyledContextMenu, add_bound_action
 from windows.views.timeline_backend.enums import MenuSlice
 from windows.views.timeline_backend.paint.keyframepanel import (
-    draw_panel_heading, panel_add_button_rect, panel_heading_rect,
+    draw_panel_heading, panel_add_button_rect, panel_heading_rect, panel_label_indent,
 )
 
 
@@ -443,13 +443,13 @@ class EffectsTray(QObject):
 
         font.setBold(False)
         painter.setFont(font)
+        indent = panel_label_indent(theme)
         if not self.rows:
             y = self._row_top(lane)
             empty_bg = QColor(theme.keyframe_panel_property_bg)
             if not empty_bg.isValid():
                 empty_bg = well.lighter(120)
             painter.fillRect(QRectF(lane.left(), y, lane.width(), self.row_height), empty_bg)
-            indent = theme.track.name_border_width + 6 + theme.keyframe_panel_label_indent
             name = QRectF(indent, y, max(0.0, lane.left() - indent - 6), self.row_height)
             painter.setPen(label)
             painter.drawText(name, Qt.AlignLeft | Qt.AlignVCenter,
@@ -461,7 +461,7 @@ class EffectsTray(QObject):
         painter.setPen(section_color)
         for section in self.sections:
             rect = self._section_rect(section, lane)
-            label_rect = QRectF(10, rect.y(), max(0, lane.left() - 15), rect.height())
+            label_rect = QRectF(indent, rect.y(), max(0.0, lane.left() - indent - 6), rect.height())
             painter.drawText(label_rect, Qt.AlignVCenter | Qt.AlignLeft,
                              painter.fontMetrics().elidedText(section[3], Qt.ElideRight, int(label_rect.width())))
         active_feedback = self.drop_target or (self._transfer[2] if self._transfer else None)
@@ -477,6 +477,7 @@ class EffectsTray(QObject):
                 painter.drawText(caption_area, Qt.AlignRight | Qt.AlignVCenter,
                                  painter.fontMetrics().elidedText(caption, Qt.ElideRight, int(caption_area.width())))
 
+        section_kinds = {section[1] for section in self.sections}
         for entries in self.lane_rows.values():
             index = next((entry for entry in entries if self.rows[entry][2]["id"] == self.selected_id), entries[0])
             well_rect = self._row_rect(index, lane)
@@ -486,7 +487,10 @@ class EffectsTray(QObject):
             painter.setPen(label)
             controls = self._row_controls(index, lane)
             label_end = controls[0][2].left() if controls else lane.left()
-            name = QRectF(10, well_rect.top(), max(0.0, label_end - 15), well_rect.height())
+            row_indent = indent
+            if self.rows[index][0] in section_kinds:
+                row_indent += theme.keyframe_panel_label_indent
+            name = QRectF(row_indent, well_rect.top(), max(0.0, label_end - row_indent - 6), well_rect.height())
             painter.drawText(name, Qt.AlignVCenter | Qt.AlignLeft,
                              painter.fontMetrics().elidedText(title, Qt.ElideRight, int(name.width())))
             for _, glyph, control, enabled in controls:

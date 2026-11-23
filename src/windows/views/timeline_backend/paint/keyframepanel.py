@@ -40,6 +40,10 @@ def panel_heading_rect(width, top, height):
     return QRectF(10, top, max(0.0, width - 20), height)
 
 
+def panel_label_indent(theme):
+    return theme.track.name_border_width + 6.0 + theme.keyframe_panel_label_indent
+
+
 def panel_add_button_rect(heading):
     size = min(16.0, heading.height(), heading.width())
     return QRectF(heading.right() - size, heading.center().y() - size / 2, size, size)
@@ -526,8 +530,7 @@ class KeyframePanelPainter(BasePainter):
                 painter.restore()
             # Property labels keep their left inset when compact headers move
             # the track toolbar to the right.
-            indent = (self.w.theme.track.name_border_width + 6.0
-                      + self.w.theme.keyframe_panel_label_indent)
+            indent = panel_label_indent(self.w.theme)
             for prop in properties:
                 if row_height <= 0.0:
                     break
