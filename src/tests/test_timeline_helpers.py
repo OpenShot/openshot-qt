@@ -1088,6 +1088,7 @@ class TimelineHelperTests(unittest.TestCase):
 
         class Helper(qwidget_clip_module.ClipInteractionMixin):
             def __init__(self):
+                self._drag_scroll_timer = MagicMock()
                 self.dragging_items = []
                 self._drag_moved = True
                 self._collapse_selection_on_release = False
@@ -1158,6 +1159,12 @@ class TimelineHelperTests(unittest.TestCase):
         class Helper(qwidget_clip_module.ClipInteractionMixin):
             def __init__(self):
                 self._drag_commit_in_progress = False
+                self._drag_scroll_timer = MagicMock()
+                self.track_name_width = 0
+                self.scroll_bar_thickness = 0
+                self.width = lambda: 400
+                self.h_scroll_offset = 0
+                self._drag_start_scroll_offset = 0
                 self.dragging_items = []
                 self._drag_threshold_met = True
                 self._drag_press_pos = QPointF()
@@ -3483,6 +3490,34 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(transition_payload["id"], "T1")
         self.assertNotIn("_auto_transition", clip_payload)
         self.assertNotIn("_auto_direction", transition_payload)
+
+    def test_clip_drag_mouse_signal_converts_event_to_coordinates(self):
+        helper = self.make_qwidget_drag_move_helper()
+        helper._dragMove = MagicMock()
+        position = QPointF(210.5, 68.0)
+        event = types.SimpleNamespace(position=lambda: position, modifiers=lambda: Qt.ShiftModifier)
+
+        helper._drag_mouse_move(event)
+
+        helper._dragMove.assert_called_once_with(position, Qt.ShiftModifier)
+
+    def test_clip_drag_edge_timer_scrolls_without_another_mouse_event(self):
+        helper = self.make_qwidget_drag_move_helper()
+        helper._drag_pointer = (QPointF(399, 0), Qt.NoModifier)
+        helper._drag_scroll_delta = 10
+        helper.scrollbar_position = [0, 0.4, 1000, 400]
+        helper._dragMove = MagicMock()
+        helper.win = types.SimpleNamespace(TimelineScrolled=MagicMock())
+
+        def set_scroll_left(left):
+            helper.scrollbar_position[0] = left
+            helper.h_scroll_offset = left * 1000
+
+        helper.set_scroll_left = set_scroll_left
+        helper._scroll_clip_drag()
+        helper._scroll_clip_drag()
+        self.assertEqual(helper.h_scroll_offset, 20)
+        self.assertEqual(helper._dragMove.call_count, 2)
 
     def test_qwidget_drag_move_preserves_shared_edge_alignment_for_off_frame_selection(self):
         helper = self.make_qwidget_drag_move_helper()
