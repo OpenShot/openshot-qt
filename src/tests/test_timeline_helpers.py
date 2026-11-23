@@ -514,7 +514,7 @@ class TimelineHelperTests(unittest.TestCase):
             self.assertEqual(theme.keyframe_panel_row_height, 24)
 
 
-    def test_track_fx_badge_counts_direct_effects_and_lights_for_clip_effects(self):
+    def test_track_fx_badge_distinguishes_direct_effects_from_the_open_panel(self):
         from windows.views.timeline_backend.paint.track import TrackPainter
         from windows.views.timeline_backend.qwidget.track import TrackInteractionMixin
 
@@ -536,17 +536,28 @@ class TimelineHelperTests(unittest.TestCase):
         button = fx_button()
         self.assertIs(widget._toolbar_button_pixmap(track, button), button["pixmaps"]["disabled"])
         widget.geometry.clip_effect_counts_by_track[1] = 3
-        self.assertIs(widget._toolbar_button_pixmap(track, button), button["pixmaps"]["populated"])
+        self.assertIs(widget._toolbar_button_pixmap(track, button), button["pixmaps"]["disabled"])
         self.assertEqual(fx_button()["rect"], button["rect"])
 
-        widget.geometry.clip_effect_counts_by_track.clear()
+        widget._effects_tray = types.SimpleNamespace(track_id=track.id)
+        self.assertIs(widget._toolbar_button_pixmap(track, button), button["pixmaps"]["active"])
+        widget._effects_tray = None
         track.data["effects"] = [{"id": "A"}]
         self.assertIs(widget._toolbar_button_pixmap(track, button), button["pixmaps"]["populated"])
+        self.assertIs(widget._toolbar_button_pixmap(track, button, hovered=True), button["pixmaps"]["enabled"])
+        idle = button["pixmaps"]["disabled"].toImage()
+        populated = button["pixmaps"]["populated"].toImage()
+        interior = idle.rect().adjusted(6, 6, -6, -6)
+        self.assertEqual(populated.copy(interior), idle.copy(interior))
+        self.assertGreater(populated.pixelColor(idle.width() // 2, 2).alpha(),
+                           idle.pixelColor(idle.width() // 2, 2).alpha())
         track.data["effects"].append({"id": "B"})
         counted = fx_button()
         self.assertGreater(counted["rect"].width(), button["rect"].width())
         self.assertTrue(name.contains(counted["rect"]))
         self.assertIs(widget._toolbar_button_pixmap(track, counted), counted["pixmaps"]["populated"])
+        widget._effects_tray = types.SimpleNamespace(track_id=track.id)
+        self.assertIs(widget._toolbar_button_pixmap(track, counted), counted["pixmaps"]["active"])
 
     def test_compact_track_headers_keep_titles_and_controls_in_separate_hit_targets(self):
         from windows.views.timeline_backend.paint.track import TrackPainter

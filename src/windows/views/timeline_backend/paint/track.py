@@ -172,15 +172,18 @@ class TrackPainter(BasePainter):
         font.setPixelSize(max(8, round(size * 0.57)))
         width = max(size, font_metrics_horizontal_advance(QFontMetrics(font), label) + 6) if count > 1 else size
         states = {}
-        for state, opacity in (("disabled", 0.0), ("enabled", 0.14), ("populated", 0.32), ("active", 0.49)):
+        for state, opacity in (("disabled", 0.0), ("enabled", 0.14), ("populated", 0.0), ("active", 0.49)):
             badge = QPixmap(width * 2, size * 2)
             badge.setDevicePixelRatio(2)
             badge.fill(Qt.transparent)
             painter = QPainter(badge)
-            color = QColor(accent)
-            if state == "disabled":
-                color.setAlphaF(0.55)
-            draw_effect_badge(painter, QRectF(0.5, 0.5, width - 1, size - 1), font, label, color, color, opacity)
+            text_color = QColor(accent)
+            if state in ("disabled", "populated"):
+                text_color.setAlphaF(0.55)
+            outline = text_color if state == "disabled" else accent
+            draw_effect_badge(
+                painter, QRectF(0.5, 0.5, width - 1, size - 1), font, label, outline, text_color, opacity
+            )
             painter.end()
             states[state] = badge
         self._effect_button_pixmaps[label] = states

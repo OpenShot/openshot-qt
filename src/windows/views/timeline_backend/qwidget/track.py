@@ -258,9 +258,8 @@ class TrackInteractionMixin:
             panel = getattr(self, "_effects_tray", None)
             if (panel and panel.track_id == track.id) or pressed:
                 return pixmaps.get("active")
-            clip_counts = getattr(self.geometry, "clip_effect_counts_by_track", {})
-            if track.data.get("effects") or clip_counts.get(button.get("track_num")):
-                return pixmaps.get("active" if hovered else "populated")
+            if track.data.get("effects") and not hovered:
+                return pixmaps.get("populated")
 
         state = "enabled" if (hovered or pressed) else "disabled"
         pix = pixmaps.get(state) or pixmaps.get("enabled") or pixmaps.get("disabled")
