@@ -27,7 +27,6 @@
 
 from qt_api import QRectF, QLocale
 from classes.app import get_app
-from classes.query import Track
 
 TRACK_TOOLBAR_SPACING_REDUCTION = 2.0
 TRACK_TOOLBAR_LEFT_SHIFT = 10.0
@@ -274,27 +273,14 @@ class TrackInteractionMixin:
     def _toggle_track_panel(self, track_num):
         self._set_track_keyframes(track_num, not self._track_panel_enabled.get(track_num, False))
 
-    def _set_track_keyframes(self, track_num, new_state, *, switching=False):
+    def _set_track_keyframes(self, track_num, new_state):
         if new_state == bool(self._track_panel_enabled.get(track_num)):
             return
+        self.geometry.preserve_vertical_scroll()
         panel = getattr(self, "_effects_tray", None)
         if new_state and panel and panel.track_number == track_num:
             self._fx_return_rows[panel.track_id] = (panel.clip_id, panel.selected_id)
-            self._track_panel_height_floor[track_num] = panel.height(track_num)
-            self.geometry.preserve_vertical_scroll()
-            panel.close(switching=True)
-        elif new_state:
-            from windows.effects_tray import EffectsTray
-
-            track = Track.get(number=track_num)
-            if track:
-                self._track_panel_height_floor[track_num] = EffectsTray.preferred_height(self, track)
-        elif not new_state:
-            if switching:
-                self._track_panel_height_floor[track_num] = self.get_track_panel_height(track_num)
-                self.geometry.preserve_vertical_scroll()
-            else:
-                self._track_panel_height_floor.pop(track_num, None)
+            panel.close()
         self._track_panel_enabled[track_num] = new_state
         if not new_state:
             self._clear_panel_selection(track_num)

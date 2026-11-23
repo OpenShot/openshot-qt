@@ -1303,7 +1303,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self._effects_tray = EffectsTray(self)
         track = Track.get(id=track_id)
         if track:
-            self._set_track_keyframes(self.normalize_track_number(track.data["number"]), False, switching=True)
+            self._set_track_keyframes(self.normalize_track_number(track.data["number"]), False)
         self._effects_tray.open_track(track_id, clip_id, effect_id, reveal=reveal)
 
     def paste_effect_ranges(self, mime_data, selected_clips):

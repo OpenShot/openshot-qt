@@ -76,8 +76,7 @@ class KeyframePanelMixin:
         height = float(self._panel_heights.get(key, 0.0) or 0.0)
         if not height:
             return 0.0
-        floor = getattr(self, "_track_panel_height_floor", {}).get(key, 0)
-        return max(floor, height + getattr(self, "panel_header_height", 0))
+        return height + getattr(self, "panel_header_height", 0)
 
     def get_track_panel_properties(self, track_num):
         key = self.normalize_track_number(track_num)
@@ -3220,16 +3219,14 @@ class KeyframePanelMixin:
         available.sort(key=lambda item: item.get("display_name", "").lower())
         return result, context, available
 
-    def _update_track_panel_properties(self, *, measure_track=None):
-        """Refresh the open panels, or measure one track with the current selection."""
+    def _update_track_panel_properties(self):
+        """Refresh the open keyframe panels."""
         if not getattr(self, "win", None):
             log.info("Keyframe panel refresh skipped: no window reference")
             return False
         timeline_sync = getattr(self.win, "timeline_sync", None)
         timeline = getattr(timeline_sync, "timeline", None) if timeline_sync else None
         if not timeline:
-            if measure_track is not None:
-                return 0
             self._panel_properties = {}
             self._panel_heights = {}
             self._panel_manual_properties = {}
@@ -3240,10 +3237,7 @@ class KeyframePanelMixin:
             for track, state in self._track_panel_enabled.items()
             if state
         }
-        measuring = measure_track is not None
-        if measuring:
-            enabled_tracks = {measure_track}
-        manual_properties = dict(self._panel_manual_properties) if measuring else self._panel_manual_properties
+        manual_properties = self._panel_manual_properties
         if not enabled_tracks:
             had_data = bool(self._panel_properties or self._panel_heights)
             if had_data:
@@ -3552,9 +3546,6 @@ class KeyframePanelMixin:
                 info, height = _placeholder_info(label, reason)
                 new_props[track_num] = info
                 new_heights[track_num] = height
-
-        if measuring:
-            return self.panel_header_height + new_heights[measure_track]
 
         changed = new_props != self._panel_properties or new_heights != self._panel_heights
         if changed:

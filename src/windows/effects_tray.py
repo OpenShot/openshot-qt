@@ -142,8 +142,7 @@ class EffectsTray(QObject):
         if track_id == self.track_id and not clip_id and not effect_id:
             self.close()
             return
-        if self.track_id is not None and track_id != self.track_id:
-            self.timeline._track_panel_height_floor.pop(self.track_number, None)
+        self.timeline.geometry.preserve_vertical_scroll()
         self.track_id = track_id
         self.clip_id = clip_id
         self.selected_id = None
@@ -159,8 +158,6 @@ class EffectsTray(QObject):
         self.active = bool(clip_id or effect_id)
         if effect_id:
             self._set_selection({effect_id}, effect_id)
-        else:
-            self._reserve_keyframe_height()
         self._invalidate()
         if clip_id and reveal:
             self._reveal_clip_section(clip_id)
@@ -189,9 +186,8 @@ class EffectsTray(QObject):
             w.v_scrollbar_position[:2] = [top, top + span]
             self._invalidate()
 
-    def close(self, *, switching=False):
-        if not switching:
-            self.timeline._track_panel_height_floor.pop(self.track_number, None)
+    def close(self):
+        self.timeline.geometry.preserve_vertical_scroll()
         self.track_id = None
         self.track_number = None
         self.rows = []
@@ -208,30 +204,11 @@ class EffectsTray(QObject):
         self.timeline.geometry.mark_dirty()
         self.timeline.update()
 
-    @staticmethod
-    def preferred_height(timeline, track):
-        _, track_effects, clip_lanes, transitions = track_effect_layout(track)
-        rows = len(track_effects) + len(clip_lanes) + len(transitions)
-        rows += 2 if track_effects and clip_lanes else 0
-        rows += bool(transitions)
-        return timeline.panel_header_height + timeline._panel_height_for_properties(max(1, rows))
-
-    def _reserve_keyframe_height(self):
-        number = self.track_number
-        if number is None:
-            return
-        height = self.timeline._update_track_panel_properties(measure_track=number)
-        if height > self.height(number):
-            self.timeline._track_panel_height_floor[number] = height
-            self.timeline.geometry.preserve_vertical_scroll()
-            self._invalidate()
-
     def height(self, track_number):
         if self.track_id is None or self.track_number != track_number:
             return 0
         rows = max(1, len(self.lane_rows) + len(self.sections))
-        height = self.header_height + self.timeline._panel_height_for_properties(rows)
-        return max(height, self.timeline._track_panel_height_floor.get(track_number, 0))
+        return self.header_height + self.timeline._panel_height_for_properties(rows)
 
     def _track(self):
         return Track.get(id=self.track_id) if self.track_id else None
@@ -633,8 +610,6 @@ class EffectsTray(QObject):
             self.timeline.window.addSelection(self.selected_id, "transition" if kind == "transition" else "effect", True)
         elif previous:
             self.timeline.window.removeSelection(previous, "effect")
-        if self.selected_id != previous:
-            self._reserve_keyframe_height()
         self.timeline.update()
 
     def trim_positions(self, *, selected_only=False):

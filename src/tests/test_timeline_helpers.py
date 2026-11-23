@@ -6049,6 +6049,24 @@ class TimelineHelperTests(unittest.TestCase):
         ]
         self.assertEqual(clip_effect_lanes(rows), [[0, 2], [1, 3, 5], [4, 6]])
 
+    def test_switching_from_fx_to_keyframes_uses_only_the_keyframe_rows(self):
+        from windows.views.timeline_backend.qwidget.keyframe_panel import KeyframePanelMixin
+        from windows.views.timeline_backend.qwidget.track import TrackInteractionMixin
+
+        tray = types.SimpleNamespace(
+            track_id="track", track_number=1, clip_id=None, selected_id=None,
+            height=lambda _: 175, close=MagicMock(),
+        )
+        timeline = types.SimpleNamespace(
+            _effects_tray=tray, _fx_return_rows={}, _track_panel_enabled={},
+            _panel_heights={1: 36}, panel_header_height=31, normalize_track_number=int,
+            _update_track_panel_properties=MagicMock(), geometry=MagicMock(), update=MagicMock(),
+        )
+        TrackInteractionMixin._set_track_keyframes(timeline, 1, True)
+        tray.close.assert_called_once_with()
+        timeline.geometry.preserve_vertical_scroll.assert_called_once_with()
+        self.assertEqual(KeyframePanelMixin.get_track_panel_height(timeline, 1), 67)
+
     def test_clip_effect_bar_uses_pending_clip_position_and_trim(self):
         from windows.effects_tray import EffectsTray
 
