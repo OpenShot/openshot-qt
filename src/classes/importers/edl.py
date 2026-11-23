@@ -319,7 +319,7 @@ def import_edl():
         track.save()
 
         # Open EDL file
-        with open(file_path, "r") as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             # Loop through each line, and compare against regex expressions
             for line in f:
                 # Detect title
