@@ -3296,7 +3296,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             self.geometry.ensure()
             effects_tray = getattr(self, "_effects_tray", None)
             if effects_tray:
-                cursor = effects_tray.cursor(pos, hover)
+                marker = self._get_keyframe_at(pos) if effects_tray.track_id and not self.enable_razor else None
+                cursor = effects_tray.cursor(pos, hover) if not marker or not marker.get("effect_bar") else None
                 if cursor is not None:
                     self.setCursor(cursor)
                     return
@@ -3487,9 +3488,27 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         pos = posf
         content_pos = self._is_timeline_content_pos(pos)
         effects_tray = getattr(self, "_effects_tray", None)
-        if content_pos and effects_tray and effects_tray.press(pos, event.button(), event.modifiers()):
-            event.accept()
-            return
+        if content_pos and effects_tray:
+            marker = self._get_keyframe_at(pos) if effects_tray.track_id else None
+            bar_marker = marker and marker.get("effect_bar")
+            razor_click = self.enable_razor and event.button() == Qt.LeftButton
+            if bar_marker and not razor_click:
+                effects_tray.clear_selection()
+                if (event.button() == Qt.LeftButton and event.modifiers() & Qt.ControlModifier
+                        and marker["key"] in self._selected_keyframe_keys):
+                    self._selected_keyframe_keys.discard(marker["key"])
+                    self._active_keyframe_marker = None
+                    self.update()
+                    event.accept()
+                    return
+            elif effects_tray.press(pos, event.button(), event.modifiers()):
+                if event.button() == Qt.LeftButton:
+                    self._selected_keyframe_keys.clear()
+                    self._active_keyframe_marker = None
+                    self._clear_panel_selection(None)
+                    self.update()
+                event.accept()
+                return
         if content_pos and effects_tray and effects_tray.active:
             effects_tray.active = False
         if content_pos and event.button() == Qt.LeftButton and self._keyframe_header_click(pos):

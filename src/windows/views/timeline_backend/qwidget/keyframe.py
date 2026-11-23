@@ -565,6 +565,9 @@ class KeyframeMixin:
             markers.extend(self._build_clip_keyframes(rect, clip, state))
         for rect, tran, _selected in self.geometry.iter_transitions(viewport=False):
             markers.extend(self._build_transition_keyframes(rect, tran, state))
+        tray = getattr(self, "_effects_tray", None)
+        if tray:
+            markers.extend(tray.keyframe_markers(state))
 
         drag = self._dragging_keyframe
         if drag and drag.get("key") and markers:
@@ -573,11 +576,11 @@ class KeyframeMixin:
                 entry = group.get(marker.get("key"))
                 if entry is not None:
                     pending_frame = entry["frame"] + drag["pending_frame"] - drag["original_frame"]
-                    pending_seconds = (pending_frame - 1) / self.fps_float - entry["clip_start"]
                 else:
                     pending_frame = drag.get("pending_frame")
-                    pending_seconds = drag.get("pending_seconds")
                 if entry is not None or marker.get("key") == drag.get("key"):
+                    pending_seconds = ((pending_frame - 1) / self.fps_float - marker["clip_start"]
+                                       if pending_frame is not None and self.fps_float else None)
                     if pending_seconds is not None:
                         marker["seconds"] = pending_seconds
                         marker["display_seconds"] = pending_seconds
@@ -600,8 +603,6 @@ class KeyframeMixin:
                         marker["dimmed"] = False
                     if pending_frame is not None:
                         marker["display_frame"] = pending_frame
-                    if not group:
-                        break
 
         self._keyframe_markers = markers
         self._keyframes_dirty = False
@@ -962,7 +963,7 @@ class KeyframeMixin:
         clip_id_str = str(clip_id)
         seconds = []
         for marker in getattr(self, "_keyframe_markers", []):
-            if marker.get("object_id") != clip_id_str:
+            if marker.get("object_id") != clip_id_str or marker.get("effect_bar"):
                 continue
             # Use unclamped seconds so trimmed-off keyframes remain snap targets.
             marker_seconds = marker.get("seconds")
@@ -990,9 +991,17 @@ class KeyframeMixin:
             # Click the glyph actually drawn, rather than a hidden neighbour
             # whose overlapping hit area happens to be tested first.
             markers = list(visible_keyframe_markers(markers, area, max(1, self.keyframe_painter.size/2)))
+        if pos.x() >= getattr(self, "track_name_width", 0):
+            effect_hit = keyframe_hit_at(
+                pos, ((marker.get("rect"), marker) for marker in reversed(markers)
+                      if marker.get("effect_bar") and not marker.get("read_only")),
+                padding=2.0, top_padding=0.0,
+            )
+            if effect_hit:
+                return effect_hit
         return keyframe_hit_at(
             pos,
-            ((marker.get("rect"), marker) for marker in reversed(markers)),
+            ((marker.get("rect"), marker) for marker in reversed(markers) if not marker.get("effect_bar")),
             # Icons straddle the clip's bottom border. Give their inside half
             # extra reach so the clip body does not take over as soon as the
             # pointer approaches from above.
@@ -1044,6 +1053,8 @@ class KeyframeMixin:
         clip = None
         transition = None
         if isinstance(info, dict):
+            if "base_position" in info:
+                return info["base_position"]
             clip = info.get("clip")
             transition = info.get("transition")
         else:
@@ -1477,6 +1488,9 @@ class KeyframeMixin:
                 markers.extend(self._build_clip_keyframes(rect, clip, state))
             for rect, transition, _selected in self.geometry.iter_transitions(viewport=False):
                 markers.extend(self._build_transition_keyframes(rect, transition, state))
+            tray = getattr(self, "_effects_tray", None)
+            if tray:
+                markers.extend(tray.keyframe_markers(state, complete=True))
             return markers
         finally:
             self._live_transform_drawing = live
@@ -1607,6 +1621,9 @@ class KeyframeMixin:
         if not timeline:
             return False
 
+        if marker.get("object_type") == "effect":
+            return self._remove_track_effect_points(marker["object_id"], marker.get("data_paths") or ())
+
         if marker_type == "transition":
             transition = marker.get("transition")
             if not transition:
@@ -1715,7 +1732,7 @@ class KeyframeMixin:
 
     def _remove_track_effect_points(self, effect_id, paths):
         effect = Effect.get(id=effect_id)
-        if not effect or not self._remove_keyframes_by_paths(effect.data, paths):
+        if not effect or effect.parent.get("lock") or not self._remove_keyframes_by_paths(effect.data, paths):
             return False
         effect.save()
         self.win.refreshFrameSignal.emit()
@@ -1872,7 +1889,12 @@ class KeyframeMixin:
             if not paths and marker.get("data_path"):
                 paths = (marker["data_path"],)
             object_id = marker.get("object_id", "")
-            if marker.get("object_type") == "transition":
+            if marker.get("object_type") == "effect":
+                panel_targets = [*(panel_targets or ()), {
+                    "owner_type": "effect", "object_id": object_id, "paths": paths,
+                }]
+                pair = None
+            elif marker.get("object_type") == "transition":
                 pair = _ensure_trans(object_id, marker.get("transition"))
             else:
                 pair = _ensure_clip(object_id, marker.get("clip"))
@@ -1889,7 +1911,7 @@ class KeyframeMixin:
                 continue
             if owner_type == "effect":
                 effect = Effect.get(id=object_id)
-                if effect:
+                if effect and not effect.parent.get("lock"):
                     for path in paths:
                         self._set_keyframe_interpolation_at_path(effect.data, path, interpolation, details)
                     effect.save()
@@ -2073,8 +2095,10 @@ class KeyframeMixin:
             self._dragging_keyframe["data_paths"] = (marker.get("data_path"),)
         selected_keys = getattr(self, "_selected_keyframe_keys", set())
         if len(selected_keys) > 1:
-            entries = [dict(item) for item in self._complete_keyframe_markers()
-                       if item.get("key") in selected_keys]
+            entries_by_key = {item["key"]: item for item in self._complete_keyframe_markers()
+                              if item.get("key") in selected_keys}
+            entries_by_key[marker["key"]] = marker
+            entries = [dict(item) for item in entries_by_key.values()]
             if len(entries) > 1:
                 drag = self._dragging_keyframe
                 drag["selected_markers"] = entries
@@ -2083,8 +2107,10 @@ class KeyframeMixin:
                 drag["group_max_delta"] = min(round(item["clip_end"] * self.fps_float) + 1 - item["frame"] for item in entries)
                 drag["group_sources"] = {}
                 for item in entries:
-                    owner = item.get("transition") if item.get("type") == "transition" else item.get("clip")
                     key = (item.get("object_type"), item.get("object_id"))
+                    owner = item.get("transition") if key[0] == "transition" else item.get("clip")
+                    if key[0] == "effect":
+                        owner = Effect.get(id=key[1])
                     if owner and key not in drag["group_sources"]:
                         drag["group_sources"][key] = (owner, json.loads(json.dumps(owner.data)))
 
@@ -2179,13 +2205,18 @@ class KeyframeMixin:
             copies = {key: json.loads(json.dumps(base)) for key, (owner, base) in drag["group_sources"].items()}
             for item in drag["selected_markers"]:
                 key = (item.get("object_type"), item.get("object_id"))
+                if key not in copies:
+                    continue
                 paths = item.get("data_paths") or (() if not item.get("data_path") else (item["data_path"],))
                 for path in paths:
                     self._set_keyframe_frame_at_path(copies[key], path, item["frame"] + delta)
             for key, data_copy in copies.items():
                 owner = drag["group_sources"][key][0]
                 owner.data = data_copy
-                if key[0] == "transition":
+                if key[0] == "effect":
+                    owner.save()
+                    self.win.refreshFrameSignal.emit()
+                elif key[0] == "transition":
                     timeline.update_transition_data(data_copy, only_basic_props=False,
                         ignore_refresh=ignore_refresh, transaction_id=transaction_id)
                 else:
@@ -2196,7 +2227,15 @@ class KeyframeMixin:
             return
         data_paths = tuple(drag.get("data_paths") or ())
         data_path = drag.get("data_path") if drag.get("data_path") else None
-        if marker.get("type") == "transition":
+        if marker.get("object_type") == "effect":
+            effect = Effect.get(id=drag["object_id"])
+            if not effect or effect.parent.get("lock"):
+                return
+            for path in data_paths:
+                self._set_keyframe_frame_at_path(effect.data, path, new_frame)
+            effect.save()
+            self.win.refreshFrameSignal.emit()
+        elif marker.get("type") == "transition":
             transition = marker.get("transition")
             if not transition:
                 return
@@ -2316,18 +2355,10 @@ class KeyframeMixin:
         if not timeline:
             return
 
-        clip = marker.get("clip")
-        transition = marker.get("transition")
         clip_start = marker.get("clip_start", 0.0)
         frame = marker.get("frame", 1)
         fps = self.fps_float or 1.0
-        base_position = 0.0
-        if clip:
-            data = clip.data if isinstance(clip.data, dict) else {}
-            base_position = float(data.get("position", 0.0) or 0.0)
-        elif transition:
-            data = transition.data if isinstance(transition.data, dict) else {}
-            base_position = float(data.get("position", 0.0) or 0.0)
+        base_position = self._keyframe_base_position(marker)
         absolute = round(base_position * fps) + frame - round(clip_start * fps)
         absolute = max(1, int(absolute))
         timeline.SeekToKeyframe(absolute)
@@ -2348,16 +2379,8 @@ class KeyframeMixin:
         if marker is None or frame is None:
             return
         fps = self.fps_float or 1.0
-        clip = marker.get("clip")
-        transition = marker.get("transition")
         clip_start = marker.get("clip_start", 0.0)
-        base_position = 0.0
-        if clip:
-            data = clip.data if isinstance(clip.data, dict) else {}
-            base_position = float(data.get("position", 0.0) or 0.0)
-        elif transition:
-            data = transition.data if isinstance(transition.data, dict) else {}
-            base_position = float(data.get("position", 0.0) or 0.0)
+        base_position = self._keyframe_base_position(marker)
         absolute = round(base_position * fps) + frame - round(clip_start * fps)
         absolute = max(1, int(absolute))
         self.win.SeekSignal.emit(absolute, bool(start_preroll))

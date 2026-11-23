@@ -337,28 +337,81 @@ class EffectsTray(QObject):
         top = self._row_top(lane, self.row_slots[index])
         return QRectF(lane.left(), top + 2, max(0.0, lane.width() - 8), self.row_height - 4)
 
-    def _bar_rect(self, index, lane):
+    def _bar_range(self, index):
         kind, owner, effect, first, last = self.rows[index]
-        row = self._row_rect(index, lane)
         w = self.timeline
         if kind == "clip":
             override = w._pending_clip_overrides.get(owner.id)
             if override:
                 clip = dict(owner.data, **override)
                 if w.normalize_track_number(clip["layer"]) != self.track_number:
-                    return QRectF()
+                    return None
                 first, last = clip_effect_timeline_range(clip, effect)
-        scale = w.pixels_per_second
-        origin = lane.left() - w.h_scroll_offset
         if last is None:
             last = self.timeline._current_project_duration()
         if self._preview and effect["id"] in self._preview:
             first, last = self._preview[effect["id"]]
+        return first, last
+
+    def _bar_rect(self, index, lane):
+        extent = self._bar_range(index)
+        if extent is None:
+            return QRectF()
+        first, last = extent
+        row = self._row_rect(index, lane)
+        w = self.timeline
+        scale = w.pixels_per_second
+        origin = lane.left() - w.h_scroll_offset
         x = origin + first * scale
         end = origin + last * scale
         if end <= x:
             return QRectF()
         return QRectF(x, row.top(), max(2.0, end - x), row.height())
+
+    def keyframe_markers(self, view_state, *, complete=False):
+        """Build the grouped keyframe markers on the open tray's bars."""
+        if not self.rows or (complete and self.locked):
+            return []
+        w = self.timeline
+        _, lane, _ = self._bounds()
+        if lane.isEmpty() or w.pixels_per_second <= 0:
+            return []
+        markers = []
+        for index, (scope, owner, data, original_start, _) in enumerate(self.rows):
+            bar = self._bar_rect(index, lane)
+            if bar.isEmpty():
+                continue
+            position, end = self._bar_range(index)
+            if self._preview and data["id"] in self._preview and self._press and self._press[2] is None:
+                data = shift_effect_keyframes(data, round((position - original_start) * self._frame_rate()))
+            clip = owner if scope == "clip" else None
+            transition = owner if scope == "transition" else None
+            start = position
+            paths = ()
+            if clip or transition:
+                overrides = w._pending_clip_overrides if clip else w._pending_transition_overrides
+                source = dict(owner.data, **overrides.get(owner.id, {}))
+                start += source["start"] - source["position"]
+            if clip:
+                effects = clip.data.get("effects") or ()
+                effect_index = next((i for i, effect in enumerate(effects) if effect["id"] == data["id"]), None)
+                if effect_index is None:
+                    continue
+                paths = (("dict", "effects"), ("list", effect_index))
+            kind = "transition" if transition else "effect"
+            rect = bar.translated(view_state.get("h_offset", 0), view_state.get("v_offset", 0))
+            for marker in w._collect_keyframes_from_data(
+                data, clip_rect=rect, clip=clip, transition=transition,
+                clip_start=start, clip_end=start + end - position, owner_id=data["id"],
+                object_type=kind, object_id=clip.id if clip else data["id"],
+                selected=True, color=w._effect_color(data) if not transition else w.keyframe_painter.fill,
+                effect=data if not transition else None, base_path=paths, view_state=view_state,
+            ):
+                marker.update(effect_bar=True, base_position=position, read_only=self.locked)
+                if scope == "track":
+                    marker["object_type"] = "effect"
+                markers.append(marker)
+        return markers
 
     def _title(self, row):
         kind, owner, effect, _, _ = row
@@ -568,6 +621,8 @@ class EffectsTray(QObject):
     def _clear_gesture(self):
         if self._press and self._press[3]:
             self.timeline._release_cursor()
+        if self._preview:
+            self.timeline._keyframes_dirty = True
         self._press = self._preview = self._marquee = None
         self._snap_frame = self._razor_line = None
         self._transfer = self._transfer_hint = None
@@ -752,6 +807,8 @@ class EffectsTray(QObject):
                         else _("Drop here to move to Clip Effects"))
                 self._transfer_hint = self._scope_heading(other_scope, lane), hint
             if self._transfer:
+                if self._preview:
+                    self.timeline._keyframes_dirty = True
                 self._preview = self._snap_frame = None
                 self._set_drag_cursor(Qt.DragMoveCursor if self._transfer[1] else Qt.ForbiddenCursor)
                 self.timeline.update()
@@ -765,7 +822,10 @@ class EffectsTray(QObject):
         if rows and self.timeline.pixels_per_second > 0:
             self._set_drag_cursor(Qt.ClosedHandCursor if edge is None else Qt.SizeHorCursor)
             delta = round(offset.x() / self.timeline.pixels_per_second * self._frame_rate())
-            self._preview = self._adjust_ranges(rows, delta, edge, snap=True)
+            preview = self._adjust_ranges(rows, delta, edge, snap=True)
+            if preview != self._preview:
+                self._preview = preview
+                self.timeline._keyframes_dirty = True
         if target == "blank":
             _, lane, visible = self._bounds()
             self._marquee = QRectF(anchor, pos).normalized().intersected(lane).intersected(visible)
@@ -857,7 +917,7 @@ class EffectsTray(QObject):
             return {"up": _("Move Up"), "down": _("Move Down"), "delete": _("Remove Effect")}[target]
         if target == "row":
             row = self.rows[index]
-            kind, owner, _, _, _ = row
+            kind, owner = row[:2]
             if kind == "clip":
                 return self._title(row) + " · " + owner.title()
             if kind == "track":

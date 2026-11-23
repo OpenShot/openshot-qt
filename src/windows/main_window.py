@@ -4857,9 +4857,6 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
     def deleteItem(self):
         """Remove the current selected file, keyframes, effect, clip, or transition."""
-        tray = self._focused_effects_tray()
-        if tray and tray.delete_selected():
-            return
         # Set transaction id
         tid = str(uuid.uuid4())
         get_app().updates.transaction_id = tid
@@ -4879,6 +4876,9 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                         return
                 if keyframes_deleted:
                     self.refreshFrameSignal.emit()
+                    return
+                tray = self._focused_effects_tray()
+                if tray and tray.delete_selected():
                     return
                 # Remove selected effects before falling back to clips/transitions.
                 self.actionRemoveEffect_trigger()

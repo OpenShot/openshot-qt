@@ -6082,11 +6082,42 @@ class TimelineHelperTests(unittest.TestCase):
             timeline=timeline, track_number=1, rows=[("clip", clip, effect, 5.0, 10.0)],
             _preview=None, _row_rect=lambda *_: lane,
         )
+        tray._bar_range = lambda index: EffectsTray._bar_range(tray, index)
         self.assertEqual(EffectsTray._bar_rect(tray, 0, lane), QRectF(1280, 50, 500, 20))
         timeline._pending_clip_overrides["clip"].update(position=13.0, start=5.0, end=7.0)
         self.assertEqual(EffectsTray._bar_rect(tray, 0, lane), QRectF(1380, 50, 200, 20))
         timeline._pending_clip_overrides["clip"]["layer"] = 2
         self.assertTrue(EffectsTray._bar_rect(tray, 0, lane).isEmpty())
+
+    def test_effect_bar_groups_curves_and_projects_source_frames_through_trim(self):
+        from windows.effects_tray import EffectsTray
+        from windows.views.timeline_backend.qwidget.keyframe import KeyframeMixin
+
+        timeline = KeyframeMixin()
+        timeline.fps_float = 10
+        timeline.pixels_per_second = 20
+        timeline.h_scroll_offset = 40
+        timeline.keyframe_painter = types.SimpleNamespace(size=8, fill=QColor("blue"))
+        timeline._pending_clip_overrides = timeline._pending_transition_overrides = {}
+        curve = {"Points": [{"co": {"X": frame}, "interpolation": 1} for frame in (1, 51)]}
+        effect = {"id": "fx", "sigma": curve, "horizontal_radius": curve}
+        clip = types.SimpleNamespace(id="clip", data={"position": 8, "start": 2, "effects": [effect]})
+        lane = QRectF(100, 50, 600, 30)
+        tray = EffectsTray.__new__(EffectsTray)
+        tray.timeline = timeline
+        tray.locked = False
+        tray.rows = [("clip", clip, effect, 10, 14)]
+        tray._preview = None
+        tray._bounds = lambda: (lane, lane, lane)
+        tray._row_rect = lambda *_: lane
+
+        marker, = tray.keyframe_markers({"h_offset": 40, "v_offset": 15})
+        self.assertEqual(marker["key"], ("effect", "fx", 51))
+        self.assertEqual(marker["rect"].center().x(), 280)
+        self.assertEqual(marker["base_position"], 10)
+        self.assertEqual(marker["clip_start"], 4)
+        self.assertEqual(len(marker["data_paths"]), 2)
+        self.assertTrue(all(path[:2] == (("dict", "effects"), ("list", 0)) for path in marker["data_paths"]))
 
     def test_keyframe_panel_projects_clip_trim_and_retime_from_source_frames(self):
         from windows.views.timeline_backend.paint.keyframepanel import KeyframePanelPainter

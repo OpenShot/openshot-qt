@@ -241,6 +241,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             obj = Clip.get(id=object_id)
         elif object_type == "transition":
             obj = Transition.get(id=object_id)
+        elif object_type == "effect":
+            obj = Effect.get(id=object_id)
         if obj:
             self.keyframe_drag_original[object_id] = json.loads(json.dumps(obj.data))
 
@@ -252,6 +254,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             obj = Clip.get(id=object_id)
         elif object_type == "transition":
             obj = Transition.get(id=object_id)
+        elif object_type == "effect":
+            obj = Effect.get(id=object_id)
         self.show_wait_spinner = True
         original = self.keyframe_drag_original.pop(object_id, None)
         if obj:
