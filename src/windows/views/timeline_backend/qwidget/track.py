@@ -29,8 +29,6 @@ from qt_api import QRectF, QLocale
 from classes.app import get_app
 
 TRACK_TOOLBAR_SPACING_REDUCTION = 2.0
-TRACK_TOOLBAR_LEFT_SHIFT = 10.0
-TRACK_TOOLBAR_BOTTOM_PADDING = 3.0
 
 
 class TrackInteractionMixin:
@@ -55,8 +53,6 @@ class TrackInteractionMixin:
             return []
 
         margin = float(getattr(painter, "toggle_margin", 0.0) or 0.0)
-        border = float(getattr(painter, "name_border_width", 0.0) or 0.0)
-        menu_margin = float(getattr(painter, "menu_margin", 0.0) or 0.0)
         track_num = self.normalize_track_number(track.data.get("number"))
 
         buttons = []
@@ -102,103 +98,115 @@ class TrackInteractionMixin:
         if not specs:
             return []
 
-        if getattr(self.theme, "compact_track_headers", False):
-            # One row: title/menu on the left, lock and keyframe controls on the right.
-            row_height = min(name_rect.height(), self.theme.track.height)
-            hit_size = min(22.0, max(0.0, row_height - 2.0))
-            hit_width = min(hit_size, float(self.theme.track_control_size) + 4.0)
-            right_margin = 6.0
-            widths = [max(hit_width, spec["icon_width"] + 4.0) if spec["key"] == "effects-tray" else hit_width
-                      for spec in specs]
-            left = name_rect.right() - right_margin - sum(widths)
-            for spec, width_for_button in zip(specs, widths):
-                pix_info = spec["pixmaps"]
-                if spec["key"] == "lock-toggle":
-                    pix_info = pix_info.get("locked") or pix_info.get("unlocked") or {}
-                pix = pix_info.get("enabled") or pix_info.get("disabled")
-                width, height = painter.logical_size(pix)
-                spec["rect"] = QRectF(left, name_rect.y() + (row_height - hit_size) / 2.0,
-                                      width_for_button, hit_size)
-                spec["margin_x"] = max(0.0, (width_for_button - width) / 2.0)
-                spec["margin_y"] = max(0.0, (hit_size - height) / 2.0)
-                buttons.append(spec)
-                left += width_for_button
-            return buttons
-
-        left_limit = name_rect.x() + border + menu_margin
-        min_left = name_rect.x() + border + menu_margin
-        left_limit = max(min_left, left_limit - TRACK_TOOLBAR_LEFT_SHIFT)
-        right_limit = name_rect.right() - border - menu_margin
-        if right_limit <= left_limit:
-            return []
-
-        bottom_border = float(getattr(painter, "name_border_bottom_width", 0.0) or 0.0)
-        font_metrics = self.fontMetrics()
-        text_height = float(font_metrics.height()) if font_metrics else 0.0
-        min_row_top = name_rect.y() + menu_margin
-        base_row_height = float(
-            getattr(self, "vertical_factor", 0.0)
-            or getattr(self, "track_height", 0.0)
-            or name_rect.height()
-        )
-        base_row_bottom = name_rect.y() + max(0.0, base_row_height)
-        base_row_bottom = min(base_row_bottom, name_rect.bottom())
-        max_icon_area_bottom = base_row_bottom - bottom_border - menu_margin
-
-        current_left = left_limit
-
-        for spec in specs:
-            width = spec["width"]
-            if width <= 0.0:
-                continue
-
-            next_right = current_left + width
-            if next_right > right_limit + 1e-6:
-                if current_left > right_limit:
+        # One fixed-size row at every track height, independent of expanded panels.
+        row_height = min(name_rect.height(), self.theme.track.height)
+        hit_size = min(22.0, max(0.0, row_height - 2.0))
+        hit_width = min(hit_size, float(self.theme.track_control_size) + 4.0)
+        widths = [max(hit_width, spec["icon_width"] + 4.0) if spec["key"] == "effects-tray"
+                  else hit_width for spec in specs]
+        controls = list(zip(specs[:-1], widths[:-1]))
+        more, more_width = specs[-1], widths[-1]
+        # Use the measured name width, so the divider reveals controls directly
+        # after the name instead of reserving an invisible fixed-width column.
+        title_width = painter.track_title_width(track) + 4.0
+        available = max(0.0, name_rect.width() - 6.0 - title_width)
+        if sum(width for _spec, width in controls) <= available:
+            visible = controls
+        else:
+            budget = max(0.0, available - more_width)
+            visible = []
+            used = 0.0
+            for spec, width in controls:
+                if used + width > budget:
                     break
-                available = right_limit - current_left
-                if available <= 0.0:
-                    break
-                width = available
-                margin_x = min(spec.get("margin_x", margin), width / 2.0)
-                spec["margin_x"] = margin_x
-                next_right = current_left + width
-                spec["width"] = width
-
-            icon_height = spec.get("icon_height", spec["height"]) or 0.0
-            margin_y = spec.get("margin_y", margin)
-            text_bottom = name_rect.y() + menu_margin + text_height
-
-            # Anchor icons by their draw position (not padded hit-rect)
-            # so they stay near the bottom edge across all themes.
-            desired_draw_y = max_icon_area_bottom - icon_height - TRACK_TOOLBAR_BOTTOM_PADDING
-            min_draw_y = max(min_row_top, text_bottom + menu_margin)
-            max_draw_y = max_icon_area_bottom - icon_height
-            if max_draw_y < min_draw_y:
-                draw_y = max_draw_y
-            else:
-                draw_y = min(max(desired_draw_y, min_draw_y), max_draw_y)
-
-            top = draw_y - margin_y
-            bottom_limit = max_icon_area_bottom
-
-            height = spec["height"]
-            if top < min_row_top:
-                top = min_row_top
-            if top + height > bottom_limit:
-                top = bottom_limit - height
-
-            rect = QRectF(
-                current_left,
-                top,
-                width,
-                height,
-            )
-            spec["rect"] = rect
+                visible.append((spec, width))
+                used += width
+            more["overflow"] = [dict(spec) for spec, _width in controls[len(visible):]]
+            visible.append((more, more_width))
+        specs = [spec for spec, _width in visible]
+        widths = [width for _spec, width in visible]
+        right_aligned = name_rect.right() - 6.0 - sum(widths)
+        left = min(right_aligned, name_rect.x() + painter.track_title_width(track) + 4.0)
+        for spec, width in zip(specs, widths):
+            if spec["key"] == "more-controls":
+                left = name_rect.right() - 6.0 - width
+            spec["rect"] = QRectF(left, name_rect.y() + (row_height - hit_size) / 2.0, width, hit_size)
+            spec["margin_x"] = max(0.0, (width - spec["icon_width"]) / 2.0)
+            spec["margin_y"] = max(0.0, (hit_size - spec["icon_height"]) / 2.0)
             buttons.append(spec)
-            current_left = rect.right()
-
+            left += width
         return buttons
+
+    def _show_track_controls(self, button):
+        from qt_api import QFrame, QHBoxLayout, QToolButton, QIcon, QPoint, Qt
+
+        previous = getattr(self, "_track_controls_popup", None)
+        if previous is not None:
+            if previous.isVisible():
+                previous.close()
+                self.update()
+                return
+            previous.deleteLater()
+        track = button.get("track") or self._find_track_by_id(button.get("track_id"))
+        if track is None:
+            return
+        owner = self
+        class TrackControlsPopup(QFrame):
+            def keyPressEvent(self, event):
+                if event.key() == Qt.Key_Escape:
+                    self.close()
+                    event.accept()
+                else:
+                    super().keyPressEvent(event)
+
+            def closeEvent(self, event):
+                super().closeEvent(event)
+                owner.update()
+
+        popup = TrackControlsPopup(self, Qt.Popup)
+        self._track_controls_popup = popup
+        popup.setAttribute(Qt.WA_NoMouseReplay)
+        popup.setObjectName("trackControlsFlyout")
+        bg = self.theme.track.name_background.name()
+        fg = self.theme.track.font_color.name()
+        accent = self.theme.track_control_color.name()
+        hover_bg = self.theme.track.name_background.lighter(135).name()
+        popup.setStyleSheet(
+            "QFrame#trackControlsFlyout { background: %s; border: 1px solid %s; border-radius: 4px; }"
+            "QToolButton { color: %s; background: transparent; border: none; border-radius: 3px; }"
+            "QToolButton:hover, QToolButton:focus { background: %s; }" % (bg, accent, fg, hover_bg))
+        layout = QHBoxLayout(popup)
+        layout.setContentsMargins(3, 3, 3, 3)
+        layout.setSpacing(0)
+        track_num = self.normalize_track_number(track.data.get("number"))
+        for hidden in button.get("overflow", []):
+            action = dict(hidden, track=track, track_num=track_num)
+            control = QToolButton(popup)
+            control.setFixedSize(28, 24)
+            control.setFocusPolicy(Qt.StrongFocus)
+            def refresh(control=control, action=action):
+                control.setIcon(QIcon(self._toolbar_button_pixmap(track, action)))
+                label = self._track_button_tooltip(action)
+                control.setToolTip(label)
+                control.setAccessibleName(label)
+            refresh()
+            def activate(checked=False, action=action, refresh=refresh):
+                self._activate_track_toolbar_button(action)
+                refresh()
+                self.update()
+            control.clicked.connect(activate)
+            layout.addWidget(control)
+        popup.adjustSize()
+        anchor = self.mapToGlobal(button["rect"].topRight().toPoint())
+        y = self.mapToGlobal(button["rect"].center().toPoint()).y() - popup.height() // 2
+        screen = self.screen().availableGeometry()
+        x = min(anchor.x() + 3, screen.right() - popup.width() + 1)
+        x = max(screen.left(), x)
+        y = min(max(screen.top(), y), screen.bottom() - popup.height() + 1)
+        popup.move(QPoint(x, y))
+        popup.show()
+        popup.setFocus()
+        self.update()
 
     def _track_toggle_rect(self, track, name_rect):
         buttons = self._track_toolbar_buttons(track, name_rect)
@@ -233,6 +241,20 @@ class TrackInteractionMixin:
     def _toolbar_button_pixmap(self, track, button, hovered=False, pressed=False):
         pixmaps = button.get("pixmaps") or {}
         key = button.get("key")
+
+        if key == "more-controls":
+            popup = getattr(self, "_track_controls_popup", None)
+            active = bool(popup is not None and popup.isVisible())
+            if active:
+                return pixmaps.get("active-hovered" if hovered else "active")
+            return pixmaps.get("enabled" if hovered or pressed else "disabled")
+
+        if key in ("mute-toggle", "visibility-toggle"):
+            setting = "muted" if key == "mute-toggle" else "hidden"
+            active = bool(track.data.get(setting))
+            state = ("active-hovered" if hovered or pressed else "active") if active else (
+                "enabled" if hovered or pressed else "disabled")
+            return pixmaps.get(state)
 
         if key == "lock-toggle":
             locked = bool(getattr(track, "data", {}).get("lock"))
@@ -302,12 +324,22 @@ class TrackInteractionMixin:
         track_num = button.get("track_num")
         track = button.get("track") or self._find_track_by_id(track_id)
 
+        if key == "more-controls":
+            self._show_track_controls(button)
+            return
+
         if key == "keyframe-panel":
             if track_num is not None:
                 self._toggle_track_panel(track_num)
             return
 
         if not self.win:
+            return
+
+        if key in ("mute-toggle", "visibility-toggle") and track_id:
+            setting = "muted" if key == "mute-toggle" else "hidden"
+            self.win.timeline.set_track_render_setting(track_id, setting, not bool(track.data.get(setting)))
+            self.update()
             return
 
         if key == "effects-tray" and track_id:

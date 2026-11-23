@@ -520,14 +520,16 @@ class TimelineHelperTests(unittest.TestCase):
 
         class Widget(TrackInteractionMixin, QWidget):
             normalize_track_number = staticmethod(int)
+            _track_display_label = staticmethod(lambda track: track.data.get("label", "Dialogue"))
 
         widget = Widget()
         self.addCleanup(widget.deleteLater)
         widget.theme = self.cosmic_theme_module.CosmicDuskTimelineTheme().with_track_size("compact")
         widget.track_painter = TrackPainter(widget)
         widget.geometry = types.SimpleNamespace(clip_effect_counts_by_track={})
+        widget._track_header_hover_id = "track"
         track = types.SimpleNamespace(id="track", data={"number": 1})
-        name = QRectF(0, 0, widget.theme.track.name_width, widget.theme.track.height)
+        name = QRectF(0, 0, 300, widget.theme.track.height)
 
         def fx_button():
             return next(button for button in widget._track_toolbar_buttons(track, name)
@@ -564,6 +566,141 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(active.pixelColor(4, active.height() // 2).alpha(), 0)
         self.assertGreater(active_hovered.pixelColor(4, active.height() // 2).alpha(), 0)
 
+    def test_track_controls_stay_in_one_row_and_do_not_reveal_on_hover(self):
+        from windows.views.timeline_backend.paint.track import TrackPainter
+        from windows.views.timeline_backend.qwidget.track import TrackInteractionMixin
+
+        class Widget(TrackInteractionMixin, QWidget):
+            normalize_track_number = staticmethod(int)
+            _track_display_label = staticmethod(lambda track: track.data.get("label", "Dialogue"))
+
+        widget = Widget()
+        self.addCleanup(widget.deleteLater)
+        widget.theme = self.cosmic_theme_module.CosmicDuskTimelineTheme().with_track_size("compact")
+        widget.track_painter = TrackPainter(widget)
+        widget.geometry = types.SimpleNamespace(clip_effect_counts_by_track={})
+        widget._track_panel_enabled = {}
+        track = types.SimpleNamespace(id="track", data={"number": 1})
+        name = QRectF(0, 0, widget.theme.track.name_width, widget.theme.track.height)
+        keys = lambda: [button["key"] for button in widget._track_toolbar_buttons(track, name)]
+        self.assertEqual(keys(), ["mute-toggle", "visibility-toggle", "more-controls"])
+        widget._track_header_hover_id = track.id
+        self.assertEqual(keys(), ["mute-toggle", "visibility-toggle", "more-controls"])
+        widget._track_header_hover_id = None
+        track.data.update(lock=True, muted=True, hidden=True)
+        widget._track_panel_enabled[1] = True
+        track.data["effects"] = [{"id": "fx"}]
+        self.assertEqual(len(keys()), 3)
+        for button in widget._track_toolbar_buttons(track, name)[:2]:
+            self.assertIs(widget._toolbar_button_pixmap(track, button), button["pixmaps"]["active"])
+        widget.win = types.SimpleNamespace(timeline=types.SimpleNamespace(set_track_render_setting=MagicMock()))
+        widget._activate_track_toolbar_button({"key": "mute-toggle", "track_id": track.id, "track": track})
+        widget.win.timeline.set_track_render_setting.assert_called_once_with(track.id, "muted", False)
+        widget.win.timeline.set_track_render_setting.reset_mock()
+        widget._activate_track_toolbar_button({"key": "visibility-toggle", "track_id": track.id, "track": track})
+        widget.win.timeline.set_track_render_setting.assert_called_once_with(track.id, "hidden", False)
+
+    def test_track_width_moves_controls_to_overflow_before_eliding_name(self):
+        from windows.views.timeline_backend.paint.track import TrackPainter
+        from windows.views.timeline_backend.qwidget.track import TrackInteractionMixin
+
+        class Widget(TrackInteractionMixin, QWidget):
+            normalize_track_number = staticmethod(int)
+            _track_display_label = staticmethod(lambda track: track.data["label"])
+
+        widget = Widget()
+        self.addCleanup(widget.deleteLater)
+        widget.theme = self.cosmic_theme_module.CosmicDuskTimelineTheme().with_track_size("compact")
+        widget.track_painter = TrackPainter(widget)
+        track = types.SimpleNamespace(id="track", data={"number": 1, "label": "Dialogue"})
+        order = ["mute-toggle", "visibility-toggle", "effects-tray", "keyframe-panel", "lock-toggle"]
+        for width, count in ((40, 0), (120, 0), (150, 1), (170, 2), (180, 2), (200, 3), (300, 5)):
+            with self.subTest(width=width):
+                rect = QRectF(0, 0, width, widget.theme.track.height)
+                buttons = widget._track_toolbar_buttons(track, rect)
+                visible = [button["key"] for button in buttons if button["key"] != "more-controls"]
+                self.assertEqual(visible, order[:count])
+                if count < 5:
+                    self.assertEqual([b["key"] for b in buttons[-1]["overflow"]], order[count:])
+                    self.assertAlmostEqual(buttons[-1]["rect"].right(), rect.right() - 6.0)
+                    if visible:
+                        self.assertLess(buttons[-1]["rect"].left() - buttons[-2]["rect"].right(), 20.0)
+                else:
+                    self.assertNotIn("more-controls", [b["key"] for b in buttons])
+                if visible:
+                    self.assertEqual(widget.track_painter.track_title_geometry(rect, track)[3], "Dialogue")
+                self.assertTrue(all(rect.contains(button["rect"]) for button in buttons))
+        rect = QRectF(0, 0, 180, widget.theme.track.height)
+        title, _pixmap, _arrow, label = widget.track_painter.track_title_geometry(rect, track)
+        buttons = widget._track_toolbar_buttons(track, rect)
+        self.assertLessEqual(buttons[0]["rect"].left() - title.right(), 8.0)
+        for width in (40, 50, 60):
+            with self.subTest(tiny_width=width):
+                rect.setWidth(width)
+                title, pixmap, arrow, label = widget.track_painter.track_title_geometry(rect, track)
+                self.assertEqual(label, "")
+                self.assertIsNotNone(pixmap)
+                self.assertFalse(arrow.isNull())
+                self.assertTrue(rect.contains(title))
+                self.assertAlmostEqual(arrow.center().y(), rect.center().y(), delta=0.5)
+                self.assertFalse(title.intersects(widget._track_toolbar_buttons(track, rect)[0]["rect"]))
+        track.data["label"] = "A longer translated track name"
+        needed = widget.track_painter.track_title_width(track)
+        rect = QRectF(0, 0, needed + 27, widget.theme.track.height)
+        self.assertEqual([b["key"] for b in widget._track_toolbar_buttons(track, rect)], ["more-controls"])
+        self.assertEqual(widget.track_painter.track_title_geometry(rect, track)[3], track.data["label"])
+        rect.setWidth(120)
+        self.assertEqual([b["key"] for b in widget._track_toolbar_buttons(track, rect)], ["more-controls"])
+        self.assertNotEqual(widget.track_painter.track_title_geometry(rect, track)[3], track.data["label"])
+
+    def test_track_chevron_opens_horizontal_controls_without_moving_header(self):
+        from windows.views.timeline_backend.paint.track import TrackPainter
+        from windows.views.timeline_backend.qwidget.track import TrackInteractionMixin
+        from qt_api import QToolButton
+
+        class Widget(TrackInteractionMixin, QWidget):
+            normalize_track_number = staticmethod(int)
+            _track_display_label = staticmethod(lambda track: track.data.get("label", "Dialogue"))
+            _track_button_tooltip = self.qwidget_base_module.TimelineWidgetBase._track_button_tooltip
+
+        widget = Widget()
+        self.addCleanup(widget.deleteLater)
+        widget.theme = self.cosmic_theme_module.CosmicDuskTimelineTheme().with_track_size("compact")
+        widget._track_panel_enabled = {}
+        widget._toggle_track_panel = MagicMock()
+        widget.track_painter = TrackPainter(widget)
+        widget.win = types.SimpleNamespace(selected_tracks=[], actionLockTrack_trigger=MagicMock(),
+                                          actionUnlockTrack_trigger=MagicMock())
+        track = types.SimpleNamespace(id="track", data={"number": 1})
+        rect = QRectF(0, 0, widget.theme.track.name_width, widget.theme.track.height)
+        before = widget._track_toolbar_buttons(track, rect)
+        chevron = dict(before[-1], track=track)
+        widget._activate_track_toolbar_button(chevron)
+        popup = widget._track_controls_popup
+        self.addCleanup(popup.close)
+        self.assertTrue(popup.isVisible())
+        controls = popup.findChildren(QToolButton)
+        self.assertEqual(len(controls), 3)
+        self.assertEqual(controls[0].geometry().center().y(), controls[1].geometry().center().y())
+        self.assertEqual([b["rect"] for b in before],
+                         [b["rect"] for b in widget._track_toolbar_buttons(track, rect)])
+        controls[1].click()
+        widget._toggle_track_panel.assert_called_once_with(1)
+        self.assertTrue(popup.isVisible())
+        widget.geometry = types.SimpleNamespace(mark_dirty=MagicMock())
+        controls[2].click()
+        widget.win.actionLockTrack_trigger.assert_called_once_with()
+        self.assertTrue(track.data["lock"])
+        self.assertTrue(popup.isVisible())
+        widget._activate_track_toolbar_button(chevron)
+        self.assertFalse(popup.isVisible())
+        widget._activate_track_toolbar_button(chevron)
+        popup = widget._track_controls_popup
+        self.addCleanup(popup.close)
+        from qt_api import QKeyEvent, QEvent
+        popup.keyPressEvent(QKeyEvent(QEvent.KeyPress, Qt.Key_Escape, Qt.NoModifier))
+        self.assertFalse(popup.isVisible())
+
     def test_compact_track_headers_keep_titles_and_controls_in_separate_hit_targets(self):
         from windows.views.timeline_backend.paint.track import TrackPainter
         from windows.views.timeline_backend.qwidget.track import TrackInteractionMixin
@@ -576,7 +713,7 @@ class TimelineHelperTests(unittest.TestCase):
         for theme_class in (self.humanity_theme_module.HumanityDarkTimelineTheme,
                             self.humanity_theme_module.RetroTimelineTheme,
                             self.cosmic_theme_module.CosmicDuskTimelineTheme):
-            for size in ("minimal", "compact"):
+            for size in ("minimal", "compact", "default", "relaxed"):
                 for font_size in (12, 24):
                     with self.subTest(theme=theme_class.__name__, size=size, font_size=font_size):
                         widget = Widget()
@@ -587,6 +724,7 @@ class TimelineHelperTests(unittest.TestCase):
                         widget.vertical_factor = widget.theme.track.height
                         widget._track_panel_enabled = {1: True}
                         widget.resize(widget.track_name_width, 200)
+                        widget._track_header_hover_id = "track"
                         widget.track_painter = TrackPainter(widget)
                         track = types.SimpleNamespace(id="track", data={
                             "number": 1, "label": "Dialogue — a very long translated track name", "lock": True})
@@ -602,22 +740,25 @@ class TimelineHelperTests(unittest.TestCase):
                         painter.end()
                         title = widget._track_title_rects[0]
                         buttons = widget._track_toolbar_buttons(track, name_rect)
-                        self.assertEqual([b["key"] for b in buttons], ["lock-toggle", "keyframe-panel", "effects-tray"])
+                        self.assertEqual([b["key"] for b in buttons], ["more-controls"])
+                        self.assertEqual(len(buttons[0]["overflow"]), 5)
+                        self.assertEqual(len({b["rect"].center().y() for b in buttons}), 1)
+                        self.assertAlmostEqual(buttons[0]["rect"].center().y(), widget.vertical_factor / 2)
                         row = QRectF(0, 0, widget.track_name_width, widget.vertical_factor)
                         self.assertTrue(row.contains(title["rect"]))
                         self.assertEqual(title["title"], track.data["label"])
                         for button in buttons:
                             self.assertTrue(row.contains(button["rect"]))
-                            self.assertGreaterEqual(button["rect"].height(), 20)
+                            self.assertGreaterEqual(button["rect"].height(), min(20, widget.vertical_factor / 2))
                             self.assertFalse(title["rect"].intersects(button["rect"]))
                             hit = widget._track_toolbar_button_at(button["rect"].center())
                             self.assertEqual(hit["key"], button["key"])
-                        self.assertFalse(buttons[0]["rect"].intersects(buttons[1]["rect"]))
+                        for first, second in zip(buttons, buttons[1:]):
+                            self.assertFalse(first["rect"].intersects(second["rect"]))
                         self.assertTrue(widget._track_menu_rect(name_rect, track).contains(title["rect"].center()))
                         # Adjacent icons have four logical pixels between them,
                         # while their hit targets retain the full row height.
-                        self.assertAlmostEqual(buttons[0]["margin_x"] + buttons[1]["margin_x"], 4.0)
-                        self.assertAlmostEqual(buttons[0]["rect"].right(), buttons[1]["rect"].left())
+                        self.assertGreaterEqual(buttons[0]["margin_x"], 1.0)
 
                         from qt_api import QBrush
                         from windows.views.timeline_backend.paint.keyframepanel import KeyframePanelPainter

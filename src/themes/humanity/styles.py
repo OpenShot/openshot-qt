@@ -86,7 +86,7 @@ class HumanityDarkTimelineTheme(TimelineTheme):
         self.track.font_color               = QColor("#EEEEEE")
         self.track.font_size                = 9
         self.track.name_background          = QColor("#191B1D")
-        self.track.name_width               = 140
+        self.track.name_width               = 170
         self.track.name_border_color        = QColor("#4B92AD")
         self.track.name_border_width        = 4
         self.track.name_border_top_color    = QColor("#3B3F42")

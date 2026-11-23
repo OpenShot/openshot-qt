@@ -4143,7 +4143,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             toggle = menu.addAction(label)
             toggle.setCheckable(True)
             toggle.setChecked(bool(track.data.get(key)))
-            toggle.setEnabled(not locked)
             toggle.triggered.connect(partial(self.set_track_render_setting, track.id, key))
         if found_gap:
             # Add 'Remove Gap' Menu
@@ -4172,8 +4171,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
     def set_track_render_setting(self, track_id, name, enabled):
         track = Track.get(id=track_id)
-        if track and not track.data.get("lock"):
-            track.data = {name: enabled}
+        if name not in ("muted", "hidden"):
+            return
+        if track:
+            track.data = {name: bool(enabled)}
             track.save()
             self.window.refreshFrameSignal.emit()
 

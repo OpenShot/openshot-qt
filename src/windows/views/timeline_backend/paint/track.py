@@ -92,12 +92,19 @@ class TrackPainter(BasePainter):
         self.toggle_margin = self.w.theme.menu_margin
 
         self.toolbar_order = (
-            "lock-toggle",
-            "keyframe-panel",
+            "mute-toggle",
+            "visibility-toggle",
             "effects-tray",
+            "keyframe-panel",
+            "lock-toggle",
+            "more-controls",
         )
 
-        toolbar = {}
+        toolbar = {
+            "mute-toggle": self.output_button_pixmaps("audio"),
+            "visibility-toggle": self.output_button_pixmaps("video"),
+            "more-controls": self.output_button_pixmaps("more"),
+        }
 
         keyframe_disabled = _scaled_toggle(
             getattr(self.w.theme, "track_keyframe_panel_disabled_icon", None)
@@ -157,6 +164,59 @@ class TrackPainter(BasePainter):
         toolbar["effects-tray"] = self.effect_button_pixmaps()
         self.toolbar_pixmaps = toolbar
 
+    def output_button_pixmaps(self, kind):
+        """Theme-colored vector controls, with a persistent crossed-out disabled state."""
+        size = max(12, round(self.w.theme.track_control_size))
+        states = {}
+        for state in ("disabled", "enabled", "active", "active-hovered"):
+            active = state.startswith("active")
+            color = QColor(self.w.theme.track_control_color)
+            if not color.isValid():
+                color = QColor(self.w.theme.track.font_color)
+            if active and kind != "more":
+                color = QColor("#e9a25a")
+            elif state == "disabled":
+                color.setAlphaF(0.65)
+            pix = QPixmap(size * 2, size * 2)
+            pix.setDevicePixelRatio(2)
+            pix.fill(Qt.transparent)
+            painter = QPainter(pix)
+            painter.setRenderHint(QPainter.Antialiasing)
+            painter.scale(size / 16.0, size / 16.0)
+            painter.setPen(QPen(color, 1.4, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
+            painter.setBrush(Qt.NoBrush)
+            path = QPainterPath()
+            if kind == "more":
+                path.moveTo(6, 4)
+                path.lineTo(10, 8)
+                path.lineTo(6, 12)
+                painter.drawPath(path)
+            elif kind == "audio":
+                path.moveTo(2, 6)
+                path.lineTo(5, 6)
+                path.lineTo(8, 3)
+                path.lineTo(8, 13)
+                path.lineTo(5, 10)
+                path.lineTo(2, 10)
+                path.closeSubpath()
+                painter.drawPath(path)
+                if not active:
+                    path = QPainterPath()
+                    path.moveTo(11, 5)
+                    path.quadTo(14, 8, 11, 11)
+                    painter.drawPath(path)
+            else:
+                path.moveTo(1, 8)
+                path.cubicTo(5, 2, 11, 2, 15, 8)
+                path.cubicTo(11, 14, 5, 14, 1, 8)
+                painter.drawPath(path)
+                painter.drawEllipse(QRectF(6, 6, 4, 4))
+            if active and kind != "more":
+                painter.drawLine(QPointF(2, 14), QPointF(14, 2))
+            painter.end()
+            states[state] = pix
+        return states
+
     def effect_button_pixmaps(self, count=0):
         label = effect_badge_label(count)
         cached = self._effect_button_pixmaps.get(label)
@@ -190,15 +250,38 @@ class TrackPainter(BasePainter):
         self._effect_button_pixmaps[label] = states
         return states
 
+    def header_font(self, track=None):
+        font = QFont(self.w.font())
+        scale = getattr(self.w.theme, "label_font_scale", 1.0)
+        if font.pixelSize() > 0:
+            font.setPixelSize(max(1, round((font.pixelSize() + 1) * scale)))
+        else:
+            font.setPointSizeF(max(1.0, (font.pointSizeF() + 1.0) * scale))
+        max_height = max(8.0, min(18.0, self.w.theme.track.height - 6.0))
+        height = QFontMetrics(font).height()
+        if height > max_height:
+            factor = max_height / height
+            if font.pixelSize() > 0:
+                font.setPixelSize(max(1, int(font.pixelSize() * factor)))
+            else:
+                font.setPointSizeF(max(1.0, font.pointSizeF() * factor))
+        if track is not None and track.data.get("number") == getattr(self.w, "_asset_target_layer", None):
+            font.setBold(True)
+        return font
+
+    def track_title_width(self, track):
+        metrics = QFontMetrics(self.header_font(track))
+        text = font_metrics_horizontal_advance(metrics, self.w._track_display_label(track))
+        # The same padding, dropdown, and gap used by track_title_geometry.
+        return text + 12.0 + 4.0 + max(8.0, metrics.height() - 2.0) + self.name_border_width + 2.0
+
     def track_title_geometry(self, name_rect, track=None, *, painter=None):
         if name_rect.isNull() or name_rect.width() <= 0.0 or name_rect.height() <= 0.0:
             return QRectF(), None, QRectF(), ""
 
-        compact = getattr(self.w.theme, "compact_track_headers", False)
-        if compact:
-            name_rect = QRectF(name_rect)
-            name_rect.setHeight(min(name_rect.height(), self.w.theme.track.height))
-        metrics = QFontMetrics(painter.font()) if painter is not None else None
+        name_rect = QRectF(name_rect)
+        name_rect.setHeight(min(name_rect.height(), self.w.theme.track.height))
+        metrics = QFontMetrics(self.header_font(track))
         font_h = float(metrics.height()) if metrics is not None else max(12.0, name_rect.height() - 4.0)
         pad_x = 6.0
         pad_y = 2.0
@@ -207,7 +290,7 @@ class TrackPainter(BasePainter):
         border_top = float(self.name_border_top_width or 0.0)
         border_bottom = float(self.name_border_bottom_width or 0.0)
         available_w = max(0.0, name_rect.width() - border_left)
-        if compact and track is not None:
+        if track is not None:
             buttons = self.w._track_toolbar_buttons(track, name_rect)
             if buttons:
                 available_w = max(0.0, min(b["rect"].left() for b in buttons)
@@ -221,20 +304,24 @@ class TrackPainter(BasePainter):
         title_elided = ""
         if metrics is not None:
             avail_text_w = int(max(0.0, available_w - pad_x * 2.0 - icon_gap - icon_size))
-            if avail_text_w >= 4:
+            minimum_label = min(font_metrics_horizontal_advance(metrics, label),
+                                font_metrics_horizontal_advance(metrics, label[:3] + "…"))
+            if avail_text_w >= minimum_label:
                 title_elided = metrics.elidedText(label, Qt.ElideRight, avail_text_w)
                 if title_elided:
                     text_advance = float(font_metrics_horizontal_advance(metrics, title_elided))
 
-        if text_advance <= 0.0:
+        if available_w <= 0.0:
             return QRectF(), None, QRectF(), ""
-
+        if text_advance <= 0.0:
+            # Keep the menu centered on the same row after the label disappears.
+            icon_size = min(icon_size, max(0.0, available_w - 4.0))
+            pad_x = 2.0
+            icon_gap = 0.0
         container_w = min(pad_x + text_advance + icon_gap + icon_size + pad_x, available_w)
-        container_w = max(container_h, container_w)
         container_rect = QRectF(
             name_rect.x() + border_left,
-            (name_rect.y() + (name_rect.height() - container_h) / 2.0
-             if compact else name_rect.y() + border_top),
+            name_rect.y() + (name_rect.height() - container_h) / 2.0,
             container_w,
             max(1.0, container_h),
         )
@@ -247,7 +334,7 @@ class TrackPainter(BasePainter):
             if scaled_arrow and not scaled_arrow.isNull():
                 arrow_w, arrow_h = self.logical_size(scaled_arrow)
                 arrow_x = container_rect.x() + pad_x + text_advance + icon_gap
-                if arrow_x + arrow_w <= container_rect.x() + container_rect.width() - 3.0:
+                if arrow_x + arrow_w <= container_rect.right() + 0.01:
                     arrow_y = container_rect.y() + max(0.0, (container_rect.height() - arrow_h) / 2.0)
                     arrow_rect = QRectF(arrow_x, arrow_y, arrow_w, arrow_h)
 
@@ -447,27 +534,8 @@ class TrackPainter(BasePainter):
         painter.setClipRect(area)
         self.w._track_title_rects = []
         original_font = painter.font()
-        track_font = QFont(original_font)
-        scale = getattr(self.w.theme, "label_font_scale", 1.0)
-        if track_font.pixelSize() > 0:
-            track_font.setPixelSize(max(1, round((track_font.pixelSize() + 1) * scale)))
-        elif track_font.pointSizeF() > 0:
-            track_font.setPointSizeF((track_font.pointSizeF() + 1.0) * scale)
-        if getattr(self.w.theme, "compact_track_headers", False):
-            max_height = max(8.0, self.w.theme.track.height - 6.0)
-            font_height = QFontMetrics(track_font).height()
-            if font_height > max_height:
-                factor = max_height / font_height
-                if track_font.pixelSize() > 0:
-                    track_font.setPixelSize(max(1, int(track_font.pixelSize() * factor)))
-                else:
-                    track_font.setPointSizeF(max(1.0, track_font.pointSizeF() * factor))
-        painter.setFont(track_font)
         for _track_rect, track, name_rect in self.w.geometry.iter_tracks():
-            target_font = QFont(track_font)
-            if track.data['number'] == getattr(self.w, '_asset_target_layer', None):
-                target_font.setBold(True)
-            painter.setFont(target_font)
+            painter.setFont(self.header_font(track))
             locked = bool((track.data if isinstance(track.data, dict) else {}).get("lock"))
             name_bg = self.focus_background(self.w.theme.track.name_background)
             name_border_top = QColor(self.name_border_top_color)
@@ -611,27 +679,6 @@ class TrackPainter(BasePainter):
                 )
 
             buttons = self.w._track_toolbar_buttons(track, name_rect)
-            text_offset = self.name_border_width + self.menu_margin
-            right_padding = self.name_border_width + self.menu_margin
-            if title_w > 0.0:
-                text_offset = max(text_offset, (title_rect.x() - name_rect.x()) + title_rect.width() + self.menu_margin)
-            text_width = max(0.0, name_rect.width() - text_offset - right_padding)
-            text_rect_height = text_height if text_height > 0.0 else max(0.0, name_rect.height() - self.menu_margin * 2)
-            text_bottom = min(text_top + text_rect_height, text_bottom_limit)
-            text_rect = QRectF(
-                name_rect.x() + text_offset,
-                text_top,
-                text_width,
-                max(0.0, text_bottom - text_top),
-            )
-            painter.setPen(text_color)
-            if title_rect.isNull() and text_rect.width() > 0.0 and text_rect.height() > 0.0:
-                painter.drawText(
-                    text_rect,
-                    Qt.AlignLeft | Qt.AlignTop,
-                    self.w._track_display_label(track)
-                )
-
             hover_key = getattr(self.w, "_toolbar_hover_key", None)
             pressed_key = getattr(self.w, "_toolbar_pressed_key", None)
             pressed_inside = getattr(self.w, "_toolbar_pressed_inside", False)

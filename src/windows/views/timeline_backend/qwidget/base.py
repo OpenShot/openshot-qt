@@ -3057,6 +3057,13 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         key = str(button.get("key", "") or "")
         track = button.get("track")
         _ = get_app()._tr
+        if key == "more-controls":
+            return _("More track controls")
+        if key in ("mute-toggle", "visibility-toggle"):
+            data = getattr(track, "data", {})
+            if key == "mute-toggle":
+                return _("Unmute track") if data.get("muted") else _("Mute track")
+            return _("Show track video") if data.get("hidden") else _("Hide track video")
         if key == "lock-toggle":
             locked = bool(getattr(track, "data", {}).get("lock")) if track else False
             return _("Unlock track") if locked else _("Lock track")
