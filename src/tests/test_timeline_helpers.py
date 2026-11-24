@@ -3511,6 +3511,21 @@ class TimelineHelperTests(unittest.TestCase):
             PlayheadMixin.update_playhead_pos(widget, frame)
         self.assertEqual(centers, [101, 151, 201])
 
+    def test_center_signal_does_not_move_view_while_slider_is_held(self):
+        from windows.views.timeline_backend.qwidget.playhead import PlayheadMixin
+
+        slider = types.SimpleNamespace(mouse_pressed=True, mouse_dragging=True)
+        widget = types.SimpleNamespace(
+            win=types.SimpleNamespace(sliderZoomWidget=slider), fps_float=30,
+            current_frame=3001, scrollbar_position=[0.1, 0.2, 1000, 100],
+            _center_on_seconds=MagicMock(return_value=False),
+        )
+        PlayheadMixin.centerOnPlayhead(widget)
+        widget._center_on_seconds.assert_not_called()
+        slider.mouse_pressed = slider.mouse_dragging = False
+        PlayheadMixin.centerOnPlayhead(widget)
+        widget._center_on_seconds.assert_called_once()
+
     def test_playback_respects_zoom_slider_gesture_and_selected_viewport(self):
         from windows.views.timeline_backend.qwidget.playhead import PlayheadMixin
 

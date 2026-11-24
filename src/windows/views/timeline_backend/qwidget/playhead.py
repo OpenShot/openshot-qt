@@ -49,6 +49,12 @@ class PlayheadMixin:
         self.win.SeekSignal.emit(seek_state[0], seek_state[1])
 
     def centerOnPlayhead(self, emit=True):
+        # Center requests can arrive through signals as well as position updates.
+        # The active slider gesture owns the viewport through every entry point.
+        slider = getattr(getattr(self, "win", None), "sliderZoomWidget", None)
+        if slider and (getattr(slider, "mouse_pressed", False)
+                       or getattr(slider, "mouse_dragging", False)):
+            return
         anchor_seconds = 0.0
         if self.fps_float:
             anchor_seconds = max(0.0, (self.current_frame - 1) / self.fps_float)
@@ -101,7 +107,8 @@ class PlayheadMixin:
 
         # Keep the zoom slider in control of the viewport while it is held.
         slider = getattr(getattr(self, "win", None), "sliderZoomWidget", None)
-        slider_pressed = getattr(slider, "mouse_pressed", False)
+        slider_pressed = (getattr(slider, "mouse_pressed", False)
+                          or getattr(slider, "mouse_dragging", False))
         view_width = self.scrollbar_position[3]
         if (self.fps_float and view_width > 0 and not self.mouse_dragging
                 and not slider_pressed and self._is_playing()):
