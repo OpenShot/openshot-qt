@@ -127,7 +127,7 @@ def verify():
         checks.assertTrue(triggered and window.dockProperties.isVisible(), 'triggered and window.dockProperties.isVisible()')
         checks.assertTrue(timeline.mapToGlobal(QPoint(0, 0)).x() > initial_origin + 100, "Fixture did not shift timeline")
         checks.assertTrue(abs(edge().x() - before.x()) <= 1, (before.x(), edge().x()))
-        checks.assertTrue(timeline.pixels_per_second == initial_zoom, 'timeline.pixels_per_second == initial_zoom')
+        checks.assertAlmostEqual(timeline.pixels_per_second, initial_zoom, delta=1e-9)
         checks.assertTrue(Clip.get(id=clip.id).data == original, 'Clip.get(id=clip.id).data == original')
 
         # Hide uses the playhead fallback. Repeated dock layout passes must keep
@@ -141,7 +141,7 @@ def verify():
         window.resize(1440, 900)
         wait_for_layout()
         checks.assertTrue(abs(edge().x() - playhead_x) <= 1, (playhead_x, edge().x()))
-        checks.assertTrue(timeline.pixels_per_second == initial_zoom, 'timeline.pixels_per_second == initial_zoom')
+        checks.assertAlmostEqual(timeline.pixels_per_second, initial_zoom, delta=1e-9)
 
         # A keyboard open at time zero can only clamp to the new left edge.
         timeline.current_frame = 1

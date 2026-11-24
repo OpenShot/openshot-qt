@@ -307,7 +307,8 @@ class VideoWidgetTransformTests(unittest.TestCase):
         from qt_api import QBrush, QPen
         from windows.views.timeline_backend.paint.keyframepanel import KeyframePanelPainter
         points = [{"seconds": n / 10, "selected": n == 20} for n in range(10000)]
-        panel = types.SimpleNamespace(property_brush=QBrush(QColor("blue")), range_pen=QPen(Qt.NoPen),
+        panel = KeyframePanelPainter.__new__(KeyframePanelPainter)
+        panel.__dict__.update(property_brush=QBrush(QColor("blue")), range_pen=QPen(Qt.NoPen),
             curve_pen=QPen(QColor("white")), marker_size=10, _draw_marker=Mock(),
             _seconds_to_x=lambda seconds: seconds,
             w=types.SimpleNamespace(_panel_add_icon_rect=lambda rect: QRectF()))

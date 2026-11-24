@@ -12,7 +12,7 @@ from qt_api import (QApplication, QComboBox, QCoreApplication, QEvent,
 from classes import tabstops
 
 
-def load_method(relative_path, name):
+def load_method(relative_path, name, extra_globals=None):
     # Exercise the production method with real Qt geometry without importing
     # a libopenshot build linked to a potentially different Qt major version.
     path = Path(__file__).resolve().parents[1] / relative_path
@@ -22,6 +22,7 @@ def load_method(relative_path, name):
     module = ast.parse("")
     module.body = [method]
     namespace = dict(vars(qt_api))
+    namespace.update(extra_globals or {})
     exec(compile(module, str(path), "exec"), namespace)
     return namespace[name]
 
@@ -104,7 +105,9 @@ class SentryQtCompatibilityTests(unittest.TestCase):
         self.delete_widget(root)
 
     def test_cursor_normalizes_integer_and_floating_points(self):
-        update = load_method("windows/views/timeline_backend/qwidget/base.py", "_updateCursor")
+        path = "windows/views/timeline_backend/qwidget/base.py"
+        base = types.SimpleNamespace(_keyframe_header_add_at=load_method(path, "_keyframe_header_add_at"))
+        update = load_method(path, "_updateCursor", {"TimelineWidgetBase": base})
         for point in (QPoint(4, 5), QPointF(4.25, 5.75)):
             with self.subTest(point=point):
                 def contains(pos):
