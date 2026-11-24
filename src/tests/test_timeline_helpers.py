@@ -1088,6 +1088,7 @@ class TimelineHelperTests(unittest.TestCase):
 
         class Helper(qwidget_clip_module.ClipInteractionMixin):
             def __init__(self):
+                self._drag_scroll_timer = MagicMock()
                 self.dragging_items = []
                 self._drag_moved = True
                 self._collapse_selection_on_release = False
@@ -1158,6 +1159,12 @@ class TimelineHelperTests(unittest.TestCase):
         class Helper(qwidget_clip_module.ClipInteractionMixin):
             def __init__(self):
                 self._drag_commit_in_progress = False
+                self._drag_scroll_timer = MagicMock()
+                self.track_name_width = 0
+                self.scroll_bar_thickness = 0
+                self.width = lambda: 400
+                self.h_scroll_offset = 0
+                self._drag_start_scroll_offset = 0
                 self.dragging_items = []
                 self._drag_threshold_met = True
                 self._drag_press_pos = QPointF()
@@ -3483,6 +3490,101 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(transition_payload["id"], "T1")
         self.assertNotIn("_auto_transition", clip_payload)
         self.assertNotIn("_auto_direction", transition_payload)
+
+    def test_playback_follows_playhead_across_multiple_viewports(self):
+        from windows.views.timeline_backend.qwidget.playhead import PlayheadMixin
+
+        widget = types.SimpleNamespace(
+            dragging_playhead=False, mouse_dragging=False, current_frame=1,
+            fps_float=10, pixels_per_second=10, scrollbar_position=[0, 0.1, 1000, 100],
+            h_scroll_offset=0, _is_playing=lambda: True, update=MagicMock(),
+        )
+        centers = []
+
+        def center():
+            x = (widget.current_frame - 1) / widget.fps_float * widget.pixels_per_second
+            widget.h_scroll_offset = x - widget.scrollbar_position[3] / 2
+            centers.append(widget.current_frame)
+
+        widget.centerOnPlayhead = center
+        for frame in (1, 100, 101, 150, 151, 200, 201):
+            PlayheadMixin.update_playhead_pos(widget, frame)
+        self.assertEqual(centers, [101, 151, 201])
+
+    def test_center_signal_does_not_move_view_while_slider_is_held(self):
+        from windows.views.timeline_backend.qwidget.playhead import PlayheadMixin
+
+        slider = types.SimpleNamespace(mouse_pressed=True, mouse_dragging=True)
+        widget = types.SimpleNamespace(
+            win=types.SimpleNamespace(sliderZoomWidget=slider), fps_float=30,
+            current_frame=3001, scrollbar_position=[0.1, 0.2, 1000, 100],
+            _center_on_seconds=MagicMock(return_value=False),
+        )
+        PlayheadMixin.centerOnPlayhead(widget)
+        widget._center_on_seconds.assert_not_called()
+        slider.mouse_pressed = slider.mouse_dragging = False
+        PlayheadMixin.centerOnPlayhead(widget)
+        widget._center_on_seconds.assert_called_once()
+
+    def test_playback_respects_zoom_slider_gesture_and_selected_viewport(self):
+        from windows.views.timeline_backend.qwidget.playhead import PlayheadMixin
+
+        slider = types.SimpleNamespace(mouse_pressed=True)
+        widget = types.SimpleNamespace(
+            win=types.SimpleNamespace(sliderZoomWidget=slider),
+            dragging_playhead=False, mouse_dragging=False, current_frame=1,
+            fps_float=10, pixels_per_second=10, scrollbar_position=[0.3, 0.4, 1000, 100],
+            h_scroll_offset=300, _is_playing=lambda: True, update=MagicMock(),
+            centerOnPlayhead=MagicMock(),
+        )
+
+        PlayheadMixin.update_playhead_pos(widget, 2)
+        self.assertEqual(widget.current_frame, 2)
+        widget.update.assert_called_once_with()
+        widget.centerOnPlayhead.assert_not_called()
+
+        PlayheadMixin.hold_playhead_follow_until_visible(widget)
+        slider.mouse_pressed = False
+        PlayheadMixin.update_playhead_pos(widget, 3)
+        PlayheadMixin.update_playhead_pos(widget, 301)
+        widget.centerOnPlayhead.assert_not_called()
+
+        PlayheadMixin.update_playhead_pos(widget, 401)
+        widget.centerOnPlayhead.assert_called_once_with()
+
+        widget.centerOnPlayhead.reset_mock()
+        PlayheadMixin.hold_playhead_follow_until_visible(widget)
+        PlayheadMixin.handle_play(widget)
+        PlayheadMixin.update_playhead_pos(widget, 402)
+        widget.centerOnPlayhead.assert_called_once_with()
+
+    def test_clip_drag_mouse_signal_converts_event_to_coordinates(self):
+        helper = self.make_qwidget_drag_move_helper()
+        helper._dragMove = MagicMock()
+        position = QPointF(210.5, 68.0)
+        event = types.SimpleNamespace(position=lambda: position, modifiers=lambda: Qt.ShiftModifier)
+
+        helper._drag_mouse_move(event)
+
+        helper._dragMove.assert_called_once_with(position, Qt.ShiftModifier)
+
+    def test_clip_drag_edge_timer_scrolls_without_another_mouse_event(self):
+        helper = self.make_qwidget_drag_move_helper()
+        helper._drag_pointer = (QPointF(399, 0), Qt.NoModifier)
+        helper._drag_scroll_delta = 10
+        helper.scrollbar_position = [0, 0.4, 1000, 400]
+        helper._dragMove = MagicMock()
+        helper.win = types.SimpleNamespace(TimelineScrolled=MagicMock())
+
+        def set_scroll_left(left):
+            helper.scrollbar_position[0] = left
+            helper.h_scroll_offset = left * 1000
+
+        helper.set_scroll_left = set_scroll_left
+        helper._scroll_clip_drag()
+        helper._scroll_clip_drag()
+        self.assertEqual(helper.h_scroll_offset, 20)
+        self.assertEqual(helper._dragMove.call_count, 2)
 
     def test_qwidget_drag_move_preserves_shared_edge_alignment_for_off_frame_selection(self):
         helper = self.make_qwidget_drag_move_helper()

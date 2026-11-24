@@ -745,6 +745,24 @@ class RazorTests(unittest.TestCase):
         self.assertEqual(worker.position, 91)
         self.assertIsNone(worker._source_preview_restore_frame)
 
+    def test_deferred_source_restore_cannot_override_new_project_seek(self):
+        for new_project in (False, True):
+            with self.subTest(new_project=new_project):
+                worker = self.make_worker()
+                worker.timeline = object()
+                worker.player.Reader = MagicMock()
+                worker.reader_mode = "clip"
+                worker.clip_path = "/media/clip.mp4"
+                worker.previous_clip_readers = []
+                worker.original_position = 61
+                with patch("windows.preview_thread.QTimer") as timer:
+                    worker.LoadFilePreview("", False)
+                    deferred_restore = timer.singleShot.call_args.args[1]
+                if new_project:
+                    worker.LoadTimelineAndSeek(1)
+                deferred_restore()
+                self.assertEqual(worker._take_pending_seek(), (1 if new_project else 61, True))
+
     def test_worker_play_restores_pending_and_applied_hover(self):
         for applied in (False, True):
             worker = self.make_worker()

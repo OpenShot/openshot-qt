@@ -446,15 +446,21 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         # Load recent projects again
         self.load_recent_menu()
 
-        # Refresh files views
-        self.refreshFilesSignal.emit()
         log.info("New Project created.")
 
         # Set Window title
         self.SetWindowTitle()
 
-        # Seek to frame 0
-        self.SeekSignal.emit(1, True)
+        self.timeline.reset_new_project_view()
+        self.videoPreview.resize_button_clicked()
+        self.actionFilesShowAll.setChecked(True)
+        self.refreshFilesSignal.emit()
+        self.dockFiles.show()
+        self.dockFiles.raise_()
+        self.dockCaptionEditor.hide()
+
+        # Restore the timeline reader and seek together on the preview thread.
+        self.LoadTimelineAndSeekSignal.emit(1)
 
         # Update max size (for fast previews)
         self.MaxSizeChanged.emit(self.videoPreview.size())

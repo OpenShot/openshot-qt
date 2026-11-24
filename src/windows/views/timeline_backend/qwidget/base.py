@@ -233,6 +233,10 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self._vscroll_timer.setSingleShot(True)
         self._vscroll_timer.timeout.connect(self._flush_pending_vertical_scroll)
 
+        self._drag_scroll_timer = QTimer(self)
+        self._drag_scroll_timer.setInterval(16)
+        self._drag_scroll_timer.timeout.connect(self._scroll_clip_drag)
+
         # Wheel zoom helpers
         self._zoom_emit_timer = QTimer(self)
         self._zoom_emit_timer.setSingleShot(True)
@@ -585,8 +589,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         idle.addTransition(t)
         self._transitions.append(t)
 
-        drag.entered.connect(lambda: self.events.moved.connect(self._dragMove))
-        drag.exited.connect(lambda: self._safe_disconnect(self.events.moved, self._dragMove))
+        drag.entered.connect(lambda: self.events.moved.connect(self._drag_mouse_move))
+        drag.exited.connect(lambda: self._safe_disconnect(self.events.moved, self._drag_mouse_move))
         self._add_simple_transition(drag, self.events, self._event_signal_bytes("released"), idle)
 
         resize.entered.connect(lambda: self.events.moved.connect(self._resizeMove))
