@@ -44,7 +44,7 @@ linux:
     -    "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/develop/download?job=linux-builder"
     - fi
     - unzip artifacts.zip
-    - "if [ \"$CI_COMMIT_REF_NAME\" = \"arm64-support\" ] || [ \"$CI_COMMIT_REF_NAME\" = \"object-mask-alignment\" ]; then grep -qx \"CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME\" build/install-x64/share/libopenshot.env || exit 1; fi"
+    - "if [ \"$CI_COMMIT_REF_NAME\" = \"arm64-support\" ] || [ \"$CI_COMMIT_REF_NAME\" = \"fix-scale-apply-to-source\" ]; then grep -qx \"CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME\" build/install-x64/share/libopenshot.env || exit 1; fi"
     - cp -r "$CI_PROJECT_DIR/build/install-x64/python/." "$CI_PROJECT_DIR"
     - if [ ! -f "$FFMPEG_ROOT/env.sh" ]; then echo "ERROR runner is missing $FFMPEG_ROOT (FFmpeg 7 with Vulkan)"; exit 1; fi
     - . "$FFMPEG_ROOT/env.sh"
@@ -95,7 +95,7 @@ mac:
     -    "curl -O -J -L --header PRIVATE-TOKEN:$ACCESS_TOKEN http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/develop/download?job=mac-builder"
     - fi
     - unzip artifacts.zip
-    - "if [ \"$CI_COMMIT_REF_NAME\" = \"arm64-support\" ] || [ \"$CI_COMMIT_REF_NAME\" = \"object-mask-alignment\" ]; then grep -qx \"CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME\" build/install-x64/share/libopenshot.env || exit 1; fi"
+    - "if [ \"$CI_COMMIT_REF_NAME\" = \"arm64-support\" ] || [ \"$CI_COMMIT_REF_NAME\" = \"fix-scale-apply-to-source\" ]; then grep -qx \"CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME\" build/install-x64/share/libopenshot.env || exit 1; fi"
     - echo "Update extracted dependencies using install_name_tool (for Mac only)"
     - libraries=$( find ./build/install-x64 -type f \( -name *.dylib -or -name *.so \) | sed 's/\.\/*//' )
     - for f in $libraries; do
@@ -144,7 +144,7 @@ win-x64:
     - try { Invoke-WebRequest -Uri "http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=windows-builder-x64" -Headers @{"PRIVATE-TOKEN"="$ACCESS_TOKEN"} -OutFile "artifacts.zip" } catch { $_.Exception.Response.StatusCode.Value__ }
     - if (-not (Test-Path "artifacts.zip")) { Invoke-WebRequest -Uri "http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/develop/download?job=windows-builder-x64" -Headers @{"PRIVATE-TOKEN"="$ACCESS_TOKEN"} -OutFile "artifacts.zip" }
     - Expand-Archive -Path artifacts.zip -DestinationPath .
-    - "if (($CI_COMMIT_REF_NAME -eq \"arm64-support\" -or $CI_COMMIT_REF_NAME -eq \"object-mask-alignment\") -and -not (Select-String -Path \"build/install-x64/share/libopenshot.env\" -Pattern \"^CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME$\" -Quiet)) { throw \"Matching branch library artifacts are required\" }"
+    - "if (($CI_COMMIT_REF_NAME -eq \"arm64-support\" -or $CI_COMMIT_REF_NAME -eq \"fix-scale-apply-to-source\") -and -not (Select-String -Path \"build/install-x64/share/libopenshot.env\" -Pattern \"^CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME$\" -Quiet)) { throw \"Matching branch library artifacts are required\" }"
     - Copy-Item "$CI_PROJECT_DIR/build/install-x64/python/*" -Destination "$CI_PROJECT_DIR"
     - $env:MSYSTEM = "MINGW64"
     - if ((& "C:/msys64/mingw64/bin/ffmpeg.exe" -version | Select-Object -First 1) -notmatch "^ffmpeg version 7[.]1[.]") { throw "FFmpeg 7.1 is required" }
@@ -196,7 +196,7 @@ win-x86:
     - try { Invoke-WebRequest -Uri "http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/$CI_COMMIT_REF_NAME/download?job=windows-builder-x86" -Headers @{"PRIVATE-TOKEN"="$ACCESS_TOKEN"} -OutFile "artifacts.zip" } catch { $_.Exception.Response.StatusCode.Value__ }
     - if (-not (Test-Path "artifacts.zip")) { Invoke-WebRequest -Uri "http://gitlab.openshot.org/OpenShot/libopenshot/-/jobs/artifacts/develop/download?job=windows-builder-x86" -Headers @{"PRIVATE-TOKEN"="$ACCESS_TOKEN"} -OutFile "artifacts.zip" }
     - Expand-Archive -Path artifacts.zip -DestinationPath .
-    - "if (($CI_COMMIT_REF_NAME -eq \"arm64-support\" -or $CI_COMMIT_REF_NAME -eq \"object-mask-alignment\") -and -not (Select-String -Path \"build/install-x86/share/libopenshot.env\" -Pattern \"^CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME$\" -Quiet)) { throw \"Matching branch library artifacts are required\" }"
+    - "if (($CI_COMMIT_REF_NAME -eq \"arm64-support\" -or $CI_COMMIT_REF_NAME -eq \"fix-scale-apply-to-source\") -and -not (Select-String -Path \"build/install-x86/share/libopenshot.env\" -Pattern \"^CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME$\" -Quiet)) { throw \"Matching branch library artifacts are required\" }"
     - Copy-Item "$CI_PROJECT_DIR/build/install-x86/python/*" -Destination "$CI_PROJECT_DIR"
     - $env:MSYSTEM = "MINGW32"
     - if ((& "C:/msys64/mingw32/bin/ffmpeg.exe" -version | Select-Object -First 1) -notmatch "^ffmpeg version 7[.]1[.]") { throw "FFmpeg 7.1 is required" }
