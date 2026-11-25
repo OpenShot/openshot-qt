@@ -43,6 +43,7 @@ from qt_api import (
 from qt_api import QAbstractItemView
 from classes import updates
 from classes import info
+from classes.emoji import builtin_emoji_thumbnail
 from classes.image_types import get_media_type
 from classes.path_utils import media_paths_equal
 from classes.query import File
@@ -227,6 +228,11 @@ class FilesModel(QObject, updates.UpdateInterface):
         path, filename = os.path.split(file.data["path"])
         name = file.data.get("name", filename)
         media_type = file.data.get("media_type")
+
+        if not clear_cache:
+            emoji_thumbnail = builtin_emoji_thumbnail(file.data["path"])
+            if emoji_thumbnail:
+                return emoji_thumbnail, name, media_type
 
         if file.data.get("type") == "QtTextReader":
             from classes.direct_text import render_text

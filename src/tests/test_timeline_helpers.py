@@ -7408,6 +7408,42 @@ class TimelineHelperTests(unittest.TestCase):
 
         self.assertIn(("C1", 1), helper.clip_painter.thumb_cache)
 
+    def test_drop_updates_stale_preview_from_final_mouse_position(self):
+        order = []
+        helper = types.SimpleNamespace(
+            _drag_preview_items=[{"position": 0.0}],
+            _event_seconds_track=lambda event: (12.5, 3, 0),
+            _update_drag_preview_position=lambda seconds, track: order.append((seconds, track)),
+            _finalize_drag_preview=lambda: order.append("commit"),
+        )
+        event = types.SimpleNamespace(accept=MagicMock())
+        self.qwidget_base_module.TimelineWidgetBase.dropEvent(helper, event)
+        self.assertEqual(order, [(12.5, 3), "commit"])
+
+    def test_drop_without_valid_coordinates_does_not_fall_back_to_time_zero(self):
+        mime = types.SimpleNamespace(html=lambda: "clip", text=lambda: '["emoji"]')
+        helper = types.SimpleNamespace(
+            _drag_preview_items=[], _event_seconds_track=lambda event: None,
+            _reset_drag_preview=MagicMock(), addClip=MagicMock(),
+        )
+        event = types.SimpleNamespace(accept=MagicMock(), ignore=MagicMock(), mimeData=lambda: mime)
+        self.qwidget_base_module.TimelineWidgetBase.dropEvent(helper, event)
+        helper.addClip.assert_not_called()
+        helper._reset_drag_preview.assert_called_once()
+        event.ignore.assert_called_once()
+
+    def test_drop_coordinates_refresh_geometry_before_using_scale(self):
+        helper = types.SimpleNamespace(
+            pixels_per_second=0, ruler_height=20, track_name_width=100,
+            track_list=[types.SimpleNamespace(data={"number": 3})],
+            rect=lambda: QRectF(0, 0, 800, 300), _viewport_offsets=lambda: (200, 0),
+            _track_index_at_viewport_y=lambda *args, **kwargs: 0,
+            _nearest_unlocked_track_index=lambda index: index,
+        )
+        helper.geometry = types.SimpleNamespace(ensure=lambda: setattr(helper, "pixels_per_second", 40))
+        event = types.SimpleNamespace(position=lambda: QPointF(500, 100))
+        self.assertEqual(self.qwidget_base_module.TimelineWidgetBase._event_seconds_track(helper, event), (15.0, 3, 0))
+
     def test_reset_drag_preview_invalidates_preview_clip_cache(self):
         invalidated = []
 
