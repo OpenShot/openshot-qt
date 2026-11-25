@@ -396,6 +396,10 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                     obj.type = "insert"
                     obj.data.pop("id", None)
                     obj.id = None
+                    if isinstance(obj, Clip) and isinstance(obj.data.get("direct_text"), dict):
+                        asset = save_text_asset(obj.data["direct_text"])
+                        obj.data["file_id"] = asset.id
+                        obj.data["reader"] = deepcopy(asset.data)
                     self._assign_new_effect_ids(obj.data)
                     if isinstance(obj, Clip) and obj.data.get("direct_text"):
                         # A pasted text clip owns its words independently of the source.
