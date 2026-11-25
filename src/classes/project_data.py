@@ -1064,6 +1064,8 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
         ):
             self._preserve_location_coordinate_system("geometry")
 
+        self._preserve_scale_none_sizing()
+
         # Fix default project id (if found)
         if self._data.get("id") == "T0":
             self._data["id"] = self.generate_id()
@@ -1093,6 +1095,28 @@ class ProjectDataStore(JsonDataStore, UpdateInterface):
             preserve(clip)
         # Undoing a deletion (or redoing an insertion) can recreate a clip
         # entirely from a saved history snapshot, including clips absent above.
+        for actions in self._data.get("history", {}).values():
+            for action in actions:
+                key = action.get("key", [])
+                if not key or key[0] != "clips" or len(key) > 2:
+                    continue
+                for field in ("value", "old_values"):
+                    value = action.get(field)
+                    snapshots = value if isinstance(value, list) else [value]
+                    for clip in snapshots:
+                        if isinstance(clip, dict) and "id" in clip:
+                            preserve(clip)
+
+    def _preserve_scale_none_sizing(self):
+        """Retain raster-based Scale None sizing independently of location units."""
+        def preserve(clip):
+            if ("scale_none_legacy" not in clip
+                    and clip.get("location_coordinate_system") in ("canvas", "geometry")):
+                clip["scale_none_legacy"] = True
+
+        for clip in self._data.get("clips", []):
+            preserve(clip)
+        # A deleted clip can return through undo or redo after this migration.
         for actions in self._data.get("history", {}).values():
             for action in actions:
                 key = action.get("key", [])

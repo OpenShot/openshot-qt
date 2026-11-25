@@ -1160,9 +1160,9 @@ class ProjectDataTests(unittest.TestCase):
                         "files": [], "clips": [clip],
                     }
                     store.upgrade_project_data_structures()
-                    self.assertEqual(clip, dict(original, location_coordinate_system=expected))
+                    self.assertEqual(clip, dict(original, location_coordinate_system=expected, scale_none_legacy=True))
                     store.upgrade_project_data_structures()
-                    self.assertEqual(clip, dict(original, location_coordinate_system=expected))
+                    self.assertEqual(clip, dict(original, location_coordinate_system=expected, scale_none_legacy=True))
                     # Simulate save/reload with the current version stamp.
                     store._data["version"]["openshot-qt"] = "4.0.1"
                     saved = json.dumps(store._data)
@@ -1194,7 +1194,7 @@ class ProjectDataTests(unittest.TestCase):
                     "id": "P1", "clips": [], "history": history,
                 }
                 store.upgrade_project_data_structures()
-                migrated = dict(clip, location_coordinate_system=expected)
+                migrated = dict(clip, location_coordinate_system=expected, scale_none_legacy=True)
                 self.assertEqual(history["undo"][0]["old_values"], migrated)
                 self.assertEqual(history["redo"][0]["value"], migrated)
                 self.assertEqual(history["undo"][0]["value"], {})
@@ -1212,8 +1212,38 @@ class ProjectDataTests(unittest.TestCase):
                         "id": "P1", "clips": [{"location_coordinate_system": coordinates}],
                     }
                     original = copy.deepcopy(store._data)
+                    original["clips"][0]["scale_none_legacy"] = True
                     store.upgrade_project_data_structures()
                     self.assertEqual(store._data, original)
+
+    def test_scale_none_migration_is_independent_and_preserves_explicit_flags(self):
+        legacy = {"id": "old", "location_coordinate_system": "canvas",
+                  "scale": openshot.SCALE_NONE}
+        opted_in = dict(legacy, id="corrected", scale_none_legacy=False)
+        new = {"id": "new", "location_coordinate_system": "auto"}
+        store = make_store()
+        store._data = {
+            "id": "P1", "version": {"openshot-qt": "4.1.0", "libopenshot": "1.0.1"},
+            "clips": [copy.deepcopy(legacy), opted_in, new],
+            "history": {
+                "undo": [{"type": "delete", "key": ["clips", {"id": "old"}],
+                          "old_values": copy.deepcopy(legacy)}],
+                "redo": [{"type": "insert", "key": ["clips"],
+                          "value": [copy.deepcopy(legacy), copy.deepcopy(opted_in)]}],
+            },
+        }
+        store.upgrade_project_data_structures()
+        self.assertTrue(store._data["clips"][0]["scale_none_legacy"])
+        self.assertFalse(opted_in["scale_none_legacy"])
+        self.assertNotIn("scale_none_legacy", new)
+        self.assertTrue(store._data["history"]["undo"][0]["old_values"]["scale_none_legacy"])
+        restored = store._data["history"]["redo"][0]["value"]
+        self.assertTrue(restored[0]["scale_none_legacy"])
+        self.assertFalse(restored[1]["scale_none_legacy"])
+        saved = json.dumps(store._data)
+        store._data = json.loads(saved)
+        store.upgrade_project_data_structures()
+        self.assertEqual(store._data, json.loads(saved))
 
     def test_current_and_development_projects_keep_default_location_behavior(self):
         for version in ("4.0.1", "4.0.2", "4.1.0", "4.0.0-dev", "3.5.1-dev", "3.5.2-dev"):
@@ -1245,6 +1275,7 @@ class ProjectDataTests(unittest.TestCase):
                 clip["id"] = "%s-%s" % (version, scale)
                 if version != "4.0.1":
                     del clip["location_coordinate_system"]
+                    clip.pop("scale_none_legacy", None)
                 store = make_store()
                 store._data = {
                     "id": "P1", "clips": [clip],
@@ -1263,7 +1294,7 @@ class ProjectDataTests(unittest.TestCase):
                     native = openshot.Clip()
                     native.SetJson(json.dumps(clip))
                     restored = json.loads(native.Json())
-                    for field in ("location_coordinate_system", "location_x", "location_y",
+                    for field in ("location_coordinate_system", "scale_none_legacy", "location_x", "location_y",
                                   "scale", "scale_x", "scale_y"):
                         self.assertEqual(restored[field], clip[field])
                     round_tripped.append(restored)
