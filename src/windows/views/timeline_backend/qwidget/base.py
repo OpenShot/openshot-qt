@@ -1415,6 +1415,14 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         event.accept()
 
         if self._drag_preview_items:
+            # A quick drop can arrive before another drag-move after cold work.
+            # Commit the final event coordinates, never the stale preview location.
+            coords = self._event_seconds_track(event)
+            if coords is None:
+                event.ignore()
+                self._reset_drag_preview()
+                return
+            self._update_drag_preview_position(coords[0], coords[1])
             self._finalize_drag_preview()
             return
 
@@ -1484,7 +1492,11 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
         coords = self._event_seconds_track(event)
         if coords is None:
-            coords = (0.0, self.track_list[0].data.get("number") if self.track_list else 0, 0)
+            if os_drop_tid:
+                get_app().updates.transaction_id = None
+            event.ignore()
+            self._reset_drag_preview()
+            return
         pos_seconds, track_num, _ = coords
         track_num = self._nearest_unlocked_track_number(track_num)
         if track_num is None:
@@ -1596,6 +1608,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         return h_offset, v_offset
 
     def _event_seconds_track(self, event):
+        self.geometry.ensure()
         pos = _event_posf(event)
         if pos.y() < self.ruler_height:
             return None

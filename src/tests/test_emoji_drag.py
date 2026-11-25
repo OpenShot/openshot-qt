@@ -3,6 +3,7 @@
 import json
 import os
 import unittest
+from types import SimpleNamespace
 from unittest.mock import patch
 
 import openshot
@@ -40,6 +41,36 @@ class EmojiDragTests(unittest.TestCase):
             self.assertIsNotNone(clip.GetFrame(1))
         finally:
             clip.Close()
+
+    def test_project_file_thumbnail_reuses_bundled_artwork_before_drag(self):
+        from windows.models.files_model import FilesModel
+        emoji_path = os.path.join(info.PATH, "emojis", "color", "svg", "1F600.svg")
+        file = SimpleNamespace(id="emoji", data={"path": emoji_path, "name": "Grinning face", "media_type": "image"})
+        with patch("windows.models.files_model.GetThumbPath", side_effect=AssertionError("cold native thumbnail request")):
+            source, name, kind = FilesModel._thumbnail_source_for_file(None, file)
+        self.assertTrue(os.path.isfile(source))
+        self.assertTrue(source.endswith("1F600.png"))
+        self.assertEqual((name, kind), ("Grinning face", "image"))
+
+    def test_explicit_thumbnail_refresh_still_regenerates_emoji_artwork(self):
+        from windows.models.files_model import FilesModel
+        path = os.path.join(info.PATH, "emojis", "color", "svg", "1F600.svg")
+        file = SimpleNamespace(id="emoji", data={"path": path, "media_type": "image"})
+        model = SimpleNamespace(PROJECT_FILE_THUMB_ATTEMPTS=3)
+        with patch("windows.models.files_model.GetThumbPath", return_value="fresh.png") as generate:
+            source, _, _ = FilesModel._thumbnail_source_for_file(model, file, clear_cache=True)
+        self.assertEqual(source, "fresh.png")
+        generate.assert_called_once_with("emoji", 1, clear_cache=True, attempts=3)
+
+    def test_missing_bundled_thumbnail_uses_normal_generation(self):
+        from windows.models.files_model import FilesModel
+        path = os.path.join(info.PATH, "emojis", "color", "svg", "1F600.svg")
+        file = SimpleNamespace(id="emoji", data={"path": path, "media_type": "image"})
+        model = SimpleNamespace(PROJECT_FILE_THUMB_ATTEMPTS=3)
+        with patch("windows.models.files_model.builtin_emoji_thumbnail", return_value=None), \
+                patch("windows.models.files_model.GetThumbPath", return_value="generated.png") as generate:
+            self.assertEqual(FilesModel._thumbnail_source_for_file(model, file)[0], "generated.png")
+        generate.assert_called_once()
 
     def test_non_bundled_svg_requires_normal_inspection(self):
         self.assertIsNone(builtin_emoji_reader_data("/tmp/custom-emoji.svg"))
