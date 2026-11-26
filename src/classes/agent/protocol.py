@@ -30,6 +30,8 @@ import struct
 import sys
 from pathlib import Path
 
+from classes.user_paths import user_path
+
 VERSION = 1
 MAX_MESSAGE = 8 * 1024 * 1024
 MAX_DIMENSION = 4096
@@ -44,7 +46,7 @@ class CommandError(Exception):
 
 
 def session_dir():
-    return Path(os.environ.get('OPENSHOT_SESSION_DIR', str(Path.home() / '.openshot_qt' / 'sessions')))
+    return Path(os.environ.get('OPENSHOT_SESSION_DIR', os.path.join(user_path(), 'sessions')))
 
 
 def parse_json(text):

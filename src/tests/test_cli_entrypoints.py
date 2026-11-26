@@ -46,7 +46,8 @@ class CommonEntryTests(unittest.TestCase):
                 (package / 'classes' / 'agent').mkdir(parents=True)
                 (package / 'windows' / 'views' / 'timeline_backend').mkdir(parents=True)
                 for name in ('__init__.py', 'launch.py', 'cli.py', 'classes/__init__.py',
-                             'classes/cli_console.py', 'classes/windows_dlls.py', 'classes/easing.py', 'classes/agent/__init__.py', 'classes/agent/protocol.py',
+                             'classes/cli_console.py', 'classes/windows_dlls.py', 'classes/user_paths.py',
+                             'classes/easing.py', 'classes/agent/__init__.py', 'classes/agent/protocol.py',
                              'classes/look_presets.py', 'classes/color_presets.py', 'classes/film_grain_presets.py',
                              'windows/__init__.py', 'windows/views/__init__.py', 'windows/views/timeline_backend/__init__.py',
                              'windows/views/timeline_backend/enums.py'):
@@ -102,6 +103,8 @@ sys.executable = sys.argv[2]
 sys.platform = sys.argv[3]
 root = os.path.dirname(sys.executable)
 namespace = {'__file__': os.path.join(root, 'lib', 'classes', 'info.pyc')}
+import classes.user_paths
+classes.user_paths.__file__ = os.path.join(root, 'lib', 'classes', 'user_paths.pyc')
 exec(compile(source, namespace['__file__'], 'exec'), namespace)
 expected = sys.argv[4]
 assert os.path.samefile(namespace['PATH'], expected), (namespace['PATH'], expected)

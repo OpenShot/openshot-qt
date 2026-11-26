@@ -30,6 +30,8 @@ import sys
 import tempfile
 from time import strftime
 
+from classes.user_paths import application_path, is_portable, user_path
+
 VERSION = "4.2.0-dev1"
 MINIMUM_LIBOPENSHOT_VERSION = "1.2.0"
 DATE = "20261104000000"
@@ -45,9 +47,7 @@ CWD = os.getcwd()
 # Application paths
 # Windows/Linux assets sit by the executable. Mac assets follow classes under lib,
 # then under Resources after the DMG builder moves and symlinks that directory.
-PATH = (os.path.dirname(os.path.abspath(sys.executable))
-        if getattr(sys, "frozen", False) and sys.platform != "darwin"
-        else os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+PATH = application_path()
 RESOURCES_PATH = os.path.join(PATH, "resources")
 PROFILES_PATH = os.path.join(PATH, "profiles")
 IMAGES_PATH = os.path.join(PATH, "images")
@@ -56,7 +56,8 @@ COLORS_PATH = os.path.join(PATH, "colors")
 
 # User paths
 HOME_PATH = os.path.join(os.path.expanduser("~"))
-USER_PATH = os.path.join(HOME_PATH, ".openshot_qt")
+PORTABLE = is_portable()
+USER_PATH = user_path()
 ASSETS_PATH = USER_PATH
 BACKUP_PATH = os.path.join(USER_PATH)
 RECOVERY_PATH = os.path.join(USER_PATH, "recovery")

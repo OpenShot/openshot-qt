@@ -67,6 +67,17 @@ and type the following commands. Replace ``OpenShot-installer.exe`` with the nam
     cd /d "%USERPROFILE%\Downloads"
     OpenShot-installer.exe /portable=1 /currentuser /noicons
 
+Choose any writable destination folder, including a USB drive. The installer
+creates an empty ``portable`` file beside ``openshot-qt.exe``. On Windows,
+OpenShot uses this file to keep settings, recovery files, caches, and other user
+data in a ``.openshot_qt`` folder within that installation. Each portable copy
+has its own user data, and updating it preserves this folder. You can also
+create the empty ``portable`` file manually before launching OpenShot.
+
+Existing settings in your home folder are not copied automatically. Project
+media and optional external tools still need to be available on the computer
+where you run OpenShot. Other platforms retain their normal user-data locations.
+
 .. image:: images/windows-installer-portable.jpg
 
 Mac
