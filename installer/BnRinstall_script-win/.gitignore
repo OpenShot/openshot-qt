@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Build and state
+openshot-installer.log
+openshot-installer-relay.log
+openshot-installer-state.json
+OpenShotBuild/
+*.zip
+
+# Editor / OS noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
