@@ -41,7 +41,7 @@ from qt_api import (
 )
 
 from .base import BasePainter
-from .header import draw_effect_badge, effect_badge_label
+from .header import draw_effect_badge, effect_badge_label, header_control_center
 from classes.qt_types import font_metrics_horizontal_advance
 
 
@@ -67,18 +67,11 @@ class TrackPainter(BasePainter):
         self.menu_margin = self.w.theme.menu_margin
         self.toggle_off_pix = None
         self.toggle_on_pix = None
-        toggle_size = float(self.w.theme.menu_size or 0.0)
-
         def _scaled_toggle(pixmap):
             if not pixmap or pixmap.isNull():
                 return None
-            width = float(pixmap.width())
-            height = float(pixmap.height())
-            if self.w.theme.compact_track_headers:
-                width = height = self.w.theme.track_control_size
-            elif toggle_size > 0.0:
-                target = max(toggle_size, width, height)
-                width = height = target
+            # Header controls keep the same visual scale at every track height.
+            width = height = self.w.theme.track_control_size
             return self.scaled_pixmap(pixmap, width, height)
 
         if self.w.theme.keyframe_toggle_off_icon:
@@ -143,6 +136,14 @@ class TrackPainter(BasePainter):
         lock_locked_enabled = _scaled_toggle(getattr(self.w.theme, "track_locked_enabled_icon", None))
         lock_unlocked_disabled = _scaled_toggle(getattr(self.w.theme, "track_unlocked_disabled_icon", None))
         lock_unlocked_enabled = _scaled_toggle(getattr(self.w.theme, "track_unlocked_enabled_icon", None))
+        # The lock artwork has more internal whitespace than the other glyphs.
+        lock_size = self.w.theme.track_control_size + 2
+        def optical_lock(pix):
+            return self.scaled_pixmap(pix, lock_size, lock_size) if pix else None
+        lock_locked_disabled = optical_lock(lock_locked_disabled)
+        lock_locked_enabled = optical_lock(lock_locked_enabled)
+        lock_unlocked_disabled = optical_lock(lock_unlocked_disabled)
+        lock_unlocked_enabled = optical_lock(lock_unlocked_enabled)
         if (
             lock_locked_disabled
             or lock_locked_enabled
@@ -167,6 +168,8 @@ class TrackPainter(BasePainter):
     def output_button_pixmaps(self, kind):
         """Theme-colored vector controls, with a persistent crossed-out disabled state."""
         size = max(12, round(self.w.theme.track_control_size))
+        if kind == "more":
+            size = 10
         states = {}
         for state in ("disabled", "enabled", "active", "active-hovered"):
             active = state.startswith("active")
@@ -187,9 +190,9 @@ class TrackPainter(BasePainter):
             painter.setBrush(Qt.NoBrush)
             path = QPainterPath()
             if kind == "more":
-                path.moveTo(6, 4)
-                path.lineTo(10, 8)
-                path.lineTo(6, 12)
+                path.moveTo(4, 2)
+                path.lineTo(11, 8)
+                path.lineTo(4, 14)
                 painter.drawPath(path)
             elif kind == "audio":
                 path.moveTo(2, 6)
@@ -321,7 +324,7 @@ class TrackPainter(BasePainter):
         container_w = min(pad_x + text_advance + icon_gap + icon_size + pad_x, available_w)
         container_rect = QRectF(
             name_rect.x() + border_left,
-            name_rect.y() + (name_rect.height() - container_h) / 2.0,
+            name_rect.y() + header_control_center(name_rect.height()) - container_h / 2.0,
             container_w,
             max(1.0, container_h),
         )
@@ -682,15 +685,6 @@ class TrackPainter(BasePainter):
             hover_key = getattr(self.w, "_toolbar_hover_key", None)
             pressed_key = getattr(self.w, "_toolbar_pressed_key", None)
             pressed_inside = getattr(self.w, "_toolbar_pressed_inside", False)
-            panel_buttons = [button["rect"] for button in buttons
-                             if button["key"] in ("keyframe-panel", "effects-tray")]
-            if len(panel_buttons) == 2:
-                pill = panel_buttons[0].united(panel_buttons[1]).adjusted(-1, 0, 1, 0)
-                painter.save()
-                painter.setPen(QPen(name_bg.darker(135), 1))
-                painter.setBrush(name_bg.darker(124))
-                painter.drawRoundedRect(pill, pill.height() / 2, pill.height() / 2)
-                painter.restore()
             for button in buttons:
                 button_key = (button.get("track_id"), button.get("key"))
                 pix = self.w._toolbar_button_pixmap(

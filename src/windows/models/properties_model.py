@@ -1270,7 +1270,9 @@ class PropertiesModel(updates.UpdateInterface):
                                               point["co"]["X"], value)
                                 else:
                                     point_to_delete = point
-                                break
+                                # Imported/saved curves can contain multiple
+                                # points at one frame. Native playback can use
+                                # a later entry, so update every matching point.
 
                             if interpolation > -1 and point["co"]["X"] == previous_point_x:
                                 # Only update the LEFT side of the curve (i.e. the previous point's right handle)
@@ -1309,7 +1311,10 @@ class PropertiesModel(updates.UpdateInterface):
                         if point_to_delete:
                             clip_updated = True
                             log.debug("Found point to delete at X=%s" % point_to_delete["co"]["X"])
-                            clip_data[property_key]["Points"].remove(point_to_delete)
+                            clip_data[property_key]["Points"] = [
+                                point for point in clip_data[property_key]["Points"]
+                                if point["co"]["X"] != target_frame
+                            ]
 
                         # Create new point (if needed)
                         elif not found_point and value is not None:

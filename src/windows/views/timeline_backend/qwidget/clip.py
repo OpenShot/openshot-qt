@@ -1165,6 +1165,7 @@ class ClipInteractionMixin:
             self._projectResizeMove()
         elif self._press_hit == "handle":
             new_width = max(40, (self._last_event.position().x() if hasattr(self._last_event, "position") else self._last_event.pos().x()))
+            new_width = min(new_width, self._track_header_max_width())
             if new_width != self.track_name_width:
                 self.track_name_width = new_width
                 self.changed(None)

@@ -87,6 +87,31 @@ class AutoKeyframeTests(unittest.TestCase):
                     self.assertEqual(self.saved["rotation"], expected)
                     self.assertEqual(self.saved["start"], 2.)
 
+    def test_track_effect_edits_all_duplicate_points_at_first_frame(self):
+        original = curve((1.0, 0.28), (1, 0.41), (901, 0.62))
+        effect = types.SimpleNamespace(data={"pixelization": copy.deepcopy(original)})
+        effect.save = Mock()
+        for recording in (False, True):
+            with self.subTest(recording=recording):
+                self.action.isChecked.return_value = recording
+                effect.data = {"pixelization": copy.deepcopy(original)}
+                model, item = self.editor(1, key="pixelization")
+                item.setData([("fx", "effect")])
+                with patch.object(properties_model.Effect, "get", return_value=effect):
+                    model.value_updated(item, value=0.75)
+                points = effect.data["pixelization"]["Points"]
+                self.assertEqual([point["co"]["Y"] for point in points], [0.75, 0.75, 0.62])
+                native = openshot.Pixelate()
+                native.SetJson(json.dumps(effect.data))
+                self.assertAlmostEqual(native.pixelization.GetValue(1), 0.75)
+                self.assertAlmostEqual(native.pixelization.GetValue(901), 0.62)
+
+        effect.data = {"pixelization": copy.deepcopy(original)}
+        item.setText("")
+        with patch.object(properties_model.Effect, "get", return_value=effect):
+            model.value_updated(item, value=None)
+        self.assertEqual([p["co"]["X"] for p in effect.data["pixelization"]["Points"]], [901])
+
     def test_trimmed_constant_and_curve_without_frame_one(self):
         for frames, expected in ((((1, 0),), 1), (((51, 20), (101, 90)), 51), ((), 1)):
             self.saved["rotation"] = curve(*frames)

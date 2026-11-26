@@ -4,7 +4,7 @@ import json
 import math
 import uuid
 from contextlib import contextmanager
-from copy import deepcopy
+from copy import copy, deepcopy
 
 import openshot
 from qt_api import QApplication, QColor, QFont, QMimeData, QObject, QPointF, QRectF, Qt
@@ -108,6 +108,7 @@ class EffectsTray(QObject):
         self._razor_line = None
         self._transfer = None
         self._transfer_hint = None
+        self._reorder_drop = None
         self.locked = False
         self.hovered = None
         self.drop_target = None
@@ -122,21 +123,47 @@ class EffectsTray(QObject):
 
     @property
     def header_height(self):
-        return self.timeline.panel_header_height
+        return 0.0
 
     @property
     def row_height(self):
-        return self.timeline.keyframe_panel_row_height
+        return min(24.0, self.timeline.keyframe_panel_row_height)
 
     @property
     def row_stride(self):
-        return self.row_height + self.timeline.keyframe_panel_row_spacing
+        return self.row_height + min(4.0, self.timeline.keyframe_panel_row_spacing)
+
+    @property
+    def section_stride(self):
+        return 22.0
+
+    def _slot_stride(self, slot):
+        if any(section[0] == slot for section in self.sections):
+            return self.section_stride
+        if not self.lane_rows.get(slot):
+            return 0.0
+        return self.row_stride
 
     def _row_top(self, lane, slot=0):
-        return lane.top() + self.header_height + self.timeline.keyframe_panel_padding + slot * self.row_stride
+        return (lane.top() + self.header_height + self.timeline.keyframe_panel_padding
+                + sum(self._slot_stride(index) for index in range(slot)))
 
     def _slot_at(self, pos, lane):
-        return int((pos.y() - self._row_top(lane)) // self.row_stride)
+        offset = pos.y() - self._row_top(lane)
+        count = len(self.lane_rows) + len(self.sections)
+        if offset < 0:
+            return -1
+        for slot in range(count):
+            stride = self._slot_stride(slot)
+            if offset < stride:
+                return slot
+            offset -= stride
+        return count + int(offset // self.row_stride)
+
+    def _set_insertion_open(self, opened):
+        if self.__dict__.get("_insertion_open", False) != opened:
+            self._insertion_open = opened
+            self._invalidate()
 
     def open_track(self, track_id, clip_id=None, effect_id=None, *, reveal=True):
         if track_id == self.track_id and not clip_id and not effect_id:
@@ -207,8 +234,11 @@ class EffectsTray(QObject):
     def height(self, track_number):
         if self.track_id is None or self.track_number != track_number:
             return 0
-        rows = max(1, len(self.lane_rows) + len(self.sections))
-        return self.header_height + self.timeline._panel_height_for_properties(rows)
+        with self._display_layout():
+            count = len(self.lane_rows) + len(self.sections)
+            body = sum(self._slot_stride(slot) for slot in range(count))
+        padding = self.timeline.keyframe_panel_padding * 2 if body else 0.0
+        return self.header_height + body + padding
 
     def _track(self):
         return Track.get(id=self.track_id) if self.track_id else None
@@ -220,15 +250,7 @@ class EffectsTray(QObject):
         fps = self.app.project.get("fps")
         return fps["num"] / fps["den"]
 
-    def refresh(self):
-        track = self._track()
-        if not track:
-            if self.track_id:
-                self.close()
-            return
-        self.locked = bool(track.data.get("lock"))
-        layer = track.data["number"]
-        self.track_number = self.timeline.normalize_track_number(layer)
+    def _layout_for(self, track, clips, track_effects, transitions):
         rows, sections, lanes = [], [], {}
 
         def section(kind, owner, title):
@@ -240,17 +262,21 @@ class EffectsTray(QObject):
             rows.extend(entries)
 
         _ = self.translate
-        self.clips, track_effects, clip_lanes, transitions = track_effect_layout(track)
-        both_scopes = bool(track_effects and clip_lanes)
-        if both_scopes:
-            section("clip", None, _("Clip Effects"))
+        clip_rows = []
+        for clip in clips:
+            for effect in sorted(clip.data.get("effects") or [], key=clip_effect_sort_key):
+                first, last = clip_effect_timeline_range(clip.data, effect)
+                clip_rows.append(("clip", clip, effect, first, last))
+        clip_lanes = [[clip_rows[index] for index in entries] for entries in clip_effect_lanes(clip_rows)]
+        section("clip", None, _("Clip Effects"))
         for entries in clip_lanes:
             add_lane(entries)
-        if both_scopes:
-            section("track", track, _("Track Effects"))
+        add_lane([])
+        section("track", track, _("Track Effects"))
         for effect in track_effects:
             trim = effect.get("clip_range") or {}
             add_lane([("track", track, effect, trim.get("start", 0.0), trim.get("end"))])
+        add_lane([])
 
         if transitions:
             section("transition", None, _("Transitions"))
@@ -259,6 +285,21 @@ class EffectsTray(QObject):
             first = data["position"]
             add_lane([("transition", transition, data, first, first + data["end"] - data["start"])])
 
+        return dict(rows=rows, sections=sections, lane_rows=lanes,
+                    row_slots=[slot for slot, entries in lanes.items() for _ in entries])
+
+    def refresh(self):
+        track = self._track()
+        if not track:
+            if self.track_id:
+                self.close()
+            return
+        self.locked = bool(track.data.get("lock"))
+        layer = track.data["number"]
+        self.track_number = self.timeline.normalize_track_number(layer)
+        self.clips, track_effects, _clip_lanes, transitions = track_effect_layout(track)
+        layout = self._layout_for(track, self.clips, track_effects, transitions)
+        rows, sections, lanes = layout["rows"], layout["sections"], layout["lane_rows"]
         row_slots = [slot for slot, entries in lanes.items() for _ in entries]
         if row_slots != self.row_slots or [row[2]["id"] for row in self.rows] != [row[2]["id"] for row in rows]:
             self._clear_gesture()
@@ -291,7 +332,7 @@ class EffectsTray(QObject):
 
     def _section_rect(self, section, lane):
         y = self._row_top(lane, section[0])
-        return QRectF(0, y, lane.right() - 8, self.row_height)
+        return QRectF(0, y, lane.right() - 8, self.section_stride)
 
     def _clip_at(self, seconds):
         return next((clip for clip in reversed(self.clips)
@@ -310,28 +351,48 @@ class EffectsTray(QObject):
             return self.clips[0]
         return self._clip_at(((self.timeline.current_frame or 1) - 1) / self._frame_rate())
 
-    def _add_rect(self, lane):
-        return panel_add_button_rect(self._heading_rect(lane))
+    def _selected_clips_for_add(self):
+        selected = dict.fromkeys(self.timeline.window.selected_clips)
+        return [clip for clip_id in selected if (clip := Clip.get(id=clip_id)) is not None]
 
-    def _can_add_effect(self):
-        return not self.locked and bool(self.catalog) and (
-            self._clip_for_add() is not None or any(self._can_add(name) for name in self.catalog)
-        )
+    def _add_to_selected_clips(self, name):
+        if self.locked:
+            return
+        # Snapshot the selection before updates or dialogs can change it.
+        clips = self._selected_clips_for_add()
+        track = self._track()
+        if track is None or track.data.get("lock"):
+            return
+        with self._transaction():
+            for selected in clips:
+                clip = Clip.get(id=selected.id)
+                if clip:
+                    owner = Track.get(number=clip.data.get("layer"))
+                    if owner and not owner.data.get("lock"):
+                        self.timeline._apply_effect_to_clip(clip, name)
+
+    def _add_rect(self, lane, section=None):
+        if section is None:
+            section = next((entry for entry in self.sections if entry[1] == "track"), None)
+        if section is None:
+            return QRectF()
+        heading = panel_heading_rect(lane.left(), self._row_top(lane, section[0]), self.section_stride)
+        return panel_add_button_rect(heading)
+
+    def _can_add_effect(self, kind="track"):
+        if self.locked:
+            return False
+        if kind == "clip":
+            return bool(self._selected_clips_for_add()) and bool(self.catalog)
+        return any(self._can_add(name) for name in self.catalog)
 
     def _row_controls(self, index, lane):
         kind, owner, effect, _, _ = self.rows[index]
-        if self.locked or self.selected_id != effect["id"] or len(self.selected_ids) != 1 or kind == "transition":
+        if self.locked or kind == "transition":
             return ()
         rect = self._row_rect(index, lane)
-        left = max(0.0, lane.left() - 66)
-        return tuple(
-            (name, glyph, QRectF(left + offset * 20, rect.y(), 18, rect.height()), enabled)
-            for offset, (name, glyph, enabled) in enumerate((
-                ("up", "↑", self._reorder_indices(kind, owner, effect, -1) is not None),
-                ("down", "↓", self._reorder_indices(kind, owner, effect, 1) is not None),
-                ("delete", "×", True),
-            ))
-        )
+        left = panel_label_indent(self.timeline.theme)
+        return (("reorder", "⠿", QRectF(left, rect.y(), 16, rect.height()), True),)
 
     def _row_rect(self, index, lane):
         top = self._row_top(lane, self.row_slots[index])
@@ -369,6 +430,10 @@ class EffectsTray(QObject):
         return QRectF(x, row.top(), max(2.0, end - x), row.height())
 
     def keyframe_markers(self, view_state, *, complete=False):
+        with self._display_layout():
+            return self._display_keyframe_markers(view_state, complete=complete)
+
+    def _display_keyframe_markers(self, view_state, *, complete=False):
         """Build the grouped keyframe markers on the open tray's bars."""
         if not self.rows or (complete and self.locked):
             return []
@@ -419,7 +484,31 @@ class EffectsTray(QObject):
             return owner.title() or self.translate("Transition")
         return self.translate(effect.get("name") or effect.get("type") or "")
 
+    @contextmanager
+    def _display_layout(self):
+        layout = self.__dict__.get("_placement_layout")
+        if not layout:
+            yield
+            return
+        previous = {key: getattr(self, key) for key in layout}
+        for key, value in layout.items():
+            setattr(self, key, value)
+        try:
+            yield
+        finally:
+            for key, value in previous.items():
+                setattr(self, key, value)
+
+    def _set_placement_layout(self, layout):
+        if self.__dict__.get("_placement_layout") is not layout:
+            self._placement_layout = layout
+            self._invalidate()
+
     def paint(self, painter):
+        with self._display_layout():
+            self._paint_rows(painter)
+
+    def _paint_rows(self, painter):
         _, lane, visible = self._bounds()
         if visible.isEmpty():
             return
@@ -435,50 +524,32 @@ class EffectsTray(QObject):
         painter.save()
         painter.setClipRect(visible, Qt.IntersectClip)
         painter.fillRect(lane, background)
-        font = QFont(self.timeline.font())
-        font.setBold(True)
-        painter.setFont(font)
-        draw_panel_heading(painter, self._heading_rect(lane), self.translate("Effects"), accent,
-                           self._can_add_effect())
-
+        font = self.timeline.track_painter.header_font()
         font.setBold(False)
         painter.setFont(font)
         indent = panel_label_indent(theme)
-        if not self.rows:
-            y = self._row_top(lane)
-            empty_bg = QColor(theme.keyframe_panel_property_bg)
-            if not empty_bg.isValid():
-                empty_bg = well.lighter(120)
-            painter.fillRect(QRectF(lane.left(), y, lane.width(), self.row_height), empty_bg)
-            name = QRectF(indent, y, max(0.0, lane.left() - indent - 6), self.row_height)
-            painter.setPen(label)
-            painter.drawText(name, Qt.AlignLeft | Qt.AlignVCenter,
-                             painter.fontMetrics().elidedText(self.translate("No Effects"), Qt.ElideRight,
-                                                              max(0, int(name.width()))))
-
-        section_color = QColor(label)
-        section_color.setAlphaF(section_color.alphaF() * 0.68)
-        painter.setPen(section_color)
         for section in self.sections:
-            rect = self._section_rect(section, lane)
-            label_rect = QRectF(indent, rect.y(), max(0.0, lane.left() - indent - 6), rect.height())
-            painter.drawText(label_rect, Qt.AlignVCenter | Qt.AlignLeft,
-                             painter.fontMetrics().elidedText(section[3], Qt.ElideRight, int(label_rect.width())))
-        active_feedback = self.drop_target or (self._transfer[2] if self._transfer else None)
-        feedback = active_feedback or self._transfer_hint
-        if feedback:
-            bounds, caption = feedback
-            tint = QColor(accent)
-            tint.setAlphaF(0.25 if active_feedback else 0.09)
-            painter.fillRect(bounds.intersected(lane), tint)
-            painter.setPen(accent)
-            caption_area = bounds.adjusted(max(0.0, lane.left() + 8 - bounds.left()), 0, -10, 0)
-            if caption_area.width() > 0:
-                painter.drawText(caption_area, Qt.AlignRight | Qt.AlignVCenter,
-                                 painter.fontMetrics().elidedText(caption, Qt.ElideRight, int(caption_area.width())))
+            heading = panel_heading_rect(lane.left(), self._row_top(lane, section[0]), self.section_stride)
+            if section[1] in ("clip", "track"):
+                draw_panel_heading(painter, heading, section[3], accent, self._can_add_effect(section[1]))
+            else:
+                painter.setPen(label)
+                painter.drawText(heading, Qt.AlignVCenter | Qt.AlignLeft, section[3])
 
-        section_kinds = {section[1] for section in self.sections}
+        active_feedback = self.drop_target or (self._transfer[2] if self._transfer else None)
+        feedback = None if self.__dict__.get("_placement_layout") else active_feedback or self._transfer_hint
+        for slot, entries in self.lane_rows.items():
+            if entries or self._slot_stride(slot) <= 0:
+                continue
+            rect = QRectF(lane.left(), self._row_top(lane, slot) + 2,
+                          max(0.0, lane.width() - 8), self.row_height - 4)
+            painter.setPen(Qt.NoPen)
+            painter.setBrush(well)
+            painter.drawRoundedRect(rect, 5, 5)
+
         for entries in self.lane_rows.values():
+            if not entries:
+                continue
             index = next((entry for entry in entries if self.rows[entry][2]["id"] == self.selected_id), entries[0])
             well_rect = self._row_rect(index, lane)
             if not well_rect.intersects(visible):
@@ -486,22 +557,20 @@ class EffectsTray(QObject):
             title = self._title(self.rows[index])
             painter.setPen(label)
             controls = self._row_controls(index, lane)
-            label_end = controls[0][2].left() if controls else lane.left()
+            label_end = lane.left()
             row_indent = indent
-            if self.rows[index][0] in section_kinds:
-                row_indent += theme.keyframe_panel_label_indent
+            if controls:
+                row_indent = controls[0][2].right() + 4
             name = QRectF(row_indent, well_rect.top(), max(0.0, label_end - row_indent - 6), well_rect.height())
             painter.drawText(name, Qt.AlignVCenter | Qt.AlignLeft,
                              painter.fontMetrics().elidedText(title, Qt.ElideRight, int(name.width())))
             for _, glyph, control, enabled in controls:
-                painter.setPen(Qt.NoPen)
-                painter.setBrush(well)
-                painter.drawRoundedRect(control, 4, 4)
                 color = QColor(accent)
-                if not enabled:
-                    color.setAlphaF(0.42)
+                color.setAlphaF(0.55)
                 painter.setPen(color)
-                painter.drawText(control, Qt.AlignCenter, glyph)
+                for dx in (-2, 2):
+                    for dy in (-4, 0, 4):
+                        painter.drawPoint(QPointF(control.center().x() + dx, control.center().y() + dy))
             painter.setPen(Qt.NoPen)
             painter.setBrush(well)
             painter.drawRoundedRect(well_rect, 5, 5)
@@ -542,11 +611,20 @@ class EffectsTray(QObject):
                         painter.drawLine(QPointF(x, bar.center().y() - 4), QPointF(x, bar.center().y() + 4))
 
         origin = lane.left() - self.timeline.h_scroll_offset
-        if self._snap_frame is not None:
-            x = origin + self._snap_frame / self._frame_rate() * self.timeline.pixels_per_second
-            if lane.left() <= x <= lane.right():
+        if feedback:
+            bounds, caption = feedback
+            ghost = bounds.intersected(lane).intersected(visible)
+            if not ghost.isEmpty():
+                painter.save()
+                painter.setOpacity(0.85)
                 painter.setPen(accent)
-                painter.drawLine(QPointF(x, visible.top()), QPointF(x, visible.bottom()))
+                painter.setBrush(QColor("#f4f8ff"))
+                painter.drawRoundedRect(ghost, 4, 4)
+                painter.setPen(QColor("#155fa0"))
+                painter.drawText(ghost.adjusted(5, 0, -5, 0), Qt.AlignCenter,
+                                 painter.fontMetrics().elidedText(caption, Qt.ElideRight,
+                                                                  max(0, int(ghost.width() - 10))))
+                painter.restore()
         if self._razor_line and self.timeline.enable_razor:
             index, frame = self._razor_line
             if index < len(self.rows):
@@ -554,6 +632,10 @@ class EffectsTray(QObject):
                 x = origin + frame / self._frame_rate() * self.timeline.pixels_per_second
                 painter.setPen(QColor("#df4343"))
                 painter.drawLine(QPointF(x, rect.top()), QPointF(x, rect.bottom()))
+        if self._reorder_drop:
+            _, _, y = self._reorder_drop
+            painter.setPen(accent)
+            painter.drawLine(QPointF(indent, y), QPointF(lane.right() - 8, y))
         if self._marquee:
             tint = QColor(accent)
             tint.setAlphaF(0.2)
@@ -566,17 +648,16 @@ class EffectsTray(QObject):
         panel, lane, visible = self._bounds()
         if not visible.contains(pos):
             return None
-        if pos.y() < panel.top() + self.header_height:
-            if pos.x() >= lane.left() and self.timeline._get_keyframe_at(pos):
-                return None
-            if self._add_rect(lane).contains(pos):
-                return ("add" if self._can_add_effect() else "disabled-add", None)
-            return ("close" if self._heading_rect(lane).contains(pos) else "blank", None)
         slot = self._slot_at(pos, lane)
+        section = next((entry for entry in self.sections if entry[0] == slot), None)
+        if section:
+            if section[1] in ("clip", "track") and self._add_rect(lane, section).contains(pos):
+                return ("add" if self._can_add_effect(section[1]) else "disabled-add", section[1])
+            return ("blank", None)
         entries = self.lane_rows.get(slot, ())
         if pos.x() < lane.left():
             index = next((entry for entry in entries if self.rows[entry][2]["id"] == self.selected_id), None)
-            if index is None and len(entries) == 1:
+            if index is None and entries:
                 index = entries[0]
             if index is not None:
                 for name, _, rect, enabled in self._row_controls(index, lane):
@@ -609,9 +690,12 @@ class EffectsTray(QObject):
         if not hit:
             return None
         target, index = hit
+        if target == "reorder":
+            return Qt.OpenHandCursor
         if target == "add" and hover:
             _, lane, _ = self._bounds()
-            hover.set_target("panel-add", self._add_rect(lane), "track")
+            section = next((entry for entry in self.sections if entry[1] == index), None)
+            hover.set_target("panel-add", self._add_rect(lane, section), index)
         if target == "row" and self.rows[index][0] != "transition" and not self.locked:
             _, lane, _ = self._bounds()
             if pos.x() >= lane.left() and self._bar_rect(index, lane).contains(pos):
@@ -623,13 +707,16 @@ class EffectsTray(QObject):
         return Qt.ArrowCursor if target in ("blank", "disabled-add") else Qt.PointingHandCursor
 
     def _clear_gesture(self):
-        if self._press and self._press[3]:
+        if self._press and (self._press[3] or self._press[0][0] == "reorder"):
             self.timeline._release_cursor()
-        if self._preview:
+        if self._preview or self._transfer:
             self.timeline._keyframes_dirty = True
         self._press = self._preview = self._marquee = None
         self._snap_frame = self._razor_line = None
         self._transfer = self._transfer_hint = None
+        self._reorder_drop = None
+        self._set_insertion_open(False)
+        self._set_placement_layout(None)
 
     def cancel(self):
         if self._press is not None:
@@ -693,7 +780,7 @@ class EffectsTray(QObject):
         edge = None
         rows = []
         _, lane, _ = self._bounds()
-        if target == "row":
+        if target in ("row", "reorder"):
             kind, _, effect, _, _ = self.rows[index]
             effect_id = effect["id"]
             editable_bar = (kind != "transition" and not self.locked and pos.x() >= lane.left()
@@ -798,26 +885,44 @@ class EffectsTray(QObject):
         (target, index), anchor, edge, rows, _ = self._press
         offset = pos - anchor
         threshold = QApplication.startDragDistance()
+        if target == "reorder":
+            self._reorder_drop = None
+            if offset.manhattanLength() >= threshold:
+                self._set_drag_cursor(Qt.ClosedHandCursor)
+                _, lane, visible = self._bounds()
+                if visible.contains(pos):
+                    slot = self._slot_at(pos, lane)
+                    kind, owner, effect = self.rows[index][:3]
+                    for other in self.lane_rows.get(slot, ()):
+                        other_kind, other_owner, other_effect = self.rows[other][:3]
+                        if (other != index and other_kind == kind and other_owner.id == owner.id
+                                and (kind != "clip" or other_effect.get("apply_before_clip", True)
+                                     == effect.get("apply_before_clip", True))):
+                            rect = self._row_rect(other, lane)
+                            after = pos.y() >= rect.center().y()
+                            self._reorder_drop = (other, after, rect.bottom() + 2 if after else rect.top() - 2)
+                            break
+                if self._reorder_drop is None:
+                    self._set_drag_cursor(Qt.ForbiddenCursor)
+            self.timeline.update()
+            return True
         was_transferring = bool(self._transfer)
         self._transfer = self._transfer_hint = None
-        if rows and edge is None and abs(offset.y()) >= threshold:
+        if rows and edge is None and offset.manhattanLength() >= threshold:
             source_kind = self.rows[index][0]
             self._transfer = self._transfer_target(source_kind, rows, pos)
-            if not self._transfer and not any(section[1] in ("track", "clip") for section in self.sections):
-                _, lane, _ = self._bounds()
-                other_scope = "track" if source_kind == "clip" else "clip"
-                _ = self.translate
-                hint = (_("Drop here to move to Track Effects") if other_scope == "track"
-                        else _("Drop here to move to Clip Effects"))
-                self._transfer_hint = self._scope_heading(other_scope, lane), hint
             if self._transfer:
-                if self._preview:
-                    self.timeline._keyframes_dirty = True
+                if self._transfer[1] is None:
+                    self._set_placement_layout(None)
+                self.timeline._keyframes_dirty = True
                 self._preview = self._snap_frame = None
                 self._set_drag_cursor(Qt.DragMoveCursor if self._transfer[1] else Qt.ForbiddenCursor)
                 self.timeline.update()
                 return True
+        self._set_placement_layout(None)
         distance = abs(offset.x()) if rows else offset.manhattanLength()
+        if was_transferring:
+            self.timeline._keyframes_dirty = True
         if distance < threshold and self._preview is None and self._marquee is None:
             if was_transferring:
                 self._set_drag_cursor(Qt.ClosedHandCursor)
@@ -842,9 +947,14 @@ class EffectsTray(QObject):
         self.move(pos)
         hit, anchor, edge, rows, extend = self._press
         preview, marquee, transfer = self._preview, self._marquee, self._transfer
+        reorder = self._reorder_drop
         self._clear_gesture()
         target, index = hit
-        if transfer:
+        if target == "reorder":
+            if reorder:
+                self._reorder_effect(index, reorder[0], reorder[1])
+            self.timeline._release_cursor()
+        elif transfer:
             kind, owner, _ = transfer
             if owner:
                 self._transfer_effects(rows, kind, owner)
@@ -860,10 +970,6 @@ class EffectsTray(QObject):
                 self.close()
             elif target == "add":
                 self._add_menu(pos)
-            elif target in ("up", "down"):
-                self._move(-1 if target == "up" else 1)
-            elif target == "delete":
-                self.delete_selected()
             elif target == "row":
                 self._select_row(index)
             elif target == "blank" and not extend:
@@ -914,11 +1020,14 @@ class EffectsTray(QObject):
         target, index = hit
         _ = self.translate
         if target in ("add", "disabled-add"):
+            if index == "clip":
+                return (_("Add effect to selected clips") if target == "add"
+                        else _("Select clips to add an effect"))
             return _("Add Effect")
         if target == "close":
             return _("Hide effects and transitions")
-        if target in ("up", "down", "delete"):
-            return {"up": _("Move Up"), "down": _("Move Down"), "delete": _("Remove Effect")}[target]
+        if target == "reorder":
+            return _("Drag to reorder")
         if target == "row":
             row = self.rows[index]
             kind, owner = row[:2]
@@ -936,45 +1045,97 @@ class EffectsTray(QObject):
         return QRectF(0, lane.top(), lane.right() - 8, self.header_height)
 
     def _drop_section(self, pos):
+        with self._display_layout():
+            return self._display_drop_section(pos)
+
+    def _display_drop_section(self, pos):
         _, lane, visible = self._bounds()
-        if not visible.contains(pos):
+        if not visible.contains(pos) or pos.x() < lane.left():
             return None, None
-        clip = self._clip_at(self.timeline._seconds_from_x(pos.x())) if pos.x() >= lane.left() else None
-        track = self._track()
         slot = self._slot_at(pos, lane)
-        entries = self.lane_rows.get(slot)
-        if entries:
-            hit = self._hit(pos)
-            kind = self.rows[entries[0]][0]
-            if kind == "clip" and hit and hit[0] == "row":
-                clip = self.rows[hit[1]][1]
+        # Only effect lane bodies accept effects.
+        section = next((entry for entry in self.sections if entry[0] == slot), None)
+        if slot not in self.lane_rows and section is None:
+            return None, None
+        section = section or next((section for section in reversed(self.sections) if section[0] < slot), None)
+        if section is None or section[1] == "transition":
+            return None, None
+        kind = section[1]
+        owner = (self._clip_at(self.timeline._seconds_from_x(pos.x()))
+                 if kind == "clip" else self._track())
+        return (kind, owner), lane
+
+    def _placement_feedback(self, kind, owner, name, rows=()):
+        """Pack all prospective stacks with the same algorithm as a saved drop."""
+        track = self._track()
+        removed = {row[2]["id"] for row in rows}
+        if rows:
+            incoming = [self._effect_for_scope(row, kind, owner) for row in rows]
         else:
-            heading = next((section for section in self.sections if section[0] == slot), None)
-            kind = heading[1] if heading else "clip" if clip else "track"
-        if kind == "clip" and pos.x() < lane.left():
-            clip = self._clip_for_add()
-        return (kind, clip if kind == "clip" else track if kind == "track" else None), lane
+            cache = self.__dict__.setdefault("_preview_effect_data", {})
+            if name not in cache:
+                native = openshot.EffectInfo().CreateEffect(name)
+                cache[name] = json.loads(native.Json()) if native else {"type": name}
+            data = dict(cache[name], id="__drop_preview__")
+            if kind == "track":
+                last = max((clip.data["position"] + clip.data["end"] - clip.data["start"]
+                            for clip in self.clips), default=0.0)
+                if last > 0:
+                    data["clip_range"] = {"start": 0.0, "end": last}
+            incoming = [data]
+        if not incoming or any(effect is None for effect in incoming):
+            self._set_placement_layout(None)
+            return QRectF(), ""
+        incoming_ids = {effect["id"] for effect in incoming}
+        clips = []
+        for source in self.clips:
+            clip = copy(source)
+            stack = [effect for effect in self._stack("clip", source) if effect["id"] not in removed]
+            if kind == "clip" and clip.id == owner.id:
+                stack += incoming
+                if rows:
+                    stack = [dict(effect, stack_order=index) for index, effect in enumerate(stack)]
+            clip.data = dict(source.data, effects=stack)
+            clips.append(clip)
+        stack = [effect for effect in self._stack("track", track) if effect["id"] not in removed]
+        if kind == "track":
+            stack += incoming
+        transitions = [row[1] for row in self.rows if row[0] == "transition"]
+        layout = self._layout_for(track, clips, stack, transitions)
+        self._set_placement_layout(layout)
+        with self._display_layout():
+            _, lane, _ = self._bounds()
+            index = next(i for i, row in enumerate(self.rows) if row[2]["id"] in incoming_ids)
+            row = self.rows[index]
+            first, last = row[3], row[4]
+            if last is None:
+                last = self.timeline._current_project_duration()
+            rect = QRectF(lane.left() - self.timeline.h_scroll_offset + first * self.timeline.pixels_per_second,
+                          self._row_top(lane, self.row_slots[index]) + 2,
+                          max(2.0, (last - first) * self.timeline.pixels_per_second), self.row_height - 4)
+        return rect, self.translate(self.catalog.get(name, {}).get("name", name))
 
     def preview_drop(self, pos, effect_name=None):
         self.drop_target = None
+        if pos is None:
+            self._set_placement_layout(None)
         if pos is not None and effect_name and not self.locked:
             section, lane = self._drop_section(pos)
             if section:
                 kind, owner = section
-                if owner:
-                    if kind == "clip" or self._can_add(effect_name):
-                        name = owner.title() if kind == "clip" else self.timeline._track_display_label(owner)
-                        caption = self.translate("Apply to %s") % name
-                    else:
-                        caption = self.translate("Apply this effect to a clip")
-                    self.drop_target = self._scope_heading(kind, lane), caption
+                if owner and (kind == "clip" or self._can_add(effect_name)):
+                    self.drop_target = self._placement_feedback(kind, owner, effect_name)
+        if self.drop_target is None:
+            self._set_placement_layout(None)
         self.timeline.update()
 
     def drop(self, pos, effect_name):
         section, lane = self._drop_section(pos)
         self.preview_drop(None)
         if lane is None:
-            return False
+            # Consume panel drops on labels so they cannot fall through to
+            # the timeline's ordinary drop-on-clip behavior.
+            return self._bounds()[2].contains(pos)
         if section and section[1]:
             self._apply_to_scope(*section, effect_name)
         return True
@@ -995,28 +1156,19 @@ class EffectsTray(QObject):
                     self._reveal_clip_section(clip.id)
 
     def _transfer_target(self, source_kind, rows, pos):
-        _, lane, visible = self._bounds()
-        if not visible.contains(pos):
+        destination, lane = self._drop_section(pos)
+        if destination is None:
             return None
-        kind = "track" if source_kind == "clip" else "clip"
-        heading = self._scope_heading(kind, lane)
-        if not heading.contains(pos):
-            return None
-        _ = self.translate
+        kind, owner = destination
+        if owner is None:
+            return kind, None, (QRectF(), "")
         if any(row[0] != source_kind for row in rows):
-            return kind, None, (heading, _("Select effects of the same scope to move them"))
-        if kind == "track":
-            if any(not self._can_add(row[2].get("type")) for row in rows):
-                return kind, None, (heading, _("This effect needs a clip"))
-            return kind, self._track(), (heading, _("Move to Track Effects"))
-
-        if pos.x() >= lane.left():
-            clip = self._clip_at(self.timeline._seconds_from_x(pos.x()))
-        else:
-            clip = self._clip_for_add()
-        if clip and clip.data["end"] > clip.data["start"]:
-            return kind, clip, (heading, _("Move to %s") % clip.title())
-        return kind, None, (heading, _("Drop below a clip to move the effect there"))
+            return kind, None, (QRectF(), "")
+        if kind == source_kind and all(row[1].id == owner.id for row in rows):
+            return None
+        if kind == "track" and any(not self._can_add(row[2].get("type")) for row in rows):
+            return kind, None, (QRectF(), self.translate("This effect needs a clip"))
+        return kind, owner, self._placement_feedback(kind, owner, rows[0][2].get("type"), rows)
 
     def _effect_for_scope(self, row, kind, owner):
         source_kind, source, effect, _, _ = row
@@ -1024,6 +1176,16 @@ class EffectsTray(QObject):
         if last <= first:
             return None
         fps = self._frame_rate()
+        if source_kind == kind == "clip":
+            offset = round((owner.data["start"] - source.data["start"]) * fps)
+            timing = effect.get("clip_range")
+            if timing:
+                duration = owner.data["end"] - owner.data["start"]
+                left = max(0.0, min(timing["start"] - source.data["start"], duration - 1 / fps))
+                right = min(duration, max(left + 1 / fps, timing["end"] - source.data["start"]))
+                timing = {"start": owner.data["start"] + left, "end": owner.data["start"] + right}
+            shifted = shift_effect_keyframes(effect, offset) if offset else effect
+            return dict(shifted, clip_range=timing)
         source_offset = round((source.data["start"] - source.data["position"]) * fps) if source_kind == "clip" else 0
         if kind == "track":
             timing = {"start": first / fps, "end": last / fps}
@@ -1057,7 +1219,8 @@ class EffectsTray(QObject):
         effects = [self._effect_for_scope(row, kind, owner) for row in rows]
         if not effects or any(effect is None for effect in effects):
             return
-        stack = self._stack(kind, owner) + effects
+        moving_ids = {effect["id"] for effect in effects}
+        stack = [effect for effect in self._stack(kind, owner) if effect["id"] not in moving_ids] + effects
         if kind == "clip":
             stack = [dict(effect, stack_order=order) for order, effect in enumerate(stack)]
         primary = self.selected_id
@@ -1075,34 +1238,32 @@ class EffectsTray(QObject):
         return (data is not None and not data.get("has_tracked_object")
                 and name not in effect_options and name not in {"ObjectMask", "PitchShift"})
 
-    def _make_add_menu(self):
+    def _make_add_menu(self, kind="track", owner=None):
         _ = self.translate
         menu = StyledContextMenu(parent=self.timeline)
         menu.setToolTipsVisible(True)
         catalog = sorted(self.catalog.items(), key=lambda entry: _(entry[1]["name"]))
-        for kind, owner, label in (("clip", self._clip_for_add(), _("Clip Effect")),
-                                   ("track", self._track(), _("Track Effect"))):
-            scope = StyledContextMenu(title=label, parent=menu)
-            scope.menuAction().setEnabled(owner is not None)
-            if kind == "clip":
-                hint = _("Apply to %s") % owner.title() if owner else _("Select a clip first")
-                scope.menuAction().setToolTip(hint)
-            for key, category_label in (("has_video", _("Video")), ("has_audio", _("Audio"))):
-                category = StyledContextMenu(title=category_label, parent=scope)
-                for name, info in catalog:
-                    if info.get(key) and (kind == "clip" or self._can_add(name)):
-                        category.addAction(_(info["name"]), lambda checked=False, value=name, scope_kind=kind,
-                                            target=owner: self._apply_to_scope(scope_kind, target, value))
-                if category.actions():
-                    scope.addMenu(category)
-            menu.addMenu(scope)
+        for key, label in (("has_video", _("Video")), ("has_audio", _("Audio"))):
+            category = StyledContextMenu(title=label, parent=menu)
+            for name, info in catalog:
+                if info.get(key) and (kind == "clip" or self._can_add(name)):
+                    category.addAction(_(info["name"]),
+                                       lambda checked=False, value=name: self._add_to_selected_clips(value)
+                                       if kind == "clip" else self._add_effect(value))
+            if category.actions():
+                menu.addMenu(category)
         return menu
 
     def _add_menu(self, pos):
-        if self._can_add_effect() and self._track():
-            menu = self._make_add_menu()
-            menu.show_at(self.timeline.mapToGlobal(pos.toPoint()))
-            menu.deleteLater()
+        _, lane, _ = self._bounds()
+        slot = self._slot_at(pos, lane)
+        section = next((entry for entry in self.sections if entry[0] == slot), None)
+        if section and self._can_add_effect(section[1]):
+            kind = section[1]
+            if kind == "clip" or self._track():
+                menu = self._make_add_menu(kind)
+                menu.show_at(self.timeline.mapToGlobal(pos.toPoint()))
+                menu.deleteLater()
 
     def _make_effect_menu(self):
         selection = self._selected()
@@ -1349,6 +1510,14 @@ class EffectsTray(QObject):
         if data.get("has_tracked_object"):
             return
         data["id"] = self.app.project.generate_id()
+        clip_ends = [
+            float(clip.data.get("position", 0.0))
+            + max(0.0, float(clip.data.get("end", 0.0)) - float(clip.data.get("start", 0.0)))
+            for clip in Clip.filter(layer=track.data["number"])
+        ]
+        last = max(clip_ends, default=0.0)
+        if last > 0.0:
+            data["clip_range"] = {"start": 0.0, "end": last}
         self._save_stack(track, self._stack("track", track) + [data])
         self.active = True
         self._set_selection({data["id"]})
@@ -1367,6 +1536,33 @@ class EffectsTray(QObject):
         index, neighbor = indices
         stack = self._stack(kind, owner)
         stack[index], stack[neighbor] = stack[neighbor], stack[index]
+        self._save_reordered_stack(kind, owner, stack)
+
+    def _reorder_effect(self, source, target, after):
+        if self.locked:
+            return
+        kind, owner, effect = self.rows[source][:3]
+        target_kind, target_owner, target_effect = self.rows[target][:3]
+        if (kind == "transition" or kind != target_kind or owner.id != target_owner.id
+                or effect["id"] == target_effect["id"]
+                or (kind == "clip" and effect.get("apply_before_clip", True)
+                    != target_effect.get("apply_before_clip", True))):
+            return
+        owner = (Clip if kind == "clip" else Track).get(id=owner.id)
+        if owner is None or owner.data.get("lock"):
+            return
+        stack = self._stack(kind, owner)
+        original = list(stack)
+        moving = next((entry for entry in stack if entry["id"] == effect["id"]), None)
+        if moving is None or not any(entry["id"] == target_effect["id"] for entry in stack):
+            return
+        stack.remove(moving)
+        index = next(i for i, entry in enumerate(stack) if entry["id"] == target_effect["id"])
+        stack.insert(index + int(after), moving)
+        if stack != original:
+            self._save_reordered_stack(kind, owner, stack)
+
+    def _save_reordered_stack(self, kind, owner, stack):
         if kind == "track":
             self._save_stack(owner, stack)
             return

@@ -26,7 +26,7 @@
  """
 
 from classes.waveform_cache import sample_count
-from qt_api import QRectF, Qt, QFont, QFontMetrics, QColor, QPainter, QPainterPath, QPen
+from qt_api import QRectF, Qt, QFont, QFontMetrics, QColor, QPainter, QPen, QLinearGradient
 from classes.qt_types import font_metrics_horizontal_advance
 
 
@@ -48,6 +48,15 @@ def draw_effect_badge(painter, rect, font, label, accent, text_color, opacity):
     painter.setPen(text_color)
     painter.drawText(rect, Qt.AlignCenter, label)
     painter.restore()
+
+
+def header_control_center(height):
+    """One control line for track names, toolbar icons, and clip headers.
+
+    A 22-pixel row starts four pixels below the top on taller tracks;
+    short tracks center the same row without pushing controls outside them.
+    """
+    return min(max(0.0, float(height)) / 2.0, 15.0)
 
 
 class ItemHeaderMixin:
@@ -85,15 +94,6 @@ class ItemHeaderMixin:
             font.setPixelSize(max(1, round(font.pixelSize() * scale)))
         elif font.pointSizeF() > 0:
             font.setPointSizeF(font.pointSizeF() * scale)
-        if getattr(getattr(self.w, "theme", None), "compact_track_headers", False):
-            max_height = max(8.0, inner.height() - 4.0)
-            font_height = QFontMetrics(font).height()
-            if font_height > max_height:
-                factor = max_height / font_height
-                if font.pixelSize() > 0:
-                    font.setPixelSize(max(1, int(font.pixelSize() * factor)))
-                else:
-                    font.setPointSizeF(max(1.0, font.pointSizeF() * factor))
         painter.setFont(font)
         text = self._draw_item_text(
             painter, item, header, header.left(), header.right(),
@@ -133,7 +133,17 @@ class ItemHeaderMixin:
             return {"rect": QRectF(x, inner.y(), max(1.0, text_width), max(1.0, inner.height())),
                     "title": title_raw}
 
-        metrics = QFontMetrics(painter.font())
+        font = QFont(painter.font())
+        max_height = max(8.0, min(18.0, inner.height() - 4.0))
+        font_height = QFontMetrics(font).height()
+        if font_height > max_height:
+            factor = max_height / font_height
+            if font.pixelSize() > 0:
+                font.setPixelSize(max(1, int(font.pixelSize() * factor)))
+            else:
+                font.setPointSizeF(max(1.0, font.pointSizeF() * factor))
+            painter.setFont(font)
+        metrics = QFontMetrics(font)
         font_h = float(metrics.height())
 
         pad_x = 6.0
@@ -145,23 +155,24 @@ class ItemHeaderMixin:
         effects = item.data.get("effects", []) if self.header_kind == "clip" and isinstance(item.data, dict) else []
         effects = [effect for effect in effects if isinstance(effect, dict)] if isinstance(effects, list) else []
         badge_font = QFont(painter.font())
-        if badge_font.pointSizeF() > 0:
-            badge_font.setPointSizeF(max(7.0, badge_font.pointSizeF() * 0.8))
+        badge_h = float(getattr(self.w.theme, "track_control_size", 16))
+        badge_font.setPixelSize(max(8, round(badge_h * 0.57)))
         badge_font.setBold(True)
         badge_fm = QFontMetrics(badge_font)
-        badge_h = max(10.0, font_h)
         badge_label = ""
         badge_width = 0.0
         if effects:
             preferred = effect_badge_label(len(effects))
             labels = (preferred, "FX") if len(effects) > 1 else (preferred,)
             for candidate in labels:
-                width = font_metrics_horizontal_advance(badge_fm, candidate) + 8.0
+                width = max(badge_h, font_metrics_horizontal_advance(badge_fm, candidate) + 6.0)
                 if pad_x * 2 + width + icon_gap * 2 + icon_size <= text_width:
                     badge_label, badge_width = candidate, width
                     break
 
         compact_w = pad_x * 2 + icon_size
+        if badge_label:
+            container_h = max(container_h, badge_h + pad_y * 2.0)
         min_visible = float(getattr(self.w.theme.clip, "thumb_min_visible", 5.0) or 5.0)
         item_min = float(getattr(self.w.theme.clip, "thumb_clip_min_width", 24.0) or 24.0)
         compact_lod_w = max(compact_w, min_visible * 2.0, item_min)
@@ -179,16 +190,23 @@ class ItemHeaderMixin:
             return None
 
         container_x = inner.x()
-        container_y = inner.y()
+        border = float(self.border_width or 0.0)
+        center_y = inner.y() - border + header_control_center(inner.height() + border * 2.0)
+        container_y = max(inner.top(), min(center_y - container_h / 2.0,
+                                          inner.bottom() - container_h))
         container_rect = QRectF(container_x, container_y, container_w, container_h)
 
-        radius = min(4.0, container_rect.width() / 2.0, container_rect.height() / 2.0)
-        path = QPainterPath()
-        path.addRoundedRect(container_rect, radius, radius)
         if not transparent_container:
+            # A floating dark pill cuts through small thumbnails. Shade the
+            # top of the media instead, fading below the shared control line.
+            shade = QRectF(inner.left(), inner.top(), inner.width(),
+                           min(inner.height(), container_rect.bottom() - inner.top() + 6.0))
+            gradient = QLinearGradient(shade.topLeft(), shade.bottomLeft())
+            gradient.setColorAt(0.0, QColor(0, 0, 0, 105))
+            gradient.setColorAt(0.65, QColor(0, 0, 0, 100))
+            gradient.setColorAt(1.0, QColor(0, 0, 0, 0))
             painter.save()
-            painter.setRenderHint(QPainter.Antialiasing, True)
-            painter.fillPath(path, QColor(0, 0, 0, 140))
+            painter.fillRect(shade, gradient)
             painter.restore()
 
         # Pre-scale the arrow once for both modes
@@ -221,7 +239,7 @@ class ItemHeaderMixin:
 
             flags = Qt.AlignLeft | Qt.AlignVCenter
             text_start_x = container_x + pad_x + badge_prefix
-            text_draw_rect = QRectF(text_start_x, container_y + pad_y, text_advance, font_h)
+            text_draw_rect = QRectF(text_start_x, container_y + (container_h - font_h) / 2.0, text_advance, font_h)
             painter.setPen(QColor(0, 0, 0, 120))
             painter.drawText(text_draw_rect.translated(1, 1), flags, title_elided)
             painter.setPen(getattr(self.w.theme, self.header_kind).font_color)

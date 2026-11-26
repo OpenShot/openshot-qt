@@ -614,7 +614,7 @@ class TimelineHelperTests(unittest.TestCase):
         widget.track_painter = TrackPainter(widget)
         track = types.SimpleNamespace(id="track", data={"number": 1, "label": "Dialogue"})
         order = ["mute-toggle", "visibility-toggle", "effects-tray", "keyframe-panel", "lock-toggle"]
-        for width, count in ((40, 0), (120, 0), (150, 1), (170, 2), (180, 2), (200, 3), (300, 5)):
+        for width, count in ((40, 0), (120, 0), (150, 1), (170, 2), (180, 3), (200, 4), (300, 5)):
             with self.subTest(width=width):
                 rect = QRectF(0, 0, width, widget.theme.track.height)
                 buttons = widget._track_toolbar_buttons(track, rect)
@@ -630,6 +630,11 @@ class TimelineHelperTests(unittest.TestCase):
                 if visible:
                     self.assertEqual(widget.track_painter.track_title_geometry(rect, track)[3], "Dialogue")
                 self.assertTrue(all(rect.contains(button["rect"]) for button in buttons))
+        widget.geometry = types.SimpleNamespace(track_list=[track])
+        maximum = widget._track_header_max_width()
+        full = widget._track_toolbar_buttons(track, QRectF(0, 0, maximum, widget.theme.track.height))
+        self.assertEqual([b["key"] for b in full], order)
+        self.assertAlmostEqual(full[-1]["rect"].right(), maximum - 6.0)
         rect = QRectF(0, 0, 180, widget.theme.track.height)
         title, _pixmap, _arrow, label = widget.track_painter.track_title_geometry(rect, track)
         buttons = widget._track_toolbar_buttons(track, rect)
@@ -642,7 +647,7 @@ class TimelineHelperTests(unittest.TestCase):
                 self.assertIsNotNone(pixmap)
                 self.assertFalse(arrow.isNull())
                 self.assertTrue(rect.contains(title))
-                self.assertAlmostEqual(arrow.center().y(), rect.center().y(), delta=0.5)
+                self.assertAlmostEqual(arrow.center().y(), rect.top() + min(rect.height() / 2, 15.0), delta=0.5)
                 self.assertFalse(title.intersects(widget._track_toolbar_buttons(track, rect)[0]["rect"]))
         track.data["label"] = "A longer translated track name"
         needed = widget.track_painter.track_title_width(track)
@@ -743,7 +748,8 @@ class TimelineHelperTests(unittest.TestCase):
                         self.assertEqual([b["key"] for b in buttons], ["more-controls"])
                         self.assertEqual(len(buttons[0]["overflow"]), 5)
                         self.assertEqual(len({b["rect"].center().y() for b in buttons}), 1)
-                        self.assertAlmostEqual(buttons[0]["rect"].center().y(), widget.vertical_factor / 2)
+                        self.assertAlmostEqual(buttons[0]["rect"].center().y(), min(widget.vertical_factor / 2, 15.0))
+                        self.assertAlmostEqual(title["rect"].center().y(), buttons[0]["rect"].center().y())
                         row = QRectF(0, 0, widget.track_name_width, widget.vertical_factor)
                         self.assertTrue(row.contains(title["rect"]))
                         self.assertEqual(title["title"], track.data["label"])
@@ -4740,7 +4746,7 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertFalse(container_rect.isNull())
         self.assertFalse(arrow_rect.isNull())
         self.assertAlmostEqual(hit_rect.x(), rect.x())
-        self.assertAlmostEqual(hit_rect.y(), rect.y())
+        self.assertAlmostEqual(hit_rect.center().y(), rect.center().y())
         self.assertAlmostEqual(hit_rect.width(), container_rect.width())
         self.assertAlmostEqual(hit_rect.height(), container_rect.height())
         self.assertGreater(hit_rect.width(), arrow_rect.width())
@@ -6245,6 +6251,24 @@ class TimelineHelperTests(unittest.TestCase):
         timeline._pending_clip_overrides["clip"]["layer"] = 2
         self.assertTrue(EffectsTray._bar_rect(tray, 0, lane).isEmpty())
 
+    def test_all_clip_effects_follow_multi_clip_drag_while_track_effect_stays(self):
+        from windows.effects_tray import EffectsTray
+
+        clips = [types.SimpleNamespace(id=name, data={"position": position, "start": 0.,
+                 "end": 10., "layer": 1}) for name, position in (("A", 0.), ("B", 10.))]
+        effect = {"id": "clip-fx"}
+        timeline = types.SimpleNamespace(
+            normalize_track_number=int,
+            _pending_clip_overrides={clip.id: {"position": clip.data["position"] + 5.}
+                                     for clip in clips},
+        )
+        tray = types.SimpleNamespace(timeline=timeline, track_number=1, _preview=None, rows=[
+            ("clip", clips[0], effect, 0., 10.), ("clip", clips[1], effect, 10., 20.),
+            ("track", None, {"id": "track-fx"}, 10., 20.),
+        ])
+        self.assertEqual([EffectsTray._bar_range(tray, i) for i in range(3)],
+                         [(5., 15.), (15., 25.), (10., 20.)])
+
     def test_effect_bar_groups_curves_and_projects_source_frames_through_trim(self):
         from windows.effects_tray import EffectsTray
         from windows.views.timeline_backend.qwidget.keyframe import KeyframeMixin
@@ -6264,6 +6288,7 @@ class TimelineHelperTests(unittest.TestCase):
         tray.locked = False
         tray.rows = [("clip", clip, effect, 10, 14)]
         tray._preview = None
+        tray._transfer = tray._press = None
         tray._bounds = lambda: (lane, lane, lane)
         tray._row_rect = lambda *_: lane
 
@@ -6287,6 +6312,268 @@ class TimelineHelperTests(unittest.TestCase):
         resize["scale"] = True
         self.assertEqual(KeyframePanelPainter._preview_point_seconds(point, projected, override), 8.5)
         self.assertEqual(point["seconds"], 8.0)
+
+    def test_new_track_effect_uses_last_trimmed_clip_end_on_its_track(self):
+        from windows.effects_tray import EffectsTray
+
+        track = types.SimpleNamespace(id="T", data={"number": 5})
+        clips = [types.SimpleNamespace(data=data) for data in (
+            {"position": 0, "start": 0, "end": 20},
+            {"position": 40, "start": 12, "end": 17},
+            {"position": 5, "start": 0, "end": 3},
+        )]
+        tray = types.SimpleNamespace(
+            _track=lambda: track, _can_add=lambda name: True,
+            app=types.SimpleNamespace(project=types.SimpleNamespace(generate_id=lambda: "new-fx")),
+            _stack=lambda *args: [{"id": "existing"}], _save_stack=MagicMock(),
+            _set_selection=MagicMock(), active=False,
+        )
+        effect = types.SimpleNamespace(Json=lambda: '{"type": "Blur"}')
+        with patch("windows.effects_tray.Clip.filter", return_value=clips) as query, \
+                patch("windows.effects_tray.openshot.EffectInfo") as info:
+            info.return_value.CreateEffect.return_value = effect
+            EffectsTray._add_effect(tray, "Blur")
+            query.assert_called_once_with(layer=5)
+            saved = tray._save_stack.call_args.args[1]
+            self.assertEqual(saved, [{"id": "existing"}, {
+                "id": "new-fx", "type": "Blur", "clip_range": {"start": 0.0, "end": 45.0},
+            }])
+            # This is an initial editable range, rather than a live constraint.
+            clips[1].data["position"] = 100
+            self.assertEqual(saved[-1]["clip_range"]["end"], 45.0)
+            query.return_value = []
+            EffectsTray._add_effect(tray, "Blur")
+            self.assertNotIn("clip_range", tray._save_stack.call_args.args[1][-1])
+
+    def test_effect_plus_menu_opens_video_audio_and_adds_only_to_track(self):
+        from windows.effects_tray import EffectsTray
+
+        tray = EffectsTray.__new__(EffectsTray)
+        tray.timeline = QWidget()
+        self.addCleanup(tray.timeline.deleteLater)
+        tray.translate = lambda text: text
+        tray.catalog = {
+            "Blur": {"name": "Blur", "has_video": True},
+            "Volume": {"name": "Volume", "has_audio": True},
+            "Tracker": {"name": "Tracker", "has_video": True, "has_tracked_object": True},
+        }
+        tray._add_effect = MagicMock()
+        menu = tray._make_add_menu()
+        self.addCleanup(menu.deleteLater)
+        self.assertEqual([action.text() for action in menu.actions()], ["Video", "Audio"])
+        video = menu.actions()[0].menu()
+        self.assertEqual([action.text() for action in video.actions()], ["Blur"])
+        video.actions()[0].trigger()
+        tray._add_effect.assert_called_once_with("Blur")
+        tray._add_to_selected_clips = MagicMock()
+        clip_menu = tray._make_add_menu("clip")
+        self.addCleanup(clip_menu.deleteLater)
+        clip_menu.actions()[0].menu().actions()[0].trigger()
+        tray._add_to_selected_clips.assert_called_once_with("Blur")
+
+    def test_clip_effect_plus_requires_selection_and_applies_to_each_selected_clip(self):
+        from windows.effects_tray import EffectsTray
+
+        tray = EffectsTray.__new__(EffectsTray)
+        tray.locked = False
+        tray.catalog = {"Blur": {"name": "Blur"}}
+        clips = {name: types.SimpleNamespace(id=name, data={"layer": layer})
+                 for name, layer in (("A", 1), ("B", 2), ("C", 1))}
+        track = types.SimpleNamespace(data={"number": 1})
+        tray._track = lambda: track
+        tray.clip_id = "C"  # Last-used clip must not act as an implicit target.
+        tray.active = True
+        updates = types.SimpleNamespace(transaction_id=None)
+        tray.app = types.SimpleNamespace(updates=updates)
+        window = types.SimpleNamespace(selected_clips=[])
+        applied = []
+        def apply(clip, name):
+            applied.append((clip.id, name, updates.transaction_id))
+            window.selected_clips = []  # Changing UI selection cannot truncate this operation.
+        tray.timeline = types.SimpleNamespace(window=window, _apply_effect_to_clip=apply)
+        with patch("windows.effects_tray.Clip.get", side_effect=lambda id: clips.get(id)), \
+                patch("windows.effects_tray.Track.get", return_value=track):
+            self.assertFalse(tray._can_add_effect("clip"))
+            tray._add_to_selected_clips("Blur")
+            self.assertEqual(applied, [])
+            window.selected_clips = ["A", "B"]
+            self.assertTrue(tray._can_add_effect("clip"))
+            tray._add_to_selected_clips("Blur")
+        self.assertEqual([(clip, name) for clip, name, _ in applied], [("A", "Blur"), ("B", "Blur")])
+        self.assertTrue(applied[0][2])
+        self.assertEqual(applied[0][2], applied[1][2])
+        self.assertIsNone(updates.transaction_id)
+
+    def test_effect_body_drop_previews_clip_hop_and_rejects_heading_drop(self):
+        from windows.effects_tray import EffectsTray
+
+        tray = EffectsTray.__new__(EffectsTray)
+        first = types.SimpleNamespace(id="C1", data={"position": 0., "start": 2., "end": 12.})
+        second = types.SimpleNamespace(id="C2", data={"position": 10., "start": 4., "end": 14.})
+        effect = {"id": "E", "type": "Blur", "sigma": {"Points": [
+            {"co": {"X": 51, "Y": 1}}, {"co": {"X": 101, "Y": 2}}]}}
+        first.data["effects"] = [effect]
+        tray.clips = [first, second]
+        track = types.SimpleNamespace(id="T", data={"effects": []})
+        tray._track = lambda: track
+        tray.rows = [("clip", first, effect, 0., 10.)]
+        tray.row_slots = [1]
+        tray.sections = [(0, "clip", None, "Clip Effects"), (3, "track", track, "Track Effects")]
+        tray.lane_rows = {1: [0], 2: [], 4: []}
+        tray.locked = False
+        tray.translate = lambda text: text
+        tray.catalog = {"Blur": {"name": "Blur", "has_video": True}}
+        tray.app = types.SimpleNamespace(project={"fps": {"num": 25, "den": 1}})
+        tray.timeline = types.SimpleNamespace(
+            panel_header_height=40, keyframe_panel_row_height=28, keyframe_panel_row_spacing=4,
+            keyframe_panel_padding=4, h_scroll_offset=0, pixels_per_second=10,
+            _seconds_from_x=lambda x: (x - 100) / 10, _current_project_duration=lambda: 20.,
+            update=MagicMock(), _release_cursor=MagicMock(), geometry=MagicMock())
+        lane = QRectF(100, 0, 400, 230)
+        tray._bounds = lambda: (QRectF(0, 0, 500, 230), lane, QRectF(0, 0, 500, 230))
+        pointer = QPointF(250, tray._row_top(lane, 1) + 10)
+        tray.track_id, tray.track_number = "T", 1
+        tray._press = (("row", 0), QPointF(150, pointer.y()), None, list(tray.rows), False)
+        tray._preview = tray._marquee = tray._transfer = tray._transfer_hint = None
+        tray._snap_frame = tray._razor_line = tray._reorder_drop = None
+        tray._set_drag_cursor = MagicMock()
+        original_height = tray.height(1)
+        tray.move(pointer)
+        self.assertEqual(tray.height(1), original_height)
+        self.assertFalse(tray.__dict__.get("_insertion_open", False))
+        self.assertIs(tray._transfer[1], second)
+        tray._clear_gesture()
+        target = tray._transfer_target("clip", tray.rows, pointer)
+        self.assertIs(target[1], second)
+        self.assertEqual(target[2][0].left(), 200)
+        self.assertEqual(target[2][0].width(), 100)
+        moved = tray._effect_for_scope(tray.rows[0], "clip", second)
+        self.assertEqual([p["co"]["X"] for p in moved["sigma"]["Points"]], [101, 151])
+        self.assertEqual([p["co"]["X"] for p in effect["sigma"]["Points"]], [51, 101])
+        heading = QPointF(50, tray._section_rect(tray.sections[0], lane).center().y())
+        self.assertEqual(tray._drop_section(heading), (None, None))
+        tray._apply_to_scope = MagicMock()
+        tray.drop_target = None
+        self.assertTrue(tray.drop(heading, "Blur"))
+        tray._apply_to_scope.assert_not_called()
+
+    def test_effect_transfer_preview_preserves_destination_names_and_matches_saved_packing(self):
+        from windows.effects_tray import EffectsTray
+
+        tray = EffectsTray.__new__(EffectsTray)
+        effect = {"id": "B", "type": "Blur", "name": "Blur"}
+        existing = [{"id": "P", "type": "Pixelate", "name": "Pixelate"},
+                    {"id": "N", "type": "Negate", "name": "Negative"}]
+        first = types.SimpleNamespace(id="A", data={"position": 0., "start": 0., "end": 10.,
+                                                    "layer": 1, "effects": [effect]})
+        second = types.SimpleNamespace(id="Z", data={"position": 10., "start": 0., "end": 10.,
+                                                     "layer": 1, "effects": existing})
+        track = types.SimpleNamespace(id="T", data={"number": 1, "effects": []})
+        tray.clips = [first, second]
+        tray._track = lambda: track
+        tray.translate = lambda text: text
+        tray.catalog = {"Blur": {"name": "Blur"}}
+        tray.app = types.SimpleNamespace(project={"fps": {"num": 25, "den": 1}},
+                                        updates=types.SimpleNamespace(transaction_id=None))
+        tray.timeline = types.SimpleNamespace(
+            keyframe_panel_padding=4, keyframe_panel_row_height=24, keyframe_panel_row_spacing=4,
+            h_scroll_offset=0, pixels_per_second=10, geometry=MagicMock(), update=MagicMock(),
+            _current_project_duration=lambda: 20., window=types.SimpleNamespace(refreshFrameSignal=MagicMock()))
+        tray.selected_id = "B"
+        tray._set_selection = MagicMock()
+        tray._save_stack = lambda owner, stack, **kwargs: owner.data.update(effects=stack)
+        for key, value in tray._layout_for(track, tray.clips, [], []).items():
+            setattr(tray, key, value)
+        lane = QRectF(100, 0, 400, 300)
+        tray._bounds = lambda: (QRectF(0, 0, 500, 300), lane, QRectF(0, 0, 500, 300))
+        source = tray.rows[0]
+        tray._placement_feedback("clip", second, "Blur", [source])
+        planned = tray._placement_layout
+        self.assertEqual([entry[2]["name"] for entry in planned["rows"]], ["Pixelate", "Negative", "Blur"])
+        self.assertEqual(len(first.data["effects"]), 1)
+        self.assertEqual(len(second.data["effects"]), 2)
+        with patch("windows.effects_tray.Clip.get", side_effect=lambda id: {"A": first, "Z": second}[id]):
+            tray._transfer_effects([source], "clip", second)
+        committed = tray._layout_for(track, tray.clips, [], [])
+        def signature(layout):
+            return [(row[0], row[1].id, row[2]["id"], row[2]["name"], row[3:], slot)
+                    for row, slot in zip(layout["rows"], layout["row_slots"])]
+        self.assertEqual(signature(planned), signature(committed))
+
+    def test_effect_null_state_contains_only_two_compact_headers(self):
+        from windows.effects_tray import EffectsTray
+
+        tray = EffectsTray.__new__(EffectsTray)
+        tray.track_id, tray.track_number = "T", 1
+        tray.sections = [(0, "clip", None, "Clip Effects"), (2, "track", None, "Track Effects")]
+        tray.lane_rows = {1: [0], 3: [1]}
+        for height in (22, 28, 36):
+            with self.subTest(height=height):
+                tray.timeline = types.SimpleNamespace(
+                    panel_header_height=30, keyframe_panel_row_height=height,
+                    keyframe_panel_row_spacing=4, keyframe_panel_padding=4,
+                    _panel_height_for_properties=lambda count: count * (height + 4) + 8,
+                )
+                lane = QRectF(100, 50, 400, 300)
+                for slot in range(4):
+                    top = tray._row_top(lane, slot)
+                    stride = tray.section_stride if slot in (0, 2) else tray.row_stride
+                    self.assertEqual(tray._slot_at(QPointF(120, top + 0.5), lane), slot)
+                    self.assertEqual(tray._slot_at(QPointF(120, top + stride - 0.5), lane), slot)
+                self.assertEqual(tray._section_rect(tray.sections[0], lane).height(), 22)
+                self.assertEqual(tray.height(1), 44 + 8 + 2 * tray.row_stride)
+        tray.lane_rows = {1: [], 3: []}
+        self.assertEqual(tray.height(1), 44 + 8)
+        tray._insertion_open = True
+        self.assertEqual(tray.height(1), 44 + 8)
+
+    def test_effect_grip_drag_reorders_once_without_changing_timing(self):
+        from windows.effects_tray import EffectsTray
+
+        tray = EffectsTray.__new__(EffectsTray)
+        effects = [{"id": name, "clip_range": {"start": i, "end": i + 10}}
+                   for i, name in enumerate(("A", "B", "C"))]
+        owner = types.SimpleNamespace(id="T", data={"effects": effects})
+        tray.rows = [("track", owner, effect, i, i + 10) for i, effect in enumerate(effects)]
+        tray.locked = False
+        tray.timeline = types.SimpleNamespace(update=MagicMock(), _release_cursor=MagicMock())
+        tray._press = (("reorder", 0), QPointF(20, 20), None, [], False)
+        tray._preview = tray._marquee = tray._transfer = tray._transfer_hint = None
+        tray._snap_frame = tray._razor_line = tray._reorder_drop = None
+        lane = QRectF(100, 0, 300, 120)
+        tray._bounds = lambda: (QRectF(0, 0, 400, 120), lane, QRectF(0, 0, 400, 120))
+        tray._slot_at = lambda pos, lane: 2
+        tray.lane_rows = {2: [2]}
+        tray._row_rect = lambda index, lane: QRectF(100, 80, 300, 20)
+        tray._set_drag_cursor = MagicMock()
+        tray._save_stack = MagicMock()
+        with patch("windows.effects_tray.Track.get", return_value=owner):
+            tray.move(QPointF(20, 95))
+            tray._save_stack.assert_not_called()
+            self.assertEqual(tray._reorder_drop, (2, True, 102))
+            tray.release(QPointF(20, 95))
+        tray._save_stack.assert_called_once_with(owner, [effects[1], effects[2], effects[0]])
+        self.assertEqual([effect["clip_range"] for effect in effects],
+                         [{"start": i, "end": i + 10} for i in range(3)])
+        self.assertIsNone(tray._reorder_drop)
+        tray.timeline._release_cursor.assert_called()
+
+    def test_effect_grip_cannot_reorder_between_owners_or_transform_phases(self):
+        from windows.effects_tray import EffectsTray
+
+        tray = EffectsTray.__new__(EffectsTray)
+        tray.locked = False
+        tray._save_reordered_stack = MagicMock()
+        first = types.SimpleNamespace(id="C1", data={})
+        second = types.SimpleNamespace(id="C2", data={})
+        tray.rows = [
+            ("clip", first, {"id": "A", "apply_before_clip": True}, 0, 10),
+            ("clip", second, {"id": "B", "apply_before_clip": True}, 0, 10),
+            ("clip", first, {"id": "C", "apply_before_clip": False}, 0, 10),
+        ]
+        tray._reorder_effect(0, 1, True)
+        tray._reorder_effect(0, 2, True)
+        tray._save_reordered_stack.assert_not_called()
 
     def test_effect_trim_edges_are_only_active_inside_the_visible_lane(self):
         from windows.effects_tray import EffectsTray
@@ -6424,6 +6711,37 @@ class TimelineHelperTests(unittest.TestCase):
                     if left < 0:
                         # Header only: no false full-height clip boundary at the pin.
                         self.assertEqual(image.pixelColor(106, 65).alpha(), 0)
+
+    def test_clip_fx_and_title_follow_inset_control_line_at_each_height(self):
+        from windows.views.timeline_backend.paint.header import header_control_center
+
+        helper = self.make_item_header_painter("clip")
+        widget = helper.w
+        clip = types.SimpleNamespace(id="C1", data={
+            "title": "Goblin", "effects": [{"id": "E1", "type": "Blur"}],
+        })
+        for height in (24, 40, 72, 120):
+            for ratio in (1, 2):
+                with self.subTest(height=height, ratio=ratio):
+                    widget._clip_text_rects = []
+                    widget._effect_icon_rects = []
+                    full = QRectF(10, 10, 300, height)
+                    image = QImage(400 * ratio, 160 * ratio, QImage.Format_ARGB32)
+                    image.fill(0)
+                    painter = QPainter(image)
+                    painter.scale(ratio, ratio)
+                    try:
+                        helper._draw_item_header(painter, clip, full, QRectF(0, 0, 400, 160))
+                    finally:
+                        painter.end()
+                    title = widget._clip_text_rects[0]["rect"]
+                    badge = widget._effect_icon_rects[0]["rect"]
+                    expected = full.top() + header_control_center(height)
+                    self.assertAlmostEqual(title.center().y(), expected)
+                    self.assertAlmostEqual(badge.center().y(), expected)
+                    self.assertEqual(badge.height(), 16)
+                    self.assertTrue(full.contains(title))
+                    self.assertTrue(title.contains(badge))
 
     def test_item_headers_render_identically_across_widths(self):
         item = types.SimpleNamespace(data={"title": "A shared title"})

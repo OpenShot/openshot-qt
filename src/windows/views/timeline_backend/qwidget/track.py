@@ -27,11 +27,21 @@
 
 from qt_api import QRectF, QLocale
 from classes.app import get_app
+from ..paint.header import header_control_center
 
 TRACK_TOOLBAR_SPACING_REDUCTION = 2.0
 
 
 class TrackInteractionMixin:
+    def _track_header_max_width(self):
+        tracks = getattr(self.geometry, "track_list", ())
+        widths = []
+        for track in tracks:
+            buttons = self._track_toolbar_buttons(track, QRectF(0, 0, 100000, self.theme.track.height))
+            if buttons:
+                widths.append(buttons[-1]["rect"].right() + 6.0)
+        return max(widths, default=float(self.theme.track.name_width))
+
     def _track_menu_rect(self, name_rect, track=None):
         for entry in reversed(getattr(self, "_track_title_rects", [])):
             entry_track = entry.get("track") if isinstance(entry, dict) else None
@@ -104,6 +114,9 @@ class TrackInteractionMixin:
         hit_width = min(hit_size, float(self.theme.track_control_size) + 4.0)
         widths = [max(hit_width, spec["icon_width"] + 4.0) if spec["key"] == "effects-tray"
                   else hit_width for spec in specs]
+        # A narrow chevron leaves room for the next real control, including the
+        # useful four-controls-plus-overflow state before all five fit.
+        widths[-1] = 12.0
         controls = list(zip(specs[:-1], widths[:-1]))
         more, more_width = specs[-1], widths[-1]
         # Use the measured name width, so the divider reveals controls directly
@@ -130,7 +143,7 @@ class TrackInteractionMixin:
         for spec, width in zip(specs, widths):
             if spec["key"] == "more-controls":
                 left = name_rect.right() - 6.0 - width
-            spec["rect"] = QRectF(left, name_rect.y() + (row_height - hit_size) / 2.0, width, hit_size)
+            spec["rect"] = QRectF(left, name_rect.y() + header_control_center(row_height) - hit_size / 2.0, width, hit_size)
             spec["margin_x"] = max(0.0, (width - spec["icon_width"]) / 2.0)
             spec["margin_y"] = max(0.0, (hit_size - spec["icon_height"]) / 2.0)
             buttons.append(spec)
