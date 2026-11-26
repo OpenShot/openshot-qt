@@ -76,8 +76,8 @@ class PortablePathsTests(unittest.TestCase):
 
 class PortableStartupTests(unittest.TestCase):
     def test_portable_scale_and_info_use_same_data_root_before_qt_creation(self):
-        # Import Qt on the real platform first, then simulate the frozen Windows
-        # executable. Run in a subprocess to isolate Qt and module-level paths.
+        # Load native dependencies in launcher order on the real platform, then
+        # simulate the frozen Windows executable. Isolate Qt/module-level paths.
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             app = root / 'OpenShot'
@@ -93,6 +93,9 @@ class PortableStartupTests(unittest.TestCase):
             script = '''
 import os, sys
 from unittest.mock import patch
+from classes.windows_dlls import configure_windows_dll_paths
+configure_windows_dll_paths()
+import openshot  # Load the engine before Qt, as launch.py does.
 import qt_api
 from classes import user_paths
 sys.modules['OpenGL'] = None
