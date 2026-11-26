@@ -1,0 +1,407 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../timeline.rst:23
+msgid "Timeline"
+msgstr "Χρονολόγιο"
+
+#: ../timeline.rst:25
+msgid ""
+"The timeline is where your video comes together. You arrange clips, trim "
+"them, layer visuals, and make timing decisions here. If you are new to "
+"editing, think of the timeline as a simple left-to-right story: earlier "
+"moments on the left, later moments on the right."
+msgstr ""
+"Το χρονολόγιο είναι το σημείο όπου συγκεντρώνεται το βίντεό σας. Εδώ "
+"τακτοποιείτε τα κλιπ, τα περικόβετε, τοποθετείτε το οπτικό υλικό σε επίπεδα "
+"και παίρνετε αποφάσεις για τον χρονισμό. Αν είστε νέοι στην επεξεργασία, "
+"σκεφτείτε το χρονολόγιο ως μια απλή ιστορία από αριστερά προς τα δεξιά: οι "
+"πρώτες στιγμές στα αριστερά, οι μεταγενέστερες στα δεξιά."
+
+#: ../timeline.rst:32
+msgid ""
+"If you are just getting started, read :ref:`quick_tutorial_ref` first, then "
+"come back here for more detail. For a labeled breakdown of toolbar controls,"
+" see :ref:`timeline_toolbar_ref`."
+msgstr ""
+"Αν μόλις ξεκινάτε, διαβάστε πρώτα :ref:`quick_tutorial_ref` και, στη "
+"συνέχεια, επιστρέψτε εδώ για περισσότερες λεπτομέρειες. Για μια επισημασμένη"
+" ανάλυση των χειριστηρίων της γραμμής εργαλείων, δείτε "
+":ref:`timeline_toolbar_ref`."
+
+#: ../timeline.rst:37
+msgid "Timeline Basics"
+msgstr "Βασικά στοιχεία του χρονολογίου"
+
+#: ../timeline.rst:39
+msgid "These terms are used often in this guide:"
+msgstr "Οι ακόλουθοι όροι χρησιμοποιούνται συχνά σε αυτόν τον οδηγό:"
+
+#: ../timeline.rst:45
+msgid "Term"
+msgstr "Όρος"
+
+#: ../timeline.rst:45
+msgid "Meaning"
+msgstr "Σημασία"
+
+#: ../timeline.rst:47
+msgid "Playhead"
+msgstr "Κεφαλή αναπαραγωγής (Playhead)"
+
+#: ../timeline.rst:47
+msgid "The red line that shows your current time position."
+msgstr "Η κόκκινη γραμμή που δείχνει την τρέχουσα χρονική θέση."
+
+#: ../timeline.rst:48
+msgid "Track"
+msgstr "Διάδρομος (Track)"
+
+#: ../timeline.rst:48
+msgid ""
+"A horizontal layer that holds clips (top tracks appear above lower tracks)."
+msgstr ""
+"Ένα οριζόντιο επίπεδο που περιέχει κλιπ (οι πάνω διάδρομοι εμφανίζονται πάνω"
+" από τους χαμηλότερους)."
+
+#: ../timeline.rst:49
+msgid "Clip"
+msgstr "Κλιπ (Clip)"
+
+#: ../timeline.rst:49
+msgid "A video, audio, or image item placed on a track."
+msgstr ""
+"Ένα στοιχείο βίντεο, ήχου ή εικόνας που τοποθετείται σε έναν διάδρομο."
+
+#: ../timeline.rst:50
+msgid "Transition"
+msgstr "Μετάβαση (Transition)"
+
+#: ../timeline.rst:50
+msgid "A blend between two overlapping clips."
+msgstr "Μια ανάμειξη μεταξύ δύο επικαλυπτόμενων κλιπ."
+
+#: ../timeline.rst:51
+msgid "Marker"
+msgstr "Δείκτης (Marker)"
+
+#: ../timeline.rst:51
+msgid "A saved point in time you can jump back to quickly."
+msgstr ""
+"Ένα αποθηκευμένο χρονικό σημείο στο οποίο μπορείτε να επιστρέψετε γρήγορα."
+
+#: ../timeline.rst:52
+msgid "Keyframe"
+msgstr "Βασικό καρέ (Keyframe)"
+
+#: ../timeline.rst:52
+msgid "A saved value at a point in time (used for animation)."
+msgstr ""
+"Μια αποθηκευμένη τιμή σε ένα χρονικό σημείο (χρησιμοποιείται για κίνηση)."
+
+#: ../timeline.rst:55
+msgid "For a full glossary, see :ref:`glossary_ref`."
+msgstr "Για πλήρες γλωσσάριο, δείτε :ref:`glossary_ref`."
+
+#: ../timeline.rst:58
+msgid "Current Timecode"
+msgstr "Τρέχων χρονικός κωδικός"
+
+#: ../timeline.rst:60
+msgid ""
+"The current timecode appears at the left side of the timeline ruler and "
+"shows the playhead's exact position. Click the timecode, enter a new value, "
+"and press :kbd:`Enter` to move the playhead to that frame."
+msgstr ""
+"Ο τρέχων χρονικός κωδικός εμφανίζεται στην αριστερή πλευρά του χάρακα του "
+"χρονολογίου και δείχνει την ακριβή θέση της κεφαλής αναπαραγωγής. Κάντε κλικ"
+" στον χρονικό κωδικό, εισαγάγετε μια νέα τιμή και πατήστε :kbd:`Enter` για "
+"να μετακινήσετε την κεφαλή αναπαραγωγής σε εκείνο το καρέ."
+
+#: ../timeline.rst:64
+msgid ""
+"Clear the field or enter ``0`` to jump to the start of the timeline. Press "
+":kbd:`Up` or :kbd:`Down` to step the selected timecode segment; hold "
+":kbd:`Shift` to step by 10. When the frame segment is selected, hold "
+":kbd:`Ctrl` to step by one second. Press :kbd:`Esc` to cancel."
+msgstr ""
+"Διαγράψτε το περιεχόμενο του πεδίου ή εισαγάγετε ``0`` για να μεταβείτε στην"
+" αρχή του χρονολογίου. Πατήστε :kbd:`Up` ή :kbd:`Down` για να αλλάξετε "
+"βηματικά το επιλεγμένο τμήμα του χρονικού κωδικού· κρατήστε πατημένο το "
+":kbd:`Shift` για βήμα των 10. Όταν είναι επιλεγμένο το τμήμα του καρέ, "
+"κρατήστε πατημένο το :kbd:`Ctrl` για βήμα ενός δευτερολέπτου. Πατήστε "
+":kbd:`Esc` για ακύρωση."
+
+#: ../timeline.rst:70
+msgid "Common Timeline Tasks"
+msgstr "Συνήθεις εργασίες στο χρονολόγιο"
+
+#: ../timeline.rst:72
+msgid "Most editing sessions follow a similar flow:"
+msgstr "Οι περισσότερες συνεδρίες επεξεργασίας ακολουθούν παρόμοια ροή:"
+
+#: ../timeline.rst:74
+msgid "Add media to the project using :ref:`import_files_ref`."
+msgstr "Προσθέστε πολυμέσα στο έργο χρησιμοποιώντας :ref:`import_files_ref`."
+
+#: ../timeline.rst:75
+msgid "Drag files from the project panel onto timeline tracks."
+msgstr ""
+"Σύρετε αρχεία από το πάνελ του έργου στους διαδρόμους του χρονολογίου."
+
+#: ../timeline.rst:76
+msgid "Trim clip edges to remove extra content."
+msgstr "Περικόψτε τα άκρα των κλιπ για να αφαιρέσετε το περιττό περιεχόμενο."
+
+#: ../timeline.rst:77
+msgid "Move clips into order and stack tracks to build your scene."
+msgstr ""
+"Μετακινήστε τα κλιπ ώστε να μπουν στη σειρά και στοιβάξτε διαδρόμους για να "
+"χτίσετε τη σκηνή σας."
+
+#: ../timeline.rst:78
+msgid ""
+"Add transitions and effects where needed (:ref:`transitions_ref`, "
+":ref:`effects_ref`)."
+msgstr ""
+"Προσθέστε μεταβάσεις και εφέ όπου χρειάζεται (:ref:`transitions_ref`, "
+":ref:`effects_ref`)."
+
+#: ../timeline.rst:79
+msgid "Preview and adjust timing (:ref:`playback_ref`)."
+msgstr ""
+"Κάντε προεπισκόπηση και προσαρμόστε τον χρονισμό (:ref:`playback_ref`)."
+
+#: ../timeline.rst:81
+msgid ""
+"Clip trimming, slicing, and clip context menu actions are covered in detail "
+"in :ref:`clips_ref`."
+msgstr ""
+"Η περικοπή άκρων, το κόψιμο των κλιπ και οι ενέργειες του μενού "
+"περιβάλλοντος των κλιπ καλύπτονται αναλυτικά στο :ref:`clips_ref`."
+
+#: ../timeline.rst:84
+msgid "Selecting Clips and Transitions"
+msgstr "Επιλογή κλιπ και μεταβάσεων"
+
+#: ../timeline.rst:86
+msgid "Selection is one of the most important timeline skills:"
+msgstr "Η επιλογή είναι μία από τις σημαντικότερες δεξιότητες στο χρονολόγιο:"
+
+#: ../timeline.rst:88
+msgid "Click an item to select it."
+msgstr "Κάντε κλικ σε ένα στοιχείο για να το επιλέξετε."
+
+#: ../timeline.rst:89
+msgid ":kbd:`Ctrl+Click` adds or removes items from selection."
+msgstr "Το :kbd:`Ctrl+Click` προσθέτει ή αφαιρεί στοιχεία από την επιλογή."
+
+#: ../timeline.rst:90
+msgid ""
+":kbd:`Shift+Click` selects a range between your anchor item and the clicked "
+"item."
+msgstr ""
+"Το :kbd:`Shift+Click` επιλέγει ένα εύρος μεταξύ του στοιχείου αγκύρωσης και "
+"του στοιχείου στο οποίο κάνετε κλικ."
+
+#: ../timeline.rst:91
+msgid ":kbd:`Ctrl+Shift+Click` adds that range to your current selection."
+msgstr ""
+"Το :kbd:`Ctrl+Shift+Click` προσθέτει αυτό το εύρος στην τρέχουσα επιλογή "
+"σας."
+
+#: ../timeline.rst:92
+msgid ""
+":kbd:`Alt+Click` ripple-selects from the clicked item to the end of the "
+"track."
+msgstr ""
+"Το :kbd:`Alt+Click` κάνει επιλογή τύπου ripple (ripple-select) από το "
+"στοιχείο στο οποίο κάνετε κλικ έως το τέλος του διαδρόμου."
+
+#: ../timeline.rst:93
+msgid "Drag an empty-area selection box to select multiple items."
+msgstr ""
+"Σύρετε ένα πλαίσιο επιλογής σε κενή περιοχή για να επιλέξετε πολλά στοιχεία."
+
+#: ../timeline.rst:95
+msgid "See :ref:`clips_ref` for the full list and examples."
+msgstr "Δείτε :ref:`clips_ref` για την πλήρη λίστα και παραδείγματα."
+
+#: ../timeline.rst:98
+msgid "Timeline Toolbar and Zoom"
+msgstr "Γραμμή εργαλείων χρονολογίου και μεγέθυνση"
+
+#: ../timeline.rst:100
+msgid ""
+"The timeline toolbar helps with common navigation and editing actions "
+"(snapping, retime, razor, markers, centering, and zoom)."
+msgstr ""
+"Η γραμμή εργαλείων του χρονολογίου διευκολύνει τις συνήθεις ενέργειες "
+"πλοήγησης και επεξεργασίας (προσκόλληση, αλλαγή χρονισμού, ξυράφι, δείκτες, "
+"κεντράρισμα και μεγέθυνση)."
+
+#: ../timeline.rst:103
+msgid ""
+"The :ref:`razor_tool_ref` shows a cut guide and timecode over the target "
+"clip. While paused, hovering also previews the cut frame without moving the "
+"playhead. Click to cut, or press :kbd:`Esc` to leave Razor mode. The Razor "
+"guide respects the existing **Snapping** toggle and uses the same snap "
+"targets and tolerance as other timeline edits."
+msgstr ""
+"Το :ref:`razor_tool_ref` εμφανίζει έναν οδηγό κοπής και τον χρονικό κωδικό "
+"πάνω από το κλιπ-στόχο. Όσο η αναπαραγωγή βρίσκεται σε παύση, η τοποθέτηση "
+"του δείκτη του ποντικιού πάνω από το κλιπ εμφανίζει επίσης προεπισκόπηση του"
+" καρέ κοπής, χωρίς να μετακινείται η κεφαλή αναπαραγωγής. Κάντε κλικ για να "
+"κόψετε ή πατήστε :kbd:`Esc` για έξοδο από τη λειτουργία ξυραφιού (Razor). Ο "
+"οδηγός του ξυραφιού σέβεται τον υπάρχοντα διακόπτη **Προσκόλληση** "
+"(Snapping) και χρησιμοποιεί τους ίδιους στόχους προσκόλλησης και την ίδια "
+"ανοχή με τις υπόλοιπες επεξεργασίες στο χρονολόγιο."
+
+#: ../timeline.rst:109
+msgid ""
+"Tip: If timeline editing feels crowded, zoom in with the timeline slider to "
+"make small clip adjustments easier."
+msgstr ""
+"Συμβουλή: Αν η επεξεργασία στο χρονολόγιο φαίνεται συνωστισμένη, κάντε "
+"μεγέθυνση με το ρυθμιστικό του χρονολογίου, ώστε να είναι ευκολότερες οι "
+"μικρές προσαρμογές των κλιπ."
+
+#: ../timeline.rst:112
+msgid ""
+"You can also zoom the timeline with :kbd:`Ctrl+Scroll Wheel`. On the QWidget"
+" timeline, hold :kbd:`Ctrl` and drag with the middle mouse button for smooth"
+" zooming."
+msgstr ""
+"Μπορείτε επίσης να κάνετε μεγέθυνση στο χρονολόγιο με :kbd:`Ctrl+Scroll "
+"Wheel`. Στο χρονολόγιο QWidget, κρατήστε πατημένο το :kbd:`Ctrl` και σύρετε "
+"με το μεσαίο κουμπί του ποντικιού για ομαλή μεγέθυνση."
+
+#: ../timeline.rst:117
+msgid "Tracks, Locking, and Inserting"
+msgstr "Διάδρομοι, κλείδωμα και εισαγωγή"
+
+#: ../timeline.rst:119
+msgid "Tracks help organize your edit. A common setup is:"
+msgstr ""
+"Οι διάδρομοι βοηθούν στην οργάνωση της επεξεργασίας σας. Μια συνηθισμένη "
+"διάταξη είναι:"
+
+#: ../timeline.rst:121
+msgid "Top tracks: titles, overlays, logos, picture-in-picture"
+msgstr ""
+"Πάνω διάδρομοι: τίτλοι, επικαλύψεις, λογότυπα, εικόνα μέσα σε εικόνα "
+"(picture-in-picture)"
+
+#: ../timeline.rst:122
+msgid "Middle tracks: main video content"
+msgstr "Μεσαίοι διάδρομοι: κύριο περιεχόμενο βίντεο"
+
+#: ../timeline.rst:123
+msgid "Lower tracks: music and sound effects"
+msgstr "Κάτω διάδρομοι: μουσική και ηχητικά εφέ"
+
+#: ../timeline.rst:125
+msgid ""
+"You can lock tracks to protect them from accidental edits and use "
+"insert/ripple editing when you need later clips to move automatically."
+msgstr ""
+"Μπορείτε να κλειδώσετε διαδρόμους για να τους προστατεύσετε από τυχαίες "
+"επεξεργασίες και να χρησιμοποιήσετε επεξεργασία εισαγωγής/μετατόπισης "
+"(ripple) όταν χρειάζεται τα μεταγενέστερα κλιπ να μετακινούνται αυτόματα."
+
+#: ../timeline.rst:128
+msgid ""
+"For track layout basics, see :ref:`tracks_ref`. For detailed clip editing "
+"behavior, see :ref:`clips_cutting_slicing_ref`."
+msgstr ""
+"Για τα βασικά της διάταξης των διαδρόμων, δείτε :ref:`tracks_ref`. Για "
+"λεπτομέρειες σχετικά με τη συμπεριφορά της επεξεργασίας κλιπ, δείτε "
+":ref:`clips_cutting_slicing_ref`."
+
+#: ../timeline.rst:132
+msgid "Keyframes in the Timeline"
+msgstr "Βασικά καρέ στο χρονολόγιο"
+
+#: ../timeline.rst:134
+msgid ""
+"Keyframes let you change values over time, such as position, scale, "
+"rotation, opacity, and effect settings."
+msgstr ""
+"Τα βασικά καρέ σας επιτρέπουν να αλλάζετε τιμές με την πάροδο του χρόνου, "
+"όπως θέση, κλίμακα, περιστροφή, αδιαφάνεια και ρυθμίσεις εφέ."
+
+#: ../timeline.rst:137
+msgid ""
+"In the timeline keyframe panel, each row represents one animated property. "
+"You can:"
+msgstr ""
+"Στο πάνελ βασικών καρέ του χρονολογίου, κάθε γραμμή αντιπροσωπεύει μία "
+"ιδιότητα με κίνηση. Μπορείτε να:"
+
+#: ../timeline.rst:139
+msgid "Add a keyframe row for a property"
+msgstr "Προσθέσετε μια γραμμή βασικού καρέ για μια ιδιότητα"
+
+#: ../timeline.rst:140
+msgid "Insert new keyframes along the row"
+msgstr "Εισαγάγετε νέα βασικά καρέ κατά μήκος της γραμμής"
+
+#: ../timeline.rst:141
+msgid "Move keyframes to change timing"
+msgstr "Μετακινήσετε βασικά καρέ για να αλλάξετε τον χρονισμό"
+
+#: ../timeline.rst:142
+msgid "Change interpolation to control motion style"
+msgstr "Αλλάξετε την παρεμβολή για να ελέγξετε το στυλ της κίνησης"
+
+#: ../timeline.rst:144
+msgid ""
+"For keyframe concepts and animation examples, see :ref:`animation_ref`."
+msgstr ""
+"Για έννοιες βασικών καρέ και παραδείγματα εφέ κίνησης, δείτε "
+":ref:`animation_ref`."
+
+#: ../timeline.rst:147
+msgid "Next Steps"
+msgstr "Επόμενα βήματα"
+
+#: ../timeline.rst:149
+msgid ""
+"After you are comfortable with timeline basics, these sections are the best "
+"next reads:"
+msgstr ""
+"Αφού νιώσετε άνετα με τα βασικά του χρονολογίου, οι ακόλουθες ενότητες είναι"
+" οι καλύτερες επόμενες αναγνώσεις:"
+
+#: ../timeline.rst:151
+msgid ":ref:`clips_ref` for trimming, slicing, and clip properties"
+msgstr ":ref:`clips_ref` για περικοπή άκρων, κόψιμο και ιδιότητες κλιπ"
+
+#: ../timeline.rst:152
+msgid ":ref:`effects_ref` for video/audio effects"
+msgstr ":ref:`effects_ref` για εφέ βίντεο/ήχου"
+
+#: ../timeline.rst:153
+msgid ":ref:`animation_ref` for keyframe animation workflows"
+msgstr ":ref:`animation_ref` για ροές εργασίας κίνησης με βασικά καρέ"
+
+#: ../timeline.rst:154
+msgid ":doc:`export` for creating your final video file"
+msgstr ":doc:`export` για τη δημιουργία του τελικού αρχείου βίντεο"

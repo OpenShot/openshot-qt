@@ -1,0 +1,1460 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../color.rst:23
+msgid "Color"
+msgstr "Χρώμα"
+
+#: ../color.rst:25
+msgid ""
+"Have you ever noticed that thriller films look gritty and desaturated while "
+"romantic comedies feel vibrant and warm? That is not an accident — it is "
+"deliberate **color work**. Color is one of the most powerful storytelling "
+"tools in video, and OpenShot gives you professional-grade tools to use it, "
+"whether you are fixing a problem shot or building a cinematic look from "
+"scratch."
+msgstr ""
+"Έχετε προσέξει ποτέ ότι οι ταινίες θρίλερ φαίνονται σκληρές και "
+"αποκορεσμένες, ενώ οι ρομαντικές κομεντί μοιάζουν ζωντανές και ζεστές; Αυτό "
+"δεν είναι τυχαίο — είναι αποτέλεσμα σκόπιμης **δουλειάς με το χρώμα**. Το "
+"χρώμα είναι ένα από τα πιο ισχυρά εργαλεία αφήγησης στο βίντεο και το "
+"OpenShot σάς δίνει επαγγελματικά εργαλεία για να το αξιοποιήσετε, είτε "
+"διορθώνετε ένα προβληματικό πλάνο είτε χτίζετε από το μηδέν μια "
+"κινηματογραφική εμφάνιση."
+
+#: ../color.rst:32
+msgid ""
+"*The OpenShot Color View: video preview in the center, Color Wheels dock on "
+"the right, and video scopes (Luma Waveform and Histogram) below.*"
+msgstr ""
+"*Η προβολή χρώματος (Color View) του OpenShot: προεπισκόπηση βίντεο στο "
+"κέντρο, το πάνελ των Χρωματικών τροχών (Color Wheels) στα δεξιά και τα "
+"εργαλεία μέτρησης βίντεο (Κυματομορφή φωτεινότητας και Ιστόγραμμα) από "
+"κάτω.*"
+
+#: ../color.rst:37
+msgid ""
+":ref:`effects_color_grade` in :doc:`effects` — full property reference and "
+"keyframe details for the Color Grade effect."
+msgstr ""
+":ref:`effects_color_grade` στο :doc:`effects` — πλήρης αναφορά ιδιοτήτων και"
+" λεπτομέρειες για τα βασικά καρέ του εφέ Χρωματική διαβάθμιση (Color Grade)."
+
+#: ../color.rst:43
+msgid "Understanding Color"
+msgstr "Κατανοώντας το χρώμα"
+
+#: ../color.rst:45
+msgid ""
+"Every pixel in a digital video frame is made of three numbers: **Red**, "
+"**Green**, and **Blue** (each 0–255). White is all three at maximum; black "
+"is all three at zero; gray is any equal mix. Combining primaries creates "
+"secondary colors (Red + Green = Yellow, Red + Blue = Magenta, Green + Blue ="
+" Cyan)."
+msgstr ""
+"Κάθε pixel σε ένα καρέ ψηφιακού βίντεο αποτελείται από τρεις αριθμούς: "
+"**Κόκκινο** (Red), **Πράσινο** (Green) και **Μπλε** (Blue), καθένας από 0 "
+"έως 255. Το λευκό είναι και τα τρία στο μέγιστο, το μαύρο και τα τρία στο "
+"μηδέν, ενώ το γκρι είναι οποιοσδήποτε ίσος συνδυασμός. Ο συνδυασμός των "
+"βασικών χρωμάτων δημιουργεί τα δευτερεύοντα (Κόκκινο + Πράσινο = Κίτρινο, "
+"Κόκκινο + Μπλε = Ματζέντα, Πράσινο + Μπλε = Κυανό)."
+
+#: ../color.rst:49
+msgid "Four properties you will adjust constantly:"
+msgstr "Τέσσερις ιδιότητες που θα ρυθμίζετε συνεχώς:"
+
+#: ../color.rst:51
+msgid ""
+"**Exposure** — overall brightness. Overexposed footage has many pixels near "
+"255 (blown-out highlights); underexposed footage is crushed near 0."
+msgstr ""
+"**Έκθεση** (Exposure) — η συνολική φωτεινότητα. Το υπερεκτεθειμένο υλικό "
+"έχει πολλά pixel κοντά στο 255 (καμένες φωτεινές περιοχές), ενώ το "
+"υποεκτεθειμένο είναι «πλακωμένο» κοντά στο 0."
+
+#: ../color.rst:53
+msgid ""
+"**Contrast** — the spread between brightest and darkest. High contrast is "
+"dramatic; low contrast looks flat or milky."
+msgstr ""
+"**Αντίθεση** (Contrast) — η διαφορά ανάμεσα στο φωτεινότερο και το "
+"σκοτεινότερο σημείο. Η υψηλή αντίθεση είναι δραματική· η χαμηλή δίνει "
+"επίπεδη ή «γαλακτερή» εικόνα."
+
+#: ../color.rst:55
+msgid ""
+"**Saturation** — how vivid the colors are. Zero saturation = grayscale. "
+"Cameras often record slightly less saturation than reality to give editors "
+"more room."
+msgstr ""
+"**Κορεσμός** (Saturation) — πόσο ζωντανά είναι τα χρώματα. Μηδενικός "
+"κορεσμός = κλίμακα του γκρι. Οι κάμερες συχνά καταγράφουν ελαφρώς χαμηλότερο"
+" κορεσμό από την πραγματικότητα, ώστε να αφήνουν περισσότερα περιθώρια στον "
+"μοντέρ."
+
+#: ../color.rst:57
+msgid ""
+"**Hue** — the actual color (red, yellow, green, blue…). Shifting hue rotates"
+" all colors around the color wheel and is mostly used for creative stylistic"
+" effects."
+msgstr ""
+"**Απόχρωση** (Hue) — το ίδιο το χρώμα (κόκκινο, κίτρινο, πράσινο, μπλε…). Η "
+"μετατόπιση της απόχρωσης περιστρέφει όλα τα χρώματα γύρω από τον χρωματικό "
+"τροχό και χρησιμοποιείται κυρίως για δημιουργικά αισθητικά εφέ."
+
+#: ../color.rst:61
+msgid "Video Scopes — What They Are and Why They Matter"
+msgstr "Εργαλεία μέτρησης βίντεο — τι είναι και γιατί έχουν σημασία"
+
+#: ../color.rst:63
+msgid ""
+"Your monitor is not a reliable measuring tool — room lighting, screen "
+"brightness, and uncalibrated displays all affect what you see. **Video "
+"scopes** display the actual pixel values in your image as precise graphs. "
+"They never lie, even if your monitor does."
+msgstr ""
+"Η οθόνη σας δεν είναι αξιόπιστο όργανο μέτρησης — ο φωτισμός του χώρου, η "
+"φωτεινότητα της οθόνης και οι μη βαθμονομημένες οθόνες επηρεάζουν όλα όσα "
+"βλέπετε. Τα **εργαλεία μέτρησης βίντεο** (video scopes) εμφανίζουν τις "
+"πραγματικές τιμές των pixel της εικόνας σας ως ακριβή γραφήματα. Δεν "
+"ξεγελούν ποτέ, ακόμη κι αν η οθόνη σας ξεγελάει."
+
+#: ../color.rst:67
+msgid ""
+"OpenShot includes three scopes, all accessible from :guilabel:`View → "
+"Scopes` or opened automatically by the clip menu options described in "
+":ref:`getting_started_ref`:"
+msgstr ""
+"Το OpenShot περιλαμβάνει τρία εργαλεία μέτρησης, όλα προσβάσιμα από το "
+":guilabel:`Προβολή → Εργαλεία μέτρησης` (View → Scopes) ή ανοίγουν αυτόματα "
+"από τις επιλογές του μενού του κλιπ που περιγράφονται στο "
+":ref:`getting_started_ref`:"
+
+#: ../color.rst:70
+msgid ""
+"**Luma Waveform** — shows brightness across the frame, column by column. "
+"Instantly reveals overexposure, underexposure, and contrast problems. See "
+":ref:`luma_waveform_ref`."
+msgstr ""
+"**Κυματομορφή φωτεινότητας** (Luma Waveform) — δείχνει τη φωτεινότητα κατά "
+"μήκος του καρέ, στήλη προς στήλη. Αποκαλύπτει άμεσα προβλήματα υπερέκθεσης, "
+"υποέκθεσης και αντίθεσης. Βλ. :ref:`luma_waveform_ref`."
+
+#: ../color.rst:72
+msgid ""
+"**Histogram** — shows how many pixels exist at each brightness level. Great "
+"for exposure and channel balance at a glance. See :ref:`histogram_ref`."
+msgstr ""
+"**Ιστόγραμμα** (Histogram) — δείχνει πόσα pixel υπάρχουν σε κάθε επίπεδο "
+"φωτεινότητας. Ιδανικό για να ελέγχετε με μια ματιά την έκθεση και την "
+"ισορροπία των καναλιών. Βλ. :ref:`histogram_ref`."
+
+#: ../color.rst:74
+msgid ""
+"**Vectorscope** — a circular chroma plot showing the hue and saturation of "
+"every pixel. Ideal for checking color casts, overall saturation, and — with "
+"its built-in skin tone line — evaluating faces. See :ref:`vectorscope_ref`."
+msgstr ""
+"**Διανυσματοσκόπιο** (Vectorscope) — ένα κυκλικό διάγραμμα χρωματικότητας "
+"που δείχνει την απόχρωση και τον κορεσμό κάθε pixel. Ιδανικό για τον έλεγχο "
+"ανεπιθύμητων χρωματικών αποχρώσεων (color casts) και του συνολικού κορεσμού "
+"και — χάρη στην ενσωματωμένη γραμμή τόνου δέρματος — για την αξιολόγηση "
+"προσώπων. Βλ. :ref:`vectorscope_ref`."
+
+#: ../color.rst:78
+msgid ""
+"Every scope also has a **Region** button in its toolbar. Click it and drag a"
+" box over any part of the video preview to restrict scope analysis to just "
+"that region — useful for isolating a face, sky, or any specific area of the "
+"frame."
+msgstr ""
+"Κάθε εργαλείο μέτρησης διαθέτει επίσης ένα κουμπί **Περιοχή** (Region) στη "
+"γραμμή εργαλείων του. Κάντε κλικ σε αυτό και σύρετε ένα πλαίσιο πάνω σε "
+"οποιοδήποτε τμήμα της προεπισκόπησης βίντεο, ώστε η ανάλυση να περιοριστεί "
+"μόνο σε αυτή την περιοχή — χρήσιμο για να απομονώσετε ένα πρόσωπο, τον "
+"ουρανό ή οποιαδήποτε συγκεκριμένη περιοχή του καρέ."
+
+#: ../color.rst:83
+msgid "Color Correction — Fixing What Is Wrong"
+msgstr "Χρωματική διόρθωση — διορθώνοντας ό,τι δεν πάει καλά"
+
+#: ../color.rst:85
+msgid ""
+"**Color correction** is the process of fixing technical problems in footage "
+"so it looks the way reality appeared: wrong white balance, bad exposure, "
+"flat contrast, unwanted color casts. The goal is a clean, neutral image that"
+" looks natural and holds up on any screen. See :ref:`color_correction_ref`."
+msgstr ""
+"Η **χρωματική διόρθωση** είναι η διαδικασία διόρθωσης τεχνικών προβλημάτων "
+"στο υλικό, ώστε να φαίνεται όπως φαινόταν στην πραγματικότητα: λάθος "
+"ισορροπία λευκού, κακή έκθεση, επίπεδη αντίθεση, ανεπιθύμητες χρωματικές "
+"αποχρώσεις. Στόχος είναι μια καθαρή, ουδέτερη εικόνα που φαίνεται φυσική και"
+" αντέχει σε κάθε οθόνη. Βλ. :ref:`color_correction_ref`."
+
+#: ../color.rst:90
+msgid "Color Grading — Building a Look"
+msgstr "Χρωματική διαβάθμιση — χτίζοντας μια εμφάνιση"
+
+#: ../color.rst:92
+msgid ""
+"**Color grading** is the creative step: using the same tools to give "
+"corrected footage a deliberate visual mood or style. A warm golden "
+"nostalgia, a cold clinical thriller, a cinematic teal-and-orange — grading "
+"is where footage goes from \"looks right\" to \"looks intentional.\" See "
+":ref:`color_grading_ref`."
+msgstr ""
+"Η **χρωματική διαβάθμιση** (color grading) είναι το δημιουργικό βήμα: "
+"χρησιμοποιείτε τα ίδια εργαλεία για να δώσετε στο διορθωμένο υλικό μια "
+"σκόπιμη οπτική διάθεση ή ύφος. Μια ζεστή χρυσαφένια νοσταλγία, ένα ψυχρό "
+"κλινικό θρίλερ, ένα κινηματογραφικό τιρκουάζ-και-πορτοκαλί — η διαβάθμιση "
+"είναι εκεί όπου το υλικό περνά από το «φαίνεται σωστό» στο «φαίνεται "
+"σκόπιμο». Βλ. :ref:`color_grading_ref`."
+
+#: ../color.rst:99
+msgid "Getting Started"
+msgstr "Πρώτα βήματα"
+
+#: ../color.rst:101
+msgid ""
+"OpenShot offers several ways to open its color tools, depending on what you "
+"need:"
+msgstr ""
+"Το OpenShot προσφέρει διάφορους τρόπους για να ανοίξετε τα εργαλεία "
+"χρώματος, ανάλογα με το τι χρειάζεστε:"
+
+#: ../color.rst:106
+msgid "**Right-click a clip → Look → Adjust Colors**"
+msgstr ""
+"**Δεξί κλικ σε ένα κλιπ → Εμφάνιση → Προσαρμογή χρωμάτων** (Right-click a "
+"clip → Look → Adjust Colors)"
+
+#: ../color.rst:104
+msgid ""
+"The quickest all-in-one setup. OpenShot adds the :guilabel:`Color Grade` "
+"effect to the clip, selects it, opens the :guilabel:`Properties` panel, and "
+"shows the :guilabel:`Color Wheels` dock and all three video scopes — ready "
+"to grade immediately."
+msgstr ""
+"Η πιο γρήγορη, ολοκληρωμένη ρύθμιση. Το OpenShot προσθέτει το εφέ "
+":guilabel:`Χρωματική διαβάθμιση` (Color Grade) στο κλιπ, το επιλέγει, "
+"ανοίγει το πάνελ :guilabel:`Ιδιότητες` (Properties) και εμφανίζει το πάνελ "
+":guilabel:`Χρωματικοί τροχοί` (Color Wheels) και τα τρία εργαλεία μέτρησης "
+"βίντεο — έτοιμα για άμεση διαβάθμιση."
+
+#: ../color.rst:110
+msgid ""
+"**Right-click a clip → Look → Color → [preset]** *(Auto Contrast, Lift "
+"Shadows, Warm Up, Boost Color…)*"
+msgstr ""
+"**Δεξί κλικ σε ένα κλιπ → Εμφάνιση → Χρώμα → [προρύθμιση]** (Right-click a "
+"clip → Look → Color → [preset]) *(Auto Contrast, Lift Shadows, Warm Up, "
+"Boost Color…)*"
+
+#: ../color.rst:109
+msgid ""
+"Adds the Color Grade effect with a useful preset already applied. The Color "
+"Wheels and scopes are not opened automatically — open them any time from "
+":guilabel:`View → Scopes`."
+msgstr ""
+"Προσθέτει το εφέ Χρωματική διαβάθμιση (Color Grade) με μια χρήσιμη "
+"προρύθμιση (preset) ήδη εφαρμοσμένη. Οι Χρωματικοί τροχοί (Color Wheels) και"
+" τα εργαλεία μέτρησης δεν ανοίγουν αυτόματα — ανοίξτε τα όποτε θέλετε από το"
+" :guilabel:`Προβολή → Εργαλεία μέτρησης` (View → Scopes)."
+
+#: ../color.rst:115
+msgid "**Right-click a clip → Look → Analyze Colors**"
+msgstr ""
+"**Δεξί κλικ σε ένα κλιπ → Εμφάνιση → Ανάλυση χρωμάτων** (Right-click a clip "
+"→ Look → Analyze Colors)"
+
+#: ../color.rst:113
+msgid ""
+"Opens all three scopes (Luma Waveform, Histogram, and Vectorscope, tabbed "
+"together on the right) without adding any Color Grade effect. Use this to "
+"evaluate footage before deciding whether it needs grading, or simply to "
+"monitor levels during playback."
+msgstr ""
+"Ανοίγει και τα τρία εργαλεία μέτρησης (Κυματομορφή φωτεινότητας, Ιστόγραμμα "
+"και Διανυσματοσκόπιο, σε καρτέλες στα δεξιά) χωρίς να προσθέσει εφέ "
+"Χρωματικής διαβάθμισης. Χρησιμοποιήστε το για να αξιολογήσετε το υλικό πριν "
+"αποφασίσετε αν χρειάζεται διαβάθμιση, ή απλώς για να παρακολουθείτε τα "
+"επίπεδα κατά την αναπαραγωγή."
+
+#: ../color.rst:120
+msgid "**View → Color View** *(optional immersive mode)*"
+msgstr ""
+"**Προβολή → Προβολή χρώματος** (View → Color View) *(προαιρετική λειτουργία "
+"εστίασης)*"
+
+#: ../color.rst:118
+msgid ""
+"Switches the entire interface into a dedicated color grading layout: the "
+"video preview is maximized in the center, non-color docks are hidden, the "
+"Color Wheels dock appears on the right, and the scopes appear below. Switch "
+"back to your normal layout from the same menu when done."
+msgstr ""
+"Μετατρέπει ολόκληρη τη διεπαφή σε μια διάταξη αφιερωμένη στη χρωματική "
+"διαβάθμιση: η προεπισκόπηση βίντεο μεγιστοποιείται στο κέντρο, τα πάνελ που "
+"δεν αφορούν το χρώμα κρύβονται, το πάνελ Χρωματικών τροχών εμφανίζεται δεξιά"
+" και τα εργαλεία μέτρησης εμφανίζονται από κάτω. Όταν τελειώσετε, επιστρέψτε"
+" στην κανονική διάταξη από το ίδιο μενού."
+
+#: ../color.rst:123
+msgid "**Effects tab → drag Color Grade onto a clip**"
+msgstr ""
+"**Καρτέλα Εφέ → σύρετε το εφέ Χρωματική διαβάθμιση πάνω σε ένα κλιπ** "
+"(Effects tab → drag Color Grade onto a clip)"
+
+#: ../color.rst:123
+msgid ""
+"The fully manual approach. Add the effect without opening any docks "
+"automatically."
+msgstr ""
+"Η πλήρως χειροκίνητη προσέγγιση. Προσθέτετε το εφέ χωρίς να ανοίξει αυτόματα"
+" κανένα πάνελ."
+
+#: ../color.rst:128
+msgid "Video Scopes"
+msgstr "Εργαλεία μέτρησης βίντεο"
+
+#: ../color.rst:130
+msgid ""
+"Each scope updates live as the playhead moves. Use the **Region** button in "
+"any scope's toolbar to analyze just a selected area of the preview rather "
+"than the whole frame."
+msgstr ""
+"Κάθε εργαλείο μέτρησης ενημερώνεται σε πραγματικό χρόνο καθώς κινείται η "
+"κεφαλή αναπαραγωγής. Χρησιμοποιήστε το κουμπί **Περιοχή** (Region) στη "
+"γραμμή εργαλείων οποιουδήποτε εργαλείου μέτρησης για να αναλύσετε μόνο μια "
+"επιλεγμένη περιοχή της προεπισκόπησης αντί για ολόκληρο το καρέ."
+
+#: ../color.rst:136
+msgid "The Luma Waveform"
+msgstr "Η κυματομορφή φωτεινότητας"
+
+#: ../color.rst:138
+msgid ""
+"The Luma Waveform maps every pixel by horizontal position (X axis = left-to-"
+"right across the frame) and brightness (Y axis = 0% at bottom to 100% at "
+"top). Where many pixels share the same brightness at the same horizontal "
+"position, the trace glows brighter."
+msgstr ""
+"Η Κυματομορφή φωτεινότητας (Luma Waveform) αντιστοιχίζει κάθε pixel με βάση "
+"την οριζόντια θέση του (άξονας X = από αριστερά προς τα δεξιά κατά μήκος του"
+" καρέ) και τη φωτεινότητά του (άξονας Y = 0% στο κάτω μέρος έως 100% στο "
+"πάνω). Όπου πολλά pixel έχουν την ίδια φωτεινότητα στην ίδια οριζόντια θέση,"
+" το ίχνος λάμπει εντονότερα."
+
+#: ../color.rst:144
+msgid ""
+"*The Luma Waveform in RGB Parade mode, showing red, green, and blue channels"
+" side by side.*"
+msgstr ""
+"*Η Κυματομορφή φωτεινότητας σε λειτουργία RGB Parade, με τα κανάλια "
+"κόκκινου, πράσινου και μπλε το ένα δίπλα στο άλλο.*"
+
+#: ../color.rst:146 ../color.rst:188 ../color.rst:230
+msgid "**How to read it:**"
+msgstr "**Πώς να τη διαβάσετε:**"
+
+#: ../color.rst:148
+msgid "Waveform clustered near the **bottom** → underexposed. Raise Exposure."
+msgstr ""
+"Κυματομορφή συγκεντρωμένη κοντά στο **κάτω μέρος** → υποέκθεση. Αυξήστε την "
+"Έκθεση (Exposure)."
+
+#: ../color.rst:149
+msgid ""
+"Waveform packed against the **top** → overexposed. Lower Exposure or "
+"Highlights."
+msgstr ""
+"Κυματομορφή «κολλημένη» στο **πάνω μέρος** → υπερέκθεση. Μειώστε την Έκθεση "
+"(Exposure) ή τις Φωτεινές περιοχές (Highlights)."
+
+#: ../color.rst:150
+msgid ""
+"A **narrow horizontal band** in the middle → low contrast, image looks "
+"milky. Increase Contrast."
+msgstr ""
+"Μια **στενή οριζόντια ζώνη** στη μέση → χαμηλή αντίθεση, η εικόνα φαίνεται "
+"«γαλακτερή». Αυξήστε την Αντίθεση (Contrast)."
+
+#: ../color.rst:151
+msgid ""
+"A **thick line at the very bottom** → blacks are crushed. Raise Shadows or "
+"lift the bottom-left point of Curve: All to restore shadow detail."
+msgstr ""
+"Μια **χοντρή γραμμή στο κάτω άκρο** → τα μαύρα είναι «πλακωμένα». Αυξήστε "
+"τις Σκιές (Shadows) ή ανασηκώστε το κάτω αριστερό σημείο της καμπύλης Curve:"
+" All, ώστε να επανέλθουν οι λεπτομέρειες στις σκιές."
+
+#: ../color.rst:154
+msgid ""
+"IRE reference lines appear at 10%, 50%, and 90% as faint dashed lines. A "
+"well-exposed image keeps highlights below 90% and shadows above 5%."
+msgstr ""
+"Γραμμές αναφοράς IRE εμφανίζονται στο 10%, 50% και 90% ως αχνές "
+"διακεκομμένες γραμμές. Μια σωστά εκτεθειμένη εικόνα κρατά τις φωτεινές "
+"περιοχές κάτω από το 90% και τις σκιές πάνω από το 5%."
+
+#: ../color.rst:158
+msgid "Waveform Modes"
+msgstr "Λειτουργίες κυματομορφής"
+
+#: ../color.rst:164
+msgid "Mode"
+msgstr "Λειτουργία"
+
+#: ../color.rst:164
+msgid "What It Shows"
+msgstr "Τι δείχνει"
+
+#: ../color.rst:166
+msgid "Luma"
+msgstr ""
+
+#: ../color.rst:166
+msgid ""
+"Brightness only (ignores color). Best for exposure and contrast work. Trace "
+"color can be changed to Green, White, or Orange."
+msgstr ""
+"Μόνο φωτεινότητα (αγνοεί το χρώμα). Ιδανική για εργασία στην έκθεση και την "
+"αντίθεση. Το χρώμα του ίχνους μπορεί να αλλάξει σε Green, White ή Orange."
+
+#: ../color.rst:168
+msgid "RGB Overlay"
+msgstr ""
+
+#: ../color.rst:168
+msgid ""
+"Red, green, and blue channels drawn on top of each other in their natural "
+"colors. Quick visual check for overall channel balance."
+msgstr ""
+"Τα κανάλια κόκκινου, πράσινου και μπλε σχεδιάζονται το ένα πάνω στο άλλο με "
+"τα φυσικά τους χρώματα. Γρήγορος οπτικός έλεγχος της συνολικής ισορροπίας "
+"καναλιών."
+
+#: ../color.rst:170
+msgid "RGB Parade"
+msgstr ""
+
+#: ../color.rst:170
+msgid ""
+"Three side-by-side panels (R, G, B). If one panel sits noticeably higher "
+"than the others in areas that should be neutral, white balance is off. Blue "
+"higher than red in the highlights → image is too cool."
+msgstr ""
+"Τρία πάνελ το ένα δίπλα στο άλλο (R, G, B). Αν ένα πάνελ βρίσκεται αισθητά "
+"ψηλότερα από τα υπόλοιπα σε περιοχές που θα έπρεπε να είναι ουδέτερες, η "
+"ισορροπία λευκού είναι εκτός. Μπλε ψηλότερα από το κόκκινο στις φωτεινές "
+"περιοχές → η εικόνα είναι πολύ ψυχρή."
+
+#: ../color.rst:173
+msgid "Red / Green / Blue"
+msgstr ""
+
+#: ../color.rst:173
+msgid "Shows a single channel in isolation."
+msgstr "Δείχνει ένα μεμονωμένο κανάλι."
+
+#: ../color.rst:179
+msgid "The Histogram"
+msgstr "Το ιστόγραμμα"
+
+#: ../color.rst:181
+msgid ""
+"The Histogram sorts all pixels by brightness (0 = black on the left, 255 = "
+"white on the right) and shows how many pixels exist at each level as a bar "
+"chart. Red, green, blue, and luma are overlaid."
+msgstr ""
+"Το Ιστόγραμμα (Histogram) ταξινομεί όλα τα pixel ανά φωτεινότητα (0 = μαύρο "
+"αριστερά, 255 = λευκό δεξιά) και δείχνει με ραβδόγραμμα πόσα pixel υπάρχουν "
+"σε κάθε επίπεδο. Το κόκκινο, το πράσινο, το μπλε και η φωτεινότητα (luma) "
+"εμφανίζονται το ένα πάνω στο άλλο."
+
+#: ../color.rst:186
+msgid "*The Histogram in All Channels / Logarithmic mode.*"
+msgstr "*Το Ιστόγραμμα σε λειτουργία All Channels / Logarithmic.*"
+
+#: ../color.rst:190
+msgid "Bars **clustered left** → underexposed."
+msgstr "Ράβδοι **συγκεντρωμένες αριστερά** → υποέκθεση."
+
+#: ../color.rst:191
+msgid ""
+"Bars **pushed against the right edge** → overexposed, possibly clipping. A "
+"sharp wall on the right means highlight detail is gone."
+msgstr ""
+"Ράβδοι **κολλημένες στη δεξιά άκρη** → υπερέκθεση, πιθανώς με αποκοπή "
+"(clipping). Ένα απότομο «τοίχωμα» δεξιά σημαίνει ότι οι λεπτομέρειες στις "
+"φωτεινές περιοχές έχουν χαθεί."
+
+#: ../color.rst:193
+msgid ""
+"A **narrow hill in the middle** → low contrast. Increasing Contrast will "
+"spread the bars out."
+msgstr ""
+"Ένας **στενός λόφος στη μέση** → χαμηλή αντίθεση. Η αύξηση της Αντίθεσης "
+"(Contrast) θα απλώσει τις ράβδους."
+
+#: ../color.rst:195
+msgid "The Histogram dock has two dropdowns:"
+msgstr "Το πάνελ του Ιστογράμματος έχει δύο αναπτυσσόμενες λίστες:"
+
+#: ../color.rst:197
+msgid ""
+"**Channel** — *All Channels* shows R, G, B, and luma overlaid; individual "
+"options isolate one. If the Red histogram extends further right than Green "
+"and Blue, the image is warm."
+msgstr ""
+"**Κανάλι** (Channel) — η επιλογή *All Channels* δείχνει τα R, G, B και luma "
+"το ένα πάνω στο άλλο· οι επιμέρους επιλογές απομονώνουν ένα κανάλι. Αν το "
+"ιστόγραμμα του κόκκινου εκτείνεται πιο δεξιά από του πράσινου και του μπλε, "
+"η εικόνα είναι ζεστή."
+
+#: ../color.rst:199
+msgid ""
+"**Scale** — *Logarithmic* (default) keeps rare tonal values visible. "
+"*Linear* shows raw counts, useful for comparing the relative weight of "
+"different tones."
+msgstr ""
+"**Κλίμακα** (Scale) — η επιλογή *Logarithmic* (προεπιλογή) διατηρεί ορατές "
+"τις σπάνιες τονικές τιμές. Η επιλογή *Linear* δείχνει τις ακατέργαστες "
+"μετρήσεις, χρήσιμες για να συγκρίνετε το σχετικό βάρος διαφορετικών τόνων."
+
+#: ../color.rst:205
+msgid "The Vectorscope"
+msgstr "Το διανυσματοσκόπιο"
+
+#: ../color.rst:207
+msgid ""
+"The Vectorscope is a 2D chroma plot. Each pixel is placed on a circular "
+"graph by its **hue** (direction from center) and **saturation** (distance "
+"from center). A pixel at dead center is colorless (gray or black); one at "
+"the edge is fully saturated."
+msgstr ""
+"Το Διανυσματοσκόπιο (Vectorscope) είναι ένα δισδιάστατο διάγραμμα "
+"χρωματικότητας. Κάθε pixel τοποθετείται σε ένα κυκλικό γράφημα με βάση την "
+"**απόχρωσή** του (κατεύθυνση από το κέντρο) και τον **κορεσμό** του "
+"(απόσταση από το κέντρο). Ένα pixel ακριβώς στο κέντρο δεν έχει χρώμα (γκρι "
+"ή μαύρο)· ένα στην άκρη είναι πλήρως κορεσμένο."
+
+#: ../color.rst:213
+msgid ""
+"*The Vectorscope in Colorized mode, with the skin tone cluster visible near "
+"the center.*"
+msgstr ""
+"*Το Διανυσματοσκόπιο σε λειτουργία Colorized, με το σμήνος του τόνου "
+"δέρματος ορατό κοντά στο κέντρο.*"
+
+#: ../color.rst:215
+msgid ""
+"The outer ring shows broadcast hue labels — **R** (red), **Mg** (magenta), "
+"**B** (blue), **Cy** (cyan), **G** (green), **Yi** (yellow) — at their "
+"positions around the color wheel. The **dashed spoke line** is the **skin "
+"tone line**: all human skin tones, from lightest to darkest, should fall "
+"roughly along this line in the yellow-orange zone between Yi and R."
+msgstr ""
+"Ο εξωτερικός δακτύλιος δείχνει τις ετικέτες αποχρώσεων τηλεοπτικής μετάδοσης"
+" (broadcast) — **R** (κόκκινο), **Mg** (ματζέντα), **B** (μπλε), **Cy** "
+"(κυανό), **G** (πράσινο), **Yi** (κίτρινο) — στις θέσεις τους γύρω από τον "
+"χρωματικό τροχό. Η **διακεκομμένη ακτινική γραμμή** είναι η **γραμμή τόνου "
+"δέρματος**: όλοι οι ανθρώπινοι τόνοι δέρματος, από τον πιο ανοιχτό έως τον "
+"πιο σκούρο, πρέπει να πέφτουν περίπου πάνω σε αυτή τη γραμμή, στην "
+"κιτρινοπορτοκαλί ζώνη ανάμεσα στο Yi και το R."
+
+#: ../color.rst:220
+msgid "**Display modes:**"
+msgstr "**Λειτουργίες εμφάνισης:**"
+
+#: ../color.rst:222
+msgid ""
+"**Colorized** (default) — each plotted pixel adopts the hue color of its "
+"position on the wheel. Makes it easy to see which colors are present and how"
+" saturated they are."
+msgstr ""
+"**Έγχρωμη** (Colorized) (προεπιλογή) — κάθε pixel που σχεδιάζεται παίρνει το"
+" χρώμα της θέσης του στον τροχό. Διευκολύνει να δείτε ποια χρώματα υπάρχουν "
+"και πόσο κορεσμένα είναι."
+
+#: ../color.rst:224
+msgid ""
+"**Density** — monochrome brightness. Brighter = more pixels sharing that "
+"hue/saturation. Good for focusing on shape and balance rather than color "
+"identity."
+msgstr ""
+"**Πυκνότητα** (Density) — μονόχρωμη φωτεινότητα. Φωτεινότερο = περισσότερα "
+"pixel με την ίδια απόχρωση/κορεσμό. Κατάλληλη για να εστιάσετε στο σχήμα και"
+" την ισορροπία και όχι στην ταυτότητα των χρωμάτων."
+
+#: ../color.rst:226
+msgid ""
+"**Intensity** — heatmap from blue (sparse) to red (dense). Quickly shows "
+"which colors dominate."
+msgstr ""
+"**Ένταση** (Intensity) — θερμικός χάρτης από μπλε (αραιό) έως κόκκινο "
+"(πυκνό). Δείχνει γρήγορα ποια χρώματα κυριαρχούν."
+
+#: ../color.rst:228
+msgid ""
+"**Zoom:** 100%, 200%, or 400%. Use 200% for skin tone work — it magnifies "
+"subtle shifts near center."
+msgstr ""
+"**Μεγέθυνση** (Zoom): 100%, 200% ή 400%. Χρησιμοποιήστε 200% για εργασία "
+"στους τόνους δέρματος — μεγεθύνει τις διακριτικές μετατοπίσεις κοντά στο "
+"κέντρο."
+
+#: ../color.rst:232
+msgid ""
+"Plot concentrated near the **center** → image is desaturated. Increase "
+"Saturation or Vibrance."
+msgstr ""
+"Διάγραμμα συγκεντρωμένο κοντά στο **κέντρο** → η εικόνα είναι αποκορεσμένη. "
+"Αυξήστε τον Κορεσμό (Saturation) ή τη Ζωντάνια (Vibrance)."
+
+#: ../color.rst:233
+msgid ""
+"Plot tilted toward one side → color cast. Use Temperature, Tint, or the "
+"Global color wheel to push the cluster back toward center."
+msgstr ""
+"Διάγραμμα που γέρνει προς μία πλευρά → ανεπιθύμητη χρωματική απόχρωση (color"
+" cast). Χρησιμοποιήστε τη Θερμοκρασία (Temperature), τον Τόνο χρώματος "
+"(Tint) ή τον καθολικό χρωματικό τροχό (Global) για να σπρώξετε το σμήνος "
+"πίσω προς το κέντρο."
+
+#: ../color.rst:235
+msgid ""
+"For **skin tone evaluation**: use the Region selector to draw a box over a "
+"face in the preview. The cluster should fall along the dashed skin tone line"
+" (see :ref:`skin_tones_ref`)."
+msgstr ""
+"Για **αξιολόγηση τόνου δέρματος**: χρησιμοποιήστε τον επιλογέα Περιοχής "
+"(Region) για να σχεδιάσετε ένα πλαίσιο πάνω σε ένα πρόσωπο στην "
+"προεπισκόπηση. Το σμήνος πρέπει να πέφτει πάνω στη διακεκομμένη γραμμή τόνου"
+" δέρματος (βλ. :ref:`skin_tones_ref`)."
+
+#: ../color.rst:241
+msgid "Color Correction"
+msgstr "Χρωματική διόρθωση"
+
+#: ../color.rst:243
+msgid ""
+"Color correction fixes technical problems — wrong white balance, bad "
+"exposure, flat contrast — so footage looks clean and natural. It is always "
+"the first step, before any creative work."
+msgstr ""
+"Η χρωματική διόρθωση διορθώνει τεχνικά προβλήματα — λάθος ισορροπία λευκού, "
+"κακή έκθεση, επίπεδη αντίθεση — ώστε το υλικό να φαίνεται καθαρό και φυσικό."
+" Είναι πάντα το πρώτο βήμα, πριν από οποιαδήποτε δημιουργική εργασία."
+
+#: ../color.rst:249
+msgid "White Balance — Making Whites Look White"
+msgstr "Ισορροπία λευκού — κάνοντας τα λευκά να φαίνονται λευκά"
+
+#: ../color.rst:251
+msgid ""
+"Different light sources cast different colors: incandescent bulbs are "
+"orange-warm, fluorescent lights are greenish, open shade is cool blue. When "
+"the camera's auto white balance guesses wrong, footage looks color-cast. "
+"Fixing this is almost always your first move."
+msgstr ""
+"Διαφορετικές πηγές φωτός δίνουν διαφορετικά χρώματα: οι λάμπες πυράκτωσης "
+"είναι πορτοκαλί-ζεστές, οι λάμπες φθορισμού πρασινωπές και η ανοιχτή σκιά "
+"ψυχρό μπλε. Όταν η αυτόματη ισορροπία λευκού της κάμερας εκτιμά λάθος, το "
+"υλικό εμφανίζει ανεπιθύμητη χρωματική απόχρωση. Η διόρθωση αυτού είναι "
+"σχεδόν πάντα η πρώτη σας κίνηση."
+
+#: ../color.rst:255
+msgid ""
+"Use **Temperature** and **Tint** in the :guilabel:`Color Grade` effect "
+"properties:"
+msgstr ""
+"Χρησιμοποιήστε τη **Θερμοκρασία** (Temperature) και τον **Τόνο χρώματος** "
+"(Tint) στις ιδιότητες του εφέ :guilabel:`Χρωματική διαβάθμιση` (Color "
+"Grade):"
+
+#: ../color.rst:257
+msgid ""
+"**Temperature** — shifts the image warmer (positive) or cooler (negative). "
+"Footage that looks too orange? Slide it negative."
+msgstr ""
+"**Θερμοκρασία** (Temperature) — μετατοπίζει την εικόνα προς το ζεστό (θετική"
+" τιμή) ή το ψυχρό (αρνητική τιμή). Το υλικό φαίνεται υπερβολικά πορτοκαλί; "
+"Σύρετε την προς τις αρνητικές τιμές."
+
+#: ../color.rst:259
+msgid ""
+"**Tint** — fine-tunes green/magenta balance. Use this after Temperature to "
+"remove a lingering fluorescent tinge. Positive = magenta, negative = green."
+msgstr ""
+"**Τόνος χρώματος** (Tint) — ρυθμίζει με ακρίβεια την ισορροπία "
+"πράσινου/ματζέντα. Χρησιμοποιήστε τον μετά τη Θερμοκρασία για να αφαιρέσετε "
+"μια επίμονη φθορίζουσα απόχρωση. Θετική τιμή = ματζέντα, αρνητική = πράσινο."
+
+#: ../color.rst:262
+msgid ""
+"A quick check: find something in the shot that should be neutral — a white "
+"wall, a gray shirt, the whites of someone's eyes. The **RGB Parade** "
+"waveform mode makes this objective: all three channels should sit at the "
+"same height in those neutral areas."
+msgstr ""
+"Ένας γρήγορος έλεγχος: βρείτε κάτι στο πλάνο που θα έπρεπε να είναι ουδέτερο"
+" — έναν λευκό τοίχο, ένα γκρι πουκάμισο, το λευκό των ματιών κάποιου. Η "
+"λειτουργία κυματομορφής **RGB Parade** το κάνει αντικειμενικό: και τα τρία "
+"κανάλια πρέπει να βρίσκονται στο ίδιο ύψος σε αυτές τις ουδέτερες περιοχές."
+
+#: ../color.rst:269
+msgid "Skin Tones"
+msgstr "Τόνοι δέρματος"
+
+#: ../color.rst:271
+msgid ""
+"Human faces are the most scrutinized subjects in video. Viewers sense when "
+"skin looks wrong instantly, even if they cannot say why. Good skin tones are"
+" warm — they lean orange, not green or blue."
+msgstr ""
+"Τα ανθρώπινα πρόσωπα είναι τα θέματα που εξετάζονται πιο προσεκτικά στο "
+"βίντεο. Οι θεατές αντιλαμβάνονται αμέσως όταν το δέρμα δεν φαίνεται σωστό, "
+"ακόμη κι αν δεν μπορούν να εξηγήσουν γιατί. Οι καλοί τόνοι δέρματος είναι "
+"ζεστοί — γέρνουν προς το πορτοκαλί, όχι προς το πράσινο ή το μπλε."
+
+#: ../color.rst:274
+msgid ""
+"All human skin tones — regardless of race — fall roughly along the same "
+"diagonal line on a vectorscope: the **skin tone line**. They shift lighter "
+"or darker and more or less saturated, but they always land in the orange-to-"
+"yellow zone. OpenShot's Vectorscope lets you verify this directly:"
+msgstr ""
+"Όλοι οι ανθρώπινοι τόνοι δέρματος — ανεξαρτήτως φυλής — πέφτουν περίπου πάνω"
+" στην ίδια διαγώνια γραμμή του διανυσματοσκοπίου: τη **γραμμή τόνου "
+"δέρματος**. Μετατοπίζονται προς το πιο ανοιχτό ή πιο σκούρο και προς "
+"λιγότερο ή περισσότερο κορεσμένο, αλλά καταλήγουν πάντα στην πορτοκαλί-"
+"κίτρινη ζώνη. Το Διανυσματοσκόπιο (Vectorscope) του OpenShot σάς επιτρέπει "
+"να το επαληθεύσετε άμεσα:"
+
+#: ../color.rst:278
+msgid ""
+"Right-click the clip → :guilabel:`Color → Analyze Colors` to open the "
+"scopes."
+msgstr ""
+"Κάντε δεξί κλικ στο κλιπ → :guilabel:`Χρώμα → Ανάλυση χρωμάτων` (Color → "
+"Analyze Colors) για να ανοίξετε τα εργαλεία μέτρησης."
+
+#: ../color.rst:279
+msgid ""
+"In the Vectorscope toolbar, click the **Region** button and drag a box over "
+"the skin in the preview."
+msgstr ""
+"Στη γραμμή εργαλείων του Διανυσματοσκοπίου, κάντε κλικ στο κουμπί "
+"**Περιοχή** (Region) και σύρετε ένα πλαίσιο πάνω στο δέρμα στην "
+"προεπισκόπηση."
+
+#: ../color.rst:280
+msgid ""
+"The cluster should sit along the dashed skin tone line. If it drifts toward "
+"green or blue, use **Temperature** (warmer) or the **Global** color wheel to"
+" nudge it back toward orange-yellow."
+msgstr ""
+"Το σμήνος πρέπει να βρίσκεται πάνω στη διακεκομμένη γραμμή τόνου δέρματος. "
+"Αν παρασύρεται προς το πράσινο ή το μπλε, χρησιμοποιήστε τη **Θερμοκρασία** "
+"(Temperature) (πιο ζεστό) ή τον καθολικό χρωματικό τροχό **Global** για να "
+"το ωθήσετε ξανά προς το πορτοκαλί-κίτρινο."
+
+#: ../color.rst:285
+msgid ""
+"*A face region selected in the video preview (left) with the vectorscope "
+"plotting only those pixels (right). The skin tone cluster aligns with the "
+"dashed skin tone line in the yellow-orange zone.*"
+msgstr ""
+"*Μια περιοχή προσώπου επιλεγμένη στην προεπισκόπηση βίντεο (αριστερά) με το "
+"διανυσματοσκόπιο να σχεδιάζει μόνο αυτά τα pixel (δεξιά). Το σμήνος του "
+"τόνου δέρματος ευθυγραμμίζεται με τη διακεκομμένη γραμμή τόνου δέρματος στην"
+" κιτρινοπορτοκαλί ζώνη.*"
+
+#: ../color.rst:288
+msgid ""
+"Avoid pushing Saturation too high — over-saturated skin looks unnatural even"
+" when the hue is correct."
+msgstr ""
+"Αποφύγετε να ανεβάζετε πολύ τον Κορεσμό (Saturation) — το υπερκορεσμένο "
+"δέρμα φαίνεται αφύσικο ακόμη κι όταν η απόχρωση είναι σωστή."
+
+#: ../color.rst:291
+msgid "Primary Correction Controls"
+msgstr "Βασικοί έλεγχοι διόρθωσης"
+
+#: ../color.rst:293
+msgid ""
+"These controls appear in the :guilabel:`Properties` panel when the Color "
+"Grade effect is selected:"
+msgstr ""
+"Αυτοί οι έλεγχοι εμφανίζονται στο πάνελ :guilabel:`Ιδιότητες` (Properties) "
+"όταν είναι επιλεγμένο το εφέ Χρωματική διαβάθμιση (Color Grade):"
+
+#: ../color.rst:299
+msgid "Property"
+msgstr "Ιδιότητα"
+
+#: ../color.rst:299
+msgid "What It Does"
+msgstr "Τι κάνει"
+
+#: ../color.rst:301
+msgid "Temperature"
+msgstr ""
+
+#: ../color.rst:301
+msgid "Warms (positive) or cools (negative) the entire image."
+msgstr "Ζεσταίνει (θετική τιμή) ή ψύχει (αρνητική τιμή) ολόκληρη την εικόνα."
+
+#: ../color.rst:302
+msgid "Tint"
+msgstr ""
+
+#: ../color.rst:302
+msgid "Fine-tunes green/magenta balance after Temperature."
+msgstr ""
+"Ρυθμίζει με ακρίβεια την ισορροπία πράσινου/ματζέντα μετά τη Θερμοκρασία "
+"(Temperature)."
+
+#: ../color.rst:303
+msgid "Exposure"
+msgstr ""
+
+#: ../color.rst:303
+msgid "Makes the whole image brighter or darker."
+msgstr "Κάνει ολόκληρη την εικόνα φωτεινότερη ή σκουρότερη."
+
+#: ../color.rst:304
+msgid "Contrast"
+msgstr ""
+
+#: ../color.rst:304
+msgid "Expands (positive) or compresses (negative) the tonal range."
+msgstr "Διευρύνει (θετική τιμή) ή συμπιέζει (αρνητική τιμή) το τονικό εύρος."
+
+#: ../color.rst:305 ../color.rst:364
+msgid "Highlights"
+msgstr ""
+
+#: ../color.rst:305
+msgid ""
+"Brightens or darkens only the bright parts. Negative values recover "
+"overexposed highlights."
+msgstr ""
+"Φωτίζει ή σκουραίνει μόνο τα φωτεινά τμήματα. Οι αρνητικές τιμές ανακτούν "
+"υπερεκτεθειμένες φωτεινές περιοχές."
+
+#: ../color.rst:307 ../color.rst:362
+msgid "Shadows"
+msgstr ""
+
+#: ../color.rst:307
+msgid ""
+"Lifts or lowers only the dark parts. Positive values open up shadow detail."
+msgstr ""
+"Ανεβάζει ή κατεβάζει μόνο τα σκούρα τμήματα. Οι θετικές τιμές αποκαλύπτουν "
+"λεπτομέρειες στις σκιές."
+
+#: ../color.rst:309
+msgid "Saturation"
+msgstr ""
+
+#: ../color.rst:309
+msgid "Overall color intensity. 1.0 = unchanged, 0.0 = grayscale."
+msgstr "Συνολική ένταση χρώματος. 1.0 = αμετάβλητο, 0.0 = κλίμακα του γκρι."
+
+#: ../color.rst:310
+msgid "Vibrance"
+msgstr ""
+
+#: ../color.rst:310
+msgid ""
+"Like Saturation, but preferentially boosts muted colors without "
+"oversaturating ones that are already vivid."
+msgstr ""
+"Όπως ο Κορεσμός (Saturation), αλλά ενισχύει κατά προτεραιότητα τα αχνά "
+"χρώματα χωρίς να υπερκορέζει όσα είναι ήδη ζωντανά."
+
+#: ../color.rst:315
+msgid "A Correction Workflow"
+msgstr "Μια ροή εργασίας διόρθωσης"
+
+#: ../color.rst:317
+msgid "Work in this order for the best results:"
+msgstr "Εργαστείτε με αυτή τη σειρά για τα καλύτερα αποτελέσματα:"
+
+#: ../color.rst:319
+msgid ""
+"**Fix white balance first** — Temperature and Tint until neutrals look "
+"neutral."
+msgstr ""
+"**Διορθώστε πρώτα την ισορροπία λευκού** — Θερμοκρασία (Temperature) και "
+"Τόνος χρώματος (Tint), μέχρι τα ουδέτερα να φαίνονται ουδέτερα."
+
+#: ../color.rst:320
+msgid "**Set exposure** — Exposure until brightness feels correct."
+msgstr ""
+"**Ορίστε την έκθεση** — Έκθεση (Exposure), μέχρι η φωτεινότητα να φαίνεται "
+"σωστή."
+
+#: ../color.rst:321
+msgid "**Adjust contrast** — expand or compress the tonal range to add depth."
+msgstr ""
+"**Προσαρμόστε την αντίθεση** — διευρύνετε ή συμπιέστε το τονικό εύρος για να"
+" προσθέσετε βάθος."
+
+#: ../color.rst:322
+msgid ""
+"**Recover clipping** — Highlights and Shadows if bright areas are blown or "
+"shadows are crushed."
+msgstr ""
+"**Ανακτήστε τις αποκομμένες περιοχές** — Φωτεινές περιοχές (Highlights) και "
+"Σκιές (Shadows), αν οι φωτεινές περιοχές είναι καμένες ή οι σκιές "
+"«πλακωμένες»."
+
+#: ../color.rst:323
+msgid "**Adjust saturation** — Saturation or Vibrance to taste."
+msgstr ""
+"**Προσαρμόστε τον κορεσμό** — Κορεσμός (Saturation) ή Ζωντάνια (Vibrance), "
+"κατά το γούστο σας."
+
+#: ../color.rst:324
+msgid ""
+"**Check skin tones** — open the Vectorscope, use the Region selector on "
+"faces, and confirm the cluster aligns with the skin tone line."
+msgstr ""
+"**Ελέγξτε τους τόνους δέρματος** — ανοίξτε το Διανυσματοσκόπιο "
+"(Vectorscope), χρησιμοποιήστε τον επιλογέα Περιοχής (Region) πάνω σε πρόσωπα"
+" και επιβεβαιώστε ότι το σμήνος ευθυγραμμίζεται με τη γραμμή τόνου δέρματος."
+
+#: ../color.rst:327
+msgid ""
+"Use the scopes at each step — they show you what is actually in the image, "
+"regardless of monitor calibration."
+msgstr ""
+"Χρησιμοποιείτε τα εργαλεία μέτρησης σε κάθε βήμα — δείχνουν τι υπάρχει "
+"πραγματικά στην εικόνα, ανεξάρτητα από τη βαθμονόμηση της οθόνης."
+
+#: ../color.rst:333
+msgid "Color Grading"
+msgstr "Χρωματική διαβάθμιση"
+
+#: ../color.rst:335
+msgid ""
+"Color grading is the creative step: using the same tools to build a "
+"deliberate visual mood on top of corrected footage. A few classic grades to "
+"inspire you:"
+msgstr ""
+"Η χρωματική διαβάθμιση είναι το δημιουργικό βήμα: χρησιμοποιείτε τα ίδια "
+"εργαλεία για να χτίσετε μια σκόπιμη οπτική διάθεση πάνω στο διορθωμένο "
+"υλικό. Μερικές κλασικές διαβαθμίσεις για έμπνευση:"
+
+#: ../color.rst:338
+msgid ""
+"**Warm, golden nostalgic** — push Highlights toward orange-yellow, nudge "
+"Midtones slightly warm."
+msgstr ""
+"**Ζεστή, χρυσαφένια νοσταλγία** — σπρώξτε τις Φωτεινές περιοχές (Highlights)"
+" προς το πορτοκαλί-κίτρινο, ζεστάνετε ελαφρώς τους Μεσαίους τόνους "
+"(Midtones)."
+
+#: ../color.rst:339
+msgid ""
+"**Cold, clinical** — cool the Shadows, desaturate slightly, keep Highlights "
+"neutral."
+msgstr ""
+"**Ψυχρό, κλινικό** — ψύξτε τις Σκιές (Shadows), μειώστε ελαφρώς τον κορεσμό,"
+" κρατήστε τις Φωτεινές περιοχές (Highlights) ουδέτερες."
+
+#: ../color.rst:340
+msgid ""
+"**Teal and orange** — the blockbuster look: Shadows toward teal, Highlights "
+"toward orange."
+msgstr ""
+"**Τιρκουάζ και πορτοκαλί** — η εμφάνιση των μπλοκμπάστερ: Σκιές (Shadows) "
+"προς το τιρκουάζ, Φωτεινές περιοχές (Highlights) προς το πορτοκαλί."
+
+#: ../color.rst:341
+msgid ""
+"**Faded film** — lift the black point slightly (Curves) so shadows never "
+"reach full black."
+msgstr ""
+"**Ξεθωριασμένο φιλμ** — ανεβάστε ελαφρώς το σημείο του μαύρου (Curves), ώστε"
+" οι σκιές να μη φτάνουν ποτέ στο απόλυτο μαύρο."
+
+#: ../color.rst:346
+msgid "Color Wheels"
+msgstr "Χρωματικοί τροχοί"
+
+#: ../color.rst:348
+msgid ""
+"Color wheels push color into specific **tonal ranges** without affecting the"
+" others. This is the tool professional colorists reach for most."
+msgstr ""
+"Οι χρωματικοί τροχοί ωθούν το χρώμα σε συγκεκριμένα **τονικά εύρη** χωρίς να"
+" επηρεάζουν τα υπόλοιπα. Είναι το εργαλείο που χρησιμοποιούν συχνότερα οι "
+"επαγγελματίες κολορίστες (colorists)."
+
+#: ../color.rst:353
+msgid ""
+"*The Color Wheels dock, showing Global, Shadows, Midtones, and Highlights "
+"wheels.*"
+msgstr ""
+"*Το πάνελ Χρωματικών τροχών (Color Wheels), με τους τροχούς Global, Shadows,"
+" Midtones και Highlights.*"
+
+#: ../color.rst:359
+msgid "Wheel"
+msgstr "Τροχός"
+
+#: ../color.rst:359
+msgid "What It Affects"
+msgstr "Τι επηρεάζει"
+
+#: ../color.rst:361
+msgid "Global"
+msgstr ""
+
+#: ../color.rst:361
+msgid "A color tint across the **entire image** at all brightness levels."
+msgstr ""
+"Μια χρωματική απόχρωση σε **ολόκληρη την εικόνα**, σε όλα τα επίπεδα "
+"φωτεινότητας."
+
+#: ../color.rst:362
+msgid "Color only in the **darkest parts**. Great for a cool teal tint."
+msgstr ""
+"Χρώμα μόνο στα **σκοτεινότερα τμήματα**. Ιδανικό για μια ψυχρή τιρκουάζ "
+"απόχρωση."
+
+#: ../color.rst:363
+msgid "Midtones"
+msgstr ""
+
+#: ../color.rst:363
+msgid ""
+"Color in the **middle tones** — where most skin tones live. Handle gently."
+msgstr ""
+"Χρώμα στους **μεσαίους τόνους** — εκεί όπου βρίσκονται οι περισσότεροι τόνοι"
+" δέρματος. Χειριστείτε τους με ήπιες κινήσεις."
+
+#: ../color.rst:364
+msgid ""
+"Color only in the **brightest parts**. Warming highlights while keeping "
+"shadows cool is the foundation of the teal-and-orange look."
+msgstr ""
+"Χρώμα μόνο στα **φωτεινότερα τμήματα**. Το ζέσταμα των φωτεινών περιοχών, "
+"ενώ οι σκιές παραμένουν ψυχρές, είναι η βάση της εμφάνισης τιρκουάζ-και-"
+"πορτοκαλί."
+
+#: ../color.rst:368
+msgid ""
+"Drag the **central dot** toward the desired color. Further from center = "
+"stronger effect."
+msgstr ""
+"Σύρετε την **κεντρική κουκκίδα** προς το επιθυμητό χρώμα. Όσο πιο μακριά από"
+" το κέντρο, τόσο ισχυρότερο το αποτέλεσμα."
+
+#: ../color.rst:369
+msgid ""
+"The **Amount** slider blends the tinted result back toward the original."
+msgstr ""
+"Το ρυθμιστικό **Ποσό** (Amount) αναμιγνύει το χρωματισμένο αποτέλεσμα πίσω "
+"προς το πρωτότυπο."
+
+#: ../color.rst:370
+msgid "The **Luma** slider adjusts the brightness of that tonal zone."
+msgstr ""
+"Το ρυθμιστικό **Luma** προσαρμόζει τη φωτεινότητα της συγκεκριμένης τονικής "
+"ζώνης."
+
+#: ../color.rst:371
+msgid ""
+"Right-click any wheel in Properties → **Reset** to return it to neutral."
+msgstr ""
+"Κάντε δεξί κλικ σε οποιονδήποτε τροχό στις Ιδιότητες (Properties) → "
+"**Επαναφορά** (Reset) για να τον επαναφέρετε στο ουδέτερο."
+
+#: ../color.rst:373
+msgid "**To build the classic teal-and-orange look:**"
+msgstr "**Για να φτιάξετε την κλασική εμφάνιση τιρκουάζ-και-πορτοκαλί:**"
+
+#: ../color.rst:375
+msgid "Drag **Shadows** toward teal (blue-green)."
+msgstr "Σύρετε τις **Σκιές** (Shadows) προς το τιρκουάζ (μπλε-πράσινο)."
+
+#: ../color.rst:376
+msgid "Drag **Highlights** toward orange."
+msgstr "Σύρετε τις **Φωτεινές περιοχές** (Highlights) προς το πορτοκαλί."
+
+#: ../color.rst:377
+msgid ""
+"Optionally nudge **Midtones** very slightly toward orange to warm skin "
+"tones."
+msgstr ""
+"Προαιρετικά, σπρώξτε ελάχιστα τους **Μεσαίους τόνους** (Midtones) προς το "
+"πορτοκαλί για να ζεστάνετε τους τόνους δέρματος."
+
+#: ../color.rst:378
+msgid ""
+"Lower the Amount sliders to 0.3–0.5 so the effect does not become overdone."
+msgstr ""
+"Χαμηλώστε τα ρυθμιστικά Ποσού (Amount) στο 0.3–0.5, ώστε το εφέ να μην "
+"υπερβάλλει."
+
+#: ../color.rst:383
+msgid "Curves — Precise Tonal and Color Control"
+msgstr "Καμπύλες — ακριβής έλεγχος τόνων και χρώματος"
+
+#: ../color.rst:385
+msgid ""
+"A curve is a graph where the horizontal axis is the input value and the "
+"vertical axis is the output value. A straight diagonal line means no change."
+" Bend the curve and you change the relationship between input and output for"
+" that tonal range."
+msgstr ""
+"Η καμπύλη είναι ένα γράφημα όπου ο οριζόντιος άξονας είναι η τιμή εισόδου "
+"και ο κατακόρυφος η τιμή εξόδου. Μια ευθεία διαγώνια γραμμή σημαίνει καμία "
+"αλλαγή. Αν κάμψετε την καμπύλη, αλλάζετε τη σχέση ανάμεσα στην είσοδο και "
+"την έξοδο για το συγκεκριμένο τονικό εύρος."
+
+#: ../color.rst:391
+msgid ""
+"*The OpenShot Curve Editor. Click to add points, drag to reshape, right-"
+"click to change interpolation.*"
+msgstr ""
+"*Ο επεξεργαστής καμπυλών (Curve Editor) του OpenShot. Κάντε κλικ για να "
+"προσθέσετε σημεία, σύρετε για να αλλάξετε το σχήμα, δεξί κλικ για να "
+"αλλάξετε την παρεμβολή.*"
+
+#: ../color.rst:393
+msgid "**Common curve shapes:**"
+msgstr "**Συνηθισμένα σχήματα καμπύλης:**"
+
+#: ../color.rst:395
+msgid ""
+"**S-curve** — pull the upper-right quarter up, the lower-left quarter down. "
+"Adds contrast and pop without shifting mid-gray. The most common starting "
+"move."
+msgstr ""
+"**Καμπύλη S** — τραβήξτε προς τα πάνω το πάνω δεξί τέταρτο και προς τα κάτω "
+"το κάτω αριστερό. Προσθέτει αντίθεση και «σφριγηλότητα» χωρίς να μετατοπίζει"
+" το μεσαίο γκρι. Η πιο συνηθισμένη αρχική κίνηση."
+
+#: ../color.rst:397
+msgid ""
+"**Lifted blacks** — drag the bottom-left corner upward. Shadows never go "
+"fully to black — the faded-film look."
+msgstr ""
+"**Ανασηκωμένα μαύρα** — σύρετε προς τα πάνω την κάτω αριστερή γωνία. Οι "
+"σκιές δεν φτάνουν ποτέ πλήρως στο μαύρο — η εμφάνιση του ξεθωριασμένου φιλμ."
+
+#: ../color.rst:399
+msgid ""
+"**Lower highlights** — add a point in the upper-right and pull it down. "
+"Recovers bright areas without affecting the rest."
+msgstr ""
+"**Χαμηλότερες φωτεινές περιοχές** — προσθέστε ένα σημείο πάνω δεξιά και "
+"τραβήξτε το προς τα κάτω. Ανακτά τις φωτεινές περιοχές χωρίς να επηρεάζει τα"
+" υπόλοιπα."
+
+#: ../color.rst:402
+msgid "**The four channels:**"
+msgstr "**Τα τέσσερα κανάλια:**"
+
+#: ../color.rst:404
+msgid ""
+"**Curve: All** — overall brightness across all channels. Used most often."
+msgstr ""
+"**Καμπύλη: Όλα** (Curve: All) — συνολική φωτεινότητα σε όλα τα κανάλια. "
+"Χρησιμοποιείται συχνότερα."
+
+#: ../color.rst:405
+msgid ""
+"**Curve: Red** — up adds red (warms), down adds cyan. Pull shadows down for "
+"a cool shadow tint."
+msgstr ""
+"**Καμπύλη: Κόκκινο** (Curve: Red) — προς τα πάνω προσθέτει κόκκινο "
+"(ζεσταίνει), προς τα κάτω προσθέτει κυανό. Τραβήξτε τις σκιές προς τα κάτω "
+"για μια ψυχρή απόχρωση στις σκιές."
+
+#: ../color.rst:406
+msgid "**Curve: Green** — up adds green, down adds magenta."
+msgstr ""
+"**Καμπύλη: Πράσινο** (Curve: Green) — προς τα πάνω προσθέτει πράσινο, προς "
+"τα κάτω προσθέτει ματζέντα."
+
+#: ../color.rst:407
+msgid ""
+"**Curve: Blue** — up cools, down warms. Classic move: pull Blue Shadows up "
+"(cool teal shadows) and Blue Highlights down (warm orange highlights)."
+msgstr ""
+"**Καμπύλη: Μπλε** (Curve: Blue) — προς τα πάνω ψύχει, προς τα κάτω "
+"ζεσταίνει. Κλασική κίνηση: τραβήξτε προς τα πάνω τις σκιές του μπλε (ψυχρές "
+"τιρκουάζ σκιές) και προς τα κάτω τις φωτεινές περιοχές του μπλε (ζεστές "
+"πορτοκαλί φωτεινές περιοχές)."
+
+#: ../color.rst:410
+msgid ""
+"Curves beat sliders because you can apply *different* adjustments to "
+"*different* tonal ranges in a single operation — for example, warming "
+"highlights while cooling shadows simultaneously."
+msgstr ""
+"Οι καμπύλες υπερτερούν των ρυθμιστικών, επειδή μπορείτε να εφαρμόσετε "
+"*διαφορετικές* προσαρμογές σε *διαφορετικά* τονικά εύρη με μία μόνο ενέργεια"
+" — για παράδειγμα, να ζεστάνετε τις φωτεινές περιοχές ενώ ταυτόχρονα ψύχετε "
+"τις σκιές."
+
+#: ../color.rst:416
+msgid "LUT Files — One-Click Color Looks"
+msgstr "Αρχεία LUT — εμφανίσεις χρώματος με ένα κλικ"
+
+#: ../color.rst:418
+msgid ""
+"A **LUT** (Lookup Table) is a pre-made color transformation: for every input"
+" color, output a specific different color. Professional colorists use LUTs "
+"to recreate film stocks, camera looks, or cinematic styles in one click. "
+"OpenShot supports industry-standard **.cube** files."
+msgstr ""
+"Ένα **LUT** (Lookup Table, πίνακας αναζήτησης) είναι ένας προκατασκευασμένος"
+" μετασχηματισμός χρώματος: για κάθε χρώμα εισόδου δίνει ένα συγκεκριμένο "
+"διαφορετικό χρώμα εξόδου. Οι επαγγελματίες κολορίστες χρησιμοποιούν τα LUT "
+"για να αναπαραγάγουν τύπους φιλμ (film stocks), εμφανίσεις καμερών ή "
+"κινηματογραφικά στυλ με ένα κλικ. Το OpenShot υποστηρίζει τα αρχεία "
+"**.cube**, που αποτελούν πρότυπο του κλάδου."
+
+#: ../color.rst:422
+msgid ""
+"OpenShot ships with a built-in LUT collection — see the :ref:`effects_ref` "
+"page for a visual gallery. Free **.cube** packs are widely available from "
+"photography communities online."
+msgstr ""
+"Το OpenShot περιλαμβάνει μια ενσωματωμένη συλλογή LUT — δείτε τη σελίδα "
+":ref:`effects_ref` για μια οπτική γκαλερί. Δωρεάν πακέτα **.cube** "
+"διατίθενται ευρέως από κοινότητες φωτογραφίας στο διαδίκτυο."
+
+#: ../color.rst:425
+msgid "**How to apply a LUT:**"
+msgstr "**Πώς να εφαρμόσετε ένα LUT:**"
+
+#: ../color.rst:427
+msgid "Select the :guilabel:`Color Grade` effect properties."
+msgstr ""
+"Επιλέξτε τις ιδιότητες του εφέ :guilabel:`Χρωματική διαβάθμιση` (Color "
+"Grade)."
+
+#: ../color.rst:428
+msgid "Click :guilabel:`LUT File` and browse to a **.cube** file."
+msgstr ""
+"Κάντε κλικ στο :guilabel:`Αρχείο LUT` (LUT File) και περιηγηθείτε σε ένα "
+"αρχείο **.cube**."
+
+#: ../color.rst:429
+msgid ""
+"Use :guilabel:`LUT Intensity` (0.0–1.0) to blend the LUT with your corrected"
+" image. Most professionals land between 0.4–0.7 for a natural feel."
+msgstr ""
+"Χρησιμοποιήστε την :guilabel:`Ένταση LUT` (LUT Intensity) (0.0–1.0) για να "
+"αναμείξετε το LUT με τη διορθωμένη εικόνα σας. Οι περισσότεροι επαγγελματίες"
+" καταλήγουν ανάμεσα στο 0.4–0.7 για φυσικό αποτέλεσμα."
+
+#: ../color.rst:432
+msgid "**Tips:**"
+msgstr "**Συμβουλές:**"
+
+#: ../color.rst:434
+msgid ""
+"Correct first, then grade. LUTs assume properly balanced footage — applied "
+"to a color-cast image, they will look wrong."
+msgstr ""
+"Πρώτα διορθώστε, έπειτα διαβαθμίστε. Τα LUT προϋποθέτουν σωστά ισορροπημένο "
+"υλικό — αν εφαρμοστούν σε εικόνα με ανεπιθύμητη χρωματική απόχρωση, θα "
+"φαίνονται λάθος."
+
+#: ../color.rst:436
+msgid ""
+"Most included LUTs target Rec. 709 footage (HD cameras, smartphones). If "
+"your camera records in a LOG profile, apply the appropriate LOG conversion "
+"LUT first."
+msgstr ""
+"Τα περισσότερα ενσωματωμένα LUT στοχεύουν υλικό Rec. 709 (κάμερες HD, "
+"smartphones). Αν η κάμερά σας καταγράφει σε προφίλ LOG, εφαρμόστε πρώτα το "
+"κατάλληλο LUT μετατροπής LOG."
+
+#: ../color.rst:438
+msgid ""
+"Stack Color Grade with separate Color Map / Lookup effects to layer multiple"
+" LUTs."
+msgstr ""
+"Συνδυάστε το εφέ Χρωματική διαβάθμιση (Color Grade) με ξεχωριστά εφέ Color "
+"Map / Lookup για να στοιβάξετε πολλά LUT."
+
+#: ../color.rst:443
+msgid "The Mix Control"
+msgstr "Ο έλεγχος Μίξης"
+
+#: ../color.rst:445
+msgid ""
+"The **Mix** control (0.0–1.0) at the bottom of the Color Grade effect blends"
+" the graded result with the original image. At 1.0, the full grade applies. "
+"At 0.0, the original is shown."
+msgstr ""
+"Ο έλεγχος **Μίξη** (Mix) (0.0–1.0) στο κάτω μέρος του εφέ Χρωματική "
+"διαβάθμιση (Color Grade) αναμιγνύει το διαβαθμισμένο αποτέλεσμα με την "
+"αρχική εικόνα. Στο 1.0 εφαρμόζεται πλήρως η διαβάθμιση. Στο 0.0 εμφανίζεται "
+"η αρχική εικόνα."
+
+#: ../color.rst:448
+msgid ""
+"If your grade is correct but feels slightly heavy, dial Mix back to 0.7–0.9 "
+"to soften everything at once — no need to revisit every individual control."
+msgstr ""
+"Αν η διαβάθμισή σας είναι σωστή αλλά φαίνεται ελαφρώς βαριά, μειώστε τη Μίξη"
+" (Mix) στο 0.7–0.9 για να απαλύνετε τα πάντα με μία κίνηση — χωρίς να "
+"χρειάζεται να επανέλθετε σε κάθε επιμέρους έλεγχο."
+
+#: ../color.rst:451
+msgid ""
+"Mix is keyframable: animate the grade fading in or out over time, for "
+"example opening a scene flat and letting it bloom into full color."
+msgstr ""
+"Η Μίξη (Mix) υποστηρίζει βασικά καρέ: μπορείτε να κινήσετε τη διαβάθμιση "
+"ώστε να εμφανίζεται ή να σβήνει με τον χρόνο, για παράδειγμα να ανοίγετε μια"
+" σκηνή «επίπεδη» και να την αφήνετε να ανθίσει σε πλήρες χρώμα."
+
+#: ../color.rst:457
+msgid "Putting It All Together — A Complete Workflow"
+msgstr "Συνοψίζοντας — μια ολοκληρωμένη ροή εργασίας"
+
+#: ../color.rst:459
+msgid ""
+"Select your clip. Right-click → :guilabel:`Color → Adjust Colors` to add the"
+" effect and open the Color Wheels and scopes in one step. Or use "
+":guilabel:`Color → Analyze Colors` first if you want to evaluate the footage"
+" before committing to a grade."
+msgstr ""
+"Επιλέξτε το κλιπ σας. Δεξί κλικ → :guilabel:`Χρώμα → Προσαρμογή χρωμάτων` "
+"(Color → Adjust Colors) για να προσθέσετε το εφέ και να ανοίξετε τους "
+"Χρωματικούς τροχούς και τα εργαλεία μέτρησης με ένα βήμα. Ή χρησιμοποιήστε "
+"πρώτα το :guilabel:`Χρώμα → Ανάλυση χρωμάτων` (Color → Analyze Colors), αν "
+"θέλετε να αξιολογήσετε το υλικό πριν δεσμευτείτε σε μια διαβάθμιση."
+
+#: ../color.rst:462
+msgid ""
+"**Check the scopes before touching anything** — is the waveform too high or "
+"too low? A cast on the RGB Parade? The histogram clipping against the right "
+"edge?"
+msgstr ""
+"**Ελέγξτε τα εργαλεία μέτρησης πριν αγγίξετε οτιδήποτε** — η κυματομορφή "
+"είναι πολύ ψηλά ή πολύ χαμηλά; Υπάρχει χρωματική απόκλιση στο RGB Parade; Το"
+" ιστόγραμμα κόβεται στη δεξιά άκρη;"
+
+#: ../color.rst:464
+msgid "Fix **Temperature** and **Tint** to neutralize white balance."
+msgstr ""
+"Διορθώστε τη **Θερμοκρασία** (Temperature) και τον **Τόνο χρώματος** (Tint) "
+"για να φέρετε την ισορροπία λευκού σε ουδέτερη κατάσταση."
+
+#: ../color.rst:465
+msgid ""
+"Fix **Exposure**, then **Contrast**. Use **Highlights** and **Shadows** to "
+"recover clipping."
+msgstr ""
+"Διορθώστε την **Έκθεση** (Exposure) και μετά την **Αντίθεση** (Contrast). "
+"Χρησιμοποιήστε τις **Φωτεινές περιοχές** (Highlights) και τις **Σκιές** "
+"(Shadows) για να ανακτήσετε τις αποκομμένες περιοχές."
+
+#: ../color.rst:466
+msgid "Gently adjust **Saturation** or **Vibrance**."
+msgstr ""
+"Προσαρμόστε ήπια τον **Κορεσμό** (Saturation) ή τη **Ζωντάνια** (Vibrance)."
+
+#: ../color.rst:467
+msgid ""
+"Open the **Vectorscope**, click Region, and draw a box over any faces. "
+"Confirm the skin tone cluster aligns with the dashed line. If not, adjust "
+"Temperature or the Global color wheel."
+msgstr ""
+"Ανοίξτε το **Διανυσματοσκόπιο** (Vectorscope), κάντε κλικ στην Περιοχή "
+"(Region) και σχεδιάστε ένα πλαίσιο πάνω σε οποιοδήποτε πρόσωπο. Επιβεβαιώστε"
+" ότι το σμήνος του τόνου δέρματος ευθυγραμμίζεται με τη διακεκομμένη γραμμή."
+" Αν όχι, προσαρμόστε τη Θερμοκρασία (Temperature) ή τον καθολικό χρωματικό "
+"τροχό (Global)."
+
+#: ../color.rst:469
+msgid ""
+"Open the **Color Wheels** dock and build your creative grade — push Shadows "
+"one direction, Highlights the opposite, handle Midtones carefully."
+msgstr ""
+"Ανοίξτε το πάνελ **Χρωματικοί τροχοί** (Color Wheels) και χτίστε τη "
+"δημιουργική σας διαβάθμιση — σπρώξτε τις Σκιές προς μία κατεύθυνση, τις "
+"Φωτεινές περιοχές προς την αντίθετη και χειριστείτε προσεκτικά τους Μεσαίους"
+" τόνους."
+
+#: ../color.rst:471
+msgid ""
+"Fine-tune with **Curves**: a gentle S-curve on Curve: All; Curve: Blue for a"
+" cinematic push (cool shadows up, warm highlights down)."
+msgstr ""
+"Κάντε λεπτές ρυθμίσεις με τις **Καμπύλες** (Curves): μια ήπια καμπύλη S στην"
+" Curve: All· Curve: Blue για κινηματογραφική ώθηση (ψυχρές σκιές προς τα "
+"πάνω, ζεστές φωτεινές περιοχές προς τα κάτω)."
+
+#: ../color.rst:473
+msgid ""
+"Optionally browse to a **.cube** LUT and blend it in with **LUT Intensity**."
+msgstr ""
+"Προαιρετικά, περιηγηθείτε σε ένα LUT **.cube** και αναμείξτε το με την "
+"**Ένταση LUT** (LUT Intensity)."
+
+#: ../color.rst:474
+msgid "If the overall grade feels heavy, lower **Mix** to 0.7–0.9."
+msgstr ""
+"Αν η συνολική διαβάθμιση φαίνεται βαριά, χαμηλώστε τη **Μίξη** (Mix) στο "
+"0.7–0.9."
+
+#: ../color.rst:475
+msgid ""
+"To compare before/after, drag **Mix** to 0.0 to see the original, then back "
+"to 1.0."
+msgstr ""
+"Για να συγκρίνετε πριν/μετά, σύρετε τη **Μίξη** (Mix) στο 0.0 για να δείτε "
+"το πρωτότυπο και έπειτα πίσω στο 1.0."
+
+#: ../color.rst:476
+msgid ""
+"Happy with the result? Right-click the effect → **Copy**, select other "
+"clips, and **Paste Effects**. Or use the **Parent** property to link "
+"multiple clips to a single master grade (see :ref:`effect_parent_ref`)."
+msgstr ""
+"Είστε ικανοποιημένοι με το αποτέλεσμα; Κάντε δεξί κλικ στο εφέ → "
+"**Αντιγραφή** (Copy), επιλέξτε άλλα κλιπ και **Επικόλληση εφέ** (Paste "
+"Effects). Ή χρησιμοποιήστε την ιδιότητα **Γονέας** (Parent) για να συνδέσετε"
+" πολλά κλιπ σε μία κύρια διαβάθμιση (βλ. :ref:`effect_parent_ref`)."
+
+#: ../color.rst:480
+msgid ""
+"For animating color properties over time, see :ref:`animation_ref`. For a "
+"complete list of all Color Grade properties, see :ref:`effects_ref`."
+msgstr ""
+"Για την κίνηση ιδιοτήτων χρώματος με τον χρόνο, βλ. :ref:`animation_ref`. "
+"Για πλήρη κατάλογο όλων των ιδιοτήτων της Χρωματικής διαβάθμισης (Color "
+"Grade), βλ. :ref:`effects_ref`."

@@ -1,0 +1,1875 @@
+# Translated with AI assistance (Claude) and reviewed; UI labels follow the official OpenShot Greek UI catalog.
+# Greek translation of the OpenShot Video Editor documentation.
+# Copyright (C) OpenShot Studios, LLC
+# This file is distributed under the same license as the OpenShot Video Editor package.
+# Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenShot Video Editor 4.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 00:00+0000\n"
+"PO-Revision-Date: 2026-10-20 15:50+0300\n"
+"Last-Translator: Ioannis-Stylianos Lafazanis <jslafazanis@gmail.com>\n"
+"Language-Team: Greek <el@li.org>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../main_window.rst:21
+msgid "Main Window"
+msgstr "Κύριο παράθυρο"
+
+#: ../main_window.rst:23
+msgid ""
+"OpenShot Video Editor has one main window which contains most of the "
+"information, buttons, and menus needed to edit your video project."
+msgstr ""
+"Το OpenShot Video Editor διαθέτει ένα κύριο παράθυρο, το οποίο περιέχει το "
+"μεγαλύτερο μέρος των πληροφοριών, των κουμπιών και των μενού που χρειάζονται"
+" για την επεξεργασία του έργου βίντεο."
+
+#: ../main_window.rst:27
+msgid "Overview"
+msgstr "Επισκόπηση"
+
+#: ../main_window.rst:35 ../main_window.rst:80 ../main_window.rst:101
+msgid "#"
+msgstr ""
+
+#: ../main_window.rst:35 ../main_window.rst:80
+msgid "Name"
+msgstr "Όνομα"
+
+#: ../main_window.rst:35 ../main_window.rst:80 ../main_window.rst:103
+#: ../main_window.rst:237 ../main_window.rst:367 ../main_window.rst:396
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: ../main_window.rst:37 ../main_window.rst:82 ../main_window.rst:104
+msgid "1"
+msgstr ""
+
+#: ../main_window.rst:37
+msgid "Main Toolbar"
+msgstr "Κύρια γραμμή εργαλείων (Main Toolbar)"
+
+#: ../main_window.rst:37
+msgid "Contains buttons to open, save, and export your video project."
+msgstr ""
+"Περιέχει κουμπιά για το άνοιγμα, την αποθήκευση και την εξαγωγή του έργου "
+"βίντεο."
+
+#: ../main_window.rst:38 ../main_window.rst:83 ../main_window.rst:107
+msgid "2"
+msgstr ""
+
+#: ../main_window.rst:38
+msgid "Function Tabs"
+msgstr "Καρτέλες λειτουργιών (Function Tabs)"
+
+#: ../main_window.rst:38
+msgid "Switch between Project Files, Transitions, Effects, and Emojis."
+msgstr ""
+"Εναλλαγή μεταξύ των Αρχείων Έργου (Project Files), των Μεταβάσεων "
+"(Transitions), των Εφέ (Effects) και των Emojis."
+
+#: ../main_window.rst:39 ../main_window.rst:84 ../main_window.rst:110
+msgid "3"
+msgstr ""
+
+#: ../main_window.rst:39 ../main_window.rst:411
+msgid "Project Files"
+msgstr "Αρχεία Έργου (Project Files)"
+
+#: ../main_window.rst:39
+msgid ""
+"All audio, video, and image files that have been imported into your project."
+msgstr ""
+"Όλα τα αρχεία ήχου, βίντεο και εικόνας που έχουν εισαχθεί στο έργο σας."
+
+#: ../main_window.rst:40 ../main_window.rst:113
+msgid "4"
+msgstr ""
+
+#: ../main_window.rst:40
+msgid "Preview Window"
+msgstr "Παράθυρο προεπισκόπησης (Preview Window)"
+
+#: ../main_window.rst:40
+msgid "This is the area that the video will playback on the screen."
+msgstr "Η περιοχή της οθόνης στην οποία αναπαράγεται το βίντεο."
+
+#: ../main_window.rst:41 ../main_window.rst:116
+msgid "5"
+msgstr ""
+
+#: ../main_window.rst:41 ../main_window.rst:90
+msgid "Timeline Toolbar"
+msgstr "Γραμμή εργαλείων χρονολογίου (Timeline Toolbar)"
+
+#: ../main_window.rst:41
+msgid ""
+"This toolbar contains buttons used for snapping, inserting markers, slicing "
+"razor, jumping between markers, and centering the timeline on the playhead. "
+"See :ref:`timeline_toolbar_ref`."
+msgstr ""
+"Αυτή η γραμμή εργαλείων περιέχει κουμπιά για την προσκόλληση (snapping), την"
+" εισαγωγή δεικτών, το εργαλείο ξυραφιού (Razor), τη μετάβαση μεταξύ δεικτών "
+"και το κεντράρισμα του χρονολογίου στην κεφαλή αναπαραγωγής. Δείτε το "
+":ref:`timeline_toolbar_ref`."
+
+#: ../main_window.rst:42 ../main_window.rst:119
+msgid "6"
+msgstr ""
+
+#: ../main_window.rst:42 ../main_window.rst:120
+msgid "Zoom Slider"
+msgstr "Ρυθμιστικό μεγέθυνσης (Zoom Slider)"
+
+#: ../main_window.rst:42
+msgid ""
+"This slider will adjust the time-scale of your timeline. Drag the left or "
+"right edge to zoom in or out. Drag the blue area to scroll the timeline left"
+" or right. Clips and transitions are displayed as simple rectangles, to give"
+" you context for adjusting the zoom to specific clips."
+msgstr ""
+"Αυτό το ρυθμιστικό προσαρμόζει την κλίμακα χρόνου του χρονολογίου σας. "
+"Σύρετε το αριστερό ή το δεξί άκρο για μεγέθυνση ή σμίκρυνση. Σύρετε τη μπλε "
+"περιοχή για να κυλήσετε το χρονολόγιο προς τα αριστερά ή προς τα δεξιά. Τα "
+"κλιπ και οι μεταβάσεις εμφανίζονται ως απλά ορθογώνια, ώστε να έχετε πλαίσιο"
+" αναφοράς για την προσαρμογή της μεγέθυνσης σε συγκεκριμένα κλιπ."
+
+#: ../main_window.rst:43 ../main_window.rst:122
+msgid "7"
+msgstr ""
+
+#: ../main_window.rst:43
+msgid "Play-head / Ruler"
+msgstr "Κεφαλή αναπαραγωγής / Χάρακας (Play-head / Ruler)"
+
+#: ../main_window.rst:43
+msgid ""
+"The ruler shows the time-scale, and the line is the play-head. The play-head"
+" represents the current playback position. The current timecode can be "
+"clicked to enter an exact timecode. Hold :kbd:`Shift` key while dragging the"
+" playhead to snap to nearby clips."
+msgstr ""
+"Ο χάρακας δείχνει την κλίμακα χρόνου και η γραμμή είναι η κεφαλή "
+"αναπαραγωγής. Η κεφαλή αναπαραγωγής αντιπροσωπεύει την τρέχουσα θέση "
+"αναπαραγωγής. Μπορείτε να κάνετε κλικ στον τρέχοντα χρονικό κωδικό "
+"(timecode) για να εισαγάγετε έναν ακριβή χρονικό κωδικό. Κρατήστε πατημένο "
+"το πλήκτρο :kbd:`Shift` ενώ σύρετε την κεφαλή αναπαραγωγής, για να "
+"προσκολληθεί σε κοντινά κλιπ."
+
+#: ../main_window.rst:44
+msgid "8"
+msgstr ""
+
+#: ../main_window.rst:44
+msgid "Timeline"
+msgstr "Χρονολόγιο (Timeline)"
+
+#: ../main_window.rst:44
+msgid ""
+"The timeline visualizes your video project, and each clip and transition in "
+"your project. You can drag the mouse to select, move, or delete multiple "
+"items."
+msgstr ""
+"Το χρονολόγιο απεικονίζει το έργο βίντεο και κάθε κλιπ και μετάβαση που "
+"περιέχει. Μπορείτε να σύρετε το ποντίκι για να επιλέξετε, να μετακινήσετε ή "
+"να διαγράψετε πολλά στοιχεία ταυτόχρονα."
+
+#: ../main_window.rst:45
+msgid "9"
+msgstr ""
+
+#: ../main_window.rst:45
+msgid "Filter"
+msgstr "Φίλτρο (Filter)"
+
+#: ../main_window.rst:45
+msgid ""
+"Filter the list of items shown (project files, transitions, effects, and "
+"emojis) by using these buttons and filter textbox. Enter a few letters of "
+"what you are looking for, and the results will be shown."
+msgstr ""
+"Φιλτράρετε τη λίστα των στοιχείων που εμφανίζονται (αρχεία έργου, "
+"μεταβάσεις, εφέ και emojis) χρησιμοποιώντας αυτά τα κουμπιά και το πλαίσιο "
+"κειμένου φίλτρου. Πληκτρολογήστε μερικά γράμματα από αυτό που αναζητάτε και "
+"θα εμφανιστούν τα αποτελέσματα."
+
+#: ../main_window.rst:46
+msgid "10"
+msgstr ""
+
+#: ../main_window.rst:46
+msgid "Playback"
+msgstr "Αναπαραγωγή (Playback)"
+
+#: ../main_window.rst:46
+msgid ""
+"Left to Right: Jump to Start, Rewind, Play/Pause, Fast Forward, and Jump to "
+"End"
+msgstr ""
+"Από αριστερά προς τα δεξιά: Μετάβαση στην Αρχή (Jump to Start), Πίσω "
+"(Rewind), Αναπαραγωγή/Παύση (Play/Pause), Γρήγορα εμπρός (Fast Forward) και "
+"Μετάβαση στο Τέλος (Jump to End)"
+
+#: ../main_window.rst:47
+msgid "11"
+msgstr ""
+
+#: ../main_window.rst:47
+msgid "Track"
+msgstr "Διάδρομος (Track)"
+
+#: ../main_window.rst:47
+msgid ""
+"Track area containing the track name, track menu, and per-track controls "
+"such as lock and keyframe panel icons."
+msgstr ""
+"Περιοχή διαδρόμου που περιέχει το όνομα του διαδρόμου, το μενού διαδρόμου "
+"και στοιχεία ελέγχου ανά διάδρομο, όπως τα εικονίδια κλειδώματος και πάνελ "
+"βασικών καρέ."
+
+#: ../main_window.rst:50
+msgid ""
+"For step-by-step instructions on the basic usage of OpenShot, be sure to "
+"read the :ref:`quick_tutorial_ref`."
+msgstr ""
+"Για αναλυτικές οδηγίες βήμα προς βήμα σχετικά με τη βασική χρήση του "
+"OpenShot, φροντίστε να διαβάσετε το :ref:`quick_tutorial_ref`."
+
+#: ../main_window.rst:54
+msgid "Built-in Tutorial"
+msgstr "Ενσωματωμένος οδηγός εκμάθησης"
+
+#: ../main_window.rst:55
+msgid ""
+"When you first launch OpenShot, you will be presented with a friendly built-"
+"in tutorial. It will demonstrate and explain the basics. Clicking "
+":guilabel:`Next` will jump to the next topic. You can always view this "
+"tutorial again from the :guilabel:`Help→Tutorial` menu."
+msgstr ""
+"Όταν ανοίξετε το OpenShot για πρώτη φορά, θα εμφανιστεί ένας φιλικός "
+"ενσωματωμένος οδηγός εκμάθησης, ο οποίος παρουσιάζει και εξηγεί τα βασικά. "
+"Με το κουμπί :guilabel:`Επόμενο` (Next) μεταβαίνετε στο επόμενο θέμα. "
+"Μπορείτε πάντα να δείτε ξανά αυτόν τον οδηγό από το μενού "
+":guilabel:`Βοήθεια→Εκμάθηση` (Help→Tutorial)."
+
+#: ../main_window.rst:63
+msgid "Tracks & Layers"
+msgstr "Διάδρομοι και επίπεδα"
+
+#: ../main_window.rst:65
+msgid ""
+"OpenShot uses tracks to layer videos and images. The top most track is the "
+"top layer, and the bottom track is the bottom layer. If you are familiar "
+"with layers in a photo editing application, then you should be quite "
+"familiar with this concept. OpenShot will stack the layers and mix each one "
+"together, just like a photo editing application. You can have an unlimited "
+"number of tracks, but typically a simple video project will not need more "
+"than 5 tracks."
+msgstr ""
+"Το OpenShot χρησιμοποιεί διαδρόμους για την τοποθέτηση βίντεο και εικόνων σε"
+" επίπεδα. Ο πάνω διάδρομος αντιστοιχεί στο πάνω επίπεδο και ο κάτω διάδρομος"
+" στο κάτω επίπεδο. Αν γνωρίζετε τα επίπεδα από κάποια εφαρμογή επεξεργασίας "
+"φωτογραφιών, η έννοια αυτή θα σας είναι αρκετά οικεία. Το OpenShot στοιβάζει"
+" τα επίπεδα και τα συνδυάζει μεταξύ τους, ακριβώς όπως μια εφαρμογή "
+"επεξεργασίας φωτογραφιών. Μπορείτε να έχετε απεριόριστο αριθμό διαδρόμων, "
+"αλλά ένα απλό έργο βίντεο συνήθως δεν χρειάζεται περισσότερους από 5."
+
+#: ../main_window.rst:72
+msgid "For example, imagine a 3 track video project"
+msgstr "Για παράδειγμα, φανταστείτε ένα έργο βίντεο με 3 διαδρόμους"
+
+#: ../main_window.rst:82
+msgid "Top Track"
+msgstr "Πάνω διάδρομος"
+
+#: ../main_window.rst:82
+msgid ""
+"Clips on this track will always be on top and visible. Often watermarks and "
+"titles are placed on higher tracks."
+msgstr ""
+"Τα κλιπ σε αυτόν τον διάδρομο βρίσκονται πάντα στην κορυφή και είναι ορατά. "
+"Συχνά τα υδατογραφήματα και οι τίτλοι τοποθετούνται σε ψηλότερους "
+"διαδρόμους."
+
+#: ../main_window.rst:83
+msgid "Middle Track"
+msgstr "Μεσαίος διάδρομος"
+
+#: ../main_window.rst:83
+msgid ""
+"Clips in the middle (might or might not be visible, depending on what is "
+"above them)"
+msgstr ""
+"Κλιπ στη μέση (μπορεί να είναι ή να μην είναι ορατά, ανάλογα με το τι "
+"βρίσκεται πάνω από αυτά)"
+
+#: ../main_window.rst:84
+msgid "Bottom Track"
+msgstr "Κάτω διάδρομος"
+
+#: ../main_window.rst:84
+msgid ""
+"Clips on this track will always be on the bottom. Often audio clips are "
+"placed on lower tracks."
+msgstr ""
+"Τα κλιπ σε αυτόν τον διάδρομο βρίσκονται πάντα στο κάτω μέρος. Συχνά τα κλιπ"
+" ήχου τοποθετούνται σε χαμηλότερους διαδρόμους."
+
+#: ../main_window.rst:94
+msgid ""
+"For a beginner-friendly overview of timeline editing (selection, tracks, "
+"keyframes, and common workflows), see :ref:`timeline_ref`."
+msgstr ""
+"Για μια εισαγωγική επισκόπηση της επεξεργασίας στο χρονολόγιο (επιλογή, "
+"διάδρομοι, βασικά καρέ και συνηθισμένες ροές εργασίας), δείτε το "
+":ref:`timeline_ref`."
+
+#: ../main_window.rst:102
+msgid "Control Group"
+msgstr "Ομάδα στοιχείων ελέγχου"
+
+#: ../main_window.rst:105 ../main_window.rst:144
+msgid "Add Track"
+msgstr "Προσθήκη διαδρόμου (Add Track)"
+
+#: ../main_window.rst:106
+msgid ""
+"Add a new track to the timeline. New projects start with 5 tracks by "
+"default."
+msgstr ""
+"Προσθήκη ενός νέου διαδρόμου στο χρονολόγιο. Τα νέα έργα ξεκινούν από "
+"προεπιλογή με 5 διαδρόμους."
+
+#: ../main_window.rst:108
+msgid "Undo / Redo"
+msgstr "Αναίρεση / Επανάληψη (Undo / Redo)"
+
+#: ../main_window.rst:109
+msgid "Undo or redo your latest timeline edits."
+msgstr "Αναίρεση ή επανάληψη των τελευταίων σας επεξεργασιών στο χρονολόγιο."
+
+#: ../main_window.rst:111
+msgid "Snap, Retime, Razor"
+msgstr "Προσκόλληση, Αλλαγή χρονισμού, Ξυράφι (Snap, Retime, Razor)"
+
+#: ../main_window.rst:112
+msgid ""
+"Snapping toggles magnetic alignment. Timing Tool enables retiming by "
+"dragging clip edges. The :ref:`razor_tool_ref` previews and cuts at the "
+"guide position; press :kbd:`Esc` to exit."
+msgstr ""
+"Η προσκόλληση (Snapping) ενεργοποιεί ή απενεργοποιεί τη μαγνητική "
+"ευθυγράμμιση. Το Εργαλείο χρονισμού (Timing Tool) επιτρέπει την αλλαγή "
+"χρονισμού σύροντας τα άκρα των κλιπ. Το :ref:`razor_tool_ref` εμφανίζει "
+"προεπισκόπηση και κόβει στη θέση του οδηγού· πατήστε :kbd:`Esc` για έξοδο."
+
+#: ../main_window.rst:114
+msgid "Add Marker, Next/Prev Marker"
+msgstr ""
+"Προσθήκη δείκτη, Επόμενος/Προηγούμενος δείκτης (Add Marker, Next/Prev "
+"Marker)"
+
+#: ../main_window.rst:115
+msgid ""
+"Add a marker at the playhead and jump to previous or next marker/clip "
+"boundaries."
+msgstr ""
+"Προσθήκη ενός δείκτη στην κεφαλή αναπαραγωγής και μετάβαση στα προηγούμενα ή"
+" επόμενα όρια δεικτών/κλιπ."
+
+#: ../main_window.rst:117 ../main_window.rst:148
+msgid "Center on Playhead"
+msgstr "Κεντράρισμα στην κεφαλή αναπαραγωγής (Center on Playhead)"
+
+#: ../main_window.rst:118
+msgid "Center the visible timeline area around the current playhead position."
+msgstr ""
+"Κεντράρισμα της ορατής περιοχής του χρονολογίου γύρω από την τρέχουσα θέση "
+"της κεφαλής αναπαραγωγής."
+
+#: ../main_window.rst:121
+msgid ""
+"Control the visible timeline range. Drag handles to zoom in/out, drag center"
+" to pan, and double-click to fit timeline. You can also use "
+":kbd:`Ctrl+Scroll Wheel`, or on the QWidget timeline hold :kbd:`Ctrl` and "
+"drag with the middle mouse button for smooth zooming."
+msgstr ""
+"Ελέγχει το ορατό εύρος του χρονολογίου. Σύρετε τις λαβές για "
+"μεγέθυνση/σμίκρυνση, σύρετε το κέντρο για μετακίνηση και κάντε διπλό κλικ "
+"για να χωρέσει ολόκληρο το χρονολόγιο. Μπορείτε επίσης να χρησιμοποιήσετε "
+":kbd:`Ctrl+Scroll Wheel` ή, στο χρονολόγιο QWidget, να κρατήσετε πατημένο το"
+" :kbd:`Ctrl` και να σύρετε με το μεσαίο πλήκτρο του ποντικιού για ομαλή "
+"μεγέθυνση/σμίκρυνση."
+
+#: ../main_window.rst:123
+msgid "Track toggles (Lock, Keyframe Panel)"
+msgstr ""
+"Εναλλαγές διαδρόμου: Κλείδωμα, Πάνελ βασικών καρέ (Track toggles: Lock, "
+"Keyframe Panel)"
+
+#: ../main_window.rst:124
+msgid "Per-track controls such as lock and keyframe panel visibility."
+msgstr ""
+"Στοιχεία ελέγχου ανά διάδρομο, όπως το κλείδωμα και η ορατότητα του πάνελ "
+"βασικών καρέ."
+
+#: ../main_window.rst:129
+msgid "Keyboard Shortcuts"
+msgstr "Συντομεύσεις πληκτρολογίου"
+
+#: ../main_window.rst:130
+msgid ""
+"Here is a list of the default keyboard shortcuts supported by OpenShot. You "
+"can configure these shortcuts in the Preferences window, which is opened by "
+"selecting :guilabel:`Edit→Preferences` from the OpenShot menu bar. (On "
+"macOS, choose :guilabel:`OpenShot Video Editor→Preferences`.) Learning a few"
+" of these shortcuts can save you a bunch of time!"
+msgstr ""
+"Ακολουθεί η λίστα με τις προεπιλεγμένες συντομεύσεις πληκτρολογίου που "
+"υποστηρίζει το OpenShot. Μπορείτε να ρυθμίσετε αυτές τις συντομεύσεις στο "
+"παράθυρο προτιμήσεων, το οποίο ανοίγει επιλέγοντας "
+":guilabel:`Επεξεργασία→Προτιμήσεις` (Edit→Preferences) από τη γραμμή μενού "
+"του OpenShot. (Στο macOS, επιλέξτε :guilabel:`OpenShot Video "
+"Editor→Προτιμήσεις` (OpenShot Video Editor→Preferences).) Η εκμάθηση λίγων "
+"από αυτές τις συντομεύσεις μπορεί να σας εξοικονομήσει πολύ χρόνο!"
+
+#: ../main_window.rst:140
+msgid "Action"
+msgstr "Ενέργεια"
+
+#: ../main_window.rst:140
+msgid "Shortcut 1"
+msgstr "Συντόμευση 1"
+
+#: ../main_window.rst:140
+msgid "Shortcut 2"
+msgstr "Συντόμευση 2"
+
+#: ../main_window.rst:140
+msgid "Shortcut 3"
+msgstr "Συντόμευση 3"
+
+#: ../main_window.rst:142 ../main_window.rst:294
+msgid "About OpenShot"
+msgstr "Περί του OpenShot (About OpenShot)"
+
+#: ../main_window.rst:142
+msgid ":kbd:`Ctrl+H`"
+msgstr ""
+
+#: ../main_window.rst:143
+msgid "Add Marker"
+msgstr "Προσθήκη Δείκτη (Add Marker)"
+
+#: ../main_window.rst:143
+msgid ":kbd:`M`"
+msgstr ""
+
+#: ../main_window.rst:144
+msgid ":kbd:`Ctrl+Y`"
+msgstr ""
+
+#: ../main_window.rst:145
+msgid "Add to Timeline"
+msgstr "Προσθήκη στο Χρονολόγιο (Add to Timeline)"
+
+#: ../main_window.rst:145
+msgid ":kbd:`Ctrl+Alt+A`"
+msgstr ""
+
+#: ../main_window.rst:146
+msgid "Animated Title"
+msgstr "Κινούμενος Τίτλος (Animated Title)"
+
+#: ../main_window.rst:146
+msgid ":kbd:`Ctrl+Shift+T`"
+msgstr ""
+
+#: ../main_window.rst:147
+msgid "Ask a Question..."
+msgstr "Κάντε μία Ερώτηση... (Ask a Question...)"
+
+#: ../main_window.rst:147
+msgid ":kbd:`F4`"
+msgstr ""
+
+#: ../main_window.rst:148
+msgid ":kbd:`Shift+C`"
+msgstr ""
+
+#: ../main_window.rst:148
+msgid ":kbd:`Alt+Up`"
+msgstr ""
+
+#: ../main_window.rst:149 ../main_window.rst:329
+msgid "Color View"
+msgstr "Προβολή χρώματος (Color View)"
+
+#: ../main_window.rst:149
+msgid ":kbd:`Alt+Shift+2`"
+msgstr ""
+
+#: ../main_window.rst:150
+msgid "Choose Profile"
+msgstr "Επιλογή Προφίλ (Choose Profile)"
+
+#: ../main_window.rst:150
+msgid ":kbd:`Ctrl+Alt+P`"
+msgstr ""
+
+#: ../main_window.rst:151
+msgid "Clear All Cache"
+msgstr "Εκκαθάριση Όλης της Προσωρινής Μνήμης (Clear All Cache)"
+
+#: ../main_window.rst:151
+msgid ":kbd:`Ctrl+Shift+ESC`"
+msgstr ""
+
+#: ../main_window.rst:152
+msgid "Clear History"
+msgstr "Εκκαθάριση Ιστορικού (Clear History)"
+
+#: ../main_window.rst:152
+msgid ":kbd:`Ctrl+Shift+H`"
+msgstr ""
+
+#: ../main_window.rst:153
+msgid "Delete Optimized Videos"
+msgstr "Διαγραφή Βελτιστοποιημένων Βίντεο (Delete Optimized Videos)"
+
+#: ../main_window.rst:153
+msgid ":kbd:`Ctrl+Shift+O`"
+msgstr ""
+
+#: ../main_window.rst:154
+msgid "Clear Waveform Display Data"
+msgstr ""
+"Εκκαθάριση Δεδομένων Εμφάνισης Κυματομορφής (Clear Waveform Display Data)"
+
+#: ../main_window.rst:154
+msgid ":kbd:`Ctrl+Shift+W`"
+msgstr ""
+
+#: ../main_window.rst:155
+msgid "Copy"
+msgstr "Αντιγραφή (Copy)"
+
+#: ../main_window.rst:155
+msgid ":kbd:`Ctrl+C`"
+msgstr ""
+
+#: ../main_window.rst:156
+msgid "Cut"
+msgstr "Αποκοπή (Cut)"
+
+#: ../main_window.rst:156
+msgid ":kbd:`Ctrl+X`"
+msgstr ""
+
+#: ../main_window.rst:157
+msgid "Delete Item"
+msgstr "Διαγραφή Αντικειμένου (Delete Item)"
+
+#: ../main_window.rst:157
+msgid ":kbd:`Delete`"
+msgstr ""
+
+#: ../main_window.rst:157
+msgid ":kbd:`Backspace`"
+msgstr ""
+
+#: ../main_window.rst:158
+msgid "Delete Item (Ripple)"
+msgstr "Διαγραφή Αντικειμένου με μετατόπιση (Delete Item (Ripple))"
+
+#: ../main_window.rst:158
+msgid ":kbd:`Shift+Delete`"
+msgstr ""
+
+#: ../main_window.rst:159
+msgid "Details View"
+msgstr "Προβολή Λεπτομερειών (Details View)"
+
+#: ../main_window.rst:159
+msgid ":kbd:`Ctrl+Page Up`"
+msgstr ""
+
+#: ../main_window.rst:160
+msgid "Donate"
+msgstr "Δωρεά (Donate)"
+
+#: ../main_window.rst:160
+msgid ":kbd:`F7`"
+msgstr ""
+
+#: ../main_window.rst:161
+msgid "Duplicate"
+msgstr "Διπλότυπο (Duplicate)"
+
+#: ../main_window.rst:161
+msgid ":kbd:`Ctrl+Shift+/`"
+msgstr ""
+
+#: ../main_window.rst:162
+msgid "Edit Title"
+msgstr "Επεξεργασία Τίτλου (Edit Title)"
+
+#: ../main_window.rst:162
+msgid ":kbd:`Alt+T`"
+msgstr ""
+
+#: ../main_window.rst:163
+msgid "Export Selected Files"
+msgstr "Εξαγωγή Επιλεγμένων Αρχείων (Export Selected Files)"
+
+#: ../main_window.rst:163
+msgid ":kbd:`Ctrl+Shift+E`"
+msgstr ""
+
+#: ../main_window.rst:164
+msgid "Export Video / Media"
+msgstr "Εξαγωγή Βίντεο / Πολυμέσων (Export Video / Media)"
+
+#: ../main_window.rst:164
+msgid ":kbd:`Ctrl+E`"
+msgstr ""
+
+#: ../main_window.rst:164
+msgid ":kbd:`Ctrl+M`"
+msgstr ""
+
+#: ../main_window.rst:165
+msgid "Fast Forward"
+msgstr "Γρήγορα εμπρός (Fast Forward)"
+
+#: ../main_window.rst:165
+msgid ":kbd:`L`"
+msgstr ""
+
+#: ../main_window.rst:166
+msgid "File Properties"
+msgstr "Ιδιότητες Αρχείου (File Properties)"
+
+#: ../main_window.rst:166
+msgid ":kbd:`Alt+I`"
+msgstr ""
+
+#: ../main_window.rst:166
+msgid ":kbd:`Ctrl+Double Click`"
+msgstr ""
+
+#: ../main_window.rst:167
+msgid "Fullscreen"
+msgstr "Πλήρης Οθόνη (Fullscreen)"
+
+#: ../main_window.rst:167
+msgid ":kbd:`F11`"
+msgstr ""
+
+#: ../main_window.rst:168
+msgid "Import Files..."
+msgstr "Εισαγωγή Αρχείων... (Import Files...)"
+
+#: ../main_window.rst:168
+msgid ":kbd:`Ctrl+I`"
+msgstr ""
+
+#: ../main_window.rst:169
+msgid "Insert Keyframe"
+msgstr "Εισαγωγή Βασικών καρέ (Insert Keyframe)"
+
+#: ../main_window.rst:169
+msgid ":kbd:`Alt+Shift+K`"
+msgstr ""
+
+#: ../main_window.rst:170
+msgid "Join our Community..."
+msgstr "Γίνετε μέλος της κοινότητάς μας... (Join our Community...)"
+
+#: ../main_window.rst:170
+msgid ":kbd:`F5`"
+msgstr ""
+
+#: ../main_window.rst:171
+msgid "Jump To End"
+msgstr "Μετάβαση στο Τέλος (Jump To End)"
+
+#: ../main_window.rst:171
+msgid ":kbd:`End`"
+msgstr ""
+
+#: ../main_window.rst:172
+msgid "Jump To Start"
+msgstr "Μετάβαση στην Αρχή (Jump To Start)"
+
+#: ../main_window.rst:172
+msgid ":kbd:`Home`"
+msgstr ""
+
+#: ../main_window.rst:173
+msgid "Launch Tutorial"
+msgstr "Εκτέλεση Εκμάθησης (Launch Tutorial)"
+
+#: ../main_window.rst:173
+msgid ":kbd:`F2`"
+msgstr ""
+
+#: ../main_window.rst:174
+msgid "New Project"
+msgstr "Νέο Έργο (New Project)"
+
+#: ../main_window.rst:174
+msgid ":kbd:`Ctrl+N`"
+msgstr ""
+
+#: ../main_window.rst:175
+msgid "Next Frame"
+msgstr "Επόμενο καρέ (Next Frame)"
+
+#: ../main_window.rst:175
+msgid ":kbd:`Right`"
+msgstr ""
+
+#: ../main_window.rst:175
+msgid ":kbd:`.`"
+msgstr ""
+
+#: ../main_window.rst:176
+msgid "Next Marker"
+msgstr "Επόμενος Δείκτης (Next Marker)"
+
+#: ../main_window.rst:176
+msgid ":kbd:`Shift+M`"
+msgstr ""
+
+#: ../main_window.rst:176
+msgid ":kbd:`Alt+Right`"
+msgstr ""
+
+#: ../main_window.rst:177
+msgid "Nudge left (1 Frame)"
+msgstr "Ελαφρά μετατόπιση αριστερά (1 καρέ) (Nudge left (1 Frame))"
+
+#: ../main_window.rst:177
+msgid ":kbd:`Ctrl+Left`"
+msgstr ""
+
+#: ../main_window.rst:178
+msgid "Nudge left (5 Frames)"
+msgstr "Ελαφρά μετατόπιση αριστερά (5 καρέ) (Nudge left (5 Frames))"
+
+#: ../main_window.rst:178
+msgid ":kbd:`Shift+Ctrl+Left`"
+msgstr ""
+
+#: ../main_window.rst:179
+msgid "Nudge right (1 Frame)"
+msgstr "Ελαφρά μετατόπιση δεξιά (1 καρέ) (Nudge right (1 Frame))"
+
+#: ../main_window.rst:179
+msgid ":kbd:`Ctrl+Right`"
+msgstr ""
+
+#: ../main_window.rst:180
+msgid "Nudge right (5 Frames)"
+msgstr "Ελαφρά μετατόπιση δεξιά (5 καρέ) (Nudge right (5 Frames))"
+
+#: ../main_window.rst:180
+msgid ":kbd:`Shift+Ctrl+Right`"
+msgstr ""
+
+#: ../main_window.rst:181
+msgid "Open Help Contents"
+msgstr "Άνοιγμα Περιεχομένων Βοήθειας (Open Help Contents)"
+
+#: ../main_window.rst:181
+msgid ":kbd:`F1`"
+msgstr ""
+
+#: ../main_window.rst:182
+msgid "Open Project..."
+msgstr "Άνοιγμα έργου... (Open Project...)"
+
+#: ../main_window.rst:182
+msgid ":kbd:`Ctrl+O`"
+msgstr ""
+
+#: ../main_window.rst:183
+msgid "Paste"
+msgstr "Επικόλληση (Paste)"
+
+#: ../main_window.rst:183
+msgid ":kbd:`Ctrl+V`"
+msgstr ""
+
+#: ../main_window.rst:184
+msgid "Play/Pause Toggle"
+msgstr "Αναπαραγωγή/Εναλλαγή Παύσης (Play/Pause Toggle)"
+
+#: ../main_window.rst:184
+msgid ":kbd:`Space`"
+msgstr ""
+
+#: ../main_window.rst:184
+msgid ":kbd:`Up`"
+msgstr ""
+
+#: ../main_window.rst:184
+msgid ":kbd:`Down`"
+msgstr ""
+
+#: ../main_window.rst:185
+msgid "Preferences"
+msgstr "Προτιμήσεις (Preferences)"
+
+#: ../main_window.rst:185
+msgid ":kbd:`Ctrl+P`"
+msgstr ""
+
+#: ../main_window.rst:186
+msgid "Preview File"
+msgstr "Προεπισκόπηση Αρχείου (Preview File)"
+
+#: ../main_window.rst:186
+msgid ":kbd:`Alt+P`"
+msgstr ""
+
+#: ../main_window.rst:186 ../main_window.rst:223
+msgid ":kbd:`Double Click`"
+msgstr ""
+
+#: ../main_window.rst:187
+msgid "Previous Frame"
+msgstr "Προηγούμενο καρέ (Previous Frame)"
+
+#: ../main_window.rst:187
+msgid ":kbd:`Left`"
+msgstr ""
+
+#: ../main_window.rst:187
+msgid ":kbd:`,`"
+msgstr ""
+
+#: ../main_window.rst:188
+msgid "Previous Marker"
+msgstr "Προηγούμενος Δείκτης (Previous Marker)"
+
+#: ../main_window.rst:188
+msgid ":kbd:`Ctrl+Shift+M`"
+msgstr ""
+
+#: ../main_window.rst:188
+msgid ":kbd:`Alt+Left`"
+msgstr ""
+
+#: ../main_window.rst:189 ../main_window.rst:413
+msgid "Properties"
+msgstr "Ιδιότητες (Properties)"
+
+#: ../main_window.rst:189
+msgid ":kbd:`U`"
+msgstr ""
+
+#: ../main_window.rst:190
+msgid "Quit"
+msgstr "Έξοδος (Quit)"
+
+#: ../main_window.rst:190
+msgid ":kbd:`Ctrl+Q`"
+msgstr ""
+
+#: ../main_window.rst:191
+msgid "Razor Toggle"
+msgstr "Εναλλαγή Ξυραφιού (Razor Toggle)"
+
+#: ../main_window.rst:191
+msgid ":kbd:`C`"
+msgstr ""
+
+#: ../main_window.rst:191
+msgid ":kbd:`B`"
+msgstr ""
+
+#: ../main_window.rst:191
+msgid ":kbd:`R`"
+msgstr ""
+
+#: ../main_window.rst:192
+msgid "Redo"
+msgstr "Επανάληψη (Redo)"
+
+#: ../main_window.rst:192
+msgid ":kbd:`Ctrl+Shift+Z`"
+msgstr ""
+
+#: ../main_window.rst:193
+msgid "Report a Bug..."
+msgstr "Αναφορά ενός Σφάλματος... (Report a Bug...)"
+
+#: ../main_window.rst:193
+msgid ":kbd:`F3`"
+msgstr ""
+
+#: ../main_window.rst:194
+msgid "Rewind"
+msgstr "Πίσω (Rewind)"
+
+#: ../main_window.rst:194
+msgid ":kbd:`J`"
+msgstr ""
+
+#: ../main_window.rst:195 ../main_window.rst:196
+msgid "Save Current Frame"
+msgstr "Αποθήκευση τρέχοντος καρέ (Save Current Frame)"
+
+#: ../main_window.rst:195 ../main_window.rst:196
+msgid ":kbd:`Ctrl+Shift+Y`"
+msgstr ""
+
+#: ../main_window.rst:197
+msgid "Save Project"
+msgstr "Αποθήκευση Έργου (Save Project)"
+
+#: ../main_window.rst:197
+msgid ":kbd:`Ctrl+S`"
+msgstr ""
+
+#: ../main_window.rst:198
+msgid "Save Project As..."
+msgstr "Αποθήκευση έργου ως... (Save Project As...)"
+
+#: ../main_window.rst:198
+msgid ":kbd:`Ctrl+Shift+S`"
+msgstr ""
+
+#: ../main_window.rst:199
+msgid "Select All"
+msgstr "Επιλογή Όλων (Select All)"
+
+#: ../main_window.rst:199
+msgid ":kbd:`Ctrl+A`"
+msgstr ""
+
+#: ../main_window.rst:200
+msgid "Select Item (Ripple)"
+msgstr "Επιλογή Αντικειμένου με μετατόπιση (Select Item (Ripple))"
+
+#: ../main_window.rst:200
+msgid ":kbd:`Alt+A`"
+msgstr ""
+
+#: ../main_window.rst:200
+msgid ":kbd:`Alt+Click`"
+msgstr ""
+
+#: ../main_window.rst:201
+msgid "Select None"
+msgstr "Καμία Επιλογή (Select None)"
+
+#: ../main_window.rst:201
+msgid ":kbd:`Ctrl+Shift+A`"
+msgstr ""
+
+#: ../main_window.rst:202
+msgid "Share Feedback..."
+msgstr "Κοινοποίηση Σχολίων... (Share Feedback...)"
+
+#: ../main_window.rst:202
+msgid ":kbd:`F8`"
+msgstr ""
+
+#: ../main_window.rst:203 ../main_window.rst:322
+msgid "Simple View"
+msgstr "Απλή προβολή (Simple View)"
+
+#: ../main_window.rst:203
+msgid ":kbd:`Alt+Shift+0`"
+msgstr ""
+
+#: ../main_window.rst:204
+msgid "Slice All: Keep Both Sides"
+msgstr ""
+"Κόψιμο Όλων: Διατήρηση και των Δύο Πλευρών (Slice All: Keep Both Sides)"
+
+#: ../main_window.rst:204
+msgid ":kbd:`Ctrl+Shift+K`"
+msgstr ""
+
+#: ../main_window.rst:205
+msgid "Slice All: Keep Left Side"
+msgstr ""
+"Κόψιμο Όλων: Διατήρηση της Αριστερής Πλευράς (Slice All: Keep Left Side)"
+
+#: ../main_window.rst:205
+msgid ":kbd:`Ctrl+Shift+J`"
+msgstr ""
+
+#: ../main_window.rst:206
+msgid "Slice All: Keep Right Side"
+msgstr ""
+"Κόψιμο Όλων: Διατήρηση της Δεξιάς Πλευράς (Slice All: Keep Right Side)"
+
+#: ../main_window.rst:206
+msgid ":kbd:`Ctrl+Shift+L`"
+msgstr ""
+
+#: ../main_window.rst:207
+msgid "Slice Selected: Keep Both Sides"
+msgstr ""
+"Κόψιμο Επιλεγμένων: Διατήρηση και των Δύο Πλευρών (Slice Selected: Keep Both"
+" Sides)"
+
+#: ../main_window.rst:207
+msgid ":kbd:`Ctrl+K`"
+msgstr ""
+
+#: ../main_window.rst:208
+msgid "Slice Selected: Keep Left Side"
+msgstr ""
+"Κόψιμο Επιλεγμένων: Διατήρηση της Αριστερής Πλευράς (Slice Selected: Keep "
+"Left Side)"
+
+#: ../main_window.rst:208
+msgid ":kbd:`Ctrl+J`"
+msgstr ""
+
+#: ../main_window.rst:209
+msgid "Slice Selected: Keep Right Side"
+msgstr ""
+"Κόψιμο Επιλεγμένων: Διατήρηση της Δεξιάς Πλευράς (Slice Selected: Keep Right"
+" Side)"
+
+#: ../main_window.rst:209
+msgid ":kbd:`Ctrl+L`"
+msgstr ""
+
+#: ../main_window.rst:210
+msgid "Slice Selected: Keep Left (Ripple)"
+msgstr ""
+"Κόψιμο Επιλεγμένων: Διατήρηση Αριστερού με μετατόπιση (Slice Selected: Keep "
+"Left (Ripple))"
+
+#: ../main_window.rst:210
+msgid ":kbd:`W`"
+msgstr ""
+
+#: ../main_window.rst:211
+msgid "Slice Selected: Keep Right (Ripple)"
+msgstr ""
+"Κόψιμο Επιλεγμένων: Διατήρηση Δεξιού με μετατόπιση (Slice Selected: Keep "
+"Right (Ripple))"
+
+#: ../main_window.rst:211
+msgid ":kbd:`Q`"
+msgstr ""
+
+#: ../main_window.rst:212
+msgid "Snapping Toggle"
+msgstr "Εναλλαγή Προσκόλλησης (Snapping Toggle)"
+
+#: ../main_window.rst:212
+msgid ":kbd:`S`"
+msgstr ""
+
+#: ../main_window.rst:213
+msgid "Split File"
+msgstr "Διαχωρισμός Αρχείου (Split File)"
+
+#: ../main_window.rst:213
+msgid ":kbd:`Alt+S`"
+msgstr ""
+
+#: ../main_window.rst:213
+msgid ":kbd:`Shift+Double Click`"
+msgstr ""
+
+#: ../main_window.rst:214
+msgid "Thumbnail View"
+msgstr "Προβολή εικόνων επισκόπησης (Thumbnail View)"
+
+#: ../main_window.rst:214
+msgid ":kbd:`Ctrl+Page Down`"
+msgstr ""
+
+#: ../main_window.rst:215
+msgid "Timing Toggle"
+msgstr "Εναλλαγή Χρονισμού (Timing Toggle)"
+
+#: ../main_window.rst:215
+msgid ":kbd:`T`"
+msgstr ""
+
+#: ../main_window.rst:216 ../main_window.rst:257
+msgid "Title"
+msgstr "Τίτλος (Title)"
+
+#: ../main_window.rst:216
+msgid ":kbd:`Ctrl+T`"
+msgstr ""
+
+#: ../main_window.rst:217
+msgid "Translate this Application..."
+msgstr "Μετάφραση της Εφαρμογής... (Translate this Application...)"
+
+#: ../main_window.rst:217
+msgid ":kbd:`F6`"
+msgstr ""
+
+#: ../main_window.rst:218
+msgid "Undo"
+msgstr "Αναίρεση (Undo)"
+
+#: ../main_window.rst:218
+msgid ":kbd:`Ctrl+Z`"
+msgstr ""
+
+#: ../main_window.rst:219
+msgid "Update Available"
+msgstr "Νέα διαθέσιμη ενημέρωση (Update Available)"
+
+#: ../main_window.rst:219
+msgid ":kbd:`F9`"
+msgstr ""
+
+#: ../main_window.rst:220
+msgid "View Toolbar"
+msgstr "Προβολή Γραμμής Εργαλείων (View Toolbar)"
+
+#: ../main_window.rst:220
+msgid ":kbd:`Ctrl+Shift+B`"
+msgstr ""
+
+#: ../main_window.rst:221
+msgid "Zoom In"
+msgstr "Μεγέθυνση (Zoom In)"
+
+#: ../main_window.rst:221
+msgid ":kbd:`=`"
+msgstr ""
+
+#: ../main_window.rst:221
+msgid ":kbd:`Ctrl+=`"
+msgstr ""
+
+#: ../main_window.rst:222
+msgid "Zoom Out"
+msgstr "Σμίκρυνση (Zoom Out)"
+
+#: ../main_window.rst:222
+msgid ":kbd:`-`"
+msgstr ""
+
+#: ../main_window.rst:222
+msgid ":kbd:`Ctrl+-`"
+msgstr ""
+
+#: ../main_window.rst:223
+msgid "Zoom to Timeline"
+msgstr "Προσαρμογή Μεγέθυνσης στο Χρονολόγιο (Zoom to Timeline)"
+
+#: ../main_window.rst:223
+msgid ":kbd:`\\\\`"
+msgstr ""
+
+#: ../main_window.rst:223
+msgid ":kbd:`Shift+\\\\`"
+msgstr ""
+
+#: ../main_window.rst:227
+msgid "Menu"
+msgstr "Μενού"
+
+#: ../main_window.rst:228
+msgid ""
+"The following menu options are available on the main window on OpenShot. "
+"Most of these options can be accessed by the keyboard shortcuts mentioned "
+"above. On some Operating Systems (such as macOS) a few of these options are "
+"renamed and/or rearranged."
+msgstr ""
+"Οι ακόλουθες επιλογές μενού είναι διαθέσιμες στο κύριο παράθυρο του "
+"OpenShot. Στις περισσότερες από αυτές μπορείτε να φτάσετε και μέσω των "
+"συντομεύσεων πληκτρολογίου που αναφέρθηκαν παραπάνω. Σε ορισμένα λειτουργικά"
+" συστήματα (όπως το macOS) μερικές από αυτές τις επιλογές μετονομάζονται "
+"ή/και αναδιατάσσονται."
+
+#: ../main_window.rst:236
+msgid "Menu Name"
+msgstr "Όνομα μενού"
+
+#: ../main_window.rst:238
+msgid "File"
+msgstr "Αρχείο (File)"
+
+#: ../main_window.rst:240
+msgid ":guilabel:`New Project` Create a blank new project."
+msgstr ":guilabel:`Νέο Έργο` (New Project) Δημιουργία ενός νέου κενού έργου."
+
+#: ../main_window.rst:241
+msgid ":guilabel:`Open Project` Open an existing project."
+msgstr ""
+":guilabel:`Άνοιγμα έργου` (Open Project) Άνοιγμα ενός υπάρχοντος έργου."
+
+#: ../main_window.rst:242
+msgid ":guilabel:`Recent Projects` Access recently opened projects."
+msgstr ""
+":guilabel:`Πρόσφατα έργα` (Recent Projects) Πρόσβαση σε πρόσφατα ανοιγμένα "
+"έργα."
+
+#: ../main_window.rst:243
+msgid ""
+":guilabel:`Recovery` Restore a previously saved version of your current "
+"project."
+msgstr ""
+":guilabel:`Ανάκτηση` (Recovery) Επαναφορά μιας προηγουμένως αποθηκευμένης "
+"έκδοσης του τρέχοντος έργου σας."
+
+#: ../main_window.rst:244
+msgid ":guilabel:`Save Project` Save the current project."
+msgstr ""
+":guilabel:`Αποθήκευση Έργου` (Save Project) Αποθήκευση του τρέχοντος έργου."
+
+#: ../main_window.rst:245
+msgid ":guilabel:`Import Files` Import media files into the project."
+msgstr ""
+":guilabel:`Εισαγωγή Αρχείων` (Import Files) Εισαγωγή αρχείων πολυμέσων στο "
+"έργο."
+
+#: ../main_window.rst:246
+msgid ""
+":guilabel:`Choose Profile` Select a project profile (*i.e. 1080p @ 30fps, "
+"720p @ 24fps, ...*)."
+msgstr ""
+":guilabel:`Επιλογή Προφίλ` (Choose Profile) Επιλογή ενός προφίλ έργου (*π.χ."
+" 1080p @ 30fps, 720p @ 24fps, ...*)."
+
+#: ../main_window.rst:247
+msgid ""
+":guilabel:`Save Current Frame` Save the current preview video frame as an "
+"image (sometimes represented with a camera icon)."
+msgstr ""
+":guilabel:`Αποθήκευση τρέχοντος καρέ` (Save Current Frame) Αποθήκευση του "
+"τρέχοντος καρέ της προεπισκόπησης βίντεο ως εικόνας (μερικές φορές "
+"αναπαρίσταται με εικονίδιο φωτογραφικής μηχανής)."
+
+#: ../main_window.rst:248
+msgid ""
+":guilabel:`Import Project` Import another project into the current project "
+"(*Adobe and Final Cut Pro formats partially supported*)."
+msgstr ""
+":guilabel:`Εισαγωγή Έργου` (Import Project) Εισαγωγή ενός άλλου έργου στο "
+"τρέχον έργο (*υποστηρίζονται εν μέρει οι μορφές Adobe και Final Cut Pro*)."
+
+#: ../main_window.rst:249
+msgid ""
+":guilabel:`Export Project` Export the current project to a specified format "
+"(*EDL, Adobe, and Final Cut Pro formats partially supported*)."
+msgstr ""
+":guilabel:`Εξαγωγή έργου` (Export Project) Εξαγωγή του τρέχοντος έργου σε "
+"μια καθορισμένη μορφή (*υποστηρίζονται εν μέρει οι μορφές EDL, Adobe και "
+"Final Cut Pro*)."
+
+#: ../main_window.rst:250
+msgid ":guilabel:`Quit` Exit the application."
+msgstr ":guilabel:`Έξοδος` (Quit) Έξοδος από την εφαρμογή."
+
+#: ../main_window.rst:251
+msgid "Edit"
+msgstr "Επεξεργασία (Edit)"
+
+#: ../main_window.rst:253
+msgid ":guilabel:`Undo` Undo the last action."
+msgstr ":guilabel:`Αναίρεση` (Undo) Αναίρεση της τελευταίας ενέργειας."
+
+#: ../main_window.rst:254
+msgid ":guilabel:`Redo` Redo the last undone action."
+msgstr ""
+":guilabel:`Επανάληψη` (Redo) Επανάληψη της τελευταίας ενέργειας που "
+"αναιρέθηκε."
+
+#: ../main_window.rst:255
+msgid ""
+":guilabel:`Clear` Clear the current history or waveform cached data. This "
+"makes the `.osp project` file a much smaller file size."
+msgstr ""
+":guilabel:`Καθαρισμός` (Clear) Καθαρισμός του τρέχοντος ιστορικού ή των "
+"αποθηκευμένων δεδομένων κυματομορφής. Έτσι το αρχείο `.osp project` γίνεται "
+"πολύ μικρότερο σε μέγεθος."
+
+#: ../main_window.rst:256
+msgid ""
+":guilabel:`Preferences` Open the preferences dialog to customize settings."
+msgstr ""
+":guilabel:`Προτιμήσεις` (Preferences) Άνοιγμα του παραθύρου προτιμήσεων για "
+"την προσαρμογή των ρυθμίσεων."
+
+#: ../main_window.rst:259
+msgid ""
+":guilabel:`Title` Add a SVG vector title to the project. See "
+":ref:`text_and_titles_ref`."
+msgstr ""
+":guilabel:`Τίτλος` (Title) Προσθήκη ενός διανυσματικού τίτλου SVG στο έργο. "
+"Δείτε το :ref:`text_and_titles_ref`."
+
+#: ../main_window.rst:260
+msgid ""
+":guilabel:`Animated Title` Add an animated title to the project. See "
+":ref:`animated_titles_ref`."
+msgstr ""
+":guilabel:`Κινούμενος Τίτλος` (Animated Title) Προσθήκη ενός κινούμενου "
+"τίτλου στο έργο. Δείτε το :ref:`animated_titles_ref`."
+
+#: ../main_window.rst:261
+msgid "View"
+msgstr "Προβολή (View)"
+
+#: ../main_window.rst:263
+msgid ""
+":guilabel:`Simple View` and :guilabel:`Color View` switch or reset the main "
+"window layout."
+msgstr ""
+"Οι επιλογές :guilabel:`Απλή προβολή` (Simple View) και :guilabel:`Προβολή "
+"χρώματος` (Color View) αλλάζουν ή επαναφέρουν τη διάταξη του κύριου "
+"παραθύρου."
+
+#: ../main_window.rst:264
+msgid ""
+":guilabel:`My Views` Save, load, update, and delete your own named layouts. "
+"See :ref:`my_views_ref`."
+msgstr ""
+":guilabel:`Οι προβολές μου` (My Views) Αποθήκευση, φόρτωση, ενημέρωση και "
+"διαγραφή των δικών σας ονομασμένων διατάξεων. Δείτε το :ref:`my_views_ref`."
+
+#: ../main_window.rst:265
+msgid ":guilabel:`Docks` Show or hide various dockable panels."
+msgstr ""
+":guilabel:`Πάνελ` (Docks) Εμφάνιση ή απόκρυψη διαφόρων πάνελ που μπορούν να "
+"αγκυρωθούν."
+
+#: ../main_window.rst:266
+msgid ""
+":guilabel:`Scopes` Show or hide scope docks, or open all scopes at once."
+msgstr ""
+":guilabel:`Εργαλεία μέτρησης` (Scopes) Εμφάνιση ή απόκρυψη των πάνελ "
+"εργαλείων μέτρησης ή άνοιγμα όλων των εργαλείων ταυτόχρονα."
+
+#: ../main_window.rst:267
+msgid ""
+":guilabel:`Window` Show or hide the main window toolbar, or toggle "
+"fullscreen mode."
+msgstr ""
+":guilabel:`Παράθυρο` (Window) Εμφάνιση ή απόκρυψη της γραμμής εργαλείων του "
+"κύριου παραθύρου ή εναλλαγή της λειτουργίας πλήρους οθόνης."
+
+#: ../main_window.rst:268
+msgid "Help"
+msgstr "Βοήθεια (Help)"
+
+#: ../main_window.rst:270
+msgid ":guilabel:`Contents` Open the user guide online."
+msgstr ""
+":guilabel:`Περιεχόμενα` (Contents) Άνοιγμα του οδηγού χρήσης στο διαδίκτυο."
+
+#: ../main_window.rst:271
+msgid ":guilabel:`Tutorial` Access the built-in tutorial for new users."
+msgstr ""
+":guilabel:`Εκμάθηση` (Tutorial) Πρόσβαση στον ενσωματωμένο οδηγό εκμάθησης "
+"για νέους χρήστες."
+
+#: ../main_window.rst:272
+msgid ":guilabel:`Report a Bug` Report a bug or issue."
+msgstr ""
+":guilabel:`Αναφορά ενός Σφάλματος` (Report a Bug) Αναφορά ενός σφάλματος ή "
+"προβλήματος."
+
+#: ../main_window.rst:273
+msgid ":guilabel:`Ask a Question` Ask a question about the software."
+msgstr ""
+":guilabel:`Κάντε μία Ερώτηση` (Ask a Question) Υποβολή μιας ερώτησης σχετικά"
+" με το λογισμικό."
+
+#: ../main_window.rst:274
+msgid ""
+":guilabel:`Share Feedback` Open a survey about your experience with "
+"OpenShot."
+msgstr ""
+":guilabel:`Κοινοποίηση Σχολίων` (Share Feedback) Άνοιγμα ενός "
+"ερωτηματολογίου σχετικά με την εμπειρία σας με το OpenShot."
+
+#: ../main_window.rst:275
+msgid ""
+":guilabel:`Update Available` Open the download page when a newer version is "
+"available."
+msgstr ""
+":guilabel:`Νέα διαθέσιμη ενημέρωση` (Update Available) Άνοιγμα της σελίδας "
+"λήψης όταν υπάρχει διαθέσιμη νεότερη έκδοση."
+
+#: ../main_window.rst:276
+msgid ":guilabel:`Translate` Contribute to translations of the software."
+msgstr ""
+":guilabel:`Μετάφραση` (Translate) Συμβολή στη μετάφραση του λογισμικού."
+
+#: ../main_window.rst:277
+msgid ":guilabel:`Donate` Make a donation to support the project."
+msgstr ""
+":guilabel:`Δωρεά` (Donate) Πραγματοποίηση δωρεάς για την υποστήριξη του "
+"έργου."
+
+#: ../main_window.rst:278
+msgid ""
+":guilabel:`About` View information about the software (version, "
+"contributors, translators, changelog, and supporters)."
+msgstr ""
+":guilabel:`Περί` (About) Προβολή πληροφοριών για το λογισμικό (έκδοση, "
+"συνεισφέροντες, μεταφραστές, αρχείο αλλαγών και υποστηρικτές)."
+
+#: ../main_window.rst:281
+msgid "Notifications"
+msgstr "Ειδοποιήσεις"
+
+#: ../main_window.rst:283
+msgid ""
+"OpenShot may show a notice near the top of the window when a newer version "
+"is available. Choose :guilabel:`Upgrade` to open the download page, or close"
+" the notice to hide it for that version. You can still open the download "
+"page from :guilabel:`Help → Update Available` or press :kbd:`F9` when an "
+"update is available."
+msgstr ""
+"Το OpenShot μπορεί να εμφανίσει μια ειδοποίηση κοντά στο πάνω μέρος του "
+"παραθύρου όταν υπάρχει διαθέσιμη νεότερη έκδοση. Επιλέξτε "
+":guilabel:`Αναβάθμιση` (Upgrade) για να ανοίξει η σελίδα λήψης ή κλείστε την"
+" ειδοποίηση για να κρυφτεί για αυτή την έκδοση. Μπορείτε επίσης να ανοίξετε "
+"τη σελίδα λήψης από το :guilabel:`Βοήθεια → Νέα διαθέσιμη ενημέρωση` (Help →"
+" Update Available) ή πατώντας :kbd:`F9` όταν υπάρχει διαθέσιμη ενημέρωση."
+
+#: ../main_window.rst:288
+msgid ""
+"After you have spent some time editing, OpenShot may also invite you to "
+"share feedback. The survey is optional. You can open it from the notice or "
+"dismiss the invitation. At any time, choose :guilabel:`Help → Share "
+"Feedback` or press :kbd:`F8` to share your thoughts."
+msgstr ""
+"Αφού περάσετε κάποιο χρονικό διάστημα επεξεργαζόμενοι, το OpenShot μπορεί "
+"επίσης να σας προσκαλέσει να μοιραστείτε τα σχόλιά σας. Το ερωτηματολόγιο "
+"είναι προαιρετικό. Μπορείτε να το ανοίξετε από την ειδοποίηση ή να "
+"απορρίψετε την πρόσκληση. Οποιαδήποτε στιγμή, επιλέξτε :guilabel:`Βοήθεια → "
+"Κοινοποίηση Σχολίων` (Help → Share Feedback) ή πατήστε :kbd:`F8` για να "
+"μοιραστείτε τις σκέψεις σας."
+
+#: ../main_window.rst:295
+msgid ""
+"Use :guilabel:`Help→About OpenShot` to check your OpenShot version. Click "
+":guilabel:`Copy` next to the version number to copy a short version and "
+"system details report, including how OpenShot was installed. This is a "
+"useful way to share the information when reporting a bug or asking for help."
+msgstr ""
+"Χρησιμοποιήστε το :guilabel:`Βοήθεια→Περί του OpenShot` (Help→About "
+"OpenShot) για να ελέγξετε την έκδοση του OpenShot. Κάντε κλικ στο "
+":guilabel:`Αντιγραφή` (Copy) δίπλα στον αριθμό έκδοσης, για να αντιγράψετε "
+"μια σύντομη αναφορά με την έκδοση και λεπτομέρειες του συστήματος, "
+"συμπεριλαμβανομένου του τρόπου εγκατάστασης του OpenShot. Είναι ένας "
+"χρήσιμος τρόπος για να μοιραστείτε αυτές τις πληροφορίες όταν αναφέρετε ένα "
+"σφάλμα ή ζητάτε βοήθεια."
+
+#: ../main_window.rst:300
+msgid "Example output:"
+msgstr "Παράδειγμα εξόδου:"
+
+#: ../main_window.rst:315
+msgid "Views"
+msgstr "Προβολές"
+
+#: ../main_window.rst:317
+msgid ""
+"The OpenShot main window is composed of multiple **docks**. These **docks** "
+"are arranged and snapped together into a grouping that we call a **View**. "
+"OpenShot includes :guilabel:`Simple View`, :guilabel:`Color View`, and "
+":guilabel:`My Views` (user-defined layouts)."
+msgstr ""
+"Το κύριο παράθυρο του OpenShot αποτελείται από πολλά **πάνελ** (docks). Αυτά"
+" τα **πάνελ** τακτοποιούνται και προσκολλώνται μεταξύ τους σε μια ομάδα που "
+"ονομάζουμε **προβολή** (View). Το OpenShot περιλαμβάνει τις :guilabel:`Απλή "
+"προβολή` (Simple View), :guilabel:`Προβολή χρώματος` (Color View) και "
+":guilabel:`Οι προβολές μου` (My Views), δηλαδή διατάξεις που ορίζονται από "
+"τον χρήστη."
+
+#: ../main_window.rst:323
+msgid ""
+"This is the **default** view, and is designed to be easy-to-use, especially "
+"for first-time users. It contains :guilabel:`Project Files` on the top left,"
+" :guilabel:`Preview Window` on the top right, and :guilabel:`Timeline` on "
+"the bottom. If you accidentally close or move a dock, you can quickly reset "
+"all the docks back to their default location using the "
+":guilabel:`View->Simple View` menu at the top of the screen."
+msgstr ""
+"Αυτή είναι η **προεπιλεγμένη** προβολή και έχει σχεδιαστεί ώστε να είναι "
+"εύκολη στη χρήση, ειδικά για όσους χρησιμοποιούν το πρόγραμμα για πρώτη "
+"φορά. Περιέχει τα :guilabel:`Αρχεία Έργου` (Project Files) πάνω αριστερά, το"
+" :guilabel:`Παράθυρο προεπισκόπησης` (Preview Window) πάνω δεξιά και το "
+":guilabel:`Χρονολόγιο` (Timeline) στο κάτω μέρος. Αν κλείσετε ή μετακινήσετε"
+" κατά λάθος ένα πάνελ, μπορείτε να επαναφέρετε γρήγορα όλα τα πάνελ στην "
+"προεπιλεγμένη τους θέση χρησιμοποιώντας το μενού :guilabel:`Προβολή->Απλή "
+"προβολή` (View->Simple View) στο πάνω μέρος της οθόνης."
+
+#: ../main_window.rst:330
+msgid ""
+"This view is focused on color correction and scopes. It enlarges the video "
+"preview, hides file-management docks, keeps the timeline and properties "
+"visible, places the :guilabel:`Color Wheels` dock on the right, and tabifies"
+" the :guilabel:`Luma Waveform` and :guilabel:`Histogram` docks together "
+"below it."
+msgstr ""
+"Αυτή η προβολή εστιάζει στη χρωματική διόρθωση και στα εργαλεία μέτρησης "
+"βίντεο (scopes). Μεγεθύνει την προεπισκόπηση του βίντεο, κρύβει τα πάνελ "
+"διαχείρισης αρχείων, διατηρεί ορατά το χρονολόγιο και τις ιδιότητες, "
+"τοποθετεί το πάνελ :guilabel:`Χρωματικοί τροχοί` (Color Wheels) στα δεξιά "
+"και ομαδοποιεί σε καρτέλες τα πάνελ :guilabel:`Κυματομορφή φωτεινότητας` "
+"(Luma Waveform) και :guilabel:`Ιστόγραμμα` (Histogram) κάτω από αυτό."
+
+#: ../main_window.rst:335
+msgid "Recording View"
+msgstr "Προβολή εγγραφής"
+
+#: ../main_window.rst:336
+msgid ""
+"This view is focused on creating new recordings inside OpenShot. It shows "
+":guilabel:`Project Files`, :guilabel:`Video Preview`, :guilabel:`Timeline`, "
+"and the :guilabel:`Recording` dock. The :guilabel:`Properties` dock is "
+"grouped with :guilabel:`Project Files` as a tab, so you can show it from "
+":guilabel:`View->Docks->Properties` without disrupting the recording layout."
+msgstr ""
+"Αυτή η προβολή εστιάζει στη δημιουργία νέων εγγραφών μέσα στο OpenShot. "
+"Εμφανίζει τα :guilabel:`Αρχεία Έργου` (Project Files), την "
+":guilabel:`Προεπισκόπηση Βίντεο` (Video Preview), το :guilabel:`Χρονολόγιο` "
+"(Timeline) και το πάνελ :guilabel:`Εγγραφή` (Recording). Το πάνελ "
+":guilabel:`Ιδιότητες` (Properties) είναι ομαδοποιημένο ως καρτέλα με τα "
+":guilabel:`Αρχεία Έργου` (Project Files), ώστε να μπορείτε να το εμφανίσετε "
+"από το :guilabel:`Προβολή->Πάνελ->Ιδιότητες` (View->Docks->Properties) χωρίς"
+" να διαταράξετε τη διάταξη εγγραφής."
+
+#: ../main_window.rst:341
+msgid ""
+"The :guilabel:`Recording` dock can record microphone audio, screen capture, "
+"webcam video, or combinations of those sources. When screen and webcam are "
+"recorded together, OpenShot can place the webcam as a corner picture-in-"
+"picture clip. Those corner camera clips use normal clip properties after "
+"they are added to the timeline: :guilabel:`Gravity` chooses the corner, "
+":guilabel:`Scale X` and :guilabel:`Scale Y` set the corner size, "
+":guilabel:`Margin` creates the inset layout area that keeps the camera away "
+"from the screen edge, and :guilabel:`Corner Radius` rounds the camera clip "
+"without adding a separate Mask effect. See :ref:`clip_properties_ref` for "
+"details. See :ref:`recording_ref` for the complete recording workflow and "
+"all source options."
+msgstr ""
+"Το πάνελ :guilabel:`Εγγραφή` (Recording) μπορεί να καταγράψει ήχο "
+"μικροφώνου, λήψη οθόνης, βίντεο κάμερας web ή συνδυασμούς αυτών των πηγών. "
+"Όταν η οθόνη και η κάμερα web καταγράφονται μαζί, το OpenShot μπορεί να "
+"τοποθετήσει την κάμερα web ως κλιπ εικόνας μέσα σε εικόνα (picture-in-"
+"picture) σε μια γωνία. Αυτά τα κλιπ κάμερας γωνίας χρησιμοποιούν τις "
+"κανονικές ιδιότητες κλιπ μετά την προσθήκη τους στο χρονολόγιο: η "
+":guilabel:`Βαρύτητα` (Gravity) επιλέγει τη γωνία, οι ιδιότητες "
+":guilabel:`Κλίμακα Χ` (Scale X) και :guilabel:`Κλίμακα Υ` (Scale Y) ορίζουν "
+"το μέγεθος στη γωνία, το :guilabel:`Περιθώριο` (Margin) δημιουργεί την "
+"εσωτερική περιοχή διάταξης που κρατά την κάμερα μακριά από την άκρη της "
+"οθόνης και η :guilabel:`Ακτίνα γωνίας` (Corner Radius) στρογγυλεύει τις "
+"γωνίες του κλιπ της κάμερας χωρίς να προστεθεί ξεχωριστό εφέ μάσκας (Mask). "
+"Δείτε το :ref:`clip_properties_ref` για λεπτομέρειες. Δείτε το "
+":ref:`recording_ref` για την πλήρη ροή εργασίας εγγραφής και όλες τις "
+"επιλογές πηγών."
+
+#: ../main_window.rst:352
+msgid "My Views"
+msgstr "Οι προβολές μου (My Views)"
+
+#: ../main_window.rst:353
+msgid ""
+"**My Views** lets you save any dock arrangement as a named layout and recall"
+" it instantly. This is ideal for workflows that require switching between "
+"different editing modes — for example, a detailed audio mix layout and a "
+"focused color grading layout — without manually repositioning docks each "
+"time."
+msgstr ""
+"Η επιλογή **Οι προβολές μου** (My Views) σάς επιτρέπει να αποθηκεύσετε "
+"οποιαδήποτε διάταξη πάνελ ως ονομασμένη διάταξη και να την ανακαλέσετε "
+"αμέσως. Είναι ιδανική για ροές εργασίας που απαιτούν εναλλαγή μεταξύ "
+"διαφορετικών τρόπων επεξεργασίας — για παράδειγμα, μια λεπτομερή διάταξη "
+"μίξης ήχου και μια εστιασμένη διάταξη χρωματικής διαβάθμισης (color grading)"
+" — χωρίς να χρειάζεται να μετακινείτε χειροκίνητα τα πάνελ κάθε φορά."
+
+#: ../main_window.rst:357
+msgid ""
+"Each saved view captures the position, size, and visibility of every dock, "
+"as well as the timeline height. Saved views are stored in your project "
+"settings and persist across sessions."
+msgstr ""
+"Κάθε αποθηκευμένη προβολή καταγράφει τη θέση, το μέγεθος και την ορατότητα "
+"κάθε πάνελ, καθώς και το ύψος του χρονολογίου. Οι αποθηκευμένες προβολές "
+"αποθηκεύονται στις ρυθμίσεις του έργου σας και διατηρούνται από συνεδρία σε "
+"συνεδρία."
+
+#: ../main_window.rst:360
+msgid "**View → My Views** menu options:"
+msgstr "Επιλογές μενού **Προβολή → Οι προβολές μου** (View → My Views):"
+
+#: ../main_window.rst:366
+msgid "Menu Item"
+msgstr "Στοιχείο μενού"
+
+#: ../main_window.rst:368
+msgid "List of user-defined views"
+msgstr "Λίστα προβολών που ορίζονται από τον χρήστη"
+
+#: ../main_window.rst:369
+msgid ""
+"Click to restore that layout. The currently active view shows a checkmark."
+msgstr ""
+"Κάντε κλικ για να επαναφέρετε τη συγκεκριμένη διάταξη. Η τρέχουσα ενεργή "
+"προβολή εμφανίζει ένα σημάδι επιλογής."
+
+#: ../main_window.rst:370
+msgid "Update \"*[name]*\""
+msgstr "Ενημέρωση «*[όνομα]*» (Update \"*[name]*\")"
+
+#: ../main_window.rst:371
+msgid "Save your current dock arrangement over the active view, replacing it."
+msgstr ""
+"Αποθήκευση της τρέχουσας διάταξης πάνελ πάνω από την ενεργή προβολή, "
+"αντικαθιστώντας την."
+
+#: ../main_window.rst:372
+msgid "Delete \"*[name]*\""
+msgstr "Διαγραφή «*[όνομα]*» (Delete \"*[name]*\")"
+
+#: ../main_window.rst:373
+msgid "Remove the active view (asks for confirmation first)."
+msgstr "Αφαίρεση της ενεργής προβολής (ζητείται πρώτα επιβεβαίωση)."
+
+#: ../main_window.rst:374
+msgid "Save Current View As..."
+msgstr "Αποθήκευση τρέχουσας προβολής ως... (Save Current View As...)"
+
+#: ../main_window.rst:375
+msgid "Name and save your current dock arrangement as a new view."
+msgstr ""
+"Ονομασία και αποθήκευση της τρέχουσας διάταξης πάνελ ως νέας προβολής."
+
+#: ../main_window.rst:377
+msgid "**Typical workflow:**"
+msgstr "**Τυπική ροή εργασίας:**"
+
+#: ../main_window.rst:379
+msgid "Arrange your docks exactly how you like them."
+msgstr "Τακτοποιήστε τα πάνελ ακριβώς όπως σας βολεύει."
+
+#: ../main_window.rst:380
+msgid ""
+"Open :guilabel:`View → My Views → Save Current View As...` and enter a name "
+"(e.g. *\"Audio Mix\"*)."
+msgstr ""
+"Ανοίξτε το :guilabel:`Προβολή → Οι προβολές μου → Αποθήκευση τρέχουσας "
+"προβολής ως...` (View → My Views → Save Current View As...) και εισαγάγετε "
+"ένα όνομα (π.χ. *«Μίξη ήχου»*)."
+
+#: ../main_window.rst:381
+msgid ""
+"Later, open :guilabel:`View → My Views` and click the view name to restore "
+"that layout instantly."
+msgstr ""
+"Αργότερα, ανοίξτε το :guilabel:`Προβολή → Οι προβολές μου` (View → My Views)"
+" και κάντε κλικ στο όνομα της προβολής για να επαναφέρετε αμέσως τη διάταξη."
+
+#: ../main_window.rst:382
+msgid ""
+"If you adjust the layout and want to keep the changes, choose "
+":guilabel:`Update \"Audio Mix\"` to overwrite it."
+msgstr ""
+"Αν προσαρμόσετε τη διάταξη και θέλετε να κρατήσετε τις αλλαγές, επιλέξτε "
+":guilabel:`Ενημέρωση «Μίξη ήχου»` (Update \"Audio Mix\") για να την "
+"αντικαταστήσετε."
+
+#: ../main_window.rst:385
+msgid "Docks"
+msgstr "Πάνελ (Docks)"
+
+#: ../main_window.rst:386
+msgid ""
+"Each widget on the OpenShot main window is contained in a **dock**. These "
+"docks can be dragged and snapped around the main window, and even grouped "
+"together (into tabs). OpenShot will always save your main window dock layout"
+" when you exit the program. Re-launching OpenShot will restore your custom "
+"dock layout automatically. Scope docks are grouped under "
+":guilabel:`View->Scopes`."
+msgstr ""
+"Κάθε στοιχείο του κύριου παραθύρου του OpenShot περιέχεται σε ένα **πάνελ** "
+"(dock). Αυτά τα πάνελ μπορούν να μεταφερθούν και να προσκολληθούν γύρω από "
+"το κύριο παράθυρο, ακόμη και να ομαδοποιηθούν (σε καρτέλες). Το OpenShot θα "
+"αποθηκεύει πάντα τη διάταξη πάνελ του κύριου παραθύρου όταν κλείνετε το "
+"πρόγραμμα. Όταν ξεκινήσετε ξανά το OpenShot, η προσαρμοσμένη διάταξη πάνελ "
+"θα επαναφερθεί αυτόματα. Τα πάνελ εργαλείων μέτρησης (scopes) ομαδοποιούνται"
+" στο :guilabel:`Προβολή->Εργαλεία μέτρησης` (View->Scopes)."
+
+#: ../main_window.rst:395
+msgid "Dock Name"
+msgstr "Όνομα πάνελ"
+
+#: ../main_window.rst:397
+msgid "Captions"
+msgstr "Λεζάντες (Captions)"
+
+#: ../main_window.rst:398
+msgid ""
+"Manage and add captions or subtitles to your video project. Allows you to "
+"create, edit, and manage caption data. See :ref:`caption_effect_ref` effect."
+msgstr ""
+"Διαχείριση και προσθήκη λεζαντών ή υποτίτλων στο έργο βίντεο. Σας επιτρέπει "
+"να δημιουργείτε, να επεξεργάζεστε και να διαχειρίζεστε δεδομένα λεζαντών. "
+"Δείτε το εφέ :ref:`caption_effect_ref`."
+
+#: ../main_window.rst:399
+msgid "Effects"
+msgstr "Εφέ (Effects)"
+
+#: ../main_window.rst:400
+msgid ""
+"Browse and apply video and audio effects to your video clips. Includes "
+"filters, color adjustments, and special effects. See :ref:`effects_ref`."
+msgstr ""
+"Περιήγηση και εφαρμογή εφέ βίντεο και ήχου στα κλιπ βίντεο. Περιλαμβάνει "
+"φίλτρα, χρωματικές προσαρμογές και ειδικά εφέ. Δείτε το :ref:`effects_ref`."
+
+#: ../main_window.rst:401
+msgid "Color Wheels"
+msgstr "Χρωματικοί τροχοί (Color Wheels)"
+
+#: ../main_window.rst:402
+msgid ""
+"Edit Color Grade wheel controls for global, shadows, midtones, and "
+"highlights from a dedicated right-side dock."
+msgstr ""
+"Επεξεργασία των στοιχείων ελέγχου των τροχών του εφέ Χρωματική διαβάθμιση "
+"(Color Grade) για το σύνολο της εικόνας, τις σκιές, τους μεσαίους τόνους και"
+" τις φωτεινές περιοχές, από ένα ειδικό πάνελ στα δεξιά."
+
+#: ../main_window.rst:403
+msgid "Emojis"
+msgstr ""
+
+#: ../main_window.rst:404
+msgid ""
+"Add emoji graphics to your video project. Choose from a variety of emojis to"
+" enhance your video content."
+msgstr ""
+"Προσθήκη γραφικών emoji στο έργο βίντεο. Επιλέξτε από μια ποικιλία emoji για"
+" να εμπλουτίσετε το περιεχόμενο του βίντεό σας."
+
+#: ../main_window.rst:405
+msgid "Histogram"
+msgstr "Ιστόγραμμα (Histogram)"
+
+#: ../main_window.rst:406
+msgid ""
+"Analyze the tonal and channel distribution of the current preview frame."
+msgstr ""
+"Ανάλυση της κατανομής τόνων και καναλιών του τρέχοντος καρέ της "
+"προεπισκόπησης."
+
+#: ../main_window.rst:407
+msgid "Luma Waveform"
+msgstr "Κυματομορφή φωτεινότητας (Luma Waveform)"
+
+#: ../main_window.rst:408
+msgid "Analyze brightness distribution across the current preview frame."
+msgstr ""
+"Ανάλυση της κατανομής της φωτεινότητας στο τρέχον καρέ της προεπισκόπησης."
+
+#: ../main_window.rst:409
+msgid "Audio Levels"
+msgstr "Στάθμες ήχου (Audio Levels)"
+
+#: ../main_window.rst:410
+msgid "Monitor audio level scope data for the current preview frame."
+msgstr ""
+"Παρακολούθηση των δεδομένων του εργαλείου μέτρησης σταθμών ήχου για το "
+"τρέχον καρέ της προεπισκόπησης."
+
+#: ../main_window.rst:412
+msgid ""
+"View and manage all the media files imported into your project. Organize, "
+"filter, and tag video, audio, and image files. See :ref:`files_ref`."
+msgstr ""
+"Προβολή και διαχείριση όλων των αρχείων πολυμέσων που έχουν εισαχθεί στο "
+"έργο σας. Οργάνωση, φιλτράρισμα και προσθήκη ετικετών σε αρχεία βίντεο, ήχου"
+" και εικόνας. Δείτε το :ref:`files_ref`."
+
+#: ../main_window.rst:414
+msgid ""
+"View and edit the properties of a selected effect, transition, or clip. "
+"Adjust settings such as duration, size, position, etc... See "
+":ref:`clip_properties_ref`."
+msgstr ""
+"Προβολή και επεξεργασία των ιδιοτήτων ενός επιλεγμένου εφέ, μετάβασης ή "
+"κλιπ. Προσαρμογή ρυθμίσεων όπως η διάρκεια, το μέγεθος, η θέση κ.λπ. Δείτε "
+"το :ref:`clip_properties_ref`."
+
+#: ../main_window.rst:415
+msgid "Recording"
+msgstr "Εγγραφή (Recording)"
+
+#: ../main_window.rst:416
+msgid ""
+"Record microphone audio, screen video, webcam video, or combined recordings."
+" See :ref:`recording_ref`."
+msgstr ""
+"Εγγραφή ήχου μικροφώνου, βίντεο οθόνης, βίντεο κάμερας web ή συνδυασμένων "
+"εγγραφών. Δείτε το :ref:`recording_ref`."
+
+#: ../main_window.rst:417
+msgid "Transitions"
+msgstr "Μεταβάσεις (Transitions)"
+
+#: ../main_window.rst:418
+msgid ""
+"Browse and apply transitions between video clips. Choose from a variety of "
+"transition wipes to create smooth changes between scenes. See "
+":ref:`transitions_ref`."
+msgstr ""
+"Περιήγηση και εφαρμογή μεταβάσεων ανάμεσα σε κλιπ βίντεο. Επιλέξτε από μια "
+"ποικιλία σαρώσεων μετάβασης (wipes) για ομαλές αλλαγές μεταξύ σκηνών. Δείτε "
+"το :ref:`transitions_ref`."
+
+#: ../main_window.rst:419
+msgid "Video Preview"
+msgstr "Προεπισκόπηση Βίντεο (Video Preview)"
+
+#: ../main_window.rst:420
+msgid ""
+"Preview the current state of your video project. Allows you to play back and"
+" review your edits in real-time. See :ref:`playback_ref`."
+msgstr ""
+"Προεπισκόπηση της τρέχουσας κατάστασης του έργου βίντεο. Σας επιτρέπει να "
+"αναπαράγετε και να ελέγχετε τις επεξεργασίες σας σε πραγματικό χρόνο. Δείτε "
+"το :ref:`playback_ref`."
+
+#: ../main_window.rst:422
+msgid ""
+"If you have accidentally closed or moved a dock and can no longer find it, "
+"there are a couple easy solutions. First, you can use the "
+":guilabel:`View->Simple View` menu option at the top of the screen, to "
+"restore the view back to its default. Or you can use the "
+":guilabel:`View->Docks->...` menu to show or hide specific dock widgets on "
+"the main window."
+msgstr ""
+"Αν έχετε κλείσει ή μετακινήσει κατά λάθος ένα πάνελ και δεν μπορείτε πια να "
+"το βρείτε, υπάρχουν μερικές εύκολες λύσεις. Πρώτα, μπορείτε να "
+"χρησιμοποιήσετε την επιλογή μενού :guilabel:`Προβολή->Απλή προβολή` "
+"(View->Simple View) στο πάνω μέρος της οθόνης, για να επαναφέρετε την "
+"προβολή στην προεπιλεγμένη της μορφή. Ή μπορείτε να χρησιμοποιήσετε το μενού"
+" :guilabel:`Προβολή->Πάνελ->...` (View->Docks->...) για να εμφανίσετε ή να "
+"αποκρύψετε συγκεκριμένα πάνελ στο κύριο παράθυρο."
