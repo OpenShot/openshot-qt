@@ -272,8 +272,6 @@ def verify():
         app.quit()
 
 
-checks.assertTrue(app.gui())
-from tests.gui_test_helpers import run_when_ready
-run_when_ready(app, verify)
-app.exec_()
+from tests.gui_test_helpers import run_gui_workflow
+run_gui_workflow(app, verify)
 sys.exit(0 if passed else 1)

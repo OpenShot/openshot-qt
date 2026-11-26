@@ -292,10 +292,8 @@ def verify():
         app.quit()
 
 
-checks.assertTrue(app.gui())
-from tests.gui_test_helpers import run_when_ready
-run_when_ready(app, verify)
-app.exec_()
+from tests.gui_test_helpers import run_gui_workflow
+run_gui_workflow(app, verify)
 # Destroy the window while Python and Qt are still fully alive. PyQt5 on
 # Ubuntu 22.04 can crash when these objects survive until interpreter teardown.
 app.window.deleteLater()

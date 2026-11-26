@@ -1,6 +1,7 @@
 """Bounded event-driven startup for real-window workflow tests."""
 
 from time import monotonic
+from unittest.mock import patch
 
 from qt_api import QTimer
 
@@ -29,3 +30,17 @@ def run_when_ready(app, callback, timeout=10, ready=lambda: True):
             QTimer.singleShot(10, check)
 
     QTimer.singleShot(0, check)
+
+
+def run_gui_workflow(app, callback, timeout=10, ready=lambda: True):
+    """Run editor checks without a machine's missing audio device opening a modal.
+
+    Keep this fixture active through exec_() returning: shutdown processes queued
+    events, including delayed audio initialization errors. Audio-error behavior is
+    covered separately by test_preview_audio_device.
+    """
+    with patch("windows.preview_thread.PreviewParent.onError"):
+        if not app.gui():
+            raise AssertionError("app.gui() failed")
+        run_when_ready(app, callback, timeout=timeout, ready=ready)
+        app.exec_()

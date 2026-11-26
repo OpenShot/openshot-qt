@@ -475,11 +475,6 @@ def verify():
         app.quit()
 
 
-# Headless runners may have no audio output. Keep the startup error from
-# opening a modal dialog that steals keyboard focus from the text workflow.
-with patch("windows.preview_thread.PreviewParent.onError"):
-    checks.assertTrue(app.gui())
-    from tests.gui_test_helpers import run_when_ready
-    run_when_ready(app, verify)
-    app.exec_()
+from tests.gui_test_helpers import run_gui_workflow
+run_gui_workflow(app, verify)
 sys.exit(0 if passed else 1)

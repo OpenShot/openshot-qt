@@ -82,10 +82,8 @@ def verify():
         app.project.has_unsaved_changes = False
         app.quit()
 
-assert app.gui()
-from tests.gui_test_helpers import run_when_ready
-run_when_ready(app, verify)
-app.exec_()
+from tests.gui_test_helpers import run_gui_workflow
+run_gui_workflow(app, verify)
 assert passed, "Auto-Optimize startup checks failed"
 '''
         source = str(Path(__file__).resolve().parents[1])
