@@ -16,7 +16,7 @@ from classes import version
 # UI workflow checks must not depend on the external update service.
 version.get_current_Version = lambda: None
 from classes.query import Clip
-from qt_api import QColor, QFont, QFontInfo, QImage, QPoint, Qt, QTimer, QT_API
+from qt_api import QColor, QFont, QFontInfo, QImage, QPoint, Qt, QT_API
 QTest = importlib.import_module({"pyqt5": "PyQt5", "pyqt6": "PyQt6", "pyside6": "PySide6"}[QT_API] + ".QtTest").QTest
 
 app = OpenShotApp([], mode="unittest")
@@ -272,7 +272,6 @@ def verify():
         app.quit()
 
 
-checks.assertTrue(app.gui())
-QTimer.singleShot(4000, verify)
-app.exec_()
+from tests.gui_test_helpers import run_gui_workflow
+run_gui_workflow(app, verify)
 sys.exit(0 if passed else 1)

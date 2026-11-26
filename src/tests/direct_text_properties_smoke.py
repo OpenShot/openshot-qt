@@ -15,7 +15,7 @@ from classes import version
 # UI workflow checks must not depend on the external update service.
 version.get_current_Version = lambda: None
 from classes.query import Clip
-from qt_api import QColor, QCoreApplication, QEvent, QFont, QTimer, QT_API
+from qt_api import QColor, QCoreApplication, QEvent, QFont, QT_API
 QTest = importlib.import_module({"pyqt5": "PyQt5", "pyqt6": "PyQt6", "pyside6": "PySide6"}[QT_API] + ".QtTest").QTest
 
 app = OpenShotApp([], mode="unittest")
@@ -292,9 +292,8 @@ def verify():
         app.quit()
 
 
-checks.assertTrue(app.gui())
-QTimer.singleShot(4000, verify)
-app.exec_()
+from tests.gui_test_helpers import run_gui_workflow
+run_gui_workflow(app, verify)
 # Destroy the window while Python and Qt are still fully alive. PyQt5 on
 # Ubuntu 22.04 can crash when these objects survive until interpreter teardown.
 app.window.deleteLater()

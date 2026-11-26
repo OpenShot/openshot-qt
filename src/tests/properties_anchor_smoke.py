@@ -198,7 +198,6 @@ def verify():
         app.quit()
 
 
-checks.assertTrue(app.gui(), 'app.gui()')
-QTimer.singleShot(4000, verify)
-app.exec_()
+from tests.gui_test_helpers import run_gui_workflow
+run_gui_workflow(app, verify)
 raise SystemExit(0 if passed else 1)
