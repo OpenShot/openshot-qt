@@ -13,11 +13,12 @@ begin
   Result := PortableCheck or FileExists(ExpandConstant('{app}\portable'));
 end;
 
-procedure CleanPortableProgramFiles;
+function CleanPortableProgramFiles: String;
 var
   FindRec: TFindRec;
   Path: String;
 begin
+  Result := '';
   // Remove old binaries, but never recursively delete the portable user data.
   if FindFirst(ExpandConstant('{app}\*'), FindRec) then
   begin
@@ -30,7 +31,10 @@ begin
           Path := AddBackslash(ExpandConstant('{app}')) + FindRec.Name;
           if not DelTree(Path,
               (FindRec.Attributes and FILE_ATTRIBUTE_DIRECTORY) <> 0, True, True) then
-            RaiseException('Unable to remove old OpenShot files: ' + Path);
+          begin
+            Result := 'Unable to remove old OpenShot files. Close OpenShot and retry: ' + Path;
+            Exit;
+          end;
         end;
       until not FindNext(FindRec);
     finally
@@ -39,16 +43,29 @@ begin
   end;
 end;
 
-<event('CurStepChanged')>
-procedure IsPortableCurStepChanged(CurStep: TSetupStep);
+<event('PrepareToInstall')>
+function IsPortablePrepareToInstall(var NeedsRestart: Boolean): String;
 begin
-  if (CurStep = ssInstall) and PreservePortableData then
-    CleanPortableProgramFiles;
-  if (CurStep = ssPostInstall) and PortableCheck then
+  Result := '';
+  if not PreservePortableData then
+    Exit;
+
+  // Fail before removing any old files if portable mode cannot be enabled.
+  // Exceptions in CurStepChanged are logged but do not reliably fail setup.
+  if PortableCheck and not FileExists(ExpandConstant('{app}\portable')) then
   begin
+    if not ForceDirectories(ExpandConstant('{app}')) then
+    begin
+      Result := 'Unable to create the OpenShot portable installation folder.';
+      Exit;
+    end;
     if not SaveStringToFile(ExpandConstant('{app}\portable'), '', False) then
-      RaiseException('Unable to create the OpenShot portable marker.');
+    begin
+      Result := 'Unable to create the OpenShot portable marker.';
+      Exit;
+    end;
   end;
+  Result := CleanPortableProgramFiles;
 end;
 
 function GetAppId(Param: String): String;

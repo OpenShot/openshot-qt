@@ -85,6 +85,11 @@ class PortableStartupTests(unittest.TestCase):
             settings.parent.mkdir(parents=True)
             settings.write_text(json.dumps([{'setting': 'ui-scale', 'value': 1.5}]))
             (app / 'portable').touch()
+            home = root / 'host-home'
+            host_settings = home / '.openshot_qt' / 'openshot.settings'
+            host_settings.parent.mkdir(parents=True)
+            host_content = json.dumps([{'setting': 'ui-scale', 'value': 2.5}])
+            host_settings.write_text(host_content)
             script = '''
 import os, sys
 from unittest.mock import patch
@@ -101,7 +106,7 @@ with patch.object(sys, 'platform', 'win32'), \\
     assert info.USER_PATH == user_paths.user_path()
     assert str(session_dir()) == os.path.join(info.USER_PATH, 'sessions')
     configure_qt()
-    assert os.environ['QT_SCALE_FACTOR'] == '1.5'
+    assert os.environ['QT_SCALE_FACTOR'] == sys.argv[4]
     assert qt_api.QApplication.instance() is None
     from classes.settings import SettingStore
     store = SettingStore()
@@ -111,9 +116,10 @@ with patch.object(sys, 'platform', 'win32'), \\
     info.setup_userdirs()
     assert os.path.isdir(info.RECOVERY_PATH)
     assert os.path.isdir(info.CACHE_PATH)
-    assert info.HOME_PATH != os.path.dirname(info.USER_PATH)
+    assert info.HOME_PATH == sys.argv[3]
     store.defaults_path = os.path.join(sys.argv[2], 'settings', '_default.settings')
     store.load()
+    assert info.configure_asset_defaults(store.get('unsaved-assets-path')) == info.USER_PATH
     store.set('ui-scale', 2.0)
     store.save()
     configure_qt()
@@ -129,9 +135,19 @@ with patch.object(sys, 'platform', 'win32'), \\
             raise AssertionError('Expected read-only portable folder to fail')
     assert info.USER_PATH == user_paths.user_path()
 '''
-            environment = dict(os.environ, PYTHONPATH=str(SOURCE), QT_QPA_PLATFORM='offscreen')
+            from tests.agent_test_support import subprocess_environment
+            environment = subprocess_environment(
+                QT_QPA_PLATFORM='offscreen', HOME=str(home), USERPROFILE=str(home))
             environment.pop('OPENSHOT_SESSION_DIR', None)
-            result = subprocess.run(
-                [sys.executable, '-c', script, str(app / 'openshot-qt.exe'), str(SOURCE)],
-                cwd=directory, env=environment, capture_output=True, text=True, timeout=30)
-            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            for expected in ('1.5', '2.0'):
+                result = subprocess.run(
+                    [sys.executable, '-c', script, str(app / 'openshot-qt.exe'),
+                     str(SOURCE), str(home), expected],
+                    cwd=directory, env=environment, capture_output=True, text=True, timeout=30)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                self.assertEqual(host_settings.read_text(), host_content)
+                if expected == '1.5':
+                    previous = app
+                    app = root / 'Moved OpenShot'
+                    previous.rename(app)
+            self.assertFalse(previous.exists(), 'Portable startup recreated the old installation folder')
