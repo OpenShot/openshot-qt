@@ -4400,6 +4400,12 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         if not self._is_timeline_content_pos(pos):
             return False
 
+        # Fixed track headers cover scrolled clips and transitions.
+        for _track_rect, track, name_rect in self.geometry.iter_tracks():
+            if name_rect.contains(pos) and hasattr(self.win, "timeline"):
+                show_menu_with_hover(self, self.win.timeline.ShowTrackMenu, track.id)
+                return True
+
         # Transition context menu (prioritized over clips)
         for rect, tran, _selected in self.geometry.iter_transitions(reverse=True):
             if rect.contains(pos) and hasattr(self.win, "timeline"):
@@ -4420,9 +4426,6 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
         # Track context menu
         for track_rect, track, name_rect in self.geometry.iter_tracks():
-            if name_rect.contains(pos) and hasattr(self.win, "timeline"):
-                show_menu_with_hover(self, self.win.timeline.ShowTrackMenu, track.id)
-                return True
             if track_rect.contains(pos) and hasattr(self.win, "timeline"):
                 seconds = 0.0
                 if hasattr(self.win.timeline, "_seconds_from_x"):

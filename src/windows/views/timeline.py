@@ -4436,10 +4436,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self.run_js(JS_SCOPE_SELECTOR + ".movePlayheadToFrame(%s);" % (str(position_frames)))
 
     def reset_new_project_view(self):
+        """Return the timeline to the first frame of a new project."""
         tray = getattr(self, "_effects_tray", None)
         if tray:
             tray.close()
         if ViewClass == TimelineWidget:
+            self.end_properties_layout_change()
             self._track_panel_enabled.clear()
             self._fx_return_rows.clear()
             self._panel_manual_properties.clear()
@@ -4450,6 +4452,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.window.TimelineScrolled.emit(list(self.scrollbar_position))
             self.changed(None)
 
+    @pyqtSlot()
     def centerOnPlayhead(self):
         """ Center the timeline on the current playhead position """
         if ViewClass == TimelineWidget:

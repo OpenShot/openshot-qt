@@ -111,6 +111,46 @@ class TimelineHelperTests(unittest.TestCase):
         cls.humanity_theme_module = importlib.import_module("themes.humanity.styles")
         cls.cosmic_theme_module = importlib.import_module("themes.cosmic.styles")
 
+    def test_track_header_menu_takes_priority_over_scrolled_items(self):
+        base = self.qwidget_base_module.TimelineWidgetBase
+        track = types.SimpleNamespace(id="track", data={"number": 5})
+        clip = types.SimpleNamespace(id="clip")
+        transition = types.SimpleNamespace(id="transition")
+        timeline = types.SimpleNamespace(
+            ShowTrackMenu=MagicMock(), ShowClipMenu=MagicMock(),
+            ShowTransitionMenu=MagicMock(),
+        )
+        for scroll in (0, 500):
+            for item_type in ("clip", "transition"):
+                with self.subTest(scroll=scroll, item_type=item_type):
+                    timeline.ShowTrackMenu.reset_mock()
+                    timeline.ShowClipMenu.reset_mock()
+                    timeline.ShowTransitionMenu.reset_mock()
+                    rect = QRectF(120 - scroll, 40, 1000, 72)
+                    geometry = types.SimpleNamespace(
+                        ensure=lambda: None,
+                        iter_tracks=lambda: [(QRectF(0, 40, 1200, 72), track,
+                                              QRectF(0, 40, 120, 72))],
+                        iter_clips=lambda **kw: [(rect, clip, True)] if item_type == "clip" else [],
+                        iter_transitions=lambda **kw: [(rect, transition, True)] if item_type == "transition" else [],
+                    )
+                    helper = types.SimpleNamespace(
+                        geometry=geometry, win=types.SimpleNamespace(timeline=timeline),
+                        _playhead_hit=lambda pos: False, _marker_at=lambda pos: None,
+                        _is_timeline_content_pos=lambda pos: True,
+                    )
+                    with patch.object(self.qwidget_base_module, "show_menu_with_hover",
+                                      side_effect=lambda widget, callback, *args: callback(*args)):
+                        self.assertTrue(base._showContextMenu(helper, QPointF(60, 60)))
+                        timeline.ShowTrackMenu.assert_called_once_with("track")
+                        timeline.ShowClipMenu.assert_not_called()
+                        timeline.ShowTransitionMenu.assert_not_called()
+                        self.assertTrue(base._showContextMenu(helper, QPointF(200, 60)))
+                        if item_type == "clip":
+                            timeline.ShowClipMenu.assert_called_once_with("clip")
+                        else:
+                            timeline.ShowTransitionMenu.assert_called_once_with("transition")
+
     def test_project_resize_uses_pointer_delta_despite_scroll_changes(self):
         mixin = self.qwidget_clip_module.ClipInteractionMixin
         helper = types.SimpleNamespace(

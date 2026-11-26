@@ -253,7 +253,7 @@ class MainWindowTests(unittest.TestCase):
     def test_failed_open_offers_recovery_before_touching_active_project(self):
         active = {"keep": "active project"}
         self.app.project = types.SimpleNamespace(
-            _data=active, read_from_file=Mock(side_effect=ValueError("line 4, column 2")))
+            _data=active, read_project_candidate=Mock(side_effect=ValueError("line 4, column 2")))
         window = types.SimpleNamespace(clear_temporary_files=Mock())
         with tempfile.TemporaryDirectory() as directory:
             path = os.path.join(directory, "broken.osp")
@@ -1540,7 +1540,18 @@ class MainWindowTests(unittest.TestCase):
     def test_open_project_accepts_android_document_uri(self):
         self._check_open_project_success("content://documents/document/123")
 
-    def _check_open_project_success(self, path=None):
+    def test_open_project_accepts_validated_legacy_candidate(self):
+        from classes.legacy_project import read_legacy_project
+        from tests.source_tree import source_path
+        candidate = read_legacy_project(source_path('src/tests/fixtures/legacy/native-1-4-3.osp'))
+        self._check_open_project_success(prepared_candidate=candidate)
+
+    def test_rejected_project_preserves_temporary_assets_and_backup(self):
+        for interactive in (True, False):
+            with self.subTest(interactive=interactive):
+                self._check_open_project_success(failure=ValueError("Invalid project"), interactive=interactive)
+
+    def _check_open_project_success(self, path=None, failure=None, interactive=True, prepared_candidate=None):
         refresh_files = SignalRecorder()
         refresh_frame = SignalRecorder()
         max_size = SignalRecorder()
@@ -1574,11 +1585,18 @@ class MainWindowTests(unittest.TestCase):
         )
         load_calls = []
         history_calls = []
+        if prepared_candidate is None:
+            prepared_candidate = {"clips": [], "files": [], "layers": []}
+
+        def load(path, clear_thumbnails, interactive=True, candidate=None):
+            self.assertIs(candidate, prepared_candidate)
+            load_calls.append((path, clear_thumbnails, interactive))
+            if failure:
+                raise failure
+
         self.app.project = types.SimpleNamespace(
-            needs_save=lambda: False,
-            read_from_file=lambda *args, **kwargs: {"clips": [], "files": [], "layers": []},
-            load=lambda path, clear_thumbnails, interactive=True, candidate=None: load_calls.append((path, clear_thumbnails, interactive)),
-        )
+            needs_save=lambda: False, load=load,
+            read_project_candidate=lambda path: prepared_candidate)
         self.app.updates = types.SimpleNamespace(load_history=history_calls.append)
         self.app.window = fake_window
         self.app.setOverrideCursor = lambda cursor: None
@@ -1605,12 +1623,23 @@ class MainWindowTests(unittest.TestCase):
                             side_effect=lambda delay, callback: scheduled.append((delay, callback)),
                         )
                     )
-                    self.main_window_module.MainWindow.open_project(
-                        fake_window,
-                        project_path,
-                        clear_thumbnails=True,
-                    )
+                    warning = stack.enter_context(patch.object(self.main_window_module.QMessageBox, "warning"))
+                    if failure and not interactive:
+                        with self.assertRaises(ValueError):
+                            self.main_window_module.MainWindow.open_project(
+                                fake_window, project_path, clear_thumbnails=True, interactive=False)
+                    else:
+                        self.main_window_module.MainWindow.open_project(
+                            fake_window, project_path, clear_thumbnails=True, interactive=interactive)
 
+                if failure:
+                    self.assertEqual(clear_temp, [])
+                    self.assertEqual(history_calls, [])
+                    self.assertEqual(refresh_files.calls, [])
+                    self.assertEqual(warning.call_count, int(interactive))
+                    self.assertTrue(settings.ENABLE_PLAYBACK_CACHING)
+                    self.assertIn("restore", recent_calls)
+                    return
                 self.assertEqual(load_calls, [(project_path, True, True)])
                 self.assertEqual(history_calls, [self.app.project])
                 self.assertEqual(clear_temp, [True])

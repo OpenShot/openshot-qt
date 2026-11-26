@@ -460,9 +460,8 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         self.dockFiles.raise_()
         self.dockCaptionEditor.hide()
 
-        # Restore timeline preview before seeking if a file was previewing.
-        self.LoadFileSignal.emit("")
-        self.SeekSignal.emit(1, True)
+        # Restore the timeline reader and seek together on the preview thread.
+        self.LoadTimelineAndSeekSignal.emit(1)
 
         # Update max size (for fast previews)
         self.MaxSizeChanged.emit(self.videoPreview.size())
@@ -793,9 +792,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         candidate = None
         if file_exists(file_path):
             try:
-                from classes.project_recovery import validate_project
-                candidate = app.project.read_from_file(file_path, path_mode="absolute")
-                validate_project(candidate)
+                candidate = app.project.read_project_candidate(file_path)
             except Exception as error:
                 if not interactive or recovering:
                     raise
@@ -846,12 +843,12 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         loaded_project = False
         try:
             if file_exists(file_path):
-                # Clear any previous thumbnails
+                # Load before deleting temporary assets or recovery backups: a
+                # rejected project must not discard the current project's data.
+                app.project.load(file_path, clear_thumbnails, interactive=interactive, candidate=candidate)
+
                 if clear_thumbnails:
                     self.clear_temporary_files()
-
-                # Load project file
-                app.project.load(file_path, clear_thumbnails, interactive=interactive, candidate=candidate)
 
                 # Set Window title
                 self.SetWindowTitle()

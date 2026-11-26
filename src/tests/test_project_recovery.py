@@ -173,6 +173,48 @@ class ProjectRecoveryTests(unittest.TestCase):
             self.assertEqual(data, self.project())
             self.assertEqual(len(os.listdir(recovery)), 2)
 
+    def test_archive_sync_uses_a_writable_descriptor_before_publication(self):
+        from classes.project_recovery import archive_previous_version
+        with tempfile.TemporaryDirectory() as root:
+            original = os.path.join(root, "movie.osp")
+            recovery = os.path.join(root, "recovery")
+            destination = os.path.join(recovery, "123-movie.zip")
+            contents = json.dumps(self.project())
+            with open(original, "w", encoding="utf-8") as stream:
+                stream.write(contents)
+            fsync = os.fsync
+
+            def sync_writable_descriptor(descriptor):
+                # Windows requires write access to flush a file. A zero-byte
+                # write enforces that requirement on Linux/macOS as well.
+                os.write(descriptor, b"")
+                self.assertFalse(os.path.exists(destination))
+                fsync(descriptor)
+
+            with patch("classes.project_recovery.os.fsync", side_effect=sync_writable_descriptor) as sync:
+                self.assertEqual(archive_previous_version(original, recovery, 123), destination)
+            sync.assert_called_once()
+            with zipfile.ZipFile(destination) as archive:
+                self.assertIsNone(archive.testzip())
+                self.assertEqual(archive.read("movie.osp").decode("utf-8"), contents)
+            with open(original, encoding="utf-8") as stream:
+                self.assertEqual(stream.read(), contents)
+            self.assertEqual(os.listdir(recovery), ["123-movie.zip"])
+
+    def test_archive_sync_failure_preserves_original_and_removes_temporary(self):
+        from classes.project_recovery import archive_previous_version
+        with tempfile.TemporaryDirectory() as root:
+            original = os.path.join(root, "movie.osp")
+            recovery = os.path.join(root, "recovery")
+            with open(original, "w", encoding="utf-8") as stream:
+                stream.write("original project")
+            with patch("classes.project_recovery.os.fsync", side_effect=OSError("flush failed")):
+                with self.assertRaisesRegex(OSError, "flush failed"):
+                    archive_previous_version(original, recovery, 123)
+            self.assertEqual(os.listdir(recovery), [])
+            with open(original, encoding="utf-8") as stream:
+                self.assertEqual(stream.read(), "original project")
+
     def test_recovered_native_image_clip_can_be_opened_and_rendered(self):
         import openshot
         from qt_api import QImage, QColor
