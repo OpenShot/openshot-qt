@@ -15,7 +15,7 @@ os.path.expanduser = lambda path: root if path == "~" else original_expanduser(p
 from classes.app import OpenShotApp
 from classes import version
 from classes.query import Clip, File
-from qt_api import QImage, QPointF, QTimer, Qt
+from qt_api import QImage, QPointF, Qt
 
 version.get_current_Version = lambda: None
 app = OpenShotApp([], mode="unittest")
@@ -125,6 +125,7 @@ def verify():
 
 
 checks.assertTrue(app.gui())
-QTimer.singleShot(4000, verify)
+from tests.gui_test_helpers import run_when_ready
+run_when_ready(app, verify)
 app.exec_()
 raise SystemExit(0 if passed else 1)

@@ -199,6 +199,7 @@ def verify():
 
 
 checks.assertTrue(app.gui(), 'app.gui()')
-QTimer.singleShot(4000, verify)
+from tests.gui_test_helpers import run_when_ready
+run_when_ready(app, verify)
 app.exec_()
 raise SystemExit(0 if passed else 1)

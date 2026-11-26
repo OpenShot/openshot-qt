@@ -159,8 +159,11 @@ if os.environ["TEST_STORE_INSTALL"] == "1":
 with patch("windows.feedback.get_distribution_info", return_value=distribution), \
         patch("windows.preview_thread.PreviewParent.onError"):
     assert app.gui()
-    # Slow builders may process events during gui().
-    QTimer.singleShot(4000, verify)
+    # Wait for the invitation timer and queued update banner, even on slow builders.
+    from tests.gui_test_helpers import run_when_ready
+    run_when_ready(app, verify, ready=lambda: (
+        app.window.feedback_controller.presented
+        and "update" in app.window.notification_area.banners))
     app.exec_()
 assert passed, "Notification startup checks failed"
 '''

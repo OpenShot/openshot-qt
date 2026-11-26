@@ -479,6 +479,7 @@ def verify():
 # opening a modal dialog that steals keyboard focus from the text workflow.
 with patch("windows.preview_thread.PreviewParent.onError"):
     checks.assertTrue(app.gui())
-    QTimer.singleShot(2500, verify)
+    from tests.gui_test_helpers import run_when_ready
+    run_when_ready(app, verify)
     app.exec_()
 sys.exit(0 if passed else 1)

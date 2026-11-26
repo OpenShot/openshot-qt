@@ -83,7 +83,8 @@ def verify():
         app.quit()
 
 assert app.gui()
-QTimer.singleShot(1500, verify)
+from tests.gui_test_helpers import run_when_ready
+run_when_ready(app, verify)
 app.exec_()
 assert passed, "Auto-Optimize startup checks failed"
 '''
