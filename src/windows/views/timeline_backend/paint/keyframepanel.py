@@ -49,11 +49,14 @@ def panel_add_button_rect(heading):
     return QRectF(heading.right() - size, heading.center().y() - size / 2, size, size)
 
 
-def draw_panel_heading(painter, heading, title, accent, can_add):
+def draw_panel_heading(painter, heading, title, accent, can_add, *, dim_title=False):
     """Paint the label and compact add affordance on either panel."""
     button = panel_add_button_rect(heading)
     label = heading.adjusted(0, 0, -min(heading.width(), button.width() + 6), 0)
-    painter.setPen(accent)
+    title_color = QColor(accent)
+    if dim_title:
+        title_color.setAlphaF(title_color.alphaF() * 0.32)
+    painter.setPen(title_color)
     painter.drawText(label, Qt.AlignVCenter | Qt.AlignLeft,
                      painter.fontMetrics().elidedText(title, Qt.ElideRight, int(label.width())))
     if button.isEmpty():

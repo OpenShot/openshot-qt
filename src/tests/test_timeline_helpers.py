@@ -6484,12 +6484,13 @@ class TimelineHelperTests(unittest.TestCase):
         tray._save_stack = lambda owner, stack, **kwargs: owner.data.update(effects=stack)
         for key, value in tray._layout_for(track, tray.clips, [], []).items():
             setattr(tray, key, value)
+        tray._remember_clip_lane_order(track.id)
         lane = QRectF(100, 0, 400, 300)
         tray._bounds = lambda: (QRectF(0, 0, 500, 300), lane, QRectF(0, 0, 500, 300))
         source = tray.rows[0]
         tray._placement_feedback("clip", second, "Blur", [source])
         planned = tray._placement_layout
-        self.assertEqual([entry[2]["name"] for entry in planned["rows"]], ["Pixelate", "Negative", "Blur"])
+        self.assertEqual([entry[2]["name"] for entry in planned["rows"]], ["Blur", "Pixelate", "Negative"])
         self.assertEqual(len(first.data["effects"]), 1)
         self.assertEqual(len(second.data["effects"]), 2)
         with patch("windows.effects_tray.Clip.get", side_effect=lambda id: {"A": first, "Z": second}[id]):
@@ -6499,6 +6500,16 @@ class TimelineHelperTests(unittest.TestCase):
             return [(row[0], row[1].id, row[2]["id"], row[2]["name"], row[3:], slot)
                     for row, slot in zip(layout["rows"], layout["row_slots"])]
         self.assertEqual(signature(planned), signature(committed))
+        for destination in (first, second, first):
+            source = next(row for row in committed["rows"] if row[2]["id"] == "B")
+            tray.rows = committed["rows"]
+            tray._placement_feedback("clip", destination, "Blur", [source])
+            preview = tray._placement_layout
+            self.assertEqual([row[2]["name"] for row in preview["rows"]], ["Blur", "Pixelate", "Negative"])
+            with patch("windows.effects_tray.Clip.get", side_effect=lambda id: {"A": first, "Z": second}[id]):
+                tray._transfer_effects([source], "clip", destination)
+            committed = tray._layout_for(track, tray.clips, [], [])
+            self.assertEqual(signature(preview), signature(committed))
 
     def test_effect_null_state_contains_only_two_compact_headers(self):
         from windows.effects_tray import EffectsTray

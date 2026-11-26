@@ -30,14 +30,20 @@ def clip_effect_sort_key(effect):
     return phase, 1, effect.get("layer", 0), effect.get("position", 0), -effect.get("order", 0)
 
 
-def clip_effect_lanes(rows):
+def clip_effect_lanes(rows, preferred_lanes=()):
     """Reuse lanes across clips while keeping each clip's stack in order."""
-    lanes = []
+    lanes = [(kind, []) for kind, _ids in preferred_lanes]
     previous_lane = {}
     for index, (_, clip, effect, start, end) in enumerate(rows):
         effect_type = effect.get("type") or effect.get("name")
         minimum = previous_lane.get(clip.id, -1) + 1
-        for slot in range(minimum, len(lanes)):
+        candidates = list(range(minimum, len(lanes)))
+        preferred = next((slot for slot, (_kind, ids) in enumerate(preferred_lanes)
+                          if effect.get("id") in ids and slot >= minimum), None)
+        if preferred in candidates:
+            candidates.remove(preferred)
+            candidates.insert(0, preferred)
+        for slot in candidates:
             lane_type, entries = lanes[slot]
             if lane_type == effect_type and all(
                 end <= rows[entry][3] + 1e-9 or start >= rows[entry][4] - 1e-9 for entry in entries
@@ -48,7 +54,7 @@ def clip_effect_lanes(rows):
             lanes.append((effect_type, []))
         lanes[slot][1].append(index)
         previous_lane[clip.id] = slot
-    return [entries for _, entries in lanes]
+    return [entries for _, entries in lanes if entries]
 
 
 def track_effect_layout(track):
@@ -267,7 +273,10 @@ class EffectsTray(QObject):
             for effect in sorted(clip.data.get("effects") or [], key=clip_effect_sort_key):
                 first, last = clip_effect_timeline_range(clip.data, effect)
                 clip_rows.append(("clip", clip, effect, first, last))
-        clip_lanes = [[clip_rows[index] for index in entries] for entries in clip_effect_lanes(clip_rows)]
+        preferred = (self.__dict__.get("_clip_lane_preferences", ())
+                     if self.__dict__.get("_clip_lane_track_id") == track.id else ())
+        clip_lanes = [[clip_rows[index] for index in entries]
+                      for entries in clip_effect_lanes(clip_rows, preferred)]
         section("clip", None, _("Clip Effects"))
         for entries in clip_lanes:
             add_lane(entries)
@@ -308,9 +317,34 @@ class EffectsTray(QObject):
         self.lane_rows = lanes
         self.row_slots = row_slots
         self.rows = rows
+        if not self.__dict__.get("_hold_clip_lane_order", False):
+            self._remember_clip_lane_order(track.id)
         self.selected_ids.intersection_update(row[2]["id"] for row in rows)
         if self.selected_id not in self.selected_ids:
             self.selected_id = next(iter(self.selected_ids), None)
+
+    def _remember_clip_lane_order(self, track_id):
+        self._clip_lane_track_id = track_id
+        self._clip_lane_preferences = [
+            (self.rows[entries[0]][2].get("type") or self.rows[entries[0]][2].get("name"),
+             tuple(self.rows[index][2]["id"] for index in entries))
+            for entries in self.lane_rows.values() if entries and self.rows[entries[0]][0] == "clip"
+        ]
+
+    def _stack_with_incoming(self, kind, owner, incoming):
+        ids = {effect["id"] for effect in incoming}
+        stack = [effect for effect in self._stack(kind, owner) if effect["id"] not in ids] + incoming
+        if kind != "clip":
+            return stack
+        preferences = self.__dict__.get("_clip_lane_preferences", ())
+        def rank(effect):
+            exact = next((index for index, (_kind, ids) in enumerate(preferences) if effect["id"] in ids), None)
+            if exact is None:
+                exact = next((index for index, (name, _ids) in enumerate(preferences)
+                              if name == (effect.get("type") or effect.get("name"))), len(preferences))
+            return not effect.get("apply_before_clip", True), exact
+        stack.sort(key=rank)
+        return [dict(effect, stack_order=index) for index, effect in enumerate(stack)]
 
     def _bounds(self):
         w = self.timeline
@@ -531,7 +565,8 @@ class EffectsTray(QObject):
         for section in self.sections:
             heading = panel_heading_rect(lane.left(), self._row_top(lane, section[0]), self.section_stride)
             if section[1] in ("clip", "track"):
-                draw_panel_heading(painter, heading, section[3], accent, self._can_add_effect(section[1]))
+                draw_panel_heading(painter, heading, section[3], accent, self._can_add_effect(section[1]),
+                                   dim_title=section[1] == "clip" and not self.clips)
             else:
                 painter.setPen(label)
                 painter.drawText(heading, Qt.AlignVCenter | Qt.AlignLeft, section[3])
@@ -585,6 +620,17 @@ class EffectsTray(QObject):
             if bar.isEmpty():
                 continue
             chosen = effect["id"] in self.selected_ids
+            fill = QColor("#dcecff" if chosen else "#f9fbff")
+            ink = QColor("#1557a7")
+            if kind != "transition":
+                fill = QColor(self.timeline._effect_color(effect))
+                if chosen:
+                    fill = fill.lighter(118)
+                # Choose readable text for both dark and bright palette colors.
+                channels = [value / 12.92 if value <= 0.04045 else ((value + 0.055) / 1.055) ** 2.4
+                            for value in (fill.redF(), fill.greenF(), fill.blueF())]
+                luminance = sum(value * weight for value, weight in zip(channels, (0.2126, 0.7152, 0.0722)))
+                ink = QColor("#111820" if luminance > 0.179 else "#ffffff")
             # Clip the original corners at the viewport boundary. Limit the
             # overdraw for effects whose true edges are far offscreen.
             shape = QRectF(full)
@@ -592,11 +638,11 @@ class EffectsTray(QObject):
             shape.setRight(min(full.right(), well_rect.right() + 5))
             painter.save()
             painter.setClipRect(well_rect.adjusted(0, -1, 0, 1), Qt.IntersectClip)
-            painter.setBrush(QColor("#f9fbff") if not chosen else QColor("#dcecff"))
-            painter.setPen(accent if chosen else Qt.NoPen)
+            painter.setBrush(fill)
+            painter.setPen(ink if chosen and kind != "transition" else accent if chosen else Qt.NoPen)
             painter.drawRoundedRect(shape, 4, 4)
             painter.restore()
-            painter.setPen(QColor("#955010") if kind == "track" else QColor("#1557a7"))
+            painter.setPen(ink)
             margin = 10 if chosen and kind != "transition" else 4
             pill_text = painter.fontMetrics().elidedText(title, Qt.ElideRight, max(0, int(bar.width()) - 2 * margin))
             painter.drawText(bar.adjusted(margin, 0, -margin, 0), Qt.AlignCenter, pill_text)
@@ -605,7 +651,7 @@ class EffectsTray(QObject):
                     if chosen and self.keyboard_edge == edge_index:
                         painter.setPen(accent)
                     else:
-                        painter.setPen(QColor("#955010") if kind == "track" else QColor("#1557a7"))
+                        painter.setPen(ink)
                     if well_rect.left() <= edge <= well_rect.right():
                         x = min(max(edge, bar.left() + 3), bar.right() - 3)
                         painter.drawLine(QPointF(x, bar.center().y() - 4), QPointF(x, bar.center().y() + 4))
@@ -1092,9 +1138,10 @@ class EffectsTray(QObject):
             clip = copy(source)
             stack = [effect for effect in self._stack("clip", source) if effect["id"] not in removed]
             if kind == "clip" and clip.id == owner.id:
-                stack += incoming
                 if rows:
-                    stack = [dict(effect, stack_order=index) for index, effect in enumerate(stack)]
+                    stack = self._stack_with_incoming(kind, source, incoming)
+                else:
+                    stack += incoming
             clip.data = dict(source.data, effects=stack)
             clips.append(clip)
         stack = [effect for effect in self._stack("track", track) if effect["id"] not in removed]
@@ -1219,16 +1266,18 @@ class EffectsTray(QObject):
         effects = [self._effect_for_scope(row, kind, owner) for row in rows]
         if not effects or any(effect is None for effect in effects):
             return
-        moving_ids = {effect["id"] for effect in effects}
-        stack = [effect for effect in self._stack(kind, owner) if effect["id"] not in moving_ids] + effects
-        if kind == "clip":
-            stack = [dict(effect, stack_order=order) for order, effect in enumerate(stack)]
+        stack = self._stack_with_incoming(kind, owner, effects)
         primary = self.selected_id
-        with self._transaction():
-            for source_kind, source, ids in self._owners(rows):
-                self._save_stack(source, [effect for effect in self._stack(source_kind, source)
-                                          if effect["id"] not in ids], refresh=False)
-            self._save_stack(owner, stack, refresh=False)
+        previous_hold = self.__dict__.get("_hold_clip_lane_order", False)
+        self._hold_clip_lane_order = True
+        try:
+            with self._transaction():
+                for source_kind, source, ids in self._owners(rows):
+                    self._save_stack(source, [effect for effect in self._stack(source_kind, source)
+                                              if effect["id"] not in ids], refresh=False)
+                self._save_stack(owner, stack, refresh=False)
+        finally:
+            self._hold_clip_lane_order = previous_hold
         self._set_selection({effect["id"] for effect in effects}, primary)
         self.timeline.window.refreshFrameSignal.emit()
 
@@ -1569,6 +1618,9 @@ class EffectsTray(QObject):
 
         updates = self.app.updates
         previous_transaction = updates.transaction_id
+        previous_hold = self.__dict__.get("_hold_clip_lane_order", False)
+        self._clip_lane_preferences = []
+        self._hold_clip_lane_order = True
         updates.transaction_id = previous_transaction or str(uuid.uuid4())
         try:
             for order, entry in enumerate(stack):
@@ -1577,6 +1629,8 @@ class EffectsTray(QObject):
                     updates.update(key, {"stack_order": order})
         finally:
             updates.transaction_id = previous_transaction
+            self._hold_clip_lane_order = previous_hold
+        self.refresh()
         self.timeline.window.refreshFrameSignal.emit()
 
     def _show_properties(self):
