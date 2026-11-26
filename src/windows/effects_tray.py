@@ -30,31 +30,44 @@ def clip_effect_sort_key(effect):
     return phase, 1, effect.get("layer", 0), effect.get("position", 0), -effect.get("order", 0)
 
 
-def clip_effect_lanes(rows, preferred_lanes=()):
-    """Reuse lanes across clips while keeping each clip's stack in order."""
-    lanes = [(kind, []) for kind, _ids in preferred_lanes]
-    previous_lane = {}
-    for index, (_, clip, effect, start, end) in enumerate(rows):
-        effect_type = effect.get("type") or effect.get("name")
-        minimum = previous_lane.get(clip.id, -1) + 1
-        candidates = list(range(minimum, len(lanes)))
-        preferred = next((slot for slot, (_kind, ids) in enumerate(preferred_lanes)
-                          if effect.get("id") in ids and slot >= minimum), None)
-        if preferred in candidates:
-            candidates.remove(preferred)
-            candidates.insert(0, preferred)
-        for slot in candidates:
-            lane_type, entries = lanes[slot]
-            if lane_type == effect_type and all(
-                end <= rows[entry][3] + 1e-9 or start >= rows[entry][4] - 1e-9 for entry in entries
-            ):
-                break
-        else:
-            slot = len(lanes)
-            lanes.append((effect_type, []))
-        lanes[slot][1].append(index)
-        previous_lane[clip.id] = slot
-    return [entries for _, entries in lanes if entries]
+def clip_effect_lanes(rows):
+    """Rows are stack positions, independent of effect type.
+
+    Nonoverlapping clips share slots. Overlapping clips use separate banks so
+    their bars remain individually visible without changing either stack.
+    """
+    stacks = {}
+    for index, row in enumerate(rows):
+        stacks.setdefault(row[1].id, []).append(index)
+    depth = max((len(entries) for entries in stacks.values()), default=0)
+    banks, lanes = [], []
+    for entries in stacks.values():
+        first = min(rows[index][3] for index in entries)
+        last = max(rows[index][4] for index in entries)
+        bank = next((index for index, ranges in enumerate(banks)
+                     if all(last <= start + 1e-9 or first >= end - 1e-9 for start, end in ranges)), len(banks))
+        if bank == len(banks):
+            banks.append([])
+            lanes.extend([] for _ in range(depth))
+        banks[bank].append((first, last))
+        for slot, index in enumerate(entries):
+            lanes[bank * depth + slot].append(index)
+    return [entries for entries in lanes if entries]
+
+
+def effect_bar_colors(base, selected=False):
+    """Prefer white on medium/dark hues and guarantee readable label contrast."""
+    def luminance(color):
+        values = [value / 12.92 if value <= 0.04045 else ((value + 0.055) / 1.055) ** 2.4
+                  for value in (color.redF(), color.greenF(), color.blueF())]
+        return sum(value * weight for value, weight in zip(values, (0.2126, 0.7152, 0.0722)))
+    base = QColor(base)
+    white = 1.05 / (luminance(base) + 0.05) >= 3.0
+    fill = base.lighter(118) if selected else base
+    if white:
+        while 1.05 / (luminance(fill) + 0.05) < 4.5:
+            fill = fill.darker(105)
+    return fill, QColor("#ffffff" if white else "#111820")
 
 
 def track_effect_layout(track):
@@ -273,10 +286,7 @@ class EffectsTray(QObject):
             for effect in sorted(clip.data.get("effects") or [], key=clip_effect_sort_key):
                 first, last = clip_effect_timeline_range(clip.data, effect)
                 clip_rows.append(("clip", clip, effect, first, last))
-        preferred = (self.__dict__.get("_clip_lane_preferences", ())
-                     if self.__dict__.get("_clip_lane_track_id") == track.id else ())
-        clip_lanes = [[clip_rows[index] for index in entries]
-                      for entries in clip_effect_lanes(clip_rows, preferred)]
+        clip_lanes = [[clip_rows[index] for index in entries] for entries in clip_effect_lanes(clip_rows)]
         section("clip", None, _("Clip Effects"))
         for entries in clip_lanes:
             add_lane(entries)
@@ -317,33 +327,15 @@ class EffectsTray(QObject):
         self.lane_rows = lanes
         self.row_slots = row_slots
         self.rows = rows
-        if not self.__dict__.get("_hold_clip_lane_order", False):
-            self._remember_clip_lane_order(track.id)
         self.selected_ids.intersection_update(row[2]["id"] for row in rows)
         if self.selected_id not in self.selected_ids:
             self.selected_id = next(iter(self.selected_ids), None)
-
-    def _remember_clip_lane_order(self, track_id):
-        self._clip_lane_track_id = track_id
-        self._clip_lane_preferences = [
-            (self.rows[entries[0]][2].get("type") or self.rows[entries[0]][2].get("name"),
-             tuple(self.rows[index][2]["id"] for index in entries))
-            for entries in self.lane_rows.values() if entries and self.rows[entries[0]][0] == "clip"
-        ]
 
     def _stack_with_incoming(self, kind, owner, incoming):
         ids = {effect["id"] for effect in incoming}
         stack = [effect for effect in self._stack(kind, owner) if effect["id"] not in ids] + incoming
         if kind != "clip":
             return stack
-        preferences = self.__dict__.get("_clip_lane_preferences", ())
-        def rank(effect):
-            exact = next((index for index, (_kind, ids) in enumerate(preferences) if effect["id"] in ids), None)
-            if exact is None:
-                exact = next((index for index, (name, _ids) in enumerate(preferences)
-                              if name == (effect.get("type") or effect.get("name"))), len(preferences))
-            return not effect.get("apply_before_clip", True), exact
-        stack.sort(key=rank)
         return [dict(effect, stack_order=index) for index, effect in enumerate(stack)]
 
     def _bounds(self):
@@ -421,12 +413,13 @@ class EffectsTray(QObject):
         return any(self._can_add(name) for name in self.catalog)
 
     def _row_controls(self, index, lane):
-        kind, owner, effect, _, _ = self.rows[index]
-        if self.locked or kind == "transition":
+        if self.locked or self.rows[index][0] == "transition":
             return ()
-        rect = self._row_rect(index, lane)
-        left = panel_label_indent(self.timeline.theme)
-        return (("reorder", "⠿", QRectF(left, rect.y(), 16, rect.height()), True),)
+        rect = self._bar_rect(index, lane).intersected(self._row_rect(index, lane))
+        if rect.width() < 44 or rect.left() < lane.left():
+            return ()
+        grip = QRectF(rect.left() + 8, rect.top(), 12, rect.height())
+        return (("reorder", "", grip, True),)
 
     def _row_rect(self, index, lane):
         top = self._row_top(lane, self.row_slots[index])
@@ -583,32 +576,11 @@ class EffectsTray(QObject):
             painter.drawRoundedRect(rect, 5, 5)
 
         for entries in self.lane_rows.values():
-            if not entries:
-                continue
-            index = next((entry for entry in entries if self.rows[entry][2]["id"] == self.selected_id), entries[0])
-            well_rect = self._row_rect(index, lane)
-            if not well_rect.intersects(visible):
-                continue
-            title = self._title(self.rows[index])
-            painter.setPen(label)
-            controls = self._row_controls(index, lane)
-            label_end = lane.left()
-            row_indent = indent
-            if controls:
-                row_indent = controls[0][2].right() + 4
-            name = QRectF(row_indent, well_rect.top(), max(0.0, label_end - row_indent - 6), well_rect.height())
-            painter.drawText(name, Qt.AlignVCenter | Qt.AlignLeft,
-                             painter.fontMetrics().elidedText(title, Qt.ElideRight, int(name.width())))
-            for _, glyph, control, enabled in controls:
-                color = QColor(accent)
-                color.setAlphaF(0.55)
-                painter.setPen(color)
-                for dx in (-2, 2):
-                    for dy in (-4, 0, 4):
-                        painter.drawPoint(QPointF(control.center().x() + dx, control.center().y() + dy))
-            painter.setPen(Qt.NoPen)
-            painter.setBrush(well)
-            painter.drawRoundedRect(well_rect, 5, 5)
+            if entries:
+                well_rect = self._row_rect(entries[0], lane)
+                painter.setPen(Qt.NoPen)
+                painter.setBrush(well)
+                painter.drawRoundedRect(well_rect, 5, 5)
         for index, row in enumerate(self.rows):
             well_rect = self._row_rect(index, lane)
             if not well_rect.intersects(visible):
@@ -623,14 +595,7 @@ class EffectsTray(QObject):
             fill = QColor("#dcecff" if chosen else "#f9fbff")
             ink = QColor("#1557a7")
             if kind != "transition":
-                fill = QColor(self.timeline._effect_color(effect))
-                if chosen:
-                    fill = fill.lighter(118)
-                # Choose readable text for both dark and bright palette colors.
-                channels = [value / 12.92 if value <= 0.04045 else ((value + 0.055) / 1.055) ** 2.4
-                            for value in (fill.redF(), fill.greenF(), fill.blueF())]
-                luminance = sum(value * weight for value, weight in zip(channels, (0.2126, 0.7152, 0.0722)))
-                ink = QColor("#111820" if luminance > 0.179 else "#ffffff")
+                fill, ink = effect_bar_colors(self.timeline._effect_color(effect), chosen)
             # Clip the original corners at the viewport boundary. Limit the
             # overdraw for effects whose true edges are far offscreen.
             shape = QRectF(full)
@@ -643,9 +608,16 @@ class EffectsTray(QObject):
             painter.drawRoundedRect(shape, 4, 4)
             painter.restore()
             painter.setPen(ink)
+            controls = self._row_controls(index, lane)
+            left_margin = 24 if controls else 4
             margin = 10 if chosen and kind != "transition" else 4
-            pill_text = painter.fontMetrics().elidedText(title, Qt.ElideRight, max(0, int(bar.width()) - 2 * margin))
-            painter.drawText(bar.adjusted(margin, 0, -margin, 0), Qt.AlignCenter, pill_text)
+            text_rect = bar.adjusted(left_margin, 0, -margin, 0)
+            pill_text = painter.fontMetrics().elidedText(title, Qt.ElideRight, max(0, int(text_rect.width())))
+            painter.drawText(text_rect, Qt.AlignCenter, pill_text)
+            for _key, _glyph, grip, _enabled in controls:
+                for dx in (-2, 2):
+                    for dy in (-4, 0, 4):
+                        painter.drawPoint(QPointF(grip.center().x() + dx, grip.center().y() + dy))
             if (chosen or self.hovered == index) and kind != "transition" and not self.locked:
                 for edge_index, edge in enumerate((full.left(), full.right())):
                     if chosen and self.keyboard_edge == edge_index:
@@ -701,18 +673,12 @@ class EffectsTray(QObject):
                 return ("add" if self._can_add_effect(section[1]) else "disabled-add", section[1])
             return ("blank", None)
         entries = self.lane_rows.get(slot, ())
-        if pos.x() < lane.left():
-            index = next((entry for entry in entries if self.rows[entry][2]["id"] == self.selected_id), None)
-            if index is None and entries:
-                index = entries[0]
-            if index is not None:
-                for name, _, rect, enabled in self._row_controls(index, lane):
-                    if rect.contains(pos):
-                        return (name if enabled else "blank", index)
-                return ("row", index)
-        else:
+        if pos.x() >= lane.left():
             for index in reversed(entries):
                 if self._bar_rect(index, lane).intersected(self._row_rect(index, lane)).contains(pos):
+                    for name, _, rect, _enabled in self._row_controls(index, lane):
+                        if rect.contains(pos):
+                            return (name, index)
                     return ("row", index)
         return ("blank", None)
 
@@ -1268,16 +1234,11 @@ class EffectsTray(QObject):
             return
         stack = self._stack_with_incoming(kind, owner, effects)
         primary = self.selected_id
-        previous_hold = self.__dict__.get("_hold_clip_lane_order", False)
-        self._hold_clip_lane_order = True
-        try:
-            with self._transaction():
-                for source_kind, source, ids in self._owners(rows):
-                    self._save_stack(source, [effect for effect in self._stack(source_kind, source)
-                                              if effect["id"] not in ids], refresh=False)
-                self._save_stack(owner, stack, refresh=False)
-        finally:
-            self._hold_clip_lane_order = previous_hold
+        with self._transaction():
+            for source_kind, source, ids in self._owners(rows):
+                self._save_stack(source, [effect for effect in self._stack(source_kind, source)
+                                          if effect["id"] not in ids], refresh=False)
+            self._save_stack(owner, stack, refresh=False)
         self._set_selection({effect["id"] for effect in effects}, primary)
         self.timeline.window.refreshFrameSignal.emit()
 
@@ -1618,9 +1579,6 @@ class EffectsTray(QObject):
 
         updates = self.app.updates
         previous_transaction = updates.transaction_id
-        previous_hold = self.__dict__.get("_hold_clip_lane_order", False)
-        self._clip_lane_preferences = []
-        self._hold_clip_lane_order = True
         updates.transaction_id = previous_transaction or str(uuid.uuid4())
         try:
             for order, entry in enumerate(stack):
@@ -1629,7 +1587,6 @@ class EffectsTray(QObject):
                     updates.update(key, {"stack_order": order})
         finally:
             updates.transaction_id = previous_transaction
-            self._hold_clip_lane_order = previous_hold
         self.refresh()
         self.timeline.window.refreshFrameSignal.emit()
 

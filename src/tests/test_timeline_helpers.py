@@ -6209,7 +6209,53 @@ class TimelineHelperTests(unittest.TestCase):
             ("clip", reversed_stack, {"type": "Crop"}, 11, 15),
             ("clip", reversed_stack, {"type": "Blur"}, 11, 15),
         ]
-        self.assertEqual(clip_effect_lanes(rows), [[0, 2], [1, 3, 5], [4, 6]])
+        self.assertEqual(clip_effect_lanes(rows), [[0, 2, 5], [1, 3, 6], [4]])
+
+    def test_opposite_clip_effect_orders_share_two_stack_slots(self):
+        from windows.effects_tray import clip_effect_lanes
+        first, second = types.SimpleNamespace(id="A"), types.SimpleNamespace(id="B")
+        rows = [("clip", first, {"type": "Bars"}, 0, 10),
+                ("clip", first, {"type": "Blur"}, 0, 10),
+                ("clip", second, {"type": "Blur"}, 10, 20),
+                ("clip", second, {"type": "Bars"}, 10, 20)]
+        self.assertEqual(clip_effect_lanes(rows), [[0, 2], [1, 3]])
+
+    def test_effect_labels_have_readable_palette_contrast(self):
+        from windows.effects_tray import effect_bar_colors
+        from windows.views.timeline_backend.colors import _EFFECT_COLORS
+        def luminance(color):
+            values = [value / 12.92 if value <= 0.04045 else ((value + 0.055) / 1.055) ** 2.4
+                      for value in (color.redF(), color.greenF(), color.blueF())]
+            return sum(value * weight for value, weight in zip(values, (0.2126, 0.7152, 0.0722)))
+        for name, color in _EFFECT_COLORS.items():
+            for selected in (False, True):
+                with self.subTest(effect=name, selected=selected):
+                    fill, ink = effect_bar_colors(QColor(color), selected)
+                    high, low = sorted((luminance(fill), luminance(ink)), reverse=True)
+                    self.assertGreaterEqual((high + 0.05) / (low + 0.05), 4.5)
+        self.assertEqual(effect_bar_colors(QColor(_EFFECT_COLORS["Blur"]))[1].name(), "#ffffff")
+
+    def test_shared_slot_bar_grip_targets_its_own_effect(self):
+        from windows.effects_tray import EffectsTray
+        tray = EffectsTray.__new__(EffectsTray)
+        tray.locked = False
+        tray._preview = None
+        tray.timeline = types.SimpleNamespace(pixels_per_second=20, h_scroll_offset=0,
+                                             _pending_clip_overrides={})
+        clips = [types.SimpleNamespace(id=name) for name in ("A", "B")]
+        tray.rows = [("clip", clips[0], {"id": "Bars", "type": "Bars"}, 0, 5),
+                     ("clip", clips[1], {"id": "Blur", "type": "Blur"}, 5, 10)]
+        tray.sections = []
+        tray.lane_rows = {0: [0, 1]}
+        lane = QRectF(100, 50, 400, 24)
+        tray._bounds = lambda: (QRectF(0, 50, 500, 24), lane, QRectF(0, 50, 500, 24))
+        tray._slot_at = lambda pos, lane: 0
+        tray._row_rect = lambda index, lane: lane
+        for index in (0, 1):
+            grip = tray._row_controls(index, lane)[0][2]
+            self.assertEqual(tray._hit(grip.center()), ("reorder", index))
+            self.assertEqual(tray._hit(tray._bar_rect(index, lane).center()), ("row", index))
+        self.assertEqual(tray._hit(QPointF(40, 60)), ("blank", None))
 
     def test_switching_from_fx_to_keyframes_uses_only_the_keyframe_rows(self):
         from windows.views.timeline_backend.qwidget.keyframe_panel import KeyframePanelMixin
@@ -6484,13 +6530,12 @@ class TimelineHelperTests(unittest.TestCase):
         tray._save_stack = lambda owner, stack, **kwargs: owner.data.update(effects=stack)
         for key, value in tray._layout_for(track, tray.clips, [], []).items():
             setattr(tray, key, value)
-        tray._remember_clip_lane_order(track.id)
         lane = QRectF(100, 0, 400, 300)
         tray._bounds = lambda: (QRectF(0, 0, 500, 300), lane, QRectF(0, 0, 500, 300))
         source = tray.rows[0]
         tray._placement_feedback("clip", second, "Blur", [source])
         planned = tray._placement_layout
-        self.assertEqual([entry[2]["name"] for entry in planned["rows"]], ["Blur", "Pixelate", "Negative"])
+        self.assertEqual([entry[2]["name"] for entry in planned["rows"]], ["Pixelate", "Negative", "Blur"])
         self.assertEqual(len(first.data["effects"]), 1)
         self.assertEqual(len(second.data["effects"]), 2)
         with patch("windows.effects_tray.Clip.get", side_effect=lambda id: {"A": first, "Z": second}[id]):
@@ -6505,7 +6550,8 @@ class TimelineHelperTests(unittest.TestCase):
             tray.rows = committed["rows"]
             tray._placement_feedback("clip", destination, "Blur", [source])
             preview = tray._placement_layout
-            self.assertEqual([row[2]["name"] for row in preview["rows"]], ["Blur", "Pixelate", "Negative"])
+            expected = ["Blur", "Pixelate", "Negative"] if destination is first else ["Pixelate", "Negative", "Blur"]
+            self.assertEqual([row[2]["name"] for row in preview["rows"]], expected)
             with patch("windows.effects_tray.Clip.get", side_effect=lambda id: {"A": first, "Z": second}[id]):
                 tray._transfer_effects([source], "clip", destination)
             committed = tray._layout_for(track, tray.clips, [], [])
