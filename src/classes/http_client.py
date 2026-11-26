@@ -196,3 +196,4 @@ def _download_file_once(url, output_path, progress_callback, timeout):
                 downloaded_size += len(chunk)
                 if progress_callback:
                     progress_callback(downloaded_size, total_size)
+                del chunk  # Release this buffer before the next read allocates another.
