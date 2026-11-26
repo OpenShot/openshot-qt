@@ -3,6 +3,7 @@
  @brief Unit tests for EDL and Final Cut Pro XML import/export behavior.
 """
 
+import builtins
 import importlib
 import json
 import os
@@ -221,6 +222,42 @@ class InterchangeImportExportTests(unittest.TestCase):
         self.assertAlmostEqual(ctx["opacity"][0]["value"], 0.5)
         self.assertAlmostEqual(ctx["volume"][0]["value"], self.edl_importer._db_to_volume(-6.0), places=4)
         self.assertAlmostEqual(ctx["scale_x"][0]["value"], 1.25)
+
+    def test_edl_import_reads_non_ascii_clip_names_as_utf8(self):
+        # export_edl() writes UTF-8, so import_edl() must read UTF-8 even when
+        # the locale encoding is something else (e.g. cp1252 or cp949 on Windows).
+        clip_name = "\u0141ukasz \u2728.mp4"
+
+        def locale_open(file, mode="r", *args, encoding=None, **kwargs):
+            if "b" not in mode and encoding is None:
+                encoding = "cp1252"
+            return builtins.open(file, mode, *args, encoding=encoding, **kwargs)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            media_path = os.path.join(tmpdir, clip_name)
+            edl_path = os.path.join(tmpdir, "input.edl")
+            with open(edl_path, "w", encoding="utf-8") as handle:
+                handle.write(
+                    "TITLE: Test Sequence\n"
+                    "FCM: NON-DROP FRAME\n\n"
+                    "001  AX       V     C        00:00:00:00 00:00:01:00 00:00:02:00 00:00:03:00\n"
+                    "* FROM CLIP NAME: %s\n"
+                    "* SOURCE FILE: %s\n" % (clip_name, clip_name)
+                )
+
+            contexts = []
+            app = _App(_Project(layers=[{"number": 1, "label": "Existing"}]))
+
+            with patch.object(self.edl_importer, "open", locale_open, create=True), \
+                 patch.object(self.edl_importer, "get_app", return_value=app), \
+                 patch.object(self.edl_importer.QFileDialog, "getOpenFileName", return_value=(edl_path, "")), \
+                 patch.object(self.edl_importer, "Track", _TrackRecord), \
+                 patch.object(self.edl_importer, "create_clip", side_effect=lambda ctx, track: contexts.append(dict(ctx))):
+                self.edl_importer.import_edl()
+
+        self.assertEqual(len(contexts), 1)
+        self.assertEqual(contexts[0]["clip_title"], clip_name)
+        self.assertEqual(contexts[0]["clip_path"], media_path)
 
     def test_edl_export_writes_tracks_gap_media_rows_and_keyframe_comments(self):
         with tempfile.TemporaryDirectory() as tmpdir:
