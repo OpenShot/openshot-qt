@@ -654,22 +654,38 @@ class TimelineHelperTests(unittest.TestCase):
         widget.track_painter = TrackPainter(widget)
         track = types.SimpleNamespace(id="track", data={"number": 1, "label": "Dialogue"})
         order = ["mute-toggle", "visibility-toggle", "effects-tray", "keyframe-panel", "lock-toggle"]
-        for width, count in ((40, 0), (120, 0), (150, 1), (170, 2), (180, 3), (200, 4), (300, 5)):
-            with self.subTest(width=width):
-                rect = QRectF(0, 0, width, widget.theme.track.height)
-                buttons = widget._track_toolbar_buttons(track, rect)
-                visible = [button["key"] for button in buttons if button["key"] != "more-controls"]
-                self.assertEqual(visible, order[:count])
-                if count < 5:
-                    self.assertEqual([b["key"] for b in buttons[-1]["overflow"]], order[count:])
-                    self.assertAlmostEqual(buttons[-1]["rect"].right(), rect.right() - 6.0)
+        from qt_api import QFont
+        original_font = widget.font()
+        for font_size in (8, 10, 12):
+            font = QFont(original_font)
+            font.setPointSize(font_size)
+            widget.setFont(font)
+            full = widget._track_toolbar_buttons(track, QRectF(0, 0, 1000, widget.theme.track.height))
+            title_width = widget.track_painter.track_title_width(track) + 4.0
+            # Exercise each reveal boundary using actual font and icon sizes,
+            # rather than assuming a particular runner's font metrics.
+            widths = [(40, 0)]
+            for count in range(6):
+                controls_width = sum(button["rect"].width() for button in full[:count])
+                overflow_width = 12.0 if count < 5 else 0.0
+                widths.append((title_width + controls_width + overflow_width + 6.5, count))
+            for width, count in widths:
+                with self.subTest(font_size=font_size, width=width):
+                    rect = QRectF(0, 0, width, widget.theme.track.height)
+                    buttons = widget._track_toolbar_buttons(track, rect)
+                    visible = [button["key"] for button in buttons if button["key"] != "more-controls"]
+                    self.assertEqual(visible, order[:count])
+                    if count < 5:
+                        self.assertEqual([b["key"] for b in buttons[-1]["overflow"]], order[count:])
+                        self.assertAlmostEqual(buttons[-1]["rect"].right(), rect.right() - 6.0)
+                        if visible:
+                            self.assertLess(buttons[-1]["rect"].left() - buttons[-2]["rect"].right(), 20.0)
+                    else:
+                        self.assertNotIn("more-controls", [b["key"] for b in buttons])
                     if visible:
-                        self.assertLess(buttons[-1]["rect"].left() - buttons[-2]["rect"].right(), 20.0)
-                else:
-                    self.assertNotIn("more-controls", [b["key"] for b in buttons])
-                if visible:
-                    self.assertEqual(widget.track_painter.track_title_geometry(rect, track)[3], "Dialogue")
-                self.assertTrue(all(rect.contains(button["rect"]) for button in buttons))
+                        self.assertEqual(widget.track_painter.track_title_geometry(rect, track)[3], "Dialogue")
+                    self.assertTrue(all(rect.contains(button["rect"]) for button in buttons))
+        widget.setFont(original_font)
         widget.geometry = types.SimpleNamespace(track_list=[track])
         maximum = widget._track_header_max_width()
         full = widget._track_toolbar_buttons(track, QRectF(0, 0, maximum, widget.theme.track.height))
