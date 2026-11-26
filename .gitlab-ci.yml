@@ -250,6 +250,8 @@ windows:msix:package:
   when: on_success
   except:
   - tags
+  only:
+    - /^release.*$/
   tags:
     - code-sign
 

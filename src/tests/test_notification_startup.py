@@ -154,14 +154,12 @@ from classes.distribution import get_distribution_info
 distribution = get_distribution_info()
 if os.environ["TEST_STORE_INSTALL"] == "1":
     distribution.update(platform="windows", package_type="msix", official=True)
-# These keyboard checks need focus on the main window, even on runners
-# without an audio output. Audio failure behavior has its own regression tests.
-with patch("windows.feedback.get_distribution_info", return_value=distribution), \
-        patch("windows.preview_thread.PreviewParent.onError"):
-    assert app.gui()
-    # Slow builders may process events during gui().
-    QTimer.singleShot(4000, verify)
-    app.exec_()
+with patch("windows.feedback.get_distribution_info", return_value=distribution):
+    # Wait for the invitation timer and queued update banner, even on slow builders.
+    from tests.gui_test_helpers import run_gui_workflow
+    run_gui_workflow(app, verify, ready=lambda: (
+        app.window.feedback_controller.presented
+        and "update" in app.window.notification_area.banners))
 assert passed, "Notification startup checks failed"
 '''
         source = str(Path(__file__).resolve().parents[1])
