@@ -31,7 +31,7 @@ import tempfile
 from time import strftime
 
 VERSION = "4.3.0"
-MINIMUM_LIBOPENSHOT_VERSION = "1.2.0"
+MINIMUM_LIBOPENSHOT_VERSION = "1.3.0"
 DATE = "20261126000000"
 NAME = "openshot-qt"
 PRODUCT_NAME = "OpenShot Video Editor"
