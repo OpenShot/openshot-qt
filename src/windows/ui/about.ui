@@ -46,7 +46,7 @@
   </widget>
   <widget class="QLabel" name="txtversion">
    <property name="text">
-    <string>4.2.0-dev1</string>
+    <string>4.3.0</string>
    </property>
    <property name="styleSheet">
     <string>font-size:28px; font-weight:600;</string>
