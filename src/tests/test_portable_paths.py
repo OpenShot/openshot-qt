@@ -1,4 +1,4 @@
-"""Exercise portable folder selection without requiring Qt or libopenshot."""
+"""Exercise portable paths, startup scaling, and settings persistence."""
 
 import json
 import os
@@ -6,10 +6,12 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
 SOURCE = Path(__file__).resolve().parents[1]
+HOST_RUNTIME = (sys.platform, sys.executable, getattr(sys, 'frozen', None))
 if str(SOURCE) not in sys.path:
     sys.path.insert(0, str(SOURCE))
 
@@ -26,9 +28,9 @@ class PortablePathsTests(unittest.TestCase):
         self.app = self.root / 'OpenShot 4.2 - fix for xyz'
         self.app.mkdir()
         for patcher in (
-                patch.object(user_paths.sys, 'platform', 'win32'),
-                patch.object(user_paths.sys, 'frozen', True, create=True),
-                patch.object(user_paths.sys, 'executable', str(self.app / 'openshot-qt.exe')),
+                patch.object(user_paths, 'sys', SimpleNamespace(
+                    platform='win32', frozen=True,
+                    executable=str(self.app / 'openshot-qt.exe'))),
                 patch.object(user_paths.os.path, 'expanduser', return_value=str(self.home))):
             patcher.start()
             self.addCleanup(patcher.stop)
@@ -45,6 +47,11 @@ class PortablePathsTests(unittest.TestCase):
     def test_directory_named_portable_does_not_enable_mode(self):
         (self.app / 'portable').mkdir()
         self.assertFalse(user_paths.is_portable())
+
+    def test_windows_simulation_does_not_change_host_runtime(self):
+        self.assertIsNot(user_paths.sys, sys)
+        self.assertEqual(
+            (sys.platform, sys.executable, getattr(sys, 'frozen', None)), HOST_RUNTIME)
 
     def test_marker_is_ignored_on_other_platforms(self):
         (self.app / 'portable').touch()
@@ -76,8 +83,10 @@ class PortablePathsTests(unittest.TestCase):
 
 class PortableStartupTests(unittest.TestCase):
     def test_portable_scale_and_info_use_same_data_root_before_qt_creation(self):
-        # Load native dependencies in launcher order on the real platform, then
-        # simulate the frozen Windows executable. Isolate Qt/module-level paths.
+        # Exercise real Qt/settings I/O, with only the resolver seeing Windows.
+        # Video-engine ABI checks belong to check_hardware_package.py, not this
+        # unit test of data paths and startup scale. Engine thread defaults are
+        # unrelated to that behavior and can use a small deterministic double.
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             app = root / 'OpenShot'
@@ -92,21 +101,33 @@ class PortableStartupTests(unittest.TestCase):
             host_settings.write_text(host_content)
             script = '''
 import os, sys
+from types import SimpleNamespace
 from unittest.mock import patch
-from classes.windows_dlls import configure_windows_dll_paths
-configure_windows_dll_paths()
-import openshot  # Load the engine before Qt, as launch.py does.
+host_platform = sys.platform
+host_executable = sys.executable
+host_frozen = getattr(sys, 'frozen', None)
+# Fail any accidental import of the engine's extension. Keep real Qt, the
+# settings store, JSON I/O, and filesystem operations under test.
+sys.modules['_openshot'] = None
+native_defaults = SimpleNamespace(DefaultOMPThreads=lambda: 4, DefaultFFThreads=lambda: 4)
+sys.modules['openshot'] = SimpleNamespace(
+    Settings=SimpleNamespace(Instance=lambda: native_defaults))
 import qt_api
 from classes import user_paths
 sys.modules['OpenGL'] = None
-with patch.object(sys, 'platform', 'win32'), \\
-     patch.object(sys, 'frozen', True, create=True), \\
-     patch.object(sys, 'executable', sys.argv[1]):
+portable_runtime = SimpleNamespace(platform='win32', frozen=True, executable=sys.argv[1])
+with patch.object(user_paths, 'sys', portable_runtime):
     from classes import info
     from classes.qt_bootstrap import configure_qt
     from classes.agent.protocol import session_dir
     assert info.PORTABLE
     assert info.USER_PATH == user_paths.user_path()
+    # A Windows simulation must not affect platform-sensitive stdlib imports
+    # (Python 3.7's subprocess would otherwise try importing msvcrt on macOS).
+    import subprocess
+    assert sys.platform == host_platform
+    assert sys.executable == host_executable
+    assert getattr(sys, 'frozen', None) == host_frozen
     assert str(session_dir()) == os.path.join(info.USER_PATH, 'sessions')
     configure_qt()
     assert os.environ['QT_SCALE_FACTOR'] == sys.argv[4]
