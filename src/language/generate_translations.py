@@ -103,7 +103,7 @@ log.info(" Using xgettext to generate .py POT files")
 log.info("-----------------------------------------------------")
 
 # Generate POT for Source Code strings (i.e. strings marked with a _("translate me"))
-subprocess.call(r'find %s -iname "*.py" -exec xgettext --from-code=UTF-8 -j -o %s --keyword=_ --keyword=N_ --keyword=_tr {} \;' % (
+subprocess.call(r'find %s -iname "*.py" -exec xgettext --from-code=UTF-8 -j -o %s --keyword=_ --keyword=N_ --keyword=_tr --keyword=translate {} \;' % (
     openshot_path, os.path.join(language_folder_path, 'OpenShot_source.pot')), shell=True)
 
 log.info("-----------------------------------------------------")
