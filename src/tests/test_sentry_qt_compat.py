@@ -106,7 +106,9 @@ class SentryQtCompatibilityTests(unittest.TestCase):
 
     def test_cursor_normalizes_integer_and_floating_points(self):
         path = "windows/views/timeline_backend/qwidget/base.py"
-        base = types.SimpleNamespace(_keyframe_header_add_at=load_method(path, "_keyframe_header_add_at"))
+        base = types.SimpleNamespace(
+            _keyframe_header_add_at=load_method(path, "_keyframe_header_add_at"),
+            _track_header_resize_at=load_method(path, "_track_header_resize_at"))
         update = load_method(path, "_updateCursor", {"TimelineWidgetBase": base})
         for point in (QPoint(4, 5), QPointF(4.25, 5.75)):
             with self.subTest(point=point):

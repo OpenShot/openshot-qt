@@ -45,6 +45,23 @@ from .header import draw_effect_badge, effect_badge_label, header_control_center
 from classes.qt_types import font_metrics_horizontal_advance
 
 
+def paint_track_divider(painter, widget, hovered=False):
+    """Paint one opaque, quiet divider entirely inside the fixed header."""
+    color = QColor(widget.theme.track.border_color)
+    if not color.isValid():
+        color = QColor(widget.theme.track.name_background)
+    color.setAlpha(255)
+    if hovered:
+        color = color.lighter(110) if color.lightness() < 128 else color.darker(105)
+    top = float(widget.ruler_height)
+    width = 4.0
+    painter.fillRect(QRectF(
+        max(0.0, widget.track_name_width - width), top,
+        min(width, widget.track_name_width),
+        max(0.0, widget.height() - widget.scroll_bar_thickness - top),
+    ), color)
+
+
 class TrackPainter(BasePainter):
     def update_theme(self):
         self.border_pen = QPen(self.w.theme.track.border_color)
@@ -67,16 +84,32 @@ class TrackPainter(BasePainter):
         self.menu_margin = self.w.theme.menu_margin
         self.toggle_off_pix = None
         self.toggle_on_pix = None
-        def _scaled_toggle(pixmap):
+        def _scaled_toggle(pixmap, idle=False):
             if not pixmap or pixmap.isNull():
                 return None
             # Header controls keep the same visual scale at every track height.
             width = height = self.w.theme.track_control_size
-            return self.scaled_pixmap(pixmap, width, height)
+            scaled = self.scaled_pixmap(pixmap, width, height)
+            if scaled is None:
+                return None
+            # Legacy theme SVGs have baked-in colors. Use the same palette as
+            # the speaker, eye and FX controls rather than mixing icon sets.
+            tinted = QPixmap(scaled.size())
+            tinted.setDevicePixelRatio(scaled.devicePixelRatioF())
+            tinted.fill(Qt.transparent)
+            painter = QPainter(tinted)
+            painter.drawPixmap(QPointF(0, 0), scaled)
+            painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
+            color = QColor(self.w.theme.track_control_color)
+            if idle:
+                color.setAlphaF(0.65)
+            painter.fillRect(tinted.rect(), color)
+            painter.end()
+            return tinted
 
         if self.w.theme.keyframe_toggle_off_icon:
             self.toggle_off_pix = _scaled_toggle(
-                self.w.theme.keyframe_toggle_off_icon
+                self.w.theme.keyframe_toggle_off_icon, idle=True
             )
         if self.w.theme.keyframe_toggle_on_icon:
             self.toggle_on_pix = _scaled_toggle(
@@ -101,14 +134,14 @@ class TrackPainter(BasePainter):
 
         keyframe_disabled = _scaled_toggle(
             getattr(self.w.theme, "track_keyframe_panel_disabled_icon", None)
-            or self.w.theme.keyframe_toggle_off_icon
+            or self.w.theme.keyframe_toggle_off_icon, idle=True
         )
         keyframe_enabled = _scaled_toggle(
             getattr(self.w.theme, "track_keyframe_panel_enabled_icon", None)
             or self.w.theme.keyframe_toggle_on_icon
         )
         keyframe_hide_disabled = _scaled_toggle(
-            getattr(self.w.theme, "track_keyframe_panel_hide_disabled_icon", None)
+            getattr(self.w.theme, "track_keyframe_panel_hide_disabled_icon", None), idle=True
         ) or keyframe_disabled
         keyframe_hide_enabled = _scaled_toggle(
             getattr(self.w.theme, "track_keyframe_panel_hide_enabled_icon", None)
@@ -132,18 +165,10 @@ class TrackPainter(BasePainter):
             if not self.toggle_on_pix:
                 self.toggle_on_pix = keyframe_enabled or keyframe_disabled
 
-        lock_locked_disabled = _scaled_toggle(getattr(self.w.theme, "track_locked_disabled_icon", None))
+        lock_locked_disabled = _scaled_toggle(getattr(self.w.theme, "track_locked_disabled_icon", None), idle=True)
         lock_locked_enabled = _scaled_toggle(getattr(self.w.theme, "track_locked_enabled_icon", None))
-        lock_unlocked_disabled = _scaled_toggle(getattr(self.w.theme, "track_unlocked_disabled_icon", None))
+        lock_unlocked_disabled = _scaled_toggle(getattr(self.w.theme, "track_unlocked_disabled_icon", None), idle=True)
         lock_unlocked_enabled = _scaled_toggle(getattr(self.w.theme, "track_unlocked_enabled_icon", None))
-        # The lock artwork has more internal whitespace than the other glyphs.
-        lock_size = self.w.theme.track_control_size + 2
-        def optical_lock(pix):
-            return self.scaled_pixmap(pix, lock_size, lock_size) if pix else None
-        lock_locked_disabled = optical_lock(lock_locked_disabled)
-        lock_locked_enabled = optical_lock(lock_locked_enabled)
-        lock_unlocked_disabled = optical_lock(lock_unlocked_disabled)
-        lock_unlocked_enabled = optical_lock(lock_unlocked_enabled)
         if (
             lock_locked_disabled
             or lock_locked_enabled
@@ -164,8 +189,13 @@ class TrackPainter(BasePainter):
         self._effect_button_pixmaps = {}
         toolbar["effects-tray"] = self.effect_button_pixmaps()
         self.toolbar_pixmaps = toolbar
+        # Clip controls sit on media under a dark scrim in every theme.
+        self.clip_output_pixmaps = {
+            key: self.output_button_pixmaps(kind, QColor("white"))["active"]
+            for key, kind in (("mute-toggle", "audio"), ("visibility-toggle", "video"))
+        }
 
-    def output_button_pixmaps(self, kind):
+    def output_button_pixmaps(self, kind, color_override=None):
         """Theme-colored vector controls, with a persistent crossed-out disabled state."""
         size = max(12, round(self.w.theme.track_control_size))
         if kind == "more":
@@ -173,12 +203,11 @@ class TrackPainter(BasePainter):
         states = {}
         for state in ("disabled", "enabled", "active", "active-hovered"):
             active = state.startswith("active")
-            color = QColor(self.w.theme.track_control_color)
+            color = QColor(color_override if color_override is not None else self.w.theme.track_control_color)
             if not color.isValid():
                 color = QColor(self.w.theme.track.font_color)
-            if active and kind != "more":
-                color = QColor("#e9a25a")
-            elif state == "disabled":
+            # The crossed-out glyph conveys mute/hidden without a warning hue.
+            if state == "disabled":
                 color.setAlphaF(0.65)
             pix = QPixmap(size * 2, size * 2)
             pix.setDevicePixelRatio(2)
@@ -412,11 +441,6 @@ class TrackPainter(BasePainter):
             painter.drawLine(vis.bottomLeft(), vis.bottomRight())
             painter.drawLine(vis.topRight(), vis.bottomRight())
 
-        if not self.w.theme.track.name_border_right_width:
-            painter.fillRect(
-                self.w.resize_handle_rect.intersected(area),
-                self.w.theme.track.border_color,
-            )
         timeline_handle = self.w.geometry.timeline_handle_rect()
         if timeline_handle and not timeline_handle.isNull():
             handle_rect = timeline_handle.intersected(area)
@@ -431,19 +455,7 @@ class TrackPainter(BasePainter):
         painter.restore()
 
     def paint_divider(self, painter: QPainter):
-        """Keep the name-column edge visible above expanded keyframe panels."""
-        theme = self.w.theme.track
-        width = theme.name_border_right_width
-        if width <= 0 or not theme.name_border_right_color.isValid():
-            return
-        top = self.w.ruler_height + self.w.track_margin_top
-        rect = QRectF(
-            self.w.track_name_width - width,
-            top,
-            width,
-            max(0.0, self.w.height() - self.w.scroll_bar_thickness - top),
-        )
-        painter.fillRect(rect, theme.name_border_right_color)
+        paint_track_divider(painter, self.w)
 
     def _frame_banding_config(self):
         pps = float(getattr(self.w, "pixels_per_second", 0.0) or 0.0)

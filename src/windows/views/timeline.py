@@ -33,6 +33,7 @@ import logging
 import os
 import time
 import uuid
+import weakref
 from functools import partial
 from operator import itemgetter
 
@@ -40,7 +41,7 @@ import openshot
 from qt_api import pyqtSlot, Qt, QCoreApplication, QTimer, pyqtSignal, QPointF
 from qt_api import modifiers_has
 from qt_api import QCursor, QIcon
-from qt_api import QDialog, QMessageBox
+from qt_api import QDialog, QMessageBox, QWidget, QWidgetAction, QHBoxLayout, QToolButton, QFrame, QSizePolicy
 
 from classes import info, updates
 from classes.app import get_app
@@ -1458,6 +1459,87 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         self.window.actionProperties.trigger()
 
     @pyqtSlot(str)
+    @staticmethod
+    def _clip_output_disabled(data, property_name):
+        points = data.get(property_name, {}).get("Points", [])
+        return bool(points) and all(point.get("co", {}).get("Y") == 0 for point in points)
+
+    def _set_clip_output_disabled(self, clip_ids, property_name, disabled):
+        """Toggle decoder output, retaining the previous enable keyframes."""
+        transaction_id = self.get_uuid()
+        for clip_id in clip_ids:
+            clip = Clip.get(id=clip_id)
+            if not clip:
+                continue
+            track = Track.get(number=clip.data.get("layer"))
+            if track and track.data.get("lock", False):
+                continue
+            if TimelineView._clip_output_disabled(clip.data, property_name) == disabled:
+                continue
+            original = deepcopy(clip.data)
+            saved_key = "_restore_" + property_name
+            if disabled:
+                clip.data[saved_key] = deepcopy(clip.data.get(property_name, json.loads(openshot.Keyframe(-1).Json())))
+                clip.data[property_name] = json.loads(openshot.Keyframe(0).Json())
+            else:
+                clip.data[property_name] = clip.data.pop(saved_key, json.loads(openshot.Keyframe(-1).Json()))
+            self.update_clip_data(clip.data, only_basic_props=False, ignore_reader=True,
+                                  transaction_id=transaction_id)
+            get_app().updates.apply_last_action_to_history(original)
+
+    def _add_output_menu_header(self, menu, toggles):
+        """Share compact, persistent output switches between clip and track menus."""
+        header = QWidget(menu)
+        header.setObjectName("clipOutputHeader")
+        layout = QHBoxLayout(header)
+        layout.setContentsMargins(1, 1, 1, 1)
+        layout.setSpacing(0)
+        border_color = self.theme.track.border_color.name()
+        hover_color = self.theme.track.border_color.lighter(115).name()
+        header.setStyleSheet(
+            "QWidget#clipOutputHeader { border: 1px solid %s; border-radius: 4px; padding: 0; margin: 0; } "
+            "QToolButton { background: transparent; border: none; "
+            "border-radius: 0; margin: 0; padding: 3px 8px; } "
+            "QToolButton[segment=audio] { border-top-left-radius: 3px; border-bottom-left-radius: 3px; } "
+            "QToolButton[segment=video] { border-top-right-radius: 3px; border-bottom-right-radius: 3px; } "
+            "QToolButton:checked { background: %s; } "
+            "QToolButton:hover { background: %s; } "
+            "QFrame#clipOutputSeparator { background: %s; border: none; }"
+            % (border_color, border_color, hover_color, border_color))
+        for property_name, label, tooltip, kind, disabled, available, callback in toggles:
+            pixmaps = self.track_painter.output_button_pixmaps(kind)
+            button = QToolButton(header)
+            button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+            button.setObjectName(property_name)
+            button.setProperty("segment", kind)
+            button.setText(label)
+            button.setToolTip(tooltip)
+            button.setAccessibleName(tooltip)
+            button.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
+            button.setCheckable(True)
+            button.setChecked(disabled)
+            button.setEnabled(available)
+            button.setIcon(QIcon(pixmaps["active" if disabled else "enabled"]))
+
+            def toggle_output(checked, callback=callback, button_ref=weakref.ref(button), pixmaps=pixmaps):
+                callback(checked)
+                live_button = button_ref()
+                if live_button is not None:
+                    live_button.setIcon(QIcon(pixmaps["active" if checked else "enabled"]))
+
+            button.toggled.connect(toggle_output)
+            if layout.count():
+                separator = QFrame(header)
+                separator.setObjectName("clipOutputSeparator")
+                separator.setFixedWidth(1)
+                layout.addWidget(separator)
+            layout.addWidget(button, 1)
+        header_action = QWidgetAction(menu)
+        header_action.setDefaultWidget(header)
+        menu.addAction(header_action)
+        menu.addSeparator()
+
+
     def ShowClipMenu(self, clip_id=None):
         log.debug('ShowClipMenu: %s' % clip_id)
         self._context_menu_paste_data = None
@@ -1506,6 +1588,16 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Create blank context menu
         menu = StyledContextMenu(parent=self)
+
+        # Widget buttons keep the menu open while changing either output.
+        output_clip_ids = list(clip_ids) if clip_id in clip_ids else [clip_id]
+        self._add_output_menu_header(menu, [
+            (property_name, label, tooltip, kind,
+             TimelineView._clip_output_disabled(clip.data, property_name), available and not locked,
+             partial(self._set_clip_output_disabled, output_clip_ids, property_name))
+            for property_name, label, tooltip, kind, available in (
+                ("has_audio", _("Mute"), _("Mute Audio"), "audio", clip_has_audio),
+                ("has_video", _("Hide"), _("Hide Video"), "video", clip_has_visual))])
 
         # Copy Menu
         if len(tran_ids) + len(clip_ids) > 1:
@@ -4136,14 +4228,15 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         locked = track.data.get("lock", False)
 
         menu = StyledContextMenu(parent=self)
+        self._add_output_menu_header(menu, [
+            (key, label, tooltip, kind, bool(track.data.get(key)), True,
+             partial(self.set_track_render_setting, track.id, key))
+            for key, label, tooltip, kind in (
+                ("muted", _("Mute"), _("Mute Audio"), "audio"),
+                ("hidden", _("Hide"), _("Hide Video"), "video"))])
         menu.addAction(self.window.actionAddTrackAbove)
         menu.addAction(self.window.actionAddTrackBelow)
         menu.addAction(self.window.actionRenameTrack)
-        for label, key in ((_("Mute Audio"), "muted"), (_("Hide Video"), "hidden")):
-            toggle = menu.addAction(label)
-            toggle.setCheckable(True)
-            toggle.setChecked(bool(track.data.get(key)))
-            toggle.triggered.connect(partial(self.set_track_render_setting, track.id, key))
         if found_gap:
             # Add 'Remove Gap' Menu
             log.info(f"Found gap at {first_gap_start}")

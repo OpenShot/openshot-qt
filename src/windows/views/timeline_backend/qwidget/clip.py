@@ -1157,6 +1157,8 @@ class ClipInteractionMixin:
             self._startProjectResize()
         elif self._press_hit == "handle":
             self._resize_start = self.track_name_width
+            self.mouse_dragging = True
+            self._fix_cursor(Qt.SplitHCursor)
 
     def _resizeMove(self):
         if self._press_hit == "clip-edge" and self._resizing_item:
@@ -1177,8 +1179,10 @@ class ClipInteractionMixin:
                 self.win.TimelinePreviewMode.emit()
         elif self._press_hit == "timeline-handle":
             self._finishProjectResize()
-        else:
-            pass
+        elif self._press_hit == "handle":
+            self.mouse_dragging = False
+            self._release_cursor()
+            self.update()
 
     def _startProjectResize(self):
         # Duration resizing can also change zoom; keep thumbnail tiles attached

@@ -144,6 +144,12 @@ def _resize_hit_at(widget, pos):
     for rect, item, _selected, kind in widget.geometry.iter_items(reverse=True):
         edge = widget._item_resize_edge_at(rect, pos)
         if edge:
+            header = getattr(widget, "track_name_width", 0)
+            edge_x = rect.left() if edge == "left" else rect.right()
+            if edge_x < header:
+                continue
+            if pos.x() < header and not getattr(widget, "resize_handle_rect", QRectF()).contains(pos):
+                continue
             targets = widget._resize_targets_for_item(item, edge)
             if targets:
                 return rect, item, edge, kind, targets
@@ -1129,8 +1135,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                 effects_tray.paint(painter)
             self.keyframe_painter.paint(painter)
             self.keyframe_panel_painter.paint(painter, mode="overlay")
-            self.hover_feedback.paint(painter)
             self.track_painter.paint_divider(painter)
+            self.hover_feedback.paint(painter)
             self.selection_painter.paint(painter)
             self.ruler_painter.paint(painter)
             self.playback_cache_painter.paint(painter)
@@ -2762,6 +2768,12 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
     # ----- State machine helper methods -----
 
+    def _track_header_resize_at(self, pos):
+        """The divider owns empty space; editable clip/transition edges win."""
+        rect = getattr(self, "resize_handle_rect", QRectF())
+        return (isinstance(rect, QRectF) and rect.contains(pos)
+                and self._is_timeline_content_pos(pos) and _resize_hit_at(self, pos) is None)
+
     def _hitTest(self, pos):
         return self.geometry.hit(pos)
 
@@ -2900,6 +2912,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             QToolTip.hideText()
 
     def _clip_text_at(self, pos):
+        if pos.x() < getattr(self, "track_name_width", 0):
+            return None
         for entry in reversed(self._clip_text_rects):
             rect = entry.get("rect") if isinstance(entry, dict) else None
             if isinstance(rect, QRectF) and rect.contains(pos):
@@ -2907,6 +2921,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         return None
 
     def _clip_menu_target_at(self, pos):
+        if pos.x() < getattr(self, "track_name_width", 0):
+            return None
         for entry in reversed(self._clip_text_rects):
             if not isinstance(entry, dict) or not entry.get("open_menu"):
                 continue
@@ -2928,6 +2944,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         self._pending_clip_menu_dragged = False
 
     def _transition_menu_target_at(self, pos):
+        if pos.x() < getattr(self, "track_name_width", 0):
+            return None
         for entry in reversed(getattr(self, "_transition_text_rects", [])):
             if not isinstance(entry, dict) or not entry.get("open_menu"):
                 continue
@@ -3027,6 +3045,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         return False
 
     def _transition_at(self, pos):
+        if pos.x() < getattr(self, "track_name_width", 0):
+            return None
         for rect, tran, _selected in self.geometry.iter_transitions(reverse=True):
             if rect.contains(pos):
                 return tran
@@ -3098,6 +3118,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         if not self._is_timeline_content_pos(pos):
             return ""
 
+        if TimelineWidgetBase._track_header_resize_at(self, pos):
+            return _("Resize track headers")
         effects_tray = getattr(self, "_effects_tray", None)
         if effects_tray and effects_tray._hit(pos):
             return effects_tray.tooltip(pos)
@@ -3111,8 +3133,13 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             if entry["rect"].contains(pos):
                 return self._track_display_label(entry["track"])
 
+        if pos.x() < self.track_name_width:
+            return ""
+
         icon_entry = self._effect_icon_at(pos)
         if isinstance(icon_entry, dict):
+            if icon_entry.get("output_toggle"):
+                return _("Unmute Audio") if icon_entry["output_toggle"] == "has_audio" else _("Show Video")
             if icon_entry.get("effects"):
                 from html import escape
                 from windows.effects_tray import clip_effect_sort_key
@@ -3314,6 +3341,11 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
             pos = QPointF(pos)
             self.geometry.ensure()
+            if TimelineWidgetBase._track_header_resize_at(self, pos):
+                if hover:
+                    hover.set_target("track-divider", self.resize_handle_rect, "track")
+                self.setCursor(Qt.SplitHCursor)
+                return
             effects_tray = getattr(self, "_effects_tray", None)
             if effects_tray:
                 marker = self._get_keyframe_at(pos) if effects_tray.track_id and not self.enable_razor else None
@@ -3353,6 +3385,31 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                     self.setCursor(Qt.PointingHandCursor)
                 else:
                     self.unsetCursor()
+                return
+
+            # The fixed header covers scrolled clips, including their title,
+            # badge and keyframe hitboxes. Only a visible trim edge at the
+            # divider may compete with the header's own controls.
+            if pos.x() < getattr(self, "track_name_width", 0):
+                resize_hit = _resize_hit_at(self, pos)
+                if resize_hit:
+                    rect, _item, edge, kind, _targets = resize_hit
+                    if hover:
+                        hover.set_target("edge-" + edge, rect, kind)
+                    self.setCursor(self.cursors["resize_x"])
+                    return
+                toolbar_button = self._track_toolbar_button_at(pos)
+                if toolbar_button:
+                    self.setCursor(Qt.PointingHandCursor)
+                    return
+                for _track_rect, track, name_rect in self.geometry.iter_tracks():
+                    mrect = self._track_menu_rect(name_rect, track)
+                    if mrect.contains(pos):
+                        if hover:
+                            hover.set_target("menu", mrect, "track")
+                        self.setCursor(Qt.PointingHandCursor)
+                        return
+                self.unsetCursor()
                 return
 
             if self.enable_razor and self._razor_in_track_area(pos):
@@ -3471,6 +3528,9 @@ class TimelineWidgetBase(RazorMixin, QWidget):
                 self._handle_effect_icon_click(badge)
                 event.accept()
                 return
+            if pos.x() < self.track_name_width:
+                super().mouseDoubleClickEvent(event)
+                return
             # Keyframe and effect hitboxes can extend beyond the clip body.
             if (self._get_keyframe_at(pos) or self._panel_marker_at(pos)
                     or badge):
@@ -3507,6 +3567,12 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         posf = _event_posf(event)
         pos = posf
         content_pos = self._is_timeline_content_pos(pos)
+        if event.button() == Qt.LeftButton and TimelineWidgetBase._track_header_resize_at(self, pos):
+            self._assign_press_target(event)
+            self._last_event = event
+            self.events.pressed.emit(event)
+            event.accept()
+            return
         effects_tray = getattr(self, "_effects_tray", None)
         if content_pos and effects_tray:
             marker = self._get_keyframe_at(pos) if effects_tray.track_id else None
@@ -3674,6 +3740,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
 
 
     def _trigger_clip_menu_icon(self, pos):
+        if pos.x() < getattr(self, "track_name_width", 0):
+            return False
         for rect, clip, _selected in self.geometry.iter_clips(reverse=True):
             if self._clip_menu_rect(rect).contains(pos) and hasattr(self.win, "timeline"):
                 self._select_timeline_item(clip.id, "clip", True)
@@ -3701,6 +3769,14 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         pos = _event_posf(event)
         modifiers = event.modifiers() if hasattr(event, "modifiers") else Qt.NoModifier
         ctrl = bool(modifiers & Qt.ControlModifier)
+        if TimelineWidgetBase._track_header_resize_at(self, pos):
+            self._press_marker = self._press_keyframe = self._active_keyframe_marker = None
+            self._press_keyframe_clear = True
+            self._panel_press_info = self._press_effect_icon = self._resizing_item = None
+            self._resize_items = []
+            self._resize_edge = None
+            self._press_hit = "handle"
+            return
         marker_entry = self._marker_at(pos)
         if marker_entry and isinstance(marker_entry, dict):
             self._press_hit = "marker"

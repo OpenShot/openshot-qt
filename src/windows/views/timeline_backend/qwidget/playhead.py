@@ -179,9 +179,7 @@ class PlayheadMixin:
         max_handle_height = min(float(self.ruler_height), icon_rect.height())
         if max_handle_height <= 0.0:
             return QRectF()
-        handle_height = icon_rect.height() * 0.12
-        handle_height = max(12.0, handle_height)
-        handle_height = min(handle_height, max_handle_height)
+        handle_height = max_handle_height
         handle_area = QRectF(
             icon_rect.x(),
             icon_rect.y(),

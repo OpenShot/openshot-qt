@@ -469,6 +469,8 @@ class GeometryBase:
             for rect, _obj, _sel, _type in self.iter_items(reverse=True):
                 if rect.contains(pos):
                     return "clip"
+        if self.widget.resize_handle_rect.contains(pos):
+            return "handle"
         for _track_rect, track, name_rect in self.iter_tracks():
             track_num = self.widget.normalize_track_number(track.data.get("number"))
             panel_rect = self.panel_rect(track_num)
@@ -487,8 +489,6 @@ class GeometryBase:
         timeline_handle = self.timeline_handle_rect()
         if timeline_handle.contains(pos):
             return "timeline-handle"
-        if self.widget.resize_handle_rect.contains(pos):
-            return "handle"
         if pos.y() <= self.widget.ruler_height:
             return "ruler"
         return "background"

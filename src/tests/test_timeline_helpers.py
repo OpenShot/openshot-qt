@@ -390,6 +390,71 @@ class TimelineHelperTests(unittest.TestCase):
                         self.assertEqual(image.pixelColor(60 * scale, (viewport_height - 6) * scale).alpha(), 0)
                         self.assertEqual(image.pixelColor(60 * scale, (viewport_height - 1) * scale).alpha(), 0)
 
+    def test_playhead_shaft_has_uniform_device_pixel_width(self):
+        from windows.views.timeline_backend.paint.playhead import PlayheadPainter
+        for theme_class in (self.humanity_theme_module.HumanityDarkTimelineTheme,
+                            self.humanity_theme_module.RetroTimelineTheme,
+                            self.cosmic_theme_module.CosmicDuskTimelineTheme):
+            for scale in (1, 1.25, 1.5, 2):
+                for x in (60, 60.25, 60.5, 61):
+                    with self.subTest(theme=theme_class.__name__, scale=scale, x=x):
+                        widget = types.SimpleNamespace(theme=theme_class())
+                        image = QImage(int(120 * scale), int(320 * scale), QImage.Format_ARGB32)
+                        image.fill(Qt.transparent)
+                        painter = QPainter(image)
+                        painter.scale(scale, scale)
+                        PlayheadPainter(widget).paint_at(painter, x, 40, 120, 310, 39)
+                        painter.end()
+                        rows = [tuple(px for px in range(image.width())
+                                      if image.pixelColor(px, int(y * scale)).alpha())
+                                for y in (45, 100, 207, 209, 290)]
+                        self.assertTrue(rows[0])
+                        self.assertTrue(all(row == rows[0] for row in rows))
+                        self.assertEqual(len(rows[0]), round(2 * scale))
+
+    def test_clip_output_badges_only_show_disabled_outputs_and_fit_headers(self):
+        from windows.views.timeline_backend.paint.track import TrackPainter
+        from windows.views.timeline_backend.qwidget.effect import EffectInteractionMixin
+        for theme_class in (self.humanity_theme_module.HumanityDarkTimelineTheme,
+                            self.humanity_theme_module.RetroTimelineTheme,
+                            self.cosmic_theme_module.CosmicDuskTimelineTheme):
+            helper = self.make_item_header_painter("clip")
+            self.addCleanup(helper.w.deleteLater)
+            helper.w.theme = theme_class()
+            helper.w.track_painter = TrackPainter.__new__(TrackPainter)
+            helper.w.track_painter.w = helper.w
+            helper.w.track_painter.toolbar_pixmaps = {
+                "mute-toggle": helper.w.track_painter.output_button_pixmaps("audio"),
+                "visibility-toggle": helper.w.track_painter.output_button_pixmaps("video")}
+            helper.w.track_painter.clip_output_pixmaps = {
+                key: helper.w.track_painter.output_button_pixmaps(kind, QColor("white"))["active"]
+                for key, kind in (("mute-toggle", "audio"), ("visibility-toggle", "video"))}
+            helper.update_theme()
+            for disabled in (False, True):
+                for width in (20, 60, 240):
+                    with self.subTest(theme=theme_class.__name__, disabled=disabled, width=width):
+                        helper.w._effect_icon_rects = []
+                        helper.w._clip_text_rects = []
+                        clip = types.SimpleNamespace(id="C1", data={"title": "Test clip", "effects": [{"id": "FX1"}],
+                            "has_audio": json.loads(openshot.Keyframe(0 if disabled else -1).Json()),
+                            "has_video": json.loads(openshot.Keyframe(0 if disabled else -1).Json())})
+                        rect = QRectF(0, 0, width, 60)
+                        image = QImage(width, 60, QImage.Format_ARGB32)
+                        image.fill(Qt.transparent)
+                        painter = QPainter(image)
+                        helper._draw_item_header(painter, clip, rect, rect)
+                        painter.end()
+                        badges = [entry for entry in helper.w._effect_icon_rects if entry.get("output_toggle")]
+                        self.assertEqual(len(badges), (2 if width == 240 else 1 if width == 60 else 0) if disabled else 0)
+                        for badge in badges:
+                            self.assertTrue(rect.contains(badge["rect"]))
+                            host = types.SimpleNamespace(win=types.SimpleNamespace(timeline=MagicMock()))
+                            EffectInteractionMixin._handle_effect_icon_click(host, badge)
+                            host.win.timeline._set_clip_output_disabled.assert_called_once_with(
+                                ["C1"], badge["output_toggle"], False)
+                        for first, second in zip(helper.w._effect_icon_rects, helper.w._effect_icon_rects[1:]):
+                            self.assertFalse(first["rect"].intersects(second["rect"]))
+
     def test_minimal_clip_and_transition_headers_stay_inside_short_rows(self):
         from qt_api import QFont
         original_font = self.app.font()
@@ -862,6 +927,10 @@ class TimelineHelperTests(unittest.TestCase):
                 return method.__get__(self, type(self))
 
         host = MenuHost()
+        from windows.views.timeline_backend.paint.track import TrackPainter
+        host.track_painter = TrackPainter.__new__(TrackPainter)
+        host.theme = self.cosmic_theme_module.CosmicDuskTimelineTheme()
+        host.track_painter.w = types.SimpleNamespace(theme=host.theme)
         host.window = QWidget()
         host.window.preview_thread = types.SimpleNamespace(current_frame=1)
         host.window.getShortcutByName = lambda name: []
@@ -909,6 +978,15 @@ class TimelineHelperTests(unittest.TestCase):
                             actions = [a for a in menu.actions() if not a.isSeparator()]
                             labels = {a.text() for a in actions}
                             self.assertTrue({"Copy", "Properties", "Remove " + kind} <= labels)
+                            if kind == "Clip":
+                                from qt_api import QToolButton
+                                for name in ("has_video", "has_audio"):
+                                    toggle = menu.findChild(QToolButton, name)
+                                    self.assertIsNotNone(toggle)
+                                    self.assertTrue(toggle.isCheckable())
+                                    self.assertFalse(toggle.isChecked())
+                                    self.assertFalse(toggle.icon().isNull())
+                                    self.assertEqual(toggle.isEnabled(), not locked)
                             if kind == "Clip" and hasattr(openshot, "Distort"):
                                 motion = next(a.menu() for a in actions if a.text() == "Motion")
                                 zones = {a.text(): a.menu() for a in motion.actions() if a.menu()}
@@ -3193,6 +3271,36 @@ class TimelineHelperTests(unittest.TestCase):
             clip.data["time"]["Points"],
         )
 
+    def test_clip_output_toggles_restore_keyframes_and_preserve_volume(self):
+        view = self.timeline_module.TimelineView
+        for property_name in ("has_video", "has_audio"):
+            with self.subTest(property_name=property_name):
+                curve = {"Points": [{"co": {"X": 1, "Y": -1}},
+                                    {"co": {"X": 30, "Y": 1}}]}
+                original = {"id": "C1", "layer": 1, property_name: curve,
+                            "volume": {"Points": [{"co": {"X": 1, "Y": 0.4}}]}}
+                clip = types.SimpleNamespace(id="C1", data=copy.deepcopy(original))
+                helper = types.SimpleNamespace(get_uuid=lambda: "output-toggle", update_clip_data=MagicMock())
+                app = types.SimpleNamespace(updates=types.SimpleNamespace(apply_last_action_to_history=MagicMock()))
+                with patch.object(self.timeline_module.Clip, "get", return_value=clip),                         patch.object(self.timeline_module.Track, "get", return_value=None),                         patch.object(self.timeline_module, "get_app", return_value=app):
+                    view._set_clip_output_disabled(helper, ["C1"], property_name, True)
+                    self.assertTrue(view._clip_output_disabled(clip.data, property_name))
+                    # Project serialization retains the previous enable curve.
+                    clip.data = json.loads(json.dumps(clip.data))
+                    view._set_clip_output_disabled(helper, ["C1"], property_name, False)
+                self.assertEqual(clip.data, original)
+                self.assertEqual(helper.update_clip_data.call_count, 2)
+                self.assertEqual(app.updates.apply_last_action_to_history.call_args.args[0][property_name],
+                                 json.loads(openshot.Keyframe(0).Json()))
+
+    def test_clip_output_toggle_skips_locked_and_missing_clips(self):
+        clip = types.SimpleNamespace(id="C1", data={"id": "C1", "layer": 1})
+        helper = types.SimpleNamespace(get_uuid=lambda: "output-toggle", update_clip_data=MagicMock())
+        with patch.object(self.timeline_module.Clip, "get", side_effect=[None, clip]),                 patch.object(self.timeline_module.Track, "get", return_value=types.SimpleNamespace(data={"lock": True})):
+            self.timeline_module.TimelineView._set_clip_output_disabled(helper, ["missing", "C1"], "has_audio", True)
+        helper.update_clip_data.assert_not_called()
+        self.assertEqual(clip.data, {"id": "C1", "layer": 1})
+
     def test_volume_triggered_refreshes_waveforms_for_visible_waveform_clips(self):
         helper = self.make_time_helper()
         clip = types.SimpleNamespace(
@@ -3503,7 +3611,7 @@ class TimelineHelperTests(unittest.TestCase):
             with self.subTest(target=target):
                 pos = QPointF(50, 50)
                 helper = types.SimpleNamespace(
-                    enable_razor=False,
+                    enable_razor=False, track_name_width=0,
                     geometry=types.SimpleNamespace(
                         ensure=lambda: None,
                         timeline_handle_rect=lambda: QRectF(),
@@ -3980,6 +4088,27 @@ class TimelineHelperTests(unittest.TestCase):
         helper.hover_feedback = HoverFeedback(helper)
         helper._updateCursor = lambda pos: self.qwidget_base_module.TimelineWidgetBase._updateCursor(helper, pos)
         return helper
+
+    def test_scrolled_items_cannot_claim_fixed_track_header_cursor(self):
+        for kind in ("clip", "transition"):
+            helper = self.make_hover_helper()
+            item = object()
+            rect = QRectF(-30, 30, 100, 60)
+            helper.geometry.items = [(rect, item, False, kind)]
+            helper._resize_targets_for_item = lambda *args: [item]
+            helper._effect_icon_at = lambda pos: {"rect": rect}
+            helper._get_keyframe_at = lambda pos: {"rect": rect}
+            setattr(helper, "_%s_text_rects" % kind, [{"rect": rect, "open_menu": True}])
+            for x in (10, 30, 69, 70, 80):
+                with self.subTest(kind=kind, x=x):
+                    helper._updateCursor(QPointF(x, 50))
+                    self.assertIsNone(helper.hover_feedback.target)
+                    self.assertIsNone(self.qwidget_base_module._resize_hit_at(helper, QPointF(x, 50)))
+            menu = QRectF(5, 30, 45, 25)
+            helper.geometry.iter_tracks = lambda: [(menu, object(), menu)]
+            helper._track_menu_rect = lambda *args: menu
+            helper._updateCursor(menu.center())
+            self.assertEqual(helper.hover_feedback.target, ("menu", menu, "track"))
 
     def test_hover_menu_targets_and_repaint_only_on_change(self):
         for kind in ("clip", "transition", "track"):
@@ -4469,6 +4598,72 @@ class TimelineHelperTests(unittest.TestCase):
                                 self.assertEqual(renders[0].pixelColor(x, y).alpha(),
                                                  renders[1].pixelColor(x, y).alpha())
                         self.assertEqual(renders[1].pixelColor(137, 37).alpha(), 0)
+
+    def test_track_header_divider_hover_and_press_win_over_expanded_panels(self):
+        hover = self.make_hover_helper()
+        press, event_cls = self.make_qwidget_assign_press_helper()
+        for helper in (hover, press):
+            helper.resize_handle_rect = QRectF(97, 20, 6, 220)
+            helper._panel_lane_at = lambda pos: {"property": "alpha"}
+        hover._effects_tray = types.SimpleNamespace(cursor=MagicMock(), track_id=None)
+        hover._updateCursor(QPointF(100, 80))
+        self.assertEqual(hover.cursor_value, Qt.SplitHCursor)
+        self.assertEqual(hover.hover_feedback.target[0], "track-divider")
+        hover._effects_tray.cursor.assert_not_called()
+        self.qwidget_base_module.TimelineWidgetBase._assign_press_target(press, event_cls(100, 80))
+        self.assertEqual(press._press_hit, "handle")
+        self.assertIsNone(press._resizing_item)
+        self.assertIsNone(press._panel_press_info)
+
+    def test_clip_edge_at_timeline_zero_wins_over_track_header_divider(self):
+        hover = self.make_hover_helper()
+        press, event_cls = self.make_qwidget_assign_press_helper(resize_items=["clip"])
+        item = object()
+        for helper in (hover, press):
+            helper.resize_handle_rect = QRectF(97, 20, 6, 220)
+            helper.geometry.items = [(QRectF(100, 30, 80, 60), item, False, "clip")]
+            helper._resize_targets_for_item = lambda *_args: [item]
+        for x in (98, 100, 102):
+            with self.subTest(x=x):
+                hover._updateCursor(QPointF(x, 50))
+                self.assertIs(hover.cursor_value, hover.cursors["resize_x"])
+                self.assertEqual(hover.hover_feedback.target[0], "edge-left")
+                self.qwidget_base_module.TimelineWidgetBase._assign_press_target(press, event_cls(x, 50))
+                self.assertEqual(press._press_hit, "clip-edge")
+                self.assertIs(press._resizing_item, item)
+
+    def test_track_header_divider_feedback_is_visible_in_every_theme_and_hidpi(self):
+        for theme_class in (self.humanity_theme_module.HumanityDarkTimelineTheme,
+                            self.humanity_theme_module.RetroTimelineTheme,
+                            self.cosmic_theme_module.CosmicDuskTimelineTheme):
+            for ratio in (1, 2):
+                with self.subTest(theme=theme_class.__name__, ratio=ratio):
+                    helper = self.make_hover_helper()
+                    helper.theme = theme_class()
+                    helper.resize_handle_rect = QRectF(97, 20, 6, 220)
+                    helper._updateCursor(QPointF(100, 80))
+                    image = QImage(900 * ratio, 250 * ratio, QImage.Format_ARGB32_Premultiplied)
+                    image.setDevicePixelRatio(ratio)
+                    image.fill(Qt.transparent)
+                    painter = QPainter(image)
+                    from windows.views.timeline_backend.paint.track import paint_track_divider
+                    paint_track_divider(painter, helper)
+                    normal = image.pixelColor(97 * ratio, 80 * ratio)
+                    helper.hover_feedback.paint(painter)
+                    # The playhead is painted later, including at position zero.
+                    from windows.views.timeline_backend.paint.playhead import PlayheadPainter
+                    PlayheadPainter(helper).paint_at(painter, 100, 100, 890, 240, 20)
+                    painter.end()
+                    color = image.pixelColor(97 * ratio, 80 * ratio)
+                    self.assertEqual(color.alpha(), 255)
+                    for x in (96, 98, 99):
+                        self.assertEqual(image.pixelColor(x * ratio, 80 * ratio), color)
+                    self.assertLessEqual(max(abs(color.red() - normal.red()),
+                                             abs(color.green() - normal.green()),
+                                             abs(color.blue() - normal.blue())), 15)
+                    self.assertEqual(image.pixelColor(103 * ratio, 80 * ratio).alpha(), 0)
+                    self.assertEqual(image.pixelColor(97 * ratio, 19 * ratio).alpha(), 0)
+                    self.assertEqual(image.pixelColor(97 * ratio, 241 * ratio).alpha(), 0)
 
     def test_hover_panel_keyframes_and_clear(self):
         helper = self.make_hover_helper()

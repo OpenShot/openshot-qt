@@ -65,6 +65,9 @@ class HoverFeedback:
 
     def active_resize_target(self):
         """Follow the actual resized geometry, including snap and duration limits."""
+        if (getattr(self.w, "_press_hit", None) == "handle"
+                and getattr(self.w, "mouse_dragging", False)):
+            return ("track-divider", QRectF(self.w.resize_handle_rect), "track")
         item = getattr(self.w, "_resizing_item", None)
         edge = getattr(self.w, "_resize_edge", None)
         if (item is None or edge not in ("left", "right")
@@ -120,6 +123,10 @@ class HoverFeedback:
             # Each marker painter shades its own interpolation glyph.
             return
         theme = getattr(self.w.theme, style)
+        if kind == "track-divider":
+            from .track import paint_track_divider
+            paint_track_divider(painter, self.w, hovered=True)
+            return
         color = QColor(theme.font_color)
         if kind != "menu" or not color.isValid():
             color = QColor("white" if theme.background.lightnessF() < 0.5 else "black")

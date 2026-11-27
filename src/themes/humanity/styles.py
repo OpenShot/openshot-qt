@@ -126,7 +126,7 @@ class HumanityDarkTimelineTheme(TimelineTheme):
         self.menu_margin             = 4
         self.playhead_icon           = _icon("themes/humanity/images/playhead.svg")
         self.playhead_icon_width     = 12
-        self.playhead_icon_height    = 188
+        self.playhead_icon_height    = 17
         self.playhead_icon_offset_x  = -6
         self.playhead_icon_offset_y  = 20
         self.marker_icon             = _icon("themes/humanity/images/marker.svg")
@@ -136,7 +136,7 @@ class HumanityDarkTimelineTheme(TimelineTheme):
         self.marker_icon_offset_y    = 0
 
         self.track_keyframe_panel_disabled_icon = _icon(_h + "humanity-dark-track-keyframe-panel-show-disabled.svg")
-        self.track_control_color = QColor("#4B92AD")
+        self.track_control_color = QColor("#89B5C6")
         self.track_keyframe_panel_enabled_icon  = _icon(_h + "humanity-dark-track-keyframe-panel-show-enabled.svg")
         self.track_keyframe_panel_hide_disabled_icon = _icon(_h + "humanity-dark-track-keyframe-panel-hide-disabled.svg")
         self.track_keyframe_panel_hide_enabled_icon = _icon(_h + "humanity-dark-track-keyframe-panel-hide-enabled.svg")

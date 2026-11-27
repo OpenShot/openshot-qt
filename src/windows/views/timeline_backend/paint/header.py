@@ -152,6 +152,18 @@ class ItemHeaderMixin:
         icon_size = max(8.0, font_h - 2.0)
         icon_gap = 4.0
 
+        output_size = min(max(icon_size, float(getattr(self.w.theme, "track_control_size", 16))),
+                          max(8.0, inner.height() - 4.0))
+        output_badges = []
+        if self.header_kind == "clip" and isinstance(item.data, dict):
+            for property_name, toolbar_key in (("has_audio", "mute-toggle"),
+                                               ("has_video", "visibility-toggle")):
+                points = item.data.get(property_name, {}).get("Points", [])
+                if points and all(point.get("co", {}).get("Y") == 0 for point in points):
+                    if pad_x * 2 + (len(output_badges) + 1) * (output_size + icon_gap) + icon_size <= text_width:
+                        output_badges.append((property_name, toolbar_key))
+        output_prefix = len(output_badges) * (output_size + icon_gap)
+
         effects = item.data.get("effects", []) if self.header_kind == "clip" and isinstance(item.data, dict) else []
         effects = [effect for effect in effects if isinstance(effect, dict)] if isinstance(effects, list) else []
         badge_font = QFont(painter.font())
@@ -166,22 +178,24 @@ class ItemHeaderMixin:
             labels = (preferred, "FX") if len(effects) > 1 else (preferred,)
             for candidate in labels:
                 width = max(badge_h, font_metrics_horizontal_advance(badge_fm, candidate) + 6.0)
-                if pad_x * 2 + width + icon_gap * 2 + icon_size <= text_width:
+                if pad_x * 2 + output_prefix + width + icon_gap * 2 + icon_size <= text_width:
                     badge_label, badge_width = candidate, width
                     break
 
         compact_w = pad_x * 2 + icon_size
+        if output_badges:
+            container_h = max(container_h, output_size + pad_y * 2.0)
         if badge_label:
             container_h = max(container_h, badge_h + pad_y * 2.0)
         min_visible = float(getattr(self.w.theme.clip, "thumb_min_visible", 5.0) or 5.0)
         item_min = float(getattr(self.w.theme.clip, "thumb_clip_min_width", 24.0) or 24.0)
         compact_lod_w = max(compact_w, min_visible * 2.0, item_min)
         visible_item_w = float(visible_width if visible_width is not None else inner.width())
-        badge_prefix = badge_width + icon_gap if badge_label else 0.0
+        badge_prefix = output_prefix + (badge_width + icon_gap if badge_label else 0.0)
         available = int(text_width - compact_w - badge_prefix - icon_gap)
         title_elided = metrics.elidedText(title_raw, Qt.ElideRight, available) if available >= 4 else ""
         text_advance = float(font_metrics_horizontal_advance(metrics, title_elided))
-        full = bool(badge_label or title_elided)
+        full = bool(output_badges or badge_label or title_elided)
         if full:
             container_w = min(text_width, max(container_h, compact_w + badge_prefix + text_advance + icon_gap))
         elif compact_w <= text_width and compact_lod_w <= visible_item_w:
@@ -220,8 +234,23 @@ class ItemHeaderMixin:
 
         arrow_rect = QRectF()
         if full:
+            for index, (property_name, toolbar_key) in enumerate(output_badges):
+                output_rect = QRectF(container_x + pad_x + index * (output_size + icon_gap),
+                                     container_y + (container_h - output_size) / 2,
+                                     output_size, output_size)
+                painter.save()
+                painter.setPen(Qt.NoPen)
+                background = QColor(0, 0, 0, 90)
+                painter.setBrush(background)
+                painter.drawRoundedRect(output_rect.adjusted(-1, -1, 1, 1), 3, 3)
+                pix = self.w.track_painter.clip_output_pixmaps[toolbar_key]
+                pix = self.scaled_pixmap(pix, output_size, output_size)
+                painter.drawPixmap(output_rect.topLeft(), pix)
+                painter.restore()
+                if icon_entries is not None:
+                    icon_entries.append({"rect": output_rect, "output_toggle": property_name})
             if badge_label:
-                badge_rect = QRectF(container_x + pad_x, container_y + (container_h - badge_h) / 2,
+                badge_rect = QRectF(container_x + pad_x + output_prefix, container_y + (container_h - badge_h) / 2,
                                     badge_width, badge_h)
                 accent = QColor(getattr(self.w.theme, "track_control_color", "#91c3ff"))
                 if not accent.isValid():

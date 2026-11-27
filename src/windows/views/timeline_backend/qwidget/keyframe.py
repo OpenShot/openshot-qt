@@ -982,6 +982,8 @@ class KeyframeMixin:
         self._snap_keyframe_seconds = seconds
 
     def _get_keyframe_at(self, pos):
+        if pos.x() < getattr(self, "track_name_width", 0):
+            return None
         self._ensure_keyframe_markers()
         markers = self._keyframe_markers
         if all(hasattr(self, name) for name in ("track_name_width", "ruler_height", "scroll_bar_thickness", "width", "height", "keyframe_painter")):

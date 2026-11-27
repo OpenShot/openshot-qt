@@ -5453,11 +5453,8 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
         if get_app().theme_manager:
             theme = get_app().theme_manager.get_current_theme()
 
-        if theme_changed:
-            # Theme switch invalidates all cached states so every dock gets re-styled.
-            for dw in self.getDocks():
-                dw._titlebar_state = None
-
+        # Palettes/styles update existing title bars. Rebuild only when their
+        # structure changes; reparenting unchanged widgets churns Qt's focus chain.
         for dock_widget in self.getDocks():
             # Only count visible tabified siblings — hidden docks in the same group
             # would otherwise make a lone visible dock appear "tabbed".
@@ -5492,6 +5489,7 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                 continue
 
             dock_widget._titlebar_state = required_state
+            previous_titlebar = dock_widget.titleBarWidget()
 
             if required_state == "timeline":
                 dock_widget.setTitleBarWidget(QWidget())
@@ -5505,6 +5503,13 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                     HiddenTitleBar(
                         dock_widget, dock_widget.windowTitle(),
                         show_buttons=show_titlebar_buttons))
+
+            # QDockWidget does not delete a replaced titleBarWidget. Leaving it
+            # parented retains its buttons, signals and focus-chain entries on
+            # every Cosmic -> other -> Cosmic theme round trip.
+            if previous_titlebar is not None:
+                previous_titlebar.hide()
+                previous_titlebar.deleteLater()
 
         # Refresh focus styling after title bars or tab groups are rebuilt.
         if not hasattr(self, '_dock_focus_controller'):

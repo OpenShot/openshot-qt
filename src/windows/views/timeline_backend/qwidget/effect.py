@@ -75,6 +75,8 @@ class EffectInteractionMixin:
                 break
 
     def _effect_icon_at(self, pos):
+        if pos.x() < getattr(self, "track_name_width", 0):
+            return None
         for entry in reversed(self._effect_icon_rects):
             rect = entry.get("rect")
             if isinstance(rect, QRectF) and rect.contains(pos):
@@ -112,6 +114,10 @@ class EffectInteractionMixin:
 
     def _handle_effect_icon_click(self, entry):
         if not isinstance(entry, dict):
+            return
+        if entry.get("output_toggle") in ("has_audio", "has_video"):
+            self.win.timeline._set_clip_output_disabled(
+                [entry["clip"].id], entry["output_toggle"], False)
             return
         if entry.get("effects"):
             clip = entry["clip"]
