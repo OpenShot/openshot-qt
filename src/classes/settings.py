@@ -68,7 +68,7 @@ class SettingStore(JsonDataStore):
         """Overlay platform and runtime-detected defaults onto selected settings."""
         lib_settings = openshot.Settings.Instance()
         runtime_defaults = {
-            # Empty means USER_PATH at startup. Do not persist the portable
+            # Empty means the automatic asset path at startup. Do not persist the portable
             # drive letter as a default: it can change when the USB drive moves.
             "unsaved-assets-path": (
                 info.default_assets_path() if initialize_assets and not info.PORTABLE else ""),

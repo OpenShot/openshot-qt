@@ -112,6 +112,8 @@ def _check_assets_folder(path):
 
 def default_assets_path():
     """Choose the Linux Snap-accessible default, retaining the legacy fallback."""
+    if PORTABLE:
+        return USER_PATH
     videos = os.path.join(HOME_PATH, "Videos")
     if sys.platform.startswith("linux") and os.path.isdir(videos):
         candidate = os.path.join(videos, ".openshot-tmp")
@@ -133,7 +135,7 @@ def set_assets_path(path):
 
 def configure_asset_defaults(path):
     """Apply the startup preference, falling back if it cannot be used."""
-    path = os.path.abspath(os.path.expanduser(path or USER_PATH))
+    path = os.path.abspath(os.path.expanduser(path or default_assets_path()))
     try:
         _check_assets_folder(path)
         for folder in _asset_folders.values():
