@@ -32,9 +32,9 @@ from time import strftime
 
 from classes.user_paths import application_path, is_portable, user_path
 
-VERSION = "4.2.0-dev1"
-MINIMUM_LIBOPENSHOT_VERSION = "1.2.0"
-DATE = "20261104000000"
+VERSION = "4.3.0"
+MINIMUM_LIBOPENSHOT_VERSION = "1.3.0"
+DATE = "20261126000000"
 NAME = "openshot-qt"
 PRODUCT_NAME = "OpenShot Video Editor"
 GPL_VERSION = "3"

@@ -3,7 +3,7 @@
 """One four-segment visualization for live preview and frozen export reports."""
 from qt_api import (Qt, QWidget, QPainter, QColor, QRectF, QTimer, QVBoxLayout, QGridLayout,
                     QHBoxLayout, QLabel, QPushButton, QDockWidget, QFrame, QScrollArea, QPalette, QMainWindow)
-from classes.gpu_metrics import stages
+from classes.gpu_metrics import N_, stages
 
 
 class GpuSegments(QWidget):
@@ -159,9 +159,9 @@ class GpuMetricsDock(QDockWidget):
         transfers = QGridLayout()
         transfers.setHorizontalSpacing(15)
         self.transfer_values = {}
-        for index, (key, title) in enumerate([('readbacks', 'Readbacks'), ('uploads', 'Uploads'),
-                                              ('upload_failures', 'Upload failures'),
-                                              ('image_sources', 'Image requests')]):
+        for index, (key, title) in enumerate([('readbacks', N_('Readbacks')), ('uploads', N_('Uploads')),
+                                              ('upload_failures', N_('Upload failures')),
+                                              ('image_sources', N_('Image requests'))]):
             column = QVBoxLayout()
             number = QLabel('—', panel)
             number.setStyleSheet('font-size: 19px; font-weight: 600;')
