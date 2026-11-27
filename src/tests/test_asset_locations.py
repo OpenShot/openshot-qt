@@ -74,6 +74,28 @@ class AssetLocationTests(unittest.TestCase):
             with patch.object(info.tempfile, 'TemporaryFile', side_effect=PermissionError):
                 self.assertEqual(info.default_assets_path(), str(self.user))
 
+    def test_cleared_preference_round_trips_to_snap_accessible_default(self):
+        (self.home / 'Videos').mkdir()
+        with patch.object(info, 'PORTABLE', False), patch.object(info.sys, 'platform', 'linux'):
+            settings = SettingStore()
+            settings.load()
+            settings.set('unsaved-assets-path', str(self.home / 'custom'))
+            settings.save()
+            settings.set('unsaved-assets-path', '')
+            settings.save()
+            restored = SettingStore()
+            restored.load()
+            self.assertEqual(restored.get('unsaved-assets-path'), '')
+            expected = self.home / 'Videos' / '.openshot-tmp'
+            self.assertEqual(info.configure_asset_defaults(restored.get('unsaved-assets-path')), str(expected))
+            self.assertTrue((expected / 'title').is_dir())
+
+    def test_portable_automatic_never_selects_host_videos(self):
+        (self.home / 'Videos').mkdir()
+        with patch.object(info, 'PORTABLE', True):
+            self.assertEqual(info.configure_asset_defaults(''), str(self.user))
+        self.assertFalse((self.home / 'Videos' / '.openshot-tmp').exists())
+
     def test_other_platforms_do_not_create_linux_directory(self):
         (self.home / 'Videos').mkdir()
         for platform in ('win32', 'darwin'):

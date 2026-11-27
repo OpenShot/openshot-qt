@@ -27,6 +27,8 @@ import json
 import logging
 import os
 
+from classes.user_paths import user_path
+
 
 def configure_qt():
     """Apply the editor's UI scale and high-DPI attributes before creating Qt widgets."""
@@ -40,7 +42,7 @@ def configure_qt():
     scale = 1.0
     logger = logging.getLogger(__name__)
 
-    settings_path = os.path.join(os.path.expanduser("~/.openshot_qt"), "openshot.settings")
+    settings_path = os.path.join(user_path(), "openshot.settings")
 
     try:
         if os.path.exists(settings_path):

@@ -302,6 +302,10 @@ class Preferences(QDialog):
                     widget = QLineEdit()
                     widget.setText(_(param["value"]))
                     widget.setObjectName(param["setting"])
+                    if param["setting"] == "unsaved-assets-path":
+                        widget.setPlaceholderText(_("Automatic"))
+                        widget.setClearButtonEnabled(True)
+                        widget.setToolTip(_("Leave empty to use the automatic folder. Changes take effect after restarting OpenShot."))
                     widget.textChanged.connect(functools.partial(self.text_value_changed, widget, param))
 
                     if param["type"] in ("browse", "browse-folder"):
@@ -644,7 +648,8 @@ class Preferences(QDialog):
     def selectFolder(self, widget, param):
         folder = QFileDialog.getExistingDirectory(
             self, get_app()._tr("Select assets folder"),
-            self.s.get(param["setting"]) or info.HOME_PATH)
+            self.s.get(param["setting"]) or (
+                info.default_assets_path() if param["setting"] == "unsaved-assets-path" else info.HOME_PATH))
         if folder:
             widget.setText(folder)
 

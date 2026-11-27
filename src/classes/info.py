@@ -30,6 +30,8 @@ import sys
 import tempfile
 from time import strftime
 
+from classes.user_paths import application_path, is_portable, user_path
+
 VERSION = "4.3.0"
 MINIMUM_LIBOPENSHOT_VERSION = "1.3.0"
 DATE = "20261126000000"
@@ -45,9 +47,7 @@ CWD = os.getcwd()
 # Application paths
 # Windows/Linux assets sit by the executable. Mac assets follow classes under lib,
 # then under Resources after the DMG builder moves and symlinks that directory.
-PATH = (os.path.dirname(os.path.abspath(sys.executable))
-        if getattr(sys, "frozen", False) and sys.platform != "darwin"
-        else os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+PATH = application_path()
 RESOURCES_PATH = os.path.join(PATH, "resources")
 PROFILES_PATH = os.path.join(PATH, "profiles")
 IMAGES_PATH = os.path.join(PATH, "images")
@@ -56,7 +56,8 @@ COLORS_PATH = os.path.join(PATH, "colors")
 
 # User paths
 HOME_PATH = os.path.join(os.path.expanduser("~"))
-USER_PATH = os.path.join(HOME_PATH, ".openshot_qt")
+PORTABLE = is_portable()
+USER_PATH = user_path()
 ASSETS_PATH = USER_PATH
 BACKUP_PATH = os.path.join(USER_PATH)
 RECOVERY_PATH = os.path.join(USER_PATH, "recovery")
@@ -111,6 +112,8 @@ def _check_assets_folder(path):
 
 def default_assets_path():
     """Choose the Linux Snap-accessible default, retaining the legacy fallback."""
+    if PORTABLE:
+        return USER_PATH
     videos = os.path.join(HOME_PATH, "Videos")
     if sys.platform.startswith("linux") and os.path.isdir(videos):
         candidate = os.path.join(videos, ".openshot-tmp")
@@ -132,7 +135,7 @@ def set_assets_path(path):
 
 def configure_asset_defaults(path):
     """Apply the startup preference, falling back if it cannot be used."""
-    path = os.path.abspath(os.path.expanduser(path or USER_PATH))
+    path = os.path.abspath(os.path.expanduser(path or default_assets_path()))
     try:
         _check_assets_folder(path)
         for folder in _asset_folders.values():
