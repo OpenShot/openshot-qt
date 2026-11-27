@@ -569,6 +569,13 @@ class PropertiesModel(updates.UpdateInterface):
         if not selected_ids:
             return
         timeline = get_app().window.timeline_sync.timeline
+        if timeline is None:
+            # Project teardown can notify the dock after releasing the timeline.
+            # Drop borrowed objects, keeping IDs to resolve on the next refresh.
+            self.selected = []
+            self.selected_parent = None
+            self.new_item = True
+            return
         getters = {"clip": timeline.GetClip, "transition": timeline.GetEffect,
                    "effect": timeline.GetClipEffect}
         previous_count = len(self.selected)

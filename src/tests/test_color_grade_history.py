@@ -473,6 +473,30 @@ class ColorGradeHistoryTests(unittest.TestCase):
         timeline.GetClipEffect.assert_called_once_with("effect")
         timeline.GetClip.assert_not_called()
 
+    def test_native_selection_refresh_waits_for_timeline(self):
+        from windows.models import properties_model
+        old = Mock()
+        old.Id.side_effect = AssertionError("Do not dereference a released native object")
+        self.window.timeline_sync = types.SimpleNamespace(timeline=None)
+        self.model.selected = [(old, "effect")]
+        self.model.selected_ids = [("effect", "effect")]
+        self.model.selected_parent = object()
+        self.model.new_item = False
+
+        properties_model.PropertiesModel._refresh_selected_objects(self.model)
+
+        self.assertEqual(self.model.selected, [])
+        self.assertIsNone(self.model.selected_parent)
+        self.assertTrue(self.model.new_item)
+        self.assertEqual(self.model.selected_ids, [("effect", "effect")])
+        current = Mock()
+        timeline = Mock()
+        timeline.GetClipEffect.return_value = current
+        self.window.timeline_sync.timeline = timeline
+        properties_model.PropertiesModel._refresh_selected_objects(self.model)
+        self.assertEqual(self.model.selected, [(current, "effect")])
+        self.assertIs(self.model.selected_parent, current.ParentClip.return_value)
+
     def test_selection_timeout_records_and_clears_native_ids(self):
         from windows.models import properties_model
         effect = Mock()
