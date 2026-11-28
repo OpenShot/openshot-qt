@@ -309,6 +309,11 @@ class _ContextButton(QToolButton):
         width = 16 + (22 if not self.icon().isNull() and not getattr(self, "_text_only", False) else 0) + text_width + (14 if self.menu() else 0)
         return QSize(max(size.width(), width), max(size.height(), metrics.height() + 10))
 
+    def minimumSizeHint(self):
+        # Native tool-button minimums do not include our inline submenu chevron.
+        # Keep the full label when Copy/Cut/Paste share a compact menu row.
+        return self.sizeHint()
+
     def paintEvent(self, event):
         option = QStyleOptionToolButton()
         self.initStyleOption(option)
