@@ -91,6 +91,28 @@ class CommonEntryTests(unittest.TestCase):
             self.assertEqual(outputs[0], output)
         self.assertIn('Workflow:', outputs[0])
 
+    def test_json_file_accepts_utf8_with_or_without_bom(self):
+        from cli import read_json
+
+        payload = {'title': 'Caf\u00e9 \ud55c\uae00'}
+        data = json.dumps(payload, ensure_ascii=False)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'edits.json'
+            for encoding in ('utf-8', 'utf-8-sig'):
+                with self.subTest(encoding=encoding):
+                    path.write_bytes(data.encode(encoding))
+                    self.assertEqual(read_json('@' + str(path)), payload)
+
+    def test_json_file_falls_back_to_locale_encoding(self):
+        from cli import read_json
+
+        payload = {'title': 'Caf\u00e9'}
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'edits.json'
+            path.write_bytes(json.dumps(payload, ensure_ascii=False).encode('cp1252'))
+            with patch('cli.locale.getpreferredencoding', return_value='cp1252'):
+                self.assertEqual(read_json('@' + str(path)), payload)
+
     def test_frozen_resource_paths_match_platform_packaging(self):
         info = Path(__file__).resolve().parents[1] / 'classes/info.py'
         script = """

@@ -103,8 +103,9 @@ command directly. When running from source, use ``python3 src/launch.py --cli``
 in OpenShot's Python environment.
 
 Examples with inline JSON and ``\`` line continuations use Bash syntax. In PowerShell, use the Windows
-executable shown above; for longer JSON values, save them in a file and pass ``--json "@edits.json"``
-to avoid shell quoting differences. Replace example paths, object IDs, and layer numbers with your own.
+executable shown above; for longer JSON values, save them in a UTF-8 file and pass ``--json "@edits.json"``
+to avoid shell quoting differences. A UTF-8 byte order mark (BOM) is optional. Replace example paths,
+object IDs, and layer numbers with your own.
 
 Bare ``--cli``, ``--cli help``, and ``--cli --help`` show the same overview.
 Help becomes more specific as you navigate commands::
