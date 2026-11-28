@@ -49,7 +49,8 @@ from qt_api import (
 from classes.logger import log
 from classes.app import get_app
 from classes import info
-from classes.query import Clip, Effect, Transition, File
+from classes.query import Clip, Effect, Transition, File, Track
+from classes.timeline_properties import TimelineProperties
 from classes.thumbnail import GetThumbPath
 
 from windows.models.properties_model import PropertiesModel
@@ -511,6 +512,10 @@ class PropertiesTableView(QTableView):
                 obj = Transition.get(id=item_id)
             elif item_type == "effect":
                 obj = Effect.get(id=item_id)
+            elif item_type == "track":
+                obj = Track.get(id=item_id)
+            elif item_type == "timeline":
+                obj = TimelineProperties()
 
             if obj and obj.data:
                 self.original_data_map[item_id] = {
@@ -533,12 +538,17 @@ class PropertiesTableView(QTableView):
                 obj = Transition.get(id=item_id)
             elif item_type == "effect":
                 obj = Effect.get(id=item_id)
+            elif item_type == "track":
+                obj = Track.get(id=item_id)
+            elif item_type == "timeline":
+                obj = TimelineProperties()
 
             if obj:
                 get_app().updates.ignore_history = True
                 get_app().updates.transaction_id = self.transaction_id
                 obj.save()
-                get_app().updates.apply_last_action_to_history(original)
+                get_app().updates.apply_last_action_to_history(
+                    original["color"] if item_type == "timeline" else original)
                 get_app().updates.ignore_history = False
 
         get_app().updates.transaction_id = None
@@ -558,6 +568,10 @@ class PropertiesTableView(QTableView):
                 obj = Transition.get(id=item_id)
             elif item_type == "effect":
                 obj = Effect.get(id=item_id)
+            elif item_type == "track":
+                obj = Track.get(id=item_id)
+            elif item_type == "timeline":
+                obj = TimelineProperties()
             if obj:
                 obj.data = original
                 obj.save()
@@ -1531,6 +1545,15 @@ class PropertiesTableView(QTableView):
         # Skip any read-only properties
         cur_property = selected_label.data()
         readonly = cur_property[1]["readonly"]
+        if cur_property[1].get("profile_property"):
+            app = get_app()
+            menu = StyledContextMenu(parent=self)
+            menu.addAction(app._tr("Choose Profile"), app.window.actionProfile_trigger)
+            try:
+                menu.show_at(event.globalPos())
+            finally:
+                menu.deleteLater()
+            return
         if readonly:
             return
 
@@ -2423,6 +2446,15 @@ class SelectionLabel(QFrame):
 
         # Get translation object
         _ = get_app()._tr
+
+        # Track and timeline settings use a plain title, not a selection control.
+        if self.item_type in ("timeline", "track"):
+            self.item_name = None
+            self.item_icon = QIcon()
+            self.lblSelection.setText("<strong>%s</strong>" % (_("Timeline") if self.item_type == "timeline" else _("Track")))
+            self.btnSelectionName.setVisible(False)
+            self.btnSelectionName.setMenu(None)
+            return
 
         # Look up item for more info
         if self.item_type == "multi":

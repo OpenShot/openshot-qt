@@ -4517,6 +4517,8 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
                 self.removeSelection(sel["id"], "transition")
             elif sel["type"] == "effect" and not Effect.get(id=sel["id"]):
                 self.removeSelection(sel["id"], "effect")
+            elif sel["type"] == "track" and not Track.get(id=sel["id"]):
+                self.removeSelection(sel["id"], "track")
 
     def foundCurrentVersion(self, version):
         """Handle the callback for detecting the current version on openshot.org"""
@@ -4959,6 +4961,10 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
     def copyAll(self):
         """Handle Copy QShortcut (selected clips / transitions)"""
+        if self.selected_items and all(item["type"] == "track" for item in self.selected_items):
+            from classes.track_clipboard import copy_track
+            copy_track(self.selected_items[0]["id"])
+            return
         tray = self._focused_effects_tray()
         if tray and tray.copy_selected():
             return
@@ -4966,6 +4972,10 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
 
     def cutAll(self):
         """Copy and remove the currently selected clip/transition"""
+        if self.selected_items and all(item["type"] == "track" for item in self.selected_items):
+            from classes.track_clipboard import copy_track
+            copy_track(self.selected_items[0]["id"], cut=True)
+            return
         self.copyAll()
         self.deleteItem()
 
@@ -4977,6 +4987,11 @@ class MainWindow(AssetKeyboardMixin, updates.UpdateWatcher, QMainWindow):
             self.timeline.paste_effect_ranges(mime_data, self.selected_clips)
             return
         copied_object = ClipboardManager.from_mime(mime_data) if mime_data else None
+        if isinstance(copied_object, Track):
+            from classes.track_clipboard import paste_track
+            paste_track(self.selected_tracks[0] if self.selected_tracks else None)
+            return
+
 
         if mime_data and not mime_data.hasFormat("application/x-openshot-generic"):
             if self.import_files_from_clipboard(mime_data):

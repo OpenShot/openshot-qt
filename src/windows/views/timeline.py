@@ -87,7 +87,8 @@ from .timeline_backend.enums import (
 )
 from .timeline_backend.qwidget import TimelineWidget
 from .timeline_backend.colors import effect_color_hex
-from .menu import StyledContextMenu, add_bound_action
+from .menu import (StyledContextMenu, add_bound_action, context_icon, style_object_menu,
+                   add_context_heading, add_context_action_row, add_context_remove)
 from classes.clip_utils import (
     clamp_timing_to_media,
     fit_transition_keyframes,
@@ -648,6 +649,22 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             if item_id and action and action.key and action.key[0] in ["clips", "transitions"]:
                 if self._action_contains_item_id(action, item_id):
                     self._apply_pending_trim_refresh()
+
+        # Panel state follows track identity when its number changes, including
+        # undo/redo of a whole-track move, before replacing the cached track list.
+        if (action.key and action.key[0] == "layers" and action.type == "update"
+                and isinstance(action.values, dict) and "number" in action.values
+                and len(action.key) > 1 and isinstance(action.key[1], dict)):
+            track_id = action.key[1].get("id")
+            old_track = next((track for track in getattr(self, "track_list", ())
+                              if track.id == track_id), None)
+            if old_track:
+                old_number = old_track.data["number"]
+                new_number = action.values["number"]
+                for name in ("_track_panel_enabled", "_panel_manual_properties", "_panel_selected_keyframes"):
+                    mapping = getattr(self, name, {})
+                    if old_number != new_number and old_number in mapping:
+                        mapping[new_number] = mapping.pop(old_number)
 
         try:
             # Copy the new state without serializing history we immediately discard.
@@ -1327,6 +1344,156 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         if tray and tray.track_id and (clip or tray.active):
             tray.paste_effects(mime_data, clip)
 
+    def _finish_object_context_menu(self, menu, kind, item, locked=False):
+        """Arrange existing commands without changing their editing behavior."""
+        _ = get_app()._tr
+        actions = list(menu.actions())
+        def named(label):
+            return next((a for a in actions if a.text().replace("&", "") == _(label).replace("&", "")), None)
+        copy_action, cut_action = named("Copy"), named("Cut")
+        properties = named("Properties")
+        preview = named("Preview Clip")
+        remove = named({"clip": "Remove Clip", "effect": "Remove Effect", "transition": "Remove Transition"}[kind])
+        controls = next((a for a in actions if isinstance(a, QWidgetAction)
+                         and a.defaultWidget() and a.defaultWidget().objectName() == "clipOutputHeader"), None)
+        for action in actions:
+            menu.removeAction(action)
+        if preview:
+            preview.setText(_("Preview"))
+            preview.setIcon(context_icon(menu, "preview"))
+        if properties:
+            properties.setShortcuts(self.window.getShortcutByName("actionProperties"))
+            properties.setIcon(context_icon(menu, "properties"))
+        paste_action = named("Paste")
+        add_context_action_row(menu, [action for action in (copy_action, cut_action, paste_action) if action])
+        menu.addSeparator()
+        appearance = None
+        appearance_actions = [named(label) for label in ("Fade", "Motion", "Transform", "Look")]
+        if kind == "clip":
+            appearance = StyledContextMenu(title=_("Appearance"), parent=menu)
+            for action in appearance_actions:
+                if action:
+                    appearance.addAction(action)
+            appearance.setEnabled(not locked)
+        excluded = [copy_action, cut_action, paste_action, properties, preview, remove, controls]
+        icon_names = {_("Speed"): "speed", _("Audio"): "audio", _("Slice"): "slice",
+                      _("Reverse Transition"): "reverse", _("Appearance"): "appearance"}
+        body = [action for action in actions if action not in excluded and not action.isSeparator()
+                and not (kind == "clip" and action in appearance_actions)]
+        if kind == "clip":
+            appearance.menuAction().setIcon(context_icon(menu, "appearance"))
+            menu.addMenu(appearance)
+            priorities = [named(label) for label in ("Text", "Speed", "Audio", "Align", "Slice")]
+            body = [a for a in priorities if a in body] + [a for a in body if a not in priorities]
+        for action in body:
+            label = action.text().replace("&", "")
+            icon_name = {_("Text"): "text", _("Align"): "align", **icon_names}.get(label)
+            if icon_name:
+                action.setIcon(context_icon(menu, icon_name))
+            if kind == "clip" and action in (named("Align"), named("Slice")):
+                if action is named("Align") or named("Align") is None:
+                    menu.addSeparator()
+            menu.addAction(action)
+        if kind == "effect":
+            keyframes = menu.addAction(context_icon(menu, "keyframes"), _("Keyframes"))
+            keyframes.triggered.connect(partial(self._show_effect_keyframes_from_menu, item.id))
+        if controls:
+            menu.addSeparator()
+            menu.addAction(controls)
+        if preview:
+            menu.addSeparator()
+            menu.addAction(preview)
+        if properties:
+            menu.addSeparator()
+            menu.addAction(properties)
+        if remove:
+            menu.addSeparator()
+            add_context_remove(menu, remove)
+        style_object_menu(menu)
+
+    def _cut_effect_from_menu(self, effect_id):
+        effect = Effect.get(id=effect_id)
+        if not effect:
+            return
+        track = Track.get(id=effect.parent["id"]) if effect.on_track else Track.get(number=effect.parent.get("layer"))
+        if track and track.data.get("lock"):
+            return
+        self.Copy_Triggered(MenuCopy.EFFECT, [], [], [effect_id])
+        self._select_timeline_item(effect_id, "effect", True)
+        self.window.actionRemoveEffect_trigger()
+
+    def _show_effect_keyframes_from_menu(self, effect_id):
+        effect = Effect.get(id=effect_id)
+        if not effect:
+            return
+        track = Track.get(id=effect.parent["id"]) if effect.on_track else Track.get(number=effect.parent.get("layer"))
+        if track:
+            self._select_timeline_item(effect_id, "effect", True)
+            self._set_track_keyframes(self.normalize_track_number(track.data["number"]), True)
+
+    def _move_track_from_menu(self, track_id, direction):
+        """Move a track and its contents as one undoable operation."""
+        if direction not in (-1, 1):
+            return
+        track = Track.get(id=track_id)
+        if not track or track.data.get("lock"):
+            return
+        tracks = sorted(get_app().project.get("layers"), key=lambda t: t["number"], reverse=True)
+        index = next((i for i, t in enumerate(tracks) if t["id"] == track_id), -1)
+        target = index + direction
+        if index < 0 or not 0 <= target < len(tracks):
+            return
+        adjacent = tracks[target]["number"]
+        outer_index = target + direction
+        outer = (tracks[outer_index]["number"] if 0 <= outer_index < len(tracks)
+                 else adjacent + 2000000 if direction == -1 else 0)
+        if abs(adjacent - outer) <= 1:
+            self.window.renumber_all_layers()
+            return self._move_track_from_menu(track_id, direction)
+        new_number = int((adjacent + outer) // 2)
+        old_number = track.data["number"]
+        contents = Clip.filter(layer=old_number) + Transition.filter(layer=old_number)
+        app = get_app()
+        previous_transaction = app.updates.transaction_id
+        app.updates.transaction_id = self.get_uuid()
+        self.window.IgnoreUpdates.emit(True, True)
+        try:
+            track.data = {"number": new_number}
+            track.save()
+            for item in contents:
+                item.data = {"layer": new_number}
+                item.save()
+        finally:
+            app.updates.transaction_id = previous_transaction
+            self.window.IgnoreUpdates.emit(False, True)
+        self._keyboard_layer = new_number
+        self.changed(None)
+        self.window.refreshFrameSignal.emit()
+
+    def _show_timeline_properties(self):
+        self.window.clearSelections()
+        self.window.addSelection("__timeline__", "timeline", True)
+        self.window.show_property_timer.stop()
+        self.window.show_property_timeout()
+        self.window.actionProperties_trigger()
+
+    def _show_track_properties(self, track_id):
+        if not Track.get(id=track_id):
+            return
+        self.window.clearSelections()
+        self.window.selected_tracks = [track_id]
+        self.window.addSelection(track_id, "track", True)
+        self.window.show_property_timer.stop()
+        self.window.show_property_timeout()
+        self.window.actionProperties_trigger()
+
+    def _set_track_lock_from_menu(self, track_id, locked):
+        self._select_track_for_action(track_id)
+        if locked:
+            self.window.actionLockTrack_trigger()
+        else:
+            self.window.actionUnlockTrack_trigger()
+
     @pyqtSlot(str)
     def ShowEffectMenu(self, effect_id=None):
         log.debug('ShowEffectMenu: %s' % effect_id)
@@ -1344,14 +1511,19 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu = StyledContextMenu(parent=self)
 
         # Only a single clip is selected (Show normal copy menus)
-        Copy_Menu = StyledContextMenu(title=_("Copy"), parent=self)
+        Copy_Menu = StyledContextMenu(title=_("Copy"), parent=menu)
         Copy_Effect = Copy_Menu.addAction(_("Effect"))
         Copy_Effect.setShortcuts(self.window.getShortcutByName("copyAll"))
         Copy_Effect.triggered.connect(partial(self.Copy_Triggered, MenuCopy.EFFECT, [], [], [effect_id]))
         menu.addMenu(Copy_Menu)
 
+        cut_action = menu.addAction(_("Cut"))
+        cut_action.setShortcuts(self.window.getShortcutByName("cutAll"))
+        cut_action.setEnabled(not locked and self.window.actionRemoveEffect.isEnabled())
+        cut_action.triggered.connect(partial(self._cut_effect_from_menu, effect_id))
+
         # Properties
-        menu.addAction(self.window.actionProperties)
+        add_bound_action(menu, self.window, "actionProperties", _("Properties"))
 
         # Remove Effect Menu
         menu.addSeparator()
@@ -1361,6 +1533,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         )
 
         # Show context menu
+        self._finish_object_context_menu(menu, "effect", effect, locked)
         self.context_menu_cursor_position = QCursor.pos()
         return menu.show_at(self.context_menu_cursor_position)
 
@@ -1446,8 +1619,11 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             )
             has_edit_actions = True
 
-        if not has_edit_actions:
-            return
+        if has_edit_actions:
+            menu.addSeparator()
+        properties = menu.addAction(context_icon(menu, "properties"), _("Timeline Properties"))
+        properties.triggered.connect(self._show_timeline_properties)
+        style_object_menu(menu)
 
         # Show context menu
         self.context_menu_cursor_position = QCursor.pos()
@@ -1507,11 +1683,15 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             "QFrame#clipOutputSeparator { background: %s; border: none; }"
             % (border_color, border_color, hover_color, border_color))
         for property_name, label, tooltip, kind, disabled, available, callback in toggles:
-            pixmaps = self.track_painter.output_button_pixmaps(kind)
+            if kind == "lock":
+                locks = self.track_painter.toolbar_pixmaps["lock-toggle"]
+                pixmaps = {"enabled": locks["unlocked"]["enabled"], "active": locks["locked"]["enabled"]}
+            else:
+                pixmaps = self.track_painter.output_button_pixmaps(kind)
             button = QToolButton(header)
             button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
             button.setObjectName(property_name)
-            button.setProperty("segment", kind)
+            button.setProperty("segment", "video" if kind == "lock" else "middle" if kind == "video" and len(toggles) == 3 else kind)
             button.setText(label)
             button.setToolTip(tooltip)
             button.setAccessibleName(tooltip)
@@ -1521,11 +1701,14 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             button.setEnabled(available)
             button.setIcon(QIcon(pixmaps["active" if disabled else "enabled"]))
 
-            def toggle_output(checked, callback=callback, button_ref=weakref.ref(button), pixmaps=pixmaps):
+            def toggle_output(checked, callback=callback, button_ref=weakref.ref(button), pixmaps=pixmaps,
+                              menu_ref=weakref.ref(menu), close_after=kind == "lock"):
                 callback(checked)
                 live_button = button_ref()
                 if live_button is not None:
                     live_button.setIcon(QIcon(pixmaps["active" if checked else "enabled"]))
+                if close_after and menu_ref() is not None:
+                    menu_ref().close()
 
             button.toggled.connect(toggle_output)
             if layout.count():
@@ -1612,12 +1795,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Cut_All.triggered.connect(self.window.cutAll)
         else:
             # Only a single clip is selected (Show normal copy menus)
-            Copy_Menu = StyledContextMenu(title=_("Copy"), parent=self)
+            Copy_Menu = StyledContextMenu(title=_("Copy"), parent=menu)
             Copy_Clip = Copy_Menu.addAction(_("Clip"))
             Copy_Clip.setShortcuts(self.window.getShortcutByName("copyAll"))
             Copy_Clip.triggered.connect(partial(self.Copy_Triggered, MenuCopy.CLIP, [clip_id], [], []))
 
-            Keyframe_Menu = StyledContextMenu(title=_("Keyframes"), parent=self)
+            Keyframe_Menu = StyledContextMenu(title=_("Keyframes"), parent=menu)
             Copy_Keyframes_All = Keyframe_Menu.addAction(_("All"))
             Copy_Keyframes_All.triggered.connect(partial(
                 self.Copy_Triggered, MenuCopy.KEYFRAMES_ALL, [clip_id], [], []))
@@ -1671,7 +1854,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Alignment Menu (if multiple selections)
         if len(clip_ids) > 1:
-            Alignment_Menu = StyledContextMenu(title=_("Align"), parent=self)
+            Alignment_Menu = StyledContextMenu(title=_("Align"), parent=menu)
             Align_Left = Alignment_Menu.addAction(_("Left"))
             Align_Left.triggered.connect(partial(self.Align_Triggered, MenuAlign.LEFT, clip_ids, tran_ids))
             Align_Right = Alignment_Menu.addAction(_("Right"))
@@ -1681,26 +1864,26 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             menu.addMenu(Alignment_Menu)
 
         # Fade Menu
-        Fade_Menu = StyledContextMenu(title=_("Fade"), parent=self)
+        Fade_Menu = StyledContextMenu(title=_("Fade"), parent=menu)
         Fade_None = Fade_Menu.addAction(_("No Fade"))
         Fade_None.triggered.connect(partial(self.Fade_Triggered, MenuFade.NONE, clip_ids))
         Fade_Menu.addSeparator()
 
-        Fade_In_Menu = StyledContextMenu(title=_("Fade In"), parent=self)
+        Fade_In_Menu = StyledContextMenu(title=_("Fade In"), parent=menu)
         Fade_In_Fast = Fade_In_Menu.addAction(_("Fast"))
         Fade_In_Fast.triggered.connect(partial(self.Fade_Triggered, MenuFade.IN_FAST, clip_ids, "Start of Clip"))
         Fade_In_Slow = Fade_In_Menu.addAction(_("Slow"))
         Fade_In_Slow.triggered.connect(partial(self.Fade_Triggered, MenuFade.IN_SLOW, clip_ids, "Start of Clip"))
         Fade_Menu.addMenu(Fade_In_Menu)
 
-        Fade_Out_Menu = StyledContextMenu(title=_("Fade Out"), parent=self)
+        Fade_Out_Menu = StyledContextMenu(title=_("Fade Out"), parent=menu)
         Fade_Out_Fast = Fade_Out_Menu.addAction(_("Fast"))
         Fade_Out_Fast.triggered.connect(partial(self.Fade_Triggered, MenuFade.OUT_FAST, clip_ids, "End of Clip"))
         Fade_Out_Slow = Fade_Out_Menu.addAction(_("Slow"))
         Fade_Out_Slow.triggered.connect(partial(self.Fade_Triggered, MenuFade.OUT_SLOW, clip_ids, "End of Clip"))
         Fade_Menu.addMenu(Fade_Out_Menu)
 
-        Fade_In_Out_Menu = StyledContextMenu(title=_("Fade In and Out"), parent=self)
+        Fade_In_Out_Menu = StyledContextMenu(title=_("Fade In and Out"), parent=menu)
         Fade_In_Out_Fast = Fade_In_Out_Menu.addAction(_("Fast"))
         Fade_In_Out_Fast.triggered.connect(partial(self.Fade_Triggered, MenuFade.IN_OUT_FAST, clip_ids, "Entire Clip"))
         Fade_In_Out_Slow = Fade_In_Out_Menu.addAction(_("Slow"))
@@ -1710,7 +1893,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addMenu(Fade_Menu)
 
         # ── Motion Menu ───────────────────────────────────────────────────────
-        Animate_Menu = StyledContextMenu(title=_("Motion"), parent=self)
+        Animate_Menu = StyledContextMenu(title=_("Motion"), parent=menu)
         Animate_None = Animate_Menu.addAction(_("No Motion"))
         Animate_None.triggered.connect(partial(self.Animate_Triggered, MenuAnimate.NONE, clip_ids))
         Animate_Menu.addSeparator()
@@ -1720,13 +1903,13 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             act.triggered.connect(partial(self.Animate_Triggered, action, clip_ids))
 
         def _motion_sub(title, items):
-            sub = StyledContextMenu(title=title, parent=self)
+            sub = StyledContextMenu(title=title, parent=menu)
             for label, action in items:
                 _motion_act(sub, label, action)
             return sub
 
         # ── In ▶ ───────────────────────────────────────────────────────────────
-        In_Menu = StyledContextMenu(title=_("In"), parent=self)
+        In_Menu = StyledContextMenu(title=_("In"), parent=menu)
         In_Menu.addMenu(_motion_sub(_("Back In"), [
             (_("From Bottom"), MenuAnimate.BACK_IN_UP),
             (_("From Left"),   MenuAnimate.BACK_IN_LEFT),
@@ -1774,7 +1957,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         Animate_Menu.addMenu(In_Menu)
 
         # ── Out ▶ ──────────────────────────────────────────────────────────────
-        Out_Menu = StyledContextMenu(title=_("Out"), parent=self)
+        Out_Menu = StyledContextMenu(title=_("Out"), parent=menu)
         Out_Menu.addMenu(_motion_sub(_("Back Out"), [
             (_("To Bottom"), MenuAnimate.BACK_OUT_DOWN),
             (_("To Left"),   MenuAnimate.BACK_OUT_LEFT),
@@ -1838,7 +2021,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         ]))
 
         # ── Camera ▶ ───────────────────────────────────────────────────────────
-        Camera_Menu = StyledContextMenu(title=_("Camera"), parent=self)
+        Camera_Menu = StyledContextMenu(title=_("Camera"), parent=menu)
         Camera_Menu.addMenu(_motion_sub(_("Zoom"), [
             (_("In"),  MenuAnimate.CAM_PUSH_IN),
             (_("Out"), MenuAnimate.CAM_PULL_OUT),
@@ -1850,7 +2033,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             (_("Top to Bottom"),  MenuAnimate.CAM_PAN_DOWN),
             (_("Bottom to Top"),  MenuAnimate.CAM_PAN_UP),
         ]))
-        Zoom_Pan_Menu = StyledContextMenu(title=_("Zoom & Pan").replace("&", "&&"), parent=self)
+        Zoom_Pan_Menu = StyledContextMenu(title=_("Zoom & Pan").replace("&", "&&"), parent=menu)
         Zoom_Pan_Menu.addMenu(_motion_sub(_("In"), [
             (_("Auto Direction"),  MenuAnimate.KEN_BURNS_IN),
             (_("Left to Right"),   MenuAnimate.KEN_BURNS_IN_LEFT_TO_RIGHT),
@@ -1878,12 +2061,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             menu.addMenu(Animate_Menu)
 
         # Transform Menu (Rotate, Crop, Layout)
-        Transform_Menu = StyledContextMenu(title=_("Transform"), parent=self)
+        Transform_Menu = StyledContextMenu(title=_("Transform"), parent=menu)
         No_Transform = Transform_Menu.addAction(_("No Transform"))
         No_Transform.triggered.connect(partial(self.No_Transform_Triggered, clip_ids))
         Transform_Menu.addSeparator()
 
-        Rotation_Menu = StyledContextMenu(title=_("Rotate"), parent=self)
+        Rotation_Menu = StyledContextMenu(title=_("Rotate"), parent=menu)
         Rotation_None = Rotation_Menu.addAction(_("No Rotation"))
         Rotation_None.triggered.connect(partial(
             self.Rotate_Triggered, MenuRotate.NONE, clip_ids))
@@ -1899,7 +2082,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             self.Rotate_Triggered, MenuRotate.FLIP_180, clip_ids))
         Transform_Menu.addMenu(Rotation_Menu)
 
-        Crop_Menu = StyledContextMenu(title=_("Crop"), parent=self)
+        Crop_Menu = StyledContextMenu(title=_("Crop"), parent=menu)
         Crop_None = Crop_Menu.addAction(_("No Crop"))
         Crop_None.triggered.connect(partial(self.Crop_Triggered, clip_ids, 'none'))
         Crop_Menu.addSeparator()
@@ -1909,7 +2092,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         Crop_Resize.triggered.connect(partial(self.Crop_Triggered, clip_ids, 'resize'))
         Transform_Menu.addMenu(Crop_Menu)
 
-        Layout_Menu = StyledContextMenu(title=_("Layout"), parent=self)
+        Layout_Menu = StyledContextMenu(title=_("Layout"), parent=menu)
         Layout_None = Layout_Menu.addAction(_("Reset Layout"))
         Layout_None.triggered.connect(partial(
             self.Layout_Triggered, MenuLayout.NONE, clip_ids))
@@ -1943,12 +2126,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         if clip_has_visual:
             # Look Menu (color, film, focus, and lighting presets)
-            Look_Menu = StyledContextMenu(title=_("Look"), parent=self)
+            Look_Menu = StyledContextMenu(title=_("Look"), parent=menu)
             Reset_Look = Look_Menu.addAction(_("Reset Look"))
             Reset_Look.triggered.connect(partial(self.Reset_Look_Triggered, clip_ids))
             Look_Menu.addSeparator()
 
-            Color_Menu = StyledContextMenu(title=_("Color"), parent=self)
+            Color_Menu = StyledContextMenu(title=_("Color"), parent=menu)
             Auto_Contrast = Color_Menu.addAction(_("Auto Contrast"))
             Auto_Contrast.triggered.connect(partial(self.Color_Triggered, COLOR_PRESET_AUTO_CONTRAST, clip_ids))
             Lift_Shadows = Color_Menu.addAction(_("Lift Shadows"))
@@ -1959,8 +2142,8 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Boost_Color.triggered.connect(partial(self.Color_Triggered, COLOR_PRESET_BOOST_COLOR, clip_ids))
             Look_Menu.addMenu(Color_Menu)
 
-            Film_Menu = StyledContextMenu(title=_("Film"), parent=self)
-            Film_Grain_Menu = StyledContextMenu(title=_("Film Grain"), parent=self)
+            Film_Menu = StyledContextMenu(title=_("Film"), parent=menu)
+            Film_Grain_Menu = StyledContextMenu(title=_("Film Grain"), parent=menu)
             Film_Grain_None = Film_Grain_Menu.addAction(_("No Film Grain"))
             Film_Grain_None.triggered.connect(partial(
                 self.Film_Grain_Triggered, FILM_GRAIN_PRESET_NONE, clip_ids))
@@ -2000,7 +2183,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
             Look_Menu.addMenu(Film_Menu)
 
-            Focus_Menu = StyledContextMenu(title=_("Focus"), parent=self)
+            Focus_Menu = StyledContextMenu(title=_("Focus"), parent=menu)
             self._add_effect_preset_menu(
                 Focus_Menu,
                 _("Sharpen"),
@@ -2029,7 +2212,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             if Focus_Menu.actions():
                 Look_Menu.addMenu(Focus_Menu)
 
-            Lighting_Menu = StyledContextMenu(title=_("Lighting"), parent=self)
+            Lighting_Menu = StyledContextMenu(title=_("Lighting"), parent=menu)
             self._add_effect_preset_menu(
                 Lighting_Menu,
                 _("Shadow"),
@@ -2073,7 +2256,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             menu.addMenu(Look_Menu)
 
         # Speed Menu
-        Time_Menu = StyledContextMenu(title=_("Speed"), parent=self)
+        Time_Menu = StyledContextMenu(title=_("Speed"), parent=menu)
         Time_None = Time_Menu.addAction(_("Reset Speed"))
         Time_None.triggered.connect(partial(self.Time_Triggered, MenuTime.NONE, clip_ids, '1X'))
         Time_Menu.addSeparator()
@@ -2088,13 +2271,13 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             (_("Speed Up"), ['2X', '4X', '8X', '16X']),
             (_("Slow Down"), ['1/2X', '1/4X', '1/8X', '1/16X'])
         ]:
-            Speed_Menu = StyledContextMenu(title=speed, parent=self)
+            Speed_Menu = StyledContextMenu(title=speed, parent=menu)
 
             for direction, direction_value in [
                 (_("Forward"), MenuTime.FORWARD),
                 (_("Backward"), MenuTime.BACKWARD)
             ]:
-                Direction_Menu = StyledContextMenu(title=direction, parent=self)
+                Direction_Menu = StyledContextMenu(title=direction, parent=menu)
 
                 for actual_speed in speed_values:
                     # Add menu option
@@ -2108,11 +2291,11 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Time_Menu.addMenu(Speed_Menu)
 
         # Repeat menu
-        Repeat_Menu = StyledContextMenu(title=_("Repeat"), parent=self)
+        Repeat_Menu = StyledContextMenu(title=_("Repeat"), parent=menu)
         for pattern_title, pattern in [(_("Loop"), "loop"), (_("Ping-Pong"), "pingpong")]:
-            Pattern_Menu = StyledContextMenu(title=pattern_title, parent=self)
+            Pattern_Menu = StyledContextMenu(title=pattern_title, parent=menu)
             for direction_title, start_dir in [(_("Forward"), 1), (_("Reverse"), -1)]:
-                Dir_Menu = StyledContextMenu(title=direction_title, parent=self)
+                Dir_Menu = StyledContextMenu(title=direction_title, parent=menu)
                 for count in [2, 3, 4, 5, 8, 10]:
                     Action = Dir_Menu.addAction(_("{}X").format(count))
                     Action.triggered.connect(
@@ -2129,7 +2312,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             (_("Freeze"), MenuTime.FREEZE),
             (_("Freeze && Zoom"), MenuTime.FREEZE_ZOOM)
         ]:
-            Freeze_Menu = StyledContextMenu(title=freeze_type, parent=self)
+            Freeze_Menu = StyledContextMenu(title=freeze_type, parent=menu)
 
             for freeze_seconds in [2, 4, 6, 8, 10, 20, 30]:
                 # Add menu option
@@ -2144,7 +2327,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addMenu(Time_Menu)
 
         # Audio Menu (Volume, Separate Audio, Waveform, Analyze Levels)
-        Audio_Menu = StyledContextMenu(title=_("Audio"), parent=self)
+        Audio_Menu = StyledContextMenu(title=_("Audio"), parent=menu)
         audio_menu_has_actions = False
         Record_Voiceover = Audio_Menu.addAction(
             self._microphone_icon(),
@@ -2153,12 +2336,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         audio_menu_has_actions = True
         Audio_Menu.addSeparator()
 
-        Volume_Menu = StyledContextMenu(title=_("Volume"), parent=self)
+        Volume_Menu = StyledContextMenu(title=_("Volume"), parent=menu)
         Volume_None = Volume_Menu.addAction(_("Reset Volume"))
         Volume_None.triggered.connect(partial(self.Volume_Triggered, MenuVolume.NONE, clip_ids))
         Volume_Menu.addSeparator()
 
-        Vol_Level_Menu = StyledContextMenu(title=_("Level"), parent=self)
+        Vol_Level_Menu = StyledContextMenu(title=_("Level"), parent=menu)
         for level in reversed(range(0, 140, 10)):
             vol_action = Vol_Level_Menu.addAction(_("Level {level}%").format(level=level))
             vol_action.triggered.connect(partial(self.Volume_Triggered, MenuVolume.LEVEL, clip_ids, "Entire Clip", level))
@@ -2166,21 +2349,21 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         Volume_Menu.addSeparator()
 
-        Vol_Fade_In_Menu = StyledContextMenu(title=_("Fade In"), parent=self)
+        Vol_Fade_In_Menu = StyledContextMenu(title=_("Fade In"), parent=menu)
         Vol_Fade_In_Fast = Vol_Fade_In_Menu.addAction(_("Fast"))
         Vol_Fade_In_Fast.triggered.connect(partial(self.Volume_Triggered, MenuVolume.FADE_IN_FAST, clip_ids, "Start of Clip"))
         Vol_Fade_In_Slow = Vol_Fade_In_Menu.addAction(_("Slow"))
         Vol_Fade_In_Slow.triggered.connect(partial(self.Volume_Triggered, MenuVolume.FADE_IN_SLOW, clip_ids, "Start of Clip"))
         Volume_Menu.addMenu(Vol_Fade_In_Menu)
 
-        Vol_Fade_Out_Menu = StyledContextMenu(title=_("Fade Out"), parent=self)
+        Vol_Fade_Out_Menu = StyledContextMenu(title=_("Fade Out"), parent=menu)
         Vol_Fade_Out_Fast = Vol_Fade_Out_Menu.addAction(_("Fast"))
         Vol_Fade_Out_Fast.triggered.connect(partial(self.Volume_Triggered, MenuVolume.FADE_OUT_FAST, clip_ids, "End of Clip"))
         Vol_Fade_Out_Slow = Vol_Fade_Out_Menu.addAction(_("Slow"))
         Vol_Fade_Out_Slow.triggered.connect(partial(self.Volume_Triggered, MenuVolume.FADE_OUT_SLOW, clip_ids, "End of Clip"))
         Volume_Menu.addMenu(Vol_Fade_Out_Menu)
 
-        Vol_Fade_In_Out_Menu = StyledContextMenu(title=_("Fade In and Out"), parent=self)
+        Vol_Fade_In_Out_Menu = StyledContextMenu(title=_("Fade In and Out"), parent=menu)
         Vol_Fade_In_Out_Fast = Vol_Fade_In_Out_Menu.addAction(_("Fast"))
         Vol_Fade_In_Out_Fast.triggered.connect(partial(self.Volume_Triggered, MenuVolume.FADE_IN_OUT_FAST, clip_ids, "Entire Clip"))
         Vol_Fade_In_Out_Slow = Vol_Fade_In_Out_Menu.addAction(_("Slow"))
@@ -2191,7 +2374,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Audio_Menu.addMenu(Volume_Menu)
             audio_menu_has_actions = True
 
-        Split_Audio_Channels_Menu = StyledContextMenu(title=_("Separate"), parent=self)
+        Split_Audio_Channels_Menu = StyledContextMenu(title=_("Separate"), parent=menu)
         Split_Single_Clip = Split_Audio_Channels_Menu.addAction(_("Single Clip (all channels)"))
         Split_Single_Clip.triggered.connect(partial(
             self.Split_Audio_Triggered, MenuSplitAudio.SINGLE, clip_ids))
@@ -2235,7 +2418,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
                 and playhead_position <= (position_of_clip + (end_of_clip - start_of_clip))
             ):
                 # Add split clip menu
-                Slice_Menu = StyledContextMenu(title=_("Slice"), parent=self)
+                Slice_Menu = StyledContextMenu(title=_("Slice"), parent=menu)
                 Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
                 Slice_Keep_Both.triggered.connect(partial(
                     self.Slice_Triggered, MenuSlice.KEEP_BOTH, clip_ids, tran_ids, playhead_position))
@@ -2259,7 +2442,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Text clips: type on the video preview, or open the full style dialog.
         if clip.data.get("direct_text"):
-            Text_Menu = StyledContextMenu(title=_("Text"), parent=self)
+            Text_Menu = StyledContextMenu(title=_("Text"), parent=menu)
             Edit_Text = Text_Menu.addAction(_("Edit Text"))
             Edit_Text.triggered.connect(partial(self.window.direct_text.begin, clip_id))
             Edit_Style = Text_Menu.addAction(_("Edit Style…"))
@@ -2303,6 +2486,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         )
 
         # Show context menu
+        self._finish_object_context_menu(menu, "clip", clip, locked)
         self.context_menu_cursor_position = QCursor.pos()
         return menu.show_at(self.context_menu_cursor_position)
 
@@ -4080,12 +4264,12 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             Cut_All.triggered.connect(self.window.cutAll)
         else:
             # Only a single transitions is selected (show normal transition copy menu)
-            Copy_Menu = StyledContextMenu(title=_("Copy"), parent=self)
+            Copy_Menu = StyledContextMenu(title=_("Copy"), parent=menu)
             Copy_Tran = Copy_Menu.addAction(_("Transition"))
             Copy_Tran.setShortcuts(self.window.getShortcutByName("copyAll"))
             Copy_Tran.triggered.connect(partial(self.Copy_Triggered, MenuCopy.TRANSITION, [], [tran_id], []))
 
-            Keyframe_Menu = StyledContextMenu(title=_("Keyframes"), parent=self)
+            Keyframe_Menu = StyledContextMenu(title=_("Keyframes"), parent=menu)
             Copy_Keyframes_All = Keyframe_Menu.addAction(_("All"))
             Copy_Keyframes_All.triggered.connect(partial(
                 self.Copy_Triggered, MenuCopy.KEYFRAMES_ALL, [], [tran_id], []))
@@ -4116,7 +4300,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Alignment Menu (if multiple selections)
         if len(clip_ids) > 1:
-            Alignment_Menu = StyledContextMenu(title=_("Align"), parent=self)
+            Alignment_Menu = StyledContextMenu(title=_("Align"), parent=menu)
             Align_Left = Alignment_Menu.addAction(_("Left"))
             Align_Left.triggered.connect(partial(self.Align_Triggered, MenuAlign.LEFT, clip_ids, tran_ids))
             Align_Right = Alignment_Menu.addAction(_("Right"))
@@ -4133,7 +4317,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
             if (playhead_position >= position_of_tran
                and playhead_position <= (position_of_tran + (end_of_tran - start_of_tran))):
                 # Add split transition menu
-                Slice_Menu = StyledContextMenu(title=_("Slice"), parent=self)
+                Slice_Menu = StyledContextMenu(title=_("Slice"), parent=menu)
                 Slice_Keep_Both = Slice_Menu.addAction(_("Keep Both Sides"))
                 Slice_Keep_Both.triggered.connect(partial(
                     self.Slice_Triggered, MenuSlice.KEEP_BOTH, clip_ids, tran_ids, playhead_position))
@@ -4167,7 +4351,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
 
         # Properties
         menu.addSeparator()
-        menu.addAction(self.window.actionProperties)
+        add_bound_action(menu, self.window, "actionProperties", _("Properties"))
 
         # Remove transition menu
         menu.addSeparator()
@@ -4177,6 +4361,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         )
 
         # Show context menu
+        self._finish_object_context_menu(menu, "transition", tran, locked)
         self.context_menu_cursor_position = QCursor.pos()
         return menu.show_at(self.context_menu_cursor_position)
 
@@ -4228,35 +4413,71 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         locked = track.data.get("lock", False)
 
         menu = StyledContextMenu(parent=self)
-        self._add_output_menu_header(menu, [
-            (key, label, tooltip, kind, bool(track.data.get(key)), True,
-             partial(self.set_track_render_setting, track.id, key))
-            for key, label, tooltip, kind in (
-                ("muted", _("Mute"), _("Mute Audio"), "audio"),
-                ("hidden", _("Hide"), _("Hide Video"), "video"))])
-        menu.addAction(self.window.actionAddTrackAbove)
-        menu.addAction(self.window.actionAddTrackBelow)
-        menu.addAction(self.window.actionRenameTrack)
-        if found_gap:
-            # Add 'Remove Gap' Menu
-            log.info(f"Found gap at {first_gap_start}")
-            menu.addAction(self.window.actionRemoveAllGaps)
-            try:
-                # Disconnect any previous connections
-                self.window.actionRemoveAllGaps.triggered.disconnect()
-            except TypeError:
-                pass  # No previous connections
-            self.window.actionRemoveAllGaps.triggered.connect(
-                partial(self.RemoveAllGaps_Triggered, first_gap_start, int(layer_number))
-            )
-        if locked:
-            menu.addAction(self.window.actionUnlockTrack)
-            self.window.actionRemoveTrack.setEnabled(False)
-        else:
-            menu.addAction(self.window.actionLockTrack)
-            self.window.actionRemoveTrack.setEnabled(True)
+        from classes.track_clipboard import copy_track, paste_track
+        copy = menu.addAction(_("Copy"))
+        copy.triggered.connect(partial(copy_track, track.id))
+        cut = menu.addAction(_("Cut"))
+        cut.setEnabled(not locked and len(get_app().project.get("layers")) > 1)
+        cut.triggered.connect(partial(copy_track, track.id, True))
+        row = [copy, cut]
+        if isinstance(ClipboardManager.from_mime(get_app().clipboard().mimeData()), Track):
+            paste = menu.addAction(_("Paste"))
+            paste.triggered.connect(partial(paste_track, track.id))
+            row.append(paste)
+        for action in row:
+            menu.removeAction(action)
+        add_context_action_row(menu, row)
         menu.addSeparator()
-        menu.addAction(self.window.actionRemoveTrack)
+        keyframes = menu.addAction(context_icon(menu, "keyframes"), _("Keyframes"))
+        keyframes.triggered.connect(partial(self._set_track_keyframes, self.normalize_track_number(layer_number), True))
+        fx = menu.addAction(context_icon(menu, "fx"), _("Effects"))
+        fx.triggered.connect(partial(self.show_effects_tray, track.id))
+        lock = menu.addAction(context_icon(menu, "lock"), _("Unlock") if locked else _("Lock"))
+        lock.triggered.connect(partial(self._set_track_lock_from_menu, track.id, not locked))
+        menu.addSeparator()
+        add_track = StyledContextMenu(title=_("Add Track"), parent=menu)
+        for action_name, label, icon in (("actionAddTrackAbove", _("Above"), "up"),
+                                         ("actionAddTrackBelow", _("Below"), "down")):
+            action = add_bound_action(add_track, self.window, action_name, label)
+            action.setText(label)
+            action.setIcon(context_icon(menu, icon))
+        add_track.menuAction().setIcon(context_icon(menu, "add-track"))
+        menu.addMenu(add_track)
+        move_track = StyledContextMenu(title=_("Move"), parent=menu)
+        ordered = sorted(get_app().project.get("layers"), key=lambda t: t["number"], reverse=True)
+        index = next(i for i, t in enumerate(ordered) if t["id"] == track.id)
+        for label, direction, available in ((_("Up"), -1, index > 0),
+                                            (_("Down"), 1, index < len(ordered) - 1)):
+            action = move_track.addAction(context_icon(menu, "up" if direction < 0 else "down"), label)
+            action.setEnabled(available and not locked)
+            action.triggered.connect(partial(self._move_track_from_menu, track.id, direction))
+        move_track.setEnabled(not locked)
+        move_track.menuAction().setIcon(context_icon(menu, "move-track"))
+        menu.addMenu(move_track)
+        if found_gap:
+            more = StyledContextMenu(title=_("More"), parent=menu)
+            more.menuAction().setIcon(context_icon(menu, "more"))
+            remove_gaps = more.addAction(_("Remove All Gaps"))
+            remove_gaps.setIcon(context_icon(menu, "gaps"))
+            remove_gaps.setEnabled(not locked)
+            remove_gaps.triggered.connect(partial(self.RemoveAllGaps_Triggered, first_gap_start, int(layer_number)))
+            menu.addMenu(more)
+        menu.addSeparator()
+        self._add_output_menu_header(menu, [
+            ("muted", _("Mute"), _("Mute Audio"), "audio", bool(track.data.get("muted")), True,
+             partial(self.set_track_render_setting, track.id, "muted")),
+            ("hidden", _("Hide"), _("Hide Video"), "video", bool(track.data.get("hidden")), True,
+             partial(self.set_track_render_setting, track.id, "hidden")),
+        ])
+        properties = menu.addAction(context_icon(menu, "properties"), _("Properties"))
+        properties.triggered.connect(partial(self._show_track_properties, track.id))
+        menu.addSeparator()
+        remove = add_bound_action(menu, self.window, "actionRemoveTrack", _("Remove Track"),
+                                  enabled=not locked and len(get_app().project.get("layers")) > 1)
+        remove.setText(_("Remove"))
+        menu.removeAction(remove)
+        add_context_remove(menu, remove)
+        style_object_menu(menu)
 
         # Show context menu
         self.context_menu_cursor_position = QCursor.pos()

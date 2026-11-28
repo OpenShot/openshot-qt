@@ -197,7 +197,9 @@ def verify():
 
         with patch("windows.views.timeline.StyledContextMenu.show_at", lambda menu, pos: menu):
             menu = window.timeline.ShowClipMenu(source)
-        copy_menu = next(a.menu() for a in menu.actions() if a.text().replace("&", "") == "Copy")
+        from qt_api import QToolButton
+        copy_menu = next(button.menu() for button in menu.findChildren(QToolButton)
+                         if button.text().replace("&", "") == "Copy")
         checks.assertIn("Text Style", [a.text() for a in copy_menu.actions()])
         keyframe_menu = next(a.menu() for a in copy_menu.actions() if a.menu())
         checks.assertNotIn("Text Style", [a.text() for a in keyframe_menu.actions()])

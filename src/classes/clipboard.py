@@ -28,12 +28,12 @@
 import json
 import math
 from qt_api import QMimeData
-from classes.query import Clip, Transition, Effect
+from classes.query import Clip, Transition, Effect, Track
 
 
 EFFECT_RANGES_MIME = "application/x-openshot-effect-ranges"
 _MIME = "application/x-openshot-generic"
-_TYPES = {"clip": Clip, "transition": Transition, "effect": Effect}
+_TYPES = {"clip": Clip, "transition": Transition, "effect": Effect, "track": Track}
 
 
 def _json_loads(text):
@@ -56,6 +56,30 @@ def _validate_data(data):
         raise ValueError("Invalid clipboard reader")
 
 
+def _validate_track(data):
+    if not isinstance(data.get("track"), dict):
+        raise ValueError("Invalid track snapshot")
+    _validate_data(data["track"])
+    if not isinstance(data["track"].get("id"), str) or not data["track"]["id"]:
+        raise ValueError("Invalid track identity")
+    number = data["track"].get("number")
+    if type(number) is not int or number <= 0:
+        raise ValueError("Invalid track number")
+    for collection in ("clips", "transitions", "files"):
+        if not isinstance(data.get(collection), list):
+            raise ValueError("Invalid track contents")
+        for item in data[collection]:
+            _validate_data(item)
+            if not isinstance(item.get("id"), str) or not item["id"]:
+                raise ValueError("Invalid track item identity")
+            if collection != "files" and not isinstance(item.get("reader"), dict):
+                raise ValueError("Track contents need a reader")
+    fps = data.get("fps", {})
+    if (not isinstance(fps, dict) or type(fps.get("num")) is not int
+            or type(fps.get("den")) is not int or fps["num"] <= 0 or fps["den"] <= 0):
+        raise ValueError("Invalid track frame rate")
+
+
 class ClipboardManager:
     """Copy timeline data once as JSON text, plus small type/identity metadata."""
 
@@ -73,6 +97,8 @@ class ClipboardManager:
                 if kind is None or (item.id is not None and not isinstance(item.id, str)):
                     raise ValueError("Unsupported clipboard object")
                 _validate_data(item.data)
+                if isinstance(item, Track):
+                    _validate_track(item.data)
                 metadata.append({"type": kind, "id": item.id})
             text = json.dumps([item.data for item in items] if isinstance(data, list) else data.data,
                               indent=4, allow_nan=False)
@@ -107,6 +133,8 @@ class ClipboardManager:
                 if cls is None or (source_id is not None and not isinstance(source_id, str)):
                     return None
                 _validate_data(value)
+                if cls is Track:
+                    _validate_track(value)
                 item = cls()
                 item.id = source_id
                 item.data = value

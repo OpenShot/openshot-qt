@@ -157,9 +157,9 @@ def verify():
         titles = [a.text().replace("&", "") for a in menu.actions()]
         checks.assertTrue("Edit Text" not in titles and titles.count("Text") == 1)
         text_index = titles.index("Text")
-        checks.assertTrue(titles.index("Speed") < text_index < titles.index("Properties"))
+        checks.assertTrue(titles.index("Appearance") < text_index < titles.index("Speed"))
         if "Slice" in titles:
-            checks.assertEqual(text_index, titles.index("Slice") + 1)
+            checks.assertTrue(text_index < titles.index("Slice") < titles.index("Properties"))
         text_menu = menu.actions()[text_index].menu()
         checks.assertEqual([a.text() for a in text_menu.actions()], ["Edit Text", "Edit Style…", "Reset Style"])
         text_menu.actions()[0].trigger()

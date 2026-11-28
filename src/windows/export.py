@@ -1480,6 +1480,12 @@ class Export(QDialog):
                             "spherical": sphericalIndex == 1
                           }
 
+        background = get_app().project.get("color") or {}
+        if isinstance(background, dict):
+            video_settings["preserve_alpha"] = any(
+                point.get("co", {}).get("Y", 255) < 255
+                for point in background.get("alpha", {}).get("Points", []))
+
         audio_settings = {"acodec": self.txtAudioCodec.text(),
                           "sample_rate": self.txtSampleRate.value(),
                           "channels": self.txtChannels.value(),

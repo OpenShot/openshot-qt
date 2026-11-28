@@ -147,7 +147,7 @@ class ConfettiTests(unittest.TestCase):
                     controller = Mock()
                     window = SimpleNamespace(timeline_sync=Mock(), feedback_controller=controller)
                     app = SimpleNamespace(_tr=lambda text: text, get_settings=Mock,
-                        project=SimpleNamespace(), window=window)
+                        project=SimpleNamespace(get=lambda key: None), window=window)
                     writer_methods = ['Open', 'Close', 'SetVideoOptions', 'SetAudioOptions',
                                       'PrepareStreams', 'AddSphericalMetadata', 'SetOption', 'WriteFrame', 'info']
                     if measured:

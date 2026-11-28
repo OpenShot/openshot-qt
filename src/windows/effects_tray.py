@@ -14,7 +14,8 @@ from classes.clipboard import EFFECT_RANGES_MIME
 from classes.clip_utils import clip_effect_timeline_range, effect_trim_positions
 from classes.effect_init import effect_options
 from classes.query import Clip, Effect, Track, Transition
-from windows.views.menu import StyledContextMenu, add_bound_action
+from windows.views.menu import (StyledContextMenu, add_bound_action, context_icon,
+                                add_context_action_row, add_context_remove, style_object_menu)
 from windows.views.timeline_backend.enums import MenuSlice
 from windows.views.timeline_backend.paint.keyframepanel import (
     draw_panel_heading, panel_add_button_rect, panel_heading_rect, panel_label_indent,
@@ -435,6 +436,14 @@ class EffectsTray(QObject):
                 if w.normalize_track_number(clip["layer"]) != self.track_number:
                     return None
                 first, last = clip_effect_timeline_range(clip, effect)
+        elif kind == "transition":
+            override = w._pending_transition_overrides.get(owner.id)
+            if override:
+                transition = dict(owner.data, **override)
+                if w.normalize_track_number(transition["layer"]) != self.track_number:
+                    return None
+                first = transition["position"]
+                last = first + transition["end"] - transition["start"]
         if last is None:
             last = self.timeline._current_project_duration()
         if self._preview and effect["id"] in self._preview:
@@ -1288,8 +1297,11 @@ class EffectsTray(QObject):
             copy_menu = StyledContextMenu(title=_("Copy"), parent=menu)
             copy = copy_menu.addAction(_("Effects") if plural else _("Effect"), self.copy_selected)
             copy.setShortcuts(window.getShortcutByName("copyAll"))
+            copy_menu.menuAction().setIcon(context_icon(menu, "copy"))
             menu.addMenu(copy_menu)
+            core_actions = [copy_menu.menuAction()]
             cut = menu.addAction(_("Cut"), self._cut)
+            core_actions.append(cut)
             cut.setShortcuts(window.getShortcutByName("cutAll"))
             cut.setEnabled(not self.locked)
             clipboard = QApplication.clipboard().mimeData()
@@ -1300,6 +1312,10 @@ class EffectsTray(QObject):
                                                           owner if kind == "clip" else None))
                 paste.setShortcuts(window.getShortcutByName("pasteAll"))
                 paste.setEnabled(not self.locked)
+                core_actions.append(paste)
+            for action in core_actions:
+                menu.removeAction(action)
+            add_context_action_row(menu, core_actions)
 
             if not self.locked:
                 frame = (self.timeline.current_frame or 1) - 1
@@ -1314,15 +1330,20 @@ class EffectsTray(QObject):
                 if any(row[2].get("clip_range") for row in rows):
                     menu.addAction(_("Reset Effect Timing"), self.reset_timing)
             menu.addSeparator()
-        menu.addAction(_("Keyframes"), self._show_keyframes)
-        add_bound_action(menu, window, "actionProperties", _("Properties"),
-                         callback=self._show_properties, enabled=True)
+        menu.addAction(context_icon(menu, "keyframes"), _("Keyframes"), self._show_keyframes)
+        menu.addSeparator()
+        properties = add_bound_action(menu, window, "actionProperties", _("Properties"),
+                                      callback=self._show_properties, enabled=True)
+        properties.setIcon(context_icon(menu, "properties"))
         if rows:
             menu.addSeparator()
             remove = add_bound_action(menu, window, "actionRemoveEffect", _("Remove Effect"),
                                       callback=self.delete_selected, enabled=not self.locked)
             if len(rows) > 1:
                 remove.setText(_("Remove Effects"))
+            menu.removeAction(remove)
+            add_context_remove(menu, remove)
+        style_object_menu(menu)
         return menu
 
     def _cut(self):

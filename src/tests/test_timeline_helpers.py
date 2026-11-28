@@ -947,7 +947,7 @@ class TimelineHelperTests(unittest.TestCase):
         transition = timeline_module.Transition()
         transition.id = "transition"
         transition.data = dict(clip.data)
-        effect = types.SimpleNamespace(parent={"layer": 1}, on_track=False)
+        effect = types.SimpleNamespace(id="effect", data={"name": "Blur"}, parent={"layer": 1}, on_track=False)
         project = types.SimpleNamespace(get=lambda key: {"num": 30, "den": 1})
 
         with ExitStack() as stack:
@@ -975,9 +975,12 @@ class TimelineHelperTests(unittest.TestCase):
                                 patch.object(timeline_module.ClipboardManager, "from_mime", return_value=item):
                             menu = getattr(host, "Show" + kind + "Menu")(kind.lower())
                             track_get.assert_called_with(number=1)
-                            actions = [a for a in menu.actions() if not a.isSeparator()]
+                            from qt_api import QToolButton
+                            actions = [a for a in menu.actions() if not a.isSeparator() and a.text()]
+                            actions += [button._context_action for button in menu.findChildren(QToolButton)
+                                        if hasattr(button, "_context_action")]
                             labels = {a.text() for a in actions}
-                            self.assertTrue({"Copy", "Properties", "Remove " + kind} <= labels)
+                            self.assertTrue({"Copy", "Properties", "Remove " + kind} <= labels, labels)
                             if kind == "Clip":
                                 from qt_api import QToolButton
                                 for name in ("has_video", "has_audio"):
@@ -988,7 +991,8 @@ class TimelineHelperTests(unittest.TestCase):
                                     self.assertFalse(toggle.icon().isNull())
                                     self.assertEqual(toggle.isEnabled(), not locked)
                             if kind == "Clip" and hasattr(openshot, "Distort"):
-                                motion = next(a.menu() for a in actions if a.text() == "Motion")
+                                appearance = next(a.menu() for a in actions if a.text() == "Appearance")
+                                motion = next(a.menu() for a in appearance.actions() if a.text() == "Motion")
                                 zones = {a.text(): a.menu() for a in motion.actions() if a.menu()}
                                 for zone in ("In", "Out"):
                                     names = {a.text() for a in zones[zone].actions()}
@@ -998,7 +1002,7 @@ class TimelineHelperTests(unittest.TestCase):
                             if kind != "Effect":
                                 self.assertTrue({"Cut", "Paste", "Slice"} <= labels)
                             for action in actions:
-                                expected = not locked or action.text() in ("Copy", "Properties")
+                                expected = not locked or action.text() in ("Copy", "Properties", "Keyframes")
                                 self.assertEqual(action.isEnabled(), expected, action.text())
                             self.assertTrue(shared_remove.isEnabled())
                             remove_action = next(a for a in actions if a.text() == "Remove " + kind)
@@ -6547,6 +6551,24 @@ class TimelineHelperTests(unittest.TestCase):
         self.assertEqual(EffectsTray._bar_rect(tray, 0, lane), QRectF(1380, 50, 200, 20))
         timeline._pending_clip_overrides["clip"]["layer"] = 2
         self.assertTrue(EffectsTray._bar_rect(tray, 0, lane).isEmpty())
+
+    def test_transition_bar_follows_pending_move_trim_and_track(self):
+        from windows.effects_tray import EffectsTray
+
+        transition = types.SimpleNamespace(id="mask", data={
+            "id": "mask", "position": 2., "start": 1., "end": 5., "layer": 1})
+        pending = {"position": 8., "layer": 1}
+        timeline = types.SimpleNamespace(_pending_transition_overrides={"mask": pending},
+                                         normalize_track_number=int)
+        tray = types.SimpleNamespace(timeline=timeline, track_number=1, _preview=None,
+                                     rows=[("transition", transition, transition.data, 2., 6.)])
+        self.assertEqual(EffectsTray._bar_range(tray, 0), (8., 12.))
+        pending.update(start=2., end=4.)
+        self.assertEqual(EffectsTray._bar_range(tray, 0), (8., 10.))
+        pending["layer"] = 2
+        self.assertIsNone(EffectsTray._bar_range(tray, 0))
+        timeline._pending_transition_overrides.clear()
+        self.assertEqual(EffectsTray._bar_range(tray, 0), (2., 6.))
 
     def test_all_clip_effects_follow_multi_clip_drag_while_track_effect_stays(self):
         from windows.effects_tray import EffectsTray

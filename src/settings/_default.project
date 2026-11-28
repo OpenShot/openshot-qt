@@ -1,5 +1,51 @@
 {
   "id": "T0",
+  "color": {
+    "red": {
+      "Points": [
+        {
+          "co": {
+            "X": 1.0,
+            "Y": 0.0
+          },
+          "interpolation": 2
+        }
+      ]
+    },
+    "green": {
+      "Points": [
+        {
+          "co": {
+            "X": 1.0,
+            "Y": 0.0
+          },
+          "interpolation": 2
+        }
+      ]
+    },
+    "blue": {
+      "Points": [
+        {
+          "co": {
+            "X": 1.0,
+            "Y": 0.0
+          },
+          "interpolation": 2
+        }
+      ]
+    },
+    "alpha": {
+      "Points": [
+        {
+          "co": {
+            "X": 1.0,
+            "Y": 255.0
+          },
+          "interpolation": 2
+        }
+      ]
+    }
+  },
   "auto_optimize": null,
   "fps": {
     "num": 24,

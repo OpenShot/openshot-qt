@@ -119,6 +119,8 @@ def configure_writer(writer, video, audio, mode='video_audio', quality_mode=None
         writer.SetAudioOptions(True, audio['acodec'], audio['sample_rate'], audio['channels'],
                                audio['channel_layout'], audio['audio_bitrate'])
     writer.PrepareStreams()
+    if mode != 'audio' and video.get('preserve_alpha'):
+        writer.SetOption(openshot.VIDEO_STREAM, 'preserve_alpha', '1')
     if video.get('spherical'):
         writer.AddSphericalMetadata('equirectangular', 0.0, 0.0, 0.0)
     stream = openshot.AUDIO_STREAM if mode == 'audio' else openshot.VIDEO_STREAM

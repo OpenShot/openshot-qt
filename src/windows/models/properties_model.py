@@ -43,7 +43,9 @@ from classes import openshot_rc  # noqa
 from classes.clip_utils import (
     clamp_timing_to_media, clip_time_bounds, is_single_image_media, fit_transition_keyframes,
 )
-from classes.query import Clip, Transition, Effect, File
+from classes.query import Clip, Transition, Effect, File, Track
+from classes.track_properties import TrackProperties
+from classes.timeline_properties import TimelineProperties
 from classes.logger import log
 from classes.app import get_app
 import openshot
@@ -506,7 +508,7 @@ class PropertiesModel(updates.UpdateInterface):
             return
 
         # Handle change
-        if action and len(action.key) >= 1 and action.key[0] in ["clips", "effects", "layers"] and action.type in ["update", "insert", "delete"]:
+        if action and len(action.key) >= 1 and action.key[0] in ["clips", "effects", "layers", "color"] and action.type in ["update", "insert", "delete"]:
             log.debug("Property model received %s for %s", action.type, action.key)
             self._refresh_selected_objects()
             self._refresh_selected_effect_filters()
@@ -537,7 +539,12 @@ class PropertiesModel(updates.UpdateInterface):
             for sel in selection:
                 item_id = sel.get("id")
                 item_type = sel.get("type")
-                if item_type == "clip":
+                if item_type == "timeline":
+                    self.selected.append((TimelineProperties(), item_type))
+                elif item_type == "track":
+                    if Track.get(id=item_id):
+                        self.selected.append((TrackProperties(item_id), item_type))
+                elif item_type == "clip":
                     c = timeline.GetClip(item_id)
                     if c:
                         self.selected.append((c, item_type))
@@ -579,7 +586,9 @@ class PropertiesModel(updates.UpdateInterface):
             return
         timeline = get_app().window.timeline_sync.timeline
         getters = {"clip": timeline.GetClip, "transition": timeline.GetEffect,
-                   "effect": lambda item_id: self._native_effect(timeline, item_id)}
+                   "effect": lambda item_id: self._native_effect(timeline, item_id),
+                   "track": lambda item_id: TrackProperties(item_id) if Track.get(id=item_id) else None,
+                   "timeline": lambda item_id: TimelineProperties()}
         previous_count = len(self.selected)
         self.selected = []
         self.selected_parent = None
@@ -599,6 +608,12 @@ class PropertiesModel(updates.UpdateInterface):
         # Check for a selected clip
         if self.selected:
             clip, item_type = self.selected[0]
+            if item_type in ("track", "timeline"):
+                changed = self.frame_number != frame_number
+                self.frame_number = frame_number if item_type == "timeline" else 1
+                if item_type == "timeline" and changed and reload_model:
+                    self.update_model(get_app().window.txtPropertyFilter.text())
+                return
 
             if not clip:
                 # Ignore null clip
@@ -651,6 +666,8 @@ class PropertiesModel(updates.UpdateInterface):
         is outside an item, its nearest keyframe changes instead.
         """
         auto_keyframes = force_insert or auto_keyframes_enabled(get_app().window)
+        if item_type == "timeline":
+            return max(1, self.playhead_frame or self.frame_number), auto_keyframes
         if getattr(self, "playhead_frame", None) is None:
             return self.frame_number, auto_keyframes
         getter = {"clip": "GetClip", "transition": "GetEffect", "effect": "GetClipEffect"}.get(item_type)
@@ -707,6 +724,8 @@ class PropertiesModel(updates.UpdateInterface):
             elif item_type == "effect":
                 # Get effect object
                 c = Effect.get(id=item_id)
+            elif item_type == "timeline":
+                c = TimelineProperties()
 
             if not c:
                 return
@@ -890,6 +909,8 @@ class PropertiesModel(updates.UpdateInterface):
                 elif item_type == "effect":
                     # Get effect object
                     c = Effect.get(id=item_id)
+                elif item_type == "timeline":
+                    c = TimelineProperties()
 
                 if c:
                     frame_number, auto_keyframes = self._edit_frame(item_id, item_type, force_insert)
@@ -1102,6 +1123,28 @@ class PropertiesModel(updates.UpdateInterface):
         _walk(updated)
         return updated, changed
 
+    def _update_track_property(self, item, value=None):
+        prop = self.model.item(item.row(), 0).data()
+        key = prop[0].split(".", 1)[1]
+        if prop[1]["readonly"] or key not in ("label", "muted", "hidden", "lock"):
+            return
+        if value is None:
+            value = item.text()
+        if key != "label":
+            value = value in ("True", get_app()._tr("True"), "1", True, 1)
+        self.ignore_update_signal = True
+        try:
+            for item_id, item_type in item.data() or []:
+                track = Track.get(id=item_id) if item_type == "track" else None
+                if track and not (key == "label" and track.data.get("lock")):
+                    track.data = {key: value}
+                    track.save()
+        finally:
+            self.ignore_update_signal = False
+        self.new_item = True
+        self.update_model(get_app().window.txtPropertyFilter.text())
+        get_app().window.refreshFrameSignal.emit()
+
     def value_updated(self, item, interpolation=-1, value=None, interpolation_details=None, refresh_model=True, force_insert=False):
         """ Table cell change event - also handles context menu to update interpolation value """
 
@@ -1113,6 +1156,9 @@ class PropertiesModel(updates.UpdateInterface):
 
         # Determine what was changed
         property = self.model.item(item.row(), 0).data()
+        if property[0].startswith("track."):
+            self._update_track_property(item, value)
+            return
         if property[0].startswith("direct_text."):
             if value is None:
                 if property[1]["type"] == "int":
@@ -1180,6 +1226,8 @@ class PropertiesModel(updates.UpdateInterface):
             elif item_type == "effect":
                 # Get effect object
                 c = Effect.get(id=item_id)
+            elif item_type == "timeline":
+                c = TimelineProperties()
 
             if c and c.data:
                 is_mask_reader_update = (
@@ -1881,7 +1929,7 @@ class PropertiesModel(updates.UpdateInterface):
 
                 self._edit_source_data = None
                 if len(self.selected) == 1 and not auto_keyframes_enabled(app.window):
-                    getter = {"clip": Clip.get, "transition": Transition.get, "effect": Effect.get}.get(item_type)
+                    getter = {"clip": Clip.get, "transition": Transition.get, "effect": Effect.get, "track": Track.get}.get(item_type)
                     source = live_items.get(c.Id()) or (getter(id=c.Id()) if getter else None)
                     # Project curves are authoritative for edits. Serializing the
                     # whole native object here makes refresh cost grow with every keyframe.

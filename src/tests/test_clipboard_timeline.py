@@ -235,6 +235,7 @@ class TimelineClipboardTests(unittest.TestCase):
 
     def shortcut_host(self):
         from windows.main_window import MainWindow
+        self.host.selected_items = [{'id': 'C2', 'type': 'clip'}, {'id': 'T2', 'type': 'transition'}]
         self.host.selected_clips = ['C2']
         self.host.selected_transitions = ['T2']
         self.host.import_files_from_clipboard = Mock(return_value=False)
