@@ -1634,7 +1634,6 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         """Show the Properties dock (triggered by double-click on a clip/transition)."""
         self.window.actionProperties.trigger()
 
-    @pyqtSlot(str)
     @staticmethod
     def _clip_output_disabled(data, property_name):
         points = data.get(property_name, {}).get("Points", [])
@@ -1723,6 +1722,7 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         menu.addSeparator()
 
 
+    @pyqtSlot(str)
     def ShowClipMenu(self, clip_id=None):
         log.debug('ShowClipMenu: %s' % clip_id)
         self._context_menu_paste_data = None
