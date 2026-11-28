@@ -3836,6 +3836,45 @@ class TimelineHelperTests(unittest.TestCase):
             PlayheadMixin.update_playhead_pos(widget, frame)
         self.assertEqual(centers, [101, 151, 201])
 
+    def test_manual_scroll_gestures_block_all_playback_centering_paths(self):
+        from windows.views.timeline_backend.qwidget.playhead import PlayheadMixin
+
+        for flag in ("_middle_panning", "scroll_bar_dragging", "v_scroll_bar_dragging"):
+            with self.subTest(gesture=flag):
+                widget = types.SimpleNamespace(
+                    win=types.SimpleNamespace(), dragging_playhead=False, mouse_dragging=False,
+                    current_frame=1, fps_float=10, pixels_per_second=10,
+                    scrollbar_position=[.3, .4, 1000, 100], h_scroll_offset=300,
+                    _is_playing=lambda: True, update=MagicMock(),
+                    _center_on_seconds=MagicMock(return_value=False), centerOnPlayhead=MagicMock())
+                setattr(widget, flag, True)
+                PlayheadMixin.centerOnPlayhead(widget)
+                widget._center_on_seconds.assert_not_called()
+                PlayheadMixin.update_playhead_pos(widget, 2)
+                self.assertEqual(widget.current_frame, 2)
+                widget.centerOnPlayhead.assert_not_called()
+                setattr(widget, flag, False)
+                PlayheadMixin.update_playhead_pos(widget, 3)
+                widget.centerOnPlayhead.assert_called_once_with()
+
+    def test_middle_pan_keeps_selected_viewport_after_release(self):
+        from windows.views.timeline_backend.qwidget.playhead import PlayheadMixin
+
+        helper = types.SimpleNamespace(
+            _middle_panning=True, mouse_dragging=True,
+            scrollbar_position=[.3, .4, 1000, 100], _middle_pan_scroll_start=[0, .1, 1000, 100],
+            _is_playing=lambda: True, _release_cursor=MagicMock())
+        helper.hold_playhead_follow_until_visible = lambda: PlayheadMixin.hold_playhead_follow_until_visible(helper)
+        self.qwidget_base_module.TimelineWidgetBase._finishMiddlePan(helper)
+        self.assertFalse(helper._middle_panning)
+        self.assertFalse(helper.mouse_dragging)
+        self.assertTrue(helper._playhead_follow_held)
+        helper.hold_playhead_follow_until_visible = MagicMock()
+        helper._middle_panning = True
+        helper._middle_pan_scroll_start = list(helper.scrollbar_position)
+        self.qwidget_base_module.TimelineWidgetBase._finishMiddlePan(helper)
+        helper.hold_playhead_follow_until_visible.assert_not_called()
+
     def test_center_signal_does_not_move_view_while_slider_is_held(self):
         from windows.views.timeline_backend.qwidget.playhead import PlayheadMixin
 

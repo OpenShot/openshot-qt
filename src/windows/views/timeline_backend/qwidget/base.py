@@ -591,7 +591,7 @@ class TimelineWidgetBase(RazorMixin, QWidget):
         idle.addTransition(t)
         self._transitions.append(t)
 
-        t = _ConditionalTransition(sender, pressed_signal, idle, boxsel, lambda: self._press_hit in ("background", "panel"))
+        t = _ConditionalTransition(sender, pressed_signal, idle, boxsel, lambda: self._press_hit in ("background", "panel") and self._box_select_allowed())
         idle.addTransition(t)
         self._transitions.append(t)
 
@@ -4091,6 +4091,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
             return
         self._reset_ctrl_mouse_zoom()
         if self.scroll_bar_dragging or self.v_scroll_bar_dragging:
+            if self.scroll_bar_dragging and self.scrollbar_position[:2] != self.scrollbar_position_previous[:2]:
+                self.hold_playhead_follow_until_visible()
             self.scroll_bar_dragging = False
             self.v_scroll_bar_dragging = False
             self.mouse_dragging = False
@@ -4448,6 +4450,8 @@ class TimelineWidgetBase(RazorMixin, QWidget):
     def _finishMiddlePan(self):
         if not self._middle_panning:
             return
+        if self.scrollbar_position[:2] != self._middle_pan_scroll_start[:2]:
+            self.hold_playhead_follow_until_visible()
         self._middle_panning = False
         self.mouse_dragging = False
         self._release_cursor()
