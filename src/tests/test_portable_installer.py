@@ -147,30 +147,64 @@ class PortableInstallerTests(unittest.TestCase):
         self.assert_payload()
         self.assertEqual((self.destination / 'portable').read_bytes(), b'')
 
-    def test_upgrade_preserves_all_data_and_removes_stale_binaries(self):
-        self.install()
-        before = self.seed_data()
-        (self.destination / 'openshot-qt.exe').write_bytes(b'old executable')
-        obsolete = self.destination / 'old-lib' / 'nested' / 'obsolete.dll'
-        obsolete.parent.mkdir(parents=True)
-        obsolete.write_bytes(b'stale')
-        (self.destination / 'obsolete.dll').write_bytes(b'stale')
-        self.install()
-        self.assert_payload()
-        self.assertFalse((self.destination / 'old-lib').exists())
-        self.assertFalse((self.destination / 'obsolete.dll').exists())
-        self.assertEqual(self.snapshot(self.destination / '.openshot_qt'), before)
+    def seed_user_files(self):
+        files = ('project.osp', 'media/footage.mp4', 'project_assets/title.svg',
+                 'lib/user-media/clip.wav', 'notes.txt', 'old-lib/nested/obsolete.dll',
+                 'obsolete.dll')
+        for relative in files:
+            path = self.destination / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(('user file ' + relative).encode())
+        return {relative: (self.destination / relative).read_bytes() for relative in files}
+
+    def assert_user_files(self, expected):
+        for relative, contents in expected.items():
+            with self.subTest(path=relative):
+                self.assertEqual((self.destination / relative).read_bytes(), contents)
+
+    def test_upgrade_preserves_projects_media_and_unowned_files_in_both_modes(self):
+        original_destination = self.destination
+        for portable in (True, False):
+            with self.subTest(portable=portable):
+                self.destination = original_destination / ('portable' if portable else 'standard')
+                self.destination.mkdir(parents=True)
+                try:
+                    self.install(portable=portable)
+                    before = self.seed_data()
+                    user_files = self.seed_user_files()
+                    (self.destination / 'openshot-qt.exe').write_bytes(b'old executable')
+                    (self.destination / 'lib' / 'current.dll').write_bytes(b'old library')
+                    self.install(portable=portable)
+                    self.assert_payload()
+                    self.assert_user_files(user_files)
+                    self.assertEqual(self.snapshot(self.destination / '.openshot_qt'), before)
+                finally:
+                    if not portable:
+                        self.uninstall_if_present()
+
+    def test_first_standard_install_preserves_existing_projects_and_media(self):
+        user_files = self.seed_user_files()
+        try:
+            self.install(portable=False)
+            self.assert_payload()
+            self.assert_user_files(user_files)
+        finally:
+            self.uninstall_if_present()
 
     def test_first_portable_install_preserves_existing_local_data(self):
         before = self.seed_data()
+        user_files = self.seed_user_files()
         self.install()
+        self.assert_user_files(user_files)
         self.assertEqual(self.snapshot(self.destination / '.openshot_qt'), before)
 
     def test_upgrade_without_portable_argument_still_preserves_data(self):
         self.install()
         before = self.seed_data()
+        user_files = self.seed_user_files()
         try:
             self.install(portable=False)
+            self.assert_user_files(user_files)
             self.assertEqual(self.snapshot(self.destination / '.openshot_qt'), before)
             self.assertTrue((self.destination / 'portable').is_file())
         finally:

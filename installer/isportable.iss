@@ -13,36 +13,6 @@ begin
   Result := PortableCheck or FileExists(ExpandConstant('{app}\portable'));
 end;
 
-function CleanPortableProgramFiles: String;
-var
-  FindRec: TFindRec;
-  Path: String;
-begin
-  Result := '';
-  // Remove old binaries, but never recursively delete the portable user data.
-  if FindFirst(ExpandConstant('{app}\*'), FindRec) then
-  begin
-    try
-      repeat
-        if (FindRec.Name <> '.') and (FindRec.Name <> '..') and
-           (CompareText(FindRec.Name, '.openshot_qt') <> 0) and
-           (CompareText(FindRec.Name, 'portable') <> 0) then
-        begin
-          Path := AddBackslash(ExpandConstant('{app}')) + FindRec.Name;
-          if not DelTree(Path,
-              (FindRec.Attributes and FILE_ATTRIBUTE_DIRECTORY) <> 0, True, True) then
-          begin
-            Result := 'Unable to remove old OpenShot files. Close OpenShot and retry: ' + Path;
-            Exit;
-          end;
-        end;
-      until not FindNext(FindRec);
-    finally
-      FindClose(FindRec);
-    end;
-  end;
-end;
-
 <event('PrepareToInstall')>
 function IsPortablePrepareToInstall(var NeedsRestart: Boolean): String;
 begin
@@ -50,7 +20,7 @@ begin
   if not PreservePortableData then
     Exit;
 
-  // Fail before removing any old files if portable mode cannot be enabled.
+  // Fail before copying any program files if portable mode cannot be enabled.
   // Exceptions in CurStepChanged are logged but do not reliably fail setup.
   if PortableCheck and not FileExists(ExpandConstant('{app}\portable')) then
   begin
@@ -65,7 +35,9 @@ begin
       Exit;
     end;
   end;
-  Result := CleanPortableProgramFiles;
+  // Overlay only files included in this installer. The app folder can also
+  // contain projects, media and user-created folders, even inside lib.
+  // Without an ownership manifest, unknown files must never be deleted.
 end;
 
 function GetAppId(Param: String): String;

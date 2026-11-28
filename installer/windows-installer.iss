@@ -127,9 +127,8 @@ Name: "fileassoc"; Description: "{cm:AssocFileExtension,{#MyAppName},.osp}"; Gro
 Name: "firewall"; Description: "{cm:FirewallException}"; GroupDescription: "{cm:AdditionalIcons}"; Check: not PortableCheck;
 
 [InstallDelete]
-; Remove previous installed versions of OpenShot
-Type: filesandordirs; Name: "{app}\*"; Check: not PreservePortableData;
-Type: dirifempty; Name: "{app}\*"; Check: not PreservePortableData;
+; Upgrade by overwriting packaged files only. Users may keep projects and
+; media in the app folder; never recursively delete unrelated contents.
 Type: files; Name: "{group}\OpenShot Video Editor"; BeforeInstall: DeleteInvalidFiles; Check: not PortableCheck;
 
 [Registry]
