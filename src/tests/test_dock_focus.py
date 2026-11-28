@@ -32,6 +32,30 @@ class DockFocusTests(unittest.TestCase):
         self.window.activateWindow()
         self.app.processEvents()
 
+    def test_tab_order_requests_in_one_event_are_coalesced(self):
+        from unittest.mock import patch
+        with patch.object(tabstops, "apply_auto_tab_order") as rebuild:
+            tabstops.apply_auto_tab_order_later(self.window)
+            tabstops.apply_auto_tab_order_later(self.window)
+            tabstops.apply_auto_tab_order_later(self.window)
+            self.app.processEvents()
+            rebuild.assert_called_once()
+
+    def test_dock_tab_lookup_does_not_repeat_for_each_control(self):
+        from unittest.mock import patch
+        from qt_api import QTabBar, QVBoxLayout
+        content = QWidget()
+        layout = QVBoxLayout(content)
+        for index in range(24):
+            layout.addWidget(QLineEdit("Control %s" % index))
+        self.docks[0].setWidget(content)
+        self.app.processEvents()
+        with patch.object(self.window, "findChildren", wraps=self.window.findChildren) as find:
+            tabstops.apply_auto_tab_order(self.window)
+            tab_lookups = sum(call.args[0] is QTabBar for call in find.call_args_list)
+        self.assertLessEqual(tab_lookups, 8)
+        self.assertIsNone(self.window._auto_tab_active_tabs)
+
     def tearDown(self):
         self.app.focusChanged.disconnect(self.controller.request_refresh)
         self.window.close()
