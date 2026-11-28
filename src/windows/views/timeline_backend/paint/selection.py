@@ -45,9 +45,9 @@ class SelectionPainter(BasePainter):
     def paint(self, painter: QPainter):
         if not self.w.selection_rect.isNull():
             area = QRectF(
-                0.0,
+                self.w.track_name_width,
                 self.w.ruler_height,
-                self.w.width() - self.w.scroll_bar_thickness,
+                self.w.width() - self.w.track_name_width - self.w.scroll_bar_thickness,
                 self.w.height() - self.w.ruler_height - self.w.scroll_bar_thickness,
             )
             painter.save()

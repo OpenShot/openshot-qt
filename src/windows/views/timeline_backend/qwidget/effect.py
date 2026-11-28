@@ -83,6 +83,8 @@ class EffectInteractionMixin:
                 break
 
     def _effect_icon_at(self, pos):
+        if pos.x() < getattr(self, "track_name_width", 0):
+            return None
         for entry in reversed(self._effect_icon_rects):
             rect = entry.get("rect")
             if isinstance(rect, QRectF) and rect.contains(pos):

@@ -127,9 +127,8 @@ Name: "fileassoc"; Description: "{cm:AssocFileExtension,{#MyAppName},.osp}"; Gro
 Name: "firewall"; Description: "{cm:FirewallException}"; GroupDescription: "{cm:AdditionalIcons}"; Check: not PortableCheck;
 
 [InstallDelete]
-; Remove previous installed versions of OpenShot
-Type: filesandordirs; Name: "{app}\*"
-Type: dirifempty; Name: "{app}\*"
+; Upgrade by overwriting packaged files only. Users may keep projects and
+; media in the app folder; never recursively delete unrelated contents.
 Type: files; Name: "{group}\OpenShot Video Editor"; BeforeInstall: DeleteInvalidFiles; Check: not PortableCheck;
 
 [Registry]
@@ -140,7 +139,7 @@ Root: HKLM; Subkey: "Software\Classes\OpenShotProject"; ValueType: string; Value
 ; Launcher association for data files of type OpenShotProject
 Root: HKLM; Subkey: "Software\Classes\OpenShotProject\shell\open\command"; ValueType: string;  ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""; Tasks: fileassoc
 ; Clean-up old, incorrect AppID Uninstaller (used in 2.6.1-dev builds)
-Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\4BB0DCDC-BC24-49EC-8937-72956C33A470_is1"; ValueName: ""; Flags: deletekey;
+Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\4BB0DCDC-BC24-49EC-8937-72956C33A470_is1"; ValueName: ""; Flags: deletekey; Check: not PortableCheck;
 
 [Files]
 ; Add all frozen files from cx_Freeze build

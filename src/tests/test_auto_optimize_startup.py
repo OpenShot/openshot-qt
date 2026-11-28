@@ -26,7 +26,7 @@ info._path_defaults = {key: profile + value[len(original):]
 info.setup_userdirs()
 version.get_current_Version = lambda: None
 from classes.app import OpenShotApp
-from qt_api import QTimer
+from qt_api import QCoreApplication, QEvent
 app = OpenShotApp([], mode="unittest")
 app.settings.set("tutorial_enabled", False)
 app.settings.set("send_metrics", False)
@@ -49,6 +49,9 @@ def verify():
         for theme in ("Cosmic Dusk", "Humanity: Dark", "Retro"):
             app.theme_manager.apply_theme(theme)
             app.processEvents()
+            # processEvents() alone does not flush deferred widget deletion.
+            # Model returning to the event loop between real theme changes.
+            QCoreApplication.sendPostedEvents(None, QEvent.DeferredDelete)
             banner = window.notification_area.banners["auto-optimize"]
             assert not banner.symbol.pixmap().isNull()
             assert banner.primary.isVisible()
@@ -74,6 +77,8 @@ def verify():
         threshold.setValue(500)
         assert app.settings.get("auto-optimize-threshold") == 500
         preferences.close()
+        preferences.deleteLater()
+        QCoreApplication.sendPostedEvents(None, QEvent.DeferredDelete)
         passed = True
     except Exception:
         traceback.print_exc()

@@ -73,7 +73,16 @@ class PlayheadPainter(BasePainter):
                  margin_top=0.0):
         """Draw the themed indicator within a timeline or source-preview viewport."""
         painter.setRenderHint(QPainter.Antialiasing, False)
-        ix = int(round(x))
+        # Snap the shaft once in device pixels, including fractional display
+        # scaling. The head and the entire shaft share this same center.
+        transform = painter.deviceTransform()
+        scale = abs(transform.m11()) or 1.0
+        device_x = transform.map(QPointF(x, 0)).x()
+        device_width = max(1, int(round(self.line_width * scale)))
+        device_left = math.floor(device_x - device_width / 2 + 0.5)
+        line_width = device_width / scale
+        line_left = (device_left - transform.dx()) / scale
+        ix = line_left + line_width / 2
 
         if self.icon_pix:
             icon_top = math.floor(self.icon_offset_y)
@@ -86,7 +95,7 @@ class PlayheadPainter(BasePainter):
 
         line_top = float(ruler_height + margin_top)
         top = float(icon_bottom if self.icon_pix else ruler_height)
-        if line_top > top:
+        if not self.icon_pix and line_top > top:
             top = line_top
 
         # The playhead belongs to the viewport, including empty space below
@@ -102,7 +111,7 @@ class PlayheadPainter(BasePainter):
             max(0.0, timeline_width),
             bottom - top,
         )
-        line_rect = QRectF(ix - self.line_width / 2, top, self.line_width, bottom - top)
+        line_rect = QRectF(line_left, top, line_width, bottom - top)
         intersected = line_rect.intersected(visible)
         if not intersected.isNull():
             painter.fillRect(intersected, self.line_brush)
@@ -121,7 +130,7 @@ class PlayheadPainter(BasePainter):
                 )
             )
             if not icon_visible.isNull():
-                # The icon includes a shaft; clip it at viewport edges too.
+                # Clip the head at viewport edges too.
                 dx = icon_visible.x() - icon_rect.x()
                 dy = icon_visible.y() - icon_rect.y()
                 source_rect = QRectF(

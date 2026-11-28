@@ -1717,7 +1717,16 @@ class ClipInteractionMixin:
         self._resize_allow_left_overflow = False
         self._resize_clip_is_single_image = False
 
+    def _box_select_allowed(self):
+        event = self._last_event
+        pos = event.position() if hasattr(event, "position") else QPointF(event.pos())
+        return pos.x() >= getattr(self, "track_name_width", 0)
+
     def _startBoxSelect(self):
+        self._box_select_blocked = not self._box_select_allowed()
+        if self._box_select_blocked:
+            self.selection_rect = QRectF()
+            return
         e = self._last_event
         ctrl_down = bool(e.modifiers() & Qt.ControlModifier)
         self.box_start = e.position() if hasattr(e, "position") else QPointF(e.pos())
@@ -1755,6 +1764,8 @@ class ClipInteractionMixin:
         self.selection_rect = QRectF()
 
     def _boxMove(self):
+        if getattr(self, "_box_select_blocked", False):
+            return
         rect = QRectF(
             self.box_start,
             self._last_event.position() if hasattr(self._last_event, "position") else QPointF(self._last_event.pos())
@@ -1765,6 +1776,11 @@ class ClipInteractionMixin:
                 rect = rect.intersected(bounds)
             else:
                 rect = QRectF()
+        header = getattr(self, "track_name_width", 0)
+        if rect.right() <= header:
+            rect = QRectF()
+        else:
+            rect.setLeft(max(rect.left(), header))
         self.selection_rect = rect
         hits = {marker["key"] for marker in getattr(self, "_box_keyframe_candidates", [])
                 if marker.get("key") and marker.get("rect", QRectF()).intersects(rect)}
@@ -1773,6 +1789,9 @@ class ClipInteractionMixin:
 
     def _finishBoxSelect(self):
         """Finalize box-select: add items intersecting the selection rectangle."""
+        if getattr(self, "_box_select_blocked", False):
+            self._box_select_blocked = False
+            return
         self.geometry.ensure()
         if self._panel_box_track is not None:
             hits = {marker["key"] for marker in getattr(self, "_box_keyframe_candidates", [])

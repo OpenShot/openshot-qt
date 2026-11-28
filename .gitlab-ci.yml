@@ -114,6 +114,7 @@ mac:
     - export LD_LIBRARY_PATH=$CI_PROJECT_DIR/build/install-x64/lib:$LD_LIBRARY_PATH
     - '"$FFMPEGDIR/bin/ffmpeg" -version'
     - export DYLD_LIBRARY_PATH=$FFMPEGDIR/lib:$OPENCV_ROOT/lib:$CI_PROJECT_DIR/build/install-x64/lib:$DYLD_LIBRARY_PATH
+    - python3 -m unittest discover -s src/tests -p 'test_portable*.py' -v
     - VERSION=$(python3 src/launch.py -V)
     - echo -e "CI_PROJECT_NAME:$CI_PROJECT_NAME\nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME\nCI_COMMIT_SHA:$CI_COMMIT_SHA\nCI_JOB_ID:$CI_JOB_ID\nCI_PIPELINE_ID:$CI_PIPELINE_ID\nVERSION:$VERSION" > "build/install-x64/share/$CI_PROJECT_NAME.env"
     - git log $(git describe --tags --abbrev=0 @^)..@ --oneline --pretty=format:"- %C(auto,yellow)%h%C(auto,magenta)% %C(auto,blue)%>(12,trunc)%ad %C(auto,green)%<(25,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D" --date=short > "build/install-x64/share/$CI_PROJECT_NAME.log"
@@ -160,6 +161,8 @@ win-x64:
     - $env:Path = $NewPath + $originalPath
     - $env:PYTHONPATH = "$CI_PROJECT_DIR\build\install-x64\python;C:\msys64\mingw64\lib\python" + $PY_ABI + "\site-packages\PyQt5;"
     - python3 -m pip install --user defusedxml
+    - $env:OPENSHOT_REQUIRE_INNO_TESTS = "1"
+    - python3 -m unittest discover -s src/tests -p 'test_portable*.py' -v; if ($LASTEXITCODE -ne 0) { throw "Portable installer tests failed" }
     - $VERSION=(python3 src/launch.py -V)
     - New-Item -path "build/install-x64/share/" -Name "$CI_PROJECT_NAME.env" -Value "CI_PROJECT_NAME:$CI_PROJECT_NAME`nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME`nCI_COMMIT_SHA:$CI_COMMIT_SHA`nCI_JOB_ID:$CI_JOB_ID`nCI_PIPELINE_ID:$env:CI_PIPELINE_ID`nVERSION:$VERSION" -ItemType file -force
     - $PREV_GIT_LABEL=(git describe --tags --abbrev=0 '@^')
@@ -212,6 +215,8 @@ win-x86:
     - $env:Path = $NewPath + $originalPath
     - $env:PYTHONPATH = "$CI_PROJECT_DIR\build\install-x86\python;C:\msys64\mingw32\lib\python" + $PY_ABI + "\site-packages\PyQt5;"
     - python3 -m pip install --user defusedxml
+    - $env:OPENSHOT_REQUIRE_INNO_TESTS = "1"
+    - python3 -m unittest discover -s src/tests -p 'test_portable*.py' -v; if ($LASTEXITCODE -ne 0) { throw "Portable installer tests failed" }
     - $VERSION=(python3 src/launch.py -V)
     - New-Item -path "build/install-x86/share/" -Name "$CI_PROJECT_NAME.env" -Value "CI_PROJECT_NAME:$CI_PROJECT_NAME`nCI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME`nCI_COMMIT_SHA:$CI_COMMIT_SHA`nCI_JOB_ID:$CI_JOB_ID`nCI_PIPELINE_ID:$env:CI_PIPELINE_ID`nVERSION:$VERSION" -ItemType file -force
     - $PREV_GIT_LABEL=(git describe --tags --abbrev=0 '@^')

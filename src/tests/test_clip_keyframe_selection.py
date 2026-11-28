@@ -65,6 +65,34 @@ class SelectionHelper(KeyframeMixin, ClipInteractionMixin):
 
 
 class ClipKeyframeSelectionTests(unittest.TestCase):
+    def test_box_starting_in_header_preserves_selection(self):
+        helper = SelectionHelper()
+        helper.track_name_width = 150
+        existing = {("clip", "C1", 80)}
+        helper._selected_keyframe_keys = set(existing)
+        helper.box(QRectF(120, 73, 60, 13))
+        self.assertTrue(helper.selection_rect.isNull())
+        self.assertEqual(helper._selected_keyframe_keys, existing)
+        helper.win.clearSelections.assert_not_called()
+        helper.win.addSelection.assert_not_called()
+
+    def test_content_box_clips_out_hidden_keyframes_behind_header(self):
+        helper = SelectionHelper()
+        helper.track_name_width = 150
+        helper._complete_keyframe_markers = lambda: [
+            {"key": ("clip", "C1", 1), "rect": QRectF(125, 73, 10, 10)},
+            {"key": ("clip", "C1", 2), "rect": QRectF(165, 73, 10, 10)}]
+        helper._last_event = types.SimpleNamespace(
+            modifiers=lambda: Qt.NoModifier, position=lambda: QPointF(180, 86))
+        helper._startBoxSelect()
+        helper._last_event.position = lambda: QPointF(110, 73)
+        helper._boxMove()
+        self.assertEqual(helper.selection_rect.left(), 150)
+        self.assertEqual(helper._selected_keyframe_keys, {("clip", "C1", 2)})
+        helper._finishBoxSelect()
+        self.assertEqual(helper._selected_keyframe_keys, {("clip", "C1", 2)})
+        helper.win.clearSelections.assert_not_called()
+
     def test_live_distort_markers_use_recorded_effect_before_commit(self):
         from windows.views.timeline_backend.qwidget.base import TimelineWidgetBase
 
@@ -263,6 +291,17 @@ class KeyframeBoxGestureTests(unittest.TestCase):
         widget.events.released.emit(widget._last_event)
         self.app.processEvents()
         self.app.processEvents()
+
+    def test_header_gesture_never_enters_box_selection(self):
+        for panel in (False, True):
+            with self.subTest(panel=panel):
+                widget = self.make_widget(panel=panel)
+                widget.track_name_width = 150
+                self.gesture(widget, QRectF(120, 73, 60, 13))
+                self.assertEqual(widget.starts, 0)
+                self.assertEqual(widget.finishes, 0)
+                self.assertEqual(widget.win.selected_clips, ['C1'])
+                widget.win.clearSelections.assert_not_called()
 
     def test_clip_box_gesture_finishes_once_and_keeps_owner_and_panel(self):
         widget=self.make_widget()

@@ -45,7 +45,10 @@ def _find_dock_tab_bars(root):
     dock_titles = {dock.windowTitle() for dock in root.findChildren(QDockWidget)}
     active_tabs = {}  # dock_title -> is_active
 
-    for tab_bar in root.findChildren(QTabBar):
+    tab_bars = getattr(root, "_auto_tab_bars", None)
+    if tab_bars is None:
+        tab_bars = root.findChildren(QTabBar)
+    for tab_bar in tab_bars:
         if hasattr(tab_bar, '_dock_tab_stops'):
             tab_bar.setFocusPolicy(Qt.NoFocus)
         elif tab_bar.count() < 2:
@@ -77,9 +80,11 @@ def _dock_is_active(root, dock, active_tabs=None):
 
     dock_title = dock.windowTitle()
 
-    # If we have pre-computed active tabs info, use it
-    if active_tabs is not None and dock_title in active_tabs:
-        return active_tabs[dock_title]
+    if active_tabs is None:
+        active_tabs = getattr(root, "_auto_tab_active_tabs", None)
+    # One snapshot per rebuild, including docks outside a tab group.
+    if active_tabs is not None:
+        return active_tabs.get(dock_title, dock.isVisibleTo(root))
 
     # Fallback: check tab bars directly
     for tab_bar in root.findChildren(QTabBar):
@@ -103,12 +108,12 @@ def _is_focusable(widget, root, include_hidden, include_disabled):
         return False
     if widget.focusPolicy() == Qt.NoFocus:
         return False
+    if not include_hidden and not widget.isVisibleTo(root):
+        return False
     dock = _parent_dock_widget(widget)
     if dock is not None and not _dock_uses_auto_tab_order(dock):
         return False
     if dock is not None and not _dock_is_active(root, dock):
-        return False
-    if not include_hidden and not widget.isVisibleTo(root):
         return False
     if not include_disabled and not widget.isEnabled():
         return False
@@ -284,14 +289,18 @@ def _collect_menu_bars(root):
     menubars.extend(root.findChildren(QMenuBar))
     return [m for m in menubars if m is not None]
 
-def _dock_tab_bar(root, dock, tabified):
+def _dock_tab_bar(root, dock, tabified, tab_bars=None):
     if root is None or dock is None:
         return None
     if not tabified:
         return None
     dock_title = dock.windowTitle()
     group_titles = [dock_title] + [d.windowTitle() for d in tabified]
-    for tab_bar in root.findChildren(QTabBar):
+    if tab_bars is None:
+        tab_bars = getattr(root, "_auto_tab_bars", None)
+    if tab_bars is None:
+        tab_bars = root.findChildren(QTabBar)
+    for tab_bar in tab_bars:
         if tab_bar.count() == 0:
             continue
         tabs = [tab_bar.tabText(i) for i in range(tab_bar.count())]
@@ -399,7 +408,9 @@ def _collect_dock_groups(root, include_hidden, include_disabled):
     excluded_widgets = set()
 
     # Pre-compute which docks are active in tab bars
-    active_tabs = _find_dock_tab_bars(root)
+    active_tabs = getattr(root, "_auto_tab_active_tabs", None)
+    if active_tabs is None:
+        active_tabs = _find_dock_tab_bars(root)
 
     for index, dock in enumerate(root.findChildren(QDockWidget)):
         if not _dock_uses_auto_tab_order(dock):
@@ -447,6 +458,21 @@ def _collect_dock_groups(root, include_hidden, include_disabled):
     return [group[1] for group in groups], excluded_widgets
 
 def apply_auto_tab_order(root, include_hidden=False, include_disabled=False, row_tolerance=8):
+    """Share the dock-tab lookup across every focus check in this rebuild."""
+    if root is None or isdeleted(root):
+        return
+    previous = getattr(root, "_auto_tab_active_tabs", None)
+    previous_bars = getattr(root, "_auto_tab_bars", None)
+    root._auto_tab_bars = root.findChildren(QTabBar)
+    root._auto_tab_active_tabs = _find_dock_tab_bars(root)
+    try:
+        _apply_auto_tab_order(root, include_hidden, include_disabled, row_tolerance)
+    finally:
+        root._auto_tab_active_tabs = previous
+        root._auto_tab_bars = previous_bars
+
+
+def _apply_auto_tab_order(root, include_hidden=False, include_disabled=False, row_tolerance=8):
     """Apply top-to-bottom, left-to-right tab order on a widget tree."""
     if root is None or isdeleted(root):
         return
@@ -502,16 +528,25 @@ def apply_auto_tab_order(root, include_hidden=False, include_disabled=False, row
 
 
 def apply_auto_tab_order_later(root, include_hidden=False, include_disabled=False, row_tolerance=8):
-    """Defer tab order assignment until after the event loop runs."""
-    QTimer.singleShot(
-        0,
-        lambda: apply_auto_tab_order(
-            root,
-            include_hidden=include_hidden,
-            include_disabled=include_disabled,
-            row_tolerance=row_tolerance,
-        ),
-    )
+    """Coalesce requests from the same tab/layout event into one owned timer."""
+    import weakref
+    if root is None or isdeleted(root):
+        return
+    root._auto_tab_pending_options = (include_hidden, include_disabled, row_tolerance)
+    timer = getattr(root, "_auto_tab_order_timer", None)
+    if timer is None:
+        timer = QTimer(root)
+        timer.setSingleShot(True)
+        root_ref = weakref.ref(root)
+        def rebuild():
+            live_root = root_ref()
+            if live_root is not None and not isdeleted(live_root):
+                apply_auto_tab_order(live_root, *live_root._auto_tab_pending_options)
+        timer.timeout.connect(rebuild)
+        root._auto_tab_order_timer = timer
+    if not timer.isActive():
+        timer.start(0)
+
 
 def _collect_focusable_from_layout(layout, root, include_hidden, include_disabled):
     if layout is None:

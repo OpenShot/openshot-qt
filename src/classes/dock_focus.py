@@ -44,9 +44,10 @@ class DockFocusController(QObject):
             tabstops._parent_dock_widget(focus) if focus else None)
         active_tabs = set()
         dock_tabs = set()
+        tab_bars = self.window.findChildren(QTabBar)
         for dock in self.window.findChildren(QDockWidget):
             siblings = self.window.tabifiedDockWidgets(dock) if not dock.isFloating() else []
-            bar = tabstops._dock_tab_bar(self.window, dock, siblings)
+            bar = tabstops._dock_tab_bar(self.window, dock, siblings, tab_bars=tab_bars)
             if bar is not None:
                 dock_tabs.add(bar)
                 if dock is active:
@@ -58,7 +59,7 @@ class DockFocusController(QObject):
             self._set_property(titlebar, 'focusWithin', dock is active and bar is None)
             self._set_property(getattr(titlebar, 'title_label', None), 'focusWithin',
                                dock is active and bar is None)
-        for bar in self.window.findChildren(QTabBar):
+        for bar in tab_bars:
             self._set_property(bar, 'dockFocusTabs', bar in dock_tabs)
             self._set_property(bar, 'focusWithin',
                                bar in dock_tabs and (bar in active_tabs or bar is focus))

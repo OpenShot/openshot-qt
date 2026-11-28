@@ -30,59 +30,13 @@ from qt_api import clear_override_cursor
 from qt_api import QDrag, QListView
 import openshot  # Python module for libopenshot (required video editing module installed separately)
 from classes import info
+from classes.emoji import builtin_emoji_reader_data
 from classes.query import File
 from classes.app import get_app
 from classes.logger import log
 import json
 import os
 import uuid
-
-
-def builtin_emoji_reader_data(filepath):
-    """Return reader metadata for a bundled 72x72 OpenMoji SVG."""
-    emoji_root = os.path.realpath(
-        os.path.join(info.PATH, "emojis", "color", "svg")
-    )
-    resolved_path = os.path.realpath(filepath)
-    try:
-        is_bundled = os.path.commonpath(
-            (emoji_root, resolved_path)
-        ) == emoji_root
-    except ValueError:
-        is_bundled = False
-    if not is_bundled or not resolved_path.lower().endswith(".svg"):
-        return None
-
-    return {
-        "acodec": "",
-        "audio_bit_rate": 0,
-        "audio_stream_index": -1,
-        "audio_timebase": {"den": 1, "num": 1},
-        "channel_layout": openshot.LAYOUT_MONO,
-        "channels": 0,
-        "display_ratio": {"den": 1, "num": 1},
-        "duration": 3600.0,
-        "file_size": os.path.getsize(resolved_path),
-        "fps": {"den": 1, "num": 30},
-        "has_audio": False,
-        "has_single_image": True,
-        "has_video": True,
-        "height": 72,
-        "interlaced_frame": False,
-        "metadata": {},
-        "path": resolved_path,
-        "pixel_format": -1,
-        "pixel_ratio": {"den": 1, "num": 1},
-        "sample_rate": 0,
-        "top_field_first": True,
-        "type": "QtImageReader",
-        "vcodec": "",
-        "video_bit_rate": 0,
-        "video_length": 108000,
-        "video_stream_index": -1,
-        "video_timebase": {"den": 30, "num": 1},
-        "width": 72,
-    }
 
 
 class EmojisListView(QListView):

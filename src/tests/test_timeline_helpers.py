@@ -390,6 +390,28 @@ class TimelineHelperTests(unittest.TestCase):
                         self.assertEqual(image.pixelColor(60 * scale, (viewport_height - 6) * scale).alpha(), 0)
                         self.assertEqual(image.pixelColor(60 * scale, (viewport_height - 1) * scale).alpha(), 0)
 
+    def test_playhead_shaft_has_uniform_device_pixel_width(self):
+        from windows.views.timeline_backend.paint.playhead import PlayheadPainter
+        for theme_class in (self.humanity_theme_module.HumanityDarkTimelineTheme,
+                            self.humanity_theme_module.RetroTimelineTheme,
+                            self.cosmic_theme_module.CosmicDuskTimelineTheme):
+            for scale in (1, 1.25, 1.5, 2):
+                for x in (60, 60.25, 60.5, 61):
+                    with self.subTest(theme=theme_class.__name__, scale=scale, x=x):
+                        widget = types.SimpleNamespace(theme=theme_class())
+                        image = QImage(int(120 * scale), int(320 * scale), QImage.Format_ARGB32)
+                        image.fill(Qt.transparent)
+                        painter = QPainter(image)
+                        painter.scale(scale, scale)
+                        PlayheadPainter(widget).paint_at(painter, x, 40, 120, 310, 39)
+                        painter.end()
+                        rows = [tuple(px for px in range(image.width())
+                                      if image.pixelColor(px, int(y * scale)).alpha())
+                                for y in (45, 100, 207, 209, 290)]
+                        self.assertTrue(rows[0])
+                        self.assertTrue(all(row == rows[0] for row in rows))
+                        self.assertEqual(len(rows[0]), round(2 * scale))
+
     def test_minimal_clip_and_transition_headers_stay_inside_short_rows(self):
         from qt_api import QFont
         original_font = self.app.font()
@@ -3290,7 +3312,7 @@ class TimelineHelperTests(unittest.TestCase):
             with self.subTest(target=target):
                 pos = QPointF(50, 50)
                 helper = types.SimpleNamespace(
-                    enable_razor=False,
+                    enable_razor=False, track_name_width=0,
                     geometry=types.SimpleNamespace(
                         ensure=lambda: None,
                         timeline_handle_rect=lambda: QRectF(),
@@ -3510,6 +3532,45 @@ class TimelineHelperTests(unittest.TestCase):
         for frame in (1, 100, 101, 150, 151, 200, 201):
             PlayheadMixin.update_playhead_pos(widget, frame)
         self.assertEqual(centers, [101, 151, 201])
+
+    def test_manual_scroll_gestures_block_all_playback_centering_paths(self):
+        from windows.views.timeline_backend.qwidget.playhead import PlayheadMixin
+
+        for flag in ("_middle_panning", "scroll_bar_dragging", "v_scroll_bar_dragging"):
+            with self.subTest(gesture=flag):
+                widget = types.SimpleNamespace(
+                    win=types.SimpleNamespace(), dragging_playhead=False, mouse_dragging=False,
+                    current_frame=1, fps_float=10, pixels_per_second=10,
+                    scrollbar_position=[.3, .4, 1000, 100], h_scroll_offset=300,
+                    _is_playing=lambda: True, update=MagicMock(),
+                    _center_on_seconds=MagicMock(return_value=False), centerOnPlayhead=MagicMock())
+                setattr(widget, flag, True)
+                PlayheadMixin.centerOnPlayhead(widget)
+                widget._center_on_seconds.assert_not_called()
+                PlayheadMixin.update_playhead_pos(widget, 2)
+                self.assertEqual(widget.current_frame, 2)
+                widget.centerOnPlayhead.assert_not_called()
+                setattr(widget, flag, False)
+                PlayheadMixin.update_playhead_pos(widget, 3)
+                widget.centerOnPlayhead.assert_called_once_with()
+
+    def test_middle_pan_keeps_selected_viewport_after_release(self):
+        from windows.views.timeline_backend.qwidget.playhead import PlayheadMixin
+
+        helper = types.SimpleNamespace(
+            _middle_panning=True, mouse_dragging=True,
+            scrollbar_position=[.3, .4, 1000, 100], _middle_pan_scroll_start=[0, .1, 1000, 100],
+            _is_playing=lambda: True, _release_cursor=MagicMock())
+        helper.hold_playhead_follow_until_visible = lambda: PlayheadMixin.hold_playhead_follow_until_visible(helper)
+        self.qwidget_base_module.TimelineWidgetBase._finishMiddlePan(helper)
+        self.assertFalse(helper._middle_panning)
+        self.assertFalse(helper.mouse_dragging)
+        self.assertTrue(helper._playhead_follow_held)
+        helper.hold_playhead_follow_until_visible = MagicMock()
+        helper._middle_panning = True
+        helper._middle_pan_scroll_start = list(helper.scrollbar_position)
+        self.qwidget_base_module.TimelineWidgetBase._finishMiddlePan(helper)
+        helper.hold_playhead_follow_until_visible.assert_not_called()
 
     def test_center_signal_does_not_move_view_while_slider_is_held(self):
         from windows.views.timeline_backend.qwidget.playhead import PlayheadMixin
@@ -3767,6 +3828,42 @@ class TimelineHelperTests(unittest.TestCase):
         helper.hover_feedback = HoverFeedback(helper)
         helper._updateCursor = lambda pos: self.qwidget_base_module.TimelineWidgetBase._updateCursor(helper, pos)
         return helper
+
+    def test_visible_clip_and_transition_edges_still_trim_at_header_boundary(self):
+        for kind in ("clip", "transition"):
+            helper = self.make_hover_helper()
+            item = object()
+            rect = QRectF(100, 30, 80, 60)
+            helper.resize_handle_rect = QRectF(97, 20, 6, 220)
+            helper.geometry.items = [(rect, item, False, kind)]
+            helper._resize_targets_for_item = lambda *args: [item]
+            for x in (98, 100, 102):
+                with self.subTest(kind=kind, x=x):
+                    result = self.qwidget_base_module._resize_hit_at(helper, QPointF(x, 50))
+                    self.assertIsNotNone(result)
+                    self.assertIs(result[1], item)
+                    self.assertEqual(result[2], "left")
+
+    def test_scrolled_items_cannot_claim_fixed_track_header_cursor(self):
+        for kind in ("clip", "transition"):
+            helper = self.make_hover_helper()
+            item = object()
+            rect = QRectF(-30, 30, 100, 60)
+            helper.geometry.items = [(rect, item, False, kind)]
+            helper._resize_targets_for_item = lambda *args: [item]
+            helper._effect_icon_at = lambda pos: {"rect": rect}
+            helper._get_keyframe_at = lambda pos: {"rect": rect}
+            setattr(helper, "_%s_text_rects" % kind, [{"rect": rect, "open_menu": True}])
+            for x in (10, 30, 69, 70, 80):
+                with self.subTest(kind=kind, x=x):
+                    helper._updateCursor(QPointF(x, 50))
+                    self.assertIsNone(helper.hover_feedback.target)
+                    self.assertIsNone(self.qwidget_base_module._resize_hit_at(helper, QPointF(x, 50)))
+            menu = QRectF(5, 30, 45, 25)
+            helper.geometry.iter_tracks = lambda: [(menu, object(), menu)]
+            helper._track_menu_rect = lambda *args: menu
+            helper._updateCursor(menu.center())
+            self.assertEqual(helper.hover_feedback.target, ("menu", menu, "track"))
 
     def test_hover_menu_targets_and_repaint_only_on_change(self):
         for kind in ("clip", "transition", "track"):
@@ -7407,6 +7504,42 @@ class TimelineHelperTests(unittest.TestCase):
             self.qwidget_base_module.TimelineWidgetBase.changed(helper, None)
 
         self.assertIn(("C1", 1), helper.clip_painter.thumb_cache)
+
+    def test_drop_updates_stale_preview_from_final_mouse_position(self):
+        order = []
+        helper = types.SimpleNamespace(
+            _drag_preview_items=[{"position": 0.0}],
+            _event_seconds_track=lambda event: (12.5, 3, 0),
+            _update_drag_preview_position=lambda seconds, track: order.append((seconds, track)),
+            _finalize_drag_preview=lambda: order.append("commit"),
+        )
+        event = types.SimpleNamespace(accept=MagicMock())
+        self.qwidget_base_module.TimelineWidgetBase.dropEvent(helper, event)
+        self.assertEqual(order, [(12.5, 3), "commit"])
+
+    def test_drop_without_valid_coordinates_does_not_fall_back_to_time_zero(self):
+        mime = types.SimpleNamespace(html=lambda: "clip", text=lambda: '["emoji"]')
+        helper = types.SimpleNamespace(
+            _drag_preview_items=[], _event_seconds_track=lambda event: None,
+            _reset_drag_preview=MagicMock(), addClip=MagicMock(),
+        )
+        event = types.SimpleNamespace(accept=MagicMock(), ignore=MagicMock(), mimeData=lambda: mime)
+        self.qwidget_base_module.TimelineWidgetBase.dropEvent(helper, event)
+        helper.addClip.assert_not_called()
+        helper._reset_drag_preview.assert_called_once()
+        event.ignore.assert_called_once()
+
+    def test_drop_coordinates_refresh_geometry_before_using_scale(self):
+        helper = types.SimpleNamespace(
+            pixels_per_second=0, ruler_height=20, track_name_width=100,
+            track_list=[types.SimpleNamespace(data={"number": 3})],
+            rect=lambda: QRectF(0, 0, 800, 300), _viewport_offsets=lambda: (200, 0),
+            _track_index_at_viewport_y=lambda *args, **kwargs: 0,
+            _nearest_unlocked_track_index=lambda index: index,
+        )
+        helper.geometry = types.SimpleNamespace(ensure=lambda: setattr(helper, "pixels_per_second", 40))
+        event = types.SimpleNamespace(position=lambda: QPointF(500, 100))
+        self.assertEqual(self.qwidget_base_module.TimelineWidgetBase._event_seconds_track(helper, event), (15.0, 3, 0))
 
     def test_reset_drag_preview_invalidates_preview_clip_cache(self):
         invalidated = []
