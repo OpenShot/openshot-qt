@@ -26,6 +26,7 @@
  """
 import argparse
 import json
+import locale
 import math
 import os
 from pathlib import Path
@@ -667,7 +668,13 @@ def read_json(value):
     if value == '-':
         return parse_json(sys.stdin.read())
     if value.startswith('@'):
-        return parse_json(Path(value[1:]).read_text())
+        data = Path(value[1:]).read_bytes()
+        try:
+            text = data.decode('utf-8-sig')
+        except UnicodeDecodeError:
+            # Preserve compatibility with files saved in the original default encoding.
+            text = data.decode(locale.getpreferredencoding(False))
+        return parse_json(text)
     return parse_json(value)
 
 
