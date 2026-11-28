@@ -4455,13 +4455,9 @@ class TimelineView(updates.UpdateInterface, ViewClass):
         move_track.menuAction().setIcon(context_icon(menu, "move-track"))
         menu.addMenu(move_track)
         if found_gap:
-            more = StyledContextMenu(title=_("More"), parent=menu)
-            more.menuAction().setIcon(context_icon(menu, "more"))
-            remove_gaps = more.addAction(_("Remove All Gaps"))
-            remove_gaps.setIcon(context_icon(menu, "gaps"))
+            remove_gaps = menu.addAction(context_icon(menu, "gaps"), _("Remove Gaps"))
             remove_gaps.setEnabled(not locked)
             remove_gaps.triggered.connect(partial(self.RemoveAllGaps_Triggered, first_gap_start, int(layer_number)))
-            menu.addMenu(more)
         menu.addSeparator()
         self._add_output_menu_header(menu, [
             ("muted", _("Mute"), _("Mute Audio"), "audio", bool(track.data.get("muted")), True,
