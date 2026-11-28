@@ -46,6 +46,8 @@ class TransitionInteractionMixin:
         return hit_rect
 
     def _trigger_transition_menu_icon(self, pos):
+        if pos.x() < getattr(self, "track_name_width", 0):
+            return False
         for rect, tran, _selected in self.geometry.iter_transitions(reverse=True):
             if self._transition_menu_rect(rect, tran).contains(pos) and hasattr(self.win, "timeline"):
                 self._select_timeline_item(tran.id, "transition", True)

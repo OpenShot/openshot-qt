@@ -390,6 +390,28 @@ class TimelineHelperTests(unittest.TestCase):
                         self.assertEqual(image.pixelColor(60 * scale, (viewport_height - 6) * scale).alpha(), 0)
                         self.assertEqual(image.pixelColor(60 * scale, (viewport_height - 1) * scale).alpha(), 0)
 
+    def test_playhead_shaft_has_uniform_device_pixel_width(self):
+        from windows.views.timeline_backend.paint.playhead import PlayheadPainter
+        for theme_class in (self.humanity_theme_module.HumanityDarkTimelineTheme,
+                            self.humanity_theme_module.RetroTimelineTheme,
+                            self.cosmic_theme_module.CosmicDuskTimelineTheme):
+            for scale in (1, 1.25, 1.5, 2):
+                for x in (60, 60.25, 60.5, 61):
+                    with self.subTest(theme=theme_class.__name__, scale=scale, x=x):
+                        widget = types.SimpleNamespace(theme=theme_class())
+                        image = QImage(int(120 * scale), int(320 * scale), QImage.Format_ARGB32)
+                        image.fill(Qt.transparent)
+                        painter = QPainter(image)
+                        painter.scale(scale, scale)
+                        PlayheadPainter(widget).paint_at(painter, x, 40, 120, 310, 39)
+                        painter.end()
+                        rows = [tuple(px for px in range(image.width())
+                                      if image.pixelColor(px, int(y * scale)).alpha())
+                                for y in (45, 100, 207, 209, 290)]
+                        self.assertTrue(rows[0])
+                        self.assertTrue(all(row == rows[0] for row in rows))
+                        self.assertEqual(len(rows[0]), round(2 * scale))
+
     def test_minimal_clip_and_transition_headers_stay_inside_short_rows(self):
         from qt_api import QFont
         original_font = self.app.font()
@@ -3290,7 +3312,7 @@ class TimelineHelperTests(unittest.TestCase):
             with self.subTest(target=target):
                 pos = QPointF(50, 50)
                 helper = types.SimpleNamespace(
-                    enable_razor=False,
+                    enable_razor=False, track_name_width=0,
                     geometry=types.SimpleNamespace(
                         ensure=lambda: None,
                         timeline_handle_rect=lambda: QRectF(),
@@ -3767,6 +3789,42 @@ class TimelineHelperTests(unittest.TestCase):
         helper.hover_feedback = HoverFeedback(helper)
         helper._updateCursor = lambda pos: self.qwidget_base_module.TimelineWidgetBase._updateCursor(helper, pos)
         return helper
+
+    def test_visible_clip_and_transition_edges_still_trim_at_header_boundary(self):
+        for kind in ("clip", "transition"):
+            helper = self.make_hover_helper()
+            item = object()
+            rect = QRectF(100, 30, 80, 60)
+            helper.resize_handle_rect = QRectF(97, 20, 6, 220)
+            helper.geometry.items = [(rect, item, False, kind)]
+            helper._resize_targets_for_item = lambda *args: [item]
+            for x in (98, 100, 102):
+                with self.subTest(kind=kind, x=x):
+                    result = self.qwidget_base_module._resize_hit_at(helper, QPointF(x, 50))
+                    self.assertIsNotNone(result)
+                    self.assertIs(result[1], item)
+                    self.assertEqual(result[2], "left")
+
+    def test_scrolled_items_cannot_claim_fixed_track_header_cursor(self):
+        for kind in ("clip", "transition"):
+            helper = self.make_hover_helper()
+            item = object()
+            rect = QRectF(-30, 30, 100, 60)
+            helper.geometry.items = [(rect, item, False, kind)]
+            helper._resize_targets_for_item = lambda *args: [item]
+            helper._effect_icon_at = lambda pos: {"rect": rect}
+            helper._get_keyframe_at = lambda pos: {"rect": rect}
+            setattr(helper, "_%s_text_rects" % kind, [{"rect": rect, "open_menu": True}])
+            for x in (10, 30, 69, 70, 80):
+                with self.subTest(kind=kind, x=x):
+                    helper._updateCursor(QPointF(x, 50))
+                    self.assertIsNone(helper.hover_feedback.target)
+                    self.assertIsNone(self.qwidget_base_module._resize_hit_at(helper, QPointF(x, 50)))
+            menu = QRectF(5, 30, 45, 25)
+            helper.geometry.iter_tracks = lambda: [(menu, object(), menu)]
+            helper._track_menu_rect = lambda *args: menu
+            helper._updateCursor(menu.center())
+            self.assertEqual(helper.hover_feedback.target, ("menu", menu, "track"))
 
     def test_hover_menu_targets_and_repaint_only_on_change(self):
         for kind in ("clip", "transition", "track"):
